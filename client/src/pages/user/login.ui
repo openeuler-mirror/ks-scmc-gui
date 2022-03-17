@@ -145,7 +145,7 @@
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLineEdit" name="lineEdit_user_name"/>
+          <widget class="QLineEdit" name="lineEdit_username"/>
          </item>
          <item>
           <widget class="QLineEdit" name="lineEdit_passwd"/>
