@@ -297,7 +297,7 @@ ContainerSetting QComboBox::down-arrow
     image: url(:/images/down-arrow.svg);
 }
 
-QComboBox QAbstractItemView
+ContainerSetting QComboBox QAbstractItemView
 {
     background:#ffffff;
     color:#303133;
@@ -305,12 +305,12 @@ QComboBox QAbstractItemView
     border: 1px solid #E4E7ED;
 
 }
-QComboBox QAbstractItemView::item
+ContainerSetting QComboBox QAbstractItemView::item
 {
     height:30px;
 }
 
-QComboBox QAbstractItemView::item:selected
+ContainerSetting QComboBox QAbstractItemView::item:selected
 {
    background-color:#EDF3FF;
    color:#303133;
@@ -537,5 +537,11 @@ ConfigTable #tableView::item
 {
     border:none;
 }
+
+/********************************Login****************************/
+/*Login #cb_user_name
+{
+    color:#ffffff;
+}*/
 
 
