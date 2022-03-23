@@ -60,32 +60,6 @@ ContainerList::~ContainerList()
     }
 }
 
-void ContainerList::onBtnCreate()
-{
-    KLOG_INFO() << "onBtnCreate";
-    if (!m_createCTSetting)
-    {
-        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE);
-
-        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
-                                screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
-
-        m_createCTSetting->show();
-        connect(m_createCTSetting, &ContainerSetting::destroyed,
-                [=] {
-                    KLOG_INFO() << "create container setting destroy";
-                    m_createCTSetting->deleteLater();
-                    m_createCTSetting = nullptr;
-                });
-        connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
-                    getContainerList();
-                });
-    }
-}
-
 void ContainerList::onBtnRun()
 {
     KLOG_INFO() << "onBtnRun";
@@ -171,6 +145,32 @@ void ContainerList::onBtnDelete()
     }
 }
 
+void ContainerList::onActCreate()
+{
+    KLOG_INFO() << "onActCreate";
+    if (!m_createCTSetting)
+    {
+        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE);
+
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
+                                screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
+
+        m_createCTSetting->show();
+        connect(m_createCTSetting, &ContainerSetting::destroyed,
+                [=] {
+                    KLOG_INFO() << "create container setting destroy";
+                    m_createCTSetting->deleteLater();
+                    m_createCTSetting = nullptr;
+                });
+        connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
+                [=] {
+                    getContainerList();
+                });
+    }
+}
+
 void ContainerList::onActCopyConfig()
 {
     KLOG_INFO() << "onCopyConfig";
@@ -245,7 +245,7 @@ void ContainerList::getNodeListResult(const QPair<grpc::Status, node::ListReply>
     setBusy(false);
     if (reply.first.ok())
     {
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         m_vecNodeId.clear();
         for (auto n : reply.second.nodes())
         {
@@ -260,7 +260,7 @@ void ContainerList::getNodeListResult(const QPair<grpc::Status, node::ListReply>
     }
     else
     {
-        setOpBtnEnabled(false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
         setTableDefaultContent("-");
     }
 }
@@ -277,7 +277,7 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
             return;
 
         clearTable();
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         int row = 0;
         QMap<QString, QVariant> infoMap;
         for (auto i : reply.second.containers())
@@ -293,7 +293,6 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
             itemName->setCheckable(true);
 
             auto status = m_statusMap[i.info().state().data()];
-
             QStandardItem *itemStatus = new QStandardItem(status.first);
             itemStatus->setForeground(QBrush(QColor(status.second)));
             itemStatus->setTextAlignment(Qt::AlignCenter);
@@ -341,7 +340,7 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
     else
     {
         setTableDefaultContent("-");
-        setOpBtnEnabled(false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     }
 }
 
@@ -397,19 +396,19 @@ void ContainerList::getContainerRemoveResult(const QPair<grpc::Status, container
 void ContainerList::initButtons()
 {
     //创建按钮及菜单
-    QToolButton *btnCreate = new QToolButton(this);
+    QPushButton *btnCreate = new QPushButton(this);
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
-    btnCreate->setPopupMode(QToolButton::MenuButtonPopup);
-    connect(btnCreate, &QToolButton::clicked, this, &ContainerList::onBtnCreate);
-    addOperationButton(btnCreate);
+    addSingleOperationButton(btnCreate);
 
     QMenu *btnCreateMenu = new QMenu(btnCreate);
     btnCreateMenu->setObjectName("btnCreateMenu");
-    QAction *copyConf = btnCreateMenu->addAction(tr("Copy configuration"));
-    connect(copyConf, &QAction::triggered, this, &ContainerList::onActCopyConfig);
+    QAction *create = btnCreateMenu->addAction(tr("Create container"));
+    QAction *createFromTemplate = btnCreateMenu->addAction(tr("Create container from template"));
     btnCreate->setMenu(btnCreateMenu);
+    connect(create, &QAction::triggered, this, &ContainerList::onActCreate);
+    connect(createFromTemplate, &QAction::triggered, this, &ContainerList::onActCopyConfig);
 
     //其他按钮及菜单
     const QMap<int, QString> btnNameMap = {
@@ -456,10 +455,10 @@ void ContainerList::initButtons()
         }
         btn->setText(name);
         btn->setFixedSize(QSize(78, 32));
-        m_opBtnMap.insert(iter.key(), btn);
+        m_batchOpBtnMap.insert(iter.key(), btn);
     }
 
-    QPushButton *btnMore = m_opBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_MORE];
+    QPushButton *btnMore = m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_MORE];
     QMenu *moreMenu = new QMenu(this);
     moreMenu->setObjectName("moreMenu");
     QAction *actBatchUpdate = moreMenu->addAction(tr("Batch update version"));
@@ -471,17 +470,18 @@ void ContainerList::initButtons()
     connect(actBatchEdit, &QAction::triggered, this, &ContainerList::onActBatchEdit);
     connect(actBackup, &QAction::triggered, this, &ContainerList::onActBackup);
 
-    connect(m_opBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RUN], SIGNAL(clicked()), this, SLOT(onBtnRun()));
-    connect(m_opBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_STOP], SIGNAL(clicked()), this, SLOT(onBtnStop()));
-    connect(m_opBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RESTART], SIGNAL(clicked()), this, SLOT(onBtnRestart()));
-    connect(m_opBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE], &QPushButton::clicked, this, &ContainerList::onBtnDelete);
+    connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RUN], SIGNAL(clicked()), this, SLOT(onBtnRun()));
+    connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_STOP], SIGNAL(clicked()), this, SLOT(onBtnStop()));
+    connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RESTART], SIGNAL(clicked()), this, SLOT(onBtnRestart()));
+    connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE], &QPushButton::clicked, this, &ContainerList::onBtnDelete);
 
     connect(this, SIGNAL(sigRun(QModelIndex)), this, SLOT(onBtnRun(QModelIndex)));
     connect(this, SIGNAL(sigStop(QModelIndex)), this, SLOT(onBtnStop(QModelIndex)));
     connect(this, SIGNAL(sigRestart(QModelIndex)), this, SLOT(onBtnRestart(QModelIndex)));
 
-    addOperationButtons(m_opBtnMap.values());
-    setOpBtnEnabled(false);
+    addBatchOperationButtons(m_batchOpBtnMap.values());
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void ContainerList::initTable()
