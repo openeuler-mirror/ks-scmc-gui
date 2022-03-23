@@ -10,6 +10,12 @@ namespace Ui
 class CommonPage;
 }
 
+enum OperatorButtonType
+{
+    OPERATOR_BUTTON_TYPE_SINGLE,
+    OPERATOR_BUTTON_TYPE_BATCH
+};
+
 class MaskWidget;
 class HeaderView;
 class CommonPage : public QWidget
@@ -22,9 +28,9 @@ public:
     virtual void updateInfo(QString keyword = "") = 0;
     void setBusy(bool status);
     void clearTable();
-    void addOperationButton(QToolButton *);
-    void addOperationButtons(QList<QPushButton *>);
-    void setOpBtnEnabled(bool enabled);
+    void addSingleOperationButton(QAbstractButton *);
+    void addBatchOperationButtons(QList<QPushButton *>);
+    void setOpBtnEnabled(OperatorButtonType type, bool enabled);
     void setTableColNum(int num);
     void setTableRowNum(int num);
     void setTableItem(int row, int col, QStandardItem *item);
@@ -56,6 +62,7 @@ signals:
     void sigStop(QModelIndex index);
     void sigRestart(QModelIndex index);
     void sigTableHeightChanged(int height);
+    void sigItemClicked(const QModelIndex &index);
 
 private slots:
     void onMonitor(int row);
@@ -67,6 +74,8 @@ private slots:
     void onRefreshTimeout();
     void search();
     void refresh();
+    void onItemChecked(QStandardItem *item);
+    void onItemClicked(const QModelIndex &index);
     void onHeaderCkbTog(bool toggled);
 
 private:
@@ -77,6 +86,9 @@ private:
     QTimer *m_searchTimer;
     QTimer *m_refreshBtnTimer;
     MaskWidget *m_maskWidget;
+    QList<QAbstractButton *> m_singleOpBtns;
+    QList<QAbstractButton *> m_batchOpBtns;
+    bool m_isItemChecked = false;
 };
 
 #endif  // COMMONPAGE_H
