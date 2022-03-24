@@ -155,21 +155,21 @@ void CommonPage::setHeaderSections(QStringList names)
         m_model->setHorizontalHeaderItem(i, headItem);
     }
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tableView->horizontalHeader()->setSectionResizeMode(names.size() - 1, QHeaderView::Fixed);
 
     //设置列宽度
     for (int i = 0; i < names.size(); i++)
     {
-        ui->tableView->setColumnWidth(i, 150);
+        ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 300);
-    ui->tableView->setColumnWidth(1, 150);
+    ui->tableView->setColumnWidth(0, 30);
 }
 
 void CommonPage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    for (int i = 0; i < m_model->columnCount() - 1; i++)
+    for (int i = 0; i < m_model->columnCount(); i++)
     {
         QStandardItem *item = new QStandardItem(text);
         item->setTextAlignment(Qt::AlignCenter);
@@ -201,7 +201,8 @@ QList<QMap<QString, QVariant>> CommonPage::getCheckedItemInfo(int col)
         auto item = m_model->item(i, col);
         if (item->checkState() == Qt::CheckState::Checked)
         {
-            QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+            auto infoItem = m_model->item(i, col + 1);
+            QMap<QString, QVariant> idMap = infoItem->data().value<QMap<QString, QVariant>>();
             checkedItemInfo.append(idMap);
         }
     }
@@ -273,6 +274,20 @@ void CommonPage::adjustTableSize()
     height = m_model->rowCount() * 60 + 40 + 20;  // row height+ header height + space
     ui->tableView->setFixedHeight(height);
     emit sigTableHeightChanged(height);
+}
+
+int CommonPage::getCheckedItemNum()
+{
+    int count;
+    for (int i = 0; i < m_model->rowCount(); i++)
+    {
+        auto item = m_model->item(i, 0);
+        if (item->checkState() == Qt::CheckState::Checked)
+        {
+            count++;
+        }
+    }
+    return count;
 }
 
 bool CommonPage::eventFilter(QObject *watched, QEvent *event)
@@ -431,17 +446,16 @@ void CommonPage::onItemChecked(QStandardItem *item)
     {
         if (item->isCheckable())
         {
-            m_isItemChecked = item->checkState();
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, item->checkState());
+            if (getCheckedItemNum() > 0)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+            else
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         }
     }
 }
 
 void CommonPage::onItemClicked(const QModelIndex &index)
 {
-    QStandardItem *item = m_model->itemFromIndex(index);
-    //    if (item->isCheckable() && m_isItemChecked == item->checkState
-
     emit sigItemClicked(index);
 }
 
