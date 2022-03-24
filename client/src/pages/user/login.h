@@ -14,6 +14,7 @@ class Login;
 }
 
 class MainWindow;
+class ServerConfiguration;
 class Login : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -37,6 +38,7 @@ private:
 private slots:
     void getPasswd();
     void onBtnRemember(bool checked);
+    void onMenuTrigger(QAction *act);
     void onLogin();
     void onLogout();
     void getLoginResult(const QPair<grpc::Status, user::LoginReply> &);
@@ -48,6 +50,18 @@ private:
     bool m_isRemember = false;
     QTimer *m_timer;
     QSettings *m_loginSettings;
+    ServerConfiguration *m_serverConfig;
+};
+
+class ServerConfiguration : public KiranTitlebarWindow
+{
+    Q_OBJECT
+public:
+    explicit ServerConfiguration(QWidget *parent = nullptr);
+    ~ServerConfiguration();
+
+private:
+    void initUI();
 };
 
 #endif  // LOGIN_H
