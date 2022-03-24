@@ -288,9 +288,12 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
             infoMap.insert(CONTAINER_NAME, i.info().name().data());
             infoMap.insert(NODE_ADDRESS, i.node_address().data());
 
+            QStandardItem *itemCheck = new QStandardItem();
+            itemCheck->setCheckable(true);
+
             QStandardItem *itemName = new QStandardItem(i.info().name().data());
             itemName->setData(QVariant::fromValue(infoMap));
-            itemName->setCheckable(true);
+            itemName->setTextAlignment(Qt::AlignCenter);
 
             auto status = m_statusMap[i.info().state().data()];
             QStandardItem *itemStatus = new QStandardItem(status.first);
@@ -332,7 +335,7 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
             itemDisk->setTextAlignment(Qt::AlignCenter);
             itemMem->setTextAlignment(Qt::AlignCenter);
             onlineTime->setTextAlignment(Qt::AlignCenter);
-            setTableItems(row, 0, QList<QStandardItem *>() << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
             row++;
         }
@@ -487,6 +490,7 @@ void ContainerList::initButtons()
 void ContainerList::initTable()
 {
     QStringList tableHHeaderDate = {
+        "",
         QString(tr("Container Name")),
         QString(tr("Status")),
         QString(tr("Image")),
@@ -497,7 +501,7 @@ void ContainerList::initTable()
         QString(tr("Online Time")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
-    QList<int> sortablCol = {0, 2};
+    QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
     setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/monitor.svg"
                                                                << ":/images/edit.svg"

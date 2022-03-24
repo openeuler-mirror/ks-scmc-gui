@@ -90,7 +90,7 @@ void ContainerSetting::initUI()
 {
     setWindowIcon(QIcon(":/images/logo.png"));
     setWindowModality(Qt::ApplicationModal);
-    ui->tabWidget->setStyleSheet(QString("QTabWidget::tab-bar{width:%1px;}").arg(this->geometry().width() + 20));
+    //    ui->tabWidget->setStyleSheet(QString("QTabWidget::tab-bar{width:%1px;}").arg(this->geometry().width() + 20));
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
     ui->btn_add->setIcon(QIcon(":/images/addition.svg"));
     ui->btn_add->setText(tr("Add"));
