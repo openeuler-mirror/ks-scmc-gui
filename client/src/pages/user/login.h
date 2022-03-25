@@ -2,6 +2,7 @@
 #define LOGIN_H
 
 #include <kiranwidgets-qt5/kiran-titlebar-window.h>
+#include <QLineEdit>
 #include <QSettings>
 #include <QWidget>
 #include "common/info-worker.h"
@@ -51,6 +52,7 @@ private:
     QTimer *m_timer;
     QSettings *m_loginSettings;
     ServerConfiguration *m_serverConfig;
+    QString m_server;
 };
 
 class ServerConfiguration : public KiranTitlebarWindow
@@ -59,9 +61,23 @@ class ServerConfiguration : public KiranTitlebarWindow
 public:
     explicit ServerConfiguration(QWidget *parent = nullptr);
     ~ServerConfiguration();
+    QString getServerInfo();
+    void setServerInfo();
 
 private:
     void initUI();
+    void readConfig(QString key, QString &value);
+    void writeConfig(QString key, QString value);
+
+signals:
+    void sigClose();
+
+private:
+    QLineEdit *m_ipLineEdit;
+    QLineEdit *m_portLineEdit;
+    QSettings *m_serverSetting;
+    QString m_ip;
+    QString m_port;
 };
 
 #endif  // LOGIN_H
