@@ -33,9 +33,6 @@
           <widget class="QLineEdit" name="lineEdit_passwd"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_server"/>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QRadioButton" name="radio_btn_remember_pw">
