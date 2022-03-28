@@ -118,7 +118,10 @@ void CommonPage::setTableItem(int row, int col, QStandardItem *item)
 void CommonPage::setTableItems(int row, int col, QList<QStandardItem *> items)
 {
     for (int i = col; i < items.size(); i++)
+    {
         m_model->setItem(row, i, items.at(i));
+        items.at(i)->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    }
     adjustTableSize();
 }
 
@@ -152,6 +155,7 @@ void CommonPage::setHeaderSections(QStringList names)
     for (int i = 0; i < names.size(); i++)
     {
         QStandardItem *headItem = new QStandardItem(names.at(i));
+        headItem->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
         m_model->setHorizontalHeaderItem(i, headItem);
     }
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -163,7 +167,7 @@ void CommonPage::setHeaderSections(QStringList names)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 30);
+    ui->tableView->setColumnWidth(0, 100);
 }
 
 void CommonPage::setTableDefaultContent(QString text)
@@ -243,7 +247,7 @@ void CommonPage::initUI()
     //设置表头
     m_headerView = new HeaderView(true, ui->tableView);
     m_headerView->setStretchLastSection(false);
-    m_headerView->setStyleSheet("alignment: left;");
+    //m_headerView->setStyleSheet("alignment: left;");
     ui->tableView->setHorizontalHeader(m_headerView);
 
     //隐藏列表头
@@ -256,6 +260,7 @@ void CommonPage::initUI()
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
+    ui->tableView->setShowGrid(false);
 
     connect(ui->tableView, &QTableView::clicked, this, &CommonPage::onItemClicked);
     connect(m_model, &QStandardItemModel::itemChanged, this, &CommonPage::onItemChecked);
