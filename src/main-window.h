@@ -35,7 +35,7 @@ private:
     void setPageName(QString name);
 
 private slots:
-    void onLogoutAction(QAction *action);
+    void onLogoutAction(bool checked);
 
 signals:
     void sigLogout();

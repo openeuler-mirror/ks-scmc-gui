@@ -1,5 +1,6 @@
 #include "main-window.h"
 #include <kiran-log/qt5-log-i.h>
+#include <QAction>
 #include <QDebug>
 #include <QIcon>
 #include <QPainter>
@@ -90,14 +91,16 @@ void MainWindow::paintEvent(QPaintEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
-    ui->btn_menu->setIcon(QIcon(":/images/down-arrow.svg"));
-    ui->label_name->setText("Admin");
+
+    ui->btn_approval->setTipMsg(9);
 
     QMenu* userMenu = new QMenu(this);
     userMenu->setObjectName("userMenu");
-    userMenu->addAction(tr("Logout"));
-    ui->btn_menu->setMenu(userMenu);
-    connect(userMenu, &QMenu::triggered, this, &MainWindow::onLogoutAction);
+    QAction* changePasswdAct = userMenu->addAction(tr("Change Password"));
+    QAction* logoutAct = userMenu->addAction(tr("Logout"));
+    QAction* aboutAct = userMenu->addAction(tr("About"));
+    ui->btn_user_menu->setMenu(userMenu);
+    connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
 
     m_stackedWidget = new QStackedWidget(this);
     m_stackedWidget->setObjectName("stackedWidget");
@@ -229,8 +232,8 @@ void MainWindow::setPageName(QString name)
     ui->lab_page_name->setText(name);
 }
 
-void MainWindow::onLogoutAction(QAction* action)
+void MainWindow::onLogoutAction(bool checked)
 {
-    Q_UNUSED(action);
+    Q_UNUSED(checked);
     emit sigLogout();
 }
