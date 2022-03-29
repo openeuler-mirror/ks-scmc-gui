@@ -4,11 +4,12 @@
 #include <QCryptographicHash>
 #include <QDesktopWidget>
 #include <QFile>
+#include <QFileDialog>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include "common/def.h"
 #include "common/message-dialog.h"
-#include "image-operate.h"
-#define IMAGE_ID "image id"
+
 ImageManager::ImageManager(QWidget *parent) : CommonPage(parent), m_pImageOp(nullptr)
 {
     initButtons();
@@ -46,11 +47,12 @@ void ImageManager::initTable()
         tr("Description"),
         tr("Inspection Status"),
         tr("Approval Status"),
-        tr("Last Update"),
-        tr("Quick Actions")};
+        tr("Last Update")};
     setHeaderSections(tableHHeaderDate);
-    setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/edit.svg");
+    setHeaderCheckable(false);
+    //setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/edit.svg");
     setTableDefaultContent("-");
+    setTableSingleChoose(true);
 }
 
 void ImageManager::initButtons()
@@ -58,42 +60,57 @@ void ImageManager::initButtons()
     QMap<int, QPushButton *> opBtnMap;
     //按钮
     const QMap<int, QString> btnNameMap = {
-        {OPERATION_BUTTOM_IMAGE_MANAGER_IMPORT, tr("Import")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_EXPORT, tr("Export")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_EDIT, tr("Edit")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_CHECK, tr("Check")},
+        {OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD, tr("Upload")},
+        {OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE, tr("Update")},
+        {OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD, tr("Download")},
         {OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE, tr("Remove")}};
 
     for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
     {
         QString name = iter.value();
         QPushButton *btn = new QPushButton(this);
-
         btn->setObjectName("btn");
-        btn->setStyleSheet("#btn{background-color:#2eb3ff;"
-                           "border:none;"
-                           "border-radius: 4px;"
-                           "color:#ffffff;}"
-                           "#btn:hover{ background-color:#77ceff;}"
-                           "#btn:focus{outline:none;}");
+
+        if (name == tr("Remove"))
+        {
+            btn->setStyleSheet("#btn{background-color:#ff4b4b;"
+                               "border:none;"
+                               "border-radius: 4px;"
+                               "color:#ffffff;}"
+                               "#btn:hover{ background-color:#ff6c6c;}"
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
+        }
+        else
+            btn->setStyleSheet("#btn{background-color:#2eb3ff;"
+                               "border:none;"
+                               "border-radius: 4px;"
+                               "color:#ffffff;}"
+                               "#btn:hover{ background-color:#77ceff;}"
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
 
         btn->setText(name);
         btn->setFixedSize(QSize(78, 32));
         opBtnMap.insert(iter.key(), btn);
     }
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_IMPORT], &QPushButton::clicked, this, &ImageManager::onBtnImport);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_EXPORT], &QPushButton::clicked, this, &ImageManager::onBtnExport);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_EDIT], &QPushButton::clicked, this, &ImageManager::onBtnEdit);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_CHECK], &QPushButton::clicked, this, &ImageManager::onBtnCheck);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD], &QPushButton::clicked, this, &ImageManager::onBtnUpload);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD], &QPushButton::clicked, this, &ImageManager::onBtnDownload);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE], &QPushButton::clicked, this, &ImageManager::onBtnUpdate);
     connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageManager::onBtnRemove);
 
-    addBatchOperationButtons(opBtnMap.values());
+    addSingleOperationButton(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD]);
+    addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE]
+                                                    << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD]
+                                                    << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE]);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void ImageManager::initImageConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageManager::getListDBResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageManager::getCheckResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageManager::getCheckResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageManager::getRemoveResult);
 }
 
@@ -122,11 +139,18 @@ void ImageManager::getImageList()
     InfoWorker::getInstance().listDBImage();
 }
 
-void ImageManager::OperateImage(int page)
+void ImageManager::OperateImage(ImageOperateType type)
 {
     if (!m_pImageOp)
     {
-        m_pImageOp = new ImageOperate(page, m_IdNameMap);
+        m_pImageOp = new ImageOperate(type);
+        if (type == IMAGE_OPERATE_TYPE_UPDATE)
+        {
+            QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
+            if (!info.isEmpty())
+                m_pImageOp->setImageInfo(info.at(0));
+        }
+
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_pImageOp->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
@@ -134,19 +158,16 @@ void ImageManager::OperateImage(int page)
 
         m_pImageOp->show();
 
-        switch (page)
+        switch (type)
         {
-        case UPLOAD_PAGE:
+        case IMAGE_OPERATE_TYPE_UPLOAD:
             connect(m_pImageOp, &ImageOperate::sigUploadSave, this, &ImageManager::uploadSaveSlot);
             break;
-        case UPDATE_PAGE:
+        case IMAGE_OPERATE_TYPE_UPDATE:
             connect(m_pImageOp, &ImageOperate::sigUpdateSave, this, &ImageManager::updateSaveSlot);
             break;
-        case DOWNLOAD_PAGE:
+        case IMAGE_OPERATE_TYPE_DOWNLOAD:
             connect(m_pImageOp, &ImageOperate::sigDownloadSave, this, &ImageManager::downloadSaveSlot);
-            break;
-        case CHECK_PAGE:
-            connect(m_pImageOp, &ImageOperate::sigCheckSave, this, &ImageManager::checkSaveSlot);
             break;
         default:
             break;
@@ -160,24 +181,38 @@ void ImageManager::OperateImage(int page)
     }
 }
 
-void ImageManager::onBtnImport()
+void ImageManager::onBtnUpload()
 {
-    OperateImage(UPLOAD_PAGE);
+    OperateImage(IMAGE_OPERATE_TYPE_UPLOAD);
 }
 
-void ImageManager::onBtnExport()
+void ImageManager::onBtnDownload()
 {
-    OperateImage(DOWNLOAD_PAGE);
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
+    if (!info.isEmpty())
+    {
+        QString imageId = info.at(0).value(IMAGE_ID).toString();
+
+        QFileDialog *pFile = new QFileDialog(this);
+        QString imagePath = pFile->getExistingDirectory(this, tr("Please select the path to save"), "./");
+        if (imagePath.isEmpty())
+        {
+            return;
+        }
+        if (imagePath.at(imagePath.size() - 1) != "/")
+            imagePath += "/";
+        KLOG_INFO() << "imagePath:" << imagePath;
+
+        QMap<QString, QString> downloadInfo;
+        downloadInfo.insert("Image Id", imageId);
+        downloadInfo.insert("Image Path", imagePath);
+        downloadSaveSlot(downloadInfo);
+    }
 }
 
-void ImageManager::onBtnEdit()
+void ImageManager::onBtnUpdate()
 {
-    OperateImage(UPDATE_PAGE);
-}
-
-void ImageManager::onBtnCheck()
-{
-    OperateImage(CHECK_PAGE);
+    OperateImage(IMAGE_OPERATE_TYPE_UPDATE);
 }
 
 void ImageManager::onBtnRemove()
@@ -347,7 +382,7 @@ void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
 
 void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
-    m_IdNameMap.clear();
+    m_imageInfoMap.clear();
     if (reply.first.ok())
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
@@ -355,52 +390,73 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
         int size = reply.second.images_size();
         if (size <= 0)
         {
+            setTableDefaultContent("-");
             return;
         }
 
         int row = 0;
-        QMap<QString, QVariant> idMap;
+
         for (auto image : reply.second.images())
         {
+            QMap<QString, QVariant> infoMap;
             qint64 imageId = image.id();
-            idMap.insert(IMAGE_ID, imageId);
-            QString str = QString("%1_%2").arg(image.name().data()).arg(image.version().data());
-            m_IdNameMap.insert(str, imageId);
+            infoMap.insert(IMAGE_ID, imageId);
 
             QStandardItem *itemCheck = new QStandardItem();
             itemCheck->setCheckable(true);
 
             QStandardItem *itemName = new QStandardItem(image.name().data());
-            itemName->setData(QVariant::fromValue(idMap));
-            itemName->setTextAlignment(Qt::AlignCenter);
+            infoMap.insert(IMAGE_NAME, image.name().data());
 
             QStandardItem *itemVer = new QStandardItem(image.version().data());
-            itemVer->setTextAlignment(Qt::AlignCenter);
+            infoMap.insert(IMAGE_VERSION, image.version().data());
 
             QStandardItem *itemDesc = new QStandardItem(image.description().data());
-            itemDesc->setTextAlignment(Qt::AlignCenter);
+            infoMap.insert(IMAGE_DESC, image.description().data());
 
-            QStandardItem *itemChkStatus = new QStandardItem("Passed");
-            itemChkStatus->setTextAlignment(Qt::AlignCenter);
+            QStandardItem *itemChkStatus = new QStandardItem(image.check_status() ? tr("Passed") : tr("Rejected"));
+            //TODO:add chkStatus color
+            itemChkStatus->setForeground(image.check_status() ? QBrush(QColor("#00921b")) : QBrush(QColor("#d30000")));
 
-            QStandardItem *itemApprovalStatus = new QStandardItem(image.approval_status() ? "Passed" : "Rejected");
-            itemApprovalStatus->setForeground(image.approval_status() ? QBrush(QColor("#00921b")) : QBrush(QColor("#d30000")));
-            itemApprovalStatus->setTextAlignment(Qt::AlignCenter);
+            QStandardItem *itemApprovalStatus = new QStandardItem();
+            switch (image.approval_status())
+            {
+            case 0:
+                itemApprovalStatus->setText(tr("Wait for Approve"));
+                itemApprovalStatus->setForeground(QBrush(QColor("#EEA43C")));
+                break;
+            case 1:
+                itemApprovalStatus->setText(tr("Rejected"));
+                itemApprovalStatus->setForeground(QBrush(QColor("#d30000")));
+                break;
+            case 2:
+                itemApprovalStatus->setText(tr("Passed"));
+                itemApprovalStatus->setForeground(QBrush(QColor("#00921b")));
+                break;
+            }
 
-            QStandardItem *itemUpdateTime = new QStandardItem(image.update_time().data());
-            itemUpdateTime->setTextAlignment(Qt::AlignCenter);
+            // TODO parse unix timestamp
+            QStandardItem *itemUpdateTime = new QStandardItem(image.update_at());
 
-            KLOG_INFO() << "imageId:" << image.id() << "name:" << image.name().data()
-                        << "version:" << image.version().data() << "description:" << image.description().data()
-                        << "approval_status:" << image.approval_status() << "update_time:" << image.update_time().data();
+            itemName->setData(QVariant::fromValue(infoMap));
+
+            //            KLOG_INFO() << "imageId:" << image.id() << "name:" << image.name().data()
+            //                        << "version:" << image.version().data() << "description:" << image.description().data()
+            //                        << "approval_status:" << image.approval_status() << "update_time:" << image.update_time().data();
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
             row++;
         }
     }
+    else
+    {
+        KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
+        setTableDefaultContent("-");
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    }
 }
 
-void ImageManager::getCheckResult(const QPair<grpc::Status, image::CheckReply> &reply)
+void ImageManager::getCheckResult(const QPair<grpc::Status, image::ApproveReply> &reply)
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())

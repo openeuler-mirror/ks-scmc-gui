@@ -1,53 +1,64 @@
 #ifndef IMAGEOPERATE_H
 #define IMAGEOPERATE_H
 
-#include <QWidget>
+#include <kiran-titlebar-window.h>
+#include <QLineEdit>
 #include <QMap>
+#include <QPushButton>
+#include <QWidget>
 
-namespace Ui {
+#define IMAGE_ID "image id"
+#define IMAGE_NAME "image name"
+#define IMAGE_VERSION "image version"
+#define IMAGE_DESC "image description"
+#define IMAGE_FILE "image file"
+#define IMAGE_SIGN "image sign"
+
+namespace Ui
+{
 class ImageOperate;
 }
 
-enum ImageOperatePage
+enum ImageOperateType
 {
-    UPLOAD_PAGE,
-    UPDATE_PAGE,
-    DOWNLOAD_PAGE,
-    CHECK_PAGE
+    IMAGE_OPERATE_TYPE_UPLOAD,
+    IMAGE_OPERATE_TYPE_UPDATE,
+    IMAGE_OPERATE_TYPE_DOWNLOAD
 };
 
-class ImageOperate : public QWidget
+class ImageOperate : public KiranTitlebarWindow
 {
     Q_OBJECT
 
 public:
-    explicit ImageOperate(int page, QMap<QString, qint64> imageInfo, QWidget *parent = nullptr);
+    explicit ImageOperate(ImageOperateType type, QWidget *parent = nullptr);
     ~ImageOperate();
+    void setImageInfo(QMap<QString, QVariant> imageInfoMap);
 
 private:
-    void initCombox(int page, QMap<QString, qint64> imageInfo);
+    void initUI();
+    void initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn);
     void UploadParamDeal();
     void updateParamDeal();
     void downloadParamDeal();
-    void checkParamDeal();
-    QString ChooseFile();
+    QString ChooseFile(QString nameFilter);
 
 signals:
     void sigUploadSave(QMap<QString, QString>);
     void sigUpdateSave(QMap<QString, QString>);
     void sigDownloadSave(QMap<QString, QString>);
-    void sigCheckSave(QMap<QString, QString>);
 
 private slots:
-    void uploadSelectFile();
-    void updateSelectFile();
+    void selectImage();
+    void selectSign();
     void downloadSelectPath();
     void onSave();
     void onCancel();
 
 private:
     Ui::ImageOperate *ui;
-    QMap<QString, qint64> m_IdNameMap;
+    QMap<QString, QVariant> m_imageInfoMap;
+    ImageOperateType m_type;
 };
 
-#endif // IMAGEOPERATE_H
+#endif  // IMAGEOPERATE_H

@@ -5,19 +5,14 @@
 #include "common/message-dialog.h"
 #include "ui_image-operate.h"
 
-ImageOperate::ImageOperate(int page, QMap<QString, qint64> imageInfo, QWidget *parent) : QWidget(parent),
-                                                                                         ui(new Ui::ImageOperate),
-                                                                                         m_IdNameMap(imageInfo)
+ImageOperate::ImageOperate(ImageOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
+                                                                     ui(new Ui::ImageOperate),
+                                                                     m_type(type)
 {
     KLOG_INFO() << "ImageOperate";
-    ui->setupUi(this);
-    setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("Image Operate"));
-    ui->stackedWidget->setCurrentIndex(page);
-    initCombox(page, imageInfo);
-    connect(ui->uploadChooseFile, SIGNAL(clicked()), this, SLOT(uploadSelectFile()));
-    connect(ui->updateChooseFile, SIGNAL(clicked()), this, SLOT(updateSelectFile()));
-    connect(ui->downloadChoosePath, SIGNAL(clicked()), this, SLOT(downloadSelectPath()));
+    ui->setupUi(getWindowContentWidget());
+    initUI();
+
     connect(ui->btnSave, &QPushButton::clicked, this, &ImageOperate::onSave);
     connect(ui->btnCancel, &QPushButton::clicked, this, &ImageOperate::onCancel);
 }
@@ -28,50 +23,56 @@ ImageOperate::~ImageOperate()
     delete ui;
 }
 
-void ImageOperate::initCombox(int page, QMap<QString, qint64> imageInfo)
+void ImageOperate::setImageInfo(QMap<QString, QVariant> imageInfoMap)
 {
-    if (UPDATE_PAGE == page)
+    m_imageInfoMap = imageInfoMap;
+    if (m_type == IMAGE_OPERATE_TYPE_UPDATE)
     {
-        auto it = imageInfo.begin();
-        while (it != imageInfo.end())
-        {
-            ui->updateImage->addItem(it.key());
-            it++;
-        }
+        //设置界面初始值
+        ui->lineEditName->setText(m_imageInfoMap.value(IMAGE_NAME).toString());
+        ui->lineEditName->setDisabled(true);
+        ui->lineEditVersion->setText(m_imageInfoMap.value(IMAGE_VERSION).toString());
+        ui->lineEditVersion->setDisabled(true);
+        ui->lineEditImageFile->setText(m_imageInfoMap.value(IMAGE_FILE).toString());
+        ui->lineEditImageSign->setText(m_imageInfoMap.value(IMAGE_SIGN).toString());
+        ui->lineEditDesc->setText(m_imageInfoMap.value(IMAGE_DESC).toString());
     }
-    if (DOWNLOAD_PAGE == page)
-    {
-        auto it = imageInfo.begin();
-        while (it != imageInfo.end())
-        {
-            ui->downloadImage->addItem(it.key());
-            it++;
-        }
-    }
-    else if (CHECK_PAGE == page)
-    {
-        auto it = imageInfo.begin();
-        while (it != imageInfo.end())
-        {
-            ui->checkImage->addItem(it.key());
-            it++;
-        }
+}
 
-        QStringList listCheck;
-        listCheck << tr("Pass") << tr("Reject");
-        for (auto check : listCheck)
-        {
-            ui->checkStatus->addItem(check);
-        }
-    }
+void ImageOperate::initUI()
+{
+    setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle(tr("Image Operate"));
+    setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
+
+    QPushButton *imageFileBtn = new QPushButton(this);
+    connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperate::selectImage);
+    initLineEdit(ui->lineEditImageFile, imageFileBtn);
+
+    QPushButton *imageSignBtn = new QPushButton(this);
+    connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperate::selectSign);
+    initLineEdit(ui->lineEditImageSign, imageSignBtn);
+}
+
+void ImageOperate::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
+{
+    QHBoxLayout *hLayout = new QHBoxLayout(lineEdit);
+    hLayout->setContentsMargins(10, 0, 0, 0);
+
+    addBtn->setText(tr("Add"));
+    addBtn->setFixedSize(56, 30);
+    addBtn->setCursor(Qt::PointingHandCursor);
+    lineEdit->setTextMargins(0, 0, addBtn->width(), 0);
+    hLayout->addStretch();
+    hLayout->addWidget(addBtn);
 }
 
 void ImageOperate::UploadParamDeal()
 {
-    QString name = ui->uploadName->text();
-    QString version = ui->uploadVersion->text();
-    QString desc = ui->uploadDesc->text();
-    QString imageFile = ui->uploadFile->text();
+    QString name = ui->lineEditName->text();
+    QString version = ui->lineEditVersion->text();
+    QString desc = ui->lineEditDesc->text();
+    QString imageFile = ui->lineEditImageFile->text();
 
     if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty())
     {
@@ -94,13 +95,13 @@ void ImageOperate::UploadParamDeal()
 
 void ImageOperate::updateParamDeal()
 {
-    QString name = ui->updateName->text();
-    QString version = ui->updateVersion->text();
-    QString desc = ui->updateDesc->text();
-    QString imageFile = ui->updateFile->text();
-    QString imageId = QString::number(m_IdNameMap[ui->updateImage->currentText()]);
+    QString name = ui->lineEditName->text();
+    QString version = ui->lineEditVersion->text();
+    QString desc = ui->lineEditDesc->text();
+    QString imageFile = ui->lineEditImageFile->text();
+    QString imageId = m_imageInfoMap.value(IMAGE_ID).toString();
 
-    KLOG_INFO() << name << version << imageId << ui->updateImage->currentText() << imageFile;
+    KLOG_INFO() << name << version << imageId << ui->lineEditDesc->text() << imageFile;
 
     if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty())
     {
@@ -123,7 +124,7 @@ void ImageOperate::updateParamDeal()
 
 void ImageOperate::downloadParamDeal()
 {
-    QString imageId = QString::number(m_IdNameMap[ui->downloadImage->currentText()]);
+    QString imageId = m_imageInfoMap.value(IMAGE_ID).toString();
     QString imagePath = ui->downloadPath->text();
     if (imagePath.at(imagePath.size() - 1) != "/")
         imagePath += "/";
@@ -146,38 +147,38 @@ void ImageOperate::downloadParamDeal()
     emit sigDownloadSave(downloadInfo);
 }
 
-void ImageOperate::checkParamDeal()
-{
-    QString imageId = QString::number(m_IdNameMap[ui->checkImage->currentText()]);
-    QString status = ui->checkStatus->currentText();
-    QString reason = ui->checkReason->text();
+//void ImageOperate::checkParamDeal()
+//{
+//    QString imageId = QString::number(m_IdNameMap[ui->checkImage->currentText()]);
+//    QString status = ui->checkStatus->currentText();
+//    QString reason = ui->checkReason->text();
 
-    KLOG_INFO() << status << reason << imageId << ui->checkImage->currentText();
+//    KLOG_INFO() << status << reason << imageId << ui->checkImage->currentText();
 
-    if (status == "Reject" && reason.isEmpty())
-    {
-        MessageDialog::message(tr("Check Image"),
-                               tr("Check Image failed!"),
-                               tr("Please improve the content!"),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
+//    if (status == "Reject" && reason.isEmpty())
+//    {
+//        MessageDialog::message(tr("Check Image"),
+//                               tr("Check Image failed!"),
+//                               tr("Please improve the content!"),
+//                               ":/images/warning.svg",
+//                               MessageDialog::StandardButton::Ok);
+//        return;
+//    }
 
-    QMap<QString, QString> checkInfo;
-    checkInfo.insert("Image Id", imageId);
-    checkInfo.insert("Image Check", status);
-    checkInfo.insert("Image Reason", reason);
-    emit sigCheckSave(checkInfo);
-}
+//    QMap<QString, QString> checkInfo;
+//    checkInfo.insert("Image Id", imageId);
+//    checkInfo.insert("Image Check", status);
+//    checkInfo.insert("Image Reason", reason);
+//    emit sigCheckSave(checkInfo);
+//}
 
-QString ImageOperate::ChooseFile()
+QString ImageOperate::ChooseFile(QString nameFilter)
 {
     QString file;
     QFileDialog *pFile = new QFileDialog(this);
     pFile->setWindowTitle(tr("Please select an image file"));
     pFile->setDirectory(".");
-    pFile->setNameFilter("*.tar *.zip");
+    pFile->setNameFilter(nameFilter);
     pFile->setViewMode(QFileDialog::Detail);
     if (pFile->exec())
     {
@@ -189,14 +190,14 @@ QString ImageOperate::ChooseFile()
     return file;
 }
 
-void ImageOperate::uploadSelectFile()
+void ImageOperate::selectImage()
 {
-    ui->uploadFile->setText(ChooseFile());
+    ui->lineEditImageFile->setText(ChooseFile("*.tar *.zip"));
 }
 
-void ImageOperate::updateSelectFile()
+void ImageOperate::selectSign()
 {
-    ui->updateFile->setText(ChooseFile());
+    ui->lineEditImageSign->setText(ChooseFile("*.sign"));
 }
 
 void ImageOperate::downloadSelectPath()
@@ -213,21 +214,16 @@ void ImageOperate::downloadSelectPath()
 
 void ImageOperate::onSave()
 {
-    int curPage = ui->stackedWidget->currentIndex();
-    KLOG_INFO() << "curPage:" << curPage;
-    switch (curPage)
+    switch (m_type)
     {
-    case UPLOAD_PAGE:
+    case IMAGE_OPERATE_TYPE_UPLOAD:
         UploadParamDeal();
         break;
-    case UPDATE_PAGE:
+    case IMAGE_OPERATE_TYPE_UPDATE:
         updateParamDeal();
         break;
-    case DOWNLOAD_PAGE:
+    case IMAGE_OPERATE_TYPE_DOWNLOAD:
         downloadParamDeal();
-        break;
-    case CHECK_PAGE:
-        checkParamDeal();
         break;
     default:
         break;
