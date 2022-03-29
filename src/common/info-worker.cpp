@@ -378,13 +378,13 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::downloadImage(const int64_t i
     return r;
 }
 
-void InfoWorker::checkImage(const int64_t image_id, const bool check_status, const std::string reject_reason)
+void InfoWorker::checkImage(const int64_t image_id, const bool approve, const std::string reject_reason)
 {
-    image::CheckRequest req;
+    image::ApproveRequest req;
     req.set_image_id(image_id);
-    req.set_check_status(check_status);
+    req.set_approve(approve);
     req.set_reject_reason(reject_reason);
-    RPC_ASYNC(image::CheckReply, _checkImage, checkImageFinished, req);
+    RPC_ASYNC(image::ApproveReply, _checkImage, checkImageFinished, req);
 }
 
 void InfoWorker::removeImage(const std::vector<int64_t> &image_ids)
@@ -497,9 +497,9 @@ QPair<grpc::Status, image::ListDBReply> InfoWorker::_listDBImage(const image::Li
     RPC_IMPL(image::ListDBReply, image::Image::NewStub, ListDB);
 }
 
-QPair<grpc::Status, image::CheckReply> InfoWorker::_checkImage(const image::CheckRequest &req)
+QPair<grpc::Status, image::ApproveReply> InfoWorker::_checkImage(const image::ApproveRequest &req)
 {
-    RPC_IMPL(image::CheckReply, image::Image::NewStub, Check);
+    RPC_IMPL(image::ApproveReply, image::Image::NewStub, Approve);
 }
 
 QPair<grpc::Status, image::RemoveReply> InfoWorker::_removeImage(const image::RemoveRequest &req)

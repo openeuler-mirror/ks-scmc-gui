@@ -36,8 +36,10 @@ public:
     void setTableItem(int row, int col, QStandardItem *item);
     void setTableItems(int row, int col, QList<QStandardItem *> items);
     void setTableActions(int col, QStringList actionIcons);
+    void setTableSingleChoose(bool isSingleChoose);
     void setSortableCol(QList<int> cols);
     void setHeaderSections(QStringList names);
+    void setHeaderCheckable(bool checkable);
     void setTableDefaultContent(QString text);
     void clearText();
     int getTableRowCount();
@@ -75,7 +77,7 @@ private slots:
     void onRefreshTimeout();
     void search();
     void refresh();
-    void onItemChecked(QStandardItem *item);
+    void onItemChecked(QStandardItem *changeItem);
     void onItemClicked(const QModelIndex &index);
     void onHeaderCkbTog(bool toggled);
 
@@ -89,6 +91,7 @@ private:
     MaskWidget *m_maskWidget;
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
+    bool m_singleChoose;
 };
 
 #endif  // COMMONPAGE_H
