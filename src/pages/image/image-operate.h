@@ -40,7 +40,6 @@ private:
     void initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn);
     void UploadParamDeal();
     void updateParamDeal();
-    void downloadParamDeal();
     QString ChooseFile(QString nameFilter);
 
 signals:
@@ -51,7 +50,6 @@ signals:
 private slots:
     void selectImage();
     void selectSign();
-    void downloadSelectPath();
     void onSave();
     void onCancel();
 

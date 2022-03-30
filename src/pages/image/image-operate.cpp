@@ -57,7 +57,7 @@ void ImageOperate::initUI()
 void ImageOperate::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
 {
     QHBoxLayout *hLayout = new QHBoxLayout(lineEdit);
-    hLayout->setContentsMargins(10, 0, 0, 0);
+    hLayout->setContentsMargins(10, 0, 10, 0);
 
     addBtn->setText(tr("Add"));
     addBtn->setFixedSize(56, 30);
@@ -122,31 +122,6 @@ void ImageOperate::updateParamDeal()
     emit sigUpdateSave(updateInfo);
 }
 
-void ImageOperate::downloadParamDeal()
-{
-    QString imageId = m_imageInfoMap.value(IMAGE_ID).toString();
-    QString imagePath = ui->downloadPath->text();
-    if (imagePath.at(imagePath.size() - 1) != "/")
-        imagePath += "/";
-
-    KLOG_INFO() << imageId << ui->downloadImage->currentText() << imagePath;
-
-    if (imagePath.isEmpty())
-    {
-        MessageDialog::message(tr("Download Image"),
-                               tr("Download Image failed!"),
-                               tr("Please improve the content!"),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    QMap<QString, QString> downloadInfo;
-    downloadInfo.insert("Image Id", imageId);
-    downloadInfo.insert("Image Path", imagePath);
-    emit sigDownloadSave(downloadInfo);
-}
-
 //void ImageOperate::checkParamDeal()
 //{
 //    QString imageId = QString::number(m_IdNameMap[ui->checkImage->currentText()]);
@@ -200,18 +175,6 @@ void ImageOperate::selectSign()
     ui->lineEditImageSign->setText(ChooseFile("*.sign"));
 }
 
-void ImageOperate::downloadSelectPath()
-{
-    QFileDialog *pFile = new QFileDialog(this);
-    QString file_path = pFile->getExistingDirectory(this, tr("Please select the path to save"), "./");
-    if (file_path.isEmpty())
-    {
-        return;
-    }
-    KLOG_INFO() << "file_path:" << file_path;
-    ui->downloadPath->setText(file_path);
-}
-
 void ImageOperate::onSave()
 {
     switch (m_type)
@@ -221,9 +184,6 @@ void ImageOperate::onSave()
         break;
     case IMAGE_OPERATE_TYPE_UPDATE:
         updateParamDeal();
-        break;
-    case IMAGE_OPERATE_TYPE_DOWNLOAD:
-        downloadParamDeal();
         break;
     default:
         break;
