@@ -57,7 +57,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/common-page.cpp" line="442"/>
+        <location filename="../src/common/common-page.cpp" line="439"/>
         <source>No search results were found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -551,152 +551,170 @@
 <context>
     <name>ImageManager</name>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="44"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="46"/>
         <source>Image Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="45"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="47"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="46"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="48"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="47"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="49"/>
         <source>Inspection Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="48"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="50"/>
         <source>Approval Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="49"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="51"/>
         <source>Last Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="50"/>
-        <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="63"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="64"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="64"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="65"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="65"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="66"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="184"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="67"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="75"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="198"/>
         <source>Please select the path to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="216"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="232"/>
         <source>Delete Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="217"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="233"/>
         <source>Are you sure you want to delete the image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="218"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="234"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="256"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="265"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="272"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="281"/>
         <source>Upload Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="257"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="273"/>
         <source>Upload Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="266"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="282"/>
         <source>Upload Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="300"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="309"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="316"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="325"/>
         <source>update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="301"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="317"/>
         <source>update Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="310"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="326"/>
         <source>update Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="342"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="351"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="358"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="367"/>
         <source>download Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="343"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="359"/>
         <source>download Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="352"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="368"/>
         <source>download Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="432"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="441"/>
-        <source>Check Image</source>
+        <location filename="../src/pages/image/image-manager.cpp" line="418"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="434"/>
+        <source>Passed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="433"/>
-        <source>Check Image success!</source>
+        <location filename="../src/pages/image/image-manager.cpp" line="418"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="430"/>
+        <source>Rejected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="442"/>
-        <source>Check Image failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="455"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="468"/>
-        <source>Remove Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="456"/>
-        <source>Remove Image success!</source>
+        <location filename="../src/pages/image/image-manager.cpp" line="426"/>
+        <source>Wait for Approve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-manager.cpp" line="469"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="478"/>
+        <source>Check Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="470"/>
+        <source>Check Image success!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="479"/>
+        <source>Check Image failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="492"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="505"/>
+        <source>Remove Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="493"/>
+        <source>Remove Image success!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="506"/>
         <source>Remove Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1097,12 +1115,6 @@
         <location filename="../src/pages/container/base-configuration/network-conf-page.ui" line="168"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_network-conf-page.h" line="137"/>
         <source>Bridge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-page.cpp" line="55"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-page.cpp" line="64"/>
-        <source>Gateway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
