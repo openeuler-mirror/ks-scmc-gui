@@ -209,60 +209,9 @@ void InfoWorker::listDBImage()
     RPC_ASYNC(image::ListDBReply, _listDBImage, listDBImageFinished, req);
 }
 
-QPair<grpc::Status, image::UploadReply> InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile)
+void InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile)
 {
-    QPair<grpc::Status, image::UploadReply> r;
-    auto chan = get_rpc_channel(g_server_addr);
-    if (!chan)
-    {
-        KLOG_INFO() << "uploadImage failed to get connection";
-        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
-                               QObject::tr("Network Error").toStdString());
-        return r;
-    }
-
-    grpc::ClientContext context;
-    image::UploadReply reply;
-    auto stream = image::Image::NewStub(chan)->Upload(&context, &reply);
-    bool ret = stream->Write(req);
-    if (!ret)
-    {
-        KLOG_INFO() << "send param err";
-        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
-        return r;
-    }
-
-    QFile file(imageFile);
-    if (!file.open(QIODevice::ReadOnly))
-    {
-        KLOG_INFO() << "Failed to open " << imageFile;
-        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                               QObject::tr("Invalid Argument").toStdString());
-        return r;
-    }
-
-    char *pBuf = new char[CHUNK_SIZE];
-    while (!file.atEnd())
-    {
-        qint64 ret = file.read(pBuf, CHUNK_SIZE);
-        req.mutable_chunk_data();
-        req.set_chunk_data(pBuf, (size_t)ret);
-        if (!stream->Write(req))
-        {
-            KLOG_INFO() << "Broken stream";
-            break;
-        }
-    }
-
-    file.close();
-    stream->WritesDone();
-    r.first = stream->Finish();
-    r.second = reply;
-    delete[] pBuf;
-    KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
-
-    return r;
+    RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, req, imageFile);
 }
 
 QPair<grpc::Status, image::UpdateReply> InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile)
@@ -495,6 +444,63 @@ QPair<grpc::Status, image::ListReply> InfoWorker::_listImage(const image::ListRe
 QPair<grpc::Status, image::ListDBReply> InfoWorker::_listDBImage(const image::ListDBRequest &req)
 {
     RPC_IMPL(image::ListDBReply, image::Image::NewStub, ListDB);
+}
+
+QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRequest &req, const QString &imageFile)
+{
+    QPair<grpc::Status, image::UploadReply> r;
+    auto chan = get_rpc_channel(g_server_addr);
+    if (!chan)
+    {
+        KLOG_INFO() << "uploadImage failed to get connection";
+        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
+                               QObject::tr("Network Error").toStdString());
+        return r;
+    }
+
+    grpc::ClientContext context;
+    if (s_authKey.size() > 0)
+        context.AddMetadata("authorization", s_authKey);
+
+    auto stream = image::Image::NewStub(chan)->Upload(&context, &r.second);
+    bool ret = stream->Write(req);
+    if (!ret)
+    {
+        KLOG_INFO() << "send param err";
+        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
+                               QObject::tr("Internal Error").toStdString());
+        return r;
+    }
+
+    QFile file(imageFile);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        KLOG_INFO() << "Failed to open " << imageFile;
+        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                               QObject::tr("Invalid Argument").toStdString());
+        return r;
+    }
+
+    char *pBuf = new char[CHUNK_SIZE];
+    while (!file.atEnd())
+    {
+        qint64 ret = file.read(pBuf, CHUNK_SIZE);
+        req.mutable_chunk_data();
+        req.set_chunk_data(pBuf, (size_t)ret);
+        if (!stream->Write(req))
+        {
+            KLOG_INFO() << "Broken stream";
+            break;
+        }
+    }
+
+    file.close();
+    stream->WritesDone();
+    r.first = stream->Finish();
+    delete[] pBuf;
+    KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
+
+    return r;
 }
 
 QPair<grpc::Status, image::ApproveReply> InfoWorker::_checkImage(const image::ApproveRequest &req)
