@@ -219,61 +219,10 @@ void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile
     RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile);
 }
 
-QPair<grpc::Status, downloadImageInfo> InfoWorker::downloadImage(const int64_t image_id, const QString &savePath)
+void InfoWorker::downloadImage(const int64_t &image_id, const QString &savePath)
 {
-    QPair<grpc::Status, downloadImageInfo> r;
-    auto chan = get_rpc_channel(g_server_addr);
-    if (!chan)
-    {
-        KLOG_INFO() << "uploadImage failed to get connection";
-        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
-                               QObject::tr("Network Error").toStdString());
-        return r;
-    }
-
-    image::DownloadReply reply;
-    grpc::ClientContext context;
     image::DownloadRequest req;
-    req.set_image_id(image_id);
-
-    auto stream = image::Image::NewStub(chan)->Download(&context, req);
-    bool ret = stream->Read(&reply);
-    if (!ret)
-    {
-        KLOG_INFO() << "recv param err";
-        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
-        return r;
-    }
-
-    auto outName = reply.info().name();
-    auto outVersion = reply.info().version();
-    auto outType = reply.info().type();
-    auto outChecksum = reply.info().checksum();
-    auto outSize = reply.info().size();
-    auto outDescription = reply.info().description();
-    KLOG_INFO() << "recv param:" << outName.data() << outVersion.data()
-                << outType.data() << outChecksum.data() << outSize << outDescription.data();
-
-    QString wFileName = QString("%1%2_%3%4").arg(savePath).arg(outName.data()).arg(outVersion.data()).arg(outType.data());
-    QFile wFile(wFileName);
-    if (!wFile.open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        KLOG_INFO() << "Failed to open " << wFileName.data();
-        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
-        return r;
-    }
-
-    while (stream->Read(&reply))
-    {
-        wFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
-    }
-
-    wFile.close();
-    r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
-    r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
-    return r;
+    RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, req, image_id, savePath);
 }
 
 void InfoWorker::checkImage(const int64_t image_id, const bool approve, const std::string reject_reason)
@@ -503,6 +452,62 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     delete[] pBuf;
     KLOG_INFO() << "return:" << r.first.error_code();
 
+    return r;
+}
+
+QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::DownloadRequest &req, const int64_t &image_id, const QString &savePath)
+{
+    QPair<grpc::Status, downloadImageInfo> r;
+    auto chan = get_rpc_channel(g_server_addr);
+    if (!chan)
+    {
+        KLOG_INFO() << "uploadImage failed to get connection";
+        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
+                               QObject::tr("Network Error").toStdString());
+        return r;
+    }
+
+    image::DownloadReply reply;
+    grpc::ClientContext context;
+    req.set_image_id(image_id);
+
+    auto stream = image::Image::NewStub(chan)->Download(&context, req);
+    bool ret = stream->Read(&reply);
+    if (!ret)
+    {
+        KLOG_INFO() << "recv param err";
+        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
+                               QObject::tr("Internal Error").toStdString());
+        return r;
+    }
+
+    auto outName = reply.info().name();
+    auto outVersion = reply.info().version();
+    auto outType = reply.info().type();
+    auto outChecksum = reply.info().checksum();
+    auto outSize = reply.info().size();
+    auto outDescription = reply.info().description();
+    KLOG_INFO() << "recv param:" << outName.data() << outVersion.data()
+                << outType.data() << outChecksum.data() << outSize << outDescription.data();
+
+    QString wFileName = QString("%1%2_%3%4").arg(savePath).arg(outName.data()).arg(outVersion.data()).arg(outType.data());
+    QFile wFile(wFileName);
+    if (!wFile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        KLOG_INFO() << "Failed to open " << wFileName.data();
+        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
+                               QObject::tr("Internal Error").toStdString());
+        return r;
+    }
+
+    while (stream->Read(&reply))
+    {
+        wFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
+    }
+
+    wFile.close();
+    r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
+    r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
     return r;
 }
 
