@@ -31,6 +31,7 @@ ContainerList::ContainerList(QWidget *parent)
     initButtons();
     //初始化表格
     initTable();
+    initConnect();
 
     m_statusMap.insert("running", QPair<QString, QString>(tr("Running"), "#00921b"));
     m_statusMap.insert("exited", QPair<QString, QString>(tr("Exited"), "#d30000"));
@@ -546,11 +547,13 @@ void ContainerList::updateInfo(QString keyword)
 {
     KLOG_INFO() << "containerList updateInfo";
     clearText();
-    InfoWorker::getInstance().disconnect();
+    //InfoWorker::getInstance().disconnect();
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     if (keyword.isEmpty())
     {
-        initConnect();
+        //initConnect();
         //gRPC->拿数据->填充内容
         getContainerList();
+        connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerList::getNodeListResult);
     }
 }
