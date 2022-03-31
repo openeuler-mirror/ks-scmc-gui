@@ -15,6 +15,7 @@ ImageManager::ImageManager(QWidget *parent) : CommonPage(parent), m_pImageOp(nul
 {
     initButtons();
     initTable();
+    initImageConnect();
 }
 
 ImageManager::~ImageManager()
@@ -31,10 +32,8 @@ void ImageManager::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ImageList updateInfo";
     clearText();
-    InfoWorker::getInstance().disconnect();
     if (keyword.isEmpty())
     {
-        initImageConnect();
         getImageList();
     }
 }
@@ -114,6 +113,7 @@ void ImageManager::initImageConnect()
     //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageManager::getCheckResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageManager::getRemoveResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManager::getUploadResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageManager::getUpdateResult);
 }
 
 int ImageManager::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
@@ -290,26 +290,7 @@ void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
     pInfo->set_description(Info["Image Description"].toStdString());
     pInfo->set_size(fileSize);
 
-    QPair<grpc::Status, image::UpdateReply> reply = InfoWorker::getInstance().updateImage(request, imageFile);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
-    {
-        KLOG_INFO() << "update images success";
-        MessageDialog::message(tr("update Image"),
-                               tr("update Image success!"),
-                               tr(""),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        getImageList();
-    }
-    else
-    {
-        MessageDialog::message(tr("update Image"),
-                               tr("update Image failed!"),
-                               tr(reply.first.error_message().data()),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-    }
+    InfoWorker::getInstance().updateImage(request, imageFile);
 }
 
 void ImageManager::downloadSaveSlot(QMap<QString, QString> Info)
@@ -508,6 +489,28 @@ void ImageManager::getUploadResult(const QPair<grpc::Status, image::UploadReply>
     {
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image failed!"),
+                               tr(reply.first.error_message().data()),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
+
+void ImageManager::getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply)
+{
+    if (reply.first.ok())
+    {
+        KLOG_INFO() << "update images success";
+        MessageDialog::message(tr("update Image"),
+                               tr("update Image success!"),
+                               tr(""),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("update Image"),
+                               tr("update Image failed!"),
                                tr(reply.first.error_message().data()),
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
