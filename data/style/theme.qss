@@ -39,14 +39,9 @@ MainWindow GuideItem #label_text
     font-size:14px;
 }
 
-QLabel#label_icon
+QLabel#lab_user_icon
 {
     image: url(:/images/user.png);
-}
-QLabel#label_name
-{
-    color:#ffffff;
-    font-size:14px;
 }
 
 MainWindow > BubbleTipButton
@@ -54,26 +49,31 @@ MainWindow > BubbleTipButton
     border-radius:4px;
 }
 
-QPushButton#btn_menu
+QPushButton#btn_approval,
+QPushButton#btn_transmission,
+QPushButton#btn_warning,
+QPushButton#btn_user
 {
     background-color:transparent;
     border:none;
+    border-radius:0px;
 }
-/*QPushButton#btn_menu:hover
-{
-     background-color:#ffffff;
-}
-QPushButton#btn_menu:pressed
-{
-    background-color:#ffffff;
-}*/
-QPushButton#btn_menu:focus
+QPushButton#btn_approval:focus,
+QPushButton#btn_transmission:focus,
+QPushButton#btn_warning:focus,
+QPushButton#btn_user:focus
 {
     outline:none;
 }
-QPushButton#btn_menu::menu-indicator
+
+QPushButton#btn_user::menu-indicator
 {
-    image: none;
+    image: url(:/images/down-arrow.svg);
+    subcontrol-position: right center;
+    subcontrol-origin: padding;
+/*    width:16px;
+    height:16px*/
+/*    left: -5px;*/
 }
 
 /*************************CommonPage*************************/
@@ -102,11 +102,11 @@ CommonPage QTableView::item
 }
 CommonPage QTableView::indicator:unchecked
 {
-    image: url(:/images/check-default.png);
+    image: url(:/images/check-default.svg);
 }
 CommonPage QTableView#tableView::indicator:checked
 {
-    image: url(:/images/checked.png);
+    image: url(:/images/checked.svg);
 }
 CommonPage #lineEdit_search
 {
@@ -548,4 +548,9 @@ ConfigTable #tableView::item
     color:#ffffff;
 }*/
 
+/****************************TransmissionItem********************/
+TransmissionItem QPushButton#btn_close
+{
+    border-radius:0px;
+}
 
