@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6c6c6c;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="marquee_default_" data-name="marquee_default " class="cls-1" d="M305,1518H295a2,2,0,0,1-2-2v-10a2,2,0,0,1,2-2h10a2,2,0,0,1,2,2v10A2,2,0,0,1,305,1518Zm1-12a1,1,0,0,0-1-1H295a1,1,0,0,0-1,1v10a1,1,0,0,0,1,1h10a1,1,0,0,0,1-1v-10Z" transform="translate(-293 -1504)"/>
+</svg>
