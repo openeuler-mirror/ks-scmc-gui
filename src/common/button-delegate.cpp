@@ -75,7 +75,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     Q_UNUSED(index);
     QMouseEvent *pEvent = static_cast<QMouseEvent *>(event);
     m_mousePoint = pEvent->pos();
-    QApplication::restoreOverrideCursor();
+    //QApplication::restoreOverrideCursor();
 
     bool repaint = false;
     int count = 0;
@@ -99,7 +99,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
         case QEvent::MouseMove:
         {
             // 设置鼠标样式为手型
-            QApplication::setOverrideCursor(Qt::PointingHandCursor);
+            //QApplication::setOverrideCursor(Qt::PointingHandCursor);
             m_nType = 0;
             break;
         }

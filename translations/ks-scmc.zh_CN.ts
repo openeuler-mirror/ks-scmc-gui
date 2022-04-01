@@ -935,9 +935,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.ui" line="128"/>
-        <location filename="../src/main-window.ui" line="178"/>
-        <location filename="../src/main-window.ui" line="185"/>
+        <location filename="../src/main-window.ui" line="156"/>
+        <location filename="../src/main-window.ui" line="163"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="159"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="162"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="163"/>
@@ -945,82 +944,85 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.ui" line="169"/>
-        <location filename="../src/main-window.ui" line="194"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="161"/>
         <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="164"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="99"/>
+        <location filename="../src/main-window.cpp" line="121"/>
+        <source>No transfer task</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="127"/>
         <source>Change Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="100"/>
+        <location filename="../src/main-window.cpp" line="128"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="101"/>
+        <location filename="../src/main-window.cpp" line="129"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="110"/>
-        <location filename="../src/main-window.cpp" line="140"/>
+        <location filename="../src/main-window.cpp" line="139"/>
+        <location filename="../src/main-window.cpp" line="170"/>
         <source>Container List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="111"/>
+        <location filename="../src/main-window.cpp" line="140"/>
         <source>Node List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="112"/>
-        <location filename="../src/main-window.cpp" line="146"/>
+        <location filename="../src/main-window.cpp" line="141"/>
+        <location filename="../src/main-window.cpp" line="176"/>
         <source>Image Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="129"/>
+        <location filename="../src/main-window.cpp" line="159"/>
         <source>Home Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="130"/>
+        <location filename="../src/main-window.cpp" line="160"/>
         <source>Audit Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="131"/>
+        <location filename="../src/main-window.cpp" line="161"/>
         <source>Audit Apply List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="132"/>
+        <location filename="../src/main-window.cpp" line="162"/>
         <source>Audit Warning List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="133"/>
+        <location filename="../src/main-window.cpp" line="163"/>
         <source>Audit Log List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="139"/>
+        <location filename="../src/main-window.cpp" line="169"/>
         <source>Container Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="141"/>
+        <location filename="../src/main-window.cpp" line="171"/>
         <source>Container Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="147"/>
+        <location filename="../src/main-window.cpp" line="177"/>
         <source>Node Manager</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1273,29 +1275,29 @@
     <message>
         <location filename="../src/common/info-worker.cpp" line="29"/>
         <location filename="../src/common/info-worker.cpp" line="355"/>
-        <location filename="../src/common/info-worker.cpp" line="412"/>
-        <location filename="../src/common/info-worker.cpp" line="466"/>
-        <location filename="../src/common/info-worker.cpp" line="532"/>
-        <location filename="../src/common/info-worker.cpp" line="550"/>
+        <location filename="../src/common/info-worker.cpp" line="414"/>
+        <location filename="../src/common/info-worker.cpp" line="468"/>
+        <location filename="../src/common/info-worker.cpp" line="534"/>
+        <location filename="../src/common/info-worker.cpp" line="552"/>
         <source>Network Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/common/info-worker.cpp" line="369"/>
-        <location filename="../src/common/info-worker.cpp" line="423"/>
-        <location filename="../src/common/info-worker.cpp" line="480"/>
-        <location filename="../src/common/info-worker.cpp" line="499"/>
+        <location filename="../src/common/info-worker.cpp" line="425"/>
+        <location filename="../src/common/info-worker.cpp" line="482"/>
+        <location filename="../src/common/info-worker.cpp" line="501"/>
         <source>Internal Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/common/info-worker.cpp" line="378"/>
-        <location filename="../src/common/info-worker.cpp" line="432"/>
+        <location filename="../src/common/info-worker.cpp" line="434"/>
         <source>Invalid Argument</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/info-worker.cpp" line="509"/>
+        <location filename="../src/common/info-worker.cpp" line="511"/>
         <location filename="../src/common/message-dialog.cpp" line="94"/>
         <source>OK</source>
         <translation type="unfinished"></translation>

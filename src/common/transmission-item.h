@@ -23,6 +23,9 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
+signals:
+    void sigClose();
+
 private:
     Ui::TransmissionItem *ui;
 };
