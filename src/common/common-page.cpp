@@ -173,7 +173,7 @@ void CommonPage::setHeaderSections(QStringList names)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 30);
+    ui->tableView->setColumnWidth(0, 35);
 }
 
 void CommonPage::setHeaderCheckable(bool checkable)

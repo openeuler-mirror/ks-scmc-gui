@@ -48,12 +48,12 @@ void HeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalI
 
         if (m_ckbIsToggled)
         {                                              //图片需要在资源里添加
-            pixCheckbox.load(":/images/checked.png");  //选中
+            pixCheckbox.load(":/images/checked.svg");  //选中
             optionCheckbox.state = QStyle::State_On;
         }
         else
         {
-            pixCheckbox.load(":/images/check-default.png");  //正常
+            pixCheckbox.load(":/images/check-default.svg");  //正常
             optionCheckbox.state = QStyle::State_Off;
         }
 
