@@ -73,10 +73,11 @@ void ImageOperate::UploadParamDeal()
     QString version = ui->lineEditVersion->text();
     QString desc = ui->lineEditDesc->text();
     QString imageFile = ui->lineEditImageFile->text();
+    QString signFile = ui->lineEditImageSign->text();
 
-    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty())
+    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
     {
-        KLOG_INFO() << name << version << desc << imageFile;
+        KLOG_INFO() << name << version << desc << imageFile << signFile;
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image failed!"),
                                tr("Please improve the content!"),
@@ -90,6 +91,7 @@ void ImageOperate::UploadParamDeal()
     uploadInfo.insert("Image Version", version);
     uploadInfo.insert("Image Description", desc);
     uploadInfo.insert("Image File", imageFile);
+    uploadInfo.insert("Sign File", signFile);
     emit sigUploadSave(uploadInfo);
 }
 
@@ -100,10 +102,11 @@ void ImageOperate::updateParamDeal()
     QString desc = ui->lineEditDesc->text();
     QString imageFile = ui->lineEditImageFile->text();
     QString imageId = m_imageInfoMap.value(IMAGE_ID).toString();
+    QString signFile = ui->lineEditImageSign->text();
 
     KLOG_INFO() << name << version << imageId << ui->lineEditDesc->text() << imageFile;
 
-    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty())
+    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
     {
         MessageDialog::message(tr("Update Image"),
                                tr("Update Image failed!"),
@@ -119,6 +122,7 @@ void ImageOperate::updateParamDeal()
     updateInfo.insert("Image Version", version);
     updateInfo.insert("Image Description", desc);
     updateInfo.insert("Image File", imageFile);
+    updateInfo.insert("Sign File", signFile);
     emit sigUpdateSave(updateInfo);
 }
 
