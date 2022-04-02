@@ -260,13 +260,19 @@ void ImageManager::uploadSaveSlot(QMap<QString, QString> Info)
     auto pInfo = request.mutable_info();
     pInfo->set_name(Info["Image Name"].toStdString());
     pInfo->set_version(Info["Image Version"].toStdString());
-    QString suffix = "." + QFileInfo(imageFile).completeSuffix();
+    QString suffix = "." + QFileInfo(imageFile).suffix();
     pInfo->set_type(suffix.toStdString());
     pInfo->set_checksum(strSha256.toStdString());
     pInfo->set_description(Info["Image Description"].toStdString());
     pInfo->set_size(fileSize);
+    auto pSignInfo = request.mutable_sign();
+    QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
+    KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
+    pSignInfo->set_name(fileInfo.fileName().toStdString());
+    pSignInfo->set_size(fileInfo.size());
+    pSignInfo->mutable_chunk_data();
 
-    InfoWorker::getInstance().uploadImage(request, imageFile);
+    InfoWorker::getInstance().uploadImage(request, imageFile, Info["Sign File"]);
 }
 
 void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
@@ -285,13 +291,19 @@ void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
     auto pInfo = request.mutable_info();
     pInfo->set_name(Info["Image Name"].toStdString());
     pInfo->set_version(Info["Image Version"].toStdString());
-    QString suffix = "." + QFileInfo(imageFile).completeSuffix();
+    QString suffix = "." + QFileInfo(imageFile).suffix();
     pInfo->set_type(suffix.toStdString());
     pInfo->set_checksum(strSha256.toStdString());
     pInfo->set_description(Info["Image Description"].toStdString());
     pInfo->set_size(fileSize);
+    auto pSignInfo = request.mutable_sign();
+    QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
+    KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
+    pSignInfo->set_name(fileInfo.fileName().toStdString());
+    pSignInfo->set_size(fileInfo.size());
+    pSignInfo->mutable_chunk_data();
 
-    InfoWorker::getInstance().updateImage(request, imageFile);
+    InfoWorker::getInstance().updateImage(request, imageFile, Info["Sign File"]);
 }
 
 void ImageManager::downloadSaveSlot(QMap<QString, QString> Info)
