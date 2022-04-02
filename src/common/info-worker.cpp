@@ -209,14 +209,14 @@ void InfoWorker::listDBImage()
     RPC_ASYNC(image::ListDBReply, _listDBImage, listDBImageFinished, req);
 }
 
-void InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile)
+void InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile)
 {
-    RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, req, imageFile);
+    RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, req, imageFile, signFile);
 }
 
-void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile)
+void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile)
 {
-    RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile);
+    RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile, signFile);
 }
 
 void InfoWorker::downloadImage(const int64_t &image_id, const QString &savePath)
@@ -344,7 +344,7 @@ QPair<grpc::Status, image::ListDBReply> InfoWorker::_listDBImage(const image::Li
     RPC_IMPL(image::ListDBReply, image::Image::NewStub, ListDB);
 }
 
-QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRequest &req, const QString &imageFile)
+QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile)
 {
     QPair<grpc::Status, image::UploadReply> r;
     auto chan = get_rpc_channel(g_server_addr);
@@ -379,43 +379,65 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         return r;
     }
 
+    QFile filesign(signFile);
+    if (!filesign.open(QIODevice::ReadOnly))
+    {
+        KLOG_INFO() << "Failed to open " << signFile;
+        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                               QObject::tr("Invalid Argument").toStdString());
+        file.close();
+        return r;
+    }
+
     char *pBuf = new char[CHUNK_SIZE];
+    qint64 readret = filesign.read(pBuf, CHUNK_SIZE);
+    req.set_chunk_data(pBuf, (size_t)readret);
     double totalCnt = ceil(req.info().size() / 1048576.0);
     int curCnt = 0;
-    int progess = 0;
-    while (!file.atEnd())
+    if (stream->Write(req))
     {
-        qint64 ret = file.read(pBuf, CHUNK_SIZE);
-        req.mutable_chunk_data();
-        req.set_chunk_data(pBuf, (size_t)ret);
-        if (!stream->Write(req))
+        int progess = 0;
+        while (!file.atEnd())
         {
-            KLOG_INFO() << "Broken stream";
-            printf("Broken stream:%d\n", curCnt);
-            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
-            break;
+            readret = file.read(pBuf, CHUNK_SIZE);
+            req.mutable_chunk_data();
+            req.set_chunk_data(pBuf, (size_t)readret);
+            if (!stream->Write(req))
+            {
+                KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
+                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
+                break;
+            }
+            int tmp = int(floor((curCnt / totalCnt) * 100));
+            if (progess != tmp)
+            {
+                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
+            }
+            progess = tmp;
+            curCnt++;
         }
-        int tmp = int(floor((curCnt / totalCnt) * 100));
-        if (progess != tmp)
-        {
-            printf("upload progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
-            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
-        }
-        progess = tmp;
-        curCnt++;
+    }
+    else
+    {
+        KLOG_INFO() << "sign file broken stream";
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), 0);
     }
 
     file.close();
+    filesign.close();
     stream->WritesDone();
     r.first = stream->Finish();
     delete[] pBuf;
-    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+    if (curCnt == (int)totalCnt)
+    {
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+    }
     KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
 
     return r;
 }
 
-QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRequest &req, const QString &imageFile)
+QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile)
 {
     QPair<grpc::Status, image::UpdateReply> r;
     auto chan = get_rpc_channel(g_server_addr);
@@ -447,37 +469,61 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         return r;
     }
 
+    QFile filesign(signFile);
+    if (!filesign.open(QIODevice::ReadOnly))
+    {
+        KLOG_INFO() << "Failed to open " << signFile;
+        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                               QObject::tr("Invalid Argument").toStdString());
+        file.close();
+        return r;
+    }
+
     char *pBuf = new char[CHUNK_SIZE];
+    qint64 readret = filesign.read(pBuf, CHUNK_SIZE);
+    req.set_chunk_data(pBuf, (size_t)readret);
     double totalCnt = ceil(req.info().size() / 1048576.0);
     int curCnt = 0;
-    int progess = 0;
-    while (!file.atEnd())
+    if (stream->Write(req))
     {
-        qint64 ret = file.read(pBuf, CHUNK_SIZE);
-        req.mutable_chunk_data();
-        req.set_chunk_data(pBuf, (size_t)ret);
-        if (!stream->Write(req))
+        int progess = 0;
+        while (!file.atEnd())
         {
-            KLOG_INFO() << "Broken stream";
-            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
-            break;
+            readret = file.read(pBuf, CHUNK_SIZE);
+            req.mutable_chunk_data();
+            req.set_chunk_data(pBuf, (size_t)readret);
+            if (!stream->Write(req))
+            {
+                KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
+                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
+                break;
+            }
+            int tmp = int(floor((curCnt / totalCnt) * 100));
+            if (progess != tmp)
+            {
+                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
+            }
+            progess = tmp;
+            curCnt++;
         }
-        int tmp = int(floor((curCnt / totalCnt) * 100));
-        if (progess != tmp)
-        {
-            printf("update progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
-            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
-        }
-        progess = tmp;
-        curCnt++;
+    }
+    else
+    {
+        KLOG_INFO() << "sign file broken stream";
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), 0);
     }
 
     file.close();
+    filesign.close();
     stream->WritesDone();
     r.first = stream->Finish();
     delete[] pBuf;
     KLOG_INFO() << "return:" << r.first.error_code();
-    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+    if (curCnt == (int)totalCnt)
+    {
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+    }
+
     return r;
 }
 
