@@ -1,6 +1,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-single-application.h>
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QFile>
 #include <QMessageBox>
 #include <QStyle>
@@ -47,6 +48,12 @@ int main(int argc, char *argv[])
     }
 
     Login w;
+
+    int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+    QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+    w.move(screenGeometry.x() + (screenGeometry.width() - w.width()) / 2,
+           screenGeometry.y() + (screenGeometry.height() - w.height()) / 2);
+
     w.show();
     return a.exec();
 }
