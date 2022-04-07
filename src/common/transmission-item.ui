@@ -79,7 +79,7 @@
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>IImage Name:</string>
+           <string>Image Name:</string>
           </property>
          </widget>
         </item>

@@ -3,11 +3,11 @@
 
 #include <grpcpp/grpcpp.h>
 
-#include "proto/container_service.grpc.pb.h"
-#include "proto/image_service.grpc.pb.h"
-#include "proto/network_service.grpc.pb.h"
-#include "proto/node_service.grpc.pb.h"
-#include "proto/user_service.grpc.pb.h"
+#include "proto/container.grpc.pb.h"
+#include "proto/image.grpc.pb.h"
+#include "proto/network.grpc.pb.h"
+#include "proto/node.grpc.pb.h"
+#include "proto/user.grpc.pb.h"
 
 /*
  * Example:
