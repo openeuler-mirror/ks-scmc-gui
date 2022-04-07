@@ -12,6 +12,7 @@ public:
     ~BubbleTipButton();
 
     void setTipMsg(int num);
+    int getTipMsgNum();
 
 protected:
     virtual void paintEvent(QPaintEvent *event);
