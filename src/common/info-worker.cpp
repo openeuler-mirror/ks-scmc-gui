@@ -262,6 +262,7 @@ void InfoWorker::logout()
 
 void InfoWorker::stopTransfer(QString name, QString version, bool isStop)
 {
+    QMutexLocker locker(&mutex);
     m_transferStatusMap.insert(name + "-" + version, isStop);
 }
 
