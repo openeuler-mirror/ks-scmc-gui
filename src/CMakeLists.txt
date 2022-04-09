@@ -19,12 +19,7 @@ add_executable(ks-scmc-client
 	${RESOURCES} 
 	${HEADERS} 
         ${FORMS}
-        ${QM_FILES}
-        "common/transmission-item.cpp"
-        "common/transmission-item.h"
-        "common/transmission-item.ui"
-        "common/transmission-list.cpp"
-        "common/transmission-list.h")
+        ${QM_FILES})
 
 
 target_include_directories(ks-scmc-client PRIVATE
@@ -43,6 +38,7 @@ target_link_libraries(ks-scmc-client
         protobuf
         cryptopp
         Qt5::Widgets
+        Qt5::Charts
         ${KIRAN_WIDGETS_QT5_LIBRARIES}
         ${KLOG_QT5_LIBRARIES})
 

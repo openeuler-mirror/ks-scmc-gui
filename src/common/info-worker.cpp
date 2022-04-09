@@ -175,6 +175,17 @@ void InfoWorker::updateContainer(const container::UpdateRequest &req)
     RPC_ASYNC(container::UpdateReply, _updateContainer, updateContainerFinished, req);
 }
 
+void InfoWorker::monitorHistory(int node_id, int start_time, int end_time, uint32_t interval, std::string container_id)
+{
+    container::MonitorHistoryRequest req;
+    req.set_node_id(node_id);
+    req.set_start_time(start_time);
+    req.set_end_time(end_time);
+    req.set_interval(interval);
+    req.set_container_id(container_id);
+    RPC_ASYNC(container::MonitorHistoryReply, _monitorHistory, monitorHistoryFinished, req);
+}
+
 void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::RemoveRequest req;
@@ -342,6 +353,11 @@ QPair<grpc::Status, container::UpdateReply> InfoWorker::_updateContainer(const c
 QPair<grpc::Status, container::RemoveReply> InfoWorker::_removeContainer(const container::RemoveRequest &req)
 {
     RPC_IMPL(container::RemoveReply, container::Container::NewStub, Remove);
+}
+
+QPair<grpc::Status, container::MonitorHistoryReply> InfoWorker::_monitorHistory(const container::MonitorHistoryRequest &req)
+{
+    RPC_IMPL(container::MonitorHistoryReply, container::Container::NewStub, MonitorHistory);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
