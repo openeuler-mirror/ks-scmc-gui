@@ -8,6 +8,7 @@
 #include "common/info-worker.h"
 
 class ContainerSetting;
+class Monitor;
 class ContainerList : public CommonPage
 {
     Q_OBJECT
@@ -57,6 +58,7 @@ private:
     QMap<int, QPushButton *> m_batchOpBtnMap;
     ContainerSetting *m_createCTSetting;
     ContainerSetting *m_editCTSetting;
+    Monitor *m_monitor;
     std::vector<int64_t> m_vecNodeId;
     QTimer *m_timer;
     QMap<QString, QPair<QString, QString>> m_statusMap;
