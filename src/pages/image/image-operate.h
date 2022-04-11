@@ -55,7 +55,7 @@ private slots:
 
 private:
     Ui::ImageOperate *ui;
-    QMap<QString, QVariant> m_imageInfoMap;
+    QString m_imageId;
     ImageOperateType m_type;
 };
 

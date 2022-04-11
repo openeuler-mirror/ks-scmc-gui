@@ -7,9 +7,6 @@ TrendChartForm::TrendChartForm(QWidget *parent) : QWidget(parent), m_valueLabel(
 {
     qRegisterMetaType<ChartInfo>("ChartInfo");
     initUI();
-    //initChart();
-    //bulidChart();
-    //prepareData();
 }
 
 TrendChartForm::~TrendChartForm()
@@ -19,20 +16,19 @@ TrendChartForm::~TrendChartForm()
 void TrendChartForm::initChart(ChartInfo chartInfo)
 {
     QChart *chart = m_chartView->chart();
-    //    chart->removeAllSeries();
-    //    chart->removeAxis(chart->axisX());
-    //    chart->removeAxis(chart->axisY());
     //折线图
+    int i = 1;
     foreach (auto name, chartInfo.seriesNames)
     {
         QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(4);
-        pen.setColor(QColor(21, 100, 255));
+        pen.setColor(QColor(21 * i, 100, 255));
         series->setPen(pen);    //折现序列的线条设置
         series->setName(name);  //legend中的文字
         chart->addSeries(series);
+        i++;
         //series0->setPointLabelsVisible(true);
         connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
     }
@@ -70,6 +66,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
 
 void TrendChartForm::updateChart(ChartInfo chartInfo)
 {
+    KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
     //x轴
     m_xAxis->setRange(chartInfo.xStart, chartInfo.xEnd);
     m_xAxis->setTitleText(chartInfo.xTitle);
@@ -82,7 +79,7 @@ void TrendChartForm::updateChart(ChartInfo chartInfo)
 
 void TrendChartForm::setData(QList<QPointF> datas, QString seriesNames)
 {
-    KLOG_INFO() << "setDate" << datas << seriesNames;
+    KLOG_INFO() << "setDate" << /*datas <<*/ seriesNames;
     QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
     foreach (auto series, serieses)
     {
@@ -135,7 +132,12 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
 {
     if (state)
     {
-        m_valueLabel->setText(QString::asprintf("%1.0f%", point.y()));
+        QFont font;
+        font.setPixelSize(14);
+        QFontMetrics fm(font);
+        auto width = fm.width(QString::number(point.y())) + 10;
+        m_valueLabel->setText(QString::number(point.y()));
+        m_valueLabel->setFixedWidth(width);
 
         QPoint curPos = mapFromGlobal(QCursor::pos());
         m_valueLabel->move(curPos.x() - m_valueLabel->width() / 2, curPos.y() - m_valueLabel->height() * 1.5);  //移动数值
@@ -143,6 +145,6 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
     }
     else
     {
-        m_valueLabel->hide();  //进行
+        m_valueLabel->hide();
     }
 }

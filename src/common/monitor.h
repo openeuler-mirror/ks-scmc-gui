@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QWidget>
 #include "info-worker.h"
+#include "trend-chart-form.h"
 namespace Ui
 {
 class Monitor;
@@ -41,7 +42,6 @@ private:
     void initUI();
     void initChart();
     void BuildCharts(TrendChartForm *chartForm, QStringList seriesName, QString yTitle);
-    void setChartData();
 
 private slots:
     void onCycleChanged(int index);
