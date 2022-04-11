@@ -25,17 +25,17 @@ ImageOperate::~ImageOperate()
 
 void ImageOperate::setImageInfo(QMap<QString, QVariant> imageInfoMap)
 {
-    m_imageInfoMap = imageInfoMap;
+    m_imageId = imageInfoMap.value(IMAGE_ID).toString();
     if (m_type == IMAGE_OPERATE_TYPE_UPDATE)
     {
         //设置界面初始值
-        ui->lineEditName->setText(m_imageInfoMap.value(IMAGE_NAME).toString());
+        ui->lineEditName->setText(imageInfoMap.value(IMAGE_NAME).toString());
         ui->lineEditName->setDisabled(true);
-        ui->lineEditVersion->setText(m_imageInfoMap.value(IMAGE_VERSION).toString());
+        ui->lineEditVersion->setText(imageInfoMap.value(IMAGE_VERSION).toString());
         ui->lineEditVersion->setDisabled(true);
-        ui->lineEditImageFile->setText(m_imageInfoMap.value(IMAGE_FILE).toString());
-        ui->lineEditImageSign->setText(m_imageInfoMap.value(IMAGE_SIGN).toString());
-        ui->lineEditDesc->setText(m_imageInfoMap.value(IMAGE_DESC).toString());
+        ui->lineEditImageFile->setText(imageInfoMap.value(IMAGE_FILE).toString());
+        ui->lineEditImageSign->setText(imageInfoMap.value(IMAGE_SIGN).toString());
+        ui->lineEditDesc->setText(imageInfoMap.value(IMAGE_DESC).toString());
     }
 }
 
@@ -110,7 +110,7 @@ void ImageOperate::updateParamDeal()
     QString version = ui->lineEditVersion->text();
     QString desc = ui->lineEditDesc->text();
     QString imageFile = ui->lineEditImageFile->text();
-    QString imageId = m_imageInfoMap.value(IMAGE_ID).toString();
+    QString imageId = m_imageId;
     QString signFile = ui->lineEditImageSign->text();
 
     KLOG_INFO() << name << version << imageId << ui->lineEditDesc->text() << imageFile;

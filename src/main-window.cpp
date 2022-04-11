@@ -324,11 +324,11 @@ void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString 
     else
     {
         m_transmissionList->updateItem(name, version, status, rate);
-        if (status != IMAGE_TRANSMISSION_STATUS_DOWNLOADING && status != IMAGE_TRANSMISSION_STATUS_UPLOADING)
-        {
-            auto num = m_btnTransmission->getTipMsgNum();
-            m_btnTransmission->setTipMsg(--num);
-        }
+        //        if (status != IMAGE_TRANSMISSION_STATUS_DOWNLOADING && status != IMAGE_TRANSMISSION_STATUS_UPLOADING)
+        //        {
+        //            auto num = m_btnTransmission->getTipMsgNum();
+        //            m_btnTransmission->setTipMsg(--num);
+        //        }
     }
 }
 
