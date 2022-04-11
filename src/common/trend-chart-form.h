@@ -9,8 +9,8 @@
 #include <QtCharts>
 struct ChartInfo
 {
-    QStringList seriesNames;
-    QString xTitle;
+    QStringList seriesNames = {0};
+    QString xTitle = "";
     QDateTime xStart;
     QDateTime xEnd;
     QString xFormat;

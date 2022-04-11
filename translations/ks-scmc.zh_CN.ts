@@ -131,108 +131,108 @@
 <context>
     <name>ContainerList</name>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="37"/>
+        <location filename="../src/pages/container/container-list.cpp" line="39"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="38"/>
+        <location filename="../src/pages/container/container-list.cpp" line="40"/>
         <source>Exited</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="39"/>
+        <location filename="../src/pages/container/container-list.cpp" line="41"/>
         <source>Created</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="135"/>
+        <location filename="../src/pages/container/container-list.cpp" line="142"/>
         <source>Delete Container</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="136"/>
+        <location filename="../src/pages/container/container-list.cpp" line="143"/>
         <source>Are you sure you want to delete the container?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="137"/>
+        <location filename="../src/pages/container/container-list.cpp" line="144"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="439"/>
+        <location filename="../src/pages/container/container-list.cpp" line="430"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="446"/>
+        <location filename="../src/pages/container/container-list.cpp" line="437"/>
         <source>Create container</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="447"/>
+        <location filename="../src/pages/container/container-list.cpp" line="438"/>
         <source>Create container from template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="454"/>
+        <location filename="../src/pages/container/container-list.cpp" line="445"/>
         <source>Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="455"/>
+        <location filename="../src/pages/container/container-list.cpp" line="446"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="456"/>
+        <location filename="../src/pages/container/container-list.cpp" line="447"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="457"/>
-        <location filename="../src/pages/container/container-list.cpp" line="463"/>
+        <location filename="../src/pages/container/container-list.cpp" line="448"/>
+        <location filename="../src/pages/container/container-list.cpp" line="454"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="508"/>
+        <location filename="../src/pages/container/container-list.cpp" line="499"/>
         <source>Container Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="509"/>
+        <location filename="../src/pages/container/container-list.cpp" line="500"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="510"/>
+        <location filename="../src/pages/container/container-list.cpp" line="501"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="511"/>
+        <location filename="../src/pages/container/container-list.cpp" line="502"/>
         <source>Node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="513"/>
+        <location filename="../src/pages/container/container-list.cpp" line="504"/>
         <source>Memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="514"/>
+        <location filename="../src/pages/container/container-list.cpp" line="505"/>
         <source>Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="515"/>
+        <location filename="../src/pages/container/container-list.cpp" line="506"/>
         <source>Online Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="516"/>
+        <location filename="../src/pages/container/container-list.cpp" line="507"/>
         <source>Quick Actions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,48 +1073,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor.cpp" line="18"/>
-        <source>CPU Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/monitor.cpp" line="18"/>
+        <location filename="../src/common/monitor.cpp" line="65"/>
         <source>CPU usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor.cpp" line="19"/>
-        <source>Memory Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/monitor.cpp" line="19"/>
+        <location filename="../src/common/monitor.cpp" line="66"/>
         <source>Memory usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor.cpp" line="20"/>
-        <source>Disk Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/monitor.cpp" line="20"/>
+        <location filename="../src/common/monitor.cpp" line="67"/>
         <source>Disk usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor.cpp" line="21"/>
-        <source>Network Usage</source>
+        <location filename="../src/common/monitor.cpp" line="54"/>
+        <source>10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor.cpp" line="21"/>
-        <source>Network usage (unit M)</source>
+        <location filename="../src/common/monitor.cpp" line="55"/>
+        <source>1 hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="56"/>
+        <source>1 day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/common/monitor.cpp" line="57"/>
+        <source>1 week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="58"/>
+        <source>1 month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="59"/>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="68"/>
+        <source>Network usage (unit M)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="91"/>
         <source>Time particle density(1 minute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor.cpp" line="167"/>
+        <source>Time particle density(%1 minute)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
