@@ -231,10 +231,10 @@ void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile
     RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile, signFile);
 }
 
-void InfoWorker::downloadImage(const int64_t &image_id, const QString &savePath)
+void InfoWorker::downloadImage(const int64_t &image_id, const QString &name, const QString &version, const QString &savePath)
 {
     image::DownloadRequest req;
-    RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, req, image_id, savePath);
+    RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, req, image_id, name, version, savePath);
 }
 
 void InfoWorker::checkImage(const int64_t image_id, const bool approve, const std::string reject_reason)
@@ -496,6 +496,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         KLOG_INFO() << "update image failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -507,6 +508,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         KLOG_INFO() << "send param err";
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Internal Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -516,6 +518,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         KLOG_INFO() << "Failed to open " << imageFile;
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -526,6 +529,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
         file.close();
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -570,6 +574,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
                     file.close();
                     filesign.close();
                     delete[] pBuf;
+                    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
                     return r;
                 }
             }
@@ -591,11 +596,11 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     {
         emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
     }
-
+    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
     return r;
 }
 
-QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::DownloadRequest &req, const int64_t &image_id, const QString &savePath)
+QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::DownloadRequest &req, const int64_t &image_id, const QString &name, const QString &version, const QString &savePath)
 {
     QPair<grpc::Status, downloadImageInfo> r;
     auto chan = get_rpc_channel(g_server_addr);
@@ -604,6 +609,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         KLOG_INFO() << "uploadImage failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }
 
@@ -618,6 +624,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         KLOG_INFO() << "recv param err";
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Internal Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }
 
@@ -637,6 +644,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         KLOG_INFO() << "Failed to open " << wFileName.data();
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Internal Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }
 
@@ -664,6 +672,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
             {
                 wFile.close();
                 r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("Cancel").toStdString());
+                emit InfoWorker::getInstance().transferImageFinished(name, version);
                 return r;
             }
         }
@@ -673,6 +682,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
     r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
     emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, QString::fromStdString(outName), QString::fromStdString(outVersion), 100);
+    emit InfoWorker::getInstance().transferImageFinished(name, version);
     return r;
 }
 

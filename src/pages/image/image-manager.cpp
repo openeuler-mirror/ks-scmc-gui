@@ -115,7 +115,7 @@ void ImageManager::initImageConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManager::getUploadResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageManager::getUpdateResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageManager::getDownloadImageResult);
-    //connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &ImageManager::getTransferImageStatus, Qt::QueuedConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageManager::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
 }
 
 int ImageManager::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
@@ -150,7 +150,7 @@ void ImageManager::OperateImage(ImageOperateType type)
         m_pImageOp = new ImageOperate(type);
         if (type == IMAGE_OPERATE_TYPE_UPDATE)
         {
-            QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
+            QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);  //只能选择一个
             if (!info.isEmpty())
                 m_pImageOp->setImageInfo(info.at(0));
         }
@@ -183,6 +183,20 @@ void ImageManager::OperateImage(ImageOperateType type)
                     m_pImageOp = nullptr;
                 });
     }
+}
+
+bool ImageManager::imageIsTransfering(QString imageName, QString version, QString title)
+{
+    if (m_transferImages.contains(imageName + "-" + version))
+    {
+        MessageDialog::message(title,
+                               tr("The image \"%1\" is being transferred.").arg(imageName),
+                               tr(" Please operate after the transfer is completed!"),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        return true;
+    }
+    return false;
 }
 
 void ImageManager::onBtnUpload()
@@ -254,6 +268,12 @@ void ImageManager::uploadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
+    if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Upload Image")))
+    {
+        m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
+    }
+    else
+        return;
 
     QString imageFile = Info["Image File"];
     QString strSha256;
@@ -285,6 +305,14 @@ void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
     KLOG_INFO() << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
+    if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Update Image")))
+    {
+        KLOG_INFO() << "append to transfering image";
+        m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
+    }
+    else
+        return;
+
     const QString imageFile = Info["Image File"];
     QString strSha256;
     qint64 fileSize;
@@ -315,8 +343,15 @@ void ImageManager::downloadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
 
+    if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Download Image")))
+    {
+        m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
+    }
+    else
+        return;
+
     InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Path"]);
+    InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Name"], Info["Image Version"], Info["Image Path"]);
 }
 
 void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
@@ -333,7 +368,6 @@ void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
 void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-    m_imageInfoMap.clear();
     if (reply.first.ok())
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
@@ -557,8 +591,12 @@ void ImageManager::getDownloadImageResult(const QPair<grpc::Status, downloadImag
     }
 }
 
-//void ImageManager::getTransferImageStatus(ImageTransmissionStatus status, std::string name, std::string version, int rate)
-//{
-//    KLOG_INFO() << "getTransferImageStatus:" << status << name.data() << version.data() << rate;
-//    emit sigTransferImageInfo(status, QString::fromStdString(name), QString::fromStdString(version), rate);
-//}
+void ImageManager::getTransferImageFinishedResult(QString name, QString version)
+{
+    QString image = name + "-" + version;
+    QMutexLocker locker(&m_mutex);
+    if (m_transferImages.contains(image))
+    {
+        m_transferImages.removeAll(image);
+    }
+}
