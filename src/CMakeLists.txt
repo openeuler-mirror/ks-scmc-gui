@@ -1,8 +1,6 @@
-set(RPC_INCLUDE_DIRS "include/")
+set(INCLUDE_DIRS "../include/" "pages/")
 set(PAGE_HEAD_DIR "pages/container/")
-set(DATA_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}")
-set(TRANSLATIONS_DIR "${DATA_DIR}/ks-scmc/translations/")
-set(TS_FILES "../translations/ks-scmc.zh_CN.ts" )
+set(TS_FILES "../translations/${PROJECT_NAME}.zh_CN.ts" )
 
 file(GLOB_RECURSE cur_src "*.cpp")
 file(GLOB_RECURSE HEADERS "*.h")
@@ -14,7 +12,7 @@ add_definitions(-std=gnu++11)
 
 qt5_create_translation( QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES} )
 
-add_executable(ks-scmc-client
+add_executable(${PROJECT_NAME}
 	${cur_src} 
 	${RESOURCES} 
 	${HEADERS} 
@@ -22,15 +20,15 @@ add_executable(ks-scmc-client
         ${QM_FILES})
 
 
-target_include_directories(ks-scmc-client PRIVATE
-        ${RPC_INCLUDE_DIRS}
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${INCLUDE_DIRS}
         ${CMAKE_BINARY_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
         ${KLOG_QT5_INCLUDE_DIRS}
         ${KIRAN_WIDGETS_QT5_INCLUDE_DIRS}
         ${PAGE_HEAD_DIR})
 
-target_link_libraries(ks-scmc-client
+target_link_libraries(${PROJECT_NAME}
         proto_lib
         grpc++
         grpc++_reflection
@@ -45,5 +43,5 @@ target_link_libraries(ks-scmc-client
 install(FILES ${QM_FILES}
     DESTINATION ${TRANSLATIONS_DIR})
 
-install(TARGETS ks-scmc-client
+install(TARGETS ${PROJECT_NAME}
     DESTINATION ${BIN_DIR})

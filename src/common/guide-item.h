@@ -3,7 +3,7 @@
 #include <QListWidgetItem>
 #include <QToolButton>
 #include <QWidget>
-#include "common/def.h"
+#include "def.h"
 namespace Ui
 {
 class GuideItem;
