@@ -27,6 +27,8 @@ public:
     virtual ~CommonPage();
     virtual void updateInfo(QString keyword = "") = 0;
     void setBusy(bool status);
+    void setData(QVariant data);
+    QVariant getData();
     void clearTable();
     void addSingleOperationButton(QAbstractButton *);
     void addBatchOperationButtons(QList<QPushButton *>);
@@ -92,6 +94,7 @@ private:
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
+    QVariant m_data;
 };
 
 #endif  // COMMONPAGE_H
