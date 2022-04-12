@@ -51,7 +51,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     QStackedWidget *m_stackedWidget;
-    QMap<int, CommonPage *> m_pageMap;
+    QMap<QString, CommonPage *> m_pageMap;
     QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
     QMap<QListWidgetItem *, bool> m_isShowMap;
     QList<GuideItem *> m_pageItems;
