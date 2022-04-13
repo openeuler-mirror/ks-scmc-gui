@@ -76,7 +76,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
           <property name="spacing">
-           <number>10</number>
+           <number>5</number>
           </property>
           <property name="sizeConstraint">
            <enum>QLayout::SetNoConstraint</enum>
@@ -270,6 +270,10 @@
               </property>
               <item>
                <widget class="QLabel" name="label_online">
+                <property name="styleSheet">
+                 <string notr="true">
+ </string>
+                </property>
                 <property name="text">
                  <string>pix</string>
                 </property>
