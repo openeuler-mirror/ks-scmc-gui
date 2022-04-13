@@ -5,7 +5,6 @@
 #include <QHeaderView>
 #include <QLineEdit>
 #include <QStyledItemDelegate>
-#include "operate-widget.h"
 
 enum ConfigTableType
 {
@@ -20,6 +19,7 @@ public:
     ConfigView(Qt::Orientation orientation, QWidget *parent = nullptr);
 };
 
+class ConfigOperateWidget;
 class ConfigDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
@@ -32,7 +32,7 @@ public:
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 private:
-    void dealOperateSig(const OperateWidget *pWidget) const;
+    void dealOperateSig(const ConfigOperateWidget *pWidget) const;
     void dealMemberVar();
 
 signals:
@@ -42,10 +42,10 @@ signals:
     void sendDeleteSig(int);
 
 private slots:
-    void sendSaveSlot(OperateWidget *pCurWidget);
-    void sendEditSlot(OperateWidget *pCurWidget);
-    void sendAddSlot(OperateWidget *pCurWidget);
-    void sendDeleteSlot(OperateWidget *pCurWidget);
+    void sendSaveSlot(ConfigOperateWidget *pCurWidget);
+    void sendEditSlot(ConfigOperateWidget *pCurWidget);
+    void sendAddSlot(ConfigOperateWidget *pCurWidget);
+    void sendDeleteSlot(ConfigOperateWidget *pCurWidget);
 
 private:
     mutable QList<QSharedPointer<QLineEdit>> m_pEditFirst;
