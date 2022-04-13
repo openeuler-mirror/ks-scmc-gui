@@ -88,6 +88,19 @@
     </message>
 </context>
 <context>
+    <name>ConfigOperateWidget</name>
+    <message>
+        <location filename="../src/common/config-operate-widget.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-operate-widget.cpp" line="37"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConfigTable</name>
     <message>
         <location filename="../src/common/config-table.ui" line="14"/>
@@ -1293,14 +1306,8 @@
 <context>
     <name>OperateWidget</name>
     <message>
-        <location filename="../src/common/operate-widget.ui" line="20"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_operate-widget.h" line="153"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/operate-widget.cpp" line="37"/>
-        <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1429,57 +1436,57 @@
     <message>
         <location filename="../src/main-window.cpp" line="19"/>
         <source>General Outline</source>
-        <translation>概要</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="20"/>
         <source>Container Manager</source>
-        <translation>容器管理</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="21"/>
         <source>Container List</source>
-        <translation>容器列表</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="22"/>
         <source>Container Template</source>
-        <translation>容器模板</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="23"/>
         <source>Audit Center</source>
-        <translation>审计中心</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="24"/>
         <source>Audit Apply List</source>
-        <translation>审批列表</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="25"/>
         <source>Audit Warning List</source>
-        <translation>告警列表</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="26"/>
         <source>Audit Log List</source>
-        <translation>日志列表</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="27"/>
         <source>Image Manager</source>
-        <translation>镜像管理</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="28"/>
         <source>Node Manager</source>
-        <translation>节点管理</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="29"/>
         <source>System Manager</source>
-        <translation>系统管理</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

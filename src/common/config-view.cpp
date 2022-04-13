@@ -1,8 +1,8 @@
+#include "config-view.h"
 #include <QDebug>
 #include "common/message-dialog.h"
 #include "config-group.h"
-#include "config-view.h"
-#include "operate-widget.h"
+#include "config-operate-widget.h"
 
 ConfigView::ConfigView(Qt::Orientation orientation, QWidget *parent) : QHeaderView(orientation, parent)
 {
@@ -58,7 +58,7 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     }
     else if (index.column() == OPERATE_HEADER)
     {
-        OperateWidget *pWidget = new OperateWidget(row, curPage, parent);
+        ConfigOperateWidget *pWidget = new ConfigOperateWidget(row, curPage, parent);
         dealOperateSig(pWidget);
         //pWidget->setFocus();
         return pWidget;
@@ -105,12 +105,12 @@ void ConfigDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionVie
     editor->setGeometry(option.rect);
 }
 
-void ConfigDelegate::dealOperateSig(const OperateWidget *pWidget) const
+void ConfigDelegate::dealOperateSig(const ConfigOperateWidget *pWidget) const
 {
-    connect(pWidget, SIGNAL(sendSaveSig(OperateWidget *)), this, SLOT(sendSaveSlot(OperateWidget *)));
-    connect(pWidget, SIGNAL(sendEditSig(OperateWidget *)), this, SLOT(sendEditSlot(OperateWidget *)));
-    connect(pWidget, SIGNAL(sendAddSig(OperateWidget *)), this, SLOT(sendAddSlot(OperateWidget *)));
-    connect(pWidget, SIGNAL(sendDeleteSig(OperateWidget *)), this, SLOT(sendDeleteSlot(OperateWidget *)));
+    connect(pWidget, SIGNAL(sendSaveSig(ConfigOperateWidget *)), this, SLOT(sendSaveSlot(ConfigOperateWidget *)));
+    connect(pWidget, SIGNAL(sendEditSig(ConfigOperateWidget *)), this, SLOT(sendEditSlot(ConfigOperateWidget *)));
+    connect(pWidget, SIGNAL(sendAddSig(ConfigOperateWidget *)), this, SLOT(sendAddSlot(ConfigOperateWidget *)));
+    connect(pWidget, SIGNAL(sendDeleteSig(ConfigOperateWidget *)), this, SLOT(sendDeleteSlot(ConfigOperateWidget *)));
 }
 
 void ConfigDelegate::dealMemberVar()
@@ -140,7 +140,7 @@ void ConfigDelegate::dealMemberVar()
     }
 }
 
-void ConfigDelegate::sendSaveSlot(OperateWidget *pCurWidget)
+void ConfigDelegate::sendSaveSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
     if (m_pEditFirst.size() <= row || m_pEditSecond.size() <= row)
@@ -185,7 +185,7 @@ void ConfigDelegate::sendSaveSlot(OperateWidget *pCurWidget)
     emit sendSaveSig(row);
 }
 
-void ConfigDelegate::sendEditSlot(OperateWidget *pCurWidget)
+void ConfigDelegate::sendEditSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
     qDebug() << __func__ << __LINE__ << ", row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
@@ -207,7 +207,7 @@ void ConfigDelegate::sendEditSlot(OperateWidget *pCurWidget)
     emit sendEditSig(row);
 }
 
-void ConfigDelegate::sendAddSlot(OperateWidget *pCurWidget)
+void ConfigDelegate::sendAddSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
     dealMemberVar();
@@ -215,7 +215,7 @@ void ConfigDelegate::sendAddSlot(OperateWidget *pCurWidget)
     emit sendAddSig(row);
 }
 
-void ConfigDelegate::sendDeleteSlot(OperateWidget *pCurWidget)
+void ConfigDelegate::sendDeleteSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
     if (m_listPage.size() == 1 || m_pEditFirst.size() == 1 || m_pComboBoxMode.size() == 1)
