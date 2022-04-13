@@ -8,6 +8,8 @@
 #include <QWidget>
 #include "base/info-worker.h"
 #include "def.h"
+#include "pages/outline/outline-view.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -38,12 +40,14 @@ private:
     CommonPage *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
+    void outlinePageChange(GUIDE_ITEM type);
 
 private slots:
     void onLogoutAction(bool checked);
     void popupTransmissionList();
     void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);
     void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
+    void outlineJumpPage(OutlineCellType type);
 
 signals:
     void sigLogout();
@@ -62,5 +66,6 @@ private:
     BubbleTipButton *m_btnWarning;
     QTimer *m_timer;
     QMutex m_mutex;
+    OutlineView *m_outline;
 };
 #endif  // MAINWINDOW_H
