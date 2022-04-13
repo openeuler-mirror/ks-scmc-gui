@@ -27,7 +27,7 @@
 #define IMAGE_MANAGER QObject::tr("Image Manager")
 #define NODE_MANAGER QObject::tr("Node Manager")
 #define SYSTEM_MANAGER QObject::tr("System Manager")
-#define OUTLINE_PAGES QObject::tr("Outline")
+//#define OUTLINE_PAGES QObject::tr("Outline")
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
@@ -98,15 +98,10 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
     QString currenItemData = currItem->data(Qt::UserRole).toString();
 
     setPageName(guideItem->getItemText());
-    if(guideItem->getItemText() == OUTLINE_PAGES)
+    if(guideItem->getItemText() == GENERAL_OUTLINE)
     {
-//        m_outline = new OutlineView;
         m_outline->updateInfo();
-        m_stackedWidget->addWidget(m_outline);
         m_stackedWidget->setCurrentWidget(m_outline);
-        m_outline->setStyleSheet("background-color: #222222;"
-                                       "border:none;");
-        m_stackedWidget->setContentsMargins(0,0,0,0);
     }
     else
     {
@@ -214,7 +209,7 @@ void MainWindow::initUI()
 
     //创建左侧侧边栏
     QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
-    QListWidgetItem* outline = createGuideItem(OUTLINE_PAGES, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
+//    QListWidgetItem* outline = createGuideItem(OUTLINE_PAGES, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
     QListWidgetItem* auditCenter = createGuideItem(AUDIT_CENTER, GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
     QListWidgetItem* auditApplyList = createGuideItem(AUDIT_APPLY_LIST, GUIDE_ITEM_TYPE_SUB);
     QListWidgetItem* auditWarningList = createGuideItem(AUDIT_WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
@@ -238,7 +233,7 @@ void MainWindow::initUI()
     GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(containerManager));
     guideItem->setArrow(false);
 
-    GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(containerList));
+    GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(homeItem));
     item->setSelected(true);
     setPageName(item->getItemText());
 
@@ -246,24 +241,31 @@ void MainWindow::initUI()
     {
         subItem->setHidden(false);
     }
+
+    m_outline = new OutlineView;
+    m_stackedWidget->addWidget(m_outline);
+    connect(m_outline,&OutlineView::outlineCellStepPages,this,&MainWindow::outlineJumpPage);
+
     ///TODO:set current widget to home
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(CONTAINER_LIST));
-    ui->listWidget->setCurrentRow(6);
-    m_pageMap[CONTAINER_LIST]->updateInfo();
+    m_stackedWidget->setCurrentWidget(m_outline);
+    ui->listWidget->setCurrentRow(0);
+    m_outline->setStyleSheet("background-color: #222222;"
+                                   "border:none;");
+    m_stackedWidget->setContentsMargins(0,0,0,0);
+    m_outline->updateInfo();
+//    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
-    m_outline = new OutlineView;
-    connect(m_outline,&OutlineView::outlineCellStepPages,this,&MainWindow::outlineJumpPage);
 }
 
-void MainWindow::outlinePageChange(GUIDE_ITEM type)
+void MainWindow::outlinePageChange(int type,QString str)
 {
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(type));
+    m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
     ui->listWidget->setCurrentRow(type);
     auto item = ui->listWidget->item(type);
     GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
     guideItem->setSelected(true);
-    m_pageMap[type]->updateInfo();
+    m_pageMap[str]->updateInfo();
 }
 
 void MainWindow::outlineJumpPage(OutlineCellType type)
@@ -275,19 +277,19 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     {
     case ONUTLINE_CELL_NODE:
     {
-        outlinePageChange(GUIDE_ITEM_NODE_MANAGER);
+        outlinePageChange(9,NODE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_CONTAINER:
     {
-        outlinePageChange(GUIDE_ITEM_CONTAINER_LIST);
+        outlinePageChange(6,CONTAINER_LIST);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_IMAGE:
     {
-        outlinePageChange(GUIDE_ITEM_IMAGE_MANAGER);
+        outlinePageChange(8,IMAGE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
