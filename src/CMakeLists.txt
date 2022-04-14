@@ -1,4 +1,4 @@
-set(INCLUDE_DIRS "../include/" "pages/")
+set(INCLUDE_DIRS "../include/" "pages/" "common/")
 set(PAGE_HEAD_DIR "pages/container/")
 set(TS_FILES "../translations/${PROJECT_NAME}.zh_CN.ts" )
 

@@ -1,6 +1,6 @@
+#include "config-table.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QDebug>
-#include "config-table.h"
 #include "ui_config-table.h"
 
 ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget *parent) : QWidget(parent),
@@ -50,7 +50,7 @@ void ConfigTable::initwindow()
     m_pModel.reset(new ConfigModel(head));
     ui->tableView->setModel(m_pModel.get());
 
-    qDebug() << __func__ << ",whichTable:" << m_ChooseTable;
+    KLOG_DEBUG() << __func__ << ",whichTable:" << m_ChooseTable;
     if (m_ChooseTable)
     {
         ui->tableView->setColumnWidth(0, 150);
@@ -104,13 +104,13 @@ QList<QSharedPointer<ModelItem> > ConfigTable::getAllData()
 void ConfigTable::saveRowSlot(int row)
 {
     auto pItem = m_pModel->getModelByRow(row);
-    qDebug() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
+    KLOG_DEBUG() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
 }
 
 void ConfigTable::editRowSlot(int row)
 {
     auto pItem = m_pModel->getModelByRow(row);
-    qDebug() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
+    KLOG_DEBUG() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
 }
 
 void ConfigTable::addRowSlot(int row)
