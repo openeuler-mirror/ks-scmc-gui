@@ -138,7 +138,7 @@ void OutlineView::initUI()
     vlayout->addWidget(m_outlineIntroduction);
     vlayout->addLayout(glayout);
     vlayout->addStretch();
-    vlayout->setContentsMargins(0,10,0,0);
+    vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(10);
 
 //    glayout->setRowStretch(3,1);
