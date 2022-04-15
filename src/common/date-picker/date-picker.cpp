@@ -10,14 +10,28 @@ DatePicker::~DatePicker()
 {
 }
 
-QDate DatePicker::getStartDate()
+QDateTime DatePicker::getStartDate()
 {
-    return m_startCalendar->getSelectDate();
+    QDate startDate = m_startCalendar->getSelectDate();
+    QDate endDate = m_endCalendar->getSelectDate();
+    QDateTime start = QDateTime(startDate);
+    if (startDate == endDate)
+    {
+        start.setTime(QTime(0, 0, 0));
+    }
+    return start;
 }
 
-QDate DatePicker::getEndDate()
+QDateTime DatePicker::getEndDate()
 {
-    return m_endCalendar->getSelectDate();
+    QDate startDate = m_startCalendar->getSelectDate();
+    QDate endDate = m_endCalendar->getSelectDate();
+    QDateTime end = QDateTime(endDate);
+    if (startDate == endDate)
+    {
+        end.setTime(QTime(23, 59, 59));
+    }
+    return end;
 }
 
 void DatePicker::showDatePicker(int type)
@@ -60,6 +74,7 @@ void DatePicker::initUI()
     QDate currDate = QDate::currentDate();
 
     m_startCalendar = new CalendarWidget(this);
+    //m_startCalendar->hideNextButton();
     m_startCalendar->setSelectableStart(currDate.addDays(-7));
     m_startCalendar->setSelectableEnd(currDate);
     m_startCalendar->setMinimumDate(currDate.addDays(-7));
@@ -68,11 +83,12 @@ void DatePicker::initUI()
     connect(m_startCalendar, &CalendarWidget::clicked, this, &DatePicker::startDateChanged);
 
     m_endCalendar = new CalendarWidget(this);
+    //m_endCalendar->hidePreButton();
     m_endCalendar->setSelectableStart(currDate.addDays(-7));
     m_endCalendar->setSelectableEnd(currDate);
     m_endCalendar->setMinimumDate(currDate.addDays(-7));
     m_endCalendar->setMaximumDate(currDate);
-    m_startCalendar->setSelectedDate(currDate);
+    m_endCalendar->setSelectedDate(currDate);
     connect(m_endCalendar, &CalendarWidget::clicked, this, &DatePicker::endDateChanged);
 
     m_stackedWidget->addWidget(m_startCalendar);
