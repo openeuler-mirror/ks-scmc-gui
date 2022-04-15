@@ -2,6 +2,8 @@ syntax = "proto3";
 
 option go_package = "scmc/rpc/pb/node";
 
+import "common.proto";
+
 package node;
 
 service Node {
@@ -12,6 +14,10 @@ service Node {
     rpc Update(UpdateRequest) returns (UpdateReply) {}
     rpc ListLog(ListLogRequest) returns (ListLogReply) {}        // 日志列表
     rpc UpdateLog(UpdateLogRequest) returns (UpdateLogReply) {}  // 更新日志(已读)
+
+    // 安全配置
+    rpc UpdateFileProtect(UpdateFileProtectRequest) returns (UpdateFileProtectReply) {}  // 文件保护
+    rpc UpdateNetworkRule(UpdateNetworkRuleRequest) returns (UpdateNetworkRuleReply) {}  // 网络访问规则
 }
 
 message ListRequest {}
@@ -79,6 +85,22 @@ message UpdateLogRequest {
 }
 
 message UpdateLogReply {}
+
+message UpdateFileProtectRequest {
+    int64                  node_id      = 1;
+    int64                  container_id = 2;
+    common.FileProtectList file_protect = 3;
+}
+
+message UpdateFileProtectReply {}
+
+message UpdateNetworkRuleRequest {
+    int64                  node_id      = 1;
+    int64                  container_id = 2;
+    common.NetworkRuleList network_rule = 3;
+}
+
+message UpdateNetworkRuleReply {}
 
 /***** DATA TYPES *****/
 
