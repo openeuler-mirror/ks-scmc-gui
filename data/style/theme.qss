@@ -605,3 +605,43 @@ TransmissionItem QPushButton#btn_close:focus
     outline:none;
 }
 
+/**************************CalendarWidget**********************/
+CalendarWidget #CalendarTopWidget
+{
+    background:#ffffff;
+}
+
+CalendarWidget #CalendarDataLabel
+{
+    font:14px;
+    color:black;
+}
+
+QPushButton#CalendarLeftYearBtn {
+}
+
+QPushButton#CalendarLeftMonthBtn {
+}
+
+QPushButton#CalendarRightYearBtn {
+}
+
+QPushButton#CalendarRightMonthBtn {
+}
+
+CalendarWidget QAbstractItemView {
+    background:#ffffff;
+    color:#919191;
+    font: 12px;
+}
+QCalendarWidget QAbstractItemView:enabled
+{
+    background:#ffffff;
+    color:black;
+    font: 12px;
+}
+
+/*CalendarWidget QWidget
+{
+    background:green;
+}*/

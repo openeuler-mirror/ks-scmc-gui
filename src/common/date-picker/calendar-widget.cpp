@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QProxyStyle>
 #include <QPushButton>
+#include <QStyleOption>
 #include <QTableView>
 #include <QTextCharFormat>
 
@@ -70,8 +71,21 @@ QDate CalendarWidget::getSelectableEnd()
     updateCells();
 }
 
+void CalendarWidget::hideNextButton()
+{
+    m_rightMonthBtn->hide();
+    m_rightYearBtn->hide();
+}
+
+void CalendarWidget::hidePreButton()
+{
+    m_leftMonthBtn->hide();
+    m_leftYearBtn->hide();
+}
+
 void CalendarWidget::initControl()
 {
+    setObjectName("CalendarWidget");
     layout()->setSizeConstraint(QLayout::SetFixedSize);
     setLocale(QLocale(QLocale::Chinese));
     setNavigationBarVisible(false);
@@ -79,23 +93,32 @@ void CalendarWidget::initControl()
     setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);
     setStyle(new QCustomStyle(this));
 
+    QFont font;
+    font.setPixelSize(14);
     QTextCharFormat singleFormat;
     singleFormat.setForeground(QColor(0, 0, 0));
     singleFormat.setBackground(QColor(218, 226, 239));
+    singleFormat.setFont(font);
     QTextCharFormat doubleFormat;
     doubleFormat.setForeground(QColor(0, 0, 0));
-    doubleFormat.setBackground(QColor(210, 218, 232));
+    //doubleFormat.setBackground(QColor(210, 218, 232));
+    doubleFormat.setFont(font);
+
+    //    QTextCharFormat dayFormat;
+    //    dayFormat.setForeground(QColor(0, 0, 0));
+    //    dayFormat.setBackground(QColor(255, 255, 255));
+    //    dayFormat.setFont(font);
 
     setHeaderTextFormat(singleFormat);
     setWeekdayTextFormat(Qt::Saturday, doubleFormat);
-    setWeekdayTextFormat(Qt::Sunday, singleFormat);
-    setWeekdayTextFormat(Qt::Monday, doubleFormat);
-    setWeekdayTextFormat(Qt::Tuesday, singleFormat);
-    setWeekdayTextFormat(Qt::Wednesday, doubleFormat);
-    setWeekdayTextFormat(Qt::Thursday, singleFormat);
-    setWeekdayTextFormat(Qt::Friday, doubleFormat);
+    setWeekdayTextFormat(Qt::Sunday, doubleFormat);
+    //    setWeekdayTextFormat(Qt::Monday, doubleFormat);
+    //    setWeekdayTextFormat(Qt::Tuesday, singleFormat);
+    //    setWeekdayTextFormat(Qt::Wednesday, doubleFormat);
+    //    setWeekdayTextFormat(Qt::Thursday, singleFormat);
+    //    setWeekdayTextFormat(Qt::Friday, doubleFormat);
 
-    setStyleSheet("QAbstractItemView{color:black;background:#888A85}");
+    //setStyleSheet("QAbstractItemView{color:black;background:#888A85}");
 
     initTopWidget();
     //initBottomWidget();
@@ -112,37 +135,37 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
         painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor(0, 145, 255));
-
-        painter->drawRoundedRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6, 3, 3);
+        painter->setBrush(QColor(46, 179, 255));
+        painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
+        //painter->drawRoundedRect(rect.x(), rect.y(), rect.width(), rect.height(), 3, 3);
         painter->setPen(QColor(255, 255, 255));
 
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
         painter->restore();
     }
-    else if (date == QDate::currentDate())
-    {
-        painter->save();
-        painter->setRenderHint(QPainter::Antialiasing);
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor(0, 161, 255));
-        painter->drawRoundedRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6, 3, 3);
-        painter->setBrush(QColor(255, 255, 255));
-        painter->drawRoundedRect(rect.x() + 1, rect.y() + 4, rect.width() - 2, rect.height() - 8, 2, 2);
-        painter->setPen(QColor(0, 161, 255));
+    //    else if (date == QDate::currentDate())
+    //    {
+    //        //        painter->save();
+    //        //        painter->setRenderHint(QPainter::Antialiasing);
+    //        //        painter->setPen(Qt::NoPen);
+    //        //        painter->setBrush(QColor(0, 161, 255));
+    //        //        painter->drawRoundedRect(rect.x(), rect.y(), rect.width(), rect.height(), 3, 3);
+    //        //        painter->setBrush(QColor(255, 255, 255));
+    //        //        painter->drawRoundedRect(rect.x() + 1, rect.y() + 4, rect.width() - 2, rect.height() - 8, 2, 2);
+    //        //        painter->setPen(QColor(46, 179, 255));
 
-        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
-        painter->restore();
-    }
+    //        //        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
+    //        //        painter->restore();
+    //    }
     //    else if (date >= minimumDate() && date <= maximumDate())
     //    {
     //        painter->save();
     //        painter->setRenderHint(QPainter::Antialiasing);
     //        painter->setPen(Qt::NoPen);
-    //        painter->setBrush(QColor(249, 249, 249));
+    //        painter->setBrush(QColor(255, 255, 255));
 
     //        painter->drawRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6);
-    //        painter->setPen(QColor(220, 220, 220));
+    //        painter->setPen(QColor(0, 0, 0));
     //        // painter->setPen(QColor(255, 0, 0));
 
     //        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
@@ -155,10 +178,21 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor(218, 226, 239));
 
-        painter->drawRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6);
-        //painter->setPen(QColor(220, 220, 220));
-        painter->setPen(QColor(255, 0, 0));
+        painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
+        painter->setPen(QColor(255, 255, 255));
 
+        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
+        painter->restore();
+    }
+    else if (date < m_selectableStart && date > m_selectableEnd)
+    {
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor(255, 255, 255));
+        painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
+
+        painter->setPen(QColor(0, 0, 0));
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
         painter->restore();
     }
@@ -166,6 +200,15 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
     {
         QCalendarWidget::paintCell(painter, rect, date);
     }
+}
+
+void CalendarWidget::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void CalendarWidget::initTopWidget()

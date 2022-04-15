@@ -18,6 +18,8 @@ public:
     void setSelectableEnd(QDate end);
     QDate getSelectableStart();
     QDate getSelectableEnd();
+    void hideNextButton();
+    void hidePreButton();
 
 private:
     void initControl();
@@ -33,6 +35,7 @@ private slots:
 
 protected:
     void paintCell(QPainter* painter, const QRect& rect, const QDate& date) const;
+    void paintEvent(QPaintEvent* event) override;
 
 private:
     QPushButton* m_leftYearBtn;

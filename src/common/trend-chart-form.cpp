@@ -23,7 +23,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
         QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
-        pen.setWidth(4);
+        pen.setWidth(2);
         pen.setColor(QColor(21 * i, 100, 255));
         series->setPen(pen);    //折现序列的线条设置
         series->setName(name);  //legend中的文字
@@ -47,8 +47,8 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     m_yAxis->setRange(chartInfo.yStart, chartInfo.yEnd);
     m_yAxis->setTickCount(chartInfo.yTickCount);
     m_yAxis->setTitleText(chartInfo.yTitle);
-    //m_yAxis->setLabelFormat("0.00000f%");
-    m_yAxis->setMinorTickCount(0);  //设置小刻度线的数目，小刻度线就是没有刻度的线，这里要注意一下，如果你设成5，就是说明两个大刻度线之间有5条小刻度线，分成了6个小区间，而不是5个小区间。
+    m_yAxis->setLabelFormat(chartInfo.yFormat);  //"0.00f%"
+    m_yAxis->setMinorTickCount(0);               //设置小刻度线的数目，小刻度线就是没有刻度的线，这里要注意一下，如果你设成5，就是说明两个大刻度线之间有5条小刻度线，分成了6个小区间，而不是5个小区间。
 
     QPen axisPen;
     axisPen.setColor(QColor(231, 238, 251));
@@ -75,6 +75,7 @@ void TrendChartForm::updateChart(ChartInfo chartInfo)
 
     //Y轴
     m_yAxis->setRange(chartInfo.yStart, chartInfo.yEnd);
+    m_yAxis->setLabelFormat(chartInfo.yFormat);
 }
 
 void TrendChartForm::setData(QList<QPointF> datas, QString seriesNames)
@@ -135,9 +136,14 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
         QFont font;
         font.setPixelSize(14);
         QFontMetrics fm(font);
-        auto width = fm.width(QString::number(point.y())) + 10;
-        m_valueLabel->setText(QString::number(point.y()));
-        m_valueLabel->setFixedWidth(width);
+        auto width = fm.width(QString::number(point.y()));
+        if (m_yAxis->labelFormat().contains("%"))
+        {
+            m_valueLabel->setText(QString::number(point.y()) + "%");
+        }
+        else
+            m_valueLabel->setText(QString::number(point.y()));
+        m_valueLabel->setFixedWidth(width + 16);
 
         QPoint curPos = mapFromGlobal(QCursor::pos());
         m_valueLabel->move(curPos.x() - m_valueLabel->width() / 2, curPos.y() - m_valueLabel->height() * 1.5);  //移动数值
