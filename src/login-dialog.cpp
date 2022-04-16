@@ -11,11 +11,11 @@
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
-#include "base/user-configuration.h"
 #include "common/message-dialog.h"
 #include "main-window.h"
 #include "pages/user/server-config-dialog.h"
 #include "ui_login-dialog.h"
+#include "user-configuration.h"
 
 #define LOGIN_USER_NAME "username"
 #define LOGIN_USER_PASSWORD "password"
@@ -203,12 +203,8 @@ void LoginDialog::getLoginResult(const QPair<grpc::Status, user::LoginReply> &re
         {
             m_mainWindow = new MainWindow();
             m_mainWindow->setUserName(ui->lineEdit_username->text());
-            m_mainWindow->show();
+            m_mainWindow->showMaximized();
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
-            int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-            QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-            int iTitleBarHeight = m_mainWindow->style()->pixelMetric(QStyle::PM_TitleBarHeight);                               // 获取标题栏高度
-            m_mainWindow->setGeometry(0, iTitleBarHeight, screenGeometry.width(), screenGeometry.height() - iTitleBarHeight);  // 设置窗体充满桌面客户区
             hide();
         }
         if (m_isRemember)
