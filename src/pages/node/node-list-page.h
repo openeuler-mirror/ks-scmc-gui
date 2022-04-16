@@ -32,6 +32,9 @@ private slots:
     void getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &);
     void onItemClicked(const QModelIndex &index);
 
+signals:
+    void sigNodeNameClicked(qint64 nodeId);
+
 private:
     void initUI();
     void initButtons();

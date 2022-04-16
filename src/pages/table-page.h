@@ -27,6 +27,9 @@ public:
     virtual ~TablePage();
     virtual void updateInfo(QString keyword = "") = 0;
     void clearTable();
+    void setOperateAreaVisible(bool visible);
+    void setOperateBtnsVisible(bool visible);
+    void setOperateSearchVisible(bool visible);
     void addSingleOperationButton(QAbstractButton *);
     void addBatchOperationButtons(QList<QPushButton *>);
     void setOpBtnEnabled(OperatorButtonType type, bool enabled);
