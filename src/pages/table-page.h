@@ -1,13 +1,14 @@
-#ifndef COMMONPAGE_H
-#define COMMONPAGE_H
+#ifndef TABLEPAGE_H
+#define TABLEPAGE_H
 
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QToolButton>
 #include <QWidget>
+#include "page.h"
 namespace Ui
 {
-class CommonPage;
+class TablePage;
 }
 
 enum OperatorButtonType
@@ -16,19 +17,15 @@ enum OperatorButtonType
     OPERATOR_BUTTON_TYPE_BATCH
 };
 
-class MaskWidget;
 class HeaderView;
-class CommonPage : public QWidget
+class TablePage : public Page
 {
     Q_OBJECT
 
 public:
-    explicit CommonPage(QWidget *parent = 0);
-    virtual ~CommonPage();
+    explicit TablePage(QWidget *parent = 0);
+    virtual ~TablePage();
     virtual void updateInfo(QString keyword = "") = 0;
-    void setBusy(bool status);
-    void setData(QVariant data);
-    QVariant getData();
     void clearTable();
     void addSingleOperationButton(QAbstractButton *);
     void addBatchOperationButtons(QList<QPushButton *>);
@@ -56,7 +53,6 @@ private:
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
-    virtual void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
 signals:
@@ -84,17 +80,15 @@ private slots:
     void onHeaderCkbTog(bool toggled);
 
 private:
-    Ui::CommonPage *ui;
+    Ui::TablePage *ui;
     QString m_keyword;
     QStandardItemModel *m_model;
     HeaderView *m_headerView;
     QTimer *m_searchTimer;
     QTimer *m_refreshBtnTimer;
-    MaskWidget *m_maskWidget;
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
-    QVariant m_data;
 };
 
-#endif  // COMMONPAGE_H
+#endif  // TABLEPAGE_H

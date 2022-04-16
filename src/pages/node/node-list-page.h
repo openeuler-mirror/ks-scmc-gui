@@ -2,8 +2,8 @@
 #define NODELISTPAGE_H
 
 #include <QWidget>
-#include "base/info-worker.h"
-#include "common-page.h"
+#include "info-worker.h"
+#include "table-page.h"
 
 struct nodeInfo_s
 {
@@ -14,7 +14,7 @@ struct nodeInfo_s
 };
 
 class NodeAdditionDialog;
-class NodeListPage : public CommonPage
+class NodeListPage : public TablePage
 {
     Q_OBJECT
 public:

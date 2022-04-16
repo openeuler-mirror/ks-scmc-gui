@@ -2,7 +2,7 @@
 #define HIGHAVAILABILITYTAB_H
 
 #include <QWidget>
-#include "base/info-worker.h"
+#include "info-worker.h"
 namespace Ui
 {
 class HighAvailabilityTab;
