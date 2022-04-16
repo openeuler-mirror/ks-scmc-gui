@@ -6,8 +6,8 @@
 #include <QMutex>
 #include <QStackedWidget>
 #include <QWidget>
-#include "base/info-worker.h"
 #include "def.h"
+#include "info-worker.h"
 #include "pages/outline/outline-view.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,9 +18,10 @@ class MainWindow;
 QT_END_NAMESPACE
 
 class GuideItem;
-class CommonPage;
+class TablePage;
 class TransmissionList;
 class BubbleTipButton;
+class Page;
 class MainWindow : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -37,10 +38,10 @@ protected:
 
 private:
     void initUI();
-    CommonPage *createSubPage(GUIDE_ITEM itemEnum);
+    Page *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
-    void outlinePageChange(int type,QString str);
+    void outlinePageChange(int type, QString str);
 
 private slots:
     void onLogoutAction(bool checked);
@@ -55,7 +56,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     QStackedWidget *m_stackedWidget;
-    QMap<QString, CommonPage *> m_pageMap;
+    QMap<QString, Page *> m_pageMap;
     QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
     QMap<QListWidgetItem *, bool> m_isShowMap;
     QList<GuideItem *> m_pageItems;
