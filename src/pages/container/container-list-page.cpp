@@ -528,10 +528,19 @@ void ContainerListPage::initConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult);
 }
 
-void ContainerListPage::getContainerList()
+void ContainerListPage::getContainerList(qint64 nodeId)
 {
-    setBusy(true);
-    InfoWorker::getInstance().listNode();
+    if (nodeId > 0)
+    {
+        setBusy(true);
+        InfoWorker::getInstance().listNode();
+    }
+    else
+    {
+        std::vector<int64_t> vecNodeId;
+        vecNodeId.push_back(nodeId);
+        InfoWorker::getInstance().listContainer(vecNodeId, true);
+    }
 }
 
 void ContainerListPage::getContainerInspect(QMap<QString, QVariant> itemData)
@@ -589,4 +598,8 @@ void ContainerListPage::updateInfo(QString keyword)
         connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
         getContainerList();
     }
+}
+
+void ContainerListPage::operateAreaVisible(bool visible)
+{
 }
