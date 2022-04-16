@@ -25,7 +25,7 @@ const QString TERMINAL_CMD = "mate-terminal -e";
 const QString BASHRC_FILE = "/etc/ks-scmc/graphic_rc";
 
 ContainerListPage::ContainerListPage(QWidget *parent)
-    : CommonPage(parent),
+    : TablePage(parent),
       m_createCTSetting(nullptr),
       m_editCTSetting(nullptr),
       m_monitor(nullptr),
