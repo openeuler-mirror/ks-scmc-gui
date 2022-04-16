@@ -19,7 +19,7 @@ void TabPage::addTabPage(QWidget *tabPage, QString key)
     //    default:
     //        break;
     //    }
-    m_pageMap.insert(key, tabPage);
+    //m_pageMap.insert(key, tabPage);
     m_tabWidget->addTab(tabPage, key);
     //    return contentPage;
 }
