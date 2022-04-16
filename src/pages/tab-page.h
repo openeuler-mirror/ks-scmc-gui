@@ -14,7 +14,6 @@ class TabPage : public Page
 public:
     explicit TabPage(QWidget *parent = nullptr);
     ~TabPage() = default;
-    virtual void setBusy(bool) = 0;
     virtual void updateInfo(QString keyword = "") = 0;
     void addTabPage(QWidget *tabPage, QString key);
     void updateCurrentPage();
