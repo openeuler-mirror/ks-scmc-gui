@@ -28,19 +28,19 @@
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="100"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="75"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="101"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt; CPU核数</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="82"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="102"/>
         <source>Scheduling priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>调度优先级：</translation>
     </message>
 </context>
 <context>
@@ -48,24 +48,24 @@
     <message>
         <location filename="../src/common/config-view.cpp" line="18"/>
         <source>ReadWrite</source>
-        <translation type="unfinished"></translation>
+        <translation>读写</translation>
     </message>
     <message>
         <location filename="../src/common/config-view.cpp" line="19"/>
         <source>ReadOnly</source>
-        <translation type="unfinished"></translation>
+        <translation>只读</translation>
     </message>
     <message>
         <location filename="../src/common/config-view.cpp" line="155"/>
         <location filename="../src/common/config-view.cpp" line="165"/>
         <source>Save Data</source>
-        <translation type="unfinished"></translation>
+        <translation>保存数据</translation>
     </message>
     <message>
         <location filename="../src/common/config-view.cpp" line="156"/>
         <location filename="../src/common/config-view.cpp" line="166"/>
         <source>Data is empty!</source>
-        <translation type="unfinished"></translation>
+        <translation>数据为空！</translation>
     </message>
 </context>
 <context>
@@ -74,12 +74,12 @@
         <location filename="../src/common/config-operate-widget.ui" line="20"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-operate-widget.h" line="153"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/common/config-operate-widget.cpp" line="37"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
 </context>
 <context>
@@ -148,12 +148,12 @@
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="143"/>
         <source>Are you sure you want to delete the container?</source>
-        <translation>您确定要删除这个容器吗？</translation>
+        <translation>确定删除该容器？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="144"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation>它可以&apos;删除后无法恢复。你确定要继续吗？</translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="433"/>
@@ -238,7 +238,7 @@
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="262"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="78"/>
@@ -262,13 +262,13 @@
         <location filename="../src/pages/container/container-setting.ui" line="115"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="266"/>
         <source>Container Name:</source>
-        <translation>容器名</translation>
+        <translation>容器名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="205"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="267"/>
         <source>Desribe:</source>
-        <translation>描述</translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="212"/>
@@ -305,22 +305,22 @@
         <location filename="../src/pages/container/container-setting.ui" line="411"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="273"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="100"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>网络</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="114"/>
         <source>CPU</source>
-        <translation type="unfinished"></translation>
+        <translation>CPU</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="115"/>
         <source>Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>内存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="116"/>
@@ -328,138 +328,138 @@
         <location filename="../src/pages/container/container-setting.cpp" line="425"/>
         <location filename="../src/pages/container/container-setting.cpp" line="429"/>
         <source>Network card</source>
-        <translation type="unfinished"></translation>
+        <translation>网卡</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="129"/>
         <source>Envs</source>
-        <translation type="unfinished"></translation>
+        <translation>环境变量</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="130"/>
         <source>Graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>图形化使用</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="131"/>
         <source>Volumes</source>
-        <translation type="unfinished"></translation>
+        <translation>共享目录</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="132"/>
         <source>High availability</source>
-        <translation type="unfinished"></translation>
+        <translation>高可用</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="178"/>
         <location filename="../src/pages/container/container-setting.cpp" line="525"/>
         <source>Create Container</source>
-        <translation type="unfinished"></translation>
+        <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="188"/>
         <source>Edit Container</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="317"/>
         <source>Memory Data</source>
-        <translation type="unfinished"></translation>
+        <translation>内存数据</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="318"/>
         <location filename="../src/pages/container/container-setting.cpp" line="340"/>
         <location filename="../src/pages/container/container-setting.cpp" line="353"/>
         <source>Input error</source>
-        <translation type="unfinished"></translation>
+        <translation>输入错误</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="319"/>
         <source>Memory soft limit can&apos;t be greater than the maximum limit !</source>
-        <translation type="unfinished"></translation>
+        <translation>内存软限制不能高于最大限制！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="320"/>
         <location filename="../src/pages/container/container-setting.cpp" line="342"/>
         <location filename="../src/pages/container/container-setting.cpp" line="355"/>
         <source>:/images/error.svg</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="339"/>
         <source>Env Data</source>
-        <translation type="unfinished"></translation>
+        <translation>环境变量数据</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="341"/>
         <source>Please improve the contents in Env table!</source>
-        <translation type="unfinished"></translation>
+        <translation>请完善环境变量表格中的内容！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="352"/>
         <source>Volumes Data</source>
-        <translation type="unfinished"></translation>
+        <translation>共享目录数据</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="354"/>
         <source>Please improve the contents in Volumes table!</source>
-        <translation type="unfinished"></translation>
+        <translation>请完善共享目录表格中的内容！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="443"/>
         <source>Delete Network card</source>
-        <translation type="unfinished"></translation>
+        <translation>删除网卡</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="444"/>
         <source>Are you sure you want to delete the network card?</source>
-        <translation type="unfinished"></translation>
+        <translation>确定要删除此网卡？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="445"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="526"/>
         <source>Create container failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>创建容器失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="527"/>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>错误:</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="584"/>
         <source>Update Container</source>
-        <translation type="unfinished"></translation>
+        <translation>更新容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="585"/>
         <source>Update container failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>更新容器失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="586"/>
         <location filename="../src/pages/container/container-setting.cpp" line="608"/>
         <source>Error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>错误：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="587"/>
         <source>:/images/warning.svg</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="606"/>
         <source>List Image</source>
-        <translation type="unfinished"></translation>
+        <translation>列出镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="607"/>
         <source>Get image List failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>获取镜像列表失败！</translation>
     </message>
 </context>
 <context>
@@ -468,7 +468,7 @@
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_envs-conf-tab.h" line="35"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -477,13 +477,13 @@
         <location filename="../src/pages/container/advanced-configuration/graphic-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="76"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/graphic-conf-tab.ui" line="43"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="77"/>
         <source>Graphic:</source>
-        <translation type="unfinished"></translation>
+        <translation>图形化使用：</translation>
     </message>
 </context>
 <context>
@@ -492,7 +492,7 @@
         <location filename="../src/common/guide-item.ui" line="20"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_guide-item.h" line="78"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -501,46 +501,46 @@
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="102"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="69"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="103"/>
         <source>High availability policy: </source>
-        <translation type="unfinished"></translation>
+        <translation>高可用策略：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="105"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="104"/>
         <source>Auto pulling times:         </source>
-        <translation type="unfinished"></translation>
+        <translation>自动拉起次数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="112"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="105"/>
         <source>times</source>
-        <translation type="unfinished"></translation>
+        <translation>次</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="43"/>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="68"/>
         <source>on-failure</source>
-        <translation type="unfinished"></translation>
+        <translation>失败后自动拉起</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="66"/>
         <source>no</source>
-        <translation type="unfinished"></translation>
+        <translation>不启用</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="67"/>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>自动拉起</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="69"/>
         <source>unless-stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>手动停止</translation>
     </message>
 </context>
 <context>
@@ -548,200 +548,200 @@
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="47"/>
         <source>Image Name</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像名</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="48"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>版本</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="49"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="50"/>
         <source>Inspection Status</source>
-        <translation type="unfinished"></translation>
+        <translation>校验状态</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="51"/>
         <source>Approval Status</source>
-        <translation type="unfinished"></translation>
+        <translation>审批状态</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="52"/>
         <source>Last Update</source>
-        <translation type="unfinished"></translation>
+        <translation>最后更新时间</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="65"/>
         <source>Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>上传</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="66"/>
         <source>Update</source>
-        <translation type="unfinished"></translation>
+        <translation>更新</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="67"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>下载</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="68"/>
         <location filename="../src/pages/image/image-list-page.cpp" line="76"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>移除</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="195"/>
         <source>The image &quot;%1&quot; is being transferred.</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像”%1“正在传输。</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="196"/>
         <source> Please operate after the transfer is completed!</source>
-        <translation type="unfinished"></translation>
+        <translation>请在镜像传输完成后再操作！</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="219"/>
         <source>Please select the path to save</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择保存路径</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="255"/>
         <source>Delete Image</source>
-        <translation type="unfinished"></translation>
+        <translation>删除镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="256"/>
         <source>Are you sure you want to delete the image?</source>
-        <translation type="unfinished"></translation>
+        <translation>确定删除该镜像？</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="257"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="273"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="517"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="526"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="274"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="518"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="527"/>
         <source>Upload Image</source>
-        <translation type="unfinished"></translation>
+        <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="310"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="311"/>
         <source>Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="348"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="349"/>
         <source>Download Image</source>
-        <translation type="unfinished"></translation>
+        <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="408"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="409"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>未通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="412"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="413"/>
         <source>Abnormal</source>
-        <translation type="unfinished"></translation>
+        <translation>不正确</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="416"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="433"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="417"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="434"/>
         <source>Passed</source>
-        <translation type="unfinished"></translation>
+        <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="425"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="426"/>
         <source>Wait for Approve</source>
-        <translation type="unfinished"></translation>
+        <translation>等待审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="429"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="430"/>
         <source>Rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="468"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="477"/>
-        <source>Check Image</source>
-        <translation type="unfinished"></translation>
+        <translation>拒绝</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="469"/>
-        <source>Check Image success!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="478"/>
-        <source>Check Image failed!</source>
-        <translation type="unfinished"></translation>
+        <source>Check Image</source>
+        <translation>校验镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="491"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="504"/>
-        <source>Remove Image</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/pages/image/image-list-page.cpp" line="470"/>
+        <source>Check Image success!</source>
+        <translation>校验镜像成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="479"/>
+        <source>Check Image failed!</source>
+        <translation>校验镜像失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="492"/>
-        <source>Remove Image success!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="505"/>
+        <source>Remove Image</source>
+        <translation>移除镜像</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="493"/>
+        <source>Remove Image success!</source>
+        <translation>移除镜像成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="506"/>
         <source>Remove Image failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="518"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="519"/>
         <source>Upload Image success!</source>
-        <translation type="unfinished"></translation>
+        <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="527"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="528"/>
         <source>Upload Image failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="539"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="548"/>
-        <source>update Image</source>
-        <translation type="unfinished"></translation>
+        <translation>上传镜像失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="540"/>
-        <source>update Image success!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="549"/>
-        <source>update Image failed!</source>
-        <translation type="unfinished"></translation>
+        <source>update Image</source>
+        <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="579"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="588"/>
-        <source>download Image</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/pages/image/image-list-page.cpp" line="541"/>
+        <source>update Image success!</source>
+        <translation>更新镜像成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="550"/>
+        <source>update Image failed!</source>
+        <translation>更新镜像失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="580"/>
-        <source>download Image success!</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/pages/image/image-list-page.cpp" line="589"/>
+        <source>download Image</source>
+        <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="589"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="581"/>
+        <source>download Image success!</source>
+        <translation>下载镜像成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="590"/>
         <source>download Image failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>下载镜像失败！</translation>
     </message>
 </context>
 <context>
@@ -750,7 +750,7 @@
         <location filename="../src/pages/image/image-operate-dialog.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="268"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="30"/>
@@ -758,7 +758,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="269"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="277"/>
         <source>Signature file </source>
-        <translation type="unfinished"></translation>
+        <translation>签名文件</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="40"/>
@@ -766,7 +766,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="270"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="274"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名字</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="53"/>
@@ -774,7 +774,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="271"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="275"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>版本</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="60"/>
@@ -782,7 +782,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="272"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="278"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="67"/>
@@ -790,165 +790,163 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="273"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="276"/>
         <source>Image Select</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像选择</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="137"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="279"/>
         <source>image</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="158"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="280"/>
         <source>save path</source>
-        <translation type="unfinished"></translation>
+        <translation>保存路径</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="168"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="281"/>
         <source>chose path</source>
-        <translation type="unfinished"></translation>
+        <translation>选择路径</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="209"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="282"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="216"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="283"/>
         <source>cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="46"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="47"/>
         <source>Image Operate</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="70"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="66"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="89"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="85"/>
         <source>Upload Image</source>
-        <translation type="unfinished"></translation>
+        <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="90"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="86"/>
         <source>Upload Image failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="91"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="122"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="87"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="118"/>
         <source>Please improve the content!</source>
-        <translation type="unfinished"></translation>
+        <translation>请完善内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="120"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="116"/>
         <source>Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="121"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="117"/>
         <source>Update Image failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="168"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="164"/>
         <source>Please select an image file</source>
-        <translation type="unfinished"></translation>
+        <translation>请选择镜像文件</translation>
     </message>
 </context>
 <context>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="106"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="99"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="107"/>
         <source>Remember the password</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">记住密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.ui" line="56"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="109"/>
+        <location filename="../src/login-dialog.ui" line="49"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="101"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="85"/>
+        <location filename="../src/login-dialog.cpp" line="76"/>
         <source>KylinSec security Container magic Cube</source>
-        <translation type="unfinished"></translation>
+        <translation>麒麟信安安全容器平台</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="97"/>
-        <location filename="../src/login-dialog.cpp" line="170"/>
-        <source>Config server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="97"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="102"/>
-        <source>Please input password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="103"/>
-        <source>Please input user name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="129"/>
-        <source>Please input user name!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="134"/>
-        <source>Please input password!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
+        <location filename="../src/login-dialog.cpp" line="88"/>
         <location filename="../src/login-dialog.cpp" line="139"/>
+        <source>Config server</source>
+        <translation>服务器配置</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="88"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="93"/>
+        <source>Please input password</source>
+        <translation>请输入密码</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="94"/>
+        <source>Please input user name</source>
+        <translation>请输入用户名</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="114"/>
+        <source>Please input user name!</source>
+        <translation>请输入用户名！</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="119"/>
+        <source>Please input password!</source>
+        <translation>请输入密码！</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="124"/>
         <source>Please enter a password with at least 8 digits!</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="145"/>
+        <location filename="../src/login-dialog.cpp" line="130"/>
         <source>Please config a server address!</source>
-        <translation type="unfinished"></translation>
+        <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="219"/>
+        <location filename="../src/login-dialog.cpp" line="188"/>
         <source>Login failed! %1</source>
-        <translation type="unfinished"></translation>
+        <translation>登录失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="240"/>
+        <location filename="../src/login-dialog.cpp" line="209"/>
         <source>Logout</source>
-        <translation type="unfinished"></translation>
+        <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="241"/>
+        <location filename="../src/login-dialog.cpp" line="210"/>
         <source>Logout failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="242"/>
+        <location filename="../src/login-dialog.cpp" line="211"/>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>错误：</translation>
     </message>
 </context>
 <context>
@@ -957,28 +955,28 @@
         <location filename="../src/main-window.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="185"/>
         <source>MainWindow</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/main-window.ui" line="175"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="187"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="179"/>
         <source>Change Password</source>
-        <translation type="unfinished"></translation>
+        <translation>修改密码</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="180"/>
         <source>Logout</source>
-        <translation type="unfinished"></translation>
+        <translation>注销</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="181"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>关于</translation>
     </message>
 </context>
 <context>
@@ -987,19 +985,19 @@
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="114"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="115"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Memory soft limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;内存限制</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="117"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="116"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum limit:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;最大值：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1008,7 +1006,7 @@
         <location filename="../src/common/message-dialog.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="97"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.ui" line="70"/>
@@ -1023,106 +1021,106 @@
     <name>MonitorContent</name>
     <message>
         <location filename="../src/common/monitor-content.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="153"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="155"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="65"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="154"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="156"/>
         <source>Cycle:</source>
-        <translation type="unfinished"></translation>
+        <translation>周期：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="106"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="155"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="157"/>
         <source>Period:</source>
-        <translation type="unfinished"></translation>
+        <translation>时间范围：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="132"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="157"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="159"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="173"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="159"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="161"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="94"/>
+        <source>10 minutes</source>
+        <translation>10分钟</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="95"/>
-        <source>10 minutes</source>
-        <translation type="unfinished"></translation>
+        <source>1 hour</source>
+        <translation>1小时</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="96"/>
-        <source>1 hour</source>
-        <translation type="unfinished"></translation>
+        <source>1 day</source>
+        <translation>1天</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="97"/>
-        <source>1 day</source>
-        <translation type="unfinished"></translation>
+        <source>1 week</source>
+        <translation>1周</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="98"/>
-        <source>1 week</source>
-        <translation type="unfinished"></translation>
+        <source>Custom</source>
+        <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="99"/>
-        <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/common/monitor-content.cpp" line="108"/>
+        <source>CPU usage (unit %)</source>
+        <translation>CPU使用量（单位%1）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="109"/>
-        <source>CPU usage (unit %)</source>
-        <translation type="unfinished"></translation>
+        <source>Memory usage (unit %)</source>
+        <translation>内存使用量（单位%1）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="110"/>
-        <source>Memory usage (unit %)</source>
-        <translation type="unfinished"></translation>
+        <source>Disk usage (unit M)</source>
+        <translation>磁盘使用量（单位%1）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="111"/>
-        <source>Disk usage (unit M)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/common/monitor-content.cpp" line="112"/>
         <source>Network usage (unit M)</source>
-        <translation type="unfinished"></translation>
+        <translation>网络吞吐量（单位M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="133"/>
+        <location filename="../src/common/monitor-content.cpp" line="132"/>
         <source>Time particle density(1 minute)</source>
-        <translation type="unfinished"></translation>
+        <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="211"/>
-        <location filename="../src/common/monitor-content.cpp" line="219"/>
+        <location filename="../src/common/monitor-content.cpp" line="210"/>
+        <location filename="../src/common/monitor-content.cpp" line="218"/>
         <source>Time particle density(%1 minute)</source>
-        <translation type="unfinished"></translation>
+        <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="227"/>
-        <location filename="../src/common/monitor-content.cpp" line="235"/>
-        <location filename="../src/common/monitor-content.cpp" line="266"/>
+        <location filename="../src/common/monitor-content.cpp" line="226"/>
+        <location filename="../src/common/monitor-content.cpp" line="234"/>
+        <location filename="../src/common/monitor-content.cpp" line="265"/>
         <source>Time particle density(%1 hour)</source>
-        <translation type="unfinished"></translation>
+        <translation>时间粒子密度（%1小时）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="343"/>
+        <location filename="../src/common/monitor-content.cpp" line="342"/>
         <source>Disk IO(unit %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>磁盘IO（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="384"/>
+        <location filename="../src/common/monitor-content.cpp" line="383"/>
         <source>Network usage (unit %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>网络吞吐量（单位%1）</translation>
     </message>
 </context>
 <context>
@@ -1131,43 +1129,43 @@
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="132"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="133"/>
         <source>Virtual network card:</source>
-        <translation type="unfinished"></translation>
+        <translation>虚拟网卡：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="47"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="134"/>
         <source>Network type:</source>
-        <translation type="unfinished"></translation>
+        <translation>网络类型：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="54"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="135"/>
         <source>IP:</source>
-        <translation type="unfinished"></translation>
+        <translation>IP:</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="119"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="136"/>
         <source>MAC address:</source>
-        <translation type="unfinished"></translation>
+        <translation>MAC 地址：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="168"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="137"/>
         <source>Bridge</source>
-        <translation type="unfinished"></translation>
+        <translation>桥接</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="88"/>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="102"/>
         <source>Default auto-assignment when not config</source>
-        <translation type="unfinished"></translation>
+        <translation>不配置时，默认自动分配</translation>
     </message>
 </context>
 <context>
@@ -1176,51 +1174,51 @@
         <location filename="../src/pages/node/node-addition-dialog.ui" line="26"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="118"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="71"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="119"/>
         <source>Node Name:   &lt;font color=red&gt;*&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>节点名：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="78"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="120"/>
         <source>Node IP:  &lt;font color=red&gt;*&lt;/font&gt; </source>
-        <translation type="unfinished"></translation>
+        <translation>节点IP：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="146"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="121"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="165"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="122"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.cpp" line="11"/>
         <source>Add Node</source>
-        <translation type="unfinished"></translation>
+        <translation>添加节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.cpp" line="31"/>
         <source>Add node</source>
-        <translation type="unfinished"></translation>
+        <translation>添加节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.cpp" line="32"/>
         <source>Add node failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>添加节点失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.cpp" line="33"/>
         <source>Please improve the content!</source>
-        <translation type="unfinished"></translation>
+        <translation>请完善内容！</translation>
     </message>
 </context>
 <context>
@@ -1228,12 +1226,12 @@
     <message>
         <location filename="../src/pages/node/node-info-page.cpp" line="29"/>
         <source>Container</source>
-        <translation type="unfinished"></translation>
+        <translation>容器</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-info-page.cpp" line="35"/>
         <source>Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>监控</translation>
     </message>
 </context>
 <context>
@@ -1241,92 +1239,92 @@
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="13"/>
         <source>Offline</source>
-        <translation type="unfinished"></translation>
+        <translation>离线</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="14"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>未知</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="15"/>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>在线</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="78"/>
         <source>Delete Node</source>
-        <translation type="unfinished"></translation>
+        <translation>删除节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="79"/>
         <source>Are you sure you want to delete the node?</source>
-        <translation type="unfinished"></translation>
+        <translation>确定删除该节点？</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="80"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="201"/>
-        <source>Create Node</source>
-        <translation type="unfinished"></translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="202"/>
-        <source>Create Node failed!</source>
-        <translation type="unfinished"></translation>
+        <source>Create Node</source>
+        <translation>创建节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="203"/>
+        <source>Create Node failed!</source>
+        <translation>创建节点失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-list-page.cpp" line="204"/>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>错误：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="239"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="240"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="246"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="247"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="260"/>
-        <source>Node Name</source>
-        <translation type="unfinished"></translation>
+        <translation>删除</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="261"/>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
+        <source>Node Name</source>
+        <translation>节点名</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="262"/>
-        <source>IP</source>
-        <translation type="unfinished"></translation>
+        <source>Status</source>
+        <translation>状态</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="263"/>
-        <source>Container Number</source>
-        <translation type="unfinished"></translation>
+        <source>IP</source>
+        <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="265"/>
-        <source>Memory</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/pages/node/node-list-page.cpp" line="264"/>
+        <source>Container Number</source>
+        <translation>容器总数</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="266"/>
+        <source>Memory</source>
+        <translation>内存</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-list-page.cpp" line="267"/>
         <source>Disk</source>
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="267"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="268"/>
         <source>Quick Actions</source>
-        <translation>操作</translation>
+        <translation>快捷操作</translation>
     </message>
 </context>
 <context>
@@ -1335,7 +1333,7 @@
         <location filename="../src/pages/outline/outline-cell.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="239"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="131"/>
@@ -1345,7 +1343,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="243"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="244"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="284"/>
@@ -1353,7 +1351,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="246"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="249"/>
         <source>label</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="299"/>
@@ -1361,7 +1359,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="247"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="250"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1370,7 +1368,7 @@
         <location filename="../src/pages/outline/outline-introduction.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="105"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="101"/>
@@ -1378,12 +1376,12 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="106"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="107"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.cpp" line="24"/>
         <source>Container platform</source>
-        <translation type="unfinished"></translation>
+        <translation>容器平台</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.cpp" line="32"/>
@@ -1398,61 +1396,61 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="258"/>
         <source>Offline</source>
-        <translation type="unfinished"></translation>
+        <translation>离线</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="259"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>未知</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="260"/>
         <source>Online</source>
-        <translation type="unfinished"></translation>
+        <translation>在线</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="301"/>
         <source>Running</source>
-        <translation type="unfinished"></translation>
+        <translation>运行中</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="302"/>
         <source>Exited</source>
-        <translation type="unfinished"></translation>
+        <translation>已退出</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="303"/>
         <source>Created</source>
-        <translation type="unfinished"></translation>
+        <translation>新建</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="345"/>
         <source>node</source>
-        <translation type="unfinished"></translation>
+        <translation>节点</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="360"/>
         <source>Number of nodes: </source>
-        <translation type="unfinished"></translation>
+        <translation>节点总数</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="370"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="434"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="630"/>
         <source>online: </source>
-        <translation type="unfinished"></translation>
+        <translation>在线：</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="379"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="443"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="639"/>
         <source>offline: </source>
-        <translation type="unfinished"></translation>
+        <translation>离线：</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="388"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="396"/>
@@ -1460,72 +1458,72 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/outline/outline-view.cpp" line="648"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="656"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="409"/>
         <source>Container</source>
-        <translation type="unfinished"></translation>
+        <translation>容器</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="424"/>
         <source>Number of Container: </source>
-        <translation type="unfinished"></translation>
+        <translation>容器总数</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="452"/>
         <source>2</source>
-        <translation type="unfinished"></translation>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="473"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="488"/>
         <source>Number of Image: </source>
-        <translation type="unfinished"></translation>
+        <translation>镜像总数：</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="498"/>
         <source>Image Capacity: </source>
-        <translation type="unfinished"></translation>
+        <translation>镜像总容量</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="507"/>
         <source>3.9G</source>
-        <translation type="unfinished"></translation>
+        <translation>3.9G</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="527"/>
         <source>Template Container</source>
-        <translation type="unfinished"></translation>
+        <translation>容器模板</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="542"/>
         <source>Number of Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>容器模板总数</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="566"/>
         <source>Reviewed</source>
-        <translation type="unfinished"></translation>
+        <translation>待审核</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="581"/>
         <source>Number of Reviewed: </source>
-        <translation type="unfinished"></translation>
+        <translation>待审核总数</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="605"/>
         <source>Give Alarm</source>
-        <translation type="unfinished"></translation>
+        <translation>告警</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="620"/>
         <source>Number of Give Alarm: </source>
-        <translation type="unfinished"></translation>
+        <translation>告警总数</translation>
     </message>
 </context>
 <context>
@@ -1538,7 +1536,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/base/info-worker.cpp" line="711"/>
         <location filename="../src/base/info-worker.cpp" line="729"/>
         <source>Network Error</source>
-        <translation type="unfinished"></translation>
+        <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="404"/>
@@ -1546,7 +1544,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/base/info-worker.cpp" line="630"/>
         <location filename="../src/base/info-worker.cpp" line="650"/>
         <source>Internal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>内部错误</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="413"/>
@@ -1556,154 +1554,154 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/base/info-worker.cpp" line="534"/>
         <location filename="../src/base/info-worker.cpp" line="577"/>
         <source>Invalid Argument</source>
-        <translation type="unfinished"></translation>
+        <translation>参数错误</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="678"/>
         <location filename="../src/common/message-dialog.cpp" line="106"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="686"/>
         <location filename="../src/common/message-dialog.cpp" line="94"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>是</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="95"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="96"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>保存所有</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="97"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="98"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>是</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="99"/>
         <source>Yes to All</source>
-        <translation type="unfinished"></translation>
+        <translation>全部是</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="100"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>否</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="101"/>
         <source>No to All</source>
-        <translation type="unfinished"></translation>
+        <translation>全部否</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="102"/>
         <source>Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>中断</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="103"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>重试</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="104"/>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>忽略</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="105"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="107"/>
         <source>Discard</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="108"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>帮助</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="109"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="110"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>重置</translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.cpp" line="111"/>
         <source>Restore Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>重置</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="21"/>
         <source>General Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>概要</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="22"/>
         <source>Container Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>容器管理</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="23"/>
         <source>Container List</source>
-        <translation type="unfinished"></translation>
+        <translation>容器列表</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="24"/>
         <source>Container Template</source>
-        <translation type="unfinished"></translation>
+        <translation>容器模板</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="25"/>
         <source>Audit Center</source>
-        <translation type="unfinished"></translation>
+        <translation>审计中心</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="26"/>
         <source>Audit Apply List</source>
-        <translation type="unfinished"></translation>
+        <translation>审核列表</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="27"/>
         <source>Audit Warning List</source>
-        <translation type="unfinished"></translation>
+        <translation>告警列表</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="28"/>
         <source>Audit Log List</source>
-        <translation type="unfinished"></translation>
+        <translation>日志列表</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="29"/>
         <source>Image Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像管理</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="30"/>
         <source>Node Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>节点管理</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="31"/>
         <source>System Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>系统管理</translation>
     </message>
 </context>
 <context>
@@ -1711,47 +1709,47 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="48"/>
         <source>Config Server</source>
-        <translation type="unfinished"></translation>
+        <translation>服务器配置</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="60"/>
         <source>Ip Address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP地址</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="63"/>
         <source>Please input server ip address</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入服务器地址</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="71"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>端口</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="74"/>
         <source>Please input port</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入端口</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="79"/>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="80"/>
         <source>Cancle</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="99"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>失败</translation>
     </message>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="100"/>
         <source>Please input complete server information!</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入完整的服务器信息！</translation>
     </message>
 </context>
 <context>
@@ -1760,17 +1758,17 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/table-page.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_table-page.h" line="112"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/table-page.cpp" line="239"/>
         <source>Please enter the keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入关键字</translation>
     </message>
     <message>
         <location filename="../src/pages/table-page.cpp" line="425"/>
         <source>No search results were found!</source>
-        <translation type="unfinished"></translation>
+        <translation>未搜索到结果！</translation>
     </message>
 </context>
 <context>
@@ -1779,13 +1777,13 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/image/transmission-item.ui" line="26"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="162"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="82"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="163"/>
         <source>Image Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像名：</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="89"/>
@@ -1797,58 +1795,58 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="167"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="168"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="109"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="165"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>版本：</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="38"/>
         <source>Uploading</source>
-        <translation type="unfinished"></translation>
+        <translation>上传中</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="42"/>
         <source>Uploading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>上传失败</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="46"/>
         <source>Uploading successful</source>
-        <translation type="unfinished"></translation>
+        <translation>上传成功</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="50"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>下载中</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="54"/>
         <source>Downloading failed</source>
-        <translation type="unfinished"></translation>
+        <translation>下载失败</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="58"/>
         <source>Downloading successful</source>
-        <translation type="unfinished"></translation>
+        <translation>下载成功</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="101"/>
         <source>Cancel Transmission</source>
-        <translation type="unfinished"></translation>
+        <translation>取消传输</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="102"/>
         <source>Are you sure to cancel the %1(%2) transmission?</source>
-        <translation type="unfinished"></translation>
+        <translation>确定要取消%1(%2)传输？</translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.cpp" line="103"/>
         <source>The image %1(%2) is being transferred,the transmission will be interrupted after close!</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像 %1(%2)正在传输，关闭后该传输将会被中断！</translation>
     </message>
 </context>
 <context>
@@ -1856,7 +1854,7 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/image/transmission-list.cpp" line="103"/>
         <source>No transfer task</source>
-        <translation type="unfinished"></translation>
+        <translation>没有传输任务</translation>
     </message>
 </context>
 <context>
@@ -1865,7 +1863,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_volumes-conf-tab.h" line="35"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>
