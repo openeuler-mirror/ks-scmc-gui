@@ -235,9 +235,13 @@ void CalendarWidget::initTopWidget()
     m_dataLabel->setObjectName("CalendarDataLabel");
 
     m_leftYearBtn->setFixedSize(16, 16);
+    m_leftYearBtn->setIcon(QIcon(":/images/year_left.png"));
     m_leftMonthBtn->setFixedSize(16, 16);
+    m_leftMonthBtn->setIcon(QIcon(":/images/month_left.png"));
     m_rightYearBtn->setFixedSize(16, 16);
+    m_rightYearBtn->setIcon(QIcon(":/images/year_right.png"));
     m_rightMonthBtn->setFixedSize(16, 16);
+    m_rightMonthBtn->setIcon(QIcon(":/images/month_right.png"));
 
     hboxLayout->addWidget(m_leftYearBtn);
     hboxLayout->addWidget(m_leftMonthBtn);
@@ -248,7 +252,6 @@ void CalendarWidget::initTopWidget()
     hboxLayout->addWidget(m_rightYearBtn);
     topWidget->setLayout(hboxLayout);
 
-    //这里见下图1
     QVBoxLayout *vBodyLayout = qobject_cast<QVBoxLayout *>(layout());
     vBodyLayout->insertWidget(0, topWidget);
 
@@ -286,7 +289,6 @@ void CalendarWidget::initBottomWidget()
     hboxLayout->addWidget(m_ensureBtn);
     bottomWidget->setLayout(hboxLayout);
 
-    //这里见下图1
     QVBoxLayout *vBodyLayout = qobject_cast<QVBoxLayout *>(layout());
     vBodyLayout->addWidget(bottomWidget);
 

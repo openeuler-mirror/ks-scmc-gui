@@ -52,7 +52,6 @@ void ServerConfigDialog::initUI()
     QWidget *windowContentWidget = getWindowContentWidget();
     QVBoxLayout *mainVLayout = new QVBoxLayout(windowContentWidget);
     mainVLayout->setSpacing(10);
-    this->setLayout(mainVLayout);
 
     QWidget *ipWidget = new QWidget(windowContentWidget);
     QVBoxLayout *ipLayout = new QVBoxLayout(ipWidget);

@@ -1,6 +1,6 @@
 #include "node-info-page.h"
 #include "container-list-page.h"
-#include "monitor-dialog.h"
+#include "monitor-content.h"
 NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPage(nullptr), m_monitor(nullptr)
 {
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
@@ -14,7 +14,7 @@ void NodeInfoPage::setNodeId(qint64 nodeId)
 
 void NodeInfoPage::updateInfo(QString keyword)
 {
-    m_monitor->updateMonitorInfo();
+    m_monitor->updateMonitorInfo(m_nodeId);
     m_containerListPage->getContainerList(m_nodeId);
 }
 
@@ -31,7 +31,7 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
     }
     case NODE_INFO_SUB_PAGE_TYPE_MONITOR:
     {
-        m_monitor = new MonitorDialog(m_nodeId, "", this);
+        m_monitor = new MonitorContent(-1, "", this);
         addTabPage(m_monitor, tr("Monitor"));
         break;
     }
