@@ -44,14 +44,6 @@
     </message>
 </context>
 <context>
-    <name>CommonPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_common-page.h" line="108"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConfigDelegate</name>
     <message>
         <location filename="../src/common/config-view.cpp" line="18"/>
@@ -80,6 +72,7 @@
     <name>ConfigOperateWidget</name>
     <message>
         <location filename="../src/common/config-operate-widget.ui" line="20"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-operate-widget.h" line="153"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -163,78 +156,78 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="430"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="433"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="437"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="440"/>
         <source>Create container</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="438"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="441"/>
         <source>Create container from template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="445"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="448"/>
         <source>Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="446"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="449"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="447"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="450"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="448"/>
-        <location filename="../src/pages/container/container-list-page.cpp" line="454"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="451"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="457"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="499"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="502"/>
         <source>Container Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="500"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="503"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="501"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="504"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="502"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="505"/>
         <source>Node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="504"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="507"/>
         <source>Memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="505"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="508"/>
         <source>Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="506"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="509"/>
         <source>Online Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="507"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="510"/>
         <source>Quick Actions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -553,200 +546,200 @@
 <context>
     <name>ImageListPage</name>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="45"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="47"/>
         <source>Image Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="46"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="48"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="47"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="49"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="48"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="50"/>
         <source>Inspection Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="49"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="51"/>
         <source>Approval Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="50"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="52"/>
         <source>Last Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="63"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="65"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="64"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="66"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="65"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="67"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="66"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="74"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="68"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="76"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="193"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="195"/>
         <source>The image &quot;%1&quot; is being transferred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="194"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="196"/>
         <source> Please operate after the transfer is completed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="217"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="219"/>
         <source>Please select the path to save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="253"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="255"/>
         <source>Delete Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="254"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="256"/>
         <source>Are you sure you want to delete the image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="255"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="257"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="271"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="515"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="524"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="273"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="517"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="526"/>
         <source>Upload Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="308"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="310"/>
         <source>Update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="346"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="348"/>
         <source>Download Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="406"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="408"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="410"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="412"/>
         <source>Abnormal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="414"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="431"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="416"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="433"/>
         <source>Passed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="423"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="425"/>
         <source>Wait for Approve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="427"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="429"/>
         <source>Rejected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="466"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="475"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="468"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="477"/>
         <source>Check Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="467"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="469"/>
         <source>Check Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="476"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="478"/>
         <source>Check Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="489"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="502"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="491"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="504"/>
         <source>Remove Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="490"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="492"/>
         <source>Remove Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="503"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="505"/>
         <source>Remove Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="516"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="518"/>
         <source>Upload Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="525"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="527"/>
         <source>Upload Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="537"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="546"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="539"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="548"/>
         <source>update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="538"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="540"/>
         <source>update Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="547"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="549"/>
         <source>update Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="577"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="586"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="579"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="588"/>
         <source>download Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="578"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="580"/>
         <source>download Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="587"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="589"/>
         <source>download Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1027,104 +1020,107 @@
     </message>
 </context>
 <context>
-    <name>MonitorDialog</name>
+    <name>MonitorContent</name>
     <message>
-        <location filename="../src/common/monitor-dialog.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-dialog.h" line="95"/>
+        <location filename="../src/common/monitor-content.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="153"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.ui" line="35"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-dialog.h" line="96"/>
+        <location filename="../src/common/monitor-content.ui" line="65"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="154"/>
         <source>Cycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.ui" line="51"/>
+        <location filename="../src/common/monitor-content.ui" line="106"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="155"/>
         <source>Period:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.ui" line="65"/>
+        <location filename="../src/common/monitor-content.ui" line="132"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="157"/>
         <source>-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.ui" line="82"/>
+        <location filename="../src/common/monitor-content.ui" line="173"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="159"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="82"/>
+        <location filename="../src/common/monitor-content.cpp" line="96"/>
         <source>10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="83"/>
+        <location filename="../src/common/monitor-content.cpp" line="97"/>
         <source>1 hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="84"/>
+        <location filename="../src/common/monitor-content.cpp" line="98"/>
         <source>1 day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="85"/>
+        <location filename="../src/common/monitor-content.cpp" line="99"/>
         <source>1 week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="86"/>
+        <location filename="../src/common/monitor-content.cpp" line="100"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="96"/>
+        <location filename="../src/common/monitor-content.cpp" line="110"/>
         <source>CPU usage (unit %)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="97"/>
+        <location filename="../src/common/monitor-content.cpp" line="111"/>
         <source>Memory usage (unit %)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="98"/>
+        <location filename="../src/common/monitor-content.cpp" line="112"/>
         <source>Disk usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="99"/>
+        <location filename="../src/common/monitor-content.cpp" line="113"/>
         <source>Network usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="122"/>
+        <location filename="../src/common/monitor-content.cpp" line="134"/>
         <source>Time particle density(1 minute)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="196"/>
-        <location filename="../src/common/monitor-dialog.cpp" line="204"/>
+        <location filename="../src/common/monitor-content.cpp" line="212"/>
+        <location filename="../src/common/monitor-content.cpp" line="220"/>
         <source>Time particle density(%1 minute)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="212"/>
-        <location filename="../src/common/monitor-dialog.cpp" line="220"/>
-        <location filename="../src/common/monitor-dialog.cpp" line="251"/>
+        <location filename="../src/common/monitor-content.cpp" line="228"/>
+        <location filename="../src/common/monitor-content.cpp" line="236"/>
+        <location filename="../src/common/monitor-content.cpp" line="267"/>
         <source>Time particle density(%1 hour)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="328"/>
+        <location filename="../src/common/monitor-content.cpp" line="344"/>
         <source>Disk IO(unit %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-dialog.cpp" line="369"/>
+        <location filename="../src/common/monitor-content.cpp" line="385"/>
         <source>Network usage (unit %1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1228,6 +1224,19 @@
     </message>
 </context>
 <context>
+    <name>NodeInfoPage</name>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="29"/>
+        <source>Container</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="36"/>
+        <source>Monitor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NodeListPage</name>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="13"/>
@@ -1275,56 +1284,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="233"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="239"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="240"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="246"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="254"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="260"/>
         <source>Node Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="255"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="261"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="256"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="262"/>
         <source>IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="257"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="263"/>
         <source>Container Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="259"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="265"/>
         <source>Memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="260"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="266"/>
         <source>Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="261"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="267"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>OperateWidget</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_operate-widget.h" line="153"/>
-        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1332,6 +1333,7 @@
     <name>OutlineCell</name>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="239"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1339,18 +1341,25 @@
         <location filename="../src/pages/outline/outline-cell.ui" line="131"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="238"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="245"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="241"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="243"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="244"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="284"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="315"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="246"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="249"/>
         <source>label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="299"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="330"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="247"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="250"/>
         <source>Label</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1359,12 +1368,15 @@
     <name>OutlineIntroduction</name>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="105"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="101"/>
         <location filename="../src/pages/outline/outline-introduction.ui" line="108"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="106"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="107"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1383,134 +1395,134 @@ So as to implement resource allocation based on enterprise organizational struct
 <context>
     <name>OutlineView</name>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="242"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="258"/>
         <source>Offline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="243"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="259"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="244"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="260"/>
         <source>Online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="275"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="301"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="276"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="302"/>
         <source>Exited</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="277"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="303"/>
         <source>Created</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="322"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="345"/>
         <source>node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="337"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="360"/>
         <source>Number of nodes: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="347"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="411"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="607"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="370"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="434"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="630"/>
         <source>online: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="356"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="420"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="616"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="379"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="443"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="639"/>
         <source>offline: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="365"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="388"/>
         <source>4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="373"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="437"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="625"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="633"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="396"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="460"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="648"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="656"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="386"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="409"/>
         <source>Container</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="401"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="424"/>
         <source>Number of Container: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="429"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="452"/>
         <source>2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="450"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="473"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="465"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="488"/>
         <source>Number of Image: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="475"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="498"/>
         <source>Image Capacity: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="484"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="507"/>
         <source>3.9G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="504"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="527"/>
         <source>Template Container</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="519"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="542"/>
         <source>Number of Template: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="543"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="566"/>
         <source>Reviewed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="558"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="581"/>
         <source>Number of Reviewed: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="582"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="605"/>
         <source>Give Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="597"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="620"/>
         <source>Number of Give Alarm: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1745,16 +1757,17 @@ So as to implement resource allocation based on enterprise organizational struct
     <name>TablePage</name>
     <message>
         <location filename="../src/pages/table-page.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_table-page.h" line="112"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="223"/>
+        <location filename="../src/pages/table-page.cpp" line="239"/>
         <source>Please enter the keyword</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="409"/>
+        <location filename="../src/pages/table-page.cpp" line="425"/>
         <source>No search results were found!</source>
         <translation type="unfinished"></translation>
     </message>
