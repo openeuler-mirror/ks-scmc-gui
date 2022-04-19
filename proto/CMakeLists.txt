@@ -52,6 +52,7 @@ function(PROTOBUF_GENERATE_GRPC_CPP SRCS HDRS)
   endforeach()
 
   set_source_files_properties(${${SRCS}} ${${HDRS}} PROPERTIES GENERATED TRUE)
+
   set(${SRCS} ${${SRCS}} PARENT_SCOPE)
   set(${HDRS} ${${HDRS}} PARENT_SCOPE)
 endfunction()
@@ -62,14 +63,25 @@ file(GLOB_RECURSE proto_file "*.proto")
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${proto_file})
 #grpc_generate_cpp(GRPC_SRCS GRPC_HDRS  ${proto_file})
 PROTOBUF_GENERATE_GRPC_CPP(ProtoGRPCSources ProtoGRPCHeaders ${proto_file})
-# proto_lib
-add_library(proto_lib
+
+set_property(SOURCE ${ProtoGRPCSources} PROPERTY SKIP_AUTOGEN ON)
+set_property(SOURCE ${ProtoGRPCHeaders} PROPERTY SKIP_AUTOGEN ON)
+set_property(SOURCE ${PROTO_SRCS} PROPERTY SKIP_AUTOGEN ON)
+set_property(SOURCE ${PROTO_HDRS} PROPERTY SKIP_AUTOGEN ON)
+
+#proto_lib
+add_library(proto_lib STATIC
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   ${ProtoGRPCSources}
-  ${ProtoGRPCHeaders}
-  )
-target_include_directories(proto_lib PUBLIC ${PROTOBUF_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+  ${ProtoGRPCHeaders})
+#target_include_directories(proto_lib PUBLIC ${PROTOBUF_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(proto_lib
-  ${PROTOBUF_STATIC_LIBRARIES})
+#target_link_libraries(proto_lib
+# ${PROTOBUF_STATIC_LIBRARIES})
+
+
+
+
+
+
