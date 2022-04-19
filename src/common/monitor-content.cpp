@@ -58,7 +58,6 @@ QSize MonitorContent::sizeHint() const
 void MonitorContent::initUI()
 {
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_apply, Kiran::BUTTON_Default);
-
     ui->widget_forms->installEventFilter(this);
     ui->widget_date_selete->hide();
     ui->btn_apply->hide();

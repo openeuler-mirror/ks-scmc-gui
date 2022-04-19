@@ -724,6 +724,11 @@ TabPage QTabBar::tab{
     border-top-right-radius:4px;
     font-size:12px;
 }
+
+TabPage QTabBar::tab:focus {
+    outline:none;
+}
+
 TabPage QTabBar::tab:first
 {
     margin-left:20px;

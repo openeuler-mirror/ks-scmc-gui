@@ -35,13 +35,6 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QRadioButton" name="radio_btn_remember_pw">
-             <property name="text">
-              <string>Remember the password</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="lab_tips">
              <property name="text">
               <string/>
