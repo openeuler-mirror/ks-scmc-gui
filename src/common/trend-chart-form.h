@@ -33,24 +33,13 @@ public:
     void updateChart(ChartInfo chartInfo);
     void setData(QList<QPointF> datas, QString seriesNames);
     void setLegendVisible(bool visible);
+    virtual QSize sizeHint() const override;
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private:
-    void
-    initUI();
-    /**
-     * @brief initChart             初始化图表
-     */
-    //void initChart();
-
-    /**
-     * @brief bulidChart
-     */
-    //void bulidChart();
-
-    /**
-     * @brief prepareData
-     */
-    void prepareData();
+    void initUI();
 
 private slots:
     void slotPointHoverd(const QPointF &point, bool state);
