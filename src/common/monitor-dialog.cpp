@@ -3,6 +3,7 @@
 #include "monitor-content.h"
 MonitorDialog::MonitorDialog(int nodeId, std::string containerId = "", QWidget *parent) : KiranTitlebarWindow(parent)
 {
+    setIcon(QIcon(":/images/logo.png"));
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowModality(Qt::WindowModal);
     setMonitorContent(nodeId, containerId);

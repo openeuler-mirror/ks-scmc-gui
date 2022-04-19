@@ -268,7 +268,8 @@ void ImageListPage::onBtnRemove()
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
+    KLOG_INFO() << "uploadSaveSlot:  ***********"
+                << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Upload Image")))
     {
