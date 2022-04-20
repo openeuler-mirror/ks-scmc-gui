@@ -427,7 +427,7 @@ bool MonitorContent::eventFilter(QObject *watched, QEvent *event)
     QResizeEvent *e = static_cast<QResizeEvent *>(event);
     if (watched == ui->widget_forms && e->type() == QEvent::Resize)
     {
-        KLOG_INFO() << e->size().width() << e->size().height();
+	//KLOG_INFO() << e->size().width() << e->size().height();
         int height = m_flowLayout->heightForWidth(e->size().width());
         int w = e->size().width();
         if (height <= this->height())
