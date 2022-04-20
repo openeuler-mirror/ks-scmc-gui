@@ -18,7 +18,7 @@ struct ChartInfo
     QString yTitle;
     double yStart;
     double yEnd;
-    QString yFormat;
+    QString yFormat = "%d";
     int yTickCount = 11;
 };
 Q_DECLARE_METATYPE(ChartInfo)
