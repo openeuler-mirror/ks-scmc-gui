@@ -1,10 +1,10 @@
 #include "image-operate-dialog.h"
 #include <kiran-log/qt5-log-i.h>
+#include <widget-property-helper.h>
 #include <QFileDialog>
 #include <QFileInfo>
 #include "common/message-dialog.h"
 #include "ui_image-operate-dialog.h"
-
 ImageOperateDialog::ImageOperateDialog(ImageOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
                                                                                  ui(new Ui::ImageOperateDialog),
                                                                                  m_type(type)
@@ -47,6 +47,7 @@ void ImageOperateDialog::initUI()
     setTitle(tr("Image Operate"));
     setFixedSize(600, 500);
     setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
+    Kiran::WidgetPropertyHelper::setButtonType(ui->btnSave, Kiran::BUTTON_Default);
 
     QPushButton *imageFileBtn = new QPushButton(this);
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectImage);
