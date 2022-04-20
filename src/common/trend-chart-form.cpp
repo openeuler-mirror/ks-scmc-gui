@@ -17,6 +17,7 @@ TrendChartForm::~TrendChartForm()
 
 void TrendChartForm::initChart(ChartInfo chartInfo)
 {
+    KLOG_INFO() << "initChart";
     QChart *chart = m_chartView->chart();
     //折线图
     foreach (auto name, chartInfo.seriesNames)
@@ -36,7 +37,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     font.setPixelSize(12);
     font.setStyle(QFont::StyleNormal);
     //x轴
-    m_xAxis = new QDateTimeAxis();
+    m_xAxis = new QDateTimeAxis(m_chartView);
     m_xAxis->setRange(chartInfo.xStart, chartInfo.xEnd);
     m_xAxis->setTitleVisible(true);
     m_xAxis->setTitleText(chartInfo.xTitle);
@@ -49,7 +50,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     m_xAxis->setLabelsColor(QColor("#919191"));
 
     //Y轴
-    m_yAxis = new QValueAxis();
+    m_yAxis = new QValueAxis(m_chartView);
     m_yAxis->setRange(chartInfo.yStart, chartInfo.yEnd);
     m_yAxis->setTickCount(chartInfo.yTickCount);
     m_yAxis->setTitleText(chartInfo.yTitle);
@@ -86,6 +87,7 @@ void TrendChartForm::updateChart(ChartInfo chartInfo)
 
     //Y轴
     chart->axisY()->setRange(chartInfo.yStart, chartInfo.yEnd);
+    chart->axisY()->setTitleText(chartInfo.yTitle);
     qobject_cast<QValueAxis *>(chart->axisY())->setLabelFormat(chartInfo.yFormat);
 
     update();
@@ -133,23 +135,20 @@ void TrendChartForm::initUI()
 
     m_chartView = new QChartView(this);
     m_chartView->setObjectName(QStringLiteral("chartView"));
-    //m_chartView->setStyleSheet("#chartView{background:transparent;}");
     mainLayout->addWidget(m_chartView);
 
     m_valueLabel = new QLabel(this);
     m_valueLabel->setStyleSheet(QString("QLabel{color:#1564FF;font-size:12px; font-weight:normal;"
                                         " background-color:rgba(255, 255, 255); border-radius:4px; text-align:center;}"));
-    //m_valueLabel->setFixedSize(44, 24);
     m_valueLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_valueLabel->hide();
 
     QChart *chart = new QChart();
     m_chartView->setChart(chart);
     m_chartView->setRenderHint(QPainter::Antialiasing);
-    chart->setAttribute(Qt::WA_TranslucentBackground);
     chart->setBackgroundVisible(false);
-
     //chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
+
     setLegendVisible(true);
     chart->legend()->setLabelColor(QColor(255, 255, 255));
 }
