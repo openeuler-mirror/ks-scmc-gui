@@ -28,6 +28,7 @@ private slots:
     void onCurrentPageChanged(int index);
 
 signals:
+    void sigTabBarClicked(int index);
 
 private:
     QTabWidget *m_tabWidget;

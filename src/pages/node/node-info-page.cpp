@@ -1,10 +1,12 @@
 #include "node-info-page.h"
+#include <kiran-log/qt5-log-i.h>
 #include "container/container-list-page.h"
 #include "monitor-content.h"
 NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPage(nullptr), m_monitor(nullptr)
 {
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_MONITOR);
+    connect(this, &NodeInfoPage::sigTabBarClicked, this, &NodeInfoPage::updatePageInfo);
 }
 
 void NodeInfoPage::setNodeId(qint64 nodeId)
@@ -14,6 +16,7 @@ void NodeInfoPage::setNodeId(qint64 nodeId)
 
 void NodeInfoPage::updateInfo(QString keyword)
 {
+    KLOG_INFO() << "NodeInfoPage UpdateInfo";
     m_monitor->updateMonitorInfo(m_nodeId);
     m_containerListPage->getContainerList(m_nodeId);
 }
@@ -31,11 +34,21 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
     }
     case NODE_INFO_SUB_PAGE_TYPE_MONITOR:
     {
-        m_monitor = new MonitorContent(-1, "", this);
+        m_monitor = new MonitorContent(this);
         addTabPage(m_monitor, tr("Monitor"));
         break;
     }
     default:
         break;
     }
+}
+
+void NodeInfoPage::updatePageInfo(int index)
+{
+    if (index == NODE_INFO_SUB_PAGE_TYPE_CONTAINER)
+    {
+        m_containerListPage->getContainerList(m_nodeId);
+    }
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_MONITOR)
+        m_monitor->updateMonitorInfo(m_nodeId);
 }
