@@ -16,7 +16,7 @@
 
 #define K_BITE 1024
 
-MonitorContent::MonitorContent(int nodeId, std::string containerId, QWidget *parent) : QWidget(parent),
+MonitorContent::MonitorContent(QWidget *parent, int nodeId, std::string containerId) : QWidget(parent),
                                                                                        ui(new Ui::MonitorContent),
                                                                                        m_flowLayout(nullptr),
                                                                                        m_nodeId(nodeId),
@@ -106,9 +106,9 @@ void MonitorContent::initUI()
 
 void MonitorContent::initChart()
 {
-    BuildCharts(m_cpuChartForm, QStringList() << CHART_SERIES_NAME_CPU, tr("CPU usage (unit %)"));
-    BuildCharts(m_memoryChartForm, QStringList() << CHART_SERIES_NAME_MEMORY, tr("Memory usage (unit %)"));
-    BuildCharts(m_diskChartForm, QStringList() << CHART_SERIES_NAME_DISK, tr("Disk usage (unit M)"));
+    BuildCharts(m_cpuChartForm, QStringList() << CHART_SERIES_NAME_CPU, tr("CPU usage (%)"));
+    BuildCharts(m_memoryChartForm, QStringList() << CHART_SERIES_NAME_MEMORY, tr("Memory usage (%)"));
+    BuildCharts(m_diskChartForm, QStringList() << CHART_SERIES_NAME_DISK, tr("Disk I/O (unit M)"));
     BuildCharts(m_netChartForm, QStringList() << CHART_SERIES_NAME_NETWORK_RX << CHART_SERIES_NAME_NETWORK_TX, tr("Network usage (unit M)"));
 
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
@@ -320,7 +320,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             memoryChartInfo.yStart = 0;
             memoryChartInfo.yEnd = 100;
             memoryChartInfo.yFormat = "%d%%";
-            memoryChartInfo.yTitle = tr("CPU usage (%)");
+            memoryChartInfo.yTitle = tr("Memory usage (%)");
             m_memoryChartForm->updateChart(memoryChartInfo);
             m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
         }
@@ -345,7 +345,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             diskChartInfo.yStart = start;
             diskChartInfo.yEnd = end;
             diskChartInfo.yFormat = "%d";
-            diskChartInfo.yTitle = tr("Disk IO(unit %1)").arg(unit);
+            diskChartInfo.yTitle = tr("Disk I/O(unit %1)").arg(unit);
             for (auto i : reply.second.disk_usage())
             {
                 QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
@@ -427,7 +427,7 @@ bool MonitorContent::eventFilter(QObject *watched, QEvent *event)
     QResizeEvent *e = static_cast<QResizeEvent *>(event);
     if (watched == ui->widget_forms && e->type() == QEvent::Resize)
     {
-	//KLOG_INFO() << e->size().width() << e->size().height();
+        //KLOG_INFO() << e->size().width() << e->size().height();
         int height = m_flowLayout->heightForWidth(e->size().width());
         int w = e->size().width();
         if (height <= this->height())
