@@ -1050,75 +1050,93 @@
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="94"/>
+        <location filename="../src/common/monitor-content.cpp" line="95"/>
         <source>10 minutes</source>
         <translation>10分钟</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="95"/>
+        <location filename="../src/common/monitor-content.cpp" line="96"/>
         <source>1 hour</source>
         <translation>1小时</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="96"/>
+        <location filename="../src/common/monitor-content.cpp" line="97"/>
         <source>1 day</source>
         <translation>1天</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="97"/>
+        <location filename="../src/common/monitor-content.cpp" line="98"/>
         <source>1 week</source>
         <translation>1周</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="98"/>
+        <location filename="../src/common/monitor-content.cpp" line="99"/>
         <source>Custom</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="108"/>
         <source>CPU usage (unit %)</source>
-        <translation>CPU使用量（单位%1）</translation>
+        <translation type="vanished">CPU使用量（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="109"/>
         <source>Memory usage (unit %)</source>
-        <translation>内存使用量（单位%1）</translation>
-    </message>
-    <message>
-        <location filename="../src/common/monitor-content.cpp" line="110"/>
-        <source>Disk usage (unit M)</source>
-        <translation>磁盘使用量（单位%1）</translation>
+        <translation type="vanished">内存使用量（单位%1）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="111"/>
+        <source>Disk I/O (unit M)</source>
+        <translation>磁盘I/O（单位%1）</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="109"/>
+        <location filename="../src/common/monitor-content.cpp" line="302"/>
+        <source>CPU usage (%)</source>
+        <translation>CPU使用量（%）</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="110"/>
+        <location filename="../src/common/monitor-content.cpp" line="323"/>
+        <source>Memory usage (%)</source>
+        <translation>内存使用量（%）</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="348"/>
+        <source>Disk I/O(unit %1)</source>
+        <translation>磁盘I/O（单位%1）</translation>
+    </message>
+    <message>
+        <source>Disk usage (unit M)</source>
+        <translation type="vanished">磁盘使用量（单位%1）</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="112"/>
         <source>Network usage (unit M)</source>
         <translation>网络吞吐量（单位M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="132"/>
+        <location filename="../src/common/monitor-content.cpp" line="133"/>
         <source>Time particle density(1 minute)</source>
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="210"/>
-        <location filename="../src/common/monitor-content.cpp" line="218"/>
+        <location filename="../src/common/monitor-content.cpp" line="213"/>
+        <location filename="../src/common/monitor-content.cpp" line="221"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="226"/>
-        <location filename="../src/common/monitor-content.cpp" line="234"/>
-        <location filename="../src/common/monitor-content.cpp" line="265"/>
+        <location filename="../src/common/monitor-content.cpp" line="229"/>
+        <location filename="../src/common/monitor-content.cpp" line="237"/>
+        <location filename="../src/common/monitor-content.cpp" line="268"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="342"/>
         <source>Disk IO(unit %1)</source>
-        <translation>磁盘IO（单位%1）</translation>
+        <translation type="vanished">磁盘IO（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="383"/>
+        <location filename="../src/common/monitor-content.cpp" line="390"/>
         <source>Network usage (unit %1)</source>
         <translation>网络吞吐量（单位%1）</translation>
     </message>
@@ -1162,8 +1180,13 @@
         <translation>桥接</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="88"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="102"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="50"/>
+        <source>Subnet</source>
+        <translation>网段</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="100"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="114"/>
         <source>Default auto-assignment when not config</source>
         <translation>不配置时，默认自动分配</translation>
     </message>
@@ -1224,12 +1247,12 @@
 <context>
     <name>NodeInfoPage</name>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="29"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="32"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="35"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="38"/>
         <source>Monitor</source>
         <translation>监控</translation>
     </message>
@@ -1531,39 +1554,37 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/base/info-worker.cpp" line="29"/>
         <location filename="../src/base/info-worker.cpp" line="390"/>
-        <location filename="../src/base/info-worker.cpp" line="502"/>
-        <location filename="../src/base/info-worker.cpp" line="615"/>
-        <location filename="../src/base/info-worker.cpp" line="711"/>
-        <location filename="../src/base/info-worker.cpp" line="729"/>
+        <location filename="../src/base/info-worker.cpp" line="507"/>
+        <location filename="../src/base/info-worker.cpp" line="622"/>
+        <location filename="../src/base/info-worker.cpp" line="718"/>
+        <location filename="../src/base/info-worker.cpp" line="736"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="404"/>
-        <location filename="../src/base/info-worker.cpp" line="514"/>
-        <location filename="../src/base/info-worker.cpp" line="630"/>
-        <location filename="../src/base/info-worker.cpp" line="650"/>
+        <location filename="../src/base/info-worker.cpp" line="405"/>
+        <location filename="../src/base/info-worker.cpp" line="519"/>
+        <location filename="../src/base/info-worker.cpp" line="637"/>
+        <location filename="../src/base/info-worker.cpp" line="657"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="413"/>
-        <location filename="../src/base/info-worker.cpp" line="422"/>
-        <location filename="../src/base/info-worker.cpp" line="464"/>
-        <location filename="../src/base/info-worker.cpp" line="524"/>
-        <location filename="../src/base/info-worker.cpp" line="534"/>
-        <location filename="../src/base/info-worker.cpp" line="577"/>
+        <location filename="../src/base/info-worker.cpp" line="415"/>
+        <location filename="../src/base/info-worker.cpp" line="425"/>
+        <location filename="../src/base/info-worker.cpp" line="529"/>
+        <location filename="../src/base/info-worker.cpp" line="539"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="678"/>
+        <location filename="../src/base/info-worker.cpp" line="685"/>
         <location filename="../src/common/message-dialog.cpp" line="106"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="686"/>
+        <location filename="../src/base/info-worker.cpp" line="693"/>
         <location filename="../src/common/message-dialog.cpp" line="94"/>
         <source>OK</source>
         <translation>是</translation>

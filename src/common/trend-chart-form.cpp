@@ -55,7 +55,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     m_yAxis->setTickCount(chartInfo.yTickCount);
     m_yAxis->setTitleText(chartInfo.yTitle);
     m_yAxis->setTitleBrush(QBrush(QColor(255, 255, 255)));
-    m_yAxis->setLabelFormat(chartInfo.yFormat);  //"0.00f%"
+    m_yAxis->setLabelFormat(chartInfo.yFormat);
     m_yAxis->setLabelsFont(font);
     m_yAxis->setLabelsColor(QColor("#919191"));
     m_yAxis->setMinorTickCount(0);  //设置小刻度线的数目，小刻度线就是没有刻度的线，这里要注意一下，如果你设成5，就是说明两个大刻度线之间有5条小刻度线，分成了6个小区间，而不是5个小区间。
@@ -139,7 +139,7 @@ void TrendChartForm::initUI()
 
     m_valueLabel = new QLabel(this);
     m_valueLabel->setStyleSheet(QString("QLabel{color:#1564FF;font-size:12px; font-weight:normal;"
-                                        " background-color:rgba(255, 255, 255); border-radius:4px; text-align:center;}"));
+                                        " background-color:rgb(255, 255, 255); border-radius:4px; text-align:center;}"));
     m_valueLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_valueLabel->hide();
 
