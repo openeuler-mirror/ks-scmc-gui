@@ -92,6 +92,7 @@ private:
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
+    bool m_isSetTableActions;
 };
 
 #endif  // TABLEPAGE_H

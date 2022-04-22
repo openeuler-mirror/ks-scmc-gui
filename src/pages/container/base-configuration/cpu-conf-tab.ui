@@ -72,7 +72,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</string>
+        <string>Total CPU cores:</string>
        </property>
       </widget>
      </item>

@@ -106,10 +106,17 @@ void MonitorContent::initUI()
 
 void MonitorContent::initChart()
 {
-    BuildCharts(m_cpuChartForm, QStringList() << CHART_SERIES_NAME_CPU, tr("CPU usage (%)"));
-    BuildCharts(m_memoryChartForm, QStringList() << CHART_SERIES_NAME_MEMORY, tr("Memory usage (%)"));
-    BuildCharts(m_diskChartForm, QStringList() << CHART_SERIES_NAME_DISK, tr("Disk I/O (unit M)"));
-    BuildCharts(m_netChartForm, QStringList() << CHART_SERIES_NAME_NETWORK_RX << CHART_SERIES_NAME_NETWORK_TX, tr("Network usage (unit M)"));
+    QMap<QString, QString> cpuSeriesInfo = {{CHART_SERIES_NAME_CPU, "#2eb3ff"}};
+    BuildCharts(m_cpuChartForm, cpuSeriesInfo, tr("CPU usage (%)"));
+
+    QMap<QString, QString> memorySeriesInfo = {{CHART_SERIES_NAME_MEMORY, "#2eb3ff"}};
+    BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"));
+
+    QMap<QString, QString> diskSeriesInfo = {{CHART_SERIES_NAME_DISK, "#2eb3ff"}};
+    BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk I/O (unit M)"));
+
+    QMap<QString, QString> netSeriesInfo = {{CHART_SERIES_NAME_NETWORK_RX, "#2eb3ff"}, {CHART_SERIES_NAME_NETWORK_TX, "#F57900"}};
+    BuildCharts(m_netChartForm, netSeriesInfo, tr("Network usage (unit M)"));
 
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
     int currTimeStamp = currTime.toTime_t();            //将当前时间转为时间戳
@@ -120,10 +127,10 @@ void MonitorContent::initChart()
         InfoWorker::getInstance().monitorHistory(m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
 }
 
-void MonitorContent::BuildCharts(TrendChartForm *chartForm, QStringList seriesNames, QString yTitle)
+void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle)
 {
     ChartInfo chartInfo;
-    chartInfo.seriesNames = seriesNames;
+    chartInfo.seriesInfo = seriesinfo;
 
     //初始化记录前10分钟数据，1分钟间隔
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
@@ -139,7 +146,7 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QStringList seriesNa
     chartInfo.yStart = 0;
     chartInfo.yEnd = 100;
     chartInfo.yTitle = yTitle;
-    KLOG_INFO() << "BuildCharts: " << chartInfo.seriesNames;
+    KLOG_INFO() << "BuildCharts: " << chartInfo.seriesInfo.firstKey();
 
     chartForm->initChart(chartInfo);
 }
