@@ -32,6 +32,10 @@
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="75"/>
+        <source>Total CPU cores:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="101"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt; CPU核数</translation>
@@ -277,187 +281,188 @@
         <translation>容器模板名：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="248"/>
+        <location filename="../src/pages/container/container-setting.ui" line="251"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="270"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="305"/>
+        <location filename="../src/pages/container/container-setting.ui" line="339"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="269"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="97"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="98"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="315"/>
+        <location filename="../src/pages/container/container-setting.ui" line="350"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="271"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="392"/>
+        <location filename="../src/pages/container/container-setting.ui" line="427"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="272"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="411"/>
+        <location filename="../src/pages/container/container-setting.ui" line="446"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="273"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="100"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="101"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="114"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="115"/>
         <source>CPU</source>
         <translation>CPU</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="115"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="116"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="116"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="213"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="425"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="117"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="214"/>
         <location filename="../src/pages/container/container-setting.cpp" line="429"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="433"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="582"/>
         <source>Network card</source>
         <translation>网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="129"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="130"/>
         <source>Envs</source>
         <translation>环境变量</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="130"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="131"/>
         <source>Graphic</source>
         <translation>图形化使用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="131"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="132"/>
         <source>Volumes</source>
         <translation>共享目录</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="132"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="133"/>
         <source>High availability</source>
         <translation>高可用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="178"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="525"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="179"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="533"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="188"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="189"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="317"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="319"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="318"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="340"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="353"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="320"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="344"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="357"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="319"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="321"/>
         <source>Memory soft limit can&apos;t be greater than the maximum limit !</source>
         <translation>内存软限制不能高于最大限制！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="320"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="342"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="355"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="322"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="346"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="359"/>
         <source>:/images/error.svg</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="339"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="343"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="341"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="345"/>
         <source>Please improve the contents in Env table!</source>
         <translation>请完善环境变量表格中的内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="352"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="356"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="354"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="358"/>
         <source>Please improve the contents in Volumes table!</source>
         <translation>请完善共享目录表格中的内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="443"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="449"/>
         <source>Delete Network card</source>
         <translation>删除网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="444"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="450"/>
         <source>Are you sure you want to delete the network card?</source>
         <translation>确定要删除此网卡？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="445"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="451"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="526"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="534"/>
         <source>Create container failed!</source>
         <translation>创建容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="527"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="535"/>
         <source>Error: </source>
         <translation>错误:</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="584"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="632"/>
         <source>Update Container</source>
         <translation>更新容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="585"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="633"/>
         <source>Update container failed!</source>
         <translation>更新容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="586"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="608"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="634"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="656"/>
         <source>Error: %1</source>
         <translation>错误：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="587"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="635"/>
         <source>:/images/warning.svg</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="606"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="654"/>
         <source>List Image</source>
         <translation>列出镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="607"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="655"/>
         <source>Get image List failed!</source>
         <translation>获取镜像列表失败！</translation>
     </message>
@@ -989,6 +994,10 @@
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
+        <source>Memory soft limit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="115"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Memory soft limit:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;内存限制</translation>
@@ -1180,13 +1189,13 @@
         <translation>桥接</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="50"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="57"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="100"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="114"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="107"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="121"/>
         <source>Default auto-assignment when not config</source>
         <translation>不配置时，默认自动分配</translation>
     </message>
@@ -1782,12 +1791,12 @@ It mainly includes four modules: user management, node management, image and ima
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="239"/>
+        <location filename="../src/pages/table-page.cpp" line="243"/>
         <source>Please enter the keyword</source>
         <translation>请输入关键字</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="425"/>
+        <location filename="../src/pages/table-page.cpp" line="429"/>
         <source>No search results were found!</source>
         <translation>未搜索到结果！</translation>
     </message>

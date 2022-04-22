@@ -9,7 +9,7 @@
 #include <QtCharts>
 struct ChartInfo
 {
-    QStringList seriesNames = {0};
+    QMap<QString, QString> seriesInfo;
     QString xTitle = "";
     QDateTime xStart;
     QDateTime xEnd;

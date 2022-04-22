@@ -16,6 +16,7 @@ public:
     explicit NetworkConfTab(QWidget *parent = nullptr);
     ~NetworkConfTab();
     void getNetworkInfo(container::CreateRequest *req);
+    void setNetworkInfo(container::NetworkConfig *networkCfg);
     void updateNetworkInfo(int64_t node_id);
 
 private:
