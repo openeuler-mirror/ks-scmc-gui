@@ -278,8 +278,12 @@ void TablePage::initUI()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setShowGrid(false);
+//    ui->tableView->setMouseTracking(true);
+    //对鼠标进行监控
+    this->setMouseTracking(true);
 
     connect(ui->tableView, &QTableView::clicked, this, &TablePage::onItemClicked);
+    connect(ui->tableView, &QTableView::entered, this, &TablePage::onItemEntered);
     connect(m_model, &QStandardItemModel::itemChanged, this, &TablePage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
@@ -333,6 +337,14 @@ void TablePage::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void TablePage::mouseMoveEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event)
+    QCursor cur = this->cursor();
+    if(cur != Qt::ArrowCursor)
+        this->setCursor(Qt::ArrowCursor);
 }
 
 void TablePage::onMonitor(int row)
@@ -478,6 +490,11 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
 void TablePage::onItemClicked(const QModelIndex &index)
 {
     emit sigItemClicked(index);
+}
+
+void TablePage::onItemEntered(const QModelIndex &index)
+{
+    emit sigItemEntered(index);
 }
 
 void TablePage::onHeaderCkbTog(bool toggled)
