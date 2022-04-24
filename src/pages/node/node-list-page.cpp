@@ -230,6 +230,14 @@ void NodeListPage::onItemClicked(const QModelIndex &index)
     }
 }
 
+void NodeListPage::onItemEntered(const QModelIndex &index)
+{
+    if (index.column() == 1)
+        this->setCursor(Qt::PointingHandCursor);
+    else
+        this->setCursor(Qt::ArrowCursor);
+}
+
 void NodeListPage::initUI()
 {
 }
@@ -276,6 +284,7 @@ void NodeListPage::initTable()
 
     connect(this, &NodeListPage::sigMonitor, this, &NodeListPage::onMonitor);
     connect(this, &NodeListPage::sigItemClicked, this, &NodeListPage::onItemClicked);
+    connect(this, &NodeListPage::sigItemEntered, this, &NodeListPage::onItemEntered);
 }
 
 void NodeListPage::initNodeConnect()
