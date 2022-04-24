@@ -38,7 +38,7 @@ void HeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalI
     painter->restore();
     if (logicalIndex == 0 && m_isCheckable)  //第一列
     {
-        m_rectHeaderCheckBox.setX(rect.x() + 15);
+        m_rectHeaderCheckBox.setX(rect.x() + 13);
         m_rectHeaderCheckBox.setY(rect.y() + 12);
         m_rectHeaderCheckBox.setWidth(16);
         m_rectHeaderCheckBox.setHeight(16);
