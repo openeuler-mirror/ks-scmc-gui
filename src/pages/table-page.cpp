@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
 #include <QPainter>
+#include <QProxyStyle>
 #include <QTableView>
 #include <QTime>
 #include <QTimer>
@@ -13,6 +14,7 @@
 using namespace std;
 
 #define TIMEOUT 200
+
 TablePage::TablePage(QWidget *parent) : Page(parent),
                                         ui(new Ui::TablePage),
                                         m_searchTimer(nullptr),
@@ -178,7 +180,7 @@ void TablePage::setHeaderSections(QStringList names)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 35);
+    ui->tableView->setColumnWidth(0, 30);
 }
 
 void TablePage::setHeaderCheckable(bool checkable)
@@ -278,12 +280,8 @@ void TablePage::initUI()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setShowGrid(false);
-//    ui->tableView->setMouseTracking(true);
-    //对鼠标进行监控
-    this->setMouseTracking(true);
 
     connect(ui->tableView, &QTableView::clicked, this, &TablePage::onItemClicked);
-    connect(ui->tableView, &QTableView::entered, this, &TablePage::onItemEntered);
     connect(m_model, &QStandardItemModel::itemChanged, this, &TablePage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
@@ -337,14 +335,6 @@ void TablePage::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-}
-
-void TablePage::mouseMoveEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event)
-    QCursor cur = this->cursor();
-    if(cur != Qt::ArrowCursor)
-        this->setCursor(Qt::ArrowCursor);
 }
 
 void TablePage::onMonitor(int row)
@@ -490,11 +480,6 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
 void TablePage::onItemClicked(const QModelIndex &index)
 {
     emit sigItemClicked(index);
-}
-
-void TablePage::onItemEntered(const QModelIndex &index)
-{
-    emit sigItemEntered(index);
 }
 
 void TablePage::onHeaderCkbTog(bool toggled)

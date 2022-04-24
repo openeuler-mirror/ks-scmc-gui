@@ -233,7 +233,7 @@
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="510"/>
         <source>Quick Actions</source>
-        <translation>操作</translation>
+        <translation>快捷操作</translation>
     </message>
 </context>
 <context>
@@ -1092,24 +1092,24 @@
         <translation type="vanished">内存使用量（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="111"/>
+        <location filename="../src/common/monitor-content.cpp" line="116"/>
         <source>Disk I/O (unit M)</source>
         <translation>磁盘I/O（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="109"/>
-        <location filename="../src/common/monitor-content.cpp" line="302"/>
+        <location filename="../src/common/monitor-content.cpp" line="110"/>
+        <location filename="../src/common/monitor-content.cpp" line="309"/>
         <source>CPU usage (%)</source>
         <translation>CPU使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="110"/>
-        <location filename="../src/common/monitor-content.cpp" line="323"/>
+        <location filename="../src/common/monitor-content.cpp" line="113"/>
+        <location filename="../src/common/monitor-content.cpp" line="330"/>
         <source>Memory usage (%)</source>
         <translation>内存使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="348"/>
+        <location filename="../src/common/monitor-content.cpp" line="355"/>
         <source>Disk I/O(unit %1)</source>
         <translation>磁盘I/O（单位%1）</translation>
     </message>
@@ -1118,25 +1118,25 @@
         <translation type="vanished">磁盘使用量（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="112"/>
+        <location filename="../src/common/monitor-content.cpp" line="119"/>
         <source>Network usage (unit M)</source>
         <translation>网络吞吐量（单位M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="133"/>
+        <location filename="../src/common/monitor-content.cpp" line="140"/>
         <source>Time particle density(1 minute)</source>
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="213"/>
-        <location filename="../src/common/monitor-content.cpp" line="221"/>
+        <location filename="../src/common/monitor-content.cpp" line="220"/>
+        <location filename="../src/common/monitor-content.cpp" line="228"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="229"/>
-        <location filename="../src/common/monitor-content.cpp" line="237"/>
-        <location filename="../src/common/monitor-content.cpp" line="268"/>
+        <location filename="../src/common/monitor-content.cpp" line="236"/>
+        <location filename="../src/common/monitor-content.cpp" line="244"/>
+        <location filename="../src/common/monitor-content.cpp" line="275"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>
@@ -1145,7 +1145,7 @@
         <translation type="vanished">磁盘IO（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="390"/>
+        <location filename="../src/common/monitor-content.cpp" line="397"/>
         <source>Network usage (unit %1)</source>
         <translation>网络吞吐量（单位%1）</translation>
     </message>

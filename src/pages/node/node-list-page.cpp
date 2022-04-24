@@ -115,6 +115,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             return;
         }
         clearTable();
+        setHeaderCheckable(true);
         int row = 0;
         QMap<QString, QVariant> idMap;
         for (auto node : reply.second.nodes())
@@ -185,6 +186,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
     {
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        setHeaderCheckable(false);
     }
 }
 
@@ -228,14 +230,6 @@ void NodeListPage::onItemClicked(const QModelIndex &index)
 
         emit sigNodeNameClicked(nodeId);
     }
-}
-
-void NodeListPage::onItemEntered(const QModelIndex &index)
-{
-    if (index.column() == 1)
-        this->setCursor(Qt::PointingHandCursor);
-    else
-        this->setCursor(Qt::ArrowCursor);
 }
 
 void NodeListPage::initUI()
@@ -284,7 +278,6 @@ void NodeListPage::initTable()
 
     connect(this, &NodeListPage::sigMonitor, this, &NodeListPage::onMonitor);
     connect(this, &NodeListPage::sigItemClicked, this, &NodeListPage::onItemClicked);
-    connect(this, &NodeListPage::sigItemEntered, this, &NodeListPage::onItemEntered);
 }
 
 void NodeListPage::initNodeConnect()
