@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
 #include <QPainter>
+#include <QProxyStyle>
 #include <QTableView>
 #include <QTime>
 #include <QTimer>
@@ -13,6 +14,7 @@
 using namespace std;
 
 #define TIMEOUT 200
+
 TablePage::TablePage(QWidget *parent) : Page(parent),
                                         ui(new Ui::TablePage),
                                         m_searchTimer(nullptr),
@@ -178,7 +180,7 @@ void TablePage::setHeaderSections(QStringList names)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 35);
+    ui->tableView->setColumnWidth(0, 30);
 }
 
 void TablePage::setHeaderCheckable(bool checkable)
