@@ -7,7 +7,7 @@ Page::Page(QWidget *parent) : QWidget(parent), m_maskWidget(nullptr)
     KLOG_INFO() << "Page";
     m_maskWidget = new MaskWidget(this);
     m_maskWidget->setFixedSize(this->size());  //设置窗口大小
-    this->stackUnder(qobject_cast<QWidget *>(m_maskWidget));
+    //this->stackUnder(qobject_cast<QWidget *>(m_maskWidget));
 }
 
 void Page::setBusy(bool status)
