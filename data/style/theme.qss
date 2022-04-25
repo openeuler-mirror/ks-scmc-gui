@@ -590,19 +590,45 @@ ConfigTable #tableView::item
     border:none;
 }
 
-/********************************Login****************************/
-Login #btn_login
+/********************************LoginDialog****************************/
+LoginDialog #btn_login
 {
-    background:#2eb3ff;
+    background-color:#2eb3ff;
     color:#ffffff;
     border-radius:4px;
 }
 
-Login QLineEdit
+LoginDialog #btnMenu
+{
+    border:none;
+}
+
+LoginDialog #btnMenu:focus,
+LoginDialog #btn_login:focus
+{
+    outline:none;
+}
+
+LoginDialog #btnMenu::menu-indicator
+{
+    image: url(:/images/down-arrow.svg);
+    subcontrol-origin: padding;
+    subcontrol-position: center center;
+}
+
+LoginDialog QLineEdit
 {
     background:transparent;
-    border:1px solid #2eb3ff;
+    border:1px solid #393939;
+    border-radius:4px;
 }
+
+LoginDialog QLineEdit:focus
+{
+    border:1px solid #2eb3ff;
+    border-radius:4px;
+}
+
 
 /****************************TransmissionList**************/
 TransmissionList
