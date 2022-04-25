@@ -59,5 +59,8 @@
         <file>images/month_right.png</file>
         <file>images/month_left.png</file>
         <file>images/icon_calendar.png</file>
+        <file>images/user_icon.svg</file>
+        <file>images/pw_icon.svg</file>
+        <file>images/clear_icon.svg</file>
     </qresource>
 </RCC>
