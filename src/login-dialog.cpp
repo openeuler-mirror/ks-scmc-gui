@@ -75,13 +75,31 @@ void LoginDialog::initUI()
 {
     setTitle(tr("KylinSec security Container magic Cube"));
     setIcon(QIcon(":/images/logo.png"));
+    setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
+    ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
+    ui->lab_tips->setStyleSheet("color:#d30000;");
+    ui->lab_tips->setAlignment(Qt::AlignHCenter);
+    ui->lab_tips->hide();
     //创建标题栏中菜单按钮
     setTitlebarCustomLayoutAlignHCenter(false);
     QHBoxLayout *titleBarLayout = getTitlebarCustomLayout();
+    titleBarLayout->setSpacing(10);
+    titleBarLayout->setContentsMargins(0, 0, 10, 0);
     QPushButton *btnMenu = new QPushButton(this);
+    btnMenu->setObjectName("btnMenu");
+    btnMenu->setCursor(QCursor(Qt::PointingHandCursor));
     btnMenu->setFixedSize(QSize(16, 16));
+
+    QFrame *line = new QFrame(this);
+    line->setMinimumSize(QSize(1, 16));
+    line->setMaximumSize(QSize(1, 16));
+    line->setStyleSheet(QStringLiteral("background-color:#393939;"));
+    line->setFrameShape(QFrame::VLine);
+    line->setFrameShadow(QFrame::Sunken);
+
     titleBarLayout->addStretch();
     titleBarLayout->addWidget(btnMenu, Qt::AlignRight);
+    titleBarLayout->addWidget(line);
 
     //创建标题栏中菜单
     QMenu *menu = new QMenu(this);
@@ -89,12 +107,48 @@ void LoginDialog::initUI()
     btnMenu->setMenu(menu);
     connect(menu, &QMenu::triggered, this, &LoginDialog::onMenuTrigger);
 
+    //添加输入框布局，设置图标
+    QHBoxLayout *userLayout = new QHBoxLayout(ui->lineEdit_username);
+    userLayout->setContentsMargins(10, 0, 10, 0);
+    userLayout->setSpacing(10);
+    QLabel *userIcon = new QLabel(ui->lineEdit_username);
+    userIcon->setPixmap(QPixmap(":/images/user_icon.svg"));
+
+    QPushButton *closeBtn = new QPushButton(ui->lineEdit_username);
+    closeBtn->setCursor(QCursor(Qt::PointingHandCursor));
+    closeBtn->setFixedSize(16, 16);
+    closeBtn->setIcon(QIcon(":/images/clear_icon.svg"));
+    closeBtn->hide();
+    closeBtn->setStyleSheet("border:none;outline:none;");
+    connect(closeBtn, &QPushButton::clicked,
+            [this] {
+                ui->lineEdit_username->clear();
+            });
+
+    userLayout->addWidget(userIcon);
+    userLayout->addStretch();
+    userLayout->addWidget(closeBtn);
+    ui->lineEdit_username->setPlaceholderText(tr("Please input user name"));
+    ui->lineEdit_username->setTextMargins(30, 0, 30, 0);
+    connect(ui->lineEdit_username, &QLineEdit::textEdited,
+            [=](QString str) {
+                if (str.isEmpty())
+                    closeBtn->hide();
+                else
+                    closeBtn->show();
+            });
+
+    QHBoxLayout *pwLayout = new QHBoxLayout(ui->lineEdit_passwd);
+    pwLayout->setContentsMargins(10, 0, 10, 0);
+    pwLayout->setSpacing(10);
+    QLabel *pwIcon = new QLabel(ui->lineEdit_passwd);
+    pwIcon->setPixmap(QPixmap(":/images/pw_icon.svg"));
+
+    pwLayout->addWidget(pwIcon);
+    pwLayout->addStretch();
     ui->lineEdit_passwd->setEchoMode(QLineEdit::Password);
     ui->lineEdit_passwd->setPlaceholderText(tr("Please input password"));
-    ui->lineEdit_username->setPlaceholderText(tr("Please input user name"));
-
-    //ui->lineEdit_username->setText("test");
-    //ui->lineEdit_passwd->setText("12345678");
+    ui->lineEdit_passwd->setTextMargins(30, 0, 10, 0);
 
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
 }
@@ -112,22 +166,26 @@ bool LoginDialog::inspectLoginParam()
     if (ui->lineEdit_username->text().isEmpty())
     {
         ui->lab_tips->setText(tr("Please input user name!"));
+        ui->lab_tips->show();
         return false;
     }
     if (ui->lineEdit_passwd->text().isEmpty())
     {
         ui->lab_tips->setText(tr("Please input password!"));
+        ui->lab_tips->show();
         return false;
     }
     else if (ui->lineEdit_passwd->text().size() < 8)
     {
         ui->lab_tips->setText(tr("Please enter a password with at least 8 digits!"));
+        ui->lab_tips->show();
         return false;
     }
     m_server = m_serverCfgDlg->getServerInfo();
     if (m_server.isEmpty())
     {
         ui->lab_tips->setText(tr("Please config a server address!"));
+        ui->lab_tips->show();
         m_serverCfgDlg->show();
         return false;
     }
