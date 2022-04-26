@@ -32,13 +32,13 @@
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="75"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="101"/>
         <source>Total CPU cores:</source>
-        <translation type="unfinished"></translation>
+        <translation>CPU总核数：</translation>
     </message>
     <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="101"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</source>
-        <translation>&lt;font color=red&gt;*&lt;/font&gt; CPU核数</translation>
+        <translation type="vanished">&lt;font color=red&gt;*&lt;/font&gt; CPU核数</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="82"/>
@@ -130,14 +130,22 @@
 <context>
     <name>ContainerListPage</name>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="39"/>
         <source>Running</source>
-        <translation>运行中</translation>
+        <translation type="vanished">运行中</translation>
+    </message>
+    <message>
+        <source>Exited</source>
+        <translation type="vanished">退出</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-list-page.cpp" line="39"/>
+        <source>Online</source>
+        <translation>在线</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="40"/>
-        <source>Exited</source>
-        <translation>退出</translation>
+        <source>Offline</source>
+        <translation>离线</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="41"/>
@@ -240,74 +248,74 @@
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="262"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="271"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="78"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="263"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="272"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="264"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="273"/>
         <source>Container Describe:</source>
         <translation>容器描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="265"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="274"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="115"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="266"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="275"/>
         <source>Container Name:</source>
         <translation>容器名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="205"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="267"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="276"/>
         <source>Desribe:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="212"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="268"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="277"/>
         <source>Container Template Name:</source>
         <translation>容器模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="251"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="270"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="279"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="339"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="269"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="278"/>
         <location filename="../src/pages/container/container-setting.cpp" line="98"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="350"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="271"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="280"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="427"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="272"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="281"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="446"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="273"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="282"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -873,7 +881,7 @@
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="99"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="83"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -883,7 +891,7 @@
     </message>
     <message>
         <location filename="../src/login-dialog.ui" line="116"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="101"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="85"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
@@ -893,63 +901,67 @@
         <translation>麒麟信安安全容器平台</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="92"/>
-        <location filename="../src/login-dialog.cpp" line="181"/>
+        <location filename="../src/login-dialog.cpp" line="106"/>
+        <location filename="../src/login-dialog.cpp" line="197"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="92"/>
+        <location filename="../src/login-dialog.cpp" line="106"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="136"/>
+        <location filename="../src/login-dialog.cpp" line="150"/>
         <source>Please input password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="115"/>
+        <location filename="../src/login-dialog.cpp" line="131"/>
         <source>Please input user name</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="156"/>
+        <location filename="../src/login-dialog.cpp" line="168"/>
         <source>Please input user name!</source>
         <translation>请输入用户名！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="161"/>
+        <location filename="../src/login-dialog.cpp" line="174"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="166"/>
+        <location filename="../src/login-dialog.cpp" line="180"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="172"/>
+        <location filename="../src/login-dialog.cpp" line="187"/>
         <source>Please config a server address!</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="230"/>
-        <source>Login failed! %1</source>
-        <translation>登录失败！</translation>
+        <location filename="../src/login-dialog.cpp" line="244"/>
+        <source>Login failed %1</source>
+        <translation>登录失败 %1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="251"/>
+        <source>Login failed! %1</source>
+        <translation type="vanished">登录失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/login-dialog.cpp" line="268"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="252"/>
+        <location filename="../src/login-dialog.cpp" line="269"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="253"/>
+        <location filename="../src/login-dialog.cpp" line="270"/>
         <source>Error: </source>
         <translation>错误：</translation>
     </message>
@@ -994,13 +1006,13 @@
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="115"/>
         <source>Memory soft limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>内存软限制：</translation>
     </message>
     <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="115"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Memory soft limit:</source>
-        <translation>&lt;font color=red&gt;*&lt;/font&gt;内存限制</translation>
+        <translation type="vanished">&lt;font color=red&gt;*&lt;/font&gt;内存限制</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="117"/>
@@ -1023,7 +1035,7 @@
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="99"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="100"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1084,6 +1096,21 @@
         <translation>自定义</translation>
     </message>
     <message>
+        <location filename="../src/common/monitor-content.cpp" line="122"/>
+        <source>Network throughput (unit M)</source>
+        <translation>网络吞吐量(单位 M)</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="358"/>
+        <source>Disk usage(unit %1)</source>
+        <translation>磁盘使用量(单位 %1)</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="400"/>
+        <source>Network throughput (unit %1)</source>
+        <translation>网络吞吐量(单位 %1)</translation>
+    </message>
+    <message>
         <source>CPU usage (unit %)</source>
         <translation type="vanished">CPU使用量（单位%1）</translation>
     </message>
@@ -1092,51 +1119,49 @@
         <translation type="vanished">内存使用量（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="116"/>
         <source>Disk I/O (unit M)</source>
-        <translation>磁盘I/O（单位%1）</translation>
+        <translation type="vanished">磁盘I/O（单位%1）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="110"/>
-        <location filename="../src/common/monitor-content.cpp" line="309"/>
+        <location filename="../src/common/monitor-content.cpp" line="312"/>
         <source>CPU usage (%)</source>
         <translation>CPU使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="113"/>
-        <location filename="../src/common/monitor-content.cpp" line="330"/>
+        <location filename="../src/common/monitor-content.cpp" line="114"/>
+        <location filename="../src/common/monitor-content.cpp" line="333"/>
         <source>Memory usage (%)</source>
         <translation>内存使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="355"/>
         <source>Disk I/O(unit %1)</source>
-        <translation>磁盘I/O（单位%1）</translation>
+        <translation type="vanished">磁盘I/O（单位%1）</translation>
     </message>
     <message>
+        <location filename="../src/common/monitor-content.cpp" line="118"/>
         <source>Disk usage (unit M)</source>
-        <translation type="vanished">磁盘使用量（单位%1）</translation>
+        <translation>磁盘使用量（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="119"/>
         <source>Network usage (unit M)</source>
-        <translation>网络吞吐量（单位M）</translation>
+        <translation type="vanished">网络吞吐量（单位M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="140"/>
+        <location filename="../src/common/monitor-content.cpp" line="143"/>
         <source>Time particle density(1 minute)</source>
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="220"/>
-        <location filename="../src/common/monitor-content.cpp" line="228"/>
+        <location filename="../src/common/monitor-content.cpp" line="223"/>
+        <location filename="../src/common/monitor-content.cpp" line="231"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="236"/>
-        <location filename="../src/common/monitor-content.cpp" line="244"/>
-        <location filename="../src/common/monitor-content.cpp" line="275"/>
+        <location filename="../src/common/monitor-content.cpp" line="239"/>
+        <location filename="../src/common/monitor-content.cpp" line="247"/>
+        <location filename="../src/common/monitor-content.cpp" line="278"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>
@@ -1145,9 +1170,8 @@
         <translation type="vanished">磁盘IO（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="397"/>
         <source>Network usage (unit %1)</source>
-        <translation>网络吞吐量（单位%1）</translation>
+        <translation type="vanished">网络吞吐量（单位%1）</translation>
     </message>
 </context>
 <context>
@@ -1559,6 +1583,65 @@ It mainly includes four modules: user management, node management, image and ima
     </message>
 </context>
 <context>
+    <name>PasswdUpdateDialog</name>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="164"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="37"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="165"/>
+        <source>User Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="44"/>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="61"/>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="75"/>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="102"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="166"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="168"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="170"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="173"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="51"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="167"/>
+        <source>Old Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="68"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="169"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="82"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="171"/>
+        <source>New Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="92"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="172"/>
+        <source>Confirm Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="154"/>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="173"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="174"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="175"/>
+        <source>PushButton</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../src/base/info-worker.cpp" line="29"/>
@@ -1733,51 +1816,76 @@ It mainly includes four modules: user management, node management, image and ima
         <source>System Manager</source>
         <translation>系统管理</translation>
     </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="11"/>
+        <source>CPU Usage</source>
+        <translation>CPU使用量</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="12"/>
+        <source>Memory Usage</source>
+        <translation>内存使用量</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="13"/>
+        <source>Disk Usage</source>
+        <translation>磁盘使用量</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="14"/>
+        <source>Network Receiving Speed</source>
+        <translation>网络接收速率</translation>
+    </message>
+    <message>
+        <location filename="../src/common/monitor-content.cpp" line="15"/>
+        <source>Network Transmission Speed</source>
+        <translation>网络传输速率</translation>
+    </message>
 </context>
 <context>
     <name>ServerConfigDialog</name>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="48"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="49"/>
         <source>Config Server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="60"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="64"/>
         <source>Ip Address</source>
         <translation>IP地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="63"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="67"/>
         <source>Please input server ip address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="71"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="76"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="74"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="79"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="79"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="87"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="80"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="90"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="99"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="111"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="100"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="112"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
