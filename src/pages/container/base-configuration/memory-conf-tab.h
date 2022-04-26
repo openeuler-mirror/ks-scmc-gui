@@ -18,13 +18,13 @@ class MemoryConfTab : public QWidget
 public:
     explicit MemoryConfTab(QWidget *parent = nullptr);
     ~MemoryConfTab();
-    void setMemoryInfo(container::HostConfig *cfg);
-    ErrorCode getMemoryInfo(container::ResourceConfig *cfg);
+    void setMemoryInfo(container::ResourceLimit *cfg);
+    ErrorCode getMemoryInfo(container::ResourceLimit *cfg);
 
 private:
-    //bites->M/GB,M/GB->bites
+    //MB->GB,GB->MB
     //stom: Small to Max
-    int limitDataHandle(bool stom, int originData, QComboBox *unitWidget);
+    int limitDataHandle(bool stom, double originData, QComboBox *unitWidget);
 
 private:
     Ui::MemoryConfTab *ui;
