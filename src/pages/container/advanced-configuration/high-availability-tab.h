@@ -15,8 +15,8 @@ class HighAvailabilityTab : public QWidget
 public:
     explicit HighAvailabilityTab(QWidget *parent = nullptr);
     ~HighAvailabilityTab();
-    void setRestartPolicy(container::HostConfig *cfg);
     void getRestartPolicy(container::RestartPolicy *cfg);
+    void setRestartPolicy(container::RestartPolicy *cfg);
 
 private slots:
     void onCbActivated(QString text);
