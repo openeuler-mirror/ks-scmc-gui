@@ -13,16 +13,15 @@ HighAvailabilityTab::~HighAvailabilityTab()
     delete ui;
 }
 
-void HighAvailabilityTab::setRestartPolicy(container::HostConfig *cfg)
+void HighAvailabilityTab::setRestartPolicy(container::RestartPolicy *cfg)
 {
     if (cfg)
     {
-        auto policy = cfg->mutable_restart_policy();
-        KLOG_INFO() << "policy name: " << policy->name().data()
-                    << "policy max retry:" << policy->max_retry();
+        KLOG_INFO() << "policy name: " << cfg->name().data()
+                    << "policy max retry:" << cfg->max_retry();
 
-        ui->cb_high_avail_policy->setCurrentText(QString::fromStdString(policy->name()));
-        ui->lineEdit_times->setText(QString("%1").arg(policy->max_retry()));
+        ui->cb_high_avail_policy->setCurrentText(QString::fromStdString(cfg->name()));
+        ui->lineEdit_times->setText(QString("%1").arg(cfg->max_retry()));
     }
 }
 

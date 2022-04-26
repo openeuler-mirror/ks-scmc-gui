@@ -296,43 +296,34 @@ void ContainerSetting::createContainer()
     container::CreateRequest request;
     ErrorCode ret;
     request.set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
-    request.set_name(ui->lineEdit_name->text().toStdString());
-    auto cntrCfg = request.mutable_config();
-    if (!ui->lineEdit_describe->text().isEmpty())
-    {
-        auto labels = cntrCfg->mutable_labels();
-        labels->insert({TagContainerDescription, ui->lineEdit_describe->text().toStdString()});
-    }
+    auto cntrCfg = request.mutable_configs();
+    //cntrCfg->set_container_id("");
+    cntrCfg->set_uuid("");
+    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
+    //cntrCfg->set_status("");
+    cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
     cntrCfg->set_image(m_cbImage->currentText().toStdString());
+    //Graph
+    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+    cntrCfg->set_enable_graphic(graphicPage->isGraphic());
 
-    //cpu
-    auto hostCfg = request.mutable_host_config();
-    auto resourceCfg = hostCfg->mutable_resource_config();
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(resourceCfg);
-
-    //memory
-    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    ret = memoryPage->getMemoryInfo(resourceCfg);
-    if (ret == INPUT_ARG_ERROR)
+    //volume mounts
+    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    ret = volumePage->getVolumeInfo(cntrCfg);
+    if (ret == INPUT_NULL_ERROR)
     {
-        MessageDialog::message(tr("Memory Data"),
+        MessageDialog::message(tr("Volumes Data"),
                                tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit !"),
+                               tr("Please improve the contents in Volumes table!"),
                                tr(":/images/error.svg"),
                                MessageDialog::StandardButton::Ok);
         return;
     }
 
-    //High
-    auto policy = hostCfg->mutable_restart_policy();
-    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-    highAvailabilityPage->getRestartPolicy(policy);
 
-    //network card
     foreach (auto networkPage, m_netWorkPages)
     {
-        networkPage->getNetworkInfo(&request);
+        networkPage->getNetworkInfo(cntrCfg);
     }
 
     //env
@@ -348,22 +339,31 @@ void ContainerSetting::createContainer()
         return;
     }
 
-    //volume
-    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-    ret = volumePage->getVolumeInfo(hostCfg);
-    if (ret == INPUT_NULL_ERROR)
+    //High
+    auto policy = cntrCfg->mutable_restart_policy();
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    highAvailabilityPage->getRestartPolicy(policy);
+
+    auto limit = cntrCfg->mutable_resouce_limit();
+
+    //cpu
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->getCPUInfo(limit);
+
+    //memory
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    ret = memoryPage->getMemoryInfo(limit);
+    if (ret == INPUT_ARG_ERROR)
     {
-        MessageDialog::message(tr("Volumes Data"),
+        MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
-                               tr("Please improve the contents in Volumes table!"),
+                               tr("Memory soft limit can't be greater than the maximum limit !"),
                                tr(":/images/error.svg"),
                                MessageDialog::StandardButton::Ok);
         return;
     }
 
-    //Graph
-    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    graphicPage->getGraphicInfo(&request);
+    //limit->set_disk_limit();
 
     InfoWorker::getInstance().createContainer(request);
 }
@@ -374,7 +374,7 @@ void ContainerSetting::updateContainer()
     request.set_node_id(m_containerIds.first);
     request.set_container_id(m_containerIds.second.toStdString());
 
-    auto rsrcCfg = request.mutable_resource_config();
+    auto rsrcCfg = request.mutable_resource_limit();
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->getCPUInfo(rsrcCfg);
 
@@ -384,6 +384,11 @@ void ContainerSetting::updateContainer()
     auto policy = request.mutable_restart_policy();
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
+
+    foreach (auto networkPage, m_netWorkPages)
+    {
+        networkPage->getNetworkInfo(&request);
+    }
 
     InfoWorker::getInstance().updateContainer(request);
 }
@@ -544,36 +549,29 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
     if (reply.first.ok())
     {
         //init ui
-        auto &info = reply.second.info();
+        auto info = reply.second.configs();
         ui->lineEdit_name->setText(info.name().data());
-        KLOG_INFO() << info.name().data();
+        KLOG_INFO() << info.name().data() << info.image().data();
 
-        auto &ctnCfg = reply.second.config();
-        KLOG_INFO() << ctnCfg.image().data();
         if (m_labImage)
-            m_labImage->setText(ctnCfg.image().data());
+            m_labImage->setText(info.image().data());
 
-        if (ctnCfg.labels_size() > 0)
+        ui->lineEdit_describe->setText(info.desc().data());
+
+        //Graph
+        //info.enable_graphic();
+        auto graphPage = qobject_cast<GraphicConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+        graphPage->setGraphicInfo();
+
+        //volume
+        auto volumesPage = qobject_cast<VolumesConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+        for (auto mount : info.mounts())
         {
-            auto labels = ctnCfg.labels();
-            if (labels.find(TagContainerDescription) != labels.end())
-            {
-                // display container description
-                ui->lineEdit_describe->setText(labels[TagContainerDescription].data());
-            }
+            volumesPage->setVolumeInfo(&mount);
         }
 
-        auto host = reply.second.host_config();
-        //cpu
-        auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-        cpuPage->setCPUInfo(&host);
-
-        //memory
-        auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-        memoryPage->setMemoryInfo(&host);
-
-        // network
-        auto size = reply.second.network_config_size();
+        // network content?
+        auto size = info.networks_size();
         KLOG_INFO() << "network_config_size:" << size;
         for (int i = 0; i < size - 1; ++i)
         {
@@ -588,33 +586,31 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             m_netWorkPages.append(networkConfTab);
         }
         //更新网络页面信息
-        InfoWorker::getInstance().listNetwork(m_nodeInfo.key(ui->cb_node->currentText()));
-
         for (int i = 0; i < size; i++)
         {
-            auto networkConfig = reply.second.network_config(i);
+            auto networkConfig = info.networks(i);
             NetworkConfTab *networkPage = m_netWorkPages.at(i);
-            networkPage->setNetworkInfo(&networkConfig);
+            networkPage->setNetworkInfo1(&networkConfig);
         }
 
         //env
         auto envPage = qobject_cast<EnvsConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-        envPage->setEnvInfo(&ctnCfg);
-
-        //volume
-        auto volumesPage = qobject_cast<VolumesConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-        for (auto mount : reply.second.mounts())
-        {
-            volumesPage->setVolumeInfo(&mount);
-        }
-
-        //Graph
-        auto graphPage = qobject_cast<GraphicConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-        graphPage->setGraphicInfo();
+        envPage->setEnvInfo(&info);
 
         //high-availability
         auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-        highAvailabilityPage->setRestartPolicy(&host);
+        auto policy = info.restart_policy();
+        highAvailabilityPage->setRestartPolicy(&policy);
+
+        auto limit = info.resouce_limit();
+        //cpu
+        auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+        cpuPage->setCPUInfo(&limit);
+
+        //memory
+        auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+        memoryPage->setMemoryInfo(&limit);
+
     }
 }
 
