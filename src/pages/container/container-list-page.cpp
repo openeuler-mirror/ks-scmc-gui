@@ -36,8 +36,8 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     initTable();
     initConnect();
 
-    m_statusMap.insert("running", QPair<QString, QString>(tr("Running"), "#00921b"));
-    m_statusMap.insert("exited", QPair<QString, QString>(tr("Exited"), "#d30000"));
+    m_statusMap.insert("running", QPair<QString, QString>(tr("Online"), "#00921b"));
+    m_statusMap.insert("exited", QPair<QString, QString>(tr("Offline"), "#d30000"));
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     //    m_timer = new QTimer(this);
