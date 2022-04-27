@@ -1,7 +1,9 @@
 #include "main-window.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QAction>
+#include <QApplication>
 #include <QDebug>
+#include <QDesktopWidget>
 #include <QIcon>
 #include <QMutexLocker>
 #include <QPainter>
@@ -16,8 +18,8 @@
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
 #include "pages/node/node-page-manager.h"
+#include "pages/user/passwd-update-dialog.h"
 #include "table-page.h"
-#include "pages/audit/audit-list/audit-list-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
 #define CONTAINER_MANAGER QObject::tr("Container Manager")
@@ -34,7 +36,11 @@
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
-    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr), m_timer(nullptr)
+    : KiranTitlebarWindow(parent),
+      ui(new Ui::MainWindow),
+      m_transmissionList(nullptr),
+      m_timer(nullptr),
+      m_pwUpdateDlg(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
@@ -53,11 +59,17 @@ MainWindow::~MainWindow()
         delete m_transmissionList;
         m_transmissionList = nullptr;
     }
+    if (m_pwUpdateDlg)
+    {
+        delete m_pwUpdateDlg;
+        m_pwUpdateDlg = nullptr;
+    }
 }
 
 void MainWindow::setUserName(QString name)
 {
     ui->btn_user->setText(name);
+    m_userName = name;
 }
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
@@ -181,6 +193,7 @@ void MainWindow::initUI()
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     QAction* aboutAct = userMenu->addAction(tr("About"));
     ui->btn_user->setMenu(userMenu);
+    connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
 
     //创建右侧内容页面
@@ -190,7 +203,6 @@ void MainWindow::initUI()
 
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
-        {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
         {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
         {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
@@ -253,23 +265,14 @@ void MainWindow::initUI()
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
 
-void MainWindow::outlinePageChange(QString str)
+void MainWindow::outlinePageChange(int type, QString str)
 {
-    setPageName(str);
-    QListWidgetItem *currItem = new QListWidgetItem;
-
-    for (int i = 0;i < ui->listWidget->count() ; i++) {
-        currItem = ui->listWidget->item(i);
-        if(currItem->data(Qt::UserRole).toString() == str)
-        {
-            GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
-            m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
-            guideItem->setSelected(true);
-            ui->listWidget->setItemSelected(currItem,true);
-            m_pageMap[str]->updateInfo();
-            break;
-        }
-    }
+    m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
+    ui->listWidget->setCurrentRow(type);
+    auto item = ui->listWidget->item(type);
+    GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
+    guideItem->setSelected(true);
+    m_pageMap[str]->updateInfo();
 }
 
 void MainWindow::outlineJumpPage(OutlineCellType type)
@@ -281,19 +284,19 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     {
     case ONUTLINE_CELL_NODE:
     {
-        outlinePageChange(NODE_MANAGER);
+        outlinePageChange(9, NODE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_CONTAINER:
     {
-        outlinePageChange(CONTAINER_LIST);
+        outlinePageChange(6, CONTAINER_LIST);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_IMAGE:
     {
-        outlinePageChange(IMAGE_MANAGER);
+        outlinePageChange(8, IMAGE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
@@ -327,7 +330,6 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
     {
-        break;
     }
     case GUIDE_ITEM_NODE_MANAGER:
     {
@@ -338,11 +340,6 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_IMAGE_LIST:
     {
         page = new ImageListPage(this);
-        break;
-    }
-    case GUIDE_ITEM_AUDIT_APPLY_LIST:
-    {
-        page = new AuditListPage(this);
         break;
     }
     default:
@@ -392,6 +389,33 @@ void MainWindow::setPageName(QString name)
 void MainWindow::onLogoutAction(bool checked)
 {
     Q_UNUSED(checked);
+    emit sigLogout();
+}
+
+void MainWindow::onChangePwAction(bool checked)
+{
+    Q_UNUSED(checked);
+    if (!m_pwUpdateDlg)
+    {
+        m_pwUpdateDlg = new PasswdUpdateDialog(m_userName);
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_pwUpdateDlg->move(screenGeometry.x() + (screenGeometry.width() - m_pwUpdateDlg->width()) / 2,
+                            screenGeometry.y() + (screenGeometry.height() - m_pwUpdateDlg->height()) / 2);
+        m_pwUpdateDlg->show();
+
+        connect(m_pwUpdateDlg, &PasswdUpdateDialog::destroyed,
+                [=] {
+                    KLOG_INFO() << " PasswdUpdateDialog destroy";
+                    m_pwUpdateDlg->deleteLater();
+                    m_pwUpdateDlg = nullptr;
+                });
+        connect(m_pwUpdateDlg, &PasswdUpdateDialog::sigUpdatePasswdSuccessful, this, &MainWindow::onUpdatePwSuccessful);
+    }
+}
+
+void MainWindow::onUpdatePwSuccessful()
+{
     emit sigLogout();
 }
 

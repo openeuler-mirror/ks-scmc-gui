@@ -150,6 +150,10 @@ void LoginDialog::initUI()
     ui->lineEdit_passwd->setPlaceholderText(tr("Please input password"));
     ui->lineEdit_passwd->setTextMargins(30, 0, 10, 0);
 
+    //TODO:just test
+    ui->lineEdit_username->setText("yuanxing");
+    ui->lineEdit_passwd->setText("12345678");
+
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
 }
 
@@ -260,6 +264,7 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
             m_mainWindow = nullptr;
         }
         show();
+        ui->lineEdit_username->clear();
         ui->lab_tips->clear();
         ui->lab_tips->hide();
     }
