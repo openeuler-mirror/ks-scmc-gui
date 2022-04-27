@@ -17,6 +17,7 @@
 #include "pages/node/node-list-page.h"
 #include "pages/node/node-page-manager.h"
 #include "table-page.h"
+#include "pages/audit/audit-list/audit-list-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
 #define CONTAINER_MANAGER QObject::tr("Container Manager")
@@ -189,6 +190,7 @@ void MainWindow::initUI()
 
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
+        {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
         {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
         {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
@@ -251,14 +253,23 @@ void MainWindow::initUI()
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
 
-void MainWindow::outlinePageChange(int type, QString str)
+void MainWindow::outlinePageChange(QString str)
 {
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
-    ui->listWidget->setCurrentRow(type);
-    auto item = ui->listWidget->item(type);
-    GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
-    guideItem->setSelected(true);
-    m_pageMap[str]->updateInfo();
+    setPageName(str);
+    QListWidgetItem *currItem = new QListWidgetItem;
+
+    for (int i = 0;i < ui->listWidget->count() ; i++) {
+        currItem = ui->listWidget->item(i);
+        if(currItem->data(Qt::UserRole).toString() == str)
+        {
+            GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+            m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
+            guideItem->setSelected(true);
+            ui->listWidget->setItemSelected(currItem,true);
+            m_pageMap[str]->updateInfo();
+            break;
+        }
+    }
 }
 
 void MainWindow::outlineJumpPage(OutlineCellType type)
@@ -270,19 +281,19 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     {
     case ONUTLINE_CELL_NODE:
     {
-        outlinePageChange(9, NODE_MANAGER);
+        outlinePageChange(NODE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_CONTAINER:
     {
-        outlinePageChange(6, CONTAINER_LIST);
+        outlinePageChange(CONTAINER_LIST);
         outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_IMAGE:
     {
-        outlinePageChange(8, IMAGE_MANAGER);
+        outlinePageChange(IMAGE_MANAGER);
         outlineItem->setSelected(false);
         break;
     }
@@ -316,6 +327,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
     {
+        break;
     }
     case GUIDE_ITEM_NODE_MANAGER:
     {
@@ -326,6 +338,11 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_IMAGE_LIST:
     {
         page = new ImageListPage(this);
+        break;
+    }
+    case GUIDE_ITEM_AUDIT_APPLY_LIST:
+    {
+        page = new AuditListPage(this);
         break;
     }
     default:
