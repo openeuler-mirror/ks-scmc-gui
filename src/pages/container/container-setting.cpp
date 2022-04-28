@@ -30,28 +30,40 @@
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
-ContainerSetting::ContainerSetting(ContainerSettingType type, QWidget *parent) : QWidget(parent),
-                                                                                 ui(new Ui::ContainerSetting),
-                                                                                 m_netWorkCount(0),
-                                                                                 m_type(type)
+ContainerSetting::ContainerSetting(ContainerSettingType type, QPair<int64_t, QString> ids, QWidget *parent) : QWidget(parent),
+                                                                                                              ui(new Ui::ContainerSetting),
+                                                                                                              m_netWorkCount(0),
+                                                                                                              m_type(type),
+                                                                                                              m_containerIds(ids)
 {
     ui->setupUi(this);
     initUI();
     setAttribute(Qt::WA_DeleteOnClose);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
-
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerSetting::getNodeListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerSetting::getListImageFinishedResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerSetting::getNetworkListResult);
 
     getNodeInfo();
+
+    if (type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+    {
+        getContainerInspect();
+        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
+    }
+    else if (type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE)
+    {
+        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+    }
 }
 
 ContainerSetting::~ContainerSetting()
 {
     delete ui;
+    m_netWorkPages.clear();
+    m_advancedItems.clear();
+    m_baseItems.clear();
 }
 
 void ContainerSetting::paintEvent(QPaintEvent *event)
@@ -66,11 +78,6 @@ void ContainerSetting::paintEvent(QPaintEvent *event)
 void ContainerSetting::setItems(int row, int col, QWidget *item)
 {
     ui->gridLayout->addWidget(item, row, col);
-}
-
-void ContainerSetting::setContainerNodeIds(QPair<int64_t, QString> ids)
-{
-    m_containerIds = ids;
 }
 
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
@@ -167,7 +174,7 @@ void ContainerSetting::initUI()
     connect(ui->listWidget_advanced_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
-    connect(ui->cb_node, &QComboBox::currentTextChanged, this, &ContainerSetting::onNodeSelectedChanged);
+    connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onNodeSelectedChanged);
 }
 
 void ContainerSetting::initSummaryUI()
@@ -279,6 +286,11 @@ void ContainerSetting::updateRemovableItem(QString itemText)
     }
 }
 
+void ContainerSetting::getContainerInspect()
+{
+    InfoWorker::getInstance().containerInspect(m_containerIds.first, m_containerIds.second.toStdString());
+}
+
 void ContainerSetting::getNodeInfo()
 {
     InfoWorker::getInstance().listNode();
@@ -286,8 +298,7 @@ void ContainerSetting::getNodeInfo()
 
 void ContainerSetting::getImageInfo(int64_t node_id)
 {
-    KLOG_INFO() << "getImageInfo";
-    KLOG_INFO() << m_containerIds.first;
+    KLOG_INFO() << "getImageInfo" << node_id;
     InfoWorker::getInstance().listImage(node_id);
 }
 
@@ -319,7 +330,6 @@ void ContainerSetting::createContainer()
                                MessageDialog::StandardButton::Ok);
         return;
     }
-
 
     foreach (auto networkPage, m_netWorkPages)
     {
@@ -439,7 +449,7 @@ void ContainerSetting::onAddItem(QAction *action)
         NetworkConfTab *networkConfPage = new NetworkConfTab(this);
         m_netWorkPages.append(networkConfPage);
         m_baseConfStack->addWidget(networkConfPage);
-        networkConfPage->updateNetworkInfo(m_nodeInfo.key(ui->cb_node->currentText()));
+        networkConfPage->setVirtNetworkList(m_networkReply);
         break;
     }
     default:
@@ -503,7 +513,6 @@ void ContainerSetting::onConfirm()
 void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
     KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
-    //        networkPage->updateNetworkInfo(m_nodeInfo.key(newStr));
     InfoWorker::getInstance().listNetwork(m_nodeInfo.key(newStr));
     getImageInfo(m_nodeInfo.key(newStr));
 }
@@ -585,12 +594,13 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             m_baseConfStack->addWidget(networkConfTab);
             m_netWorkPages.append(networkConfTab);
         }
+        InfoWorker::getInstance().listNetwork(m_containerIds.first);
         //更新网络页面信息
         for (int i = 0; i < size; i++)
         {
             auto networkConfig = info.networks(i);
             NetworkConfTab *networkPage = m_netWorkPages.at(i);
-            networkPage->setNetworkInfo1(&networkConfig);
+            networkPage->setNetworkInfo(&networkConfig);
         }
 
         //env
@@ -610,7 +620,6 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         //memory
         auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
         memoryPage->setMemoryInfo(&limit);
-
     }
 }
 
@@ -653,4 +662,20 @@ void ContainerSetting::getListImageFinishedResult(const QPair<grpc::Status, imag
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
+}
+
+void ContainerSetting::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
+{
+    KLOG_INFO() << "getNetworkListResult";
+    m_networkReply = reply;
+    if (reply.first.ok())
+    {
+        foreach (auto networkPage, m_netWorkPages)
+        {
+            networkPage->setVirtNetworkList(reply);
+            networkPage->setVirtNetwork();
+        }
+    }
+    else
+        KLOG_INFO() << "getNetworkListResult failed";
 }
