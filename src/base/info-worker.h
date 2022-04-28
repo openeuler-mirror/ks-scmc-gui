@@ -101,6 +101,7 @@ public:
     // user management
     void login(const std::string &username, const std::string &password);
     void logout();
+    void updatePassword(const std::string oldPassword, const std::string newPassword);
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
@@ -138,7 +139,6 @@ private:
     static QPair<grpc::Status, network::ModifyIPtablesReply> _modifyIPtables(const network::ModifyIPtablesRequest &);
     static QPair<grpc::Status, network::RemoveIPtablesReply> _removeIPtables(const network::RemoveIPtablesRequest &);
 
-
     // image management
     static QPair<grpc::Status, image::ListReply> _listImage(const image::ListRequest &);
     static QPair<grpc::Status, image::ListDBReply> _listDBImage(const image::ListDBRequest &);
@@ -151,6 +151,7 @@ private:
     // user management
     static QPair<grpc::Status, user::LoginReply> _login(const user::LoginRequest &);
     static QPair<grpc::Status, user::LogoutReply> _logout(const user::LogoutRequest &);
+    static QPair<grpc::Status, user::UpdatePasswordReply> _updatePassword(const user::UpdatePasswordRequest &);
 
 signals:
     // node management
@@ -196,6 +197,7 @@ signals:
     // user management
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QPair<grpc::Status, user::LogoutReply> &);
+    void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
 
 private:
     QMutex mutex;

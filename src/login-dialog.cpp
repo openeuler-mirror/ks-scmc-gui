@@ -16,9 +16,6 @@
 #include "pages/user/server-config-dialog.h"
 #include "ui_login-dialog.h"
 #include "user-configuration.h"
-
-#define LOGIN_USER_NAME "username"
-#define LOGIN_USER_PASSWORD "password"
 #define TIMEOUT 300
 
 using namespace CryptoPP;
@@ -28,15 +25,12 @@ using namespace CryptoPP;
 LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                             ui(new Ui::LoginDialog),
                                             m_mainWindow(nullptr),
-                                            m_serverCfgDlg(nullptr),
-                                            m_userConfig(nullptr)
+                                            m_serverCfgDlg(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
 
     m_serverCfgDlg = new ServerConfigDialog(this);
     m_serverCfgDlg->hide();
-
-    m_userConfig = new UserConfiguration();
 
     initUI();
     //loadConfig();
@@ -50,11 +44,6 @@ LoginDialog::~LoginDialog()
     {
         delete m_mainWindow;
         m_mainWindow = nullptr;
-    }
-    if (m_userConfig)
-    {
-        delete m_userConfig;
-        m_userConfig = nullptr;
     }
     if (m_serverCfgDlg)
     {
@@ -211,7 +200,7 @@ void LoginDialog::onLogin()
         return;
 
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
-    m_userConfig->setServerAddr(m_server.toStdString());
+    UserConfiguration::getInstance().setServerAddr(m_server.toStdString());
     InfoWorker::getInstance().login(ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
@@ -238,10 +227,8 @@ void LoginDialog::getLoginResult(const QPair<grpc::Status, user::LoginReply> &re
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
             hide();
         }
-
-        QString encryptedPw = QString::fromStdString(m_userConfig->desEncrypt(ui->lineEdit_passwd->text().toStdString()));
-        m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_NAME, ui->lineEdit_username->text());
-        m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, encryptedPw);
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
     }
     else
     {
@@ -264,7 +251,7 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
             m_mainWindow = nullptr;
         }
         show();
-        ui->lineEdit_username->clear();
+        ui->lineEdit_passwd->clear();
         ui->lab_tips->clear();
         ui->lab_tips->hide();
     }

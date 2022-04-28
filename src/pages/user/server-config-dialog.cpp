@@ -15,21 +15,14 @@
 
 ServerConfigDialog::ServerConfigDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                                           m_ipLineEdit(nullptr),
-                                                          m_portLineEdit(nullptr),
-                                                          m_userConfig(nullptr)
+                                                          m_portLineEdit(nullptr)
 {
     initUI();
-    m_userConfig = new UserConfiguration();
     setServerInfo();
 }
 
 ServerConfigDialog::~ServerConfigDialog()
 {
-    if (m_userConfig)
-    {
-        delete m_userConfig;
-        m_userConfig = nullptr;
-    }
 }
 
 QString ServerConfigDialog::getServerInfo()
@@ -115,8 +108,8 @@ void ServerConfigDialog::initUI()
                 }
                 m_ip = m_ipLineEdit->text();
                 m_port = m_portLineEdit->text();
-                m_userConfig->writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-                m_userConfig->writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+                UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
+                UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
                 close();
             });
     connect(cancleBtn, &QPushButton::clicked,
@@ -130,7 +123,7 @@ void ServerConfigDialog::setServerInfo()
     m_ip.clear();
     m_port.clear();
 
-    QString server = QString::fromStdString(m_userConfig->getServerAddr());
+    QString server = QString::fromStdString(UserConfiguration::getInstance().getServerAddr());
     if (!server.isEmpty() && server.contains(":"))
     {
         m_ip = server.split(":").first();
@@ -139,8 +132,8 @@ void ServerConfigDialog::setServerInfo()
         m_portLineEdit->setText(m_port);
         return;
     }
-    m_userConfig->readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
     m_ipLineEdit->setText(m_ip);
-    m_userConfig->readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
     m_portLineEdit->setText(m_port);
 }
