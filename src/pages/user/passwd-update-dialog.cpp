@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
 #include <QTimer>
+#include "message-dialog.h"
 #include "ui_passwd-update-dialog.h"
 #include "user-configuration.h"
 
@@ -35,6 +36,7 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
             });
     ui->lab_user_name->setText(userName);
     initUI();
+    connect(&InfoWorker::getInstance(), &InfoWorker::updatePasswordFinished, this, &PasswdUpdateDialog::getUpdatePasswordResult);
 }
 
 PasswdUpdateDialog::~PasswdUpdateDialog()
@@ -96,7 +98,6 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
             errorMsg = tr("Can't input Chinese");
         else if ((!rx1.exactMatch(inputPw)))  //没有包含数字与字符
         {
-            KLOG_INFO() << rx1.exactMatch(inputPw);
             errorMsg = tr("Please input at least a combination of password and number");
         }
         else
@@ -149,9 +150,31 @@ void PasswdUpdateDialog::onConfirm()
         KLOG_INFO() << "password arg error";
 }
 
+void PasswdUpdateDialog::getUpdatePasswordResult(const QPair<grpc::Status, user::UpdatePasswordReply> reply)
+{
+    KLOG_INFO() << "getUpdatePasswordResult";
+    if (reply.first.ok())
+    {
+        KLOG_INFO() << "Update password successful!";
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
+        emit sigUpdatePasswdSuccessful();
+        close();
+    }
+    else
+    {
+        KLOG_INFO() << reply.first.error_message().data();
+        MessageDialog::message(tr("Update Password"),
+                               tr("Update password failed!"),
+                               tr("error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
+
 void PasswdUpdateDialog::updatePassword(QString oldPw, QString newPw)
 {
     KLOG_INFO() << "updatePassword";
+    InfoWorker::getInstance().updatePassword(oldPw.toStdString(), newPw.toStdString());
 }
 
 void PasswdUpdateDialog::initUI()
@@ -166,8 +189,17 @@ void PasswdUpdateDialog::initUI()
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_cancel, Kiran::BUTTON_Normal);
 
-    ui->btn_tips->setStyleSheet("border:none;");
-    ui->btn_tips->setToolTip(tr("The password should contain at least a combination of password and number, with a length range of 8-32 characters"));
+    //    ui->btn_tips->setToolTip();
+    ui->btn_tips->setStyleSheet("QToolTip{"
+                                "background-color: rgb(255,255,255);"
+                                "color:#000000;"
+                                "border:0px solid rgb(0,0,0);"
+                                "border-radius: 6px;"
+                                "outline:none; "
+                                "min-height:30px;"
+                                "}"
+                                "QToolButton{border:none;}");
+    ui->btn_tips->setToolTip(tr("The password should contain at least\n a combination of password and number,\n with a length range of 8-32 characters"));
 
     ui->lab_old_pw_tips->hide();
     ui->lab_new_pw_tips->hide();
