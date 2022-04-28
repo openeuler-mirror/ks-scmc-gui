@@ -13,7 +13,6 @@ class LoginDialog;
 }
 
 class MainWindow;
-class UserConfiguration;
 class ServerConfigDialog;
 class LoginDialog : public KiranTitlebarWindow
 {
@@ -43,7 +42,6 @@ private:
     MainWindow *m_mainWindow;
     QTimer *m_timer;
     ServerConfigDialog *m_serverCfgDlg;
-    UserConfiguration *m_userConfig;
     QString m_server;
 };
 
