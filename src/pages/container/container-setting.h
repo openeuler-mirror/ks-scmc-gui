@@ -43,12 +43,11 @@ class ContainerSetting : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContainerSetting(ContainerSettingType type, QWidget *parent = nullptr);
+    explicit ContainerSetting(ContainerSettingType type, QPair<int64_t, QString> ids = QPair<int64_t, QString>(), QWidget *parent = nullptr);
     ~ContainerSetting();
     void paintEvent(QPaintEvent *event);
     void setItems(int row, int col, QWidget *);
     void setTitle(QString title);
-    void setContainerNodeIds(QPair<int64_t, QString> ids);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
@@ -60,6 +59,7 @@ private:
     void initBaseConfPages();
     void initAdvancedConfPages();
     void updateRemovableItem(QString itemText);
+    void getContainerInspect();
     void getNodeInfo();
     void getImageInfo(int64_t node_id);
     void createContainer();
@@ -79,6 +79,7 @@ private slots:
     void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
     void getUpdateContainerResult(const QPair<grpc::Status, container::UpdateReply> &);
     void getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &);
+    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
 
 private:
     Ui::ContainerSetting *ui = nullptr;
@@ -95,6 +96,7 @@ private:
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
     double m_totalCPU = 0.0;
     QList<NetworkConfTab *> m_netWorkPages;
+    QPair<grpc::Status, network::ListReply> m_networkReply;
 };
 
 #endif  // CONTAINERSETTING_H
