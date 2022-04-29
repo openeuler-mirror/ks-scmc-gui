@@ -317,6 +317,8 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     case ONUTLINE_CELL_EXAMINE:
     {
+        outlinePageChange(AUDIT_APPLY_LIST);
+        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_NODE_WARNING:
