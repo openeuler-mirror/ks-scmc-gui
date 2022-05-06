@@ -3,9 +3,9 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include "common/message-dialog.h"
+#include "def.h"
 #include "node-addition-dialog.h"
 #include "rpc.h"
-#define NODE_ID "node id"
 #define ACTION_COL 1
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr)

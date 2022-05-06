@@ -4,8 +4,8 @@
 #include <QDesktopWidget>
 #include <QPushButton>
 #include "container/container-setting.h"
+#include "def.h"
 #include "message-dialog.h"
-#define TEMPLATE_ID "template id"
 TemplateListPage::TemplateListPage(QWidget *parent) : TablePage(parent), m_createTPSetting(nullptr), m_editTPSetting(nullptr)
 {
     initTable();
@@ -42,8 +42,53 @@ void TemplateListPage::updateInfo(QString keyword)
 void TemplateListPage::onEdit(int row)
 {
     KLOG_INFO() << "TemplateListPage edit:" << row;
-    int64_t id;
+    QStandardItem *item = getItem(row, 1);
+    if (item)
+    {
+        if (!m_editTPSetting)
+        {
+            m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT, item->data().value<QMap<QString, QVariant>>());
+
+            int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+            QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+            m_editTPSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editTPSetting->width()) / 2,
+                                  screenGeometry.y() + (screenGeometry.height() - m_editTPSetting->height()) / 2);
+
+            m_editTPSetting->show();
+            connect(m_editTPSetting, &ContainerSetting::destroyed,
+                    [=] {
+                        KLOG_INFO() << "update template setting destroy";
+                        m_editTPSetting->deleteLater();
+                        m_editTPSetting = nullptr;
+                    });
+            connect(m_editTPSetting, &ContainerSetting::sigUpdateTemplate,
+                    [=] {
+                        updateInfo();
+                    });
+        }
+    }
+}
+
+void TemplateListPage::onDelete(int row)
+{
+    KLOG_INFO() << "TemplateListPage delete:" << row;
+    int64_t id = -1;
     getItemId(row, id);
+    if (id > 0)
+    {
+        auto ret = MessageDialog::message(tr("Remove Template"),
+                                          tr("Are you sure you want to Remove the Template?"),
+                                          tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+        if (ret == MessageDialog::StandardButton::Yes)
+        {
+            //setBusy(true);
+            InfoWorker::getInstance().removeTemplate(QList<int64_t>() << id);
+        }
+        else
+            KLOG_INFO() << "cancel";
+    }
 }
 
 void TemplateListPage::onCreateTemplate()
@@ -184,11 +229,14 @@ void TemplateListPage::initTable()
         QString(tr("Advanced configuration")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
-    setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/edit.svg");
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{
+                                                     {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
+                                                     {ACTION_BUTTON_TYPE_DELETE, ":/images/delete_item.svg"}});
 
     setTableDefaultContent("-");
 
     connect(this, &TemplateListPage::sigEdit, this, &TemplateListPage::onEdit);
+    connect(this, &TemplateListPage::sigDelete, this, &TemplateListPage::onDelete);
 }
 
 void TemplateListPage::initButtons()
@@ -214,7 +262,6 @@ void TemplateListPage::initButtons()
 void TemplateListPage::initTemplateConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
-
     connect(&InfoWorker::getInstance(), &InfoWorker::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
 }
 
