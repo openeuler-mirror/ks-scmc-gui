@@ -241,6 +241,11 @@ void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string
     RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, req);
 }
 
+void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
+{
+    RPC_ASYNC(logging::ListRuntimeReply,_listRuntimeLogging,loggingRuntimeFinished,req);
+}
+
 void InfoWorker::listNetwork(const int64_t node_id)
 {
     network::ListRequest req;
@@ -472,6 +477,11 @@ QPair<grpc::Status, container::UpdateTemplateReply> InfoWorker::_updateTemplate(
 QPair<grpc::Status, container::RemoveTemplateReply> InfoWorker::_removeTemplate(const container::RemoveTemplateRequest &req)
 {
     RPC_IMPL(container::RemoveTemplateReply, container::Container::NewStub, RemoveTemplate);
+}
+
+QPair<grpc::Status,logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
+{
+    RPC_IMPL(logging::ListRuntimeReply,logging::Logging::NewStub,ListRuntime);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
