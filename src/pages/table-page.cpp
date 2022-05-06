@@ -79,13 +79,6 @@ void TablePage::addSingleOperationButton(QAbstractButton *btn)
     m_singleOpBtns.append(btn);
 }
 
-void TablePage::addSingleWidgetButton(QWidget *btnwidget)
-{
-    ui->operate_btns->layout()->addWidget(btnwidget);
-//    ui->operate_btns->setMinimumSize(324,32);
-//    m_singleOpBtns.append(btnwidget);
-}
-
 void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
@@ -139,14 +132,9 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
     adjustTableSize();
 }
 
-void TablePage::setTableActions(int col, QStringList actionIcons)
+void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnInfo)
 {
     //设置表中操作按钮代理
-    QMap<int, QString> btnInfo;
-    for (int i = 0; i < actionIcons.size(); i++)
-    {
-        btnInfo.insert(i, actionIcons.at(i));
-    }
     ButtonDelegate *btnDelegate = new ButtonDelegate(btnInfo, this);
     ui->tableView->setItemDelegateForColumn(col, btnDelegate);
     m_isSetTableActions = true;
@@ -154,6 +142,7 @@ void TablePage::setTableActions(int col, QStringList actionIcons)
     connect(btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
     connect(btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
     connect(btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
+    connect(btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::onDelete);
     connect(btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
     connect(btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
     connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
@@ -287,7 +276,7 @@ void TablePage::initUI()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setShowGrid(false);
-//    ui->tableView->setMouseTracking(true);
+    //    ui->tableView->setMouseTracking(true);
     //对鼠标进行监控
     this->setMouseTracking(true);
 
@@ -352,7 +341,7 @@ void TablePage::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
     QCursor cur = this->cursor();
-    if(cur != Qt::ArrowCursor)
+    if (cur != Qt::ArrowCursor)
         this->setCursor(Qt::ArrowCursor);
 }
 
@@ -372,6 +361,12 @@ void TablePage::onEdit(int row)
 {
     KLOG_INFO() << "TablePage::onEdit" << row;
     emit sigEdit(row);
+}
+
+void TablePage::onDelete(int row)
+{
+    KLOG_INFO() << "TablePage::onDelete" << row;
+    emit sigDelete(row);
 }
 
 void TablePage::onActRun(QModelIndex index)

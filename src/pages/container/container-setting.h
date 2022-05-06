@@ -43,7 +43,7 @@ class ContainerSetting : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContainerSetting(ContainerSettingType type, QPair<int64_t, QString> ids = QPair<int64_t, QString>(), QWidget *parent = nullptr);
+    explicit ContainerSetting(ContainerSettingType type, QMap<QString, QVariant> ids = QMap<QString, QVariant>(), QWidget *parent = nullptr);
     ~ContainerSetting();
     void paintEvent(QPaintEvent *event);
     void setItems(int row, int col, QWidget *);
@@ -60,6 +60,7 @@ private:
     void initAdvancedConfPages();
     void updateRemovableItem(QString itemText);
     void getContainerInspect();
+    void getTemplateInspect();
     void getNodeInfo();
     void getImageInfo(int64_t node_id);
 
@@ -87,6 +88,7 @@ private slots:
     void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
     void getUpdateContainerResult(const QPair<grpc::Status, container::UpdateReply> &);
 
+    void getInspectTemplateFinishResult(const QPair<grpc::Status, container::InspectTemplateReply> &reply);
     void getCreateTemplateFinishResult(const QPair<grpc::Status, container::CreateTemplateReply> &reply);
     void getUpdateTemplateFinishedResult(const QPair<grpc::Status, container::UpdateTemplateReply> &reply);
 
@@ -101,6 +103,7 @@ private:
     QLabel *m_labImage;
     QMap<int64_t, QString> m_nodeInfo;       //id,address
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
+    qint64 m_templateId;
     int m_netWorkCount;
     ContainerSettingType m_type;
     double m_totalCPU;

@@ -206,6 +206,13 @@ void InfoWorker::listTemplate()
     RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
 }
 
+void InfoWorker::inspectTemplate(int64_t id)
+{
+    container::InspectTemplateRequest req;
+    req.set_id(id);
+    RPC_ASYNC(container::InspectTemplateReply, _inspectTemplate, inspectTemplateFinished, req);
+}
+
 void InfoWorker::createTemplate(const container::CreateTemplateRequest &req)
 {
     RPC_ASYNC(container::CreateTemplateReply, _createTemplate, createTemplateFinished, req);
@@ -239,11 +246,6 @@ void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string
         }
     }
     RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, req);
-}
-
-void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
-{
-    RPC_ASYNC(logging::ListRuntimeReply,_listRuntimeLogging,loggingRuntimeFinished,req);
 }
 
 void InfoWorker::listNetwork(const int64_t node_id)
@@ -464,6 +466,11 @@ QPair<grpc::Status, container::ListTemplateReply> InfoWorker::_listTemplate(cons
     RPC_IMPL(container::ListTemplateReply, container::Container::NewStub, ListTemplate);
 }
 
+QPair<grpc::Status, container::InspectTemplateReply> InfoWorker::_inspectTemplate(const container::InspectTemplateRequest &req)
+{
+    RPC_IMPL(container::InspectTemplateReply, container::Container::NewStub, InspectTemplate);
+}
+
 QPair<grpc::Status, container::CreateTemplateReply> InfoWorker::_createTemplate(const container::CreateTemplateRequest &req)
 {
     RPC_IMPL(container::CreateTemplateReply, container::Container::NewStub, CreateTemplate);
@@ -477,11 +484,6 @@ QPair<grpc::Status, container::UpdateTemplateReply> InfoWorker::_updateTemplate(
 QPair<grpc::Status, container::RemoveTemplateReply> InfoWorker::_removeTemplate(const container::RemoveTemplateRequest &req)
 {
     RPC_IMPL(container::RemoveTemplateReply, container::Container::NewStub, RemoveTemplate);
-}
-
-QPair<grpc::Status,logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
-{
-    RPC_IMPL(logging::ListRuntimeReply,logging::Logging::NewStub,ListRuntime);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)

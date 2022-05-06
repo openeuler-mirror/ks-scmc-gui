@@ -23,6 +23,7 @@ service Container {
     rpc CreateTemplate(CreateTemplateRequest) returns (CreateTemplateReply) {}
     rpc UpdateTemplate(UpdateTemplateRequest) returns (UpdateTemplateReply) {}
     rpc RemoveTemplate(RemoveTemplateRequest) returns (RemoveTemplateReply) {}
+    rpc InspectTemplate(InspectTemplateRequest) returns (InspectTemplateReply) {}
 
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
@@ -168,6 +169,14 @@ message RemoveTemplateRequest {
 }
 
 message RemoveTemplateReply {}
+
+message InspectTemplateRequest {
+    int64 id = 1;
+}
+
+message InspectTemplateReply {
+    ContainerTemplate data = 1;
+}
 
 /***** DATA TYPES *****/
 
