@@ -232,6 +232,14 @@ void NodeListPage::onItemClicked(const QModelIndex &index)
     }
 }
 
+void NodeListPage::onItemEntered(const QModelIndex &index)
+{
+    if (index.column() == 1)
+        this->setCursor(Qt::PointingHandCursor);
+    else
+        this->setCursor(Qt::ArrowCursor);
+}
+
 void NodeListPage::initUI()
 {
 }
@@ -266,18 +274,16 @@ void NodeListPage::initTable()
         QString(tr("Container Number")),
         "CPU",
         QString(tr("Memory")),
-        QString(tr("Disk")),
-        QString(tr("Quick Actions")),
-    };
+        QString(tr("Disk"))};
     setHeaderSections(tableHHeaderDate);
-    setTableColNum(tableHHeaderDate.size());
-    QList<int> sortablCol = {1, 3};
+    //setTableColNum(tableHHeaderDate.size());
+    QList<int> sortablCol = {1, 2};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/monitor.svg");
     setTableDefaultContent("-");
 
     connect(this, &NodeListPage::sigMonitor, this, &NodeListPage::onMonitor);
     connect(this, &NodeListPage::sigItemClicked, this, &NodeListPage::onItemClicked);
+    connect(this, &NodeListPage::sigItemEntered, this, &NodeListPage::onItemEntered);
 }
 
 void NodeListPage::initNodeConnect()

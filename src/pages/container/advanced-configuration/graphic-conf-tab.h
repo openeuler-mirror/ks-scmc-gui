@@ -15,7 +15,7 @@ class GraphicConfTab : public QWidget
 public:
     explicit GraphicConfTab(QWidget *parent = nullptr);
     ~GraphicConfTab();
-    void setGraphicInfo();
+    void setGraphicInfo(const container::ContainerConfigs *cfg);
     void getGraphicInfo(container::CreateRequest *request);
     bool isGraphic();
 

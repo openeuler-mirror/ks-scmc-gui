@@ -808,9 +808,31 @@ TabPage QTabBar::tab:selected {
     outline:none;
 }
 
-/******************************************************PasswdUpdateDialog**********************************/
+/*************************************************PasswdUpdateDialog**********************************/
 PasswdUpdateDialog #lab_old_pw_tips,#lab_new_pw_tips, #lab_confirm_pw_tips
 {
     color:#d30000;
 }
 
+/**************************************************TemplateListPage****************************************/
+TemplateListPage #btnCreate,TemplateListPage #btnRemove
+{
+    background-color:#2EB3FF;
+    border:none;
+    border-radius: 4px;
+    font-size:14px;
+    color:#ffffff;
+}
+TemplateListPage #btnCreate:hover,TemplateListPage #btnRemove:hover
+{
+   background-color:#77ceff;
+}
+TemplateListPage #btnCreate:focus,TemplateListPage #btnRemove:focus
+{
+    outline: none;
+}
+TemplateListPage #btnCreate:disabled,TemplateListPage #btnRemove:disabled
+{
+    color:#919191;
+    background:#393939;
+}

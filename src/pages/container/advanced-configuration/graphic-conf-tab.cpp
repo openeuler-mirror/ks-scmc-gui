@@ -12,10 +12,11 @@ GraphicConfTab::~GraphicConfTab()
     delete ui;
 }
 
-void GraphicConfTab::setGraphicInfo()
+void GraphicConfTab::setGraphicInfo(const container::ContainerConfigs* cfg)
 {
+    bool enableGraphic = cfg->enable_graphic();
+    ui->graphic_checkBox->setChecked(enableGraphic);
 }
-
 
 bool GraphicConfTab::isGraphic()
 {
