@@ -14,6 +14,7 @@ public:
 
 private slots:
     void onEdit(int row);
+    void onDelete(int row);
     void onCreateTemplate();
     void onRemoveTemplate();
 
