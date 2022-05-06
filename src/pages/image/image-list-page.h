@@ -13,7 +13,7 @@ class ImageListPage : public TablePage
 {
     Q_OBJECT
 public:
-    explicit ImageListPage(QWidget *parent = nullptr,bool flag = false);
+    explicit ImageListPage(QWidget *parent = nullptr);
     ~ImageListPage();
     void updateInfo(QString keyword = "");  //刷新表格
     void setDelRow(const QString type1 = "",const QString type2 = ""); //"Wait for Approve","Rejected","Passed"
@@ -32,8 +32,6 @@ private slots:
     void onBtnDownload();
     void onBtnUpdate();
     void onBtnRemove();
-    void onBtnPass();
-    void onBtnRefuse();
     void uploadSaveSlot(QMap<QString, QString> Info);
     void updateSaveSlot(QMap<QString, QString> Info);
     void downloadSaveSlot(QMap<QString, QString> Info);
@@ -54,7 +52,6 @@ private:
     QStringList m_transferImages = {};
     QMutex m_mutex;
     QVector<QString> is_del_row;
-    bool is_init_btn = false;
 };
 
 #endif  // IMAGELISTPAGE_H

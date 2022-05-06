@@ -8,7 +8,6 @@
 #include "proto/network.grpc.pb.h"
 #include "proto/node.grpc.pb.h"
 #include "proto/user.grpc.pb.h"
-#include "proto/logging.grpc.pb.h"
 
 /*
  * Example:
