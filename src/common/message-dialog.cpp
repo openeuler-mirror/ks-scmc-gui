@@ -138,7 +138,6 @@ void MessageDialog::addButton(MessageDialog::StandardButton standButton)
         qWarning() << "wrong standard button type," << standButton;
         return;
     }
-    KLOG_INFO() << buttonInfoIter.value().first;
     QPushButton *button = new QPushButton(this);
     button->setFixedSize(QSize(100, 40));
     button->setText(buttonInfoIter.value().first);

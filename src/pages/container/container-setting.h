@@ -62,11 +62,16 @@ private:
     void getContainerInspect();
     void getNodeInfo();
     void getImageInfo(int64_t node_id);
+
     void createContainer();
     void updateContainer();
 
+    void createTemplate();
+    void updateTemplate();
+
 signals:
     void sigUpdateContainer();
+    void sigUpdateTemplate();
 
 private slots:
     void onItemClicked(QListWidgetItem *item);
@@ -75,26 +80,30 @@ private slots:
     void onConfirm();
     void onNodeSelectedChanged(QString newStr);
     void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
-    void getCreateContainerResult(const QPair<grpc::Status, container::CreateReply> &);
-    void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
-    void getUpdateContainerResult(const QPair<grpc::Status, container::UpdateReply> &);
     void getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &);
     void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
 
+    void getCreateContainerResult(const QPair<grpc::Status, container::CreateReply> &);
+    void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
+    void getUpdateContainerResult(const QPair<grpc::Status, container::UpdateReply> &);
+
+    void getCreateTemplateFinishResult(const QPair<grpc::Status, container::CreateTemplateReply> &reply);
+    void getUpdateTemplateFinishedResult(const QPair<grpc::Status, container::UpdateTemplateReply> &reply);
+
 private:
-    Ui::ContainerSetting *ui = nullptr;
-    QStackedWidget *m_baseConfStack = nullptr;
-    QStackedWidget *m_advancedConfStack = nullptr;
+    Ui::ContainerSetting *ui;
+    QStackedWidget *m_baseConfStack;
+    QStackedWidget *m_advancedConfStack;
     QList<GuideItem *> m_baseItems;
     QList<GuideItem *> m_advancedItems;
-    QMenu *m_addMenu = nullptr;
-    int m_netWorkCount;
-    ContainerSettingType m_type;
-    QComboBox *m_cbImage = nullptr;
-    QLabel *m_labImage = nullptr;
+    QMenu *m_addMenu;
+    QComboBox *m_cbImage;
+    QLabel *m_labImage;
     QMap<int64_t, QString> m_nodeInfo;       //id,address
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
-    double m_totalCPU = 0.0;
+    int m_netWorkCount;
+    ContainerSettingType m_type;
+    double m_totalCPU;
     QList<NetworkConfTab *> m_netWorkPages;
     QPair<grpc::Status, network::ListReply> m_networkReply;
 };
