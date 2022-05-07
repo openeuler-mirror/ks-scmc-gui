@@ -15,8 +15,8 @@
 #include "page.h"
 #include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/audit/log-list/log-list-page.h"
-#include "pages/container/container-list-page.h"
-#include "pages/container/template/template-list-page.h"
+#include "pages/container/container-manager/container-page-manager.h"
+#include "pages/container/template-manager/template-list-page.h"
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
@@ -208,7 +208,7 @@ void MainWindow::initUI()
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
         {GUIDE_ITEM_AUDIT_LOG_LIST, AUDIT_LOG_LIST},
-        {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
+        {GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER, CONTAINER_LIST},
         {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
         {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
         {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
@@ -341,9 +341,9 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 
     switch (itemEnum)
     {
-    case GUIDE_ITEM_CONTAINER_LIST:
+    case GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER:
     {
-        page = new ContainerListPage(this);
+        page = new ContainerPageManager(this);
         break;
     }
     case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
