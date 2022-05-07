@@ -8,6 +8,13 @@
 #include "common/date-picker/date-pick-button.h"
 #include "common/monitor-content.h"
 
+enum LogListPageType
+{
+    CONTAINER_LOGS,
+    SYSTEM_LOGS,
+    USERS_LOGS
+};
+
 class LogListView : public TablePage
 {
     Q_OBJECT
@@ -15,12 +22,13 @@ public:
     explicit LogListView(QWidget *parent = nullptr);
     ~LogListView();
     void updateInfo(QString keyword = "");  //刷新表格
+    void setLogListPageType(LogListPageType);
 
 private:
     void initTable();
     void initButtons();
     void initLogListConnect();
-    void getLogList();
+    void getLogList(LogListPageType);
 
 private slots:
     void onDateSelection();
@@ -36,7 +44,7 @@ private:
     QPushButton *m_BtnApply;
     QDateTime m_xStart;
     QDateTime m_xEnd;
-    QString m_xFormat;
+    LogListPageType m_type;
 };
 
 #endif // LOGLISTVIEW_H
