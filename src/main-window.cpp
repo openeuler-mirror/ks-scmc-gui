@@ -207,7 +207,7 @@ void MainWindow::initUI()
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
-        {GUIDE_ITEM_AUDIT_LOG_LIST,AUDIT_LOG_LIST},
+        {GUIDE_ITEM_AUDIT_LOG_LIST, AUDIT_LOG_LIST},
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
         {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
         {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
@@ -373,6 +373,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         break;
     }
     default:
+
         break;
     }
     return page;

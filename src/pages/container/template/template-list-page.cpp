@@ -176,7 +176,7 @@ void TemplateListPage::getListTemplateFinishResult(const QPair<grpc::Status, con
             auto cpuNum = cfg.resouce_limit().cpu_limit();
             auto memoryNum = cfg.resouce_limit().memory_limit() / 1024;
             auto networkNum = cfg.networks_size();
-            QString baseCfg = tr("CPU:%1core \n Memory:%2G \n Network:%3piece").arg(cpuNum).arg(memoryNum).arg(networkNum);
+            QString baseCfg = tr("CPU: %1 core \n Memory: %2 G \n Network: %3 piece").arg(cpuNum).arg(memoryNum).arg(networkNum);
             QStandardItem *itemBaseCfg = new QStandardItem(baseCfg);
             itemBaseCfg->setTextAlignment(Qt::AlignCenter);
 
@@ -186,7 +186,7 @@ void TemplateListPage::getListTemplateFinishResult(const QPair<grpc::Status, con
             auto mountNum = cfg.mounts_size();
             QString enableGraphic = cfg.enable_graphic() ? tr("Open") : tr("Close");
             auto restartPolicy = cfg.restart_policy().name().data();
-            QString advanceCfg = tr("Env:%1 \n Mount:%2 \n Graphic:%3 \n RestartPolicy:%4").arg(envNum).arg(mountNum).arg(enableGraphic).arg(restartPolicy);
+            QString advanceCfg = tr("Env: %1  Mount: %2 \n Graphic: %3 \n RestartPolicy: %4").arg(envNum).arg(mountNum).arg(enableGraphic).arg(restartPolicy);
             QStandardItem *itemAdvanceCfg = new QStandardItem(advanceCfg);
             itemAdvanceCfg->setTextAlignment(Qt::AlignCenter);
 
