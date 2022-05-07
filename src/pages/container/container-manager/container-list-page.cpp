@@ -14,7 +14,7 @@
 #include "common/message-dialog.h"
 #include "common/monitor-dialog.h"
 #include "container-list-page.h"
-#include "container-setting.h"
+#include "container/container-setting.h"
 
 // TODO read from config file.
 const QString TERMINAL_CMD = "mate-terminal -e";
@@ -269,6 +269,26 @@ void ContainerListPage::onTerminal(int row)
     proc.startDetached(cmd);
 }
 
+void ContainerListPage::onItemClicked(const QModelIndex &index)
+{
+    KLOG_INFO() << "onItemClicked: " << index.column();
+    if (index.column() == 1)
+    {
+        auto item = getItem(index.row(), index.column());
+        auto infoMap = item->data().value<QMap<QString, QVariant>>();
+
+        emit sigContainerNameClicked(infoMap);
+    }
+}
+
+void ContainerListPage::onItemEntered(const QModelIndex &index)
+{
+    if (index.column() == 1)
+        this->setCursor(Qt::PointingHandCursor);
+    else
+        this->setCursor(Qt::ArrowCursor);
+}
+
 void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListReply> &reply)
 {
     KLOG_INFO() << "getNodeListResult";
@@ -326,6 +346,7 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
 
             QStandardItem *itemName = new QStandardItem(i.info().name().data());
             itemName->setData(QVariant::fromValue(infoMap));
+            itemName->setForeground(QBrush(QColor(46, 179, 255)));
 
             auto status = m_statusMap[i.info().state().data()];
             QStandardItem *itemStatus = new QStandardItem(status.first);
@@ -527,6 +548,9 @@ void ContainerListPage::initTable()
 
     connect(this, &ContainerListPage::sigMonitor, this, &ContainerListPage::onMonitor);
     connect(this, &ContainerListPage::sigEdit, this, &ContainerListPage::onEdit);
+
+    connect(this, &ContainerListPage::sigItemClicked, this, &ContainerListPage::onItemClicked);
+    connect(this, &ContainerListPage::sigItemEntered, this, &ContainerListPage::onItemEntered);
 }
 
 void ContainerListPage::initConnect()
