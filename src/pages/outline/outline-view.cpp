@@ -236,7 +236,7 @@ void OutlineView::updateInfo()
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
     getlNodeList();
-    //getContainerList();
+    getContainerList();
     getImageList();
     //    m_outlineCell_image->ui->Name_counts->setText("666");
 }
