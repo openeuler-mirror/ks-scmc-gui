@@ -1,12 +1,12 @@
 #ifndef LOGLISTVIEW_H
 #define LOGLISTVIEW_H
 
-#include "pages/table-page.h"
-#include "info-worker.h"
-#include "pages/container/container-list-page.h"
-#include "common/date-picker/date-picker.h"
 #include "common/date-picker/date-pick-button.h"
+#include "common/date-picker/date-picker.h"
 #include "common/monitor-content.h"
+#include "info-worker.h"
+#include "pages/container/container-manager/container-list-page.h"
+#include "pages/table-page.h"
 
 enum LogListPageType
 {
@@ -32,7 +32,7 @@ private:
 
 private slots:
     void onDateSelection();
-    void getListRuntime(const QPair<grpc::Status,logging::ListRuntimeReply> &);
+    void getListRuntime(const QPair<grpc::Status, logging::ListRuntimeReply> &);
     void popupStartDatePicker();
     void popupEndDatePicker();
     void applyDatePicker();
@@ -47,4 +47,4 @@ private:
     LogListPageType m_type;
 };
 
-#endif // LOGLISTVIEW_H
+#endif  // LOGLISTVIEW_H
