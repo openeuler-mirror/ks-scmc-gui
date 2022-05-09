@@ -79,6 +79,13 @@ void TablePage::addSingleOperationButton(QAbstractButton *btn)
     m_singleOpBtns.append(btn);
 }
 
+void TablePage::addSingleWidgetButton(QWidget *btnwidget)
+{
+    ui->operate_btns->layout()->addWidget(btnwidget);
+//    ui->operate_btns->setMinimumSize(324,32);
+//    m_singleOpBtns.append(btnwidget);
+}
+
 void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
@@ -146,6 +153,8 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnIn
     connect(btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
     connect(btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
     connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
+    connect(btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::onActImagePass);
+    connect(btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::onActImageRefuse);
 }
 
 void TablePage::setTableSingleChoose(bool isSingleChoose)
@@ -385,6 +394,18 @@ void TablePage::onActRestart(QModelIndex index)
 {
     KLOG_INFO() << index.row();
     emit sigRestart(index);
+}
+
+void TablePage::onActImagePass(int row)
+{
+    KLOG_INFO() << "TablePage::onActImagePass" << row;
+    emit sigImagePass(row);
+}
+
+void TablePage::onActImageRefuse(int row)
+{
+    KLOG_INFO() << "TablePage::onActImageRefuse" << row;
+    emit sigImageRefuse(row);
 }
 
 void TablePage::onRefreshTimeout()

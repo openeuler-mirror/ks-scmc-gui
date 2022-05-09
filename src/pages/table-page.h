@@ -34,6 +34,7 @@ public:
     void setOperateSearchVisible(bool visible);
     void addSingleOperationButton(QAbstractButton *);
     void addBatchOperationButtons(QList<QPushButton *>);
+    void addSingleWidgetButton(QWidget *);
     void setOpBtnEnabled(OperatorButtonType type, bool enabled);
     void setTableColNum(int num);
     void setTableRowNum(int num);
@@ -69,6 +70,8 @@ signals:
     void sigRun(QModelIndex index);
     void sigStop(QModelIndex index);
     void sigRestart(QModelIndex index);
+    void sigImagePass(int row);
+    void sigImageRefuse(int row);
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
     void sigItemEntered(const QModelIndex &index);  //鼠标进入item
@@ -81,6 +84,8 @@ private slots:
     void onActRun(QModelIndex index);
     void onActStop(QModelIndex index);
     void onActRestart(QModelIndex index);
+    void onActImagePass(int row);
+    void onActImageRefuse(int row);
     void onRefreshTimeout();
     void search();
     void refresh();
