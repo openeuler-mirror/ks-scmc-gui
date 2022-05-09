@@ -1,6 +1,7 @@
 #include "button-delegate.h"
 #include <QApplication>
 #include <QMouseEvent>
+#include <QPainter>
 
 #define BUTTON_WIDTH 16
 #define BUTTON_HEIGHT 16
@@ -48,6 +49,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         // 绘制按钮
         QStyleOptionButton button;
         QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+        QRect btnTextRect = QRect(option.rect.x() + BUTTON_SPACE - count * BUTTON_WIDTH - 2 * count * BUTTON_SPACE, option.rect.y(), option.rect.width()/2, option.rect.height());
         button.state |= QStyle::State_Enabled;
         if (btnRect.contains(m_mousePoint))
         {
@@ -60,10 +62,29 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                 button.state |= QStyle::State_Sunken;
             }
         }
-        QPixmap pixBtn;
-        pixBtn.load(i.value());
-        QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
-        //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
+        if(i.value() == tr("Pass"))
+        {
+            painter->setPen(QColor(46, 179, 255));
+            QPalette *pal = new QPalette;
+            pal->setColor(QPalette::ButtonText,QColor(46, 179, 255));
+
+            QApplication::style()->drawItemText(painter,btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter,*pal,true,i.value());
+        }
+        else if (i.value() == tr("Refuse"))
+        {
+            painter->setPen(QColor(211, 0, 0));
+            QPalette *pal = new QPalette;
+            pal->setColor(QPalette::ButtonText,QColor(211, 0, 0));
+
+            QApplication::style()->drawItemText(painter,btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter,*pal,true,i.value());
+        }
+        else
+        {
+            QPixmap pixBtn;
+            pixBtn.load(i.value());
+            QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
+            //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
+        }
         ++i;
         count++;
     }
@@ -132,6 +153,16 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             case ACTION_BUTTON_TYPE_DELETE:
             {
                 emit sigdelete(index.row());
+                break;
+            }
+            case ACTION_BUTTON_TYPE_IMAGE_PASS:
+            {
+                emit sigImagePass(index.row());
+                break;
+            }
+            case ACTION_BUTTON_TYPE_IMAGE_REFUSE:
+            {
+                emit sigImageRefuse(index.row());
                 break;
             }
             case ACTION_BUTTON_TYPE_MENU:
