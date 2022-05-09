@@ -28,6 +28,7 @@ void AuditListPage::createSubPage(AuditListPageType type)
     case WAIT_FOR_APPROVE:
     {
         m_imagelist_approve = new ImageListPage(this,true);
+//        m_imagelist_approve->setCheckBox(false);
         m_imagelist_approve->setDelRow(tr("Rejected"),tr("Passed"));
 //        m_imagelist_approve->setIsInitAuditButtons(true);
         m_imagelist_approve->setOperateAreaVisible(true);
@@ -37,6 +38,7 @@ void AuditListPage::createSubPage(AuditListPageType type)
     case AUDIT_PASSED:
     {
         m_imagelist_passed = new ImageListPage(this);
+        m_imagelist_passed->setCheckBox(false);
         m_imagelist_passed->setDelRow(tr("Wait for Approve"),tr("Rejected"));
         m_imagelist_passed->setOperateAreaVisible(false);
         addTabPage(m_imagelist_passed,tr("Passed"));
@@ -45,6 +47,7 @@ void AuditListPage::createSubPage(AuditListPageType type)
     case AUDIT_REFUSED:
     {
         m_imagelist_rejected = new ImageListPage(this);
+        m_imagelist_rejected->setCheckBox(false);
         m_imagelist_rejected->setDelRow(tr("Wait for Approve"),tr("Passed"));
         m_imagelist_rejected->setOperateAreaVisible(false);
         addTabPage(m_imagelist_rejected,tr("Rejected"));
