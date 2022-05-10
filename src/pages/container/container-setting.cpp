@@ -15,6 +15,7 @@
 #include "common/guide-item.h"
 #include "common/message-dialog.h"
 #include "def.h"
+#include "security-configuration/network-access-ctl-tab.h"
 #include "ui_container-setting.h"
 
 #define CPU "CPU"
@@ -24,6 +25,8 @@
 #define GRAPHIC QObject::tr("Graphic")
 #define VOLUMES QObject::tr("Volumes")
 #define HIGH_AVAILABILITY QObject::tr("High availability")
+#define NETWORK_ACCESS_CONTROL QObject::tr("Network access control")
+#define PROCESS_WHITELIST QObject::tr("Process whitelist")
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
@@ -31,6 +34,7 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
                                                                                                               ui(new Ui::ContainerSetting),
                                                                                                               m_baseConfStack(nullptr),
                                                                                                               m_advancedConfStack(nullptr),
+                                                                                                              m_securityConfStack(nullptr),
                                                                                                               m_addMenu(nullptr),
                                                                                                               m_cbImage(nullptr),
                                                                                                               m_labImage(nullptr),
@@ -54,8 +58,8 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
         {
             m_containerIds.first = ids.value(NODE_ID).toInt();
             m_containerIds.second = ids.value(CONTAINER_ID).toString();
+            getContainerInspect();
         }
-        getContainerInspect();
         connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
     }
@@ -120,6 +124,8 @@ void ContainerSetting::initUI()
     setWindowIcon(QIcon(":/images/logo.png"));
     setWindowModality(Qt::ApplicationModal);
     setAttribute(Qt::WA_DeleteOnClose);
+    setWindowFlags(Qt::WindowCloseButtonHint);
+    setFixedSize(780, 700);
 
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
     ui->tabWidget->setAttribute(Qt::WA_StyledBackground);
@@ -139,6 +145,10 @@ void ContainerSetting::initUI()
     m_advancedConfStack = new QStackedWidget(ui->tab_advanced_config);
     QLayout *advancedLayout = ui->tab_advanced_config->layout();
     advancedLayout->addWidget(m_advancedConfStack);
+
+    m_securityConfStack = new QStackedWidget(ui->tab_security_config);
+    QLayout *securityLayout = ui->tab_security_config->layout();
+    securityLayout->addWidget(m_securityConfStack);
 
     //创建tabwidget中侧边栏
     QList<QPair<QString, QString>> baseConfItemInfo = {{CPU, ":/images/container-cpu.svg"},
@@ -172,18 +182,35 @@ void ContainerSetting::initUI()
     m_advancedItems.first()->setSelected(true);
     ui->listWidget_advanced_config->setCurrentRow(0);
 
+    QList<QPair<QString, QString>> securityConfItemInfo = {{NETWORK_ACCESS_CONTROL, ":/images/container-env.png"},
+                                                           {PROCESS_WHITELIST, ":/images/audit-center.svg"}};
+    for (int i = 0; i < securityConfItemInfo.count(); i++)
+    {
+        QString name = securityConfItemInfo.at(i).first;
+        GuideItem *item = createGuideItem(ui->listWidget_security_config,
+                                          name,
+                                          GUIDE_ITEM_TYPE_NORMAL,
+                                          securityConfItemInfo.at(i).second);
+        m_securityItems.append(item);
+    }
+    m_securityItems.first()->setSelected(true);
+    ui->listWidget_security_config->setCurrentRow(0);
+
     initSummaryUI();
     initBaseConfPages();
     initAdvancedConfPages();
+    initSecurityConfPages();
 
     QList<QComboBox *> cbList = this->findChildren<QComboBox *>();
     foreach (auto cb, cbList)
     {
         cb->setItemDelegate(new QStyledItemDelegate(cb));
+        cb->setStyleSheet("QComboBox {combobox-popup:0;}");
     }
 
     connect(ui->listwidget_base_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->listWidget_advanced_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
+    connect(ui->listWidget_security_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
     connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onNodeSelectedChanged);
@@ -277,6 +304,12 @@ void ContainerSetting::initAdvancedConfPages()
 
     HighAvailabilityTab *highAvailabilityTab = new HighAvailabilityTab(ui->tab_advanced_config);
     m_advancedConfStack->addWidget(highAvailabilityTab);
+}
+
+void ContainerSetting::initSecurityConfPages()
+{
+    NetworkAccessCtlTab *netAccessCtlTab = new NetworkAccessCtlTab(ui->tab_security_config);
+    m_securityConfStack->addWidget(netAccessCtlTab);
 }
 
 void ContainerSetting::updateRemovableItem(QString itemText)
@@ -599,6 +632,17 @@ void ContainerSetting::onItemClicked(QListWidgetItem *item)
     {
         m_advancedConfStack->setCurrentIndex(index);
         foreach (GuideItem *item, m_advancedItems)
+        {
+            if (item == guideItem)
+                item->setSelected(true);
+            else
+                item->setSelected(false);
+        }
+    }
+    else if (listwidget == ui->listWidget_security_config)
+    {
+        m_securityConfStack->setCurrentIndex(index);
+        foreach (GuideItem *item, m_securityItems)
         {
             if (item == guideItem)
                 item->setSelected(true);

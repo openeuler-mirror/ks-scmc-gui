@@ -82,8 +82,8 @@ void TablePage::addSingleOperationButton(QAbstractButton *btn)
 void TablePage::addSingleWidgetButton(QWidget *btnwidget)
 {
     ui->operate_btns->layout()->addWidget(btnwidget);
-//    ui->operate_btns->setMinimumSize(324,32);
-//    m_singleOpBtns.append(btnwidget);
+    //    ui->operate_btns->setMinimumSize(324,32);
+    //    m_singleOpBtns.append(btnwidget);
 }
 
 void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
