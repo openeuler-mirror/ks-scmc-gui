@@ -58,6 +58,7 @@ private:
     GuideItem *createGuideItem(QListWidget *parent, QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void initBaseConfPages();
     void initAdvancedConfPages();
+    void initSecurityConfPages();
     void updateRemovableItem(QString itemText);
     void getContainerInspect();
     void getTemplateInspect();
@@ -96,8 +97,10 @@ private:
     Ui::ContainerSetting *ui;
     QStackedWidget *m_baseConfStack;
     QStackedWidget *m_advancedConfStack;
+    QStackedWidget *m_securityConfStack;
     QList<GuideItem *> m_baseItems;
     QList<GuideItem *> m_advancedItems;
+    QList<GuideItem *> m_securityItems;
     QMenu *m_addMenu;
     QComboBox *m_cbImage;
     QLabel *m_labImage;
