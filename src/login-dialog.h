@@ -36,6 +36,7 @@ private slots:
     void onLogout();
     void getLoginResult(const QPair<grpc::Status, user::LoginReply> &);
     void getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &);
+    void sessionExpire();
 
 private:
     Ui::LoginDialog *ui;

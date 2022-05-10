@@ -33,6 +33,7 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_serverCfgDlg->hide();
 
     initUI();
+    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire);
     //loadConfig();
 }
 
@@ -263,4 +264,23 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
+}
+
+void LoginDialog::sessionExpire()
+{
+    KLOG_INFO() << "sessionExpire";
+    MessageDialog::message(tr("Login"),
+                           tr("session expire!"),
+                           tr("back to login page"),
+                           ":/images/warning.svg",
+                           MessageDialog::StandardButton::Ok);
+    if (m_mainWindow)
+    {
+        delete m_mainWindow;
+        m_mainWindow = nullptr;
+    }
+    show();
+    ui->lineEdit_passwd->clear();
+    ui->lab_tips->clear();
+    ui->lab_tips->hide();
 }

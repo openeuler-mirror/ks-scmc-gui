@@ -33,6 +33,8 @@ const int CHUNK_SIZE = 1024 * 1024;
     if (s_authKey.size() > 0)                                               \
         ctx.AddMetadata("authorization", s_authKey);                        \
     r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                   \
+    if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())       \
+        emit InfoWorker::getInstance().sessinoExpire();                     \
     return r;
 
 InfoWorker::InfoWorker(QObject *parent) : QObject(parent)
@@ -246,6 +248,11 @@ void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string
         }
     }
     RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, req);
+}
+
+void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
+{
+    RPC_ASYNC(logging::ListRuntimeReply,_listRuntimeLogging,loggingRuntimeFinished,req);
 }
 
 void InfoWorker::listNetwork(const int64_t node_id)
@@ -484,6 +491,11 @@ QPair<grpc::Status, container::UpdateTemplateReply> InfoWorker::_updateTemplate(
 QPair<grpc::Status, container::RemoveTemplateReply> InfoWorker::_removeTemplate(const container::RemoveTemplateRequest &req)
 {
     RPC_IMPL(container::RemoveTemplateReply, container::Container::NewStub, RemoveTemplate);
+}
+
+QPair<grpc::Status,logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
+{
+    RPC_IMPL(logging::ListRuntimeReply,logging::Logging::NewStub,ListRuntime);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
