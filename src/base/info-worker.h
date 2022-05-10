@@ -226,6 +226,7 @@ signals:
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QPair<grpc::Status, user::LogoutReply> &);
     void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
+    void sessinoExpire();
 
         // logging management
     void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
