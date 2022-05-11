@@ -62,5 +62,6 @@
         <file>images/user_icon.svg</file>
         <file>images/pw_icon.svg</file>
         <file>images/clear_icon.svg</file>
+        <file>images/func-desc.jpg</file>
     </qresource>
 </RCC>
