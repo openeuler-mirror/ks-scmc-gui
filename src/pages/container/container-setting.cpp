@@ -16,6 +16,7 @@
 #include "common/message-dialog.h"
 #include "def.h"
 #include "security-configuration/network-access-ctl-tab.h"
+#include "security-configuration/white-list-tab.h"
 #include "ui_container-setting.h"
 
 #define CPU "CPU"
@@ -310,6 +311,9 @@ void ContainerSetting::initSecurityConfPages()
 {
     NetworkAccessCtlTab *netAccessCtlTab = new NetworkAccessCtlTab(ui->tab_security_config);
     m_securityConfStack->addWidget(netAccessCtlTab);
+
+    WhiteListTab *processWhiteList = new WhiteListTab(EXEC_WHITELIST, ui->tab_security_config);
+    m_securityConfStack->addWidget(processWhiteList);
 }
 
 void ContainerSetting::updateRemovableItem(QString itemText)
