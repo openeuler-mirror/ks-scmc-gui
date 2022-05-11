@@ -6,7 +6,6 @@
 #include <QToolButton>
 #include "network-access-item.h"
 NetworkAccessCtlTab::NetworkAccessCtlTab(QWidget *parent) : QWidget(parent),
-                                                            m_itemLayout(nullptr),
                                                             m_listWidget(nullptr),
                                                             m_funcDesc(nullptr)
 {
@@ -59,7 +58,8 @@ void NetworkAccessCtlTab::initUI()
     layout->setSpacing(0);
 
     m_listWidget = new QListWidget(this);
-    m_listWidget->setFocusPolicy(Qt::NoFocus);
+    //m_listWidget->setFocusPolicy(Qt::NoFocus);
+    m_listWidget->setFrameShape(QFrame::NoFrame);
     m_listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     createItem(0);
@@ -67,9 +67,9 @@ void NetworkAccessCtlTab::initUI()
     QVBoxLayout *btnLayout = new QVBoxLayout();
     btnLayout->setMargin(0);
     QToolButton *funcDescBtn = new QToolButton(this);
-    funcDescBtn->setText("Function\ndescription");
-    funcDescBtn->setFixedSize(20, 20);
-    funcDescBtn->setStyleSheet("font-size:10px;");
+    funcDescBtn->setText("Instruction");
+    funcDescBtn->setFixedSize(50, 20);
+    funcDescBtn->setStyleSheet("border:none;border-radius:4px;font-size:10px;background-color:#2eb3ff;color:#000000;");
     btnLayout->addWidget(funcDescBtn);
     btnLayout->addStretch();
 
@@ -89,18 +89,6 @@ void NetworkAccessCtlTab::initUI()
 
     QTextBrowser *textBrowser = new QTextBrowser(m_funcDesc);
     textBrowser->setFixedSize(495, 500);
-    //    textBrowser->setHtml("<div id='u1489_text' class='text '>"
-    //                         "<p style='font-size:20px;'><span style='font-weight:650;color:#555555;'>进程白名单-功能说明</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>[规则]</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>1、白名单状态：开启与关闭；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>组件为单选项，默认为开启状态；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>当白名单状态为开启时，才可对进程白名单进行编辑、修改、删除；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>当白名单为关闭状态时，进程白名称组件都为禁用状态。</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>2、进程白名单：非必须项；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>填写内容为路径，精确到进程名称；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>当失去光标时，进行判断路径格式是否正确；windows ： 可以使用单斜杠和双斜杠 \\ ，都没有问题、Linux： 认准 /；</span></p>"
-    //                         "<p style='font-size:14px;'><span style='font-weight:400;'>错误信息提示在组件下，提示格式为“进程路径有误，请重新填写”</span></p>"
-    //                         "</div>");
 
     textBrowser->setHtml("<div id='u1490_text' class='text '>"
                          "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:650;color:#555555;'>网络访问控制-功能说明</span></p>"
