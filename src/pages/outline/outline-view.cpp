@@ -88,6 +88,12 @@ void OutlineView::getImageList()
     InfoWorker::getInstance().listDBImage();
 }
 
+void OutlineView::getlTemplateContainer()
+{
+    KLOG_INFO() << "getlTemplateContainer";
+    InfoWorker::getInstance().listTemplate();
+}
+
 QWidget *OutlineView::getScrollCenterWidget()
 {
     return m_scrollWidget;
@@ -232,12 +238,16 @@ void OutlineView::updateInfo()
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
+//    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &OutlineView::getOutlineCellTemplateContainerNums);
+
     getlNodeList();
     getContainerList();
     getImageList();
+    getlTemplateContainer();
     //    m_outlineCell_image->ui->Name_counts->setText("666");
 }
 
@@ -329,8 +339,14 @@ void OutlineView::getOutlineCellImageNums(const QPair<grpc::Status, image::ListD
     getOutlineCellExamineNums(reply);
 }
 
-void OutlineView::getOutlineCellTemplateContainerNums()
+void OutlineView::getOutlineCellTemplateContainerNums(const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
+    KLOG_INFO() << "getOutlineCellTemplateContainerNums";
+    if (reply.first.ok())
+    {
+        int size = reply.second.data_size();
+        m_outlineCell_template_container->ui->Name_counts->setText(QString::number(size, 10));
+    }
 }
 
 void OutlineView::getOutlineCellExamineNums(const QPair<grpc::Status, image::ListDBReply> &reply)

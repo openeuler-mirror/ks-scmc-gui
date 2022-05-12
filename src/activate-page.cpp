@@ -181,7 +181,7 @@ void ActivatePage::initMessageBox()
     bt->setFocusPolicy(Qt::NoFocus);
     m_errorBox->addButton(bt, QDialogButtonBox::AcceptRole);
     m_errorBox->setButtonSize(QSize(80, 30));
-    m_errorBox->setText(tr("Activation failed. Please confirm whether the activation code is correct and whether the back-end service is enabled."));
+    m_errorBox->setText(tr("Activation failed. Please confirm whether the activation code is correct."));
 
 
     m_acitvedMessageBox = new KiranMessageBox(this);

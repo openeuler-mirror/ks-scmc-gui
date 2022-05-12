@@ -318,6 +318,8 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     case ONUTLINE_CELL_TEMPLATE_CONTAINER:
     {
+        outlinePageChange(CONTAINER_TEMPLATE);
+        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_EXAMINE:
