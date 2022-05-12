@@ -1,15 +1,20 @@
 #include "network-access-ctl-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QListWidgetItem>
 #include <QScrollArea>
 #include <QToolButton>
 #include "network-access-item.h"
 NetworkAccessCtlTab::NetworkAccessCtlTab(QWidget *parent) : QWidget(parent),
                                                             m_listWidget(nullptr),
-                                                            m_funcDesc(nullptr)
+                                                            m_funcDesc(nullptr),
+                                                            m_btnOpen(nullptr),
+                                                            m_btnClose(nullptr),
+                                                            m_isEnable(true)
 {
     initUI();
+    createItem(0);
 }
 
 NetworkAccessCtlTab::~NetworkAccessCtlTab()
@@ -21,12 +26,71 @@ NetworkAccessCtlTab::~NetworkAccessCtlTab()
     }
 }
 
-void NetworkAccessCtlTab::setNetworkAccessInfo()
+void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securityCfg)
 {
+    auto networkRuleList = securityCfg->network_rule();
+    bool isOn = networkRuleList.is_on();
+    if (isOn)
+    {
+        m_btnOpen->setChecked(true);
+        m_btnOpen->click();
+    }
+    else
+    {
+        m_btnClose->setChecked(true);
+        m_btnClose->click();
+    }
+
+    int count = 0;
+    QStringList protocols;
+    KLOG_INFO() << "*********" << networkRuleList.rules_size();
+    for (auto rule : networkRuleList.rules())
+    {
+        if (count > 0)
+            createItem(count);
+        for (std::string protocol : rule.protocols())
+        {
+            QString strProtocol = QString::fromStdString(protocol);
+            if (0 == strProtocol.compare("tcp", Qt::CaseInsensitive) ||
+                0 == strProtocol.compare("udp", Qt::CaseInsensitive) ||
+                0 == strProtocol.compare("icmp", Qt::CaseInsensitive))
+
+            {
+                protocols.append(strProtocol);
+            }
+        }
+        QString addr = QString::fromStdString(rule.addr().data());
+        int port = rule.port();
+
+        auto listItem = m_listWidget->item(count);
+        NetworkAccessItem *item = qobject_cast<NetworkAccessItem *>(m_listWidget->itemWidget(listItem));
+        item->setInfo(protocols, addr, port);
+        count++;
+    }
 }
 
-void NetworkAccessCtlTab::getNetworkAccessInfo()
+void NetworkAccessCtlTab::getNetworkAccessInfo(container::SecurityConfig *securityCfg)
 {
+    auto networkRuleList = securityCfg->mutable_network_rule();
+    networkRuleList->set_is_on(m_isEnable);
+    for (int i = 0; i < m_listWidget->count(); i++)
+    {
+        auto listItem = m_listWidget->item(i);
+        auto item = qobject_cast<NetworkAccessItem *>(m_listWidget->itemWidget(listItem));
+        auto rules = networkRuleList->add_rules();
+
+        QStringList protocols;
+        QString addr;
+        int port;
+        item->getInfo(protocols, addr, port);
+        KLOG_INFO() << protocols << addr << port;
+        foreach (QString protocol, protocols)
+        {
+            rules->add_protocols(protocol.toStdString());
+        }
+        rules->set_addr(addr.toStdString());
+        rules->set_port(port);
+    }
 }
 
 NetworkAccessItem *NetworkAccessCtlTab::createItem(int index)
@@ -34,12 +98,14 @@ NetworkAccessItem *NetworkAccessCtlTab::createItem(int index)
     QListWidgetItem *newItem = nullptr;
     NetworkAccessItem *customItem = nullptr;
 
-    newItem = new QListWidgetItem(m_listWidget);
+    newItem = new QListWidgetItem();
 
     customItem = new NetworkAccessItem(m_listWidget);
-    customItem->setNetworkInfo(index);
     connect(customItem, &NetworkAccessItem::sigAdd, this, &NetworkAccessCtlTab::addItem);
     connect(customItem, &NetworkAccessItem::sigDelete, this, &NetworkAccessCtlTab::deleteItem);
+
+    if (index == 0)
+        customItem->setDeleteBtnVisible(false);
 
     m_listWidget->insertItem(index, newItem);
     m_listWidget->setItemWidget(newItem, customItem);
@@ -52,29 +118,50 @@ NetworkAccessItem *NetworkAccessCtlTab::createItem(int index)
 
 void NetworkAccessCtlTab::initUI()
 {
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(20, 20, 10, 0);
+    mainLayout->setSpacing(0);
+
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
-    layout->setContentsMargins(20, 20, 10, 0);
-    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(20);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+    topLayout->setMargin(0);
+    topLayout->setSpacing(20);
+    QLabel *labStatus = new QLabel(this);
+    labStatus->setText(tr(" Access status"));
+
+    m_btnOpen = new QRadioButton(tr("Open"), this);
+    m_btnOpen->setChecked(true);
+    m_btnClose = new QRadioButton(tr("Close"), this);
+
+    topLayout->addWidget(labStatus);
+    topLayout->addWidget(m_btnOpen);
+    topLayout->addWidget(m_btnClose);
+    topLayout->addStretch();
 
     m_listWidget = new QListWidget(this);
-    //m_listWidget->setFocusPolicy(Qt::NoFocus);
+    m_listWidget->setFocusPolicy(Qt::NoFocus);
     m_listWidget->setFrameShape(QFrame::NoFrame);
     m_listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    createItem(0);
+    layout->addLayout(topLayout);
+    layout->addWidget(m_listWidget);
 
     QVBoxLayout *btnLayout = new QVBoxLayout();
     btnLayout->setMargin(0);
     QToolButton *funcDescBtn = new QToolButton(this);
-    funcDescBtn->setText("Instruction");
-    funcDescBtn->setFixedSize(50, 20);
-    funcDescBtn->setStyleSheet("border:none;border-radius:4px;font-size:10px;background-color:#2eb3ff;color:#000000;");
+    funcDescBtn->setText("Function\nInstruction");
+    funcDescBtn->setFixedSize(50, 50);
+    funcDescBtn->setStyleSheet("border:none;border-radius:4px;font-size:10px;background-color:transparent;color:#2eb3ff;");
     btnLayout->addWidget(funcDescBtn);
     btnLayout->addStretch();
 
-    layout->addWidget(m_listWidget);
-    layout->addLayout(btnLayout);
+    mainLayout->addLayout(layout);
+    mainLayout->addLayout(btnLayout);
 
     //创建功能描述弹出控件
     m_funcDesc = new QWidget();
@@ -108,6 +195,16 @@ void NetworkAccessCtlTab::initUI()
     funcLayout->addWidget(textBrowser);
 
     connect(funcDescBtn, &QToolButton::clicked, this, &NetworkAccessCtlTab::popuoFuncDesc);
+    connect(m_btnClose, &QRadioButton::clicked,
+            [=] {
+                m_listWidget->setDisabled(true);
+                m_isEnable = false;
+            });
+    connect(m_btnOpen, &QRadioButton::clicked,
+            [=] {
+                m_listWidget->setDisabled(false);
+                m_isEnable = true;
+            });
 }
 
 void NetworkAccessCtlTab::addItem()
@@ -122,7 +219,6 @@ void NetworkAccessCtlTab::addItem()
         {
             KLOG_INFO() << "NetworkAccessItem index:" << row;
             createItem(row + 1);
-
             break;
         }
         row++;

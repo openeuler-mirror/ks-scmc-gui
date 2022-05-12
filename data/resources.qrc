@@ -63,6 +63,20 @@
         <file>images/pw_icon.svg</file>
         <file>images/clear_icon.svg</file>
         <file>images/func-desc.jpg</file>
-        <file>images/qrcode.png</file>
+        <file>images/process-security.png</file>
+        <file>images/net-process-white-list.png</file>
+        <file>images/net-access-control.png</file>
+        <file>images/icon_plus_pre.png</file>
+        <file>images/icon_plus_n.png</file>
+        <file>images/icon_Less_pre.png</file>
+        <file>images/icon_Less_n.png</file>
+        <file>images/frame_s.png</file>
+        <file>images/frame_n.png</file>
+        <file>images/container-file-protect.png</file>
+        <file>images/arrow_s.png</file>
+        <file>images/marquee_checked.png</file>
+        <file>images/marquee_default.png</file>
+        <file>images/cmd_operation.png</file>
+        <file>images/container-graphic.png</file>
     </qresource>
 </RCC>

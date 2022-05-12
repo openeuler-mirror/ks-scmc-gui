@@ -11,7 +11,7 @@
 #include "common/message-dialog.h"
 #include "def.h"
 
-ImageListPage::ImageListPage(QWidget *parent,bool flag) : TablePage(parent), m_pImageOp(nullptr)
+ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_pImageOp(nullptr)
 {
     is_init_audit_btn = flag;
     initButtons();
@@ -51,11 +51,11 @@ void ImageListPage::initTable()
         tr("Inspection Status"),
         tr("Approval Status"),
         tr("Last Update")};
-    if(is_init_audit_btn)
+    if (is_init_audit_btn)
     {
         tableHHeaderDate.append(tr("Operation"));
         setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")},
-                                                                                       {ACTION_BUTTON_TYPE_IMAGE_PASS,  tr("Pass")}});
+                                                                                       {ACTION_BUTTON_TYPE_IMAGE_PASS, tr("Pass")}});
     }
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
@@ -65,7 +65,7 @@ void ImageListPage::initTable()
 
 void ImageListPage::initButtons()
 {
-    if(!is_init_audit_btn)
+    if (!is_init_audit_btn)
     {
         QMap<int, QPushButton *> opBtnMap;
         //按钮
@@ -130,20 +130,20 @@ void ImageListPage::initButtons()
             btn->setObjectName("btn");
 
             btn->setStyleSheet("#btn{background-color:#2eb3ff;"
-                                "border:none;"
-                                "border-radius: 4px;"
-                                "color:#ffffff;}"
-                                "#btn:hover{ background-color:#77ceff;}"
-                                "#btn:focus{outline:none;}"
-                                "#btn:disabled{color:#919191;background:#393939;}");
+                               "border:none;"
+                               "border-radius: 4px;"
+                               "color:#ffffff;}"
+                               "#btn:hover{ background-color:#77ceff;}"
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
             btn->setText(name);
             btn->setFixedSize(QSize(78, 32));
             opBtnMap.insert(iter.key(), btn);
         }
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS], &QPushButton::clicked, this, &ImageListPage::onBtnPass);
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE], &QPushButton::clicked, this, &ImageListPage::onBtnRefuse);
-        connect(this,&TablePage::sigImagePass,this,&ImageListPage::onBtnPass);
-        connect(this,&TablePage::sigImageRefuse,this,&ImageListPage::onBtnRefuse);
+        connect(this, &TablePage::sigImagePass, this, &ImageListPage::onBtnPass);
+        connect(this, &TablePage::sigImageRefuse, this, &ImageListPage::onBtnRefuse);
 
         addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS]
                                                         << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE]);
@@ -311,12 +311,10 @@ void ImageListPage::onBtnRemove()
 
 void ImageListPage::onBtnPass()
 {
-
 }
 
 void ImageListPage::onBtnRefuse()
 {
-
 }
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
@@ -443,7 +441,7 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             infoMap.insert(IMAGE_ID, imageId);
 
             QStandardItem *itemCheck = new QStandardItem();
-            if(is_open_checkbox)
+            if (is_open_checkbox)
                 itemCheck->setCheckable(true);
             else
                 itemCheck->setCheckable(false);
@@ -506,7 +504,7 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             for (int i = 0; i < is_del_row.count(); i++)
             {
                 QString str = itemApprovalStatus->text();
-                if(is_del_row[i] == str)
+                if (is_del_row[i] == str)
                     goto _END;
             }
 

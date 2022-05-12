@@ -46,6 +46,7 @@ MainWindow GuideItem #label_text
 {
     color:#ffffff;
     font-size:14px;
+    font-weight:200;
 }
 
 MainWindow QLabel#lab_user_icon
@@ -105,6 +106,7 @@ TablePage QTableView{
     background: #2d2d2d;	/*表格背景色*/
     gridline-color:	#2d2d2d;		/*网格边框*/
     font-size: 14px;					/*表格文本大小*/
+    font-weight:200;
 /*    font-family: "PingFang SC Regular";		/*表格文本字体*/
 }
 TablePage QTableView::item
@@ -242,7 +244,8 @@ TablePage HeaderView
     border:none;
     border-bottom: 1px solid #393939;
     color:#919191;
-    font-size:14px;
+    font-size:12px;
+    font-weight:200;
     height:40px;
 }
 
@@ -303,6 +306,7 @@ ContainerSetting QComboBox
     border-radius: 6px;
     padding-left:10px;
     color:#000000;
+    combobox-popup:0;
 }
 ContainerSetting QComboBox:drop-down
 {
@@ -458,6 +462,43 @@ ContainerSetting QTabBar::tab:selected {
     color:#43A3F5;
     border-bottom:2px solid #43A3F5;
     outline:none;
+}
+
+ContainerSetting QRadioButton,
+ContainerSetting QCheckBox
+{
+    color:#000000;
+    outline:none;
+}
+
+ContainerSetting QCheckBox::indicator
+{
+    width: 16px;
+    height: 16px;
+}
+ContainerSetting QCheckBox::indicator:unchecked
+{
+    image: url(:/images/marquee_default.png);
+}
+
+ContainerSetting QCheckBox::indicator:checked
+{
+    image: url(:/images/marquee_checked.png);
+}
+
+ContainerSetting QRadioButton::indicator:unchecked
+{
+    image: url(:/images/frame_n.png);
+}
+
+ContainerSetting QRadioButton::indicator:checked
+{
+    image: url(:/images/frame_s.png);
+}
+
+ContainerSetting QLineEdit:disabled
+{
+    background-color:#F0F0F0;
 }
 
 /****************************Graphic*************************/
@@ -855,57 +896,37 @@ TemplateListPage #btnCreate:disabled,TemplateListPage #btnRemove:disabled
 
 /********************************************NetworkAccessCtlTab**********************************************/
 NetworkAccessCtlTab QListWidget::item,
-WhiteListTab QListWidget::item
+SecurityListTab QListWidget::item
 {
     background-color:transparent;
     border:none;
     outline:none;
 }
 NetworkAccessCtlTab QListWidget::item:hover,
-WhiteListTab QListWidget::item:hover
+SecurityListTab QListWidget::item:hover
 {
     background-color:transparent;
 }
 NetworkAccessCtlTab QListWidget::item:selected,
-WhiteListTab QListWidget::item:selected
+SecurityListTab QListWidget::item:selected
 {
     background-color:transparent;
 }
 NetworkAccessCtlTab QListWidget::item:focus,
-WhiteListTab QListWidget::item:focus
+SecurityListTab QListWidget::item:focus
 {
    outline:none;
 }
 
-NetworkAccessCtlTab QCheckBox
-{
-    color:#000000;
-    font-size:14px;
-    outline:none;
-}
-NetworkAccessCtlTab QCheckBox::indicator
-{
-    width: 12px;
-    height: 12px;
-}
-NetworkAccessCtlTab QCheckBox::indicator:unchecked
-{
-    image: url(:/images/check-default.svg);
-}
-NetworkAccessCtlTab QCheckBox::indicator:checked
-{
-    image: url(:/images/checked.svg);
-}
-
 NetworkAccessCtlTab QScrollBar:vertical,
-WhiteListTab QScrollBar:vertical
+SecurityListTab QScrollBar:vertical
 {
     width:4px;
     background:rgba(0,0,0,0%);
     margin:0px,0px,0px,0px;
 }
 NetworkAccessCtlTab QScrollBar::handle:vertical,
-WhiteListTab QScrollBar::handle:vertical
+SecurityListTab QScrollBar::handle:vertical
 {
     width:4px;
     background:rgba(0,0,0,25%);
@@ -913,7 +934,7 @@ WhiteListTab QScrollBar::handle:vertical
     min-height:20;
 }
 NetworkAccessCtlTab QScrollBar::handle:vertical:hover,
-WhiteListTab QScrollBar::handle:vertical:hover
+SecurityListTab QScrollBar::handle:vertical:hover
 {
     width:4px;
     background:rgba(0,0,0,50%);
@@ -922,30 +943,54 @@ WhiteListTab QScrollBar::handle:vertical:hover
 }
 
 NetworkAccessCtlTab QScrollBar::add-line:vertical,
-WhiteListTab QScrollBar::add-line:vertical
+SecurityListTab QScrollBar::add-line:vertical
 {
     image:none;
 }
 NetworkAccessCtlTab QScrollBar::sub-line:vertical,
-WhiteListTab QScrollBar::sub-line:vertical
+SecurityListTab QScrollBar::sub-line:vertical
 {
     image:none;
 }
 
+NetworkAccessCtlTab #btn_add,SecurityListTab #btn_add
+{
+    background-color:transparent;
+    border:none;
+    image:url(:/images/icon_plus_n.png);
+}
+NetworkAccessCtlTab #btn_add:pressed,SecurityListTab #btn_add:pressed
+{
+    background-color:transparent;
+    border:none;
+    image:url(:/images/icon_plus_pre.png);
+}
+NetworkAccessCtlTab #btn_add:hover,SecurityListTab #btn_add:hover
+{
+    background-color:transparent;
+    border:none;
+}
+
+NetworkAccessCtlTab #btn_delete,SecurityListTab #btn_delete
+{
+    background-color:transparent;
+    border:none;
+    image:url(:/images/icon_Less_n.png);
+}
+NetworkAccessCtlTab #btn_delete:hover,SecurityListTab #btn_delete:hover
+{
+    background-color:transparent;
+    border:none;
+}
+NetworkAccessCtlTab #btn_delete:pressed,SecurityListTab #btn_delete:pressed
+{
+    background-color:transparent;
+    border:none;
+    image:url(:/images/icon_Less_pre.png);
+}
+
 /************************************WhiteListTab******************************/
-WhiteListTab
-{
-    background:red;
-}
 
-WhiteListTab QRadioButton
-{
-    color:#000000;
-}
 
-WhiteListTab QLineEdit:disabled
-{
-    background-color:#F0F0F0;
-}
 
 

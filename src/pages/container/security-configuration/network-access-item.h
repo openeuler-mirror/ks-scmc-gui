@@ -16,7 +16,8 @@ public:
     explicit NetworkAccessItem(QWidget *parent = nullptr);
     ~NetworkAccessItem();
     void setDeleteBtnVisible(bool visible);
-    void setNetworkInfo(int index);
+    void getInfo(QStringList &protocols, QString &addr, int &port);
+    void setInfo(QStringList protocols, QString addr, int port);
 
 private slots:
     void ondelete();
