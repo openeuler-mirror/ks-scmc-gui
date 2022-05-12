@@ -12,6 +12,8 @@ service Security {
     // 文件保护
     rpc ListFileProtection(ListFileProtectionRequest) returns (ListFileProtectionReply) {}
     rpc UpdateFileProtection(UpdateFileProtectionRequest) returns (UpdateFileProtectionReply) {}
+
+    rpc LoadSecurityConfig(LoadSecurityConfigRequset) returns (LoadSecurityConfigReply) {}
 }
 
 enum PROC_PROTECTION {
@@ -62,6 +64,13 @@ message UpdateFileProtectionRequest {
 
 message UpdateFileProtectionReply {}
 
+message LoadSecurityConfigRequset {
+    repeated FullSeucirytConfig configs = 1;
+}
+
+message LoadSecurityConfigReply {
+}
+
 message ProcProtection {
     int64           protection_type = 1;  // PROC_PROTECTION 必填
     bool            is_on           = 2;  // 开关
@@ -71,4 +80,21 @@ message ProcProtection {
 message FileProtection {
     bool            is_on     = 1;
     repeated string file_list = 2;
+}
+
+message FullSeucirytConfig {
+    string         containerId      = 1;
+    ProcProtection proc_protections = 2;
+    FileProtection file_protections = 3;
+}
+
+message NetworkRule {
+    repeated string protocols = 1;  // tcp, udp, icmp
+    string          addr      = 2;  // e.g. 192.168.10.3 192.168.120.0/24
+    uint32          port      = 3;  // 0 for all ports
+}
+
+message NetworkRuleList {
+    bool                 is_on = 1;  // 0:关闭 1:白名单
+    repeated NetworkRule rules = 2;
 }
