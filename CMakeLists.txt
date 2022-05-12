@@ -29,6 +29,9 @@ find_package(Qt5Charts)
 pkg_search_module(KIRAN_WIDGETS_QT5 REQUIRED kiranwidgets-qt5)
 pkg_search_module(KLOG_QT5 REQUIRED klog-qt5)
 pkg_search_module(CRYPTOPP REQUIRED cryptopp)
+pkg_search_module(KYLIN_LICENSE REQUIRED kylin-license)
+pkg_search_module(KYLIN_LICENSE REQUIRED license-wrapper)
+
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(DATA_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}")
