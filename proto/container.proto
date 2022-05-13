@@ -19,13 +19,17 @@ service Container {
     rpc Kill(KillRequest) returns (KillReply) {}
     rpc Status(StatusRequest) returns (StatusReply) {}
 
-    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}
-    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}
-    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}
-    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}
-    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}
+    // 容器备份客户端接口
+    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}    // 创建备份
+    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}    // 更新备份描述
+    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}    // 恢复备份
+    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}    // 删除备份
+    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}          // 备份列表
+
+    // 容器备份内部接口
     rpc AddBackupJob(AddBackupJobRequest) returns (AddBackupJobReply) {}
     rpc GetBackupJob(GetBackupJobRequest) returns (GetBackupJobReply) {}
+    rpc DelBackupJob(DelBackupJobRequest) returns (DelBackupJobReply) {}
 
     rpc ListTemplate(ListTemplateRequest) returns (ListTemplateReply) {}
     rpc CreateTemplate(CreateTemplateRequest) returns (CreateTemplateReply) {}
@@ -53,13 +57,27 @@ message UpdateBackupRequest {
 message UpdateBackupReply {}
 
 message ResumeBackupRequest {
-    int64 id = 1;
+    // for client
+    int64  node_id      = 1;
+    string container_id = 2;
+    int64  backup_id    = 3;
+
+    // for agent service
+    string file_path   = 11;
+    string backup_name = 12;
+    string image_repo  = 13;
 }
 
-message ResumeBackupReply {}
+message ResumeBackupReply {
+    string container_id = 1;  // 生成新容器id
+}
 
 message RemoveBackupRequest {
+    // for client
     int64 id = 1;
+
+    // for agent service
+    string file_path = 11;
 }
 
 message RemoveBackupReply {}
@@ -87,24 +105,18 @@ message GetBackupJobRequest {
     int64 id = 1;
 }
 
-message GetBackupJobReply {
-    int64  id        = 1;
-    string file_path = 2;
-    string file_size = 3;
-    int64  status    = 4;
+message DelBackupJobRequest {
+    int64 id = 1;
 }
 
-message ContainerBackup {
-    int64  id           = 1;
-    int64  node_id      = 2;
-    string container_id = 3;
-    string uuid         = 4;
-    string backup_name  = 5;
-    string backup_desc  = 6;
-    string file_path    = 7;
-    int64  file_size    = 8;
-    int64  status       = 9;  // 0:备份中 1:成功 2:失败
-    int64  created_at   = 21;
+message DelBackupJobReply {}
+
+message GetBackupJobReply {
+    int64  id         = 1;
+    string file_path  = 2;
+    int64  file_size  = 3;
+    int64  status     = 4;  // 参考 BACKUP_STATUS 定义
+    int64  updated_at = 5;
 }
 
 message ListRequest {
@@ -419,4 +431,23 @@ message ContainerConfigs {
 message ContainerTemplate {
     int64            id   = 1;
     ContainerConfigs conf = 2;
+}
+
+enum BACKUP_STATUS {
+    ONGOING = 0;  // 备份中
+    SUCCEED = 1;  // 成功
+    FAILED  = 2;  // 失败
+}
+
+message ContainerBackup {
+    int64  id           = 1;
+    int64  node_id      = 2;
+    string container_id = 3;
+    string uuid         = 4;
+    string backup_name  = 5;
+    string backup_desc  = 6;
+    string file_path    = 7;
+    int64  file_size    = 8;
+    int64  status       = 9;  // 参考 BACKUP_STATUS 定义
+    int64  created_at   = 21;
 }
