@@ -87,6 +87,13 @@ public:
     void updateTemplate(const container::UpdateTemplateRequest &);
     void removeTemplate(QList<int64_t> ids);
 
+    //container backup
+    void listBackup(int nodeId, std::string containerId);
+    void updateBackup(int id, std::string backupDesc);
+    void createBackup(int nodeId, std::string containerId, std::string backupDesc);
+    void resumeBackup(int nodeId, std::string containerId, int backupId);
+    void removeBackup(int id);
+
     // network management
     void listNetwork(const int64_t);
     void connectNetwork(const network::ConnectRequest &);
@@ -147,6 +154,13 @@ private:
     static QPair<grpc::Status, container::UpdateTemplateReply> _updateTemplate(const container::UpdateTemplateRequest &);
     static QPair<grpc::Status, container::RemoveTemplateReply> _removeTemplate(const container::RemoveTemplateRequest &);
 
+    //container backup
+    static QPair<grpc::Status, container::ListBackupReply> _listBackup(const container::ListBackupRequest &);
+    static QPair<grpc::Status, container::UpdateBackupReply> _updateBackup(const container::UpdateBackupRequest &);
+    static QPair<grpc::Status, container::CreateBackupReply> _createBackup(const container::CreateBackupRequest &);
+    static QPair<grpc::Status, container::ResumeBackupReply> _resumeBackup(const container::ResumeBackupRequest &);
+    static QPair<grpc::Status, container::RemoveBackupReply> _removeBackup(const container::RemoveBackupRequest &);
+
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
     static QPair<grpc::Status, network::ConnectReply> _connectNetwork(const network::ConnectRequest &);
@@ -172,7 +186,7 @@ private:
     static QPair<grpc::Status, user::UpdatePasswordReply> _updatePassword(const user::UpdatePasswordRequest &);
 
     // logging management
-    static QPair<grpc::Status,logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
+    static QPair<grpc::Status, logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
 
 signals:
     // node management
@@ -201,6 +215,13 @@ signals:
     void updateTemplateFinished(const QPair<grpc::Status, container::UpdateTemplateReply> &);
     void removeTemplateFinished(const QPair<grpc::Status, container::RemoveTemplateReply> &);
 
+    //container backup
+    void listBackupFinished(const QPair<grpc::Status, container::ListBackupReply> &);
+    void updateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &);
+    void createBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &);
+    void resumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &);
+    void removeBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &);
+
     // network management
     void listNetworkFinished(const QPair<grpc::Status, network::ListReply> &);
     void connectNetworkFinished(const QPair<grpc::Status, network::ConnectReply> &);
@@ -228,7 +249,7 @@ signals:
     void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
     void sessinoExpire();
 
-        // logging management
+    // logging management
     void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
 
 private:

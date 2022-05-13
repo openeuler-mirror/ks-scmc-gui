@@ -14,6 +14,7 @@ NetworkAccessCtlTab::NetworkAccessCtlTab(QWidget *parent) : QWidget(parent),
                                                             m_isEnable(true)
 {
     initUI();
+    m_btnClose->setChecked(true);
     createItem(0);
 }
 
@@ -31,15 +32,9 @@ void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securi
     auto networkRuleList = securityCfg->network_rule();
     bool isOn = networkRuleList.is_on();
     if (isOn)
-    {
         m_btnOpen->setChecked(true);
-        m_btnOpen->click();
-    }
     else
-    {
         m_btnClose->setChecked(true);
-        m_btnClose->click();
-    }
 
     int count = 0;
     QStringList protocols;
@@ -135,7 +130,6 @@ void NetworkAccessCtlTab::initUI()
     labStatus->setText(tr(" Access status"));
 
     m_btnOpen = new QRadioButton(tr("Open"), this);
-    m_btnOpen->setChecked(true);
     m_btnClose = new QRadioButton(tr("Close"), this);
 
     topLayout->addWidget(labStatus);
@@ -195,15 +189,21 @@ void NetworkAccessCtlTab::initUI()
     funcLayout->addWidget(textBrowser);
 
     connect(funcDescBtn, &QToolButton::clicked, this, &NetworkAccessCtlTab::popuoFuncDesc);
-    connect(m_btnClose, &QRadioButton::clicked,
-            [=] {
-                m_listWidget->setDisabled(true);
-                m_isEnable = false;
+    connect(m_btnClose, &QRadioButton::toggled,
+            [=](bool checked) {
+                if (checked == true)
+                {
+                    m_listWidget->setDisabled(true);
+                    m_isEnable = false;
+                }
             });
-    connect(m_btnOpen, &QRadioButton::clicked,
-            [=] {
-                m_listWidget->setDisabled(false);
-                m_isEnable = true;
+    connect(m_btnOpen, &QRadioButton::toggled,
+            [=](bool checked) {
+                if (checked == true)
+                {
+                    m_listWidget->setDisabled(false);
+                    m_isEnable = true;
+                }
             });
 }
 
