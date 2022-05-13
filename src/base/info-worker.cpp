@@ -235,6 +235,47 @@ void InfoWorker::removeTemplate(QList<int64_t> ids)
     RPC_ASYNC(container::RemoveTemplateReply, _removeTemplate, removeTemplateFinished, req);
 }
 
+void InfoWorker::listBackup(int nodeId, std::string containerId)
+{
+    container::ListBackupRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    RPC_ASYNC(container::ListBackupReply, _listBackup, listBackupFinished, req);
+}
+
+void InfoWorker::updateBackup(int id, std::string backupDesc)
+{
+    container::UpdateBackupRequest req;
+    req.set_id(id);
+    req.set_backup_desc(backupDesc);
+    RPC_ASYNC(container::UpdateBackupReply, _updateBackup, updateBackupFinished, req);
+}
+
+void InfoWorker::createBackup(int nodeId, std::string containerId, std::string backupDesc)
+{
+    container::CreateBackupRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    req.set_backup_desc(backupDesc);
+    RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, req);
+}
+
+void InfoWorker::removeBackup(int id)
+{
+    container::RemoveBackupRequest req;
+    req.set_id(id);
+    RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, req);
+}
+
+void InfoWorker::resumeBackup(int nodeId, std::string containerId, int backupId)
+{
+    container::ResumeBackupRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    req.set_backup_id(backupId);
+    RPC_ASYNC(container::ResumeBackupReply, _resumeBackup, resumeBackupFinished, req);
+}
+
 void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::RemoveRequest req;
@@ -252,7 +293,7 @@ void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string
 
 void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
 {
-    RPC_ASYNC(logging::ListRuntimeReply,_listRuntimeLogging,loggingRuntimeFinished,req);
+    RPC_ASYNC(logging::ListRuntimeReply, _listRuntimeLogging, loggingRuntimeFinished, req);
 }
 
 void InfoWorker::listNetwork(const int64_t node_id)
@@ -493,9 +534,34 @@ QPair<grpc::Status, container::RemoveTemplateReply> InfoWorker::_removeTemplate(
     RPC_IMPL(container::RemoveTemplateReply, container::Container::NewStub, RemoveTemplate);
 }
 
-QPair<grpc::Status,logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
+QPair<grpc::Status, container::ListBackupReply> InfoWorker::_listBackup(const container::ListBackupRequest &req)
 {
-    RPC_IMPL(logging::ListRuntimeReply,logging::Logging::NewStub,ListRuntime);
+    RPC_IMPL(container::ListBackupReply, container::Container::NewStub, ListBackup);
+}
+
+QPair<grpc::Status, container::UpdateBackupReply> InfoWorker::_updateBackup(const container::UpdateBackupRequest &req)
+{
+    RPC_IMPL(container::UpdateBackupReply, container::Container::NewStub, UpdateBackup);
+}
+
+QPair<grpc::Status, container::CreateBackupReply> InfoWorker::_createBackup(const container::CreateBackupRequest &req)
+{
+    RPC_IMPL(container::CreateBackupReply, container::Container::NewStub, CreateBackup);
+}
+
+QPair<grpc::Status, container::ResumeBackupReply> InfoWorker::_resumeBackup(const container::ResumeBackupRequest &req)
+{
+    RPC_IMPL(container::ResumeBackupReply, container::Container::NewStub, ResumeBackup);
+}
+
+QPair<grpc::Status, container::RemoveBackupReply> InfoWorker::_removeBackup(const container::RemoveBackupRequest &req)
+{
+    RPC_IMPL(container::RemoveBackupReply, container::Container::NewStub, RemoveBackup);
+}
+
+QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
+{
+    RPC_IMPL(logging::ListRuntimeReply, logging::Logging::NewStub, ListRuntime);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)

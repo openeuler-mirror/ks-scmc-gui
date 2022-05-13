@@ -54,8 +54,8 @@ void ImageListPage::initTable()
     if (is_init_audit_btn)
     {
         tableHHeaderDate.append(tr("Operation"));
-        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_PASS,  tr("Pass")},
-                                                                                       {ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")}});
+        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")},
+                                                                                       {ACTION_BUTTON_TYPE_IMAGE_PASS, tr("Pass")}});
     }
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
@@ -142,8 +142,8 @@ void ImageListPage::initButtons()
         }
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS], &QPushButton::clicked, this, &ImageListPage::onBtnPass);
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE], &QPushButton::clicked, this, &ImageListPage::onBtnRefuse);
-        connect(this,&ImageListPage::sigImagePass,this,&ImageListPage::onBtnPassLabel);
-        connect(this,&ImageListPage::sigImageRefuse,this,&ImageListPage::onBtnRefuseLabel);
+        connect(this, &TablePage::sigImagePass, this, &ImageListPage::onBtnPass);
+        connect(this, &TablePage::sigImageRefuse, this, &ImageListPage::onBtnRefuse);
 
         addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS]
                                                         << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE]);
@@ -311,54 +311,10 @@ void ImageListPage::onBtnRemove()
 
 void ImageListPage::onBtnPass()
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
-    if (!info.isEmpty())
-    {
-        QString imageId = info.at(0).value(IMAGE_ID).toString();
-
-        QMap<QString, QString> checkInfo;
-        checkInfo.insert("Image Id", imageId);
-        checkInfo.insert("Image Check", "Pass");
-        checkInfo.insert("Image Reason","");
-        checkSaveSlot(checkInfo);
-    }
 }
 
 void ImageListPage::onBtnRefuse()
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
-    if (!info.isEmpty())
-    {
-        QString imageId = info.at(0).value(IMAGE_ID).toString();
-
-        QMap<QString, QString> checkInfo;
-        checkInfo.insert("Image Id", imageId);
-        checkInfo.insert("Image Check", "Refuse");
-        checkInfo.insert("Image Reason","");
-        checkSaveSlot(checkInfo);
-    }
-}
-
-void ImageListPage::onBtnPassLabel(int row)
-{
-    auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    auto image_id = infoMap.value(IMAGE_ID).toString();
-    QMap<QString, QString> checkInfo;
-    checkInfo.insert("Image Id", image_id);
-    checkInfo.insert("Image Check", "Pass");
-    checkInfo.insert("Image Reason","");
-    checkSaveSlot(checkInfo);
-}
-
-void ImageListPage::onBtnRefuseLabel(int row)
-{
-    auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    auto image_id = infoMap.value(IMAGE_ID).toString();
-    QMap<QString, QString> checkInfo;
-    checkInfo.insert("Image Id", image_id);
-    checkInfo.insert("Image Check", "Refuse");
-    checkInfo.insert("Image Reason","");
-    checkSaveSlot(checkInfo);
 }
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
@@ -459,7 +415,7 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
     bool checkStatus = Info["Image Check"] == "Pass" ? true : false;
 
-//    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().checkImage(Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
 }
 

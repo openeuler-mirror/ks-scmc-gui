@@ -60,15 +60,18 @@ bool SecurityListItem::getPathCorrect()
 void SecurityListItem::checkPath()
 {
     QString path = ui->lineEdit->text();
-    QFile file(path);
-    if (!file.exists())
+    if (!path.isEmpty())
     {
-        ui->lab_error_tips->show();
-        m_isPathCorrect = false;
-    }
-    else
-    {
-        ui->lab_error_tips->hide();
-        m_isPathCorrect = true;
+        QFile file(path);
+        if (!file.exists())
+        {
+            ui->lab_error_tips->show();
+            m_isPathCorrect = false;
+        }
+        else
+        {
+            ui->lab_error_tips->hide();
+            m_isPathCorrect = true;
+        }
     }
 }
