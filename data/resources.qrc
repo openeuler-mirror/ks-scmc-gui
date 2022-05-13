@@ -78,5 +78,6 @@
         <file>images/marquee_default.png</file>
         <file>images/cmd_operation.png</file>
         <file>images/container-graphic.png</file>
+        <file>images/qrcode.png</file>
     </qresource>
 </RCC>
