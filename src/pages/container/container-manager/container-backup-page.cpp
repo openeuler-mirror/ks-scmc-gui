@@ -128,29 +128,22 @@ void ContainerBackupPage::onResumeBackup(int row)
     KLOG_INFO() << m_containerStatus;
 
     int ret = -1;
-    if (m_containerStatus == "running")
-    {
-        ret = MessageDialog::message(tr("Resume Backup"),
-                                     tr("Backup recovery confirmation"),
-                                     tr("It is detected that the container is online. It will be shut down during recovery. After recovery, it needs to be powered on manually!"),
-                                     ":/images/warning.svg",
-                                     MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
-    }
-    else if (m_containerStatus == "exited")
+    if (m_containerStatus == "exited")
     {
         ret = MessageDialog::message(tr("Resume Backup"),
                                      tr("Backup recovery confirmation"),
                                      tr("%1 backup is selected for recovery").arg(infoMap.value(BACKUP_NAME).toString()),
                                      ":/images/warning.svg",
                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+
+        if (ret == MessageDialog::StandardButton::Yes)
+        {
+            auto backupId = infoMap.value(BACKUP_ID).toInt();
+            InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
+        }
+        else
+            KLOG_INFO() << "cancel";
     }
-    if (ret == MessageDialog::StandardButton::Yes)
-    {
-        auto backupId = infoMap.value(BACKUP_ID).toInt();
-        InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
-    }
-    else
-        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onUpdateBackup(int row)
@@ -233,17 +226,17 @@ void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, contai
             QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
             startTime->setTextAlignment(Qt::AlignCenter);
 
-            QStandardItem *itemPath = new QStandardItem(data.file_path().data());
-            itemPath->setTextAlignment(Qt::AlignCenter);
+            QStandardItem *itemImageref = new QStandardItem(data.image_ref().data());
+            itemImageref->setTextAlignment(Qt::AlignCenter);
 
-            QString size = QString("%1M").arg(QString::number(data.file_size() / 1024 / 1024));  //字节转化成M
+            QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
             QStandardItem *itemSize = new QStandardItem(size);
             itemSize->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
             itemDesc->setTextAlignment(Qt::AlignCenter);
 
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemPath << itemSize << itemDesc);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemImageref << itemSize << itemDesc);
             row++;
         }
     }
@@ -298,7 +291,7 @@ void ContainerBackupPage::initTable()
         QString(tr("Backup file Name")),
         QString(tr("Backup status")),
         QString(tr("Backup start time")),
-        QString(tr("Backup path")),
+        QString(tr("Backup version")),
         QString(tr("Backup size")),
         QString(tr("Description")),
         QString(tr("Quick Actions"))};

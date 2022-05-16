@@ -34,11 +34,11 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    m_timer->start(2000);
+    m_timer->start(60000);
     //    connect(m_timer, &QTimer::timeout,
     //            [this] {
-    //                //setBusy(true);
-    //                InfoWorker::getInstance().listNode();
+    //                std::vector<int64_t> vecNodeId;
+    //                InfoWorker::getInstance().listContainer(vecNodeId, true);
     //            });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
@@ -110,7 +110,7 @@ void ContainerListPage::onBtnRestart()
     KLOG_INFO() << "onBtnRestart";
     std::map<int64_t, std::vector<std::string>> ids;
     getCheckedItemsId(ids);
-    if (ids.empty())
+    if (!ids.empty())
     {
         setBusy(true);
         InfoWorker::getInstance().restartContainer(ids);
@@ -272,21 +272,29 @@ void ContainerListPage::onTerminal(int row)
 void ContainerListPage::onItemClicked(const QModelIndex &index)
 {
     KLOG_INFO() << "onItemClicked: " << index.column();
-    if (index.column() == 1)
+    auto item = getItem(index.row(), index.column());
+    if (item)
     {
-        auto item = getItem(index.row(), index.column());
-        auto infoMap = item->data().value<QMap<QString, QVariant>>();
+        if (index.column() == 1 && item->text() != "-")
+        {
+            auto item = getItem(index.row(), index.column());
+            auto infoMap = item->data().value<QMap<QString, QVariant>>();
 
-        emit sigContainerNameClicked(infoMap);
+            emit sigContainerNameClicked(infoMap);
+        }
     }
 }
 
 void ContainerListPage::onItemEntered(const QModelIndex &index)
 {
-    if (index.column() == 1)
-        this->setCursor(Qt::PointingHandCursor);
-    else
-        this->setCursor(Qt::ArrowCursor);
+    auto item = getItem(index.row(), index.column());
+    if (item)
+    {
+        if (index.column() == 1 && item->text() != "-")
+            this->setCursor(Qt::PointingHandCursor);
+        else
+            this->setCursor(Qt::ArrowCursor);
+    }
 }
 
 void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListReply> &reply)
@@ -303,11 +311,13 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
             KLOG_INFO() << n.id();
             m_vecNodeId.push_back(n.id());
         }
-        if (!m_vecNodeId.empty())
-        {
-            setBusy(true);
-            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-        }
+
+        //todo delete
+        //        if (!m_vecNodeId.empty())
+        //        {
+        //            setBusy(true);
+        //            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
+        //        }
     }
     else
     {
@@ -325,8 +335,11 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
     {
         int size = reply.second.containers_size();
         KLOG_INFO() << "container size:" << size;
-        if (size < 1)
+        if (size <= 0)
+        {
+            setHeaderCheckable(false);
             return;
+        }
 
         clearTable();
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
@@ -566,14 +579,16 @@ void ContainerListPage::initConnect()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
+    std::vector<int64_t> vecNodeId;
     if (nodeId < 0)
     {
         setBusy(true);
         InfoWorker::getInstance().listNode();
+        InfoWorker::getInstance().listContainer(vecNodeId, true);
     }
     else
     {
-        std::vector<int64_t> vecNodeId;
+        KLOG_INFO() << "get container list of node " << nodeId;
         vecNodeId.push_back(nodeId);
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         InfoWorker::getInstance().listContainer(vecNodeId, true);

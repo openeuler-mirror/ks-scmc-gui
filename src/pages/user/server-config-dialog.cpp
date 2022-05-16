@@ -110,6 +110,7 @@ void ServerConfigDialog::initUI()
                 m_port = m_portLineEdit->text();
                 UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
                 UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+                UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
                 close();
             });
     connect(cancleBtn, &QPushButton::clicked,
