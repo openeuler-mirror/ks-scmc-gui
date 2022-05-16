@@ -42,6 +42,7 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
                                                                                                               m_securityConfStack(nullptr),
                                                                                                               m_addMenu(nullptr),
                                                                                                               m_cbImage(nullptr),
+                                                                                                              m_cbNode(nullptr),
                                                                                                               m_labImage(nullptr),
                                                                                                               m_templateId(-1),
                                                                                                               m_netWorkCount(0),
@@ -56,13 +57,15 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
     connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerSetting::getListImageFinishedResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerSetting::getNetworkListResult);
 
+    m_containerIds.first = ids.value(NODE_ID).toInt();
+    m_containerIds.second = ids.value(CONTAINER_ID).toString();
+    m_templateId = ids.value(TEMPLATE_ID).toInt();
+
     getNodeInfo();
     if (type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
     {
         if (!ids.isEmpty())
         {
-            m_containerIds.first = ids.value(NODE_ID).toInt();
-            m_containerIds.second = ids.value(CONTAINER_ID).toString();
             getContainerInspect();
         }
         connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
@@ -80,7 +83,6 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
     {
         if (!ids.isEmpty())
         {
-            m_templateId = ids.value(TEMPLATE_ID).toInt();
             getTemplateInspect();
         }
         connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
@@ -242,8 +244,12 @@ void ContainerSetting::initSummaryUI()
         m_labImage = new QLabel(this);
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_labImage, 2, 1);
+        ui->cb_node->setEnabled(false);
+        ui->cb_node->setStyleSheet("border:none;margin-left:0px;padding-left:0px;");
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
+        ui->lineEdit_describe->setStyleSheet("border:none;");
+        ui->lineEdit_describe->setReadOnly(true);
         break;
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
@@ -252,9 +258,11 @@ void ContainerSetting::initSummaryUI()
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
+        ui->label_image->hide();
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
-        ui->label_image->hide();
+        ui->lineEdit_describe->setStyleSheet("border:none;");
+        ui->lineEdit_describe->setReadOnly(true);
         break;
     default:
         break;
@@ -840,12 +848,15 @@ void ContainerSetting::getNodeListResult(const QPair<grpc::Status, node::ListRep
     if (reply.first.ok())
     {
         m_nodeInfo.clear();
+        ui->cb_node->clear();
         for (auto n : reply.second.nodes())
         {
             m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
             ui->cb_node->addItem(QString("%1").arg(n.address().data()));
             m_totalCPU = n.status().cpu_stat().total();
         }
+        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+            ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
     }
 }
 
@@ -886,8 +897,6 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             ui->lineEdit_describe->setText(info.desc().data());
         else
             ui->lineEdit_describe->setText(tr("none"));
-        ui->lineEdit_describe->setStyleSheet("border:none;");
-        ui->lineEdit_describe->setDisabled(true);
 
         //Graph
         //info.enable_graphic();
@@ -998,8 +1007,6 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
             ui->lineEdit_describe->setText(info.desc().data());
         else
             ui->lineEdit_describe->setText(tr("none"));
-        ui->lineEdit_describe->setStyleSheet("border:none;");
-        ui->lineEdit_describe->setDisabled(true);
 
         //Graph
         //info.enable_graphic();

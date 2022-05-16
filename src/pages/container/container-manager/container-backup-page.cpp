@@ -3,9 +3,10 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
-#include "backup-addition-dialog.h"
+#include "message-dialog.h"
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
                                                             m_backupAddDlg(nullptr),
+                                                            m_backupEditDlg(nullptr),
                                                             m_nodeId(-1),
                                                             m_containerId("")
 {
@@ -21,6 +22,11 @@ ContainerBackupPage::~ContainerBackupPage()
         delete m_backupAddDlg;
         m_backupAddDlg = nullptr;
     }
+    if (m_backupEditDlg)
+    {
+        delete m_backupEditDlg;
+        m_backupEditDlg = nullptr;
+    }
 }
 
 void ContainerBackupPage::updateInfo(QString keyword)
@@ -29,19 +35,21 @@ void ContainerBackupPage::updateInfo(QString keyword)
     clearText();
     if (keyword.isEmpty())
     {
-        //initConnect();
-        //gRPC->拿数据->填充内容
-        //InfoWorker::getInstance().listBackup();
+        if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
+        {
+            InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+        }
     }
 }
 
-void ContainerBackupPage::updateBackupList(int nodeId, std::string containerId)
+void ContainerBackupPage::updateBackupList(int nodeId, std::string containerId, QString containerStatus)
 {
     if (nodeId >= 0 && !QString::fromStdString(containerId).isEmpty())
     {
         m_nodeId = nodeId;
         m_containerId = containerId;
-        InfoWorker::getInstance().listBackup(nodeId, containerId);
+        m_containerStatus = containerStatus;
+        updateInfo();
     }
 }
 
@@ -49,15 +57,16 @@ void ContainerBackupPage::onCreateBackupBtn()
 {
     if (!m_backupAddDlg)
     {
-        m_backupAddDlg = new BackupAdditionDialog();
+        m_backupAddDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_CREATE);
+        m_backupAddDlg->setTitle(tr("Backup Addition"));
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_backupAddDlg->move(screenGeometry.x() + (screenGeometry.width() - m_backupAddDlg->width()) / 2,
                              screenGeometry.y() + (screenGeometry.height() - m_backupAddDlg->height()) / 2);
         m_backupAddDlg->show();
 
-        connect(m_backupAddDlg, &BackupAdditionDialog::sigSave, this, &ContainerBackupPage::onCreateBackup);
-        connect(m_backupAddDlg, &BackupAdditionDialog::destroyed,
+        connect(m_backupAddDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
+        connect(m_backupAddDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
                     KLOG_INFO() << " m_backupAddDlg destroy";
                     m_backupAddDlg->deleteLater();
@@ -68,23 +77,107 @@ void ContainerBackupPage::onCreateBackupBtn()
 
 void ContainerBackupPage::onRemoveBackupBtn()
 {
+    QList<QMap<QString, QVariant>> infoMap = getCheckedItemInfo(1);
+    if (!infoMap.empty())
+    {
+        auto ret = MessageDialog::message(tr("Delete Container Backup"),
+                                          tr("Are you sure you want to delete the container backup?"),
+                                          tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+        if (ret == MessageDialog::StandardButton::Yes)
+        {
+            auto backupId = infoMap.at(0).value(BACKUP_ID).toInt();
+            InfoWorker::getInstance().removeBackup(backupId);
+        }
+        else
+            KLOG_INFO() << "cancel";
+    }
+}
+
+void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc)
+{
+    if (type == BACKUP_OPERATE_TYPE_CREATE)
+        InfoWorker::getInstance().createBackup(m_nodeId, m_containerId, desc.toStdString());
+    else if (type == BACKUP_OPERATE_TYPE_EDIT)
+        InfoWorker::getInstance().updateBackup(m_updateBackupId, desc.toStdString());
 }
 
 void ContainerBackupPage::onRemoveBackup(int row)
 {
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> infoMap = item->data().toMap();
+    auto ret = MessageDialog::message(tr("Delete Container Backup"),
+                                      tr("Are you sure you want to delete the container backup?"),
+                                      tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                      ":/images/warning.svg",
+                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+    if (ret == MessageDialog::StandardButton::Yes)
+    {
+        auto backupId = infoMap.value(BACKUP_ID).toInt();
+        InfoWorker::getInstance().removeBackup(backupId);
+    }
+    else
+        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onResumeBackup(int row)
 {
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> infoMap = item->data().toMap();
+    KLOG_INFO() << m_containerStatus;
+
+    int ret = -1;
+    if (m_containerStatus == "running")
+    {
+        ret = MessageDialog::message(tr("Resume Backup"),
+                                     tr("Backup recovery confirmation"),
+                                     tr("It is detected that the container is online. It will be shut down during recovery. After recovery, it needs to be powered on manually!"),
+                                     ":/images/warning.svg",
+                                     MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+    }
+    else if (m_containerStatus == "exited")
+    {
+        ret = MessageDialog::message(tr("Resume Backup"),
+                                     tr("Backup recovery confirmation"),
+                                     tr("%1 backup is selected for recovery").arg(infoMap.value(BACKUP_NAME).toString()),
+                                     ":/images/warning.svg",
+                                     MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+    }
+    if (ret == MessageDialog::StandardButton::Yes)
+    {
+        auto backupId = infoMap.value(BACKUP_ID).toInt();
+        InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
+    }
+    else
+        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onUpdateBackup(int row)
 {
-}
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> infoMap = item->data().toMap();
+    int64_t backupId = infoMap.value(BACKUP_ID).toInt();
+    m_updateBackupId = backupId;
 
-void ContainerBackupPage::onCreateBackup(QString desc)
-{
-    InfoWorker::getInstance().createBackup(m_nodeId, m_containerId, desc.toStdString());
+    if (!m_backupEditDlg)
+    {
+        m_backupEditDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EDIT);
+        m_backupEditDlg->setTitle(tr("Backup Update"));
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_backupEditDlg->move(screenGeometry.x() + (screenGeometry.width() - m_backupEditDlg->width()) / 2,
+                              screenGeometry.y() + (screenGeometry.height() - m_backupEditDlg->height()) / 2);
+        m_backupEditDlg->show();
+
+        connect(m_backupEditDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
+        connect(m_backupEditDlg, &ContainerBackupOperateDialog::destroyed,
+                [=] {
+                    KLOG_INFO() << " m_backupEditDlg destroy";
+                    m_backupEditDlg->deleteLater();
+                    m_backupEditDlg = nullptr;
+                });
+    }
 }
 
 void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, container::ListBackupReply> &reply)
@@ -97,6 +190,7 @@ void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, contai
         if (size <= 0)
         {
             setTableDefaultContent("-");
+            setHeaderCheckable(false);
             return;
         }
         clearTable();
@@ -107,25 +201,33 @@ void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, contai
         {
             qint64 backupId = data.id();
             idMap.insert(BACKUP_ID, backupId);
+            idMap.insert(BACKUP_NAME, data.backup_name().data());
 
             QStandardItem *itemCheck = new QStandardItem();
             itemCheck->setCheckable(true);
 
             QStandardItem *itemName = new QStandardItem(data.backup_name().data());
-            itemName->setData(QVariant::fromValue(idMap));
             itemName->setTextAlignment(Qt::AlignCenter);
+            itemName->setData(QVariant::fromValue(idMap));
 
             int status = data.status();
-            QString strStatus;
-            if (status == 0)
-                strStatus = tr("Backing up");
-            else if (status == 1)
-                strStatus = tr("Successful");
-            else if (status == 2)
-                strStatus == tr("Failed");
-
-            QStandardItem *itemStatus = new QStandardItem(strStatus);
+            QStandardItem *itemStatus = new QStandardItem();
             itemStatus->setTextAlignment(Qt::AlignCenter);
+            switch (status)
+            {
+            case 0:
+                itemStatus->setText(tr("On going"));
+                itemStatus->setForeground(QBrush(QColor("#00921b")));
+                break;
+            case 1:
+                itemStatus->setText(tr("Successful"));
+                itemStatus->setForeground(QBrush(QColor("#00921b")));
+                break;
+            case 2:
+                itemStatus->setText(tr("Failed"));
+                itemStatus->setForeground(QBrush(QColor("#d30000")));
+                break;
+            }
 
             auto dt = QDateTime::fromSecsSinceEpoch(data.created_at());
             QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
@@ -134,7 +236,8 @@ void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, contai
             QStandardItem *itemPath = new QStandardItem(data.file_path().data());
             itemPath->setTextAlignment(Qt::AlignCenter);
 
-            QStandardItem *itemSize = new QStandardItem(data.file_size());
+            QString size = QString("%1M").arg(QString::number(data.file_size() / 1024 / 1024));  //字节转化成M
+            QStandardItem *itemSize = new QStandardItem(size);
             itemSize->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
@@ -152,8 +255,13 @@ void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, contai
     }
 }
 
-void ContainerBackupPage::getUpdateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &)
+void ContainerBackupPage::getUpdateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &reply)
 {
+    KLOG_INFO() << "getUpdateBackupFinished";
+    if (reply.first.ok())
+    {
+        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+    }
 }
 
 void ContainerBackupPage::getCreateBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &reply)
@@ -165,12 +273,22 @@ void ContainerBackupPage::getCreateBackupFinished(const QPair<grpc::Status, cont
     }
 }
 
-void ContainerBackupPage::getResumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &)
+void ContainerBackupPage::getResumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &reply)
 {
+    KLOG_INFO() << "getResumeBackupFinished";
+    if (reply.first.ok())
+    {
+        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+    }
 }
 
-void ContainerBackupPage::getRemoveBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &)
+void ContainerBackupPage::getRemoveBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &reply)
 {
+    KLOG_INFO() << "getRemoveBackupFinished";
+    if (reply.first.ok())
+    {
+        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+    }
 }
 
 void ContainerBackupPage::initTable()
@@ -191,14 +309,11 @@ void ContainerBackupPage::initTable()
                                                                                    {ACTION_BUTTON_TYPE_BACKUP_REMOVE, tr("Remove")}});
 
     setTableDefaultContent("-");
-
+    setHeaderCheckable(false);
+    setTableSingleChoose(true);
     connect(this, &ContainerBackupPage::sigBackupResume, this, &ContainerBackupPage::onResumeBackup);
     connect(this, &ContainerBackupPage::sigBackupUpdate, this, &ContainerBackupPage::onUpdateBackup);
     connect(this, &ContainerBackupPage::sigBackupRemove, this, &ContainerBackupPage::onRemoveBackup);
-    //    connect(this, &ContainerListPage::sigMonitor, this, &ContainerListPage::onMonitor);
-    //    connect(this, &ContainerListPage::sigEdit, this, &ContainerListPage::onEdit);
-
-    //    connect(this, &ContainerListPage::sigItemClicked, this, &ContainerListPage::onItemClicked);
 }
 
 void ContainerBackupPage::initButtons()
@@ -212,6 +327,14 @@ void ContainerBackupPage::initButtons()
     QPushButton *btnRemove = new QPushButton(this);
     btnRemove->setText(tr("Remove"));
     btnRemove->setObjectName("btnRemove");
+    btnRemove->setObjectName("btnRemove");
+    btnRemove->setStyleSheet("#btnRemove{background-color:#ff4b4b;"
+                             "border:none;"
+                             "border-radius: 4px;"
+                             "color:#ffffff;}"
+                             "#btnRemove:hover{ background-color:#ff6c6c;}"
+                             "#btnRemove:focus{outline:none;}"
+                             "#btnRemove:disabled{color:#919191;background:#393939;}");
     btnRemove->setFixedSize(QSize(78, 32));
     connect(btnRemove, &QPushButton::clicked, this, &ContainerBackupPage::onRemoveBackupBtn);
 
