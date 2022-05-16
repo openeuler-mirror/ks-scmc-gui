@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPushButton>
 
 #define BUTTON_WIDTH 16
 #define BUTTON_HEIGHT 16
@@ -13,6 +14,7 @@ ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QString> btnInfo, QObjec
       m_btnInfo(btnInfo),
       m_menu(nullptr)
 {
+    m_isSetDelegateDefault = false;
     if (!m_btnInfo.value(ACTION_BUTTON_TYPE_MENU).isNull())
     {
         m_menu = new QMenu();
@@ -42,75 +44,61 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 
     QStyledItemDelegate::paint(painter, viewOption, index);
     int count = 0;
-
-    QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
-    while (i != m_btnInfo.constEnd())
+    if (!m_isSetDelegateDefault)
     {
-        // 绘制按钮
-        QStyleOptionButton button;
-        QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-        QRect btnTextRect = QRect(option.rect.x() + BUTTON_SPACE - count * BUTTON_WIDTH - 2 * count * BUTTON_SPACE, option.rect.y(), option.rect.width() / 2, option.rect.height());
-        button.state |= QStyle::State_Enabled;
-        if (btnRect.contains(m_mousePoint))
+        QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
+        while (i != m_btnInfo.constEnd())
         {
-            if (m_nType == 0)
+            // 绘制按钮
+            QStyleOptionButton button;
+            QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+            QRect btnTextRect = QRect(option.rect.x() + count * BUTTON_WIDTH + 2 * count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
+            button.state |= QStyle::State_Enabled;
+            if (btnRect.contains(m_mousePoint))
             {
-                button.state |= QStyle::State_MouseOver;
+                if (m_nType == 0)
+                {
+                    button.state |= QStyle::State_MouseOver;
+                }
+                else if (m_nType == 1)
+                {
+                    button.state |= QStyle::State_Sunken;
+                }
             }
-            else if (m_nType == 1)
+            if (i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove"))
             {
-                button.state |= QStyle::State_Sunken;
+                painter->setPen(QColor(46, 179, 255));
+                QPalette *pal = new QPalette;
+                pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
             }
+            else if (i.value() == tr("Refuse"))
+            {
+                painter->setPen(QColor(211, 0, 0));
+                QPalette *pal = new QPalette;
+                pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
+            }
+            else
+            {
+                QPixmap pixBtn;
+                pixBtn.load(i.value());
+                QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
+                //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
+            }
+            ++i;
+            count++;
+            //            m_isSetDelegateDefault = true;
         }
-        if (i.value() == tr("Pass"))
-        {
-            painter->setPen(QColor(46, 179, 255));
-            QPalette *pal = new QPalette;
-            pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-
-            QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
-        }
-        else if (i.value() == tr("Refuse"))
-        {
-            painter->setPen(QColor(211, 0, 0));
-            QPalette *pal = new QPalette;
-            pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
-
-            QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
-        }
-        if (i.value() == tr("Resume"))
-        {
-            painter->setPen(QColor(46, 179, 255));
-            QPalette *pal = new QPalette;
-            pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-
-            QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
-        }
-        else if (i.value() == tr("Update"))
-        {
-            painter->setPen(QColor(46, 179, 255));
-            QPalette *pal = new QPalette;
-            pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-
-            QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
-        }
-        else if (i.value() == tr("Remove"))
-        {
-            painter->setPen(QColor(46, 179, 255));
-            QPalette *pal = new QPalette;
-            pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-
-            QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
-        }
-        else
-        {
-            QPixmap pixBtn;
-            pixBtn.load(i.value());
-            QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
-            //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
-        }
-        ++i;
-        count++;
+    }
+    else
+    {
+        //        painter->setPen(QColor(211, 0, 0));
+        QPalette *pal = new QPalette;
+        pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
+        QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+        QApplication::style()->drawItemText(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, "-");
+        //        m_isSetDelegateDefault = false;
     }
 }
 
@@ -120,109 +108,117 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     Q_UNUSED(index);
     QMouseEvent *pEvent = static_cast<QMouseEvent *>(event);
     m_mousePoint = pEvent->pos();
-    QApplication::restoreOverrideCursor();
+    //    QApplication::restoreOverrideCursor();
 
     bool repaint = false;
     int count = 0;
-    QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
-    while (i != m_btnInfo.constEnd())
+    if (!m_isSetDelegateDefault)
     {
-        // 绘制按钮
-        QStyleOptionButton button;
-        QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-        // 鼠标位于按钮之上
-        if (!btnRect.contains(m_mousePoint))
+        QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
+        while (i != m_btnInfo.constEnd())
         {
-            i++;
-            count++;
-            continue;
-        }
-        repaint = true;
-        switch (event->type())
-        {
-        // 鼠标滑过
-        case QEvent::MouseMove:
-        {
-            // 设置鼠标样式为手型
-            QApplication::setOverrideCursor(Qt::PointingHandCursor);
-            m_nType = 0;
-            break;
-        }
-        // 鼠标按下
-        case QEvent::MouseButtonPress:
-        {
-            m_nType = 1;
-            break;
-        }
-        // 鼠标释放
-        case QEvent::MouseButtonRelease:
-        {
-            switch (i.key())
+            // 绘制按钮
+            QStyleOptionButton button;
+            QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+            if (i.value() == tr("Refuse") || i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove"))
+                btnRect = QRect(option.rect.x() + count * BUTTON_WIDTH + 2 * count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
+            // 鼠标位于按钮之上
+            if (!btnRect.contains(m_mousePoint))
             {
-            case ACTION_BUTTON_TYPE_MONITOR:
+                i++;
+                count++;
+                continue;
+            }
+            repaint = true;
+            switch (event->type())
             {
-                emit sigMonitor(index.row());
+            // 鼠标滑过
+            case QEvent::MouseMove:
+            {
+                // 设置鼠标样式为手型
+                //                QApplication::setOverrideCursor(Qt::PointingHandCursor);
+                m_nType = 0;
                 break;
             }
-            case ACTION_BUTTON_TYPE_EDIT:
+            // 鼠标按下
+            case QEvent::MouseButtonPress:
             {
-                emit sigEdit(index.row());
+                m_nType = 1;
                 break;
             }
-            case ACTION_BUTTON_TYPE_TERINAL:
+            // 鼠标释放
+            case QEvent::MouseButtonRelease:
             {
-                emit sigTerminal(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_DELETE:
-            {
-                emit sigdelete(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_IMAGE_PASS:
-            {
-                emit sigImagePass(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_IMAGE_REFUSE:
-            {
-                emit sigImageRefuse(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_BACKUP_RESUME:
-            {
-                emit sigBackupResume(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_BACKUP_UPDATE:
-            {
-                emit sigBackupUpdate(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_BACKUP_REMOVE:
-            {
-                emit sigBackupRemove(index.row());
-                break;
-            }
-            case ACTION_BUTTON_TYPE_MENU:
-            {
-                if (m_menu)
+                switch (i.key())
                 {
-                    m_index = index;
-                    QPoint point(QCursor::pos().x() + 10, QCursor::pos().y());
-                    m_menu->popup(point);
+                case ACTION_BUTTON_TYPE_MONITOR:
+                {
+                    emit sigMonitor(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_EDIT:
+                {
+                    emit sigEdit(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_TERINAL:
+                {
+                    emit sigTerminal(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_DELETE:
+                {
+                    emit sigdelete(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_IMAGE_REFUSE:
+                {
+                    emit sigImageRefuse(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_IMAGE_PASS:
+                {
+                    emit sigImagePass(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_BACKUP_RESUME:
+                {
+                    emit sigBackupResume(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_BACKUP_UPDATE:
+                {
+                    emit sigBackupUpdate(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_BACKUP_REMOVE:
+                {
+                    emit sigBackupRemove(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_MENU:
+                {
+                    if (m_menu)
+                    {
+                        m_index = index;
+                        QPoint point(QCursor::pos().x() + 10, QCursor::pos().y());
+                        m_menu->popup(point);
+                    }
+                }
+                default:
+                    break;
                 }
             }
             default:
                 break;
             }
+            count++;
+            i++;
+            //            m_isSetDelegateDefault = true;
         }
-        default:
-            break;
-        }
-        count++;
-        i++;
     }
+    //    else
+    //        m_isSetDelegateDefault = false;
     return repaint;
 }
 
@@ -234,4 +230,9 @@ void ButtonDelegate::onActTriggered(QAction *act)
         emit sigActStop(m_index);
     else if (act->text() == tr("Restart"))
         emit sigActRestart(m_index);
+}
+
+void ButtonDelegate::isSetDelegateDefault(bool key)
+{
+    m_isSetDelegateDefault = key;
 }

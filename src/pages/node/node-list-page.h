@@ -46,7 +46,6 @@ private:
 private:
     NodeAdditionDialog *m_nodeAddition;
     QMap<int64_t, QPair<QString, QString>> m_mapStatus;
-    QTimer *m_timer;
 };
 
 #endif  // NODELISTPAGE_H

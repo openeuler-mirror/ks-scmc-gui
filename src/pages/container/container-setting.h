@@ -108,6 +108,7 @@ private:
     QList<GuideItem *> m_securityItems;
     QMenu *m_addMenu;
     QComboBox *m_cbImage;
+    QComboBox *m_cbNode;
     QLabel *m_labImage;
     QMap<int64_t, QString> m_nodeInfo;       //id,address
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId

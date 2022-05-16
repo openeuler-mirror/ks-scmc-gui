@@ -29,9 +29,6 @@ NetworkAccessCtlTab::~NetworkAccessCtlTab()
 
 void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securityCfg)
 {
-    if (!securityCfg || !securityCfg->has_network_rule())
-        return;
-
     auto networkRuleList = securityCfg->network_rule();
     bool isOn = networkRuleList.is_on();
     if (isOn)
