@@ -34,6 +34,7 @@ void ConfigTable::initwindow()
     ui->tableView->setShowGrid(true);
     ui->tableView->setMouseTracking(true);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->setFocusPolicy(Qt::NoFocus);
     m_pHeaderView.reset(new ConfigView(Qt::Horizontal, this));
     ui->tableView->setHorizontalHeader(m_pHeaderView.get());
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
@@ -111,13 +112,6 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
     }
 
     paintEditor(itemList.size());
-
-    QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach(QLineEdit* pLineEdit, lineEdits)
-    {
-        pLineEdit->deselect();
-        pLineEdit->clearFocus();
-    }
 }
 
 void ConfigTable::saveRowSlot(int row)
