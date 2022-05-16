@@ -20,11 +20,11 @@ service Container {
     rpc Status(StatusRequest) returns (StatusReply) {}
 
     // 容器备份客户端接口
-    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}    // 创建备份
-    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}    // 更新备份描述
-    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}    // 恢复备份
-    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}    // 删除备份
-    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}          // 备份列表
+    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}  // 创建备份
+    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}  // 更新备份描述
+    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}  // 恢复备份
+    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}  // 删除备份
+    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}        // 备份列表
 
     // 容器备份内部接口
     rpc AddBackupJob(AddBackupJobRequest) returns (AddBackupJobReply) {}
@@ -63,9 +63,9 @@ message ResumeBackupRequest {
     int64  backup_id    = 3;
 
     // for agent service
-    string file_path   = 11;
-    string backup_name = 12;
-    string image_repo  = 13;
+    string image_ref = 11;
+    // string backup_name = 12;
+    // string image_repo  = 13;
 }
 
 message ResumeBackupReply {
@@ -77,7 +77,7 @@ message RemoveBackupRequest {
     int64 id = 1;
 
     // for agent service
-    string file_path = 11;
+    string image_id = 11;
 }
 
 message RemoveBackupReply {}
@@ -112,11 +112,14 @@ message DelBackupJobRequest {
 message DelBackupJobReply {}
 
 message GetBackupJobReply {
-    int64  id         = 1;
-    string file_path  = 2;
-    int64  file_size  = 3;
-    int64  status     = 4;  // 参考 BACKUP_STATUS 定义
-    int64  updated_at = 5;
+    int64  id           = 1;
+    string container_id = 2;
+    string backup_name  = 3;
+    string image_ref    = 4;
+    string image_id     = 5;
+    int64  image_size   = 6;
+    int64  status       = 7;  // 参考 BACKUP_STATUS 定义
+    int64  updated_at   = 8;
 }
 
 message ListRequest {
@@ -446,8 +449,9 @@ message ContainerBackup {
     string uuid         = 4;
     string backup_name  = 5;
     string backup_desc  = 6;
-    string file_path    = 7;
-    int64  file_size    = 8;
-    int64  status       = 9;  // 参考 BACKUP_STATUS 定义
+    string image_ref    = 7;   // 备份镜像
+    string image_id     = 8;   // 备份镜像id
+    int64  image_size   = 9;   // 备份镜像大小
+    int64  status       = 10;  // 参考 BACKUP_STATUS 定义
     int64  created_at   = 21;
 }
