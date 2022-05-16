@@ -36,12 +36,13 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("exited", QPair<QString, QString>(tr("Offline"), "#d30000"));
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
-    //    m_timer = new QTimer(this);
-    //    m_timer->start(10000);
-    //    connect(m_timer, &QTimer::timeout,
-    //            [this] {
-    //                InfoWorker::getInstance().listNode();
-    //            });
+    m_timer = new QTimer(this);
+    m_timer->start(10000);
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                std::vector<int64_t> vecNodeId;
+                InfoWorker::getInstance().listContainer(vecNodeId, true);
+            });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
@@ -303,11 +304,11 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
             KLOG_INFO() << n.id();
             m_vecNodeId.push_back(n.id());
         }
-        if (!m_vecNodeId.empty())
-        {
-            setBusy(true);
-            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-        }
+//        if (!m_vecNodeId.empty())
+//        {
+//            setBusy(true);
+//            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
+//        }
     }
     else
     {
@@ -565,14 +566,16 @@ void ContainerListPage::initConnect()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
+    std::vector<int64_t> vecNodeId;
     if (nodeId < 0)
     {
         setBusy(true);
         InfoWorker::getInstance().listNode();
+        InfoWorker::getInstance().listContainer(vecNodeId, true);
     }
     else
     {
-        std::vector<int64_t> vecNodeId;
+        KLOG_INFO() << "get container list of node " << nodeId;
         vecNodeId.push_back(nodeId);
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         InfoWorker::getInstance().listContainer(vecNodeId, true);
