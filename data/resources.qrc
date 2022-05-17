@@ -62,7 +62,6 @@
         <file>images/user_icon.svg</file>
         <file>images/pw_icon.svg</file>
         <file>images/clear_icon.svg</file>
-        <file>images/func-desc.jpg</file>
         <file>images/process-security.png</file>
         <file>images/net-process-white-list.png</file>
         <file>images/net-access-control.png</file>
@@ -79,5 +78,8 @@
         <file>images/cmd_operation.png</file>
         <file>images/container-graphic.png</file>
         <file>images/qrcode.png</file>
+        <file>images/marquee_disable-default.png</file>
+        <file>images/marquee_disable-checked.png</file>
+        <file>images/btn-delete-normal.png</file>
     </qresource>
 </RCC>
