@@ -33,6 +33,7 @@ protected:
 private:
     void initUI();
     void initMessageBox();
+    void initAbout();
     void loadConfig();
     bool inspectLoginParam();
     void getLicense(QString license_str);
@@ -48,6 +49,7 @@ private slots:
     void activation(QString);
     void showActivatePage();
     void showErrorBox();
+    void actionAboutClicked();
 
 signals:
     void sigLicenseChange();
@@ -65,6 +67,7 @@ private:
     KiranMessageBox *m_activate_page_box;
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
+    KiranTitlebarWindow *m_about;
 //    QAction *actionLicense;
 };
 
