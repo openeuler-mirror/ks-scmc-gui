@@ -120,6 +120,8 @@ public:
 
     // logging management
     void listRuntimeLogging(const logging::ListRuntimeRequest &);
+    void listWarnLogging(const logging::ListWarnRequest &);
+    void readWarnLogging();
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
@@ -187,6 +189,8 @@ private:
 
     // logging management
     static QPair<grpc::Status, logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
+    static QPair<grpc::Status,logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
+    static QPair<grpc::Status,logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
 
 signals:
     // node management
@@ -251,6 +255,8 @@ signals:
 
     // logging management
     void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
+    void loggingListWarnFinished(const QPair<grpc::Status, logging::ListWarnReply> &);
+    void loggingReadWarnFinished(const QPair<grpc::Status, logging::ReadWarnReply> &);
 
 private:
     QMutex mutex;

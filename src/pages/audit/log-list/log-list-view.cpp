@@ -173,7 +173,6 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
         }
 
         int row = 0;
-
         for (auto logging : reply.second.logs())
         {
             QDateTime time = QDateTime::fromSecsSinceEpoch(logging.created_at());
