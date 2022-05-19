@@ -301,6 +301,18 @@ void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
     RPC_ASYNC(logging::ListRuntimeReply, _listRuntimeLogging, loggingRuntimeFinished, req);
 }
 
+void InfoWorker::listWarnLogging(const logging::ListWarnRequest &req)
+{
+    RPC_ASYNC(logging::ListWarnReply,_listWarnLogging,loggingListWarnFinished,req);
+}
+
+void InfoWorker::readWarnLogging(int64_t ids)
+{
+    logging::ReadWarnRequest req;
+    req.add_ids(ids);
+    RPC_ASYNC(logging::ReadWarnReply,_listReadWarnLogging,loggingReadWarnFinished,req);
+}
+
 void InfoWorker::listNetwork(const int64_t node_id)
 {
     network::ListRequest req;
@@ -572,6 +584,16 @@ QPair<grpc::Status, container::RemoveBackupReply> InfoWorker::_removeBackup(cons
 QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
 {
     RPC_IMPL(logging::ListRuntimeReply, logging::Logging::NewStub, ListRuntime);
+}
+
+QPair<grpc::Status,logging::ListWarnReply> InfoWorker::_listWarnLogging(const logging::ListWarnRequest &req)
+{
+    RPC_IMPL(logging::ListWarnReply,logging::Logging::NewStub,ListWarn);
+}
+
+QPair<grpc::Status,logging::ReadWarnReply> InfoWorker::_listReadWarnLogging(const logging::ReadWarnRequest &req)
+{
+    RPC_IMPL(logging::ReadWarnReply,logging::Logging::NewStub,ReadWarn);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
