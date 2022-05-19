@@ -34,12 +34,12 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    //m_timer->start(60000);
-    //    connect(m_timer, &QTimer::timeout,
-    //            [this] {
-    //                std::vector<int64_t> vecNodeId;
-    //                InfoWorker::getInstance().listContainer(vecNodeId, true);
-    //            });
+    m_timer->start(60000);
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                std::vector<int64_t> vecNodeId;
+                InfoWorker::getInstance().listContainer(vecNodeId, true);
+            });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
@@ -297,36 +297,6 @@ void ContainerListPage::onItemEntered(const QModelIndex &index)
     }
 }
 
-void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListReply> &reply)
-{
-    KLOG_INFO() << "getNodeListResult";
-    setBusy(false);
-    if (reply.first.ok())
-    {
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-        setHeaderCheckable(true);
-        m_vecNodeId.clear();
-        for (auto n : reply.second.nodes())
-        {
-            KLOG_INFO() << n.id();
-            m_vecNodeId.push_back(n.id());
-        }
-
-        //todo delete
-        if (!m_vecNodeId.empty())
-        {
-            setBusy(true);
-            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-        }
-    }
-    else
-    {
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-        setTableDefaultContent("-");
-        setHeaderCheckable(false);
-    }
-}
-
 void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
 {
     setBusy(false);
@@ -569,7 +539,6 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
@@ -583,23 +552,15 @@ void ContainerListPage::getContainerList(qint64 nodeId)
     if (nodeId < 0)
     {
         setBusy(true);
-        InfoWorker::getInstance().listNode();
-        InfoWorker::getInstance().listContainer(vecNodeId, true);
+        InfoWorker::getInstance().listContainer(vecNodeId, true);  //获取所有容器
     }
     else
     {
         KLOG_INFO() << "get container list of node " << nodeId;
         vecNodeId.push_back(nodeId);
-        connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
-        InfoWorker::getInstance().listContainer(vecNodeId, true);
+        InfoWorker::getInstance().listContainer(vecNodeId, true);  //获取某节点下的容器
     }
 }
-
-//void ContainerListPage::getContainerInspect(QMap<QString, QVariant> itemData)
-//{
-//    //    setBusy(true);
-//    InfoWorker::getInstance().containerInspect(itemData.value(NODE_ID).toInt(), itemData.value(CONTAINER_ID).toString().toStdString());
-//}
 
 void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
 {
@@ -641,16 +602,11 @@ void ContainerListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "containerList updateInfo";
     clearText();
-    //InfoWorker::getInstance().disconnect();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     if (keyword.isEmpty())
     {
-        //initConnect();
-        //gRPC->拿数据->填充内容
-        connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
-
+        //gRPC->拿数据->填充内容
         getContainerList();
     }
 }

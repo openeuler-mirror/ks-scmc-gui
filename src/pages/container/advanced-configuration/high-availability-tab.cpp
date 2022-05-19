@@ -1,6 +1,7 @@
-#include <kiran-log/qt5-log-i.h>
 #include "high-availability-tab.h"
+#include <kiran-log/qt5-log-i.h>
 #include "ui_high-availability-tab.h"
+
 HighAvailabilityTab::HighAvailabilityTab(QWidget *parent) : QWidget(parent),
                                                             ui(new Ui::HighAvailabilityTab)
 {
@@ -20,7 +21,8 @@ void HighAvailabilityTab::setRestartPolicy(container::RestartPolicy *cfg)
         KLOG_INFO() << "policy name: " << cfg->name().data()
                     << "policy max retry:" << cfg->max_retry();
 
-        ui->cb_high_avail_policy->setCurrentText(QString::fromStdString(cfg->name()));
+        auto index = ui->cb_high_avail_policy->findData(cfg->name().data());
+        ui->cb_high_avail_policy->setCurrentIndex(index);
         ui->lineEdit_times->setText(QString("%1").arg(cfg->max_retry()));
     }
 }

@@ -57,6 +57,7 @@ private:
     Ui::ImageOperateDialog *ui;
     QString m_imageId;
     ImageOperateType m_type;
+    QString m_desc;
 };
 
 #endif  // IMAGEOPERATEDIALOG_H
