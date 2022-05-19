@@ -5,12 +5,13 @@
 #include <QTimer>
 #include "common/message-dialog.h"
 #include "def.h"
-#include "node-addition-dialog.h"
+#include "node-operate-dialog.h"
 #include "rpc.h"
 
 #define ACTION_COL 1
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr),
+                                              m_nodeUpdate(nullptr),
                                               m_timer(nullptr)
 {
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
@@ -35,6 +36,11 @@ NodeListPage::~NodeListPage()
         delete m_nodeAddition;
         m_nodeAddition = nullptr;
     }
+    if (m_nodeUpdate)
+    {
+        delete m_nodeUpdate;
+        m_nodeUpdate = nullptr;
+    }
 }
 
 void NodeListPage::updateInfo(QString keyword)
@@ -55,15 +61,15 @@ void NodeListPage::onCreateNode()
 {
     if (!m_nodeAddition)
     {
-        m_nodeAddition = new NodeAdditionDialog();
+        m_nodeAddition = new NodeOperateDialog(NODE_OPERATE_TYPE_CREATE);
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_nodeAddition->move(screenGeometry.x() + (screenGeometry.width() - m_nodeAddition->width()) / 2,
                              screenGeometry.y() + (screenGeometry.height() - m_nodeAddition->height()) / 2);
         m_nodeAddition->show();
 
-        connect(m_nodeAddition, &NodeAdditionDialog::sigSave, this, &NodeListPage::onSaveSlot);
-        connect(m_nodeAddition, &NodeAdditionDialog::destroyed,
+        connect(m_nodeAddition, &NodeOperateDialog::sigSave, this, &NodeListPage::onSaveSlot);
+        connect(m_nodeAddition, &NodeOperateDialog::destroyed,
                 [=] {
                     KLOG_INFO() << " m_nodeAdditiong destroy";
                     m_nodeAddition->deleteLater();
@@ -99,18 +105,57 @@ void NodeListPage::onRemoveNode()
     }
 }
 
-void NodeListPage::onMonitor(int row)
+void NodeListPage::onEdit(int row)
 {
     KLOG_INFO() << row;
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> nodeInfo = item->data().toMap();
+
+    if (!m_nodeUpdate)
+    {
+        m_nodeUpdate = new NodeOperateDialog(NODE_OPERATE_TYPE_EDIT);
+        m_nodeUpdate->setNodeInfo(nodeInfo.value(NODE_ID).toInt(),
+                                  nodeInfo.value(NODE_NAME).toString(),
+                                  nodeInfo.value(NODE_ADDRESS).toString(),
+                                  nodeInfo.value(NODE_COMMENT).toString());
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_nodeUpdate->move(screenGeometry.x() + (screenGeometry.width() - m_nodeUpdate->width()) / 2,
+                           screenGeometry.y() + (screenGeometry.height() - m_nodeUpdate->height()) / 2);
+        m_nodeUpdate->show();
+
+        connect(m_nodeUpdate, &NodeOperateDialog::sigSave, this, &NodeListPage::onSaveSlot);
+        connect(m_nodeUpdate, &NodeOperateDialog::destroyed,
+                [=] {
+                    KLOG_INFO() << " m_nodeUpdate destroy";
+                    m_nodeUpdate->deleteLater();
+                    m_nodeUpdate = nullptr;
+                });
+    }
 }
 
 void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "name" << Info["Node Name"] << "ip" << Info["Node IP"];
-    node::CreateRequest request;
-    request.set_name(Info["Node Name"].toStdString());
-    request.set_address(Info["Node IP"].toStdString());
-    InfoWorker::getInstance().createNode(request);
+    KLOG_INFO() << "name" << Info[NODE_NAME] << "ip" << Info[NODE_ADDRESS] << Info[NODE_COMMENT];
+    NodeOperateDialog *dialog = qobject_cast<NodeOperateDialog *>(sender());
+    auto type = dialog->getType();
+    auto nodeId = dialog->getNodeId();
+    if (type == NODE_OPERATE_TYPE_CREATE)
+    {
+        node::CreateRequest request;
+        request.set_name(Info[NODE_NAME].toStdString());
+        request.set_address(Info[NODE_ADDRESS].toStdString());
+        request.set_comment(Info[NODE_COMMENT].toStdString());
+        InfoWorker::getInstance().createNode(request);
+    }
+    else if (type == NODE_OPERATE_TYPE_EDIT)
+    {
+        node::UpdateRequest request;
+        request.set_node_id(nodeId);
+        request.set_name(Info[NODE_NAME].toStdString());
+        request.set_comment(Info[NODE_COMMENT].toStdString());
+        InfoWorker::getInstance().updateNode(request);
+    }
 }
 
 void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
@@ -122,6 +167,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
         if (size <= 0)
         {
             setTableDefaultContent("-");
+            setHeaderCheckable(false);
             return;
         }
         clearTable();
@@ -133,6 +179,9 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             KLOG_INFO() << "nodeid:" << node.id();
             qint64 nodeId = node.id();
             idMap.insert(NODE_ID, nodeId);
+            idMap.insert(NODE_NAME, node.name().data());
+            idMap.insert(NODE_COMMENT, node.comment().data());
+            idMap.insert(NODE_ADDRESS, node.address().data());
 
             QStandardItem *itemCheck = new QStandardItem();
             itemCheck->setCheckable(true);
@@ -195,8 +244,12 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             itemMem->setTextAlignment(Qt::AlignCenter);
             QStandardItem *itemDisk = new QStandardItem(strDiskSize.data());
             itemDisk->setTextAlignment(Qt::AlignCenter);
+            QStandardItem *itemWarning = new QStandardItem(QString::number(node.unread_warn()));
+            itemWarning->setTextAlignment(Qt::AlignCenter);
+            QStandardItem *itemComment = new QStandardItem(node.comment().data());
+            itemComment->setTextAlignment(Qt::AlignCenter);
 
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk << itemWarning << itemComment);
             row++;
         }
     }
@@ -236,6 +289,15 @@ void NodeListPage::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> 
     }
 }
 
+void NodeListPage::getUpdateResult(const QPair<grpc::Status, node::UpdateReply> &reply)
+{
+    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+    if (reply.first.ok())
+    {
+        getNodeList();
+    }
+}
+
 void NodeListPage::onItemClicked(const QModelIndex &index)
 {
     KLOG_INFO() << "onItemClicked: " << index.column();
@@ -256,10 +318,6 @@ void NodeListPage::onItemEntered(const QModelIndex &index)
         this->setCursor(Qt::PointingHandCursor);
     else
         this->setCursor(Qt::ArrowCursor);
-}
-
-void NodeListPage::initUI()
-{
 }
 
 void NodeListPage::initButtons()
@@ -292,14 +350,19 @@ void NodeListPage::initTable()
         QString(tr("Container Number")),
         "CPU",
         QString(tr("Memory")),
-        QString(tr("Disk"))};
+        QString(tr("Disk")),
+        QString(tr("Warning Number")),
+        QString(tr("Comment")),
+        QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
-    //setTableColNum(tableHHeaderDate.size());
     QList<int> sortablCol = {1, 2};
     setSortableCol(sortablCol);
     setTableDefaultContent("-");
 
-    connect(this, &NodeListPage::sigMonitor, this, &NodeListPage::onMonitor);
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{
+                                                     {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"}});
+
+    connect(this, &NodeListPage::sigEdit, this, &NodeListPage::onEdit);
     connect(this, &NodeListPage::sigItemClicked, this, &NodeListPage::onItemClicked);
     connect(this, &NodeListPage::sigItemEntered, this, &NodeListPage::onItemEntered);
 }
@@ -309,6 +372,7 @@ void NodeListPage::initNodeConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeListPage::getListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::createNodeFinished, this, &NodeListPage::getCreateResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeNodeFinished, this, &NodeListPage::getRemoveResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::updateNodeFinished, this, &NodeListPage::getUpdateResult);
 }
 
 void NodeListPage::getNodeList()
