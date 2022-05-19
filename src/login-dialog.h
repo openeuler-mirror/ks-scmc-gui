@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "info-worker.h"
 #include "common/license.h"
+#include "common/about-page.h"
 #include "dbus/dbus-utils.h"
 #include "activate-page.h"
 #include "error-message-box.h"
@@ -48,6 +49,7 @@ private slots:
     void activation(QString);
     void showActivatePage();
     void showErrorBox();
+    void actionAboutClicked();
 
 signals:
     void sigLicenseChange();
@@ -65,6 +67,7 @@ private:
     KiranMessageBox *m_activate_page_box;
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
+    AboutPage *m_about;
 //    QAction *actionLicense;
 };
 
