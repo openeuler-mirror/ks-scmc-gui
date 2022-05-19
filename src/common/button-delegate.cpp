@@ -71,30 +71,19 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                     button.state |= QStyle::State_Sunken;
                 }
             }
-            if (i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove") || i.value() == tr("Refuse"))
+            if (i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove") || i.value() == tr("Readed"))
             {
-                /*if (!m_btnIsEnable.value(i.key()))
-                {
-                    painter->setPen(QColor(145, 145, 145));
-                    QPalette *pal = new QPalette;
-                    pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-                    QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignLeft | Qt::AlignVCenter, *pal, true, i.value());
-                }
-                else*/
-                if (i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove"))
-                {
-                    painter->setPen(QColor(46, 179, 255));
-                    QPalette *pal = new QPalette;
-                    pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-                    QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignLeft | Qt::AlignVCenter, *pal, true, i.value());
-                }
-                else if (i.value() == tr("Refuse"))
-                {
-                    painter->setPen(QColor(211, 0, 0));
-                    QPalette *pal = new QPalette;
-                    pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
-                    QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignLeft | Qt::AlignVCenter, *pal, true, i.value());
-                }
+                painter->setPen(QColor(46, 179, 255));
+                QPalette *pal = new QPalette;
+                pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
+            }
+            else if (i.value() == tr("Refuse") || i.value() == tr("Ignore"))
+            {
+                painter->setPen(QColor(211, 0, 0));
+                QPalette *pal = new QPalette;
+                pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
             }
             else
             {
@@ -137,8 +126,8 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             // 绘制按钮
             QStyleOptionButton button;
             QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if (i.value() == tr("Refuse") || i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove"))
-                btnRect = QRect(option.rect.x() + count * BUTTON_WIDTH + 2 * count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH * 3, BUTTON_HEIGHT);
+            if (i.value() == tr("Refuse") || i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove") || i.value() == tr("Readed") || i.value() == tr("Ignore"))
+                btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
             // 鼠标位于按钮之上
             if (!btnRect.contains(m_mousePoint))
             {
@@ -213,6 +202,16 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 case ACTION_BUTTON_TYPE_BACKUP_REMOVE:
                 {
                     emit sigBackupRemove(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_WARN_READ:
+                {
+                    emit sigWarnRead(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_WARN_IGNORE:
+                {
+                    emit sigWarnIgnore(index.row());
                     break;
                 }
                 case ACTION_BUTTON_TYPE_MENU:
