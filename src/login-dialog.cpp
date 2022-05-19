@@ -46,7 +46,6 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     getLicense(licence_str);
 
     initUI();
-
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
@@ -92,6 +91,7 @@ void LoginDialog::paintEvent(QPaintEvent *event)
 
 void LoginDialog::initUI()
 {
+    m_about = new AboutPage(this);
     setTitle(tr("KylinSec security Container magic Cube"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
@@ -333,6 +333,8 @@ void LoginDialog::onMenuTrigger(QAction *act)
     }
     else if (act->text() == tr("Activate"))
         showActivatePage();
+    else if (act->text() == tr("About"))
+        actionAboutClicked();
 }
 
 void LoginDialog::showActivatePage()
@@ -350,6 +352,15 @@ void LoginDialog::showErrorBox()
     m_dbusErrorBox->move(x, y);
     m_dbusErrorBox->show();
     //this->close();
+}
+
+void LoginDialog::actionAboutClicked()
+{
+    int x = this->x() + this->width() / 2 - m_about->width() / 2;
+    int y = this->y() + this->height() / 2 - m_about->height() / 2;
+
+    m_about->move(x, y);
+    m_about->show();
 }
 
 void LoginDialog::activation(QString activation_code)

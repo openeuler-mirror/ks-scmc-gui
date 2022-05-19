@@ -81,5 +81,6 @@
         <file>images/marquee_disable-default.png</file>
         <file>images/marquee_disable-checked.png</file>
         <file>images/btn-delete-normal.png</file>
+        <file>images/kylin-logo.png</file>
     </qresource>
 </RCC>

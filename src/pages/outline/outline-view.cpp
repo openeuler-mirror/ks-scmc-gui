@@ -5,6 +5,7 @@
 #include <QStandardItem>
 #include <QStyleOption>
 #include <QVBoxLayout>
+#include <cmath>
 #include "outline-cell.h"
 #include "ui_outline-cell.h"
 
@@ -92,6 +93,12 @@ void OutlineView::getlTemplateContainer()
 {
     KLOG_INFO() << "getlTemplateContainer";
     InfoWorker::getInstance().listTemplate();
+}
+
+void OutlineView::getWarnNums()
+{
+    KLOG_INFO() << "getWarnNums";
+    InfoWorker::getInstance().listNode();
 }
 
 QWidget *OutlineView::getScrollCenterWidget()
@@ -243,11 +250,13 @@ void OutlineView::updateInfo()
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &OutlineView::getOutlineCellTemplateContainerNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellWarningNums);
 
     getlNodeList();
     getContainerList();
     getImageList();
     getlTemplateContainer();
+    getWarnNums();
     //    m_outlineCell_image->ui->Name_counts->setText("666");
 }
 
@@ -334,9 +343,40 @@ void OutlineView::getOutlineCellContainerNums(const QPair<grpc::Status, containe
 
 void OutlineView::getOutlineCellImageNums(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
-    int size = reply.second.images_size();
-    m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
-    getOutlineCellExamineNums(reply);
+    if (reply.first.ok())
+    {
+        int row = 0;
+        int size;
+        long int image_size = 0;
+        size = reply.second.images_size();
+        for (auto image : reply.second.images())
+        {
+            image_size += image.size();
+        //    int size = reply.second.
+            row++;
+        }
+
+        double image_size_sum;
+        image_size_sum = double(image_size) / pow(2,30);
+
+        if(image_size_sum < 1)
+        {
+            image_size_sum = double(image_size) / pow(2,20);
+            QString str = QString::number(image_size_sum,'f',2);
+
+            m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
+            m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
+        }
+        else
+        {
+            QString str = QString::number(image_size_sum,'f',2);
+
+            m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
+            m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
+        }
+
+        getOutlineCellExamineNums(reply);
+    }
 }
 
 void OutlineView::getOutlineCellTemplateContainerNums(const QPair<grpc::Status, container::ListTemplateReply> &reply)
@@ -366,8 +406,22 @@ void OutlineView::getOutlineCellExamineNums(const QPair<grpc::Status, image::Lis
     m_outlineCell_examine->ui->Name_counts->setText(QString::number(count, 10));
 }
 
-void OutlineView::getOutlineCellWarningNums()
+void OutlineView::getOutlineCellWarningNums(const QPair<grpc::Status, node::ListReply> &reply)
 {
+    int64_t read_warn_count = 0;
+    if (reply.first.ok())
+    {
+        int size = reply.second.nodes_size();
+        if (size <= 0)
+            return;
+        int row = 0;
+        for (auto node : reply.second.nodes())
+        {
+            read_warn_count += node.unread_warn();
+            row++;
+        }
+    }
+    m_outlineCell_warning->ui->Name_counts->setText(QString::number(read_warn_count, 10));
 }
 
 void OutlineView::setOutlineCellNode()
@@ -650,40 +704,51 @@ void OutlineView::setOutlineCellWarning()
     m_outlineCell_warning->ui->Name_label->setText(tr("Number of Give Alarm: "));
     m_outlineCell_warning->ui->Name_counts->setText("5");
 
-    m_outlineCell_warning->ui->label_online_txt->setStyleSheet("QLabel {"
-                                                               "background: transparent;"
-                                                               "border:none;"
-                                                               "font: NotoSansCJKsc-Regular;"
-                                                               "font-size: 14px;"
-                                                               "border-radius:0px;"
-                                                               "color: #ffffff;}");
-    m_outlineCell_warning->ui->label_online_txt->setText(tr("online: "));
+    m_outlineCell_warning->ui->label_online_txt->deleteLater();
+    m_outlineCell_warning->ui->label_offline_txt->deleteLater();
+    m_outlineCell_warning->ui->label_online->deleteLater();
+    m_outlineCell_warning->ui->label_offline->deleteLater();
+    m_outlineCell_warning->ui->verticalLayout_6->deleteLater();
+    m_outlineCell_warning->ui->verticalLayout_7->deleteLater();
+    m_outlineCell_warning->ui->online_counts->deleteLater();
+    m_outlineCell_warning->ui->offline_counts->deleteLater();
+    m_outlineCell_warning->ui->horizontalLayout_2->deleteLater();
+    m_outlineCell_warning->ui->verticalLayout->setContentsMargins(0, 0, 0, 21);
 
-    m_outlineCell_warning->ui->label_offline_txt->setStyleSheet("QLabel {"
-                                                                "background: transparent;"
-                                                                "border:none;"
-                                                                "font: NotoSansCJKsc-Regular;"
-                                                                "font-size: 14px;"
-                                                                "border-radius:0px;"
-                                                                "color: #ffffff;}");
-    m_outlineCell_warning->ui->label_offline_txt->setText(tr("offline: "));
+//    m_outlineCell_warning->ui->label_online_txt->setStyleSheet("QLabel {"
+//                                                               "background: transparent;"
+//                                                               "border:none;"
+//                                                               "font: NotoSansCJKsc-Regular;"
+//                                                               "font-size: 14px;"
+//                                                               "border-radius:0px;"
+//                                                               "color: #ffffff;}");
+//    m_outlineCell_warning->ui->label_online_txt->setText(tr("online: "));
 
-    m_outlineCell_warning->ui->online_counts->setStyleSheet("QLabel {"
-                                                            "background: transparent;"
-                                                            "border:none;"
-                                                            "font: NotoSansCJKsc-Regular;"
-                                                            "font-size: 36px;"
-                                                            "border-radius:0px;"
-                                                            "color: #ffffff;}");
-    m_outlineCell_warning->ui->online_counts->setText(tr("1"));
-    m_outlineCell_warning->ui->offline_counts->setStyleSheet("QLabel {"
-                                                             "background: transparent;"
-                                                             "border:none;"
-                                                             "font: NotoSansCJKsc-Regular;"
-                                                             "font-size: 36px;"
-                                                             "border-radius:0px;"
-                                                             "color: #ffffff;}");
-    m_outlineCell_warning->ui->offline_counts->setText(tr("1"));
+//    m_outlineCell_warning->ui->label_offline_txt->setStyleSheet("QLabel {"
+//                                                                "background: transparent;"
+//                                                                "border:none;"
+//                                                                "font: NotoSansCJKsc-Regular;"
+//                                                                "font-size: 14px;"
+//                                                                "border-radius:0px;"
+//                                                                "color: #ffffff;}");
+//    m_outlineCell_warning->ui->label_offline_txt->setText(tr("offline: "));
+
+//    m_outlineCell_warning->ui->online_counts->setStyleSheet("QLabel {"
+//                                                            "background: transparent;"
+//                                                            "border:none;"
+//                                                            "font: NotoSansCJKsc-Regular;"
+//                                                            "font-size: 36px;"
+//                                                            "border-radius:0px;"
+//                                                            "color: #ffffff;}");
+//    m_outlineCell_warning->ui->online_counts->setText(tr("1"));
+//    m_outlineCell_warning->ui->offline_counts->setStyleSheet("QLabel {"
+//                                                             "background: transparent;"
+//                                                             "border:none;"
+//                                                             "font: NotoSansCJKsc-Regular;"
+//                                                             "font-size: 36px;"
+//                                                             "border-radius:0px;"
+//                                                             "color: #ffffff;}");
+//    m_outlineCell_warning->ui->offline_counts->setText(tr("1"));
 
     m_outlineCell_warning->ui->outline_pix->setStyleSheet("QLabel{"
                                                           "background-image:url(:/images/warning-number.png);"
