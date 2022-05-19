@@ -5,7 +5,6 @@
 #include <QStandardItem>
 #include <QStyleOption>
 #include <QVBoxLayout>
-#include <cmath>
 #include "outline-cell.h"
 #include "ui_outline-cell.h"
 
@@ -335,40 +334,9 @@ void OutlineView::getOutlineCellContainerNums(const QPair<grpc::Status, containe
 
 void OutlineView::getOutlineCellImageNums(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
-    if (reply.first.ok())
-    {
-        int row = 0;
-        int size;
-        long int image_size = 0;
-        size = reply.second.images_size();
-        for (auto image : reply.second.images())
-        {
-            image_size += image.size();
-        //    int size = reply.second.
-            row++;
-        }
-
-        double image_size_sum;
-        image_size_sum = double(image_size) / pow(2,30);
-
-        if(image_size_sum < 1)
-        {
-            image_size_sum = double(image_size) / pow(2,20);
-            QString str = QString::number(image_size_sum,'f',2);
-
-            m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
-            m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
-        }
-        else
-        {
-            QString str = QString::number(image_size_sum,'f',2);
-
-            m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
-            m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
-        }
-
-        getOutlineCellExamineNums(reply);
-    }
+    int size = reply.second.images_size();
+    m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
+    getOutlineCellExamineNums(reply);
 }
 
 void OutlineView::getOutlineCellTemplateContainerNums(const QPair<grpc::Status, container::ListTemplateReply> &reply)
