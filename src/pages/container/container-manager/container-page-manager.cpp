@@ -1,4 +1,5 @@
 #include "container-page-manager.h"
+#include <kiran-log/qt5-log-i.h>
 #include "container-info-page.h"
 #include "container-list-page.h"
 ContainerPageManager::ContainerPageManager(QWidget *parent) : StackedPage(parent), m_containerInfoPage(nullptr)

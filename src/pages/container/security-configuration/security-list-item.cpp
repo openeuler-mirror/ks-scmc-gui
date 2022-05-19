@@ -1,17 +1,28 @@
 #include "security-list-item.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QFile>
+#include <QTimer>
 #include "ui_security-list-item.h"
+
+#define TIMEOUT 1000
 SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(parent),
                                                                     ui(new Ui::SecurityListItem),
                                                                     m_isPathCorrect(false)
 {
     ui->setupUi(this);
     ui->label_name->setText(text);
-    ui->lab_error_tips->setText("the process path is wrong");
+    ui->lab_error_tips->setText("the path format is wrong");
     ui->lab_error_tips->setStyleSheet("color:#F56C6C");
     ui->lab_error_tips->setVisible(false);
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
+
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                checkPath();
+                m_timer->stop();
+            });
 
     connect(ui->btn_add, &QToolButton::clicked,
             [this] {
@@ -21,7 +32,11 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
             [this] {
                 emit sigDelete();
             });
-    connect(ui->lineEdit, &QLineEdit::editingFinished, this, &SecurityListItem::checkPath);
+    connect(ui->lineEdit, &QLineEdit::textChanged,
+            [this](QString text) {
+                if (!text.isEmpty())
+                    m_timer->start();
+            });
 }
 
 SecurityListItem::~SecurityListItem()
@@ -62,16 +77,14 @@ void SecurityListItem::checkPath()
     QString path = ui->lineEdit->text();
     if (!path.isEmpty())
     {
-        QFile file(path);
-        if (!file.exists())
-        {
-            ui->lab_error_tips->show();
-            m_isPathCorrect = false;
-        }
-        else
-        {
-            ui->lab_error_tips->hide();
+        QRegExp regExp("^\/(\\w+\/?)+$");
+        if (regExp.exactMatch(path))
             m_isPathCorrect = true;
-        }
+        else
+            m_isPathCorrect = false;
+
+        ui->lab_error_tips->setVisible(!m_isPathCorrect);
+
+        KLOG_INFO() << m_isPathCorrect;
     }
 }

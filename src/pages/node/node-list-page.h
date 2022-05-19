@@ -13,7 +13,7 @@ struct nodeInfo_s
     std::string comment;
 };
 
-class NodeAdditionDialog;
+class NodeOperateDialog;
 class NodeListPage : public TablePage
 {
     Q_OBJECT
@@ -25,11 +25,12 @@ public:
 private slots:
     void onCreateNode();
     void onRemoveNode();
-    void onMonitor(int row);
+    void onEdit(int row);
     void onSaveSlot(QMap<QString, QString> Info);
     void getListResult(const QPair<grpc::Status, node::ListReply> &);
     void getCreateResult(const QPair<grpc::Status, node::CreateReply> &);
     void getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &);
+    void getUpdateResult(const QPair<grpc::Status, node::UpdateReply> &);
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
 
@@ -37,14 +38,14 @@ signals:
     void sigNodeNameClicked(qint64 nodeId);
 
 private:
-    void initUI();
     void initButtons();
     void initTable();
     void initNodeConnect();
     void getNodeList();
 
 private:
-    NodeAdditionDialog *m_nodeAddition;
+    NodeOperateDialog *m_nodeAddition;
+    NodeOperateDialog *m_nodeUpdate;
     QMap<int64_t, QPair<QString, QString>> m_mapStatus;
     QTimer *m_timer;
 };

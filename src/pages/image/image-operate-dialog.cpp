@@ -36,6 +36,7 @@ void ImageOperateDialog::setImageInfo(QMap<QString, QVariant> imageInfoMap)
         ui->lineEditImageFile->setText(imageInfoMap.value(IMAGE_FILE).toString());
         ui->lineEditImageSign->setText(imageInfoMap.value(IMAGE_SIGN).toString());
         ui->lineEditDesc->setText(imageInfoMap.value(IMAGE_DESC).toString());
+        m_desc = imageInfoMap.value(IMAGE_DESC).toString();
     }
 }
 
@@ -104,14 +105,27 @@ void ImageOperateDialog::updateParamDeal()
 {
     QString name = ui->lineEditName->text();
     QString version = ui->lineEditVersion->text();
-    QString desc = ui->lineEditDesc->text();
+    QString desc = ui->lineEditDesc->text().isEmpty() ? m_desc : ui->lineEditDesc->text();
     QString imageFile = ui->lineEditImageFile->text();
     QString imageId = m_imageId;
     QString signFile = ui->lineEditImageSign->text();
 
     KLOG_INFO() << name << version << imageId << ui->lineEditDesc->text() << imageFile;
 
-    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
+    if ((!imageFile.isEmpty() && !signFile.isEmpty()) ||
+        (imageFile.isEmpty() && signFile.isEmpty() && !desc.isEmpty()))
+    {
+        QMap<QString, QString> updateInfo;
+        updateInfo.insert("Image Id", imageId);
+        updateInfo.insert("Image Name", name);
+        updateInfo.insert("Image Version", version);
+        updateInfo.insert("Image Description", desc);
+        updateInfo.insert("Image File", imageFile);
+        updateInfo.insert("Sign File", signFile);
+        emit sigUpdateSave(updateInfo);
+        close();
+    }
+    else
     {
         MessageDialog::message(tr("Update Image"),
                                tr("Update Image failed!"),
@@ -120,16 +134,6 @@ void ImageOperateDialog::updateParamDeal()
                                MessageDialog::StandardButton::Ok);
         return;
     }
-
-    QMap<QString, QString> updateInfo;
-    updateInfo.insert("Image Id", imageId);
-    updateInfo.insert("Image Name", name);
-    updateInfo.insert("Image Version", version);
-    updateInfo.insert("Image Description", desc);
-    updateInfo.insert("Image File", imageFile);
-    updateInfo.insert("Sign File", signFile);
-    emit sigUpdateSave(updateInfo);
-    close();
 }
 
 //void ImageOperateDialog::checkParamDeal()
