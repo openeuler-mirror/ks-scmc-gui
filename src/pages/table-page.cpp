@@ -202,16 +202,16 @@ void TablePage::setHeaderCheckable(bool checkable)
 void TablePage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    auto colCount = m_isSetTableActions ? m_model->columnCount() - 1 : m_model->columnCount();
-    //    if(m_isSetTableActions == true)
-    //        m_btnDelegate->isSetDelegateDefault(true);
+    //    auto colCount = m_isSetTableActions ? m_model->columnCount() - 1 : m_model->columnCount();
+    //    //    if(m_isSetTableActions == true)
+    //    //        m_btnDelegate->isSetDelegateDefault(true);
 
-    for (int i = 1; i < colCount; i++)
-    {
-        QStandardItem *item = new QStandardItem(text);
-        item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-        m_model->setItem(0, i, item);
-    }
+    //    for (int i = 1; i < colCount; i++)
+    //    {
+    //        QStandardItem *item = new QStandardItem(text);
+    //        item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+    //        m_model->setItem(0, i, item);
+    //    }
 }
 
 void TablePage::clearText()
