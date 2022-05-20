@@ -167,7 +167,7 @@ void ImageListPage::initButtons()
 void ImageListPage::initImageConnect()
 {
     //connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
@@ -612,12 +612,15 @@ void ImageListPage::getCheckResult(const QPair<grpc::Status, image::ApproveReply
     if (reply.first.ok())
     {
         KLOG_INFO() << "check images success";
-        emit sigUpdateAuditInfo();
+        MessageDialog::message(tr("Check Image"),
+                               tr("Check Image success!"),
+                               tr(""),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
         getImageList();
     }
     else
     {
-        emit sigUpdateAuditInfo();
         MessageDialog::message(tr("Check Image"),
                                tr("Check Image failed!"),
                                tr(reply.first.error_message().data()),
@@ -630,7 +633,17 @@ void ImageListPage::getRemoveResult(const QPair<grpc::Status, image::RemoveReply
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
-    {     
+    {
+        KLOG_INFO() << "remove images success";
+        MessageDialog::message(tr("Remove Image"),
+                               tr("Remove Image success!"),
+                               tr(""),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        for (auto id : reply.second.ok_ids())
+        {
+            KLOG_INFO() << "remove success id:" << id.data();
+        }
         getImageList();
     }
     else
@@ -651,7 +664,7 @@ void ImageListPage::getUploadResult(const QPair<grpc::Status, image::UploadReply
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image success!"),
                                tr(""),
-                               ":/images/success.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         getImageList();
     }
@@ -660,7 +673,7 @@ void ImageListPage::getUploadResult(const QPair<grpc::Status, image::UploadReply
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image failed!"),
                                tr(reply.first.error_message().data()),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -673,7 +686,7 @@ void ImageListPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply
         MessageDialog::message(tr("update Image"),
                                tr("update Image success!"),
                                tr(""),
-                               ":/images/success.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         getImageList();
     }
@@ -682,7 +695,7 @@ void ImageListPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply
         MessageDialog::message(tr("update Image"),
                                tr("update Image failed!"),
                                tr(reply.first.error_message().data()),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }

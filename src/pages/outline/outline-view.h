@@ -7,18 +7,19 @@
 #include <QScrollBar>
 #include <QWidget>
 #include "info-worker.h"
+#include "page.h"
 #include "outline-cell.h"
 #include "outline-introduction.h"
 
 class OutlineCell;
 class OutlineIntroduction;
-class OutlineView : public QFrame
+class OutlineView : public Page
 {
     Q_OBJECT
 public:
     explicit OutlineView(QWidget *parent = nullptr);
     ~OutlineView() override;
-    void updateInfo();
+    void updateInfo(QString keyword = "");
 
 protected:
     //    bool eventFilter(QObject *watched, QEvent *event);
@@ -53,6 +54,8 @@ private slots:
 
 signals:
     void outlineCellStepPages(OutlineCellType type);
+    void sigApprovalNums(int size); // 传出待审核总数
+    void sigWarnSumNums(int size); // 传出告警总数
 
 private:
     OutlineCell *m_outlineCell_node;
@@ -65,7 +68,6 @@ private:
     QScrollArea *m_scrollArea;  //滚动区域
     QWidget *m_scrollWidget;    //滚动区域的窗口
     QHBoxLayout *m_layout;      //水平布局滚动区域
-    std::vector<int64_t> m_vecNodeId;
 };
 
 #endif  // OUTLINEVIEW_H
