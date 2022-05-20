@@ -11,7 +11,7 @@
 
 using namespace std;
 
-OutlineView::OutlineView(QWidget *parent) : QFrame(parent),
+OutlineView::OutlineView(QWidget *parent) : Page(parent),
                                             m_outlineCell_node(static_cast<OutlineCell *>(parent)),
                                             m_outlineCell_container(static_cast<OutlineCell *>(parent)),
                                             m_outlineCell_image(static_cast<OutlineCell *>(parent)),
@@ -233,7 +233,7 @@ void OutlineView::emitOutlineCellType()
     }
 }
 
-void OutlineView::updateInfo()
+void OutlineView::updateInfo(QString keyword)
 {
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
