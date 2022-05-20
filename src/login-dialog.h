@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "info-worker.h"
 #include "common/license.h"
+#include "common/about-page.h"
 #include "dbus/dbus-utils.h"
 #include "activate-page.h"
 #include "error-message-box.h"
@@ -33,7 +34,6 @@ protected:
 private:
     void initUI();
     void initMessageBox();
-    void initAbout();
     void loadConfig();
     bool inspectLoginParam();
     void getLicense(QString license_str);
@@ -67,7 +67,7 @@ private:
     KiranMessageBox *m_activate_page_box;
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
-    KiranTitlebarWindow *m_about;
+    AboutPage *m_about;
 //    QAction *actionLicense;
 };
 
