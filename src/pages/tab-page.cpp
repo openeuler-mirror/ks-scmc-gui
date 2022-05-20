@@ -20,6 +20,11 @@ void TabPage::updateCurrentPage()
     page->updateInfo();
 }
 
+void TabPage::setCurrentPage(int index)
+{
+    m_tabWidget->setCurrentIndex(index);
+}
+
 void TabPage::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;
