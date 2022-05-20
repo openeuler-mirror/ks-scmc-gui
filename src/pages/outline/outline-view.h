@@ -53,6 +53,8 @@ private slots:
 
 signals:
     void outlineCellStepPages(OutlineCellType type);
+    void sigApprovalNums(int size); // 传出待审核总数
+    void sigWarnSumNums(int size); // 传出告警总数
 
 private:
     OutlineCell *m_outlineCell_node;
@@ -65,7 +67,6 @@ private:
     QScrollArea *m_scrollArea;  //滚动区域
     QWidget *m_scrollWidget;    //滚动区域的窗口
     QHBoxLayout *m_layout;      //水平布局滚动区域
-    std::vector<int64_t> m_vecNodeId;
 };
 
 #endif  // OUTLINEVIEW_H

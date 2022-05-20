@@ -164,6 +164,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
+    m_outline = new OutlineView;
 
     //创建消息提示按钮
     m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
@@ -179,12 +180,14 @@ void MainWindow::initUI()
     m_btnApproval->setFixedSize(40, 32);
     m_btnApproval->setCursor(Qt::PointingHandCursor);
     ui->hlayout_btn->addWidget(m_btnApproval);
+    connect(m_btnApproval, &BubbleTipButton::clicked, this, &MainWindow::onApprovalPage);
 
     m_btnWarning = new BubbleTipButton(":/images/warning-info.svg", this);
     m_btnWarning->setObjectName("btn_warning");
     m_btnWarning->setFixedSize(40, 32);
     m_btnWarning->setCursor(Qt::PointingHandCursor);
     ui->hlayout_btn->addWidget(m_btnWarning);
+    connect(m_btnWarning, &BubbleTipButton::clicked, this, &MainWindow::onWarningPage);
 
     //m_btnApproval->setTipMsg(99);
     //创建传输列表控件
@@ -261,7 +264,6 @@ void MainWindow::initUI()
     item->setSelected(true);
     setPageName(item->getItemText());
 
-    m_outline = new OutlineView;
     m_stackedWidget->addWidget(m_outline);
     connect(m_outline, &OutlineView::outlineCellStepPages, this, &MainWindow::outlineJumpPage);
 
@@ -274,6 +276,8 @@ void MainWindow::initUI()
     m_outline->updateInfo();
     //    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
+    connect(m_outline,&OutlineView::sigApprovalNums,this,&MainWindow::setApprovalTipNums);
+    connect(m_outline,&OutlineView::sigWarnSumNums,this,&MainWindow::setWarningTipNums);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
 
@@ -500,6 +504,28 @@ void MainWindow::popupTransmissionList()
 
     m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
     m_transmissionList->show();
+}
+
+void MainWindow::onApprovalPage(bool check)
+{
+    Q_UNUSED(check);
+    outlineJumpPage(ONUTLINE_CELL_EXAMINE);
+}
+
+void MainWindow::onWarningPage(bool check)
+{
+    Q_UNUSED(check);
+    outlineJumpPage(ONUTLINE_CELL_NODE_WARNING);
+}
+
+void MainWindow::setApprovalTipNums(int nums)
+{
+    m_btnApproval->setTipMsg(nums);
+}
+
+void MainWindow::setWarningTipNums(int nums)
+{
+    m_btnWarning->setTipMsg(nums);
 }
 
 void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate)
