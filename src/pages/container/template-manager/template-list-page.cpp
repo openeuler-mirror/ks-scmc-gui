@@ -31,10 +31,12 @@ void TemplateListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "TemplateListPage updateInfo";
     clearText();
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
     if (keyword.isEmpty())
     {
         //initConnect();
         //gRPC->拿数据->填充内容
+        connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
         InfoWorker::getInstance().listTemplate();
     }
 }
@@ -261,7 +263,6 @@ void TemplateListPage::initButtons()
 
 void TemplateListPage::initTemplateConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
 }
 
