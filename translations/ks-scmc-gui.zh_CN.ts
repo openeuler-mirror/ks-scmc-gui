@@ -137,19 +137,19 @@
         <location filename="../src/common/button-delegate.cpp" line="74"/>
         <location filename="../src/common/button-delegate.cpp" line="129"/>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="74"/>
         <location filename="../src/common/button-delegate.cpp" line="129"/>
         <source>Update</source>
-        <translation type="unfinished">更新</translation>
+        <translation>更新</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="74"/>
         <location filename="../src/common/button-delegate.cpp" line="129"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>移除</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="74"/>
@@ -197,17 +197,17 @@
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="15"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>低</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="16"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>中</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="17"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>高</translation>
     </message>
 </context>
 <context>
@@ -296,25 +296,25 @@
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="26"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="109"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="71"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="110"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="136"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="111"/>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="155"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="112"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -322,116 +322,116 @@
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="61"/>
         <source>Backup Addition</source>
-        <translation type="unfinished"></translation>
+        <translation>添加备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="83"/>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="110"/>
         <source>Delete Container Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>删除容器备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="84"/>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="111"/>
         <source>Are you sure you want to delete the container backup?</source>
-        <translation type="unfinished"></translation>
+        <translation>确认删除该容器备份 ？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="85"/>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="112"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished">该操作不可恢复，确定要继续操作？</translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="130"/>
         <source>Resume Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="131"/>
         <source>Backup recovery confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>备份恢复确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="132"/>
         <source>%1 backup is selected for recovery</source>
-        <translation type="unfinished"></translation>
+        <translation>将恢复%1 备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="155"/>
         <source>Backup Update</source>
-        <translation type="unfinished"></translation>
+        <translation>备份状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="208"/>
         <source>On going</source>
-        <translation type="unfinished"></translation>
+        <translation>正在备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="212"/>
         <source>Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>成功</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="216"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>失败</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="288"/>
         <source>Backup file Name</source>
-        <translation type="unfinished"></translation>
+        <translation>备份文件名称</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="289"/>
         <source>Backup status</source>
-        <translation type="unfinished"></translation>
+        <translation>备份状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="290"/>
         <source>Backup start time</source>
-        <translation type="unfinished"></translation>
+        <translation>备份开始时间</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="291"/>
         <source>Backup version</source>
-        <translation type="unfinished"></translation>
+        <translation>备份版本</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="292"/>
         <source>Backup size</source>
-        <translation type="unfinished"></translation>
+        <translation>备份大小</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="293"/>
         <source>Description</source>
-        <translation type="unfinished">描述</translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="294"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>快捷操作</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="297"/>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>恢复</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="298"/>
         <source>Update</source>
-        <translation type="unfinished">更新</translation>
+        <translation>更新</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="299"/>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="318"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>移除</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="312"/>
         <source>Create</source>
-        <translation type="unfinished">创建</translation>
+        <translation>创建</translation>
     </message>
 </context>
 <context>
@@ -439,12 +439,12 @@
     <message>
         <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="31"/>
         <source>Monitor</source>
-        <translation type="unfinished">监控</translation>
+        <translation>监控</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="35"/>
         <source>Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>备份</translation>
     </message>
 </context>
 <context>
@@ -604,13 +604,13 @@
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="253"/>
         <source>Describe:</source>
-        <translation type="unfinished"></translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="115"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="255"/>
         <source> Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>容器名:</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="183"/>
@@ -635,7 +635,7 @@
         <location filename="../src/pages/container/container-setting.ui" line="323"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="259"/>
         <source>Security configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>安全策略</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="400"/>
@@ -758,12 +758,12 @@
         <location filename="../src/pages/container/container-setting.cpp" line="259"/>
         <location filename="../src/pages/container/container-setting.cpp" line="1096"/>
         <source>Create template</source>
-        <translation type="unfinished"></translation>
+        <translation>创建模板</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="263"/>
         <source>Edit template</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="419"/>
@@ -801,7 +801,7 @@
         <location filename="../src/pages/container/container-setting.cpp" line="902"/>
         <location filename="../src/pages/container/container-setting.cpp" line="1012"/>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>无</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="991"/>
@@ -827,23 +827,23 @@
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1097"/>
         <source>Create template failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>创建模板失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1098"/>
         <location filename="../src/pages/container/container-setting.cpp" line="1116"/>
         <source>error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>错误：%1</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1114"/>
         <source>Update template</source>
-        <translation type="unfinished"></translation>
+        <translation>更新备份</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1115"/>
         <source>Update template failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>更新备份失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1136"/>
@@ -1523,12 +1523,12 @@
     <message>
         <location filename="../src/login-dialog.cpp" line="462"/>
         <source>session expire!</source>
-        <translation type="unfinished"></translation>
+        <translation>会话过期！</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="463"/>
         <source>back to login page</source>
-        <translation type="unfinished"></translation>
+        <translation>点击确认跳转至登录界面</translation>
     </message>
     <message>
         <source>Login failed! %1</source>
@@ -1763,17 +1763,17 @@
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="133"/>
         <source> Access status</source>
-        <translation type="unfinished"></translation>
+        <translation>访问状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="135"/>
         <source>Open</source>
-        <translation type="unfinished">打开</translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="136"/>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>
@@ -1782,43 +1782,43 @@
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="20"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="166"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="49"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="167"/>
         <source>Network protocol </source>
-        <translation type="unfinished"></translation>
+        <translation>网络协议</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="58"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="168"/>
         <source>TCP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="65"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="169"/>
         <source>UDP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="72"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="170"/>
         <source>ICMP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="101"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="171"/>
         <source>Network address  </source>
-        <translation type="unfinished"></translation>
+        <translation>网络地址</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="129"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="172"/>
         <source>Port</source>
-        <translation type="unfinished">端口</translation>
+        <translation>端口</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2017,12 +2017,12 @@
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="359"/>
         <source>Warning Number</source>
-        <translation type="unfinished"></translation>
+        <translation>告警数</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="360"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>备注</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="361"/>
@@ -2054,45 +2054,45 @@
         <location filename="../src/pages/node/node-operate-dialog.ui" line="101"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="135"/>
         <source> Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>备注:</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="169"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="136"/>
         <source>Save</source>
-        <translation type="unfinished">保存</translation>
+        <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="188"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="137"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="13"/>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="16"/>
         <source>Add Node</source>
-        <translation type="unfinished">添加节点</translation>
+        <translation>添加节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="19"/>
         <source>Update Node</source>
-        <translation type="unfinished"></translation>
+        <translation>更新节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="60"/>
         <source>Add node</source>
-        <translation type="unfinished">添加节点</translation>
+        <translation>添加节点</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="61"/>
         <source>Add node failed!</source>
-        <translation type="unfinished">添加节点失败！</translation>
+        <translation>添加节点失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.cpp" line="62"/>
         <source>Please improve the content!</source>
-        <translation type="unfinished">请完善内容！</translation>
+        <translation>请完善内容！</translation>
     </message>
 </context>
 <context>
@@ -2302,7 +2302,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="40"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="167"/>
         <source>User Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>用户名：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="47"/>
@@ -2320,7 +2320,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="54"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="169"/>
         <source>Old Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>原密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="71"/>
@@ -2332,40 +2332,40 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="85"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="173"/>
         <source>New Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>新密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="95"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="174"/>
         <source>Confirm Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>确认密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="160"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="176"/>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="179"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="177"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="82"/>
         <source>old password input error</source>
-        <translation type="unfinished"></translation>
+        <translation>原密码输入错误</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="96"/>
         <source>Please input at least 8 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>请输入至少8位密码</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="98"/>
         <source>Can&apos;t input Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>不能输入中文</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="101"/>
@@ -2375,27 +2375,27 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="128"/>
         <source>The confirmation password is not match with the new password</source>
-        <translation type="unfinished"></translation>
+        <translation>密码与原密码不匹配</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="166"/>
         <source>Update Password</source>
-        <translation type="unfinished">修改密码</translation>
+        <translation>修改密码</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="167"/>
         <source>Update password failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>修改密码失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="168"/>
         <source>error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>错误：%1</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="184"/>
         <source>Change Password</source>
-        <translation type="unfinished">修改密码</translation>
+        <translation>修改密码</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.cpp" line="202"/>
@@ -2608,57 +2608,57 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="24"/>
         <source>Memory</source>
-        <translation type="unfinished">内存</translation>
+        <translation>内存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="25"/>
         <source>Network card</source>
-        <translation type="unfinished">网卡</translation>
+        <translation>网卡</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="26"/>
         <source>ENVS</source>
-        <translation type="unfinished"></translation>
+        <translation>环境变量</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="27"/>
         <source>Graphic</source>
-        <translation type="unfinished">图形化使用</translation>
+        <translation>图形化使用</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="28"/>
         <source>Volumes</source>
-        <translation type="unfinished">共享目录</translation>
+        <translation>共享目录</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="29"/>
         <source>High availability</source>
-        <translation type="unfinished">高可用</translation>
+        <translation>高可用</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="30"/>
         <source>File protect</source>
-        <translation type="unfinished"></translation>
+        <translation>文件保护</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="31"/>
         <source>Process security</source>
-        <translation type="unfinished"></translation>
+        <translation>进程安全</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="32"/>
         <source>Network access control</source>
-        <translation type="unfinished"></translation>
+        <translation>网络访问控制</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="33"/>
         <source>Network process white list</source>
-        <translation type="unfinished"></translation>
+        <translation>网络进程白名单</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="34"/>
         <source>Start stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>启停控制</translation>
     </message>
 </context>
 <context>
@@ -2667,7 +2667,7 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-list-item.h" line="96"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2676,39 +2676,39 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="180"/>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="261"/>
         <source>Key file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>关键文件 %1</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="182"/>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="263"/>
         <source>Process %1</source>
-        <translation type="unfinished"></translation>
+        <translation>进程 %1</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="184"/>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="265"/>
         <source>Network process %1</source>
-        <translation type="unfinished"></translation>
+        <translation>网络进程 %1</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="299"/>
         <source>Open status</source>
-        <translation type="unfinished"></translation>
+        <translation>开启状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="301"/>
         <source>White list status</source>
-        <translation type="unfinished"></translation>
+        <translation>白名单状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="303"/>
         <source>Open</source>
-        <translation type="unfinished">打开</translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="304"/>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
 </context>
 <context>
@@ -2764,7 +2764,7 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/container/security-configuration/start-stop-control-tab.cpp" line="28"/>
         <source>Restrict containers cannot run / stop containers from the command line</source>
-        <translation type="unfinished"></translation>
+        <translation>限制无法从命令行运行/停止该容器</translation>
     </message>
 </context>
 <context>
@@ -2792,93 +2792,97 @@ It mainly includes four modules: user management, node management, image and ima
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="79"/>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="127"/>
         <source>Remove Template</source>
-        <translation type="unfinished"></translation>
+        <translation>移除模板</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="80"/>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="128"/>
         <source>Are you sure you want to Remove the Template?</source>
-        <translation type="unfinished"></translation>
+        <translation>确定移除该容器模板？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="81"/>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="129"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished">该操作不可恢复，确定要继续操作？</translation>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="187"/>
         <source>Open</source>
-        <translation type="unfinished">打开</translation>
+        <translation>打开</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="187"/>
         <source>Close</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="179"/>
         <source>CPU: %1 core 
  Memory: %2 G 
  Network: %3 piece</source>
-        <translation type="unfinished"></translation>
+        <translation>CPU：%1核 
+内存：%2 G
+网卡：%3 块</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="189"/>
         <source>Env: %1  Mount: %2 
  Graphic: %3 
  RestartPolicy: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>环境变量：%1条 共享目录：%2条
+图形化使用：%3
+高可用：%4</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="214"/>
         <source>Remove template</source>
-        <translation type="unfinished"></translation>
+        <translation>移除模板</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="215"/>
         <source>Remove template failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>移除模板失败！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="216"/>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>错误：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="226"/>
         <source>Template Name</source>
-        <translation type="unfinished"></translation>
+        <translation>模板名称</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="227"/>
         <source>description</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="228"/>
         <source>Basic configuration</source>
-        <translation type="unfinished">基本配置</translation>
+        <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="229"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished">高级配置</translation>
+        <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="230"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>快捷操作</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="245"/>
         <source>Create</source>
-        <translation type="unfinished">创建</translation>
+        <translation>创建</translation>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="251"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>移除</translation>
     </message>
 </context>
 <context>
