@@ -113,14 +113,14 @@ void LogListView::getLogList(LogListPageType type)
 {
     logging::ListRuntimeRequest request;
 
-    QDateTime *start_time = new QDateTime();
-    start_time->setDate(QDate(2022,5,5));
-    start_time->setTime(QTime(1,0));
-    request.set_start_time(start_time->toSecsSinceEpoch());
+//    QDateTime *start_time = new QDateTime();
+//    start_time->setDate(QDate(2022,5,13));
+//    start_time->setTime(QTime(1,0));
+    request.set_start_time(m_xStart.toSecsSinceEpoch());
 
     QDateTime time = QDateTime::currentDateTime();
 //    QString end = time.toString("yyyy/MM/dd hh:mm:ss");
-    request.set_end_time(time.toSecsSinceEpoch());
+    request.set_end_time(m_xEnd.toSecsSinceEpoch());
 
 //    request.set_node_id(1);
     switch (type)
@@ -179,8 +179,8 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
             QString created = time.toString("yyyy/MM/dd hh:mm:ss");
             KLOG_INFO() << __func__ << "due time = " << created;
 
-            if(m_xStart.date().toJulianDay() > time.date().toJulianDay() || m_xEnd.date().toJulianDay() < time.date().toJulianDay())
-                continue;
+//            if(m_xStart.date().toJulianDay() > time.date().toJulianDay() || m_xEnd.date().toJulianDay() < time.date().toJulianDay())
+//                continue;
 
             QStandardItem *itemUpdateTime = new QStandardItem(created);
 
