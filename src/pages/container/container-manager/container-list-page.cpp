@@ -521,10 +521,10 @@ void ContainerListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_MONITOR, ":/images/monitor.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_TERINAL, ":/images/terminal.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_MENU, ":/images/more.svg"}});
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_TERINAL, QPair<QString, QString>{tr("Terminal"), ":/images/terminal.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_MENU, QPair<QString, QString>{tr("More"), ":/images/more.svg"}}});
 
     setTableDefaultContent("-");
 
@@ -601,7 +601,8 @@ void ContainerListPage::timedRefresh(bool start)
     KLOG_INFO() << start;
     if (start)
         m_timer->start(60000);
-    else {
+    else
+    {
         m_timer->stop();
     }
 }
