@@ -245,7 +245,7 @@ void OutlineView::updateInfo()
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
-//    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
