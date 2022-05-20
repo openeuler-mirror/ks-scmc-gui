@@ -34,10 +34,12 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [this] {
-        std::vector<int64_t> vecNodeId;
-        InfoWorker::getInstance().listContainer(vecNodeId, true);
-    });
+    m_timer->start(60000);
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                std::vector<int64_t> vecNodeId;
+                InfoWorker::getInstance().listContainer(vecNodeId, true);
+            });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
@@ -537,7 +539,7 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult);
@@ -596,25 +598,9 @@ void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::st
     ids.insert(std::pair<int64_t, std::vector<std::string>>(nodeId, container_ids));
 }
 
-void ContainerListPage::timedRefresh(bool start)
-{
-    KLOG_INFO() << start;
-    if (start)
-        m_timer->start(60000);
-    else {
-        m_timer->stop();
-    }
-}
-
 void ContainerListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "containerList updateInfo, keyword:" << keyword;
-    if (keyword == "exitTimedRefresh")
-    {
-        timedRefresh(false);
-        return;
-    }
-
+    KLOG_INFO() << "containerList updateInfo";
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     if (keyword.isEmpty())
@@ -622,7 +608,6 @@ void ContainerListPage::updateInfo(QString keyword)
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         //gRPC->拿数据->填充内容
         getContainerList();
-        timedRefresh(true);
     }
 }
 

@@ -311,12 +311,12 @@ ContainerSetting QComboBox
 ContainerSetting QComboBox:drop-down
 {
     border:none;
-    background-color:transparent;
+    background-color:#ffffff;
     padding-right:10px;
 }
 ContainerSetting QComboBox::down-arrow
 {
-    image: url(:/images/down-arrow.svg);
+    image: url(:/images/arrow_n.png);
 }
 
 ContainerSetting QComboBox QAbstractItemView
@@ -325,18 +325,25 @@ ContainerSetting QComboBox QAbstractItemView
     color:#303133;
     outline:none;
     border: 1px solid #E4E7ED;
-
+    border-radius: 6px;
+    selection-background-color: red;
 }
 ContainerSetting QComboBox QAbstractItemView::item
 {
     height:30px;
 }
 
+/*ContainerSetting QComboBox QAbstractItemView::item:hover
+{
+    background-color:red;
+    color:#303133;
+}
+
 ContainerSetting QComboBox QAbstractItemView::item:selected
 {
-   background-color:#EDF3FF;
-   color:#303133;
-}
+    background-color:#EDF3FF;
+    color:#303133;
+}*/
 
 ContainerSetting QLineEdit
 {
@@ -347,6 +354,11 @@ ContainerSetting QLineEdit
 ContainerSetting QLineEdit:focus
 {
     border:1px solid #409EFF;
+}
+
+ContainerSetting QLineEdit:disabled
+{
+    background-color:#F0F0F0;
 }
 ContainerSetting #widget_base_sider
 {
@@ -505,11 +517,6 @@ ContainerSetting QRadioButton::indicator:unchecked
 ContainerSetting QRadioButton::indicator:checked
 {
     image: url(:/images/frame_s.png);
-}
-
-ContainerSetting QLineEdit:disabled
-{
-    background-color:#F0F0F0;
 }
 
 /****************************Graphic*************************/

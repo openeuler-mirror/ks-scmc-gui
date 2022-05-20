@@ -4,37 +4,32 @@
 #include <QHBoxLayout>
 #include <widget-property-helper.h>
 
-#define WARN_IDS "warn id"
-#define WARN_NODE_ID "warn node id"
-#define WARN_CONTAINER_ID "warn container id"
-#define WARN_CONTAINER_NAME "warn container name"
-
-WarningListView::WarningListView(QWidget *parent) : TablePage(parent)
+WaringListView::WaringListView(QWidget *parent) : TablePage(parent)
 {
     initButtons();
     initTable();
     initLogListConnect();
 }
 
-WarningListView::~WarningListView()
+WaringListView::~WaringListView()
 {
 
 }
 
-void WarningListView::updateInfo(QString keyword)
+void WaringListView::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "WarningListView updateInfo";
+    KLOG_INFO() << "WaringListView updateInfo";
     clearText();
     if (keyword.isEmpty())
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarning);
-//        connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarning);
+        connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WaringListView::getListWarning);
+        connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WaringListView::getReadWarning);
         getWarningList(m_type);
-//        getReadWarn();
+        getReadWarn();
     }
 }
 
-void WarningListView::initTable()
+void WaringListView::initTable()
 {
     QList<QString> tableHHeaderDate = {
         "",
@@ -54,7 +49,7 @@ void WarningListView::initTable()
 //    setTableSingleChoose(true);
 }
 
-void WarningListView::initButtons()
+void WaringListView::initButtons()
 {
     QMap<int, QPushButton *> opBtnMap;
     //按钮
@@ -89,10 +84,10 @@ void WarningListView::initButtons()
         btn->setFixedSize(QSize(78, 32));
         opBtnMap.insert(iter.key(), btn);
     }
-    connect(opBtnMap[OPERATION_BUTTOM_WARN_READ], &QPushButton::clicked, this, &WarningListView::onBtnRead);
-    connect(opBtnMap[OPERATION_BUTTOM_WARN_IGNORE], &QPushButton::clicked, this, &WarningListView::onBtnIgnore);
-    connect(this,&WarningListView::sigWarnRead,this,&WarningListView::onBtnReadLabel);
-    connect(this,&WarningListView::sigWarnIgnore,this,&WarningListView::onBtnIgnoreLabel);
+    connect(opBtnMap[OPERATION_BUTTOM_WARN_READ], &QPushButton::clicked, this, &WaringListView::onBtnRead);
+    connect(opBtnMap[OPERATION_BUTTOM_WARN_IGNORE], &QPushButton::clicked, this, &WaringListView::onBtnIgnore);
+    connect(this,&WaringListView::sigImagePass,this,&WaringListView::onBtnReadLabel);
+    connect(this,&WaringListView::sigImageRefuse,this,&WaringListView::onBtnIgnoreLabel);
 
     addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_WARN_READ]
                                                     << opBtnMap[OPERATION_BUTTOM_WARN_IGNORE]);
@@ -100,13 +95,13 @@ void WarningListView::initButtons()
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
-void WarningListView::initLogListConnect()
+void WaringListView::initLogListConnect()
 {
-     connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarning);
-//     connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarn);
+     connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WaringListView::getListWarning);
+     connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WaringListView::getReadWarn);
 }
 
-void WarningListView::getWarningList(WarningListPageType type)
+void WaringListView::getWarningList(WarningListPageType type)
 {
     logging::ListWarnRequest request;
 
@@ -129,16 +124,16 @@ void WarningListView::getWarningList(WarningListPageType type)
     InfoWorker::getInstance().listWarnLogging(request);
 }
 
-void WarningListView::getReadWarn(int64_t ids)
+void WaringListView::getReadWarn()
 {
-    InfoWorker::getInstance().readWarnLogging(ids);
+    InfoWorker::getInstance().readWarnLogging();
 }
 
-void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarnReply> &reply)
+void WaringListView::getListWarning(const QPair<grpc::Status, logging::ListWarnReply> &reply)
 {
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     if (reply.first.ok())
-    { 
+    {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         clearTable();
         int size = reply.second.logs_size();
@@ -149,30 +144,19 @@ void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarn
         }
 
         int row = 0;
-        QMap<QString, QVariant> infoMap;
+
         for (auto logging : reply.second.logs())
         {
-//            m_idsMap[row] = logging.id();
-            infoMap.insert(WARN_IDS,QString(int(logging.id())));
-            infoMap.insert(WARN_NODE_ID,QString(int(logging.node_id())));
-            infoMap.insert(WARN_CONTAINER_ID,logging.container_id().data());
-            infoMap.insert(WARN_CONTAINER_NAME,logging.container_name().data());
-
             QStandardItem *itemCheck = new QStandardItem();
             itemCheck->setCheckable(true);
 
             QStandardItem *item_container = new QStandardItem(logging.container_name().data());
-            item_container->setData(QVariant::fromValue(infoMap));
 
             QStandardItem *item_image = new QStandardItem(logging.container_id().data()); // 镜像
 
             QStandardItem *item_node = new QStandardItem(logging.node_info().data());
 
             QStandardItem *item_status = new QStandardItem("unknown");
-            if(logging.have_read())
-                item_status->setText(tr("Unread"));
-            else
-                item_status->setText(tr("Readed"));
 
             QStandardItem *item_content = new QStandardItem("unknown");
             switch (logging.event_type()) {
@@ -214,51 +198,36 @@ void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarn
 
 }
 
-//void WarningListView::getReadWarning(const QPair<grpc::Status, logging::ReadWarnReply> &reply)
-//{
-//    if (reply.first.ok())
-//    {
-////        int size = reply.second;
-////        if (size <= 0)
-////            ;
-//    }
-//}
+void WaringListView::getReadWarning(const QPair<grpc::Status, logging::ReadWarnReply> &reply)
+{
+    if (reply.first.ok())
+    {
+//        int size = reply.second;
+//        if (size <= 0)
+//            ;
+    }
+}
 
-void WarningListView::setLogListPageType(WarningListPageType type)
+void WaringListView::setLogListPageType(WarningListPageType type)
 {
     m_type = type;
 }
 
-void WarningListView::onBtnRead()
+void WaringListView::onBtnRead()
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
-    if (!info.isEmpty())
-    {
-        int64_t ids = info.at(0).value(WARN_IDS).toInt();
-        getReadWarn(ids);
-    }
 }
 
-void WarningListView::onBtnIgnore()
+void WaringListView::onBtnIgnore()
 {
-//    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
-//    if (!info.isEmpty())
-//    {
-//        int64_t ids = info.at(0).value(WARN_IDS).toInt();
-//        getReadWarn(ids);
-//    }
+
 }
 
-void WarningListView::onBtnReadLabel(int row)
+void WaringListView::onBtnReadLabel(int row)
 {
-    auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    if(infoMap.isEmpty())
-        return;
-    int64_t ids = infoMap.value(WARN_IDS).toInt();
-    getReadWarn(ids);
+
 }
 
-void WarningListView::onBtnIgnoreLabel(int row)
+void WaringListView::onBtnIgnoreLabel(int row)
 {
 
 }

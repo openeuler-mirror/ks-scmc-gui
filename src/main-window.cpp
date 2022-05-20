@@ -12,7 +12,6 @@
 #include "./ui_main-window.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
-#include "common/about-page.h"
 #include "page.h"
 #include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/audit/log-list/log-list-page.h"
@@ -52,7 +51,6 @@ MainWindow::MainWindow(QWidget* parent)
     initUI();
     m_timer = new QTimer(this);
     //connect(m_timer, &QTimer::timeout, this, &MainWindow::)
-    connect(m_stackedWidget, SIGNAL(currentChanged(int)), this, SLOT(changePage(int)));
 }
 
 MainWindow::~MainWindow()
@@ -197,12 +195,10 @@ void MainWindow::initUI()
     userMenu->setObjectName("userMenu");
     QAction* changePasswdAct = userMenu->addAction(tr("Change Password"));
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
-    userMenu->addSeparator();
     QAction* aboutAct = userMenu->addAction(tr("About"));
     ui->btn_user->setMenu(userMenu);
     connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
-    connect(aboutAct,&QAction::triggered, this, &MainWindow::onAboutAction);
 
     //创建右侧内容页面
     m_stackedWidget = new QStackedWidget(this);
@@ -336,32 +332,10 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     case ONUTLINE_CELL_NODE_WARNING:
     {
-        outlinePageChange(AUDIT_WORNING_LIST);
-        outlineItem->setSelected(false);
         break;
     }
     default:
         break;
-    }
-}
-
-
-void MainWindow::changePage(int index)
-{
-    QString info = "exitTimedRefresh";
-    if (6 != index)
-    {
-        if (m_pageMap.value(NODE_MANAGER))
-        {
-            m_pageMap[NODE_MANAGER]->updateInfo(info);
-        }
-    }
-    if (3 != index)
-    {
-        if (m_pageMap.value(CONTAINER_LIST))
-        {
-            m_pageMap[CONTAINER_LIST]->updateInfo(info);
-        }
     }
 }
 
@@ -404,7 +378,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_AUDIT_WARNING_LIST:
     {
-        page = new WarningListPage(this);
+        page = new WaringListPage(this);
         break;
     }
     default:
@@ -478,17 +452,6 @@ void MainWindow::onChangePwAction(bool checked)
                 });
         connect(m_pwUpdateDlg, &PasswdUpdateDialog::sigUpdatePasswdSuccessful, this, &MainWindow::onUpdatePwSuccessful);
     }
-}
-
-void MainWindow::onAboutAction(bool checked)
-{
-    Q_UNUSED(checked);
-    AboutPage *about = new AboutPage(this);
-    int x = this->x() + this->width() / 2 - about->width() / 2;
-    int y = this->y() + this->height() / 2 - about->height() / 2;
-
-    about->move(x, y);
-    about->show();
 }
 
 void MainWindow::onUpdatePwSuccessful()
