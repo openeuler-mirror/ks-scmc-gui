@@ -1,5 +1,5 @@
-#include <kiran-log/qt5-log-i.h>
 #include "memory-conf-tab.h"
+#include <kiran-log/qt5-log-i.h>
 #include "ui_memory-conf-tab.h"
 MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
                                                 ui(new Ui::MemoryConfTab)
