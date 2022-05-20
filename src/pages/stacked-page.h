@@ -14,7 +14,7 @@ public:
     void addStackedPage(QWidget *, QString key);
 
     void setCurrentPage(int index);
-    void updateCurrentPage();
+    void updateCurrentPage(QString keyword = "");
 
 private:
     void initUI();

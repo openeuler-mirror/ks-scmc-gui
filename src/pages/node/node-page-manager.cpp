@@ -36,7 +36,7 @@ void NodePageManager::createStackedPage(NodePageType type, QString key)
 void NodePageManager::updateInfo(QString keyword)
 {
     setCurrentPage(NODE_PAGE_TYPE_NODE_LIST);
-    updateCurrentPage();
+    updateCurrentPage(keyword);
 }
 
 void NodePageManager::onNodeNameClicked(qint64 nodeId)
