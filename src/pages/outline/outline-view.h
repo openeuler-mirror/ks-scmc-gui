@@ -7,18 +7,19 @@
 #include <QScrollBar>
 #include <QWidget>
 #include "info-worker.h"
+#include "page.h"
 #include "outline-cell.h"
 #include "outline-introduction.h"
 
 class OutlineCell;
 class OutlineIntroduction;
-class OutlineView : public QFrame
+class OutlineView : public Page
 {
     Q_OBJECT
 public:
     explicit OutlineView(QWidget *parent = nullptr);
     ~OutlineView() override;
-    void updateInfo();
+    void updateInfo(QString keyword = "");
 
 protected:
     //    bool eventFilter(QObject *watched, QEvent *event);
