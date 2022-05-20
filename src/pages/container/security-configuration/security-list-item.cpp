@@ -84,7 +84,5 @@ void SecurityListItem::checkPath()
             m_isPathCorrect = false;
 
         ui->lab_error_tips->setVisible(!m_isPathCorrect);
-
-        KLOG_INFO() << m_isPathCorrect;
     }
 }

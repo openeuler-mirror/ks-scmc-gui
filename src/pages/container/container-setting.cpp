@@ -212,7 +212,6 @@ void ContainerSetting::initUI()
     initSecurityConfPages();
 
     QList<QComboBox *> cbList = this->findChildren<QComboBox *>();
-    KLOG_INFO() << cbList.size();
     foreach (auto cb, cbList)
     {
         cb->setItemDelegate(new QStyledItemDelegate(this));
