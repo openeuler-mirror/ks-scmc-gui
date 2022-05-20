@@ -346,22 +346,18 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
 }
 
 
-void MainWindow::changePage(int index)
+void MainWindow::changePage(int)
 {
     QString info = "exitTimedRefresh";
-    if (6 != index)
+    Page *page = qobject_cast<Page*>( m_stackedWidget->currentWidget());
+    QString data= page->getData().toString();
+    if (data != NODE_MANAGER)
     {
-        if (m_pageMap.value(NODE_MANAGER))
-        {
-            m_pageMap[NODE_MANAGER]->updateInfo(info);
-        }
+        m_pageMap[NODE_MANAGER]->updateInfo(info);
     }
-    if (3 != index)
+    if (data != CONTAINER_LIST)
     {
-        if (m_pageMap.value(CONTAINER_LIST))
-        {
-            m_pageMap[CONTAINER_LIST]->updateInfo(info);
-        }
+        m_pageMap[CONTAINER_LIST]->updateInfo(info);
     }
 }
 
