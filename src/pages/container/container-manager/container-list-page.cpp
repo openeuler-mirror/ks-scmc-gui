@@ -34,12 +34,10 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    m_timer->start(60000);
-    connect(m_timer, &QTimer::timeout,
-            [this] {
-                std::vector<int64_t> vecNodeId;
-                InfoWorker::getInstance().listContainer(vecNodeId, true);
-            });
+    connect(m_timer, &QTimer::timeout, [this] {
+        std::vector<int64_t> vecNodeId;
+        InfoWorker::getInstance().listContainer(vecNodeId, true);
+    });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
@@ -523,10 +521,10 @@ void ContainerListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_MONITOR, ":/images/monitor.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_TERINAL, ":/images/terminal.svg"},
-                                                                                   {ACTION_BUTTON_TYPE_MENU, ":/images/more.svg"}});
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_TERINAL, QPair<QString, QString>{tr("Terminal"), ":/images/terminal.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_MENU, QPair<QString, QString>{tr("More"), ":/images/more.svg"}}});
 
     setTableDefaultContent("-");
 
@@ -598,9 +596,26 @@ void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::st
     ids.insert(std::pair<int64_t, std::vector<std::string>>(nodeId, container_ids));
 }
 
+void ContainerListPage::timedRefresh(bool start)
+{
+    KLOG_INFO() << start;
+    if (start)
+        m_timer->start(60000);
+    else
+    {
+        m_timer->stop();
+    }
+}
+
 void ContainerListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "containerList updateInfo";
+    KLOG_INFO() << "containerList updateInfo, keyword:" << keyword;
+    if (keyword == "exitTimedRefresh")
+    {
+        timedRefresh(false);
+        return;
+    }
+
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     if (keyword.isEmpty())
@@ -608,6 +623,7 @@ void ContainerListPage::updateInfo(QString keyword)
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         //gRPC->拿数据->填充内容
         getContainerList();
+        timedRefresh(true);
     }
 }
 
