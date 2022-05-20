@@ -98,7 +98,7 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
             errorMsg = tr("Can't input Chinese");
         else if ((!rx1.exactMatch(inputPw)))  //没有包含数字与字符
         {
-            errorMsg = tr("Please input at least a combination of password and number");
+            errorMsg = tr("Please input at least a combination of character and number");
         }
         else
         {
@@ -199,7 +199,7 @@ void PasswdUpdateDialog::initUI()
                                 "min-height:30px;"
                                 "}"
                                 "QToolButton{border:none;}");
-    ui->btn_tips->setToolTip(tr("The password should contain at least\n a combination of password and number,\n with a length range of 8-32 characters"));
+    ui->btn_tips->setToolTip(tr("The password should contain at least\n a combination of character and number,\n with a length range of 8-32 characters"));
 
     ui->lab_old_pw_tips->hide();
     ui->lab_new_pw_tips->hide();

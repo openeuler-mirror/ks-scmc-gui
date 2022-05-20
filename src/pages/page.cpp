@@ -2,7 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QPalette>
 #include "mask-widget.h"
-Page::Page(QWidget *parent) : QWidget(parent), m_maskWidget(nullptr)
+Page::Page(QWidget *parent) : QWidget(parent), m_maskWidget(nullptr),m_data(QVariant())
 {
     KLOG_INFO() << "Page";
     m_maskWidget = new MaskWidget(this);

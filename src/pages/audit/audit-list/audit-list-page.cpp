@@ -9,7 +9,6 @@ AuditListPage::AuditListPage(QWidget *parent) : TabPage(parent)
     createSubPage(WAIT_FOR_APPROVE);
     createSubPage(AUDIT_PASSED);
     createSubPage(AUDIT_REFUSED);
-    setCurrentPage(WAIT_FOR_APPROVE);
 //    updateInfo();
     connect(this, &AuditListPage::sigTabBarClicked, this, &AuditListPage::updatePageInfo);
 }
@@ -17,7 +16,6 @@ AuditListPage::AuditListPage(QWidget *parent) : TabPage(parent)
 void AuditListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "AuditListPage UpdateInfo";
-    setCurrentPage(WAIT_FOR_APPROVE);
     m_imagelist_approve->updateInfo();
 //    m_imagelist_passed->updateInfo();
 //    m_imagelist_rejected->updateInfo();
@@ -35,7 +33,6 @@ void AuditListPage::createSubPage(AuditListPageType type)
 //        m_imagelist_approve->setIsInitAuditButtons(true);
         m_imagelist_approve->setOperateAreaVisible(true);
         addTabPage(m_imagelist_approve,tr("Wait for Approve"));
-        connect(m_imagelist_approve,&ImageListPage::sigUpdateAuditInfo,this,&AuditListPage::updateAuditInfo);
         break;
     }
     case AUDIT_PASSED:
@@ -75,9 +72,4 @@ void AuditListPage::updatePageInfo(int index)
     {
         m_imagelist_rejected->updateInfo();
     }
-}
-
-void AuditListPage::updateAuditInfo()
-{
-    updateInfo();
 }
