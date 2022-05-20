@@ -4,12 +4,12 @@
 #include "pages/tab-page.h"
 #include "warning-list-view.h"
 
-class WarningListView;
-class WarningListPage  : public TabPage
+class WaringListView;
+class WaringListPage  : public TabPage
 {
     Q_OBJECT
 public:
-    explicit WarningListPage(QWidget *parent = nullptr);
+    explicit WaringListPage(QWidget *parent = nullptr);
     void updateInfo(QString keyword = "");  //刷新表格
 private:
     void initUI();
@@ -17,8 +17,8 @@ private:
     void updatePageInfo(int index);
 
 private:
-    WarningListView *m_warninglistview_container;
-    WarningListView *m_warninglistview_node;
+    WaringListView *m_warninglistview_container;
+    WaringListView *m_warninglistview_node;
 };
 
 
