@@ -16,10 +16,10 @@ void StackedPage::setCurrentPage(int index)
     m_stackedWidget->setCurrentIndex(index);
 }
 
-void StackedPage::updateCurrentPage(QString keyword)
+void StackedPage::updateCurrentPage()
 {
     Page *page = qobject_cast<Page *>(m_stackedWidget->currentWidget());
-    page->updateInfo(keyword);
+    page->updateInfo();
 }
 
 void StackedPage::initUI()

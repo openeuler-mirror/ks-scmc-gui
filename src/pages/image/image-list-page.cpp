@@ -128,26 +128,13 @@ void ImageListPage::initButtons()
             QPushButton *btn = new QPushButton(this);
             btn->setObjectName("btn");
 
-            if (name == tr("Refuse"))
-            {
-                btn->setStyleSheet("#btn{background-color:#ff4b4b;"
-                                   "border:none;"
-                                   "border-radius: 4px;"
-                                   "color:#ffffff;}"
-                                   "#btn:hover{ background-color:#ff6c6c;}"
-                                   "#btn:focus{outline:none;}"
-                                   "#btn:disabled{color:#919191;background:#393939;}");
-            }
-            else
-            {
-                btn->setStyleSheet("#btn{background-color:#2eb3ff;"
-                                   "border:none;"
-                                   "border-radius: 4px;"
-                                   "color:#ffffff;}"
-                                   "#btn:hover{ background-color:#77ceff;}"
-                                   "#btn:focus{outline:none;}"
-                                   "#btn:disabled{color:#919191;background:#393939;}");
-            }
+            btn->setStyleSheet("#btn{background-color:#2eb3ff;"
+                               "border:none;"
+                               "border-radius: 4px;"
+                               "color:#ffffff;}"
+                               "#btn:hover{ background-color:#77ceff;}"
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
             btn->setText(name);
             btn->setFixedSize(QSize(78, 32));
             opBtnMap.insert(iter.key(), btn);
@@ -355,8 +342,6 @@ void ImageListPage::onBtnRefuse()
 void ImageListPage::onBtnPassLabel(int row)
 {
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    if(infoMap.isEmpty())
-        return;
     auto image_id = infoMap.value(IMAGE_ID).toString();
     QMap<QString, QString> checkInfo;
     checkInfo.insert("Image Id", image_id);
@@ -368,8 +353,6 @@ void ImageListPage::onBtnPassLabel(int row)
 void ImageListPage::onBtnRefuseLabel(int row)
 {
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    if(infoMap.isEmpty())
-        return;
     auto image_id = infoMap.value(IMAGE_ID).toString();
     QMap<QString, QString> checkInfo;
     checkInfo.insert("Image Id", image_id);
@@ -491,6 +474,7 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
+    KLOG_INFO() << "getListDBResult";
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     if (reply.first.ok())
     {

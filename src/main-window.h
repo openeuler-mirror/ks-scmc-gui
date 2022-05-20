@@ -47,13 +47,11 @@ private:
 private slots:
     void onLogoutAction(bool checked);
     void onChangePwAction(bool checked);
-    void onAboutAction(bool checked);
     void onUpdatePwSuccessful();
     void popupTransmissionList();
     void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);
     void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
     void outlineJumpPage(OutlineCellType type);
-    void changePage(int);
 
 signals:
     void sigLogout();

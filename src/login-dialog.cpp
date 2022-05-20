@@ -46,6 +46,7 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     getLicense(licence_str);
 
     initUI();
+    initAbout();
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
@@ -91,7 +92,6 @@ void LoginDialog::paintEvent(QPaintEvent *event)
 
 void LoginDialog::initUI()
 {
-    m_about = new AboutPage(this);
     setTitle(tr("KylinSec security Container magic Cube"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
@@ -226,6 +226,79 @@ void LoginDialog::initMessageBox()
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
     m_dbusErrorBox->setText(tr("Failed to get data, please check the service status."));
     connect(okButton, SIGNAL(clicked(bool)), this, SLOT(close()));
+}
+
+static QString getVersion(QString filepath)
+{
+    QFile file(filepath);
+    QString ret;
+
+    if( file.open(QIODevice::ReadOnly | QIODevice::Text) )
+    {
+        QByteArray ba = file.readLine();
+        ret = QString(ba);
+
+        file.close();
+    }
+
+    return ret.simplified();
+}
+
+void LoginDialog::initAbout()
+{
+    m_about = new KiranTitlebarWindow(this);
+    m_about->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
+    m_about->setIcon(QIcon(":/images/logo.png"));
+//    m_about->setTitleBarHeight(30);
+    m_about->getTitlebarCustomLayout()->setContentsMargins(0,0,0,0);
+    m_about->setFixedSize(430, 270);
+    m_about->setWindowModality(Qt::ApplicationModal);
+
+    QWidget *aboutWidget = m_about->getWindowContentWidget();
+    aboutWidget->setContentsMargins(0,0,0,0);
+    QVBoxLayout *vlayout = new QVBoxLayout(aboutWidget);
+    vlayout->setContentsMargins(0, 0, 0, 0);
+
+    QSpacerItem *spacer = new QSpacerItem(aboutWidget->width(), 20);
+    QSpacerItem *endSpacer = new QSpacerItem(aboutWidget->width(), 40);
+
+    QLabel *logo = new QLabel(aboutWidget);
+    logo->setPixmap(QPixmap(":/images/kylin-logo.png"));
+    logo->setAlignment(Qt::AlignCenter);
+    logo->setMinimumSize(172,52);
+
+    QLabel *version = new QLabel(aboutWidget);
+    version->setStyleSheet("QLabel{"
+                           "color:#ffffff;"
+                           "font:NotoSansCJKsc-Regular;"
+                           "font-size:14px;}");
+    version->setText(tr("KylinSec Security container magic cube") + VERSION);
+    version->setAlignment(Qt::AlignCenter);
+
+    QLabel *info = new QLabel(aboutWidget);
+    info->setStyleSheet("QLabel{"
+                        "color:#ffffff;"
+                        "font:NotoSansCJKsc-Regular;"
+                        "font-size:14px;}");
+    info->setText(QString("ks-scmc-gui: %1,").arg(getVersion(SCMC_GUI_VERSION_FILE_PATH)) + QString(" ks-scmc: %1").arg(getVersion(SCMC_VERSION_FILE_PATH)));
+    info->setAlignment(Qt::AlignCenter);
+
+    QLabel *license = new QLabel(aboutWidget);
+    license->setStyleSheet("QLabel{"
+                           "color:#919191;"
+                           "font:NotoSansCJKsc-Regular;"
+                           "font-size:12px;}");
+    license->setText("Copyright (c) 2022 ~ 2023 KylinSec Co. Ltd. All Rights Reserved.");
+    license->setAlignment(Qt::AlignCenter);
+    vlayout->addSpacerItem(spacer);
+    vlayout->addWidget(logo);
+    vlayout->addWidget(version);
+    vlayout->addWidget(info);
+    vlayout->addWidget(license);
+    vlayout->addSpacerItem(endSpacer);
+
+    aboutWidget->setLayout(vlayout);
+    m_about->setTitle(tr("About"));
 }
 
 void LoginDialog::loadConfig()
