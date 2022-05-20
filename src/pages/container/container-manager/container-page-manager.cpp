@@ -35,7 +35,7 @@ void ContainerPageManager::createStackedPage(ContainerPageType type, QString key
 void ContainerPageManager::updateInfo(QString keyword)
 {
     setCurrentPage(CONTAINER_PAGE_TYPE_LIST);
-    updateCurrentPage();
+    updateCurrentPage(keyword);
 }
 
 void ContainerPageManager::onNameClicked(QMap<QString, QVariant> infoMap)
