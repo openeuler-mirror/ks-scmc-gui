@@ -42,6 +42,7 @@ private:
     void initTable();
     void initNodeConnect();
     void getNodeList();
+    void timedRefresh(bool start);
 
 private:
     NodeOperateDialog *m_nodeAddition;

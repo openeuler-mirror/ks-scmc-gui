@@ -306,9 +306,10 @@ void InfoWorker::listWarnLogging(const logging::ListWarnRequest &req)
     RPC_ASYNC(logging::ListWarnReply, _listWarnLogging, loggingListWarnFinished, req);
 }
 
-void InfoWorker::readWarnLogging()
+void InfoWorker::readWarnLogging(int64_t ids)
 {
-    const logging::ReadWarnRequest req;
+    logging::ReadWarnRequest req;
+    req.add_ids(ids);
     RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, req);
 }
 
