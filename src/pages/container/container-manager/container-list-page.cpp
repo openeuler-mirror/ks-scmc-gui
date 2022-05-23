@@ -298,9 +298,11 @@ void ContainerListPage::onItemEntered(const QModelIndex &index)
 void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
 {
     setBusy(false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     KLOG_INFO() << "getContainerListResult";
     if (reply.first.ok())
     {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         int size = reply.second.containers_size();
         KLOG_INFO() << "container size:" << size;
         if (size <= 0)
@@ -310,7 +312,6 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
         }
 
         clearTable();
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         setHeaderCheckable(true);
         int row = 0;
         QMap<QString, QVariant> infoMap;

@@ -235,7 +235,6 @@ void ContainerSetting::initSummaryUI()
         m_cbImage = new QComboBox(this);
         m_cbImage->setParent(this);
         m_cbImage->setFixedSize(QSize(200, 30));
-        m_cbImage->setItemDelegate(new QStyledItemDelegate(this));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 2, 1);
         break;
