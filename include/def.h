@@ -10,6 +10,7 @@
 #define CONTAINER_NAME "container name"
 #define CONTAINER_STATUS "container status"
 #define TEMPLATE_ID "template id"
+#define TEMPLATE_NAME "template name"
 #define BACKUP_ID "backup id"
 #define BACKUP_NAME "backup name"
 #define VERSION "V1.0"

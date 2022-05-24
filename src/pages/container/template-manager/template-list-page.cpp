@@ -151,6 +151,7 @@ void TemplateListPage::getListTemplateFinishResult(const QPair<grpc::Status, con
         if (size <= 0)
         {
             setTableDefaultContent("-");
+            setHeaderCheckable(false);
             return;
         }
         clearTable();
