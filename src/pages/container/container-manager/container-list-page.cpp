@@ -19,6 +19,7 @@
 
 ContainerListPage::ContainerListPage(QWidget *parent)
     : TablePage(parent),
+      m_createFromTemplateAct(nullptr),
       m_createCTSetting(nullptr),
       m_editCTSetting(nullptr),
       m_monitor(nullptr),
@@ -175,6 +176,29 @@ void ContainerListPage::onActCreate()
 void ContainerListPage::onActCopyConfig()
 {
     KLOG_INFO() << "onCopyConfig";
+    if (!m_createCTSetting)
+    {
+        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE);
+        if (!m_templateMap.isEmpty())
+            m_createCTSetting->setTemplateList(m_templateMap);
+
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_createCTSetting->width()) / 2,
+                                screenGeometry.y() + (screenGeometry.height() - m_createCTSetting->height()) / 2);
+
+        m_createCTSetting->show();
+        connect(m_createCTSetting, &ContainerSetting::destroyed,
+                [=] {
+                    KLOG_INFO() << "create container setting destroy";
+                    m_createCTSetting->deleteLater();
+                    m_createCTSetting = nullptr;
+                });
+        connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
+                [=] {
+                    updateInfo();
+                });
+    }
 }
 
 void ContainerListPage::onActBatchUpdate()
@@ -437,6 +461,30 @@ void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, conta
     }
 }
 
+void ContainerListPage::getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply)
+{
+    KLOG_INFO() << "getListTemplateFinishResult";
+    if (reply.first.ok())
+    {
+        int size = reply.second.data_size();
+        if (size <= 0)
+        {
+            m_createFromTemplateAct->setDisabled(true);
+            return;
+        }
+        for (auto data : reply.second.data())
+        {
+            auto cfg = data.conf();
+            qint64 tempId = data.id();
+            QString name = QString::fromStdString(cfg.name().data());
+            m_templateMap.insert(tempId, name);
+        }
+        m_createFromTemplateAct->setDisabled(false);
+    }
+    else
+        m_createFromTemplateAct->setDisabled(true);
+}
+
 void ContainerListPage::initButtons()
 {
     //创建按钮及菜单
@@ -449,10 +497,10 @@ void ContainerListPage::initButtons()
     QMenu *btnCreateMenu = new QMenu(btnCreate);
     btnCreateMenu->setObjectName("btnCreateMenu");
     QAction *create = btnCreateMenu->addAction(tr("Create container"));
-    QAction *createFromTemplate = btnCreateMenu->addAction(tr("Create container from template"));
+    m_createFromTemplateAct = btnCreateMenu->addAction(tr("Create container from template"));
     btnCreate->setMenu(btnCreateMenu);
     connect(create, &QAction::triggered, this, &ContainerListPage::onActCreate);
-    connect(createFromTemplate, &QAction::triggered, this, &ContainerListPage::onActCopyConfig);
+    connect(m_createFromTemplateAct, &QAction::triggered, this, &ContainerListPage::onActCopyConfig);
 
     //其他按钮及菜单
     const QMap<int, QString> btnNameMap = {
@@ -538,11 +586,17 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
+    //connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerSetting::getListTemplateFinishResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult);
+}
+
+void ContainerListPage::getTemplateList()
+{
+    InfoWorker::getInstance().listTemplate();
 }
 
 void ContainerListPage::getContainerList(qint64 nodeId)
@@ -619,11 +673,14 @@ void ContainerListPage::updateInfo(QString keyword)
 
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
     if (keyword.isEmpty())
     {
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
         //gRPC->拿数据->填充内容
         getContainerList();
+        getTemplateList();
         timedRefresh(true);
     }
 }
