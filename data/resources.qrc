@@ -82,5 +82,8 @@
         <file>images/marquee_disable-checked.png</file>
         <file>images/btn-delete-normal.png</file>
         <file>images/kylin-logo.png</file>
+        <file>images/success.svg</file>
+        <file>images/tips.svg</file>
+        <file>images/open-disable.svg</file>
     </qresource>
 </RCC>
