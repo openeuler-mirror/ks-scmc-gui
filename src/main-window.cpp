@@ -8,11 +8,12 @@
 #include <QMutexLocker>
 #include <QPainter>
 #include <QTimer>
+#include <QToolTip>
 #include <iostream>
 #include "./ui_main-window.h"
+#include "common/about-page.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
-#include "common/about-page.h"
 #include "page.h"
 #include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/audit/log-list/log-list-page.h"
@@ -169,6 +170,7 @@ void MainWindow::initUI()
     m_btnTransmission->setObjectName("btn_transmission");
     m_btnTransmission->setFixedSize(40, 32);
     m_btnTransmission->setCursor(Qt::PointingHandCursor);
+    m_btnTransmission->setToolTip(tr("Transmission"));
     m_btnTransmission->installEventFilter(this);
     ui->hlayout_btn->addWidget(m_btnTransmission);
     //connect(m_btnTransmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
@@ -177,6 +179,7 @@ void MainWindow::initUI()
     m_btnApproval->setObjectName("btn_approval");
     m_btnApproval->setFixedSize(40, 32);
     m_btnApproval->setCursor(Qt::PointingHandCursor);
+    m_btnApproval->setToolTip(tr("Approval"));
     ui->hlayout_btn->addWidget(m_btnApproval);
     connect(m_btnApproval, &BubbleTipButton::clicked, this, &MainWindow::onApprovalPage);
 
@@ -184,8 +187,14 @@ void MainWindow::initUI()
     m_btnWarning->setObjectName("btn_warning");
     m_btnWarning->setFixedSize(40, 32);
     m_btnWarning->setCursor(Qt::PointingHandCursor);
+    m_btnWarning->setToolTip(tr("Warning"));
     ui->hlayout_btn->addWidget(m_btnWarning);
     connect(m_btnWarning, &BubbleTipButton::clicked, this, &MainWindow::onWarningPage);
+
+    QPalette palette;
+    palette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor("#ffffff"));
+    palette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor("#000000"));
+    QToolTip::setPalette(palette);
 
     //m_btnApproval->setTipMsg(99);
     //创建传输列表控件
@@ -203,7 +212,7 @@ void MainWindow::initUI()
     ui->btn_user->setMenu(userMenu);
     connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
-    connect(aboutAct,&QAction::triggered, this, &MainWindow::onAboutAction);
+    connect(aboutAct, &QAction::triggered, this, &MainWindow::onAboutAction);
 
     //创建右侧内容页面
     m_stackedWidget = new QStackedWidget(this);
@@ -275,8 +284,8 @@ void MainWindow::initUI()
     m_outline->updateInfo();
     //    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
-    connect(m_outline,&OutlineView::sigApprovalNums,this,&MainWindow::setApprovalTipNums);
-    connect(m_outline,&OutlineView::sigWarnSumNums,this,&MainWindow::setWarningTipNums);
+    connect(m_outline, &OutlineView::sigApprovalNums, this, &MainWindow::setApprovalTipNums);
+    connect(m_outline, &OutlineView::sigWarnSumNums, this, &MainWindow::setWarningTipNums);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
 
@@ -348,12 +357,11 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
 }
 
-
 void MainWindow::changePage(int)
 {
     QString info = "exitTimedRefresh";
-    Page *page = qobject_cast<Page*>( m_stackedWidget->currentWidget());
-    QString data= page->getData().toString();
+    Page* page = qobject_cast<Page*>(m_stackedWidget->currentWidget());
+    QString data = page->getData().toString();
     if (data != NODE_MANAGER)
     {
         m_pageMap[NODE_MANAGER]->updateInfo(info);
@@ -482,7 +490,7 @@ void MainWindow::onChangePwAction(bool checked)
 void MainWindow::onAboutAction(bool checked)
 {
     Q_UNUSED(checked);
-    AboutPage *about = new AboutPage(this);
+    AboutPage* about = new AboutPage(this);
     int x = this->x() + this->width() / 2 - about->width() / 2;
     int y = this->y() + this->height() / 2 - about->height() / 2;
 
