@@ -16,6 +16,7 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
     ui->lab_error_tips->setVisible(false);
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
+    ui->lineEdit->setTextMargins(10, 0, 0, 0);
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout,

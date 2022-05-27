@@ -11,6 +11,7 @@ CPUConfTab::CPUConfTab(double totalCPU, QWidget* parent) : QWidget(parent),
     QDoubleValidator* doubleValidator = new QDoubleValidator(0.01, totalCPU, 2, this);
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
     ui->lineEdit_cpu_core->setValidator(doubleValidator);
+    ui->lineEdit_cpu_core->setTextMargins(10, 0, 0, 0);
 
     ui->cb_sche_pri->addItem(tr("Low"), QVariant(1));
     ui->cb_sche_pri->addItem(tr("Medium"), QVariant(5));
