@@ -92,6 +92,7 @@ void LoginDialog::paintEvent(QPaintEvent *event)
 void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
+    setResizeable(false);
     setTitle(tr("KylinSec security Container magic Cube"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);

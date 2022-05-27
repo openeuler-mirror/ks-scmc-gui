@@ -185,6 +185,7 @@ void PasswdUpdateDialog::initUI()
     setWindowModality(Qt::ApplicationModal);
     setButtonHints(TitlebarCloseButtonHint);
     setFixedSize(640, 420);
+    setResizeable(false);
 
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_cancel, Kiran::BUTTON_Normal);

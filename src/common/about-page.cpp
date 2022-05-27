@@ -1,8 +1,8 @@
 #include "about-page.h"
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QIcon>
 #include <QFile>
+#include <QIcon>
+#include <QLabel>
+#include <QVBoxLayout>
 
 AboutPage::AboutPage(QWidget *parent) : KiranTitlebarWindow(parent)
 {
@@ -18,7 +18,7 @@ static QString getVersion(QString filepath)
     QFile file(filepath);
     QString ret;
 
-    if( file.open(QIODevice::ReadOnly | QIODevice::Text) )
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray ba = file.readLine();
         ret = QString(ba);
@@ -33,13 +33,14 @@ void AboutPage::initUI()
 {
     this->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
     this->setIcon(QIcon(":/images/logo.png"));
-//    this->setTitleBarHeight(30);
-    this->getTitlebarCustomLayout()->setContentsMargins(0,0,0,0);
+    //    this->setTitleBarHeight(30);
+    this->getTitlebarCustomLayout()->setContentsMargins(0, 0, 0, 0);
     this->setFixedSize(430, 270);
+    setResizeable(false);
     this->setWindowModality(Qt::ApplicationModal);
 
     QWidget *aboutWidget = this->getWindowContentWidget();
-    aboutWidget->setContentsMargins(0,0,0,0);
+    aboutWidget->setContentsMargins(0, 0, 0, 0);
     QVBoxLayout *vlayout = new QVBoxLayout(aboutWidget);
     vlayout->setContentsMargins(0, 0, 0, 0);
 
@@ -49,7 +50,7 @@ void AboutPage::initUI()
     QLabel *logo = new QLabel(aboutWidget);
     logo->setPixmap(QPixmap(":/images/kylin-logo.png"));
     logo->setAlignment(Qt::AlignCenter);
-    logo->setMinimumSize(172,52);
+    logo->setMinimumSize(172, 52);
 
     QLabel *version = new QLabel(aboutWidget);
     version->setStyleSheet("QLabel{"
