@@ -52,6 +52,7 @@ public:
     QStandardItem *getItem(int row, int col);
     QList<QMap<QString, QVariant>> getCheckedItemInfo(int col);
     void sleep(int sec);
+    void clearCheckState();
 
 private:
     void initUI();
