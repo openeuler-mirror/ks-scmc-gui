@@ -31,6 +31,7 @@ ImageListPage::~ImageListPage()
 void ImageListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ImageList updateInfo";
+    clearCheckState();
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
     if (keyword.isEmpty())

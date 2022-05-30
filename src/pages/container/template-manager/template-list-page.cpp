@@ -30,6 +30,7 @@ TemplateListPage::~TemplateListPage()
 void TemplateListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "TemplateListPage updateInfo";
+    clearCheckState();
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
     if (keyword.isEmpty())
