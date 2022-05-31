@@ -251,6 +251,14 @@ void ContainerBackupPage::getUpdateBackupFinished(const QPair<grpc::Status, cont
     {
         InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
     }
+    else
+    {
+        MessageDialog::message(tr("Update Container Backup"),
+                               tr("Update container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void ContainerBackupPage::getCreateBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &reply)
@@ -259,6 +267,14 @@ void ContainerBackupPage::getCreateBackupFinished(const QPair<grpc::Status, cont
     if (reply.first.ok())
     {
         InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+    }
+    else
+    {
+        MessageDialog::message(tr("Create Container Backup"),
+                               tr("Create container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
@@ -270,6 +286,14 @@ void ContainerBackupPage::getResumeBackupFinished(const QPair<grpc::Status, cont
         m_containerId = reply.second.container_id().data();
         InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
     }
+    else
+    {
+        MessageDialog::message(tr("Resume Container Backup"),
+                               tr("Resume container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void ContainerBackupPage::getRemoveBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &reply)
@@ -278,6 +302,14 @@ void ContainerBackupPage::getRemoveBackupFinished(const QPair<grpc::Status, cont
     if (reply.first.ok())
     {
         InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+    }
+    else
+    {
+        MessageDialog::message(tr("Remove Container Backup"),
+                               tr("Remove container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
