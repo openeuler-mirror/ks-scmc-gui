@@ -344,7 +344,9 @@ void ContainerListPage::getNetworkListResult(const QPair<grpc::Status, network::
         KLOG_INFO() << m_networksMap.values();
     }
     else
+    {
         KLOG_INFO() << "getNetworkListResult failed";
+    }
 }
 
 void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
@@ -420,18 +422,12 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
                 }
             }
 
-
-            QString strOnline = "-";
-            if (i.info().started() != 0)
-            {
-                auto dt = QDateTime::fromSecsSinceEpoch(i.info().started());
-                strOnline = dt.toString("yyyy/MM/dd hh:mm:ss");
-            }
+            auto dt = QDateTime::fromSecsSinceEpoch(i.info().created());
 
             QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
             QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
-            QStandardItem *onlineTime = new QStandardItem(strOnline);
+            QStandardItem *onlineTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
@@ -455,6 +451,14 @@ void ContainerListPage::getContainerStartResult(const QPair<grpc::Status, contai
         getContainerList();
         return;
     }
+    else
+    {
+        MessageDialog::message(tr("Start Container"),
+                               tr("Start container failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, container::StopReply> &reply)
@@ -469,7 +473,11 @@ void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, contain
     }
     else
     {
-        KLOG_INFO() << "stop failed";
+        MessageDialog::message(tr("Stop Container"),
+                               tr("Stop container failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
@@ -482,6 +490,14 @@ void ContainerListPage::getContainerRestartResult(const QPair<grpc::Status, cont
         getContainerList();
         return;
     }
+    else
+    {
+        MessageDialog::message(tr("Restart Container"),
+                               tr("Restart container failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &reply)
@@ -492,6 +508,14 @@ void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, conta
     {
         getContainerList();
         return;
+    }
+    else
+    {
+        MessageDialog::message(tr("Remove Container"),
+                               tr("Remove container failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
