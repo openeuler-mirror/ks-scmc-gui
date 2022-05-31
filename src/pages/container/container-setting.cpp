@@ -35,19 +35,18 @@
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
-ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVariant> ids, QWidget *parent) : QWidget(parent),
-                                                                                                              ui(new Ui::ContainerSetting),
-                                                                                                              m_baseConfStack(nullptr),
-                                                                                                              m_advancedConfStack(nullptr),
-                                                                                                              m_securityConfStack(nullptr),
-                                                                                                              m_addMenu(nullptr),
-                                                                                                              m_cbImage(nullptr),
-                                                                                                              m_cbNode(nullptr),
-                                                                                                              m_labImage(nullptr),
-                                                                                                              m_templateId(-1),
-                                                                                                              m_netWorkCount(0),
-                                                                                                              m_type(type),
-                                                                                                              m_totalCPU(0.0)
+ContainerSetting::ContainerSetting(ContainerSettingType type, QMultiMap<int, QString> networksMap, QMap<QString, QVariant> ids, QWidget *parent) : QWidget(parent),
+                                                                                                                                                   ui(new Ui::ContainerSetting),
+                                                                                                                                                   m_baseConfStack(nullptr),
+                                                                                                                                                   m_advancedConfStack(nullptr),
+                                                                                                                                                   m_securityConfStack(nullptr),
+                                                                                                                                                   m_addMenu(nullptr),
+                                                                                                                                                   m_cbImage(nullptr),
+                                                                                                                                                   m_labImage(nullptr),
+                                                                                                                                                   m_templateId(-1),
+                                                                                                                                                   m_netWorkCount(0),
+                                                                                                                                                   m_type(type),
+                                                                                                                                                   m_totalCPU(0.0)
 
 {
     ui->setupUi(this);
@@ -55,35 +54,37 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerSetting::getNodeListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerSetting::getListImageFinishedResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerSetting::getNetworkListResult);
 
     m_containerIds.first = ids.value(NODE_ID).toInt();
     m_containerIds.second = ids.value(CONTAINER_ID).toString();
     m_templateId = ids.value(TEMPLATE_ID).toInt();
-
-    getNodeInfo();
+    m_networksMap = networksMap;
 
     switch (type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
         if (!ids.isEmpty())
             getContainerInspect();
+        getNodeInfo();
         connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
+        getNodeInfo();
         connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
+        getNodeInfo();
         connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         if (!ids.isEmpty())
             getTemplateInspect(m_templateId);
+        getNodeInfo();
         connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
         break;
-    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:  //这里不需要获取节点数据,设置模板列表时获取节点数据
         connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
         break;
@@ -114,14 +115,19 @@ void ContainerSetting::setItems(int row, int col, QWidget *item)
     ui->gridLayout->addWidget(item, row, col);
 }
 
-void ContainerSetting::setTemplateList(QMap<int, QString> templateList)
+void ContainerSetting::setTemplateList(QMultiMap<int, QPair<int, QString>> templateMap)
 {
-    auto iter = templateList.begin();
-    while (iter != templateList.end())
+    m_templateMap = templateMap;
+    auto iter = templateMap.begin();
+    while (iter != templateMap.end())
     {
-        ui->cb_template->addItem(iter.value(), iter.key());
+        qint64 templateId = iter.key();
+        QPair<int, QString> templateInfo = iter.value();
+        QString templateName = templateInfo.second;
+        ui->cb_template->addItem(templateName, templateId);
         iter++;
     }
+    getNodeInfo();
 }
 
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
@@ -234,8 +240,8 @@ void ContainerSetting::initUI()
     connect(ui->listWidget_security_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
-    connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onNodeSelectedChanged);
-    connect(ui->cb_template, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onTempSelectedChanged);
+    connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::activated), this, &ContainerSetting::onNodeSelectedChanged);
+    connect(ui->cb_template, QOverload<const QString &>::of(&QComboBox::activated), this, &ContainerSetting::onTempSelectedChanged);
 }
 
 void ContainerSetting::initSummaryUI()
@@ -252,6 +258,8 @@ void ContainerSetting::initSummaryUI()
         m_cbImage->setFixedSize(QSize(200, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 3, 1);
+        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
+        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
@@ -265,21 +273,27 @@ void ContainerSetting::initSummaryUI()
                                    "#cb_node::down-arrow{image:none;}");
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
+        ui->lineEdit_name->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setStyleSheet("border:none;");
+        ui->lineEdit_describe->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setReadOnly(true);
         break;
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         setWindowTitle(tr("Create template"));
         ui->label_image->hide();
+        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
+        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
         ui->label_image->hide();
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
+        ui->lineEdit_name->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setStyleSheet("border:none;");
         ui->lineEdit_describe->setReadOnly(true);
+        ui->lineEdit_describe->setTextMargins(0, 0, 0, 0);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
     {
@@ -291,6 +305,8 @@ void ContainerSetting::initSummaryUI()
         m_cbImage->setFixedSize(QSize(200, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 3, 1);
+        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
+        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     }
     default:
@@ -371,6 +387,24 @@ void ContainerSetting::initSecurityConfPages()
     m_securityConfStack->addWidget(startStopCtlTab);
 }
 
+void ContainerSetting::deleteItem(QString itemText, int row)
+{
+    if (itemText == NETWORK_CARD)
+    {
+        QListWidgetItem *delItem = ui->listwidget_base_config->takeItem(row);
+        m_baseItems.removeAt(row);
+        auto page = m_baseConfStack->widget(row);
+        m_baseConfStack->removeWidget(page);
+        m_netWorkPages.removeOne(qobject_cast<NetworkConfTab *>(page));
+        --m_netWorkCount;
+
+        delete page;
+        page = nullptr;
+        delete delItem;
+        delItem = nullptr;
+    }
+}
+
 void ContainerSetting::updateRemovableItem(QString itemText)
 {
     int count = 1;
@@ -419,6 +453,16 @@ void ContainerSetting::getImageInfo(int64_t node_id)
 {
     KLOG_INFO() << "getImageInfo" << node_id;
     InfoWorker::getInstance().listImage(node_id);
+}
+
+void ContainerSetting::setNodeNetworkList(int nodeId)
+{
+    QList<QString> networks = m_networksMap.values(nodeId);
+    KLOG_INFO() << networks;
+    foreach (auto networkPage, m_netWorkPages)
+    {
+        networkPage->initVirtNetworkInfo(networks);
+    }
 }
 
 void ContainerSetting::createContainer()
@@ -565,6 +609,8 @@ void ContainerSetting::createTemplate()
     ErrorCode ret;
 
     auto data = request.mutable_data();
+    data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
+
     auto cntrCfg = data->mutable_conf();
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
@@ -656,6 +702,7 @@ void ContainerSetting::updateTemplate()
     ErrorCode ret;
     auto data = request.mutable_data();
     data->set_id(m_templateId);
+    data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
 
     auto cntrCfg = data->mutable_conf();
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
@@ -799,7 +846,8 @@ void ContainerSetting::onAddItem(QAction *action)
         NetworkConfTab *networkConfPage = new NetworkConfTab(this);
         m_netWorkPages.append(networkConfPage);
         m_baseConfStack->addWidget(networkConfPage);
-        networkConfPage->setVirtNetworkList(m_networkReply);
+        int nodeId = m_nodeInfo.key(ui->cb_node->currentText());
+        networkConfPage->initVirtNetworkInfo(m_networksMap.values(nodeId));
         break;
     }
     default:
@@ -824,19 +872,8 @@ void ContainerSetting::onDelItem()
             QListWidgetItem *item = ui->listwidget_base_config->item(row);
             if (ui->listwidget_base_config->itemWidget(item) == guideItem)
             {
-                QListWidgetItem *delItem = ui->listwidget_base_config->takeItem(ui->listwidget_base_config->row(item));
-                m_baseItems.removeAt(row);
-                auto page = m_baseConfStack->widget(row);
-                m_baseConfStack->removeWidget(page);
-                m_netWorkPages.removeOne(qobject_cast<NetworkConfTab *>(page));
-                --m_netWorkCount;
+                deleteItem(NETWORK_CARD, row);
                 updateRemovableItem(NETWORK_CARD);
-
-                delete page;
-                page = nullptr;
-                delete delItem;
-                delItem = nullptr;
-
                 break;
             }
             row++;
@@ -871,15 +908,24 @@ void ContainerSetting::onConfirm()
 void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
     KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
-    InfoWorker::getInstance().listNetwork(m_nodeInfo.key(newStr));
-    getImageInfo(m_nodeInfo.key(newStr));
+    //创建容器/基于模板创建容器时获取镜像列表
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+        getImageInfo(m_nodeInfo.key(newStr));
+
+    setNodeNetworkList(m_nodeInfo.key(newStr));
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
 {
     KLOG_INFO() << "onTempSelectedChanged :" << newStr;
     int index = ui->cb_template->findText(newStr);
-    getTemplateInspect(ui->cb_template->itemData(index).toInt());
+    auto templateId = ui->cb_template->itemData(index).toInt();
+
+    getTemplateInspect(templateId);
+
+    QPair<int, QString> templateInfo = m_templateMap.value(templateId);
+    qint64 nodeId = templateInfo.first;
+    ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
 }
 
 void ContainerSetting::getNodeListResult(const QPair<grpc::Status, node::ListReply> &reply)
@@ -895,8 +941,25 @@ void ContainerSetting::getNodeListResult(const QPair<grpc::Status, node::ListRep
             ui->cb_node->addItem(QString("%1").arg(n.address().data()));
             m_totalCPU = n.status().cpu_stat().total();
         }
-        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+
+        //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
+        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
             ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
+        else if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+        {
+            //get Node id
+            auto templateId = ui->cb_template->currentData().toInt();
+            QPair<int, QString> templateInfo = m_templateMap.value(templateId);
+            qint64 nodeId = templateInfo.first;
+            ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
+            getTemplateInspect(templateId);
+        }
+        else  // 创建容器，创建模板
+            setNodeNetworkList(m_nodeInfo.key(ui->cb_node->currentText()));
+
+        //创建容器/基于模板创建容器时获取镜像列表
+        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+            getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
     }
 }
 
@@ -966,13 +1029,14 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             m_netWorkPages.append(networkConfTab);
         }
         updateRemovableItem(NETWORK_CARD);
-        InfoWorker::getInstance().listNetwork(m_containerIds.first);
+
         //更新网络页面信息
+        QList<QString> networkList = m_networksMap.values(m_containerIds.first);
         for (int i = 0; i < size; i++)
         {
             auto networkConfig = info.networks(i);
             NetworkConfTab *networkPage = m_netWorkPages.at(i);
-            networkPage->setNetworkInfo(&networkConfig);
+            networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
         }
 
         //env
@@ -1040,6 +1104,7 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
     {
         //init ui
         auto info = reply.second.data().conf();
+        qint64 nodeId;
 
         if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
         {
@@ -1050,7 +1115,12 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
                 ui->lineEdit_describe->setText(info.desc().data());
             else
                 ui->lineEdit_describe->setText(tr("none"));
+
+            nodeId = m_containerIds.first;
         }
+        else
+            nodeId = m_nodeInfo.key(ui->cb_node->currentText());
+        KLOG_INFO() << nodeId;
 
         //Graph
         //info.enable_graphic();
@@ -1064,26 +1134,47 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         // network
         auto size = info.networks_size();
         KLOG_INFO() << "network_config_size:" << size;
-        for (int i = 0; i < size - 1; ++i)
+        if (size > m_netWorkPages.size())
         {
-            //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
-            GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                              NETWORK_CARD,
-                                              GUIDE_ITEM_TYPE_NORMAL,
-                                              ":/images/container-net-card.svg");
-            m_baseItems.append(item);
-            NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
-            m_baseConfStack->addWidget(networkConfTab);
-            m_netWorkPages.append(networkConfTab);
+            for (int i = 0; i < (size - m_netWorkPages.size()); ++i)
+            {
+                //创建网卡tab页，由于初始页面已经创建过一次，创建个数 - m_netWorkPages.size()
+                GuideItem *item = createGuideItem(ui->listwidget_base_config,
+                                                  NETWORK_CARD,
+                                                  GUIDE_ITEM_TYPE_NORMAL,
+                                                  ":/images/container-net-card.svg");
+                m_baseItems.append(item);
+                NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+                m_baseConfStack->addWidget(networkConfTab);
+                m_netWorkPages.append(networkConfTab);
+            }
         }
+        else if (size < m_netWorkPages.size())
+        {
+            //删除页面上多余的网卡tab页
+            int row = 0;
+            int count = m_netWorkPages.size() - size;
+            while (row < ui->listwidget_base_config->count() && m_netWorkCount > 1 && count > 0)
+            {
+                QListWidgetItem *item = ui->listwidget_base_config->item(row);
+                GuideItem *guidItem = qobject_cast<GuideItem *>(ui->listwidget_base_config->itemWidget(item));
+                if (guidItem->getItemText() == NETWORK_CARD)
+                {
+                    deleteItem(NETWORK_CARD, row);
+                    count--;
+                }
+                row++;
+            }
+        }
+
         updateRemovableItem(NETWORK_CARD);
-        InfoWorker::getInstance().listNetwork(m_containerIds.first);
         //更新网络页面信息
+        QList<QString> networkList = m_networksMap.values(nodeId);
         for (int i = 0; i < size; i++)
         {
             auto networkConfig = info.networks(i);
             NetworkConfTab *networkPage = m_netWorkPages.at(i);
-            networkPage->setNetworkInfo(&networkConfig);
+            networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
         }
 
         //env
@@ -1183,20 +1274,4 @@ void ContainerSetting::getListImageFinishedResult(const QPair<grpc::Status, imag
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
-}
-
-void ContainerSetting::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
-{
-    KLOG_INFO() << "getNetworkListResult";
-    m_networkReply = reply;
-    if (reply.first.ok())
-    {
-        foreach (auto networkPage, m_netWorkPages)
-        {
-            networkPage->setVirtNetworkList(reply);
-            networkPage->setVirtNetwork();
-        }
-    }
-    else
-        KLOG_INFO() << "getNetworkListResult failed";
 }

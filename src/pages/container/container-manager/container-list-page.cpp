@@ -152,7 +152,7 @@ void ContainerListPage::onActCreate()
     KLOG_INFO() << "onActCreate";
     if (!m_createCTSetting)
     {
-        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE);
+        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE, m_networksMap);
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -168,7 +168,7 @@ void ContainerListPage::onActCreate()
                 });
         connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    updateInfo();
+                    getContainerList();
                 });
     }
 }
@@ -178,7 +178,7 @@ void ContainerListPage::onActCopyConfig()
     KLOG_INFO() << "onCopyConfig";
     if (!m_createCTSetting)
     {
-        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE);
+        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE, m_networksMap);
         if (!m_templateMap.isEmpty())
             m_createCTSetting->setTemplateList(m_templateMap);
 
@@ -196,7 +196,7 @@ void ContainerListPage::onActCopyConfig()
                 });
         connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    updateInfo();
+                    getContainerList();
                 });
     }
 }
@@ -256,7 +256,9 @@ void ContainerListPage::onEdit(int row)
     {
         auto item = getItem(row, 1);
 
-        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT, item->data().value<QMap<QString, QVariant>>());
+        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
+                                               m_networksMap,
+                                               item->data().value<QMap<QString, QVariant>>());
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editCTSetting->width()) / 2,
@@ -271,7 +273,7 @@ void ContainerListPage::onEdit(int row)
                 });
         connect(m_editCTSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    updateInfo();
+                    getContainerList();
                 });
     }
 }
@@ -317,6 +319,32 @@ void ContainerListPage::onItemEntered(const QModelIndex &index)
         else
             this->setCursor(Qt::ArrowCursor);
     }
+}
+
+void ContainerListPage::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
+{
+    KLOG_INFO() << "getNetworkListResult";
+    if (reply.first.ok())
+    {
+        m_networksMap.clear();
+        for (auto ifs : reply.second.virtual_ifs())
+        {
+            int nodeId = ifs.node_id();
+            KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
+            auto name = ifs.name();
+            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+            QString str = QString("%1 (%2:%3)")
+                              .arg(QString::fromStdString(name))
+                              .arg(tr("Subnet"))
+                              .arg(QString::fromStdString(subnet));
+            KLOG_INFO() << str;
+            m_networksMap.insert(nodeId, str);
+        }
+        KLOG_INFO() << m_networksMap.keys();
+        KLOG_INFO() << m_networksMap.values();
+    }
+    else
+        KLOG_INFO() << "getNetworkListResult failed";
 }
 
 void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
@@ -466,6 +494,7 @@ void ContainerListPage::getListTemplateFinishResult(const QPair<grpc::Status, co
     KLOG_INFO() << "getListTemplateFinishResult";
     if (reply.first.ok())
     {
+        m_templateMap.clear();
         int size = reply.second.data_size();
         if (size <= 0)
         {
@@ -475,9 +504,10 @@ void ContainerListPage::getListTemplateFinishResult(const QPair<grpc::Status, co
         for (auto data : reply.second.data())
         {
             auto cfg = data.conf();
-            qint64 tempId = data.id();
+            int tempId = data.id();
+            int nodeId = data.node_id();
             QString name = QString::fromStdString(cfg.name().data());
-            m_templateMap.insert(tempId, name);
+            m_templateMap.insert(tempId, QPair<int, QString>{nodeId, name});
         }
         m_createFromTemplateAct->setDisabled(false);
     }
@@ -586,7 +616,6 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerSetting::getListTemplateFinishResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
@@ -662,26 +691,34 @@ void ContainerListPage::timedRefresh(bool start)
     }
 }
 
+void ContainerListPage::getNetworkInfo(int64_t node_id)
+{
+    KLOG_INFO() << "getNetworkInfo" << node_id;
+    InfoWorker::getInstance().listNetwork(node_id);
+}
+
 void ContainerListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "containerList updateInfo, keyword:" << keyword;
     if (keyword == "exitTimedRefresh")
     {
         timedRefresh(false);
-        clearCheckState();
         return;
     }
 
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, 0, 0);
     if (keyword.isEmpty())
     {
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
         //gRPC->拿数据->填充内容
         getContainerList();
         getTemplateList();
+        getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         timedRefresh(true);
     }
 }

@@ -49,12 +49,12 @@ class ContainerSetting : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContainerSetting(ContainerSettingType type, QMap<QString, QVariant> ids = QMap<QString, QVariant>(), QWidget *parent = nullptr);
+    explicit ContainerSetting(ContainerSettingType type, QMultiMap<int, QString> networksMap, QMap<QString, QVariant> ids = QMap<QString, QVariant>(), QWidget *parent = nullptr);
     ~ContainerSetting();
     void paintEvent(QPaintEvent *event);
     void setItems(int row, int col, QWidget *);
     void setTitle(QString title);
-    void setTemplateList(QMap<int, QString> templateList);
+    void setTemplateList(QMultiMap<int, QPair<int, QString>> templateMap);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
@@ -66,11 +66,13 @@ private:
     void initBaseConfPages();
     void initAdvancedConfPages();
     void initSecurityConfPages();
+    void deleteItem(QString itemText, int row);
     void updateRemovableItem(QString itemText);
     void getContainerInspect();
     void getTemplateInspect(int templateId);
     void getNodeInfo();
     void getImageInfo(int64_t node_id);
+    void setNodeNetworkList(int nodeId);
 
     void createContainer();
     void updateContainer();
@@ -92,7 +94,6 @@ private slots:
 
     void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
     void getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &);
-    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
 
     void getCreateContainerResult(const QPair<grpc::Status, container::CreateReply> &);
     void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
@@ -112,7 +113,6 @@ private:
     QList<GuideItem *> m_securityItems;
     QMenu *m_addMenu;
     QComboBox *m_cbImage;
-    QComboBox *m_cbNode;
     QLabel *m_labImage;
     QMap<int64_t, QString> m_nodeInfo;       //id,address
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
@@ -121,7 +121,8 @@ private:
     ContainerSettingType m_type;
     double m_totalCPU;
     QList<NetworkConfTab *> m_netWorkPages;
-    QPair<grpc::Status, network::ListReply> m_networkReply;
+    QMultiMap<int, QString> m_networksMap;
+    QMultiMap<int, QPair<int, QString>> m_templateMap;
 };
 
 #endif  // CONTAINERSETTING_H
