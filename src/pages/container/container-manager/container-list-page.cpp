@@ -420,12 +420,18 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
                 }
             }
 
-            auto dt = QDateTime::fromSecsSinceEpoch(i.info().created());
+
+            QString strOnline = "-";
+            if (i.info().started() != 0)
+            {
+                auto dt = QDateTime::fromSecsSinceEpoch(i.info().started());
+                strOnline = dt.toString("yyyy/MM/dd hh:mm:ss");
+            }
 
             QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
             QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
-            QStandardItem *onlineTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
+            QStandardItem *onlineTime = new QStandardItem(strOnline);
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
