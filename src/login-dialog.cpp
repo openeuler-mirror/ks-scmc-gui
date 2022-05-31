@@ -93,7 +93,7 @@ void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
     setResizeable(false);
-    setTitle(tr("KylinSec security Container magic Cube"));
+    setTitle(tr("KylinSec Container system V1 (Security)"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
@@ -451,7 +451,7 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
         MessageDialog::message(tr("Logout"),
                                tr("Logout failed!"),
                                tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/warning.svg",
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
