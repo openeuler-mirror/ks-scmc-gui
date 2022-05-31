@@ -22,7 +22,6 @@ WarningListView::~WarningListView()
 
 void WarningListView::updateInfo(QString keyword)
 {
-    clearCheckState();
     KLOG_INFO() << "WarningListView updateInfo";
     clearText();
     if (keyword.isEmpty())
