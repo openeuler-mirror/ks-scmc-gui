@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QStandardItemModel>
 #include <QWidget>
+#include "container/container-setting.h"
 #include "info-worker.h"
 #include "table-page.h"
 
@@ -42,15 +43,15 @@ private slots:
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
 
-    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
+    void getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply);
 
-    void getContainerListResult(const QPair<grpc::Status, container::ListReply> &);
-    void getContainerStartResult(const QPair<grpc::Status, container::StartReply> &);
-    void getContainerStopResult(const QPair<grpc::Status, container::StopReply> &);
-    void getContainerRestartResult(const QPair<grpc::Status, container::RestartReply> &);
-    void getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &);
+    void getContainerListResult(const QString objId, const QPair<grpc::Status, container::ListReply> &);
+    void getContainerStartResult(const QString objId, const QPair<grpc::Status, container::StartReply> &);
+    void getContainerStopResult(const QString objId, const QPair<grpc::Status, container::StopReply> &);
+    void getContainerRestartResult(const QString objId, const QPair<grpc::Status, container::RestartReply> &);
+    void getContainerRemoveResult(const QString objId, const QPair<grpc::Status, container::RemoveReply> &);
 
-    void getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply);
+    void getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
 
 signals:
     void sigContainerNameClicked(QMap<QString, QVariant> infoMap);
@@ -59,6 +60,7 @@ private:
     void initButtons();
     void initTable();
     void initConnect();
+    void operateContainer(ContainerSettingType type, int row = -1);
     void getTemplateList();
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
@@ -66,12 +68,12 @@ private:
     void getNetworkInfo(int64_t node_id);
 
 private:
+    QString m_objId;
     QMenu *m_createMenu;
     QMenu *m_moreMenu;
     QAction *m_createFromTemplateAct;
     QMap<int, QPushButton *> m_batchOpBtnMap;
-    ContainerSetting *m_createCTSetting;
-    ContainerSetting *m_editCTSetting;
+    ContainerSetting *m_containerSetting;
     MonitorDialog *m_monitor;
     QTimer *m_timer;
     QMap<QString, QPair<QString, QString>> m_statusMap;

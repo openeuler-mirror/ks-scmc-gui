@@ -31,6 +31,8 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
 {
     ui->setupUi(getWindowContentWidget());
 
+    m_objID = InfoWorker::generateId(this);
+
     initMessageBox();
     m_license = new License;
     m_serverCfgDlg = new ServerConfigDialog(this);
@@ -104,7 +106,7 @@ void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
     setResizeable(false);
-    setTitle(tr("KylinSec security Container magic Cube"));
+    setTitle(tr("KylinSec Container system V1 (Security)"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
@@ -404,78 +406,78 @@ void LoginDialog::onLogin()
     if (!inspectLoginParam())
         return;
 
-    InfoWorker::getInstance().login(ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
+    InfoWorker::getInstance().login(m_objID, ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
 
 void LoginDialog::onLogout()
 {
-    InfoWorker::getInstance().logout();
+    InfoWorker::getInstance().logout(m_objID);
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
 
-void LoginDialog::getLoginResult(const QPair<grpc::Status, user::LoginReply> &reply)
+void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, user::LoginReply> &reply)
 {
-    KLOG_INFO() << "getLoginResult";
-    QApplication::restoreOverrideCursor();
+    KLOG_INFO() << "getLoginResult" << m_objID << objID;
+    if (m_objID == objID)
+    {
+        QApplication::restoreOverrideCursor();
 
-    if (reply.first.ok())
-    {
-        if (!m_mainWindow)
+        if (reply.first.ok())
         {
-            m_mainWindow = new MainWindow();
-            m_mainWindow->setUserName(ui->lineEdit_username->text());
-            m_mainWindow->showMaximized();
-            connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
-            hide();
+            if (!m_mainWindow)
+            {
+                m_mainWindow = new MainWindow();
+                m_mainWindow->setUserName(ui->lineEdit_username->text());
+                m_mainWindow->showMaximized();
+                connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
+                hide();
+            }
+            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
+            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
         }
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
-    }
-    else
-    {
-        ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
-        ui->lab_tips->show();
-        ui->lineEdit_passwd->clear();
+        else
+        {
+            ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
+            ui->lab_tips->show();
+            ui->lineEdit_passwd->clear();
+        }
     }
 }
 
-void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &reply)
+void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status, user::LogoutReply> &reply)
 {
-    KLOG_INFO() << "getLogoutResult";
-    QApplication::restoreOverrideCursor();
+    KLOG_INFO() << "getLogoutResult" << m_objID << objID;
+    if (m_objID == objID)
+    {
+        QApplication::restoreOverrideCursor();
 
-    if (reply.first.ok())
-    {
-        if (m_mainWindow)
+        if (reply.first.ok())
         {
-            delete m_mainWindow;
-            m_mainWindow = nullptr;
+            if (m_mainWindow)
+            {
+                delete m_mainWindow;
+                m_mainWindow = nullptr;
+            }
+            show();
+            ui->lineEdit_passwd->clear();
+            ui->lab_tips->clear();
+            ui->lab_tips->hide();
         }
-        show();
-        ui->lineEdit_passwd->clear();
-        ui->lab_tips->clear();
-        ui->lab_tips->hide();
-    }
-    else
-    {
-        MessageDialog::message(tr("Logout"),
-                               tr("Logout failed!"),
-                               tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
+        else
+        {
+            MessageDialog::message(tr("Logout"),
+                                   tr("Logout failed!"),
+                                   tr("Error: ") + reply.first.error_message().data(),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
 void LoginDialog::sessionExpire()
 {
     KLOG_INFO() << "sessionExpire";
-    if (!m_sessionMutex.tryLock())
-    {
-        KLOG_INFO() << "get lock fail and return";
-        return;
-    }
-
     MessageDialog::message(tr("Login"),
                            tr("session expire!"),
                            tr("back to login page"),
@@ -490,7 +492,6 @@ void LoginDialog::sessionExpire()
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
     ui->lab_tips->hide();
-    m_sessionMutex.unlock();
 }
 
 void LoginDialog::updateLicense(bool ret)

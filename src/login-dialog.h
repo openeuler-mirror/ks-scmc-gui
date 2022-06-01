@@ -6,12 +6,12 @@
 #include <QLineEdit>
 #include <QSettings>
 #include <QWidget>
-#include "info-worker.h"
-#include "common/license.h"
-#include "common/about-page.h"
-#include "dbus/dbus-utils.h"
 #include "activate-page.h"
+#include "common/about-page.h"
+#include "common/license.h"
+#include "dbus/dbus-utils.h"
 #include "error-message-box.h"
+#include "info-worker.h"
 
 namespace Ui
 {
@@ -43,8 +43,8 @@ private slots:
     void onMenuTrigger(QAction *act);
     void onLogin();
     void onLogout();
-    void getLoginResult(const QPair<grpc::Status, user::LoginReply> &);
-    void getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &);
+    void getLoginResult(const QString objID, const QPair<grpc::Status, user::LoginReply> &);
+    void getLogoutResult(const QString objID, const QPair<grpc::Status, user::LogoutReply> &);
     void sessionExpire();
     void updateLicense(bool);
     void activation(QString);
@@ -57,6 +57,7 @@ signals:
 
 private:
     Ui::LoginDialog *ui;
+    QString m_objID;
     MainWindow *m_mainWindow;
     QTimer *m_timer;
     ServerConfigDialog *m_serverCfgDlg;
@@ -69,8 +70,7 @@ private:
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
     AboutPage *m_about;
-    QMutex m_sessionMutex;
-//    QAction *actionLicense;
+    //    QAction *actionLicense;
 };
 
 #endif  // LOGIN_DIALOG_H

@@ -27,10 +27,10 @@ private slots:
     void onRemoveNode();
     void onEdit(int row);
     void onSaveSlot(QMap<QString, QString> Info);
-    void getListResult(const QPair<grpc::Status, node::ListReply> &);
-    void getCreateResult(const QPair<grpc::Status, node::CreateReply> &);
-    void getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &);
-    void getUpdateResult(const QPair<grpc::Status, node::UpdateReply> &);
+    void getListResult(const QString objId, const QPair<grpc::Status, node::ListReply> &);
+    void getCreateResult(const QString objId, const QPair<grpc::Status, node::CreateReply> &);
+    void getRemoveResult(const QString objId, const QPair<grpc::Status, node::RemoveReply> &);
+    void getUpdateResult(const QString objId, const QPair<grpc::Status, node::UpdateReply> &);
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
 
@@ -45,6 +45,7 @@ private:
     void timedRefresh(bool start);
 
 private:
+    QString m_objId;
     NodeOperateDialog *m_nodeAddition;
     NodeOperateDialog *m_nodeUpdate;
     QMap<int64_t, QPair<QString, QString>> m_mapStatus;

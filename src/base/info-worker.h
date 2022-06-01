@@ -60,69 +60,71 @@ public:
         return s_InfoWorker;
     }
 
+    static QString generateId(QObject *callObj);
+
     // node management
-    void listNode();
-    void createNode(const node::CreateRequest &);
-    void removeNode(const std::vector<int64_t> &node_ids);
-    void nodeStatus(const std::vector<int64_t> &node_ids);
-    void updateNode(const node::UpdateRequest &);
+    void listNode(const QString objId);
+    void createNode(const QString objId, const node::CreateRequest &);
+    void removeNode(const QString objId, const std::vector<int64_t> &node_ids);
+    void nodeStatus(const QString objId, const std::vector<int64_t> &node_ids);
+    void updateNode(const QString objId, const node::UpdateRequest &);
 
     // container management
-    void listContainer(const std::vector<int64_t> &node_ids, const bool all);
-    void createContainer(const container::CreateRequest &);
-    void containerStatus(const int64_t node_id);
-    void containerInspect(const int64_t node_id, const std::string &container_id);
-    void startContainer(const std::map<int64_t, std::vector<std::string>> &ids);
-    void stopContainer(const std::map<int64_t, std::vector<std::string>> &ids);
-    void killContainer(const std::map<int64_t, std::vector<std::string>> &ids);
-    void restartContainer(const std::map<int64_t, std::vector<std::string>> &ids);
-    void removeContainer(const std::map<int64_t, std::vector<std::string>> &ids);
-    void updateContainer(const container::UpdateRequest &);
-    void monitorHistory(int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
+    void listContainer(const QString objId, const std::vector<int64_t> &node_ids, const bool all);
+    void createContainer(const QString objId, const container::CreateRequest &);
+    void containerStatus(const QString objId, const int64_t node_id);
+    void containerInspect(const QString objId, const int64_t node_id, const std::string &container_id);
+    void startContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void stopContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void removeContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void updateContainer(const QString objId, const container::UpdateRequest &);
+    void monitorHistory(const QString objId, int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
 
     // container template
-    void listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
-    void listTemplate();
-    void inspectTemplate(int64_t id);
-    void createTemplate(const container::CreateTemplateRequest &);
-    void updateTemplate(const container::UpdateTemplateRequest &);
-    void removeTemplate(QList<int64_t> ids);
+    void listTemplate(const QString objId, const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
+    void listTemplate(const QString objId);
+    void inspectTemplate(const QString objId, int64_t id);
+    void createTemplate(const QString objId, const container::CreateTemplateRequest &);
+    void updateTemplate(const QString objId, const container::UpdateTemplateRequest &);
+    void removeTemplate(const QString objId, QList<int64_t> ids);
 
     //container backup
-    void listBackup(int nodeId, std::string containerId);
-    void updateBackup(int id, std::string backupDesc);
-    void createBackup(int nodeId, std::string containerId, std::string backupDesc);
-    void resumeBackup(int nodeId, std::string containerId, int backupId);
-    void removeBackup(int64_t ids);
+    void listBackup(const QString objId, int nodeId, std::string containerId);
+    void updateBackup(const QString objId, int id, std::string backupDesc);
+    void createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc);
+    void resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId);
+    void removeBackup(const QString objId, int64_t ids);
 
     // network management
-    void listNetwork(const int64_t);
-    void connectNetwork(const network::ConnectRequest &);
-    void disconnectNetwork(const int64_t node_id, std::string interface, std::string container_id);
-    void listIPtables(const int64_t node_id, std::string container_id = "");
-    void enableIPtables(const int64_t node_id, bool enable, std::string container_id = "");
-    void createIPtables(const network::CreateIPtablesRequest &);
-    void modifyIPtables(const network::ModifyIPtablesRequest &);
-    void removeIPtables(const network::RemoveIPtablesRequest &);
+    void listNetwork(const QString objId, const int64_t);
+    void connectNetwork(const QString objId, const network::ConnectRequest &);
+    void disconnectNetwork(const QString objId, const int64_t node_id, std::string interface, std::string container_id);
+    void listIPtables(const QString objId, const int64_t node_id, std::string container_id = "");
+    void enableIPtables(const QString objId, const int64_t node_id, bool enable, std::string container_id = "");
+    void createIPtables(const QString objId, const network::CreateIPtablesRequest &);
+    void modifyIPtables(const QString objId, const network::ModifyIPtablesRequest &);
+    void removeIPtables(const QString objId, const network::RemoveIPtablesRequest &);
 
     // image management
-    void listImage(const int64_t);
-    void listDBImage();
-    void uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile);
-    void updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile);
-    void downloadImage(const int64_t &image_id, const QString &name, const QString &version, const QString &savePath);
-    void checkImage(const int64_t image_id, const bool approve, const std::string reject_reason);
-    void removeImage(const std::vector<int64_t> &image_ids);
+    void listImage(const QString objId, const int64_t);
+    void listDBImage(const QString objId);
+    void uploadImage(const QString objId, image::UploadRequest &req, const QString &imageFile, const QString &signFile);
+    void updateImage(const QString objId, image::UpdateRequest &req, const QString &imageFile, const QString &signFile);
+    void downloadImage(const QString objId, const int64_t &image_id, const QString &name, const QString &version, const QString &savePath);
+    void checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string reject_reason);
+    void removeImage(const QString objId, const std::vector<int64_t> &image_ids);
 
     // user management
-    void login(const std::string &username, const std::string &password);
-    void logout();
-    void updatePassword(const std::string oldPassword, const std::string newPassword);
+    void login(const QString objId, const std::string &username, const std::string &password);
+    void logout(const QString objId);
+    void updatePassword(const QString objId, const std::string oldPassword, const std::string newPassword);
 
     // logging management
-    void listRuntimeLogging(const logging::ListRuntimeRequest &);
-    void listWarnLogging(const logging::ListWarnRequest &);
-    void readWarnLogging(QList<int64_t> ids);
+    void listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &);
+    void listWarnLogging(const QString objId, const logging::ListWarnRequest &);
+    void readWarnLogging(const QString objId, int64_t ids);
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
@@ -191,75 +193,75 @@ private:
 
     // logging management
     static QPair<grpc::Status, logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
-    static QPair<grpc::Status,logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
-    static QPair<grpc::Status,logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
+    static QPair<grpc::Status, logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
+    static QPair<grpc::Status, logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
 
 signals:
     // node management
-    void listNodeFinished(const QPair<grpc::Status, node::ListReply> &);
-    void createNodeFinished(const QPair<grpc::Status, node::CreateReply> &);
-    void removeNodeFinished(const QPair<grpc::Status, node::RemoveReply> &);
-    void statusNodeFinished(const QPair<grpc::Status, node::StatusReply> &);
-    void updateNodeFinished(const QPair<grpc::Status, node::UpdateReply> &);
+    void listNodeFinished(QString objId, const QPair<grpc::Status, node::ListReply> &);
+    void createNodeFinished(const QString objId, const QPair<grpc::Status, node::CreateReply> &);
+    void removeNodeFinished(const QString objId, const QPair<grpc::Status, node::RemoveReply> &);
+    void statusNodeFinished(const QString objId, const QPair<grpc::Status, node::StatusReply> &);
+    void updateNodeFinished(const QString objId, const QPair<grpc::Status, node::UpdateReply> &);
 
     // container management
-    void listContainerFinished(const QPair<grpc::Status, container::ListReply> &);
-    void createContainerFinished(const QPair<grpc::Status, container::CreateReply> &);
-    void containerStatusFinished(const QPair<grpc::Status, container::StatusReply> &);
-    void containerInspectFinished(const QPair<grpc::Status, container::InspectReply> &);
-    void startContainerFinished(const QPair<grpc::Status, container::StartReply> &);
-    void stopContainerFinished(const QPair<grpc::Status, container::StopReply> &);
-    void killContainerFinished(const QPair<grpc::Status, container::KillReply> &);
-    void restartContainerFinished(const QPair<grpc::Status, container::RestartReply> &);
-    void updateContainerFinished(const QPair<grpc::Status, container::UpdateReply> &);
-    void removeContainerFinished(const QPair<grpc::Status, container::RemoveReply> &);
-    void monitorHistoryFinished(const QPair<grpc::Status, container::MonitorHistoryReply> &);
+    void listContainerFinished(const QString objId, const QPair<grpc::Status, container::ListReply> &);
+    void createContainerFinished(const QString objId, const QPair<grpc::Status, container::CreateReply> &);
+    void containerStatusFinished(const QString objId, const QPair<grpc::Status, container::StatusReply> &);
+    void containerInspectFinished(const QString objId, const QPair<grpc::Status, container::InspectReply> &);
+    void startContainerFinished(const QString objId, const QPair<grpc::Status, container::StartReply> &);
+    void stopContainerFinished(const QString objId, const QPair<grpc::Status, container::StopReply> &);
+    void killContainerFinished(const QString objId, const QPair<grpc::Status, container::KillReply> &);
+    void restartContainerFinished(const QString objId, const QPair<grpc::Status, container::RestartReply> &);
+    void updateContainerFinished(const QString objId, const QPair<grpc::Status, container::UpdateReply> &);
+    void removeContainerFinished(const QString objId, const QPair<grpc::Status, container::RemoveReply> &);
+    void monitorHistoryFinished(const QString objId, const QPair<grpc::Status, container::MonitorHistoryReply> &);
 
     // container template
-    void listTemplateFinished(const QPair<grpc::Status, container::ListTemplateReply> &);
-    void inspectTemplateFinished(const QPair<grpc::Status, container::InspectTemplateReply> &);
-    void createTemplateFinished(const QPair<grpc::Status, container::CreateTemplateReply> &);
-    void updateTemplateFinished(const QPair<grpc::Status, container::UpdateTemplateReply> &);
-    void removeTemplateFinished(const QPair<grpc::Status, container::RemoveTemplateReply> &);
+    void listTemplateFinished(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &);
+    void inspectTemplateFinished(const QString objId, const QPair<grpc::Status, container::InspectTemplateReply> &);
+    void createTemplateFinished(const QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &);
+    void updateTemplateFinished(const QString objId, const QPair<grpc::Status, container::UpdateTemplateReply> &);
+    void removeTemplateFinished(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &);
 
     //container backup
-    void listBackupFinished(const QPair<grpc::Status, container::ListBackupReply> &);
-    void updateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &);
-    void createBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &);
-    void resumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &);
-    void removeBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &);
+    void listBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
+    void updateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
+    void createBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &);
+    void resumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &);
+    void removeBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
 
     // network management
-    void listNetworkFinished(const QPair<grpc::Status, network::ListReply> &);
-    void connectNetworkFinished(const QPair<grpc::Status, network::ConnectReply> &);
-    void disconnectNetworkFinished(const QPair<grpc::Status, network::DisconnectReply> &);
-    void listIPtablesFinished(const QPair<grpc::Status, network::ListIPtablesReply> &);
-    void enableIPtablesFinished(const QPair<grpc::Status, network::EnableIPtablesReply> &);
-    void createIPtablesFinished(const QPair<grpc::Status, network::CreateIPtablesReply> &);
-    void modifyIPtablesFinished(const QPair<grpc::Status, network::ModifyIPtablesReply> &);
-    void removeIPtablesFinished(const QPair<grpc::Status, network::RemoveIPtablesReply> &);
+    void listNetworkFinished(const QString objId, const QPair<grpc::Status, network::ListReply> &);
+    void connectNetworkFinished(const QString objId, const QPair<grpc::Status, network::ConnectReply> &);
+    void disconnectNetworkFinished(const QString objId, const QPair<grpc::Status, network::DisconnectReply> &);
+    void listIPtablesFinished(const QString objId, const QPair<grpc::Status, network::ListIPtablesReply> &);
+    void enableIPtablesFinished(const QString objId, const QPair<grpc::Status, network::EnableIPtablesReply> &);
+    void createIPtablesFinished(const QString objId, const QPair<grpc::Status, network::CreateIPtablesReply> &);
+    void modifyIPtablesFinished(const QString objId, const QPair<grpc::Status, network::ModifyIPtablesReply> &);
+    void removeIPtablesFinished(const QString objId, const QPair<grpc::Status, network::RemoveIPtablesReply> &);
 
     // image management
-    void listImageFinished(const QPair<grpc::Status, image::ListReply> &);
-    void listDBImageFinished(const QPair<grpc::Status, image::ListDBReply> &);
-    void uploadFinished(const QPair<grpc::Status, image::UploadReply> &);
-    void updateFinished(const QPair<grpc::Status, image::UpdateReply> &);
-    void downloadImageFinished(const QPair<grpc::Status, downloadImageInfo> &);
-    void checkImageFinished(const QPair<grpc::Status, image::ApproveReply> &);
-    void removeImageFinished(const QPair<grpc::Status, image::RemoveReply> &);
+    void listImageFinished(const QString objId, const QPair<grpc::Status, image::ListReply> &);
+    void listDBImageFinished(const QString objId, const QPair<grpc::Status, image::ListDBReply> &);
+    void uploadFinished(const QString objId, const QPair<grpc::Status, image::UploadReply> &);
+    void updateFinished(const QString objId, const QPair<grpc::Status, image::UpdateReply> &);
+    void downloadImageFinished(const QString objId, const QPair<grpc::Status, downloadImageInfo> &);
+    void checkImageFinished(const QString objId, const QPair<grpc::Status, image::ApproveReply> &);
+    void removeImageFinished(const QString objId, const QPair<grpc::Status, image::RemoveReply> &);
     void transferImageFinished(QString, QString);
     void transferImageStatus(ImageTransmissionStatus, QString, QString, int);
 
     // user management
-    void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
-    void logoutFinished(const QPair<grpc::Status, user::LogoutReply> &);
-    void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
+    void loginFinished(const QString objId, const QPair<grpc::Status, user::LoginReply> &);
+    void logoutFinished(const QString objId, const QPair<grpc::Status, user::LogoutReply> &);
+    void updatePasswordFinished(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> &);
     void sessinoExpire();
 
     // logging management
-    void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
-    void loggingListWarnFinished(const QPair<grpc::Status, logging::ListWarnReply> &);
-    void loggingReadWarnFinished(const QPair<grpc::Status, logging::ReadWarnReply> &);
+    void loggingRuntimeFinished(const QString objId, const QPair<grpc::Status, logging::ListRuntimeReply> &);
+    void loggingListWarnFinished(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
+    void loggingReadWarnFinished(const QString objId, const QPair<grpc::Status, logging::ReadWarnReply> &);
 
 private:
     QMutex mutex;

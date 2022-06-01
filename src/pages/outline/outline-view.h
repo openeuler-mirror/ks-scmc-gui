@@ -7,9 +7,9 @@
 #include <QScrollBar>
 #include <QWidget>
 #include "info-worker.h"
-#include "page.h"
 #include "outline-cell.h"
 #include "outline-introduction.h"
+#include "page.h"
 
 class OutlineCell;
 class OutlineIntroduction;
@@ -38,12 +38,12 @@ private:
     void setOutlineCellWarning();
 
 private slots:
-    void getOutlineCellNodeNums(const QPair<grpc::Status, node::ListReply> &reply);
-    void getOutlineCellContainerNums(const QPair<grpc::Status, container::ListReply> &reply);
-    void getOutlineCellImageNums(const QPair<grpc::Status, image::ListDBReply> &reply);
-    void getOutlineCellTemplateContainerNums(const QPair<grpc::Status, container::ListTemplateReply> &reply);
-    void getOutlineCellExamineNums(const QPair<grpc::Status, image::ListDBReply> &reply); //待审核
-    void getOutlineCellWarningNums(const QPair<grpc::Status, node::ListReply> &);
+    void getOutlineCellNodeNums(const QString objId, const QPair<grpc::Status, node::ListReply> &reply);
+    void getOutlineCellContainerNums(const QString objId, const QPair<grpc::Status, container::ListReply> &reply);
+    void getOutlineCellImageNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply);
+    void getOutlineCellTemplateContainerNums(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
+    void getOutlineCellExamineNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply);  //待审核
+    void getOutlineCellWarningNums(const QString objId, const QPair<grpc::Status, node::ListReply> &);
 
     void emitOutlineCellType();
     void getlNodeList();
@@ -54,10 +54,11 @@ private slots:
 
 signals:
     void outlineCellStepPages(OutlineCellType type);
-    void sigApprovalNums(int size); // 传出待审核总数
-    void sigWarnSumNums(int size); // 传出告警总数
+    void sigApprovalNums(int size);  // 传出待审核总数
+    void sigWarnSumNums(int size);   // 传出告警总数
 
 private:
+    QString m_objId;
     OutlineCell *m_outlineCell_node;
     OutlineCell *m_outlineCell_container;
     OutlineCell *m_outlineCell_image;

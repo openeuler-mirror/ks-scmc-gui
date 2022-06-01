@@ -92,19 +92,20 @@ private slots:
     void onNodeSelectedChanged(QString newStr);
     void onTempSelectedChanged(QString newStr);
 
-    void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
-    void getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &);
+    void getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &);
+    void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &);
 
-    void getCreateContainerResult(const QPair<grpc::Status, container::CreateReply> &);
-    void getContainerInspectResult(const QPair<grpc::Status, container::InspectReply> &);
-    void getUpdateContainerResult(const QPair<grpc::Status, container::UpdateReply> &);
+    void getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &);
+    void getContainerInspectResult(QString objId, const QPair<grpc::Status, container::InspectReply> &);
+    void getUpdateContainerResult(QString objId, const QPair<grpc::Status, container::UpdateReply> &);
 
-    void getInspectTemplateFinishResult(const QPair<grpc::Status, container::InspectTemplateReply> &reply);
-    void getCreateTemplateFinishResult(const QPair<grpc::Status, container::CreateTemplateReply> &reply);
-    void getUpdateTemplateFinishedResult(const QPair<grpc::Status, container::UpdateTemplateReply> &reply);
+    void getInspectTemplateFinishResult(QString objId, const QPair<grpc::Status, container::InspectTemplateReply> &reply);
+    void getCreateTemplateFinishResult(QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &reply);
+    void getUpdateTemplateFinishedResult(QString objId, const QPair<grpc::Status, container::UpdateTemplateReply> &reply);
 
 private:
     Ui::ContainerSetting *ui;
+    QString m_objId;
     QStackedWidget *m_baseConfStack;
     QStackedWidget *m_advancedConfStack;
     QStackedWidget *m_securityConfStack;
