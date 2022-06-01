@@ -24,7 +24,6 @@ WarningListView::~WarningListView()
 
 void WarningListView::updateInfo(QString keyword)
 {
-    clearCheckState();
     KLOG_INFO() << "WarningListView updateInfo";
     clearText();
     if (keyword.isEmpty())
@@ -135,7 +134,7 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
     InfoWorker::getInstance().listWarnLogging(request);
 }
 
-void WarningListView::getReadWarn(int64_t ids)
+void WarningListView::getReadWarn(QList<int64_t> ids)
 {
     InfoWorker::getInstance().readWarnLogging(ids);
 }
@@ -164,7 +163,8 @@ void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarn
         for (auto logging : reply.second.logs())
         {
             //            m_idsMap[row] = logging.id();
-            infoMap.insert(WARN_IDS, QString(int(logging.id())));
+            qint64 loging_id = logging.id();
+            infoMap.insert(WARN_IDS, loging_id);
             infoMap.insert(WARN_NODE_ID, QString(int(logging.node_id())));
             infoMap.insert(WARN_CONTAINER_ID, logging.container_id().data());
             infoMap.insert(WARN_CONTAINER_NAME, logging.container_name().data());
@@ -248,7 +248,11 @@ void WarningListView::onBtnRead()
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     if (!info.isEmpty())
     {
-        int64_t ids = info.at(0).value(WARN_IDS).toInt();
+        QList<int64_t> ids;
+        foreach (auto idInfo, info)
+        {
+            ids.append(idInfo.value(WARN_IDS).toInt());
+        }
         getReadWarn(ids);
         updateInfo();
     }
@@ -269,8 +273,10 @@ void WarningListView::onBtnReadLabel(int row)
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     if (infoMap.isEmpty())
         return;
-    int64_t ids = infoMap.value(WARN_IDS).toInt();
-    getReadWarn(ids);
+    qint64 ids = infoMap.value(WARN_IDS).toInt();
+    if(ids > 0)
+        getReadWarn(QList<int64_t>() << ids);
+    KLOG_INFO() << "ids = " << ids;
     updateInfo();
 }
 
