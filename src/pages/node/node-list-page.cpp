@@ -56,11 +56,9 @@ void NodeListPage::updateInfo(QString keyword)
     }
 
     clearText();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     if (keyword.isEmpty())
     {
         //initNodeConnect();
-        connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeListPage::getListResult);
         getNodeList();
         timedRefresh(true);
     }
