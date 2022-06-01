@@ -626,6 +626,8 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
+    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
@@ -767,14 +769,8 @@ void ContainerListPage::updateInfo(QString keyword)
     }
 
     clearText();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, 0, 0);
     if (keyword.isEmpty())
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
         //gRPC->拿数据->填充内容
         getContainerList();
         getTemplateList();

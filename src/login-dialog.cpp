@@ -199,10 +199,6 @@ void LoginDialog::initUI()
     ui->lineEdit_passwd->setPlaceholderText(tr("Please input password"));
     ui->lineEdit_passwd->setTextMargins(30, 0, 10, 0);
 
-    //TODO:just test
-    ui->lineEdit_username->setText("yuanxing");
-    ui->lineEdit_passwd->setText("12345678");
-
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
     //    connect(m_activate_page,SIGNAL(activate(QString)),this,SLOT(activation(QSting)));
 }
