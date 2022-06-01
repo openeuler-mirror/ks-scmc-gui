@@ -8,12 +8,15 @@
 #include "node-operate-dialog.h"
 #include "rpc.h"
 
+using namespace grpc;
+
 #define ACTION_COL 1
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr),
                                               m_nodeUpdate(nullptr),
                                               m_timer(nullptr)
 {
+    m_objId = InfoWorker::generateId(this);
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
     m_mapStatus.insert(1, QPair<QString, QString>(tr("Unknown"), "black"));
     m_mapStatus.insert(10, QPair<QString, QString>(tr("Online"), "green"));
@@ -24,7 +27,7 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     m_timer = new QTimer(this);
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        InfoWorker::getInstance().listNode();
+        InfoWorker::getInstance().listNode(m_objId);
     });
 }
 
@@ -104,7 +107,7 @@ void NodeListPage::onRemoveNode()
                                                                    MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            InfoWorker::getInstance().removeNode(node_ids);
+            InfoWorker::getInstance().removeNode(m_objId, node_ids);
         }
         else
             KLOG_INFO() << "cancel";
@@ -152,7 +155,7 @@ void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
         request.set_name(Info[NODE_NAME].toStdString());
         request.set_address(Info[NODE_ADDRESS].toStdString());
         request.set_comment(Info[NODE_COMMENT].toStdString());
-        InfoWorker::getInstance().createNode(request);
+        InfoWorker::getInstance().createNode(m_objId, request);
     }
     else if (type == NODE_OPERATE_TYPE_EDIT)
     {
@@ -160,147 +163,182 @@ void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
         request.set_node_id(nodeId);
         request.set_name(Info[NODE_NAME].toStdString());
         request.set_comment(Info[NODE_COMMENT].toStdString());
-        InfoWorker::getInstance().updateNode(request);
+        InfoWorker::getInstance().updateNode(m_objId, request);
     }
 }
 
-void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
+void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, node::ListReply> &reply)
 {
-    if (reply.first.ok())
+    KLOG_INFO() << "getNodeListResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-        int size = reply.second.nodes_size();
-        if (size <= 0)
+        if (reply.first.ok())
         {
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            int size = reply.second.nodes_size();
+            if (size <= 0)
+            {
+                setTableDefaultContent("-");
+                setHeaderCheckable(false);
+                return;
+            }
+            clearTable();
+            setHeaderCheckable(true);
+            int row = 0;
+            QMap<QString, QVariant> idMap;
+            for (auto node : reply.second.nodes())
+            {
+                KLOG_INFO() << "nodeid:" << node.id();
+                qint64 nodeId = node.id();
+                idMap.insert(NODE_ID, nodeId);
+                idMap.insert(NODE_NAME, node.name().data());
+                idMap.insert(NODE_COMMENT, node.comment().data());
+                idMap.insert(NODE_ADDRESS, node.address().data());
+
+                QStandardItem *itemCheck = new QStandardItem();
+                itemCheck->setCheckable(true);
+
+                QStandardItem *itemName = new QStandardItem(node.name().data());
+                itemName->setData(QVariant::fromValue(idMap));
+                itemName->setTextAlignment(Qt::AlignCenter);
+                itemName->setForeground(QBrush(QColor(46, 179, 255)));
+
+                QStandardItem *itemIp = new QStandardItem(node.address().data());
+                itemIp->setTextAlignment(Qt::AlignCenter);
+
+                QPair<QString, QString> status = m_mapStatus[1];
+                QString color = status.second;
+                QString state = status.first;
+                std::string strCntrCnt = "-/-";
+                std::string strCpuPct = "-";
+                std::string strMemPct = "-";
+                std::string strDiskSize = "-";
+                if (node.has_status())
+                {
+                    auto tmp = m_mapStatus[node.status().state()];
+                    state = tmp.first;
+                    color = tmp.second;
+
+                    auto &status = node.status();
+                    if (status.has_container_stat())
+                        strCntrCnt = std::to_string(status.container_stat().running()) + "/" + std::to_string(status.container_stat().total());
+
+                    if (status.has_cpu_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.1f%%", status.cpu_stat().used() * 100);
+                        strCpuPct = std::string(str);
+                    }
+
+                    if (status.has_mem_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.1f%%", status.mem_stat().used_percentage());
+                        strMemPct = std::string(str);
+                    }
+
+                    if (status.has_disk_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.1f%%", status.disk_stat().used_percentage());
+                        strDiskSize = std::string(str);
+                    }
+                }
+
+                QStandardItem *itemStatus = new QStandardItem(state);
+                itemStatus->setForeground(QBrush(QColor(color)));
+                itemStatus->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemCntrCnt = new QStandardItem(strCntrCnt.data());
+                itemCntrCnt->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
+                itemCpu->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemMem = new QStandardItem(strMemPct.data());
+                itemMem->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemDisk = new QStandardItem(strDiskSize.data());
+                itemDisk->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemWarning = new QStandardItem(QString::number(node.unread_warn()));
+                itemWarning->setTextAlignment(Qt::AlignCenter);
+                QStandardItem *itemComment = new QStandardItem(node.comment().data());
+                itemComment->setTextAlignment(Qt::AlignCenter);
+
+                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk << itemWarning << itemComment);
+                row++;
+            }
+        }
+        else
+        {
+            if (reply.first.error_code() == PERMISSION_DENIED)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            else
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             setTableDefaultContent("-");
             setHeaderCheckable(false);
+        }
+    }
+}
+
+void NodeListPage::getCreateResult(const QString objId, const QPair<grpc::Status, node::CreateReply> &reply)
+{
+    KLOG_INFO() << "getCreateResult" << m_objId << objId;
+    if (m_objId == objId)
+    {
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getNodeList();
             return;
         }
-        clearTable();
-        setHeaderCheckable(true);
-        int row = 0;
-        QMap<QString, QVariant> idMap;
-        for (auto node : reply.second.nodes())
+        else
         {
-            KLOG_INFO() << "nodeid:" << node.id();
-            qint64 nodeId = node.id();
-            idMap.insert(NODE_ID, nodeId);
-            idMap.insert(NODE_NAME, node.name().data());
-            idMap.insert(NODE_COMMENT, node.comment().data());
-            idMap.insert(NODE_ADDRESS, node.address().data());
-
-            QStandardItem *itemCheck = new QStandardItem();
-            itemCheck->setCheckable(true);
-
-            QStandardItem *itemName = new QStandardItem(node.name().data());
-            itemName->setData(QVariant::fromValue(idMap));
-            itemName->setTextAlignment(Qt::AlignCenter);
-            itemName->setForeground(QBrush(QColor(46, 179, 255)));
-
-            QStandardItem *itemIp = new QStandardItem(node.address().data());
-            itemIp->setTextAlignment(Qt::AlignCenter);
-
-            QPair<QString, QString> status = m_mapStatus[1];
-            QString color = status.second;
-            QString state = status.first;
-            std::string strCntrCnt = "-/-";
-            std::string strCpuPct = "-";
-            std::string strMemPct = "-";
-            std::string strDiskSize = "-";
-            if (node.has_status())
-            {
-                auto tmp = m_mapStatus[node.status().state()];
-                state = tmp.first;
-                color = tmp.second;
-
-                auto &status = node.status();
-                if (status.has_container_stat())
-                    strCntrCnt = std::to_string(status.container_stat().running()) + "/" + std::to_string(status.container_stat().total());
-
-                if (status.has_cpu_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.1f%%", status.cpu_stat().used() * 100);
-                    strCpuPct = std::string(str);
-                }
-
-                if (status.has_mem_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.1f%%", status.mem_stat().used_percentage());
-                    strMemPct = std::string(str);
-                }
-
-                if (status.has_disk_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.1f%%", status.disk_stat().used_percentage());
-                    strDiskSize = std::string(str);
-                }
-            }
-
-            QStandardItem *itemStatus = new QStandardItem(state);
-            itemStatus->setForeground(QBrush(QColor(color)));
-            itemStatus->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemCntrCnt = new QStandardItem(strCntrCnt.data());
-            itemCntrCnt->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
-            itemCpu->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemMem = new QStandardItem(strMemPct.data());
-            itemMem->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemDisk = new QStandardItem(strDiskSize.data());
-            itemDisk->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemWarning = new QStandardItem(QString::number(node.unread_warn()));
-            itemWarning->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemComment = new QStandardItem(node.comment().data());
-            itemComment->setTextAlignment(Qt::AlignCenter);
-
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk << itemWarning << itemComment);
-            row++;
+            KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
+            MessageDialog::message(tr("Create Node"),
+                                   tr("Create node failed!"),
+                                   tr("Error: ") + reply.first.error_message().data(),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
         }
     }
-    else
+}
+
+void NodeListPage::getRemoveResult(const QString objId, const QPair<grpc::Status, node::RemoveReply> &reply)
+{
+    KLOG_INFO() << "getRemoveResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        setTableDefaultContent("-");
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-        setHeaderCheckable(false);
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getNodeList();
+        }
+        else
+        {
+            MessageDialog::message(tr("Remove Node"),
+                                   tr("Remove node failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void NodeListPage::getCreateResult(const QPair<grpc::Status, node::CreateReply> &reply)
+void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status, node::UpdateReply> &reply)
 {
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
+    KLOG_INFO() << "getUpdateResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        getNodeList();
-        return;
-    }
-    else
-    {
-        KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
-        MessageDialog::message(tr("Create Node"),
-                               tr("Create Node failed!"),
-                               tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-    }
-}
-
-void NodeListPage::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &reply)
-{
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
-    {
-        getNodeList();
-    }
-}
-
-void NodeListPage::getUpdateResult(const QPair<grpc::Status, node::UpdateReply> &reply)
-{
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
-    {
-        getNodeList();
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getNodeList();
+        }
+        else
+        {
+            MessageDialog::message(tr("Update Node"),
+                                   tr("Update node failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
@@ -383,7 +421,7 @@ void NodeListPage::initNodeConnect()
 
 void NodeListPage::getNodeList()
 {
-    InfoWorker::getInstance().listNode();
+    InfoWorker::getInstance().listNode(m_objId);
 }
 
 void NodeListPage::timedRefresh(bool start)

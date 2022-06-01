@@ -16,6 +16,7 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
                                                                             m_confirmTimer(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
+    m_objId = InfoWorker::generateId(this);
     m_oldTimer = new QTimer(this);
     connect(m_oldTimer, &QTimer::timeout,
             [this] {
@@ -150,31 +151,34 @@ void PasswdUpdateDialog::onConfirm()
         KLOG_INFO() << "password arg error";
 }
 
-void PasswdUpdateDialog::getUpdatePasswordResult(const QPair<grpc::Status, user::UpdatePasswordReply> reply)
+void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply)
 {
-    KLOG_INFO() << "getUpdatePasswordResult";
-    if (reply.first.ok())
+    KLOG_INFO() << "getUpdatePasswordResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        KLOG_INFO() << "Update password successful!";
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
-        emit sigUpdatePasswdSuccessful();
-        close();
-    }
-    else
-    {
-        KLOG_INFO() << reply.first.error_message().data();
-        MessageDialog::message(tr("Update Password"),
-                               tr("Update password failed!"),
-                               tr("error: %1").arg(reply.first.error_message().data()),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
+        if (reply.first.ok())
+        {
+            KLOG_INFO() << "Update password successful!";
+            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
+            emit sigUpdatePasswdSuccessful();
+            close();
+        }
+        else
+        {
+            KLOG_INFO() << reply.first.error_message().data();
+            MessageDialog::message(tr("Update Password"),
+                                   tr("Update password failed!"),
+                                   tr("error: %1").arg(reply.first.error_message().data()),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
 void PasswdUpdateDialog::updatePassword(QString oldPw, QString newPw)
 {
     KLOG_INFO() << "updatePassword";
-    InfoWorker::getInstance().updatePassword(oldPw.toStdString(), newPw.toStdString());
+    InfoWorker::getInstance().updatePassword(m_objId, oldPw.toStdString(), newPw.toStdString());
 }
 
 void PasswdUpdateDialog::initUI()
