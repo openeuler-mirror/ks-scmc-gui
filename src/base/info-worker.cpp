@@ -306,9 +306,13 @@ void InfoWorker::listWarnLogging(const logging::ListWarnRequest &req)
     RPC_ASYNC(logging::ListWarnReply, _listWarnLogging, loggingListWarnFinished, req);
 }
 
-void InfoWorker::readWarnLogging()
+void InfoWorker::readWarnLogging(QList<int64_t> ids)
 {
-    const logging::ReadWarnRequest req;
+    logging::ReadWarnRequest req;
+    foreach (int64_t id, ids)
+    {
+        req.add_ids(id);
+    }
     RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, req);
 }
 
