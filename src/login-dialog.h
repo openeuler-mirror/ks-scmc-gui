@@ -68,6 +68,7 @@ private:
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
     AboutPage *m_about;
+    QMutex m_sessionMutex;
 //    QAction *actionLicense;
 };
 
