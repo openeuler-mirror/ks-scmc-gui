@@ -31,6 +31,7 @@ ImageListPage::~ImageListPage()
 void ImageListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ImageList updateInfo";
+    clearCheckState();
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
     if (keyword.isEmpty())
@@ -619,9 +620,9 @@ void ImageListPage::getCheckResult(const QPair<grpc::Status, image::ApproveReply
     {
         emit sigUpdateAuditInfo();
         MessageDialog::message(tr("Check Image"),
-                               tr("Check image failed!"),
+                               tr("Check Image failed!"),
                                tr(reply.first.error_message().data()),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -630,15 +631,15 @@ void ImageListPage::getRemoveResult(const QPair<grpc::Status, image::RemoveReply
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
-    {
+    {     
         getImageList();
     }
     else
     {
         MessageDialog::message(tr("Remove Image"),
-                               tr("Remove image failed!"),
+                               tr("Remove Image failed!"),
                                tr(reply.first.error_message().data()),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -649,7 +650,7 @@ void ImageListPage::getUploadResult(const QPair<grpc::Status, image::UploadReply
     {
         KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
         MessageDialog::message(tr("Upload Image"),
-                               tr("Upload image success!"),
+                               tr("Upload Image success!"),
                                tr(""),
                                ":/images/success.svg",
                                MessageDialog::StandardButton::Ok);
@@ -658,7 +659,7 @@ void ImageListPage::getUploadResult(const QPair<grpc::Status, image::UploadReply
     else
     {
         MessageDialog::message(tr("Upload Image"),
-                               tr("Upload image failed!"),
+                               tr("Upload Image failed!"),
                                tr(reply.first.error_message().data()),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
@@ -670,8 +671,8 @@ void ImageListPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply
     if (reply.first.ok())
     {
         KLOG_INFO() << "update images success";
-        MessageDialog::message(tr("Update Image"),
-                               tr("Update image success!"),
+        MessageDialog::message(tr("update Image"),
+                               tr("update Image success!"),
                                tr(""),
                                ":/images/success.svg",
                                MessageDialog::StandardButton::Ok);
@@ -679,8 +680,8 @@ void ImageListPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply
     }
     else
     {
-        MessageDialog::message(tr("Update Image"),
-                               tr("Update image failed!"),
+        MessageDialog::message(tr("update Image"),
+                               tr("update Image failed!"),
                                tr(reply.first.error_message().data()),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
@@ -710,19 +711,19 @@ void ImageListPage::getDownloadImageResult(const QPair<grpc::Status, downloadIma
     if (ret)
     {
         KLOG_INFO() << "download images success";
-        MessageDialog::message(tr("Download Image"),
-                               tr("Download image success!"),
+        MessageDialog::message(tr("download Image"),
+                               tr("download Image success!"),
                                tr(""),
-                               ":/images/success.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         getImageList();
     }
     else
     {
-        MessageDialog::message(tr("Download Image"),
-                               tr("Download image failed!"),
+        MessageDialog::message(tr("download Image"),
+                               tr("download Image failed!"),
                                tr(msg.data()),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }

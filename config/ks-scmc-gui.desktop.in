@@ -9,7 +9,6 @@ Exec=${BIN_DIR}/ks-scmc-gui
 Icon=${ICON_DIR}/ks-scmc-gui-logo.png
 Terminal=false
 Type=Application
-X-KIRAN-NoDisplay=true
 
-Categories=System;Settings;Security;X-System-Server;
+Categories=System;Security;X-System-Server;
 StartupNotify=true
