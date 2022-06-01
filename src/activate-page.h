@@ -19,7 +19,7 @@ class ActivatePage : public KiranTitlebarWindow
 public:
     explicit ActivatePage(KiranTitlebarWindow *parent = 0);
     ~ActivatePage();
-    void setText(QString machine_code, QString activation_code, int activation_time, uint expired_time);
+    void setText(QString machine_code, QString activation_code, int activation_time, int expired_time);
     void showAcitvedBox();
     void showErrorBox();
 
