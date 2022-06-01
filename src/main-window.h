@@ -58,6 +58,7 @@ private slots:
     void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
     void outlineJumpPage(OutlineCellType type);
     void changePage(int);
+    void onReadedUpdateWarnSums();
 
 signals:
     void sigLogout();

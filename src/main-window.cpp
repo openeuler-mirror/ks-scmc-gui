@@ -372,6 +372,11 @@ void MainWindow::changePage(int)
     }
 }
 
+void MainWindow::onReadedUpdateWarnSums()
+{
+    m_outline->updateInfo();
+}
+
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 {
     Page* page = nullptr;
@@ -411,7 +416,9 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_AUDIT_WARNING_LIST:
     {
-        page = new WarningListPage(this);
+        WarningListPage *warn_page = new WarningListPage(this);
+        connect(warn_page,&WarningListPage::sigReadedUpdateWaringSums,this,&MainWindow::onReadedUpdateWarnSums);
+        page = warn_page;
         break;
     }
     default:

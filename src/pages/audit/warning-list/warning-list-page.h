@@ -19,6 +19,9 @@ private:
 private:
     WarningListView *m_warninglistview_container;
     WarningListView *m_warninglistview_node;
+
+signals:
+    void sigReadedUpdateWaringSums();
 };
 
 
