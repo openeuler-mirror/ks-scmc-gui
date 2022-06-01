@@ -4,12 +4,16 @@
 #include <QDateTime>
 #include <QDesktopWidget>
 #include "message-dialog.h"
+
+using namespace grpc;
+
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
                                                             m_backupAddDlg(nullptr),
                                                             m_backupEditDlg(nullptr),
                                                             m_nodeId(-1),
                                                             m_containerId("")
 {
+    m_objId = InfoWorker::generateId(this);
     initTable();
     initButtons();
     initConnect();
@@ -38,7 +42,7 @@ void ContainerBackupPage::updateInfo(QString keyword)
     {
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
-            InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
         }
     }
 }
@@ -89,7 +93,7 @@ void ContainerBackupPage::onRemoveBackupBtn()
         if (ret == MessageDialog::StandardButton::Yes)
         {
             auto backupId = infoMap.at(0).value(BACKUP_ID).toInt();
-            InfoWorker::getInstance().removeBackup(backupId);
+            InfoWorker::getInstance().removeBackup(m_objId, backupId);
         }
         else
             KLOG_INFO() << "cancel";
@@ -99,9 +103,9 @@ void ContainerBackupPage::onRemoveBackupBtn()
 void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc)
 {
     if (type == BACKUP_OPERATE_TYPE_CREATE)
-        InfoWorker::getInstance().createBackup(m_nodeId, m_containerId, desc.toStdString());
+        InfoWorker::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString());
     else if (type == BACKUP_OPERATE_TYPE_EDIT)
-        InfoWorker::getInstance().updateBackup(m_updateBackupId, desc.toStdString());
+        InfoWorker::getInstance().updateBackup(m_objId, m_updateBackupId, desc.toStdString());
 }
 
 void ContainerBackupPage::onRemoveBackup(int row)
@@ -116,7 +120,7 @@ void ContainerBackupPage::onRemoveBackup(int row)
     if (ret == MessageDialog::StandardButton::Yes)
     {
         auto backupId = infoMap.value(BACKUP_ID).toInt();
-        InfoWorker::getInstance().removeBackup(backupId);
+        InfoWorker::getInstance().removeBackup(m_objId, backupId);
     }
     else
         KLOG_INFO() << "cancel";
@@ -137,7 +141,7 @@ void ContainerBackupPage::onResumeBackup(int row)
     if (ret == MessageDialog::StandardButton::Yes)
     {
         auto backupId = infoMap.value(BACKUP_ID).toInt();
-        InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
+        InfoWorker::getInstance().resumeBackup(m_objId, m_nodeId, m_containerId, backupId);
     }
     else
         KLOG_INFO() << "cancel";
@@ -170,115 +174,165 @@ void ContainerBackupPage::onUpdateBackup(int row)
     }
 }
 
-void ContainerBackupPage::getListBackupFinished(const QPair<grpc::Status, container::ListBackupReply> &reply)
+void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
 {
-    KLOG_INFO() << "getListBackupFinished";
-    if (reply.first.ok())
+    KLOG_INFO() << "getListBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
     {
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-        int size = reply.second.data_size();
-        if (size <= 0)
+        if (reply.first.ok())
         {
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            int size = reply.second.data_size();
+            if (size <= 0)
+            {
+                setTableDefaultContent("-");
+                setHeaderCheckable(false);
+                return;
+            }
+            clearTable();
+            setHeaderCheckable(true);
+            int row = 0;
+            QMap<QString, QVariant> idMap;
+            for (auto data : reply.second.data())
+            {
+                qint64 backupId = data.id();
+                idMap.insert(BACKUP_ID, backupId);
+                idMap.insert(BACKUP_NAME, data.backup_name().data());
+
+                QStandardItem *itemCheck = new QStandardItem();
+                itemCheck->setCheckable(true);
+
+                QStandardItem *itemName = new QStandardItem(data.backup_name().data());
+                itemName->setTextAlignment(Qt::AlignCenter);
+                itemName->setData(QVariant::fromValue(idMap));
+
+                int status = data.status();
+                QStandardItem *itemStatus = new QStandardItem();
+                itemStatus->setTextAlignment(Qt::AlignCenter);
+                switch (status)
+                {
+                case 0:
+                    itemStatus->setText(tr("On going"));
+                    itemStatus->setForeground(QBrush(QColor("#00921b")));
+                    break;
+                case 1:
+                    itemStatus->setText(tr("Successful"));
+                    itemStatus->setForeground(QBrush(QColor("#00921b")));
+                    break;
+                case 2:
+                    itemStatus->setText(tr("Failed"));
+                    itemStatus->setForeground(QBrush(QColor("#d30000")));
+                    break;
+                }
+
+                auto dt = QDateTime::fromSecsSinceEpoch(data.created_at());
+                QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
+                startTime->setTextAlignment(Qt::AlignCenter);
+
+                QStandardItem *itemImageref = new QStandardItem(data.image_ref().data());
+                itemImageref->setTextAlignment(Qt::AlignCenter);
+
+                QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
+                QStandardItem *itemSize = new QStandardItem(size);
+                itemSize->setTextAlignment(Qt::AlignCenter);
+
+                QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
+                itemDesc->setTextAlignment(Qt::AlignCenter);
+
+                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemImageref << itemSize << itemDesc);
+                row++;
+            }
+        }
+        else
+        {
+            if (reply.first.error_code() == PERMISSION_DENIED)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            else
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             setTableDefaultContent("-");
             setHeaderCheckable(false);
-            return;
         }
-        clearTable();
-        setHeaderCheckable(true);
-        int row = 0;
-        QMap<QString, QVariant> idMap;
-        for (auto data : reply.second.data())
+    }
+}
+
+void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &reply)
+{
+    KLOG_INFO() << "getUpdateBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
+    {
+        if (reply.first.ok())
         {
-            qint64 backupId = data.id();
-            idMap.insert(BACKUP_ID, backupId);
-            idMap.insert(BACKUP_NAME, data.backup_name().data());
-
-            QStandardItem *itemCheck = new QStandardItem();
-            itemCheck->setCheckable(true);
-
-            QStandardItem *itemName = new QStandardItem(data.backup_name().data());
-            itemName->setTextAlignment(Qt::AlignCenter);
-            itemName->setData(QVariant::fromValue(idMap));
-
-            int status = data.status();
-            QStandardItem *itemStatus = new QStandardItem();
-            itemStatus->setTextAlignment(Qt::AlignCenter);
-            switch (status)
-            {
-            case 0:
-                itemStatus->setText(tr("On going"));
-                itemStatus->setForeground(QBrush(QColor("#00921b")));
-                break;
-            case 1:
-                itemStatus->setText(tr("Successful"));
-                itemStatus->setForeground(QBrush(QColor("#00921b")));
-                break;
-            case 2:
-                itemStatus->setText(tr("Failed"));
-                itemStatus->setForeground(QBrush(QColor("#d30000")));
-                break;
-            }
-
-            auto dt = QDateTime::fromSecsSinceEpoch(data.created_at());
-            QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
-            startTime->setTextAlignment(Qt::AlignCenter);
-
-            QStandardItem *itemImageref = new QStandardItem(data.image_ref().data());
-            itemImageref->setTextAlignment(Qt::AlignCenter);
-
-            QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
-            QStandardItem *itemSize = new QStandardItem(size);
-            itemSize->setTextAlignment(Qt::AlignCenter);
-
-            QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
-            itemDesc->setTextAlignment(Qt::AlignCenter);
-
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemImageref << itemSize << itemDesc);
-            row++;
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+        }
+        else
+        {
+            MessageDialog::message(tr("Update Container Backup"),
+                                   tr("Update container backup failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
         }
     }
-    else
+}
+
+void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &reply)
+{
+    KLOG_INFO() << "getCreateBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
     {
-        setTableDefaultContent("-");
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-        setHeaderCheckable(false);
+        if (reply.first.ok())
+        {
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+        }
+        else
+        {
+            MessageDialog::message(tr("Create Container Backup"),
+                                   tr("Create container backup failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void ContainerBackupPage::getUpdateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &reply)
+void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &reply)
 {
-    KLOG_INFO() << "getUpdateBackupFinished";
-    if (reply.first.ok())
+    KLOG_INFO() << "getResumeBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
     {
-        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+        if (reply.first.ok())
+        {
+            m_containerId = reply.second.container_id().data();
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+        }
+        else
+        {
+            MessageDialog::message(tr("Resume Container Backup"),
+                                   tr("Resume container backup failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void ContainerBackupPage::getCreateBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &reply)
+void ContainerBackupPage::getRemoveBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &reply)
 {
-    KLOG_INFO() << "getCreateBackupFinished";
-    if (reply.first.ok())
+    KLOG_INFO() << "getRemoveBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
     {
-        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
-    }
-}
-
-void ContainerBackupPage::getResumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &reply)
-{
-    KLOG_INFO() << "getResumeBackupFinished";
-    if (reply.first.ok())
-    {
-        m_containerId = reply.second.container_id().data();
-        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
-    }
-}
-
-void ContainerBackupPage::getRemoveBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &reply)
-{
-    KLOG_INFO() << "getRemoveBackupFinished";
-    if (reply.first.ok())
-    {
-        InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
+        if (reply.first.ok())
+        {
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+        }
+        else
+        {
+            MessageDialog::message(tr("Remove Container Backup"),
+                                   tr("Remove container backup failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 

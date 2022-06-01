@@ -3,20 +3,20 @@
 #include <kiran-log/qt5-log-i.h>
 
 #include <QMutexLocker>
+#include <QUuid>
 #include <QtConcurrent/QtConcurrent>
-
 static std::string s_authKey = "";
 
 const int CHUNK_SIZE = 1024 * 1024;
 
-#define RPC_ASYNC(REPLY_TYPE, WORKER, CALLBACK, ...)                 \
-    typedef QPair<grpc::Status, REPLY_TYPE> T;                       \
-    QFutureWatcher<T> *watcher = new QFutureWatcher<T>();            \
-    watcher->setFuture(QtConcurrent::run(WORKER, ##__VA_ARGS__));    \
-    connect(watcher, &QFutureWatcher<T>::finished, [this, watcher] { \
-        auto reply = watcher->result();                              \
-        emit CALLBACK(reply);                                        \
-        delete watcher;                                              \
+#define RPC_ASYNC(REPLY_TYPE, WORKER, CALLBACK, OBJID, ...)                 \
+    typedef QPair<grpc::Status, REPLY_TYPE> T;                              \
+    QFutureWatcher<T> *watcher = new QFutureWatcher<T>();                   \
+    watcher->setFuture(QtConcurrent::run(WORKER, ##__VA_ARGS__));           \
+    connect(watcher, &QFutureWatcher<T>::finished, [this, watcher, OBJID] { \
+        auto reply = watcher->result();                                     \
+        emit CALLBACK(OBJID, reply);                                        \
+        delete watcher;                                                     \
     });
 
 #define RPC_IMPL(REPLY_TYPE, STUB, RPC_NAME)                                \
@@ -47,13 +47,19 @@ InfoWorker::~InfoWorker()
 {
 }
 
-void InfoWorker::listNode()
+QString InfoWorker::generateId(QObject *callObj)
 {
-    node::ListRequest req;
-    RPC_ASYNC(node::ListReply, _listNode, listNodeFinished, req);
+    QString uid = QUuid::createUuid().toString();
+    return QString("%1_%2").arg(callObj->metaObject()->className()).arg(uid);
 }
 
-void InfoWorker::listContainer(const std::vector<int64_t> &node_ids, const bool all)
+void InfoWorker::listNode(const QString objId)
+{
+    node::ListRequest req;
+    RPC_ASYNC(node::ListReply, _listNode, listNodeFinished, objId, req);
+}
+
+void InfoWorker::listContainer(const QString objId, const std::vector<int64_t> &node_ids, const bool all)
 {
     container::ListRequest req;
     req.set_list_all(all);
@@ -62,27 +68,27 @@ void InfoWorker::listContainer(const std::vector<int64_t> &node_ids, const bool 
         req.add_node_ids(id);
     }
 
-    RPC_ASYNC(container::ListReply, _listContainer, listContainerFinished, req);
+    RPC_ASYNC(container::ListReply, _listContainer, listContainerFinished, objId, req);
 }
 
-void InfoWorker::createNode(const node::CreateRequest &req)
+void InfoWorker::createNode(const QString objId, const node::CreateRequest &req)
 {
-    RPC_ASYNC(node::CreateReply, _createNode, createNodeFinished, req);
+    RPC_ASYNC(node::CreateReply, _createNode, createNodeFinished, objId, req);
 }
 
-void InfoWorker::createContainer(const container::CreateRequest &req)
+void InfoWorker::createContainer(const QString objId, const container::CreateRequest &req)
 {
-    RPC_ASYNC(container::CreateReply, _createContainer, createContainerFinished, req);
+    RPC_ASYNC(container::CreateReply, _createContainer, createContainerFinished, objId, req);
 }
 
-void InfoWorker::containerStatus(const int64_t node_id)
+void InfoWorker::containerStatus(const QString objId, const int64_t node_id)
 {
     container::StatusRequest req;
     req.set_node_id(node_id);
-    RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, req);
+    RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, objId, req);
 }
 
-void InfoWorker::removeNode(const std::vector<int64_t> &node_ids)
+void InfoWorker::removeNode(const QString objId, const std::vector<int64_t> &node_ids)
 {
     node::RemoveRequest req;
     for (auto &id : node_ids)
@@ -90,10 +96,10 @@ void InfoWorker::removeNode(const std::vector<int64_t> &node_ids)
         req.add_ids(id);
     }
 
-    RPC_ASYNC(node::RemoveReply, _removeNode, removeNodeFinished, req);
+    RPC_ASYNC(node::RemoveReply, _removeNode, removeNodeFinished, objId, req);
 }
 
-void InfoWorker::nodeStatus(const std::vector<int64_t> &node_ids)
+void InfoWorker::nodeStatus(const QString objId, const std::vector<int64_t> &node_ids)
 {
     node::StatusRequest req;
     for (auto &id : node_ids)
@@ -101,23 +107,23 @@ void InfoWorker::nodeStatus(const std::vector<int64_t> &node_ids)
         req.add_node_ids(id);
     }
 
-    RPC_ASYNC(node::StatusReply, _nodeStatus, statusNodeFinished, req);
+    RPC_ASYNC(node::StatusReply, _nodeStatus, statusNodeFinished, objId, req);
 }
 
-void InfoWorker::updateNode(const node::UpdateRequest &req)
+void InfoWorker::updateNode(const QString objId, const node::UpdateRequest &req)
 {
-    RPC_ASYNC(node::UpdateReply, _updateNode, updateNodeFinished, req);
+    RPC_ASYNC(node::UpdateReply, _updateNode, updateNodeFinished, objId, req);
 }
 
-void InfoWorker::containerInspect(const int64_t node_id, const std::string &container_id)
+void InfoWorker::containerInspect(const QString objId, const int64_t node_id, const std::string &container_id)
 {
     container::InspectRequest req;
     req.set_node_id(node_id);
     req.set_container_id(container_id);
-    RPC_ASYNC(container::InspectReply, _containerInspect, containerInspectFinished, req);
+    RPC_ASYNC(container::InspectReply, _containerInspect, containerInspectFinished, objId, req);
 }
 
-void InfoWorker::startContainer(const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::startContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::StartRequest req;
     for (auto &id : ids)
@@ -130,10 +136,10 @@ void InfoWorker::startContainer(const std::map<int64_t, std::vector<std::string>
         }
     }
 
-    RPC_ASYNC(container::StartReply, _startContainer, startContainerFinished, req);
+    RPC_ASYNC(container::StartReply, _startContainer, startContainerFinished, objId, req);
 }
 
-void InfoWorker::stopContainer(const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::stopContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::StopRequest req;
     for (auto &id : ids)
@@ -146,10 +152,10 @@ void InfoWorker::stopContainer(const std::map<int64_t, std::vector<std::string>>
         }
     }
 
-    RPC_ASYNC(container::StopReply, _stopContainer, stopContainerFinished, req);
+    RPC_ASYNC(container::StopReply, _stopContainer, stopContainerFinished, objId, req);
 }
 
-void InfoWorker::killContainer(const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::KillRequest req;
     for (auto &id : ids)
@@ -162,10 +168,10 @@ void InfoWorker::killContainer(const std::map<int64_t, std::vector<std::string>>
         }
     }
 
-    RPC_ASYNC(container::KillReply, _killContainer, killContainerFinished, req);
+    RPC_ASYNC(container::KillReply, _killContainer, killContainerFinished, objId, req);
 }
 
-void InfoWorker::restartContainer(const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::RestartRequest req;
     for (auto &id : ids)
@@ -178,15 +184,15 @@ void InfoWorker::restartContainer(const std::map<int64_t, std::vector<std::strin
         }
     }
 
-    RPC_ASYNC(container::RestartReply, _restartContainer, restartContainerFinished, req);
+    RPC_ASYNC(container::RestartReply, _restartContainer, restartContainerFinished, objId, req);
 }
 
-void InfoWorker::updateContainer(const container::UpdateRequest &req)
+void InfoWorker::updateContainer(const QString objId, const container::UpdateRequest &req)
 {
-    RPC_ASYNC(container::UpdateReply, _updateContainer, updateContainerFinished, req);
+    RPC_ASYNC(container::UpdateReply, _updateContainer, updateContainerFinished, objId, req);
 }
 
-void InfoWorker::monitorHistory(int node_id, int start_time, int end_time, uint32_t interval, std::string container_id)
+void InfoWorker::monitorHistory(const QString objId, int node_id, int start_time, int end_time, uint32_t interval, std::string container_id)
 {
     container::MonitorHistoryRequest req;
     req.set_node_id(node_id);
@@ -194,94 +200,94 @@ void InfoWorker::monitorHistory(int node_id, int start_time, int end_time, uint3
     req.set_end_time(end_time);
     req.set_interval(interval);
     req.set_container_id(container_id);
-    RPC_ASYNC(container::MonitorHistoryReply, _monitorHistory, monitorHistoryFinished, req);
+    RPC_ASYNC(container::MonitorHistoryReply, _monitorHistory, monitorHistoryFinished, objId, req);
 }
 
-void InfoWorker::listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch)
+void InfoWorker::listTemplate(const QString objId, const int perPage, const int nextPage, const std::string sort, const std::string likeSearch)
 {
     container::ListTemplateRequest req;
     req.set_per_page(perPage);
     req.set_next_page(nextPage);
     req.set_sort(sort);
     req.set_like_search(likeSearch);
-    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
+    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, objId, req);
 }
 
-void InfoWorker::listTemplate()
+void InfoWorker::listTemplate(const QString objId)
 {
     container::ListTemplateRequest req;
-    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
+    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, objId, req);
 }
 
-void InfoWorker::inspectTemplate(int64_t id)
+void InfoWorker::inspectTemplate(const QString objId, int64_t id)
 {
     container::InspectTemplateRequest req;
     req.set_id(id);
-    RPC_ASYNC(container::InspectTemplateReply, _inspectTemplate, inspectTemplateFinished, req);
+    RPC_ASYNC(container::InspectTemplateReply, _inspectTemplate, inspectTemplateFinished, objId, req);
 }
 
-void InfoWorker::createTemplate(const container::CreateTemplateRequest &req)
+void InfoWorker::createTemplate(const QString objId, const container::CreateTemplateRequest &req)
 {
-    RPC_ASYNC(container::CreateTemplateReply, _createTemplate, createTemplateFinished, req);
+    RPC_ASYNC(container::CreateTemplateReply, _createTemplate, createTemplateFinished, objId, req);
 }
 
-void InfoWorker::updateTemplate(const container::UpdateTemplateRequest &req)
+void InfoWorker::updateTemplate(const QString objId, const container::UpdateTemplateRequest &req)
 {
-    RPC_ASYNC(container::UpdateTemplateReply, _updateTemplate, updateTemplateFinished, req);
+    RPC_ASYNC(container::UpdateTemplateReply, _updateTemplate, updateTemplateFinished, objId, req);
 }
 
-void InfoWorker::removeTemplate(QList<int64_t> ids)
+void InfoWorker::removeTemplate(const QString objId, QList<int64_t> ids)
 {
     container::RemoveTemplateRequest req;
     foreach (int64_t id, ids)
     {
         req.add_ids(id);
     }
-    RPC_ASYNC(container::RemoveTemplateReply, _removeTemplate, removeTemplateFinished, req);
+    RPC_ASYNC(container::RemoveTemplateReply, _removeTemplate, removeTemplateFinished, objId, req);
 }
 
-void InfoWorker::listBackup(int nodeId, std::string containerId)
+void InfoWorker::listBackup(const QString objId, int nodeId, std::string containerId)
 {
     container::ListBackupRequest req;
     req.set_node_id(nodeId);
     req.set_container_id(containerId);
-    RPC_ASYNC(container::ListBackupReply, _listBackup, listBackupFinished, req);
+    RPC_ASYNC(container::ListBackupReply, _listBackup, listBackupFinished, objId, req);
 }
 
-void InfoWorker::updateBackup(int id, std::string backupDesc)
+void InfoWorker::updateBackup(const QString objId, int id, std::string backupDesc)
 {
     container::UpdateBackupRequest req;
     req.set_id(id);
     req.set_backup_desc(backupDesc);
-    RPC_ASYNC(container::UpdateBackupReply, _updateBackup, updateBackupFinished, req);
+    RPC_ASYNC(container::UpdateBackupReply, _updateBackup, updateBackupFinished, objId, req);
 }
 
-void InfoWorker::createBackup(int nodeId, std::string containerId, std::string backupDesc)
+void InfoWorker::createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc)
 {
     container::CreateBackupRequest req;
     req.set_node_id(nodeId);
     req.set_container_id(containerId);
     req.set_backup_desc(backupDesc);
-    RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, req);
+    RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, objId, req);
 }
 
-void InfoWorker::removeBackup(int64_t id)
+void InfoWorker::removeBackup(const QString objId, int64_t id)
 {
     container::RemoveBackupRequest req;
     req.set_id(id);
-    RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, req);
+    RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, objId, req);
 }
 
-void InfoWorker::resumeBackup(int nodeId, std::string containerId, int backupId)
+void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
 {
     container::ResumeBackupRequest req;
     req.set_node_id(nodeId);
     req.set_container_id(containerId);
     req.set_backup_id(backupId);
-    RPC_ASYNC(container::ResumeBackupReply, _resumeBackup, resumeBackupFinished, req);
+    RPC_ASYNC(container::ResumeBackupReply, _resumeBackup, resumeBackupFinished, objId, req);
 }
 
-void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::removeContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::RemoveRequest req;
     for (auto &id : ids)
@@ -293,121 +299,118 @@ void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string
             pId->add_container_ids(container_id);
         }
     }
-    RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, req);
+    RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, objId, req);
 }
 
-void InfoWorker::listRuntimeLogging(const logging::ListRuntimeRequest &req)
+void InfoWorker::listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &req)
 {
-    RPC_ASYNC(logging::ListRuntimeReply, _listRuntimeLogging, loggingRuntimeFinished, req);
+    RPC_ASYNC(logging::ListRuntimeReply, _listRuntimeLogging, loggingRuntimeFinished, objId, req);
 }
 
-void InfoWorker::listWarnLogging(const logging::ListWarnRequest &req)
+void InfoWorker::listWarnLogging(const QString objId, const logging::ListWarnRequest &req)
 {
-    RPC_ASYNC(logging::ListWarnReply, _listWarnLogging, loggingListWarnFinished, req);
+    RPC_ASYNC(logging::ListWarnReply, _listWarnLogging, loggingListWarnFinished, objId, req);
 }
 
-void InfoWorker::readWarnLogging(QList<int64_t> ids)
+void InfoWorker::readWarnLogging(const QString objId, int64_t ids)
 {
     logging::ReadWarnRequest req;
-    foreach (int64_t id, ids)
-    {
-        req.add_ids(id);
-    }
-    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, req);
+    req.add_ids(ids);
+    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId, req);
 }
 
-void InfoWorker::listNetwork(const int64_t node_id)
+void InfoWorker::listNetwork(const QString objId, const int64_t node_id)
 {
     network::ListRequest req;
     req.set_node_id(node_id);
-    RPC_ASYNC(network::ListReply, _listNetwork, listNetworkFinished, req);
+    RPC_ASYNC(network::ListReply, _listNetwork, listNetworkFinished, objId, req);
 }
 
-void InfoWorker::connectNetwork(const network::ConnectRequest &req)
+void InfoWorker::connectNetwork(const QString objId, const network::ConnectRequest &req)
 {
-    RPC_ASYNC(network::ConnectReply, _connectNetwork, connectNetworkFinished, req);
+    RPC_ASYNC(network::ConnectReply, _connectNetwork, connectNetworkFinished, objId, req);
 }
 
-void InfoWorker::disconnectNetwork(const int64_t node_id, std::string interface, std::string container_id)
+void InfoWorker::disconnectNetwork(const QString objId, const int64_t node_id, std::string interface, std::string container_id)
 {
     network::DisconnectRequest req;
     req.set_node_id(node_id);
     req.set_interface(interface);
     req.set_container_id(container_id);
-    RPC_ASYNC(network::DisconnectReply, _disconnectNetwork, disconnectNetworkFinished, req);
+    RPC_ASYNC(network::DisconnectReply, _disconnectNetwork, disconnectNetworkFinished, objId, req);
 }
 
-void InfoWorker::listIPtables(const int64_t node_id, std::string container_id)
+void InfoWorker::listIPtables(const QString objId, const int64_t node_id, std::string container_id)
 {
     network::ListIPtablesRequest req;
     req.set_node_id(node_id);
     req.set_container_id(container_id);
-    RPC_ASYNC(network::ListIPtablesReply, _listIPtables, listIPtablesFinished, req);
+    RPC_ASYNC(network::ListIPtablesReply, _listIPtables, listIPtablesFinished, objId, req);
 }
 
-void InfoWorker::enableIPtables(const int64_t node_id, bool enable, std::string container_id)
+void InfoWorker::enableIPtables(const QString objId, const int64_t node_id, bool enable, std::string container_id)
 {
     network::EnableIPtablesRequest req;
     req.set_node_id(node_id);
     req.set_container_id(container_id);
     req.set_enable(enable);
-    RPC_ASYNC(network::EnableIPtablesReply, _enableIPtables, enableIPtablesFinished, req);
+    RPC_ASYNC(network::EnableIPtablesReply, _enableIPtables, enableIPtablesFinished, objId, req);
 }
 
-void InfoWorker::createIPtables(const network::CreateIPtablesRequest &req)
+void InfoWorker::createIPtables(const QString objId, const network::CreateIPtablesRequest &req)
 {
-    RPC_ASYNC(network::CreateIPtablesReply, _createIPtables, createIPtablesFinished, req);
+    RPC_ASYNC(network::CreateIPtablesReply, _createIPtables, createIPtablesFinished, objId, req);
 }
 
-void InfoWorker::modifyIPtables(const network::ModifyIPtablesRequest &req)
+void InfoWorker::modifyIPtables(const QString objId, const network::ModifyIPtablesRequest &req)
 {
-    RPC_ASYNC(network::ModifyIPtablesReply, _modifyIPtables, modifyIPtablesFinished, req);
+    RPC_ASYNC(network::ModifyIPtablesReply, _modifyIPtables, modifyIPtablesFinished, objId, req);
 }
 
-void InfoWorker::removeIPtables(const network::RemoveIPtablesRequest &req)
+void InfoWorker::removeIPtables(const QString objId, const network::RemoveIPtablesRequest &req)
 {
-    RPC_ASYNC(network::RemoveIPtablesReply, _removeIPtables, removeIPtablesFinished, req);
+    RPC_ASYNC(network::RemoveIPtablesReply, _removeIPtables, removeIPtablesFinished, objId, req);
 }
 
-void InfoWorker::listImage(const int64_t node_id)
+void InfoWorker::listImage(const QString objId, const int64_t node_id)
 {
     image::ListRequest req;
     req.set_node_id(node_id);
-    RPC_ASYNC(image::ListReply, _listImage, listImageFinished, req);
+    RPC_ASYNC(image::ListReply, _listImage, listImageFinished, objId, req);
 }
 
-void InfoWorker::listDBImage()
+void InfoWorker::listDBImage(const QString objId)
 {
     image::ListDBRequest req;
-    RPC_ASYNC(image::ListDBReply, _listDBImage, listDBImageFinished, req);
+    RPC_ASYNC(image::ListDBReply, _listDBImage, listDBImageFinished, objId, req);
 }
 
-void InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile)
+void InfoWorker::uploadImage(const QString objId, image::UploadRequest &req, const QString &imageFile, const QString &signFile)
 {
-    RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, req, imageFile, signFile);
+    RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, objId, req, imageFile, signFile);
 }
 
-void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile)
+void InfoWorker::updateImage(const QString objId, image::UpdateRequest &req, const QString &imageFile, const QString &signFile)
 {
-    RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile, signFile);
+    RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, objId, req, imageFile, signFile);
 }
 
-void InfoWorker::downloadImage(const int64_t &image_id, const QString &name, const QString &version, const QString &savePath)
+void InfoWorker::downloadImage(const QString objId, const int64_t &image_id, const QString &name, const QString &version, const QString &savePath)
 {
     image::DownloadRequest req;
-    RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, req, image_id, name, version, savePath);
+    RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, objId, req, image_id, name, version, savePath);
 }
 
-void InfoWorker::checkImage(const int64_t image_id, const bool approve, const std::string reject_reason)
+void InfoWorker::checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string reject_reason)
 {
     image::ApproveRequest req;
     req.set_image_id(image_id);
     req.set_approve(approve);
     req.set_reject_reason(reject_reason);
-    RPC_ASYNC(image::ApproveReply, _checkImage, checkImageFinished, req);
+    RPC_ASYNC(image::ApproveReply, _checkImage, checkImageFinished, objId, req);
 }
 
-void InfoWorker::removeImage(const std::vector<int64_t> &image_ids)
+void InfoWorker::removeImage(const QString objId, const std::vector<int64_t> &image_ids)
 {
     image::RemoveRequest req;
     for (auto &id : image_ids)
@@ -415,29 +418,29 @@ void InfoWorker::removeImage(const std::vector<int64_t> &image_ids)
         req.add_image_ids(id);
     }
 
-    RPC_ASYNC(image::RemoveReply, _removeImage, removeImageFinished, req);
+    RPC_ASYNC(image::RemoveReply, _removeImage, removeImageFinished, objId, req);
 }
 
-void InfoWorker::login(const std::string &username, const std::string &password)
+void InfoWorker::login(const QString objId, const std::string &username, const std::string &password)
 {
     user::LoginRequest req;
     req.set_username(username);
     req.set_password(password);
-    RPC_ASYNC(user::LoginReply, _login, loginFinished, req);
+    RPC_ASYNC(user::LoginReply, _login, loginFinished, objId, req);
 }
 
-void InfoWorker::logout()
+void InfoWorker::logout(const QString objId)
 {
     user::LogoutRequest req;
-    RPC_ASYNC(user::LogoutReply, _logout, logoutFinished, req);
+    RPC_ASYNC(user::LogoutReply, _logout, logoutFinished, objId, req);
 }
 
-void InfoWorker::updatePassword(const std::string oldPassword, const std::string newPassword)
+void InfoWorker::updatePassword(const QString objId, const std::string oldPassword, const std::string newPassword)
 {
     user::UpdatePasswordRequest req;
     req.set_old_password(oldPassword);
     req.set_new_password(newPassword);
-    RPC_ASYNC(user::UpdatePasswordReply, _updatePassword, updatePasswordFinished, req);
+    RPC_ASYNC(user::UpdatePasswordReply, _updatePassword, updatePasswordFinished, objId, req);
 }
 
 void InfoWorker::stopTransfer(QString name, QString version, bool isStop)
