@@ -4,12 +4,12 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="../src/common/about-page.cpp" line="59"/>
+        <location filename="../src/common/about-page.cpp" line="60"/>
         <source>KylinSec Security container magic cube</source>
         <translation>麒麟信安安全容器平台</translation>
     </message>
     <message>
-        <location filename="../src/common/about-page.cpp" line="85"/>
+        <location filename="../src/common/about-page.cpp" line="86"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -52,24 +52,24 @@
         <translation>二维码</translation>
     </message>
     <message>
-        <location filename="../src/activate-page.cpp" line="117"/>
+        <location filename="../src/activate-page.cpp" line="119"/>
         <source>Scan QR code to get machine code</source>
         <translation>扫码获取机器码</translation>
     </message>
     <message>
-        <location filename="../src/activate-page.cpp" line="161"/>
-        <location filename="../src/activate-page.cpp" line="174"/>
-        <location filename="../src/activate-page.cpp" line="188"/>
+        <location filename="../src/activate-page.cpp" line="164"/>
+        <location filename="../src/activate-page.cpp" line="177"/>
+        <location filename="../src/activate-page.cpp" line="190"/>
         <source>OK</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../src/activate-page.cpp" line="171"/>
+        <location filename="../src/activate-page.cpp" line="174"/>
         <source>Please enter the activation code.</source>
         <translation>请输入激活码</translation>
     </message>
     <message>
-        <location filename="../src/activate-page.cpp" line="184"/>
+        <location filename="../src/activate-page.cpp" line="187"/>
         <source>Activation failed. Please confirm whether the activation code is correct.</source>
         <translation>激活失败，请检查激活码是否正确！</translation>
     </message>
@@ -78,7 +78,7 @@
         <translation type="vanished">激活失败，请检查激活码是否正确。</translation>
     </message>
     <message>
-        <location filename="../src/activate-page.cpp" line="198"/>
+        <location filename="../src/activate-page.cpp" line="200"/>
         <source>Activation succeeded!</source>
         <translation>激活成功！</translation>
     </message>
@@ -195,17 +195,17 @@
         <translation>调度优先级：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="15"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="16"/>
         <source>Low</source>
         <translation>低</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="16"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="17"/>
         <source>Medium</source>
         <translation>中</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="17"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="18"/>
         <source>High</source>
         <translation>高</translation>
     </message>
@@ -1267,38 +1267,38 @@
         <translation>镜像操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="67"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="68"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="86"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="87"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="87"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="88"/>
         <source>Upload Image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="88"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="132"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="89"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="133"/>
         <source>Please improve the content!</source>
         <translation>请完善内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="130"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="131"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="131"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="132"/>
         <source>Update Image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="168"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="169"/>
         <source>Please select an image file</source>
         <translation>请选择镜像文件</translation>
     </message>
@@ -1440,8 +1440,8 @@
 <context>
     <name>LoginDialog</name>
     <message>
-        <location filename="../src/login-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="83"/>
+        <location filename="../src/login-dialog.ui" line="32"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="101"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -1450,52 +1450,52 @@
         <translation type="vanished">记住密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.ui" line="116"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="85"/>
-        <location filename="../src/login-dialog.cpp" line="461"/>
+        <location filename="../src/login-dialog.ui" line="142"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="103"/>
+        <location filename="../src/login-dialog.cpp" line="462"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="95"/>
+        <location filename="../src/login-dialog.cpp" line="96"/>
         <source>KylinSec security Container magic Cube</source>
         <translation>麒麟信安安全容器平台</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="141"/>
-        <location filename="../src/login-dialog.cpp" line="329"/>
+        <location filename="../src/login-dialog.cpp" line="142"/>
+        <location filename="../src/login-dialog.cpp" line="330"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="141"/>
-        <location filename="../src/login-dialog.cpp" line="336"/>
+        <location filename="../src/login-dialog.cpp" line="142"/>
+        <location filename="../src/login-dialog.cpp" line="337"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="185"/>
+        <location filename="../src/login-dialog.cpp" line="186"/>
         <source>Please input password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="166"/>
+        <location filename="../src/login-dialog.cpp" line="167"/>
         <source>Please input user name</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="131"/>
+        <location filename="../src/login-dialog.cpp" line="132"/>
         <source>Unactivated</source>
         <translation>未激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="141"/>
-        <location filename="../src/login-dialog.cpp" line="334"/>
+        <location filename="../src/login-dialog.cpp" line="142"/>
+        <location filename="../src/login-dialog.cpp" line="335"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="202"/>
+        <location filename="../src/login-dialog.cpp" line="203"/>
         <source>Active</source>
         <translation>激活</translation>
     </message>
@@ -1504,12 +1504,12 @@
         <translation type="vanished">软件未激活，无法登录。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="212"/>
+        <location filename="../src/login-dialog.cpp" line="213"/>
         <source>The software is not activated and Unable to login. Please activate it.</source>
         <translation>软件未激活，无法登录。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="217"/>
+        <location filename="../src/login-dialog.cpp" line="218"/>
         <source>OK</source>
         <translation>是</translation>
     </message>
@@ -1518,42 +1518,42 @@
         <translation type="vanished">获取数据失败，请检查服务状态。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="227"/>
+        <location filename="../src/login-dialog.cpp" line="228"/>
         <source>Failed to get data, please check the service status.</source>
         <translation>获取数据失败，请检查服务状态。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="243"/>
+        <location filename="../src/login-dialog.cpp" line="244"/>
         <source>Please input user name!</source>
         <translation>请输入用户名！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="249"/>
+        <location filename="../src/login-dialog.cpp" line="250"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="255"/>
+        <location filename="../src/login-dialog.cpp" line="256"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="262"/>
+        <location filename="../src/login-dialog.cpp" line="263"/>
         <source>Please config a server address!</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="425"/>
+        <location filename="../src/login-dialog.cpp" line="426"/>
         <source>Login failed %1</source>
         <translation>登录失败 %1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="462"/>
+        <location filename="../src/login-dialog.cpp" line="463"/>
         <source>session expire!</source>
         <translation>会话过期！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="463"/>
+        <location filename="../src/login-dialog.cpp" line="464"/>
         <source>back to login page</source>
         <translation>点击确认跳转至登录界面</translation>
     </message>
@@ -1562,17 +1562,17 @@
         <translation type="vanished">登录失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="450"/>
+        <location filename="../src/login-dialog.cpp" line="451"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="451"/>
+        <location filename="../src/login-dialog.cpp" line="452"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="452"/>
+        <location filename="../src/login-dialog.cpp" line="453"/>
         <source>Error: </source>
         <translation>错误：</translation>
     </message>
@@ -1592,17 +1592,32 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="199"/>
+        <location filename="../src/main-window.cpp" line="173"/>
+        <source>Transmission</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="182"/>
+        <source>Approval</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="190"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="208"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="200"/>
+        <location filename="../src/main-window.cpp" line="209"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="202"/>
+        <location filename="../src/main-window.cpp" line="211"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -2428,7 +2443,7 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="203"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="204"/>
         <source>The password should contain at least
  a combination of character and number,
  with a length range of 8-32 characters</source>
@@ -2562,57 +2577,57 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="29"/>
+        <location filename="../src/main-window.cpp" line="30"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="30"/>
+        <location filename="../src/main-window.cpp" line="31"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="31"/>
+        <location filename="../src/main-window.cpp" line="32"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="32"/>
+        <location filename="../src/main-window.cpp" line="33"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="33"/>
+        <location filename="../src/main-window.cpp" line="34"/>
         <source>Audit Center</source>
         <translation>审计中心</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="34"/>
+        <location filename="../src/main-window.cpp" line="35"/>
         <source>Audit Apply List</source>
         <translation>审核列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="35"/>
+        <location filename="../src/main-window.cpp" line="36"/>
         <source>Audit Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="36"/>
+        <location filename="../src/main-window.cpp" line="37"/>
         <source>Audit Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="37"/>
+        <location filename="../src/main-window.cpp" line="38"/>
         <source>Image Manager</source>
         <translation>镜像管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="38"/>
+        <location filename="../src/main-window.cpp" line="39"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="39"/>
+        <location filename="../src/main-window.cpp" line="40"/>
         <source>System Manager</source>
         <translation>系统管理</translation>
     </message>
@@ -2755,42 +2770,42 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="57"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="58"/>
         <source>Ip Address</source>
         <translation>IP地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="60"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="61"/>
         <source>Please input server ip address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="69"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="70"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="72"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="73"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="80"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="81"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="83"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="84"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="104"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="105"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="105"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="106"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
