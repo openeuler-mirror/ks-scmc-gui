@@ -13,7 +13,6 @@
 #define TEMPLATE_NAME "template name"
 #define BACKUP_ID "backup id"
 #define BACKUP_NAME "backup name"
-#define VERSION "V1.0"
 #define SCMC_GUI_VERSION_FILE_PATH "/usr/share/ks-scmc-gui/ks-scmc-gui.version"
 #define SCMC_VERSION_FILE_PATH "/usr/share/ks-scmc/ks-scmc.version"
 

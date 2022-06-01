@@ -45,8 +45,7 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMultiMap<int, QSt
                                                                                                                                                    m_labImage(nullptr),
                                                                                                                                                    m_templateId(-1),
                                                                                                                                                    m_netWorkCount(0),
-                                                                                                                                                   m_type(type),
-                                                                                                                                                   m_totalCPU(0.0)
+                                                                                                                                                   m_type(type)
 
 {
     ui->setupUi(this);
@@ -343,7 +342,7 @@ GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, 
 
 void ContainerSetting::initBaseConfPages()
 {
-    CPUConfTab *cpuInfoTab = new CPUConfTab(m_totalCPU, ui->tab_base_config);
+    CPUConfTab *cpuInfoTab = new CPUConfTab(ui->tab_base_config);
     m_baseConfStack->addWidget(cpuInfoTab);
 
     MemoryConfTab *memoryConfTab = new MemoryConfTab(ui->tab_base_config);
@@ -913,6 +912,10 @@ void ContainerSetting::onNodeSelectedChanged(QString newStr)
         getImageInfo(m_nodeInfo.key(newStr));
 
     setNodeNetworkList(m_nodeInfo.key(newStr));
+
+    //设置cpu核心数
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
@@ -939,9 +942,11 @@ void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status
             ui->cb_node->clear();
             for (auto n : reply.second.nodes())
             {
+                int nodeId = n.id();
                 m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
                 ui->cb_node->addItem(QString("%1").arg(n.address().data()));
-                m_totalCPU = n.status().cpu_stat().total();
+                auto totalCPU = n.status().cpu_stat().total();
+                m_nodeTotalCPU.insert(nodeId, totalCPU);
             }
 
             //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
@@ -962,6 +967,10 @@ void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status
             //创建容器/基于模板创建容器时获取镜像列表
             if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
                 getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
+
+            //设置cpu核心数
+            auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+            cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
         }
     }
 }
