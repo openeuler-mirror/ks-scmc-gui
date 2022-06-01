@@ -103,7 +103,7 @@ void ActivatePage::createQRcode(QString machine_code)
     qr->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
     qr->setIcon(QIcon(":/images/logo.png"));
     //    qr->setTitleBarHeight(30);
-    qr->setFixedSize(300, 250);
+    qr->setFixedSize(350, 300);
     qr->setWindowModality(Qt::ApplicationModal);
     qr->setTitle(tr("QR Code"));
 
@@ -111,6 +111,8 @@ void ActivatePage::createQRcode(QString machine_code)
     QVBoxLayout *vlayout = new QVBoxLayout(widget);
     QLabel *label = new QLabel(widget);
     label->setAlignment(Qt::AlignCenter);
+//    label->setMinimumSize(160,160);
+    label->setContentsMargins(0,0,0,0);
 
     QLabel *textLabel = new QLabel(widget);
     textLabel->setAlignment(Qt::AlignCenter);
@@ -128,6 +130,7 @@ void ActivatePage::createQRcode(QString machine_code)
     int qrcodeWidth = m_qrcode->width > 0 ? m_qrcode->width : 1;
     double scaledWidgth = (double)width / (double)qrcodeWidth;
     double scaledHeight = (double)height / (double)qrcodeWidth;
+
     QImage image = QImage(width, height, QImage::Format_ARGB32);
 
     QPainter painter(&image);
@@ -233,7 +236,7 @@ void ActivatePage::hideQR()
     qr->hide();
 }
 
-void ActivatePage::setText(QString machine_code, QString activation_code, int activation_time, int expired_time)
+void ActivatePage::setText(QString machine_code, QString activation_code, int activation_time, uint expired_time)
 {
     if (!machine_code.isNull())
         createQRcode(machine_code);
