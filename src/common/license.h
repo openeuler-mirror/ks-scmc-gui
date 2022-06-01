@@ -11,7 +11,7 @@ struct License
     int activation_time;
     int activation_type;
     int customer_info;
-    int expired_time;
+    uint expired_time;
     int first_boot_time;
     int install_type;
     int service_status;

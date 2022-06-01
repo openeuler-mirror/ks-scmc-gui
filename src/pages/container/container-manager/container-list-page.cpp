@@ -344,9 +344,7 @@ void ContainerListPage::getNetworkListResult(const QPair<grpc::Status, network::
         KLOG_INFO() << m_networksMap.values();
     }
     else
-    {
         KLOG_INFO() << "getNetworkListResult failed";
-    }
 }
 
 void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
@@ -457,14 +455,6 @@ void ContainerListPage::getContainerStartResult(const QPair<grpc::Status, contai
         getContainerList();
         return;
     }
-    else
-    {
-        MessageDialog::message(tr("Start Container"),
-                               tr("Start container failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-    }
 }
 
 void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, container::StopReply> &reply)
@@ -479,11 +469,7 @@ void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, contain
     }
     else
     {
-        MessageDialog::message(tr("Stop Container"),
-                               tr("Stop container failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
+        KLOG_INFO() << "stop failed";
     }
 }
 
@@ -496,14 +482,6 @@ void ContainerListPage::getContainerRestartResult(const QPair<grpc::Status, cont
         getContainerList();
         return;
     }
-    else
-    {
-        MessageDialog::message(tr("Restart Container"),
-                               tr("Restart container failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-    }
 }
 
 void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &reply)
@@ -514,14 +492,6 @@ void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, conta
     {
         getContainerList();
         return;
-    }
-    else
-    {
-        MessageDialog::message(tr("Remove Container"),
-                               tr("Remove container failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
     }
 }
 
@@ -739,6 +709,7 @@ void ContainerListPage::updateInfo(QString keyword)
     if (keyword == "exitTimedRefresh")
     {
         timedRefresh(false);
+        clearCheckState();
         return;
     }
 
