@@ -106,7 +106,7 @@ void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
     setResizeable(false);
-    setTitle(tr("KylinSec Container system V1 (Security)"));
+    setTitle(tr("KylinSec Container System V1(Security Version)"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
@@ -478,6 +478,12 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
 void LoginDialog::sessionExpire()
 {
     KLOG_INFO() << "sessionExpire";
+    if (!m_sessionMutex.tryLock())
+    {
+        KLOG_INFO() << "get lock fail and return";
+        return;
+    }
+
     MessageDialog::message(tr("Login"),
                            tr("session expire!"),
                            tr("back to login page"),
@@ -492,6 +498,7 @@ void LoginDialog::sessionExpire()
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
     ui->lab_tips->hide();
+    m_sessionMutex.unlock();
 }
 
 void LoginDialog::updateLicense(bool ret)

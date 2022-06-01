@@ -15,7 +15,7 @@ class WarningListView : public TablePage
 {
     Q_OBJECT
 public:
-    explicit WarningListView(QWidget *parent = nullptr);
+    explicit WarningListView(QWidget *parent = nullptr,bool isShowContainerName = false,bool is_open_paging = false);
     ~WarningListView();
     void updateInfo(QString keyword = "");  //刷新表格
     void setLogListPageType(WarningListPageType);
@@ -24,8 +24,8 @@ private:
     void initTable();
     void initButtons();
     void initLogListConnect();
-    void getWarningList(WarningListPageType);
-    void getReadWarn(int64_t ids);
+    void getWarningList(WarningListPageType type = CONTAINER_WARNING,int page_on = 1);
+    void getReadWarn(QList<int64_t> ids);
 
 private slots:
     void getListWarning(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
@@ -34,11 +34,19 @@ private slots:
     void onBtnIgnore();
     void onBtnReadLabel(int row);
     void onBtnIgnoreLabel(int row);
+    void updatePagingInfo(int page_on);
 
 private:
     QString m_ObjId;
     WarningListPageType m_type;
     QMap<int, int64_t> m_idsMap;
+    bool is_showContainerName;
+    bool is_openPaging;
+    int m_totalPages;
+    int m_pageOn = 1;//当前页
+
+signals:
+    void sigOpenPaging(int);
 };
 
 #endif  // LOGLISTVIEW_H
