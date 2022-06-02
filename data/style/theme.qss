@@ -835,6 +835,7 @@ MonitorContent #cb_select_cycle
 {
     background:#222222;
     font-size:14px;
+    combobox-popup:0;
 }
 
 MonitorContent QScrollArea QScrollBar:vertical{
