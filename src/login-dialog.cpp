@@ -93,7 +93,7 @@ void LoginDialog::paintEvent(QPaintEvent *event)
 
 void LoginDialog::keyPressEvent(QKeyEvent *event)
 {
-    if (Qt::Key_Return == event->key())
+    if (Qt::Key_Return == event->key() || Qt::Key_Enter == event->key())
     {
         if (ui->lineEdit_username->hasFocus())
             ui->lineEdit_passwd->setFocus();
