@@ -182,15 +182,13 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            clearTable();
             int size = reply.second.data_size();
             if (size <= 0)
             {
                 setTableDefaultContent("-");
-                setHeaderCheckable(false);
                 return;
             }
-            clearTable();
-            setHeaderCheckable(true);
             int row = 0;
             QMap<QString, QVariant> idMap;
             for (auto data : reply.second.data())
@@ -250,7 +248,6 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
             else
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             setTableDefaultContent("-");
-            setHeaderCheckable(false);
         }
     }
 }
