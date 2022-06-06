@@ -45,10 +45,10 @@ CPUConfTab::~CPUConfTab()
 void CPUConfTab::setTotalCPU(double totalCPU)
 {
     m_totalCPU = totalCPU;
-    QDoubleValidator* doubleValidator = new QDoubleValidator(0.01, totalCPU, 3, this);
+    QDoubleValidator* doubleValidator = new QDoubleValidator(0.01, totalCPU, 2, this);
     doubleValidator->setNotation(QDoubleValidator::StandardNotation);
     ui->lineEdit_cpu_core->setValidator(doubleValidator);
-    ui->lineEdit_cpu_core->setPlaceholderText(QString("0-%1, default:system cores %1").arg(QString::number(totalCPU)));
+    ui->lineEdit_cpu_core->setPlaceholderText(tr("0-%1, default:system cores %1").arg(QString::number(totalCPU)));
 }
 
 void CPUConfTab::setCPUInfo(container::ResourceLimit* cfg)
