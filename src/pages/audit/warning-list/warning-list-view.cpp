@@ -160,10 +160,11 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
             int size = reply.second.logs_size();
             if (size <= 0)
             {
+                setHeaderCheckable(false);
                 setTableDefaultContent("-");
                 return;
             }
-
+            setHeaderCheckable(false);
             int row = 0;
             QMap<QString, QVariant> infoMap;
             for (auto logging : reply.second.logs())
