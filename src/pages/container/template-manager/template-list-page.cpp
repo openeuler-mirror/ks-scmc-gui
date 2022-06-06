@@ -181,6 +181,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
     KLOG_INFO() << "getListTemplateFinishResult" << m_objId << objId;
     if (m_objId == objId)
     {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
