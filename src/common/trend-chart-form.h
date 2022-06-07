@@ -13,9 +13,9 @@ struct ChartInfo
     QString xTitle = "";
     QDateTime xStart;
     QDateTime xEnd;
-    QString xFormat = "";
+    QString xFormat;
     int xTickCount = 11;
-    QString yTitle = "";
+    QString yTitle;
     double yStart;
     double yEnd;
     QString yFormat = "%d";
@@ -30,7 +30,8 @@ public:
     explicit TrendChartForm(QWidget *parent = nullptr);
     ~TrendChartForm();
     void initChart(ChartInfo chartInfo);
-    void updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames);
+    void updateChart(ChartInfo chartInfo);
+    void setData(QList<QPointF> datas, QString seriesNames);
     void setLegendVisible(bool visible);
     virtual QSize sizeHint() const override;
 

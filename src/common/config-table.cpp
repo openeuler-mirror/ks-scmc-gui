@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "ui_config-table.h"
 
-ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(parent),
+ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget *parent) : QWidget(parent),
                                                                         ui(new Ui::ConfigTable),
                                                                         m_ChooseTable(whichTable)
 {
@@ -102,6 +102,9 @@ QList<QSharedPointer<ModelItem> > ConfigTable::getAllData()
 
 void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
 {
+    if (itemList.isEmpty())
+        return;
+
     m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
     ui->tableView->setItemDelegate(m_pDelegate.get());
     m_pModel->deleteModelByRow(0);
@@ -113,7 +116,7 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
     paintEditor(itemList.size());
 
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach (QLineEdit* pLineEdit, lineEdits)
+    foreach(QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();
@@ -142,7 +145,7 @@ void ConfigTable::addRowSlot(int row)
     m_pModel->insertModelByRow(row + 1, pItem);
     paintEditor(row);
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach (QLineEdit* pLineEdit, lineEdits)
+    foreach(QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();
@@ -153,4 +156,10 @@ void ConfigTable::removeRowSlot(int row)
 {
     m_pModel->deleteModelByRow(row);
     paintEditor(row);
+    QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
+    foreach(QLineEdit* pLineEdit, lineEdits)
+    {
+        pLineEdit->deselect();
+        pLineEdit->clearFocus();
+    }
 }

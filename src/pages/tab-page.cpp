@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 TabPage::TabPage(QWidget *parent) : Page(parent), m_tabWidget(nullptr)
 {
+    KLOG_INFO() << "TabPage";
     initUI();
 }
 
