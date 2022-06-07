@@ -27,6 +27,7 @@ void WarningListView::updateInfo(QString keyword)
 {
     KLOG_INFO() << "WarningListView updateInfo";
     clearText();
+    clearCheckState();
     if (keyword.isEmpty())
     {
         connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarning);
