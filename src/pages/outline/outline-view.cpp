@@ -443,7 +443,7 @@ void OutlineView::setOutlineCellNode()
                                                        "border-radius:0px;"
                                                        "color: #ffffff;}");
     m_outlineCell_node->ui->Name_label->setText(tr("Number of nodes: "));
-    m_outlineCell_node->ui->Name_counts->setText("5");
+    m_outlineCell_node->ui->Name_counts->setText("0");
 
     m_outlineCell_node->ui->label_online_txt->setStyleSheet("QLabel {"
                                                             "background: transparent;"
@@ -470,7 +470,7 @@ void OutlineView::setOutlineCellNode()
                                                          "font-size: 36px;"
                                                          "border-radius:0px;"
                                                          "color: #ffffff;}");
-    m_outlineCell_node->ui->online_counts->setText(tr("4"));
+    m_outlineCell_node->ui->online_counts->setText(tr("0"));
     m_outlineCell_node->ui->offline_counts->setStyleSheet("QLabel {"
                                                           "background: transparent;"
                                                           "border:none;"
@@ -478,7 +478,7 @@ void OutlineView::setOutlineCellNode()
                                                           "font-size: 36px;"
                                                           "border-radius:0px;"
                                                           "color: #ffffff;}");
-    m_outlineCell_node->ui->offline_counts->setText(tr("1"));
+    m_outlineCell_node->ui->offline_counts->setText(tr("0"));
 
     m_outlineCell_node->ui->outline_pix->setStyleSheet("QLabel{"
                                                        //                                                        "border-image:url(:/images/node-number.png);"
@@ -507,7 +507,7 @@ void OutlineView::setOutlineCellContainer()
                                                             "border-radius:0px;"
                                                             "color: #ffffff;}");
     m_outlineCell_container->ui->Name_label->setText(tr("Number of Container: "));
-    m_outlineCell_container->ui->Name_counts->setText("11");
+    m_outlineCell_container->ui->Name_counts->setText("0");
 
     m_outlineCell_container->ui->label_online_txt->setStyleSheet("QLabel {"
                                                                  "background: transparent;"
@@ -534,7 +534,7 @@ void OutlineView::setOutlineCellContainer()
                                                               "font-size: 36px;"
                                                               "border-radius:0px;"
                                                               "color: #ffffff;}");
-    m_outlineCell_container->ui->online_counts->setText(tr("2"));
+    m_outlineCell_container->ui->online_counts->setText(tr("0"));
     m_outlineCell_container->ui->offline_counts->setStyleSheet("QLabel {"
                                                                "background: transparent;"
                                                                "border:none;"
@@ -542,7 +542,7 @@ void OutlineView::setOutlineCellContainer()
                                                                "font-size: 36px;"
                                                                "border-radius:0px;"
                                                                "color: #ffffff;}");
-    m_outlineCell_container->ui->offline_counts->setText(tr("1"));
+    m_outlineCell_container->ui->offline_counts->setText(tr("0"));
 
     m_outlineCell_container->ui->outline_pix->setStyleSheet("QLabel{"
                                                             //                                                        "border-image:url(:/images/node-number.png);"
@@ -571,7 +571,7 @@ void OutlineView::setOutlineCellImage()
                                                         "border-radius:0px;"
                                                         "color: #ffffff;}");
     m_outlineCell_image->ui->Name_label->setText(tr("Number of Image: "));
-    m_outlineCell_image->ui->Name_counts->setText("5");
+    m_outlineCell_image->ui->Name_counts->setText("0");
 
     m_outlineCell_image->ui->label_online_txt->setStyleSheet("QLabel {"
                                                              "background: transparent;"
@@ -589,7 +589,7 @@ void OutlineView::setOutlineCellImage()
                                                               "font-size: 14px;"
                                                               "border-radius:0px;"
                                                               "color: #ffffff;}");
-    m_outlineCell_image->ui->label_offline_txt->setText(tr("3.9G"));
+    m_outlineCell_image->ui->label_offline_txt->setText(tr("0G"));
 
     m_outlineCell_image->ui->label_online->deleteLater();
     m_outlineCell_image->ui->label_offline->deleteLater();
@@ -625,7 +625,7 @@ void OutlineView::setOutlineCellTemplateContainer()
                                                                      "border-radius:0px;"
                                                                      "color: #ffffff;}");
     m_outlineCell_template_container->ui->Name_label->setText(tr("Number of Template: "));
-    m_outlineCell_template_container->ui->Name_counts->setText("5");
+    m_outlineCell_template_container->ui->Name_counts->setText("0");
 
     m_outlineCell_template_container->ui->label_online_txt->deleteLater();
     m_outlineCell_template_container->ui->label_offline_txt->deleteLater();
@@ -664,7 +664,7 @@ void OutlineView::setOutlineCellExamine()
                                                           "border-radius:0px;"
                                                           "color: #ffffff;}");
     m_outlineCell_examine->ui->Name_label->setText(tr("Number of Reviewed: "));
-    m_outlineCell_examine->ui->Name_counts->setText("5");
+    m_outlineCell_examine->ui->Name_counts->setText("0");
 
     m_outlineCell_examine->ui->label_online_txt->deleteLater();
     m_outlineCell_examine->ui->label_offline_txt->deleteLater();
@@ -703,7 +703,7 @@ void OutlineView::setOutlineCellWarning()
                                                           "border-radius:0px;"
                                                           "color: #ffffff;}");
     m_outlineCell_warning->ui->Name_label->setText(tr("Number of Give Alarm: "));
-    m_outlineCell_warning->ui->Name_counts->setText("5");
+    m_outlineCell_warning->ui->Name_counts->setText("0");
 
     m_outlineCell_warning->ui->label_online_txt->deleteLater();
     m_outlineCell_warning->ui->label_offline_txt->deleteLater();
