@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "ui_config-table.h"
 
-ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget *parent) : QWidget(parent),
+ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(parent),
                                                                         ui(new Ui::ConfigTable),
                                                                         m_ChooseTable(whichTable)
 {
@@ -113,7 +113,7 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
     paintEditor(itemList.size());
 
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach(QLineEdit* pLineEdit, lineEdits)
+    foreach (QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();
@@ -141,6 +141,12 @@ void ConfigTable::addRowSlot(int row)
     QSharedPointer<ModelItem> pItem(new ModelItem());
     m_pModel->insertModelByRow(row + 1, pItem);
     paintEditor(row);
+    QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
+    foreach (QLineEdit* pLineEdit, lineEdits)
+    {
+        pLineEdit->deselect();
+        pLineEdit->clearFocus();
+    }
 }
 
 void ConfigTable::removeRowSlot(int row)
