@@ -49,7 +49,7 @@ MonitorContent::~MonitorContent()
 
 void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
 {
-    if (nodeId >= 0 && !QString::fromStdString(containerId).isEmpty())
+    if (nodeId >= 0)
     {
         m_nodeId = nodeId;
         m_containerId = containerId;
@@ -115,19 +115,19 @@ void MonitorContent::initUI()
 void MonitorContent::initChart()
 {
     QMap<QString, QString> cpuSeriesInfo = {{CHART_SERIES_NAME_CPU, "#2eb3ff"}};
-    BuildCharts(m_cpuChartForm, cpuSeriesInfo, tr("CPU usage (%)"));
+    BuildCharts(m_cpuChartForm, cpuSeriesInfo, tr("CPU usage (%)"), "%d%%");
     m_cpuChartForm->setLegendVisible(false);
 
     QMap<QString, QString> memorySeriesInfo = {{CHART_SERIES_NAME_MEMORY, "#2eb3ff"}};
-    BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"));
+    BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"), "%d%%");
     m_memoryChartForm->setLegendVisible(false);
 
     QMap<QString, QString> diskSeriesInfo = {{CHART_SERIES_NAME_DISK, "#2eb3ff"}};
-    BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk usage (unit M)"));
+    BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk usage (unit M)"), "%d");
     m_diskChartForm->setLegendVisible(false);
 
     QMap<QString, QString> netSeriesInfo = {{CHART_SERIES_NAME_NETWORK_RX, "#2eb3ff"}, {CHART_SERIES_NAME_NETWORK_TX, "#F57900"}};
-    BuildCharts(m_netChartForm, netSeriesInfo, tr("Network throughput (unit M)"));
+    BuildCharts(m_netChartForm, netSeriesInfo, tr("Network throughput (unit M)"), "%0.2f");
 
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
     int currTimeStamp = currTime.toTime_t();            //将当前时间转为时间戳
@@ -138,7 +138,7 @@ void MonitorContent::initChart()
         InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
 }
 
-void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle)
+void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle, QString yformate)
 {
     ChartInfo chartInfo;
     chartInfo.seriesInfo = seriesinfo;
@@ -149,7 +149,7 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QStrin
     m_xEnd = currTime;
     m_xStart = startDate;
     m_xTitle = tr("Time particle density(1 minute)");
-    m_xFormat = "hh:mm";
+    m_xFormat = "dd hh:mm";
     chartInfo.xStart = startDate;
     chartInfo.xEnd = currTime;
     chartInfo.xTitle = m_xTitle;
@@ -157,6 +157,7 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QStrin
     chartInfo.yStart = 0;
     chartInfo.yEnd = 100;
     chartInfo.yTitle = yTitle;
+    chartInfo.yFormat = yformate;
     KLOG_INFO() << "BuildCharts: " << chartInfo.seriesInfo.firstKey();
 
     chartForm->initChart(chartInfo);
@@ -171,8 +172,8 @@ int MonitorContent::getbit(double num)
 
 void MonitorContent::handleYValue(double &start, double &end, QString &unit)
 {
-    if (end < 0)
-        unit = "M";
+    if (end <= 0)
+        unit = "KB";
     else if (end <= 1)  //<1M
     {
         end = end * K_BITE;
@@ -224,7 +225,7 @@ void MonitorContent::onCycleChanged(int index)
         {
         case CHART_CYCLE_TEN_MINUTE:
             startDate = currDate.addSecs(-(60 * 10));
-            m_xFormat = "hh:mm";
+            m_xFormat = "dd hh:mm";
             m_xStart = startDate;
             m_xEnd = currDate;
             m_xInterval = 1;
@@ -232,7 +233,7 @@ void MonitorContent::onCycleChanged(int index)
             break;
         case CHART_CYCLE_ONE_HOUR:
             startDate = currDate.addSecs(-(60 * 60));
-            m_xFormat = "hh:mm";
+            m_xFormat = "dd hh:mm";
             m_xStart = startDate;
             m_xEnd = currDate;
             m_xInterval = 1;
@@ -320,8 +321,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 cpuChartInfo.yEnd = 100 * cpuLimit;
                 cpuChartInfo.yFormat = "%d%%";
                 cpuChartInfo.yTitle = tr("CPU usage (%)");
-                m_cpuChartForm->updateChart(cpuChartInfo);
-                m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
+                m_cpuChartForm->updateChart(cpuChartInfo, pointList, CHART_SERIES_NAME_CPU);
             }
 
             if (reply.second.memory_usage_size() > 0)
@@ -341,8 +341,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 memoryChartInfo.yEnd = 100;
                 memoryChartInfo.yFormat = "%d%%";
                 memoryChartInfo.yTitle = tr("Memory usage (%)");
-                m_memoryChartForm->updateChart(memoryChartInfo);
-                m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
+                m_memoryChartForm->updateChart(memoryChartInfo, pointList, CHART_SERIES_NAME_MEMORY);
             }
 
             if (reply.second.disk_usage_size() > 0)
@@ -377,8 +376,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     pointList.append(point);
                 }
-                m_diskChartForm->updateChart(diskChartInfo);
-                m_diskChartForm->setData(pointList, CHART_SERIES_NAME_DISK);
+                m_diskChartForm->updateChart(diskChartInfo, pointList, CHART_SERIES_NAME_DISK);
             }
 
             if (reply.second.net_rx_size() > 0 || reply.second.net_tx_size() > 0)
@@ -404,9 +402,17 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 QString unit;
                 handleYValue(start, end, unit);
                 KLOG_INFO() << "******net" << start << end << unit;
-                netChartInfo.yStart = start;
-                netChartInfo.yEnd = end;
-                netChartInfo.yFormat = "%d";
+                if (end == 0)
+                {
+                    netChartInfo.yStart = 0;
+                    netChartInfo.yEnd = 10;
+                }
+                else
+                {
+                    netChartInfo.yStart = start;
+                    netChartInfo.yEnd = end;
+                }
+                netChartInfo.yFormat = "%0.2f";
                 netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
                 for (auto i : reply.second.net_rx())
                 {
@@ -431,9 +437,8 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                     txPointList.append(point);
                 }
 
-                m_netChartForm->updateChart(netChartInfo);
-                m_netChartForm->setData(rxPointList, CHART_SERIES_NAME_NETWORK_RX);
-                m_netChartForm->setData(txPointList, CHART_SERIES_NAME_NETWORK_TX);
+                m_netChartForm->updateChart(netChartInfo, rxPointList, CHART_SERIES_NAME_NETWORK_RX);
+                m_netChartForm->updateChart(netChartInfo, txPointList, CHART_SERIES_NAME_NETWORK_TX);
             }
         }
         else
