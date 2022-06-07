@@ -25,8 +25,6 @@ ContainerListPage::ContainerListPage(QWidget *parent)
       m_monitor(nullptr),
       m_timer(nullptr)
 {
-    KLOG_INFO() << "new container List";
-
     m_objId = InfoWorker::generateId(this);
     initButtons();
     //初始化表格

@@ -50,7 +50,7 @@ public:
 private:
     void initUI();
     void initChart();
-    void BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle);
+    void BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle, QString yformate);
     int getbit(double num);
     void handleYValue(double &start, double &end, QString &unit);
 
