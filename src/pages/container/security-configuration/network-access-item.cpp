@@ -54,7 +54,7 @@ void NetworkAccessItem::initUI()
 {
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
-    ui->lineEdit_address->setPlaceholderText("192.168.1.1/24");
+    ui->lineEdit_address->setPlaceholderText(tr("eg: 192.168.1.10 or 10.0.0.0/8"));
     ui->lineEdit_port->setText(QString::number(0));
     ui->lineEdit_port->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_address->setTextMargins(10, 0, 0, 0);

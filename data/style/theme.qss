@@ -674,6 +674,21 @@ ConfigTable #tableView::item
     border:none;
 }
 
+ConfigTable QLineEdit:disabled
+{
+    background-color:#F9F9F9;
+}
+
+ConfigTable QComboBox::drop-down:disabled
+{
+    background-color:#F9F9F9;
+}
+
+ConfigTable QComboBox:disabled
+{
+    background-color:#F9F9F9;
+}
+
 /********************************LoginDialog****************************/
 LoginDialog #btn_login
 {

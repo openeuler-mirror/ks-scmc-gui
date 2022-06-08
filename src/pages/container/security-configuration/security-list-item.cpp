@@ -11,7 +11,7 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
 {
     ui->setupUi(this);
     ui->label_name->setText(text);
-    ui->lab_error_tips->setText("the path format is wrong");
+    ui->lab_error_tips->setText(tr("the path format is wrong"));
     ui->lab_error_tips->setStyleSheet("color:#F56C6C;font-size:14px;");
     ui->lab_error_tips->setVisible(false);
     ui->btn_add->setCursor(Qt::PointingHandCursor);
@@ -37,6 +37,8 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
             [this](QString text) {
                 if (!text.isEmpty())
                     m_timer->start();
+                else
+                    ui->lab_error_tips->hide();
             });
 }
 
@@ -78,7 +80,7 @@ void SecurityListItem::checkPath()
     QString path = ui->lineEdit->text();
     if (!path.isEmpty())
     {
-        QRegExp regExp("^\/(\\w+\/?)+$");
+        QRegExp regExp("^/(\\w+/?)+$");
         if (regExp.exactMatch(path))
             m_isPathCorrect = true;
         else
