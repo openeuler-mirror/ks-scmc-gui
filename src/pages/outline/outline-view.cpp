@@ -315,9 +315,9 @@ void OutlineView::getOutlineCellContainerNums(const QString objId, const QPair<g
             auto tmp = m_statusMap[container.info().state().data()];
             state = tmp.first;
             color = tmp.second;
-            if (tmp.second == "#00921b")
+            if (tmp.first == tr("Running"))
                 online++;
-            if (tmp.second == "#d30000")
+            else
                 offline++;
         }
         m_outlineCell_container->ui->online_counts->setText(QString::number(online, 10));
