@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "ui_config-table.h"
 
-ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget *parent) : QWidget(parent),
+ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(parent),
                                                                         ui(new Ui::ConfigTable),
                                                                         m_ChooseTable(whichTable)
 {
@@ -30,7 +30,7 @@ void ConfigTable::initwindow()
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView->setAlternatingRowColors(true);
+    //ui->tableView->setAlternatingRowColors(true);
     ui->tableView->setShowGrid(true);
     ui->tableView->setMouseTracking(true);
     ui->tableView->resizeColumnsToContents();
@@ -45,7 +45,7 @@ void ConfigTable::initwindow()
     else
         head << tr("Name") << tr("Value") << tr("Permission") << tr("Quick Actions");
 
-    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:WhiteSmoke;color:Black;}");
+    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:#F0F0F0;color:Black;}");
     m_pModel.reset(new ConfigModel(head));
     ui->tableView->setModel(m_pModel.get());
 
@@ -116,7 +116,7 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
     paintEditor(itemList.size());
 
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach(QLineEdit* pLineEdit, lineEdits)
+    foreach (QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();
@@ -145,7 +145,7 @@ void ConfigTable::addRowSlot(int row)
     m_pModel->insertModelByRow(row + 1, pItem);
     paintEditor(row);
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach(QLineEdit* pLineEdit, lineEdits)
+    foreach (QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();
@@ -157,7 +157,7 @@ void ConfigTable::removeRowSlot(int row)
     m_pModel->deleteModelByRow(row);
     paintEditor(row);
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
-    foreach(QLineEdit* pLineEdit, lineEdits)
+    foreach (QLineEdit* pLineEdit, lineEdits)
     {
         pLineEdit->deselect();
         pLineEdit->clearFocus();

@@ -238,14 +238,14 @@
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="155"/>
-        <location filename="../src/common/config-view.cpp" line="165"/>
+        <location filename="../src/common/config-view.cpp" line="156"/>
+        <location filename="../src/common/config-view.cpp" line="166"/>
         <source>Save Data</source>
         <translation>保存数据</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="156"/>
-        <location filename="../src/common/config-view.cpp" line="166"/>
+        <location filename="../src/common/config-view.cpp" line="157"/>
+        <location filename="../src/common/config-view.cpp" line="167"/>
         <source>Data is empty!</source>
         <translation>数据为空！</translation>
     </message>
@@ -508,12 +508,12 @@
 <context>
     <name>ContainerInfoPage</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="31"/>
+        <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="32"/>
         <source>Monitor</source>
         <translation>监控</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="35"/>
+        <location filename="../src/pages/container/container-manager/container-info-page.cpp" line="36"/>
         <source>Backup</source>
         <translation>备份</translation>
     </message>
@@ -2056,9 +2056,17 @@
         <translation type="obsolete">删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/network-access-item.cpp" line="57"/>
         <source>192.168.1.10 or 10.0.0.0/8</source>
-        <translation>192.168.1.10 或 10.0.0.0/8</translation>
+        <translation type="vanished">192.168.1.10 或 10.0.0.0/8</translation>
+    </message>
+    <message>
+        <source>192.168.1.10 or 10.0.0.0/8 .eg</source>
+        <translation type="vanished">192.168.1.10 或 10.0.0.0/8 等</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/security-configuration/network-access-item.cpp" line="57"/>
+        <source>eg: 192.168.1.10 or 10.0.0.0/8</source>
+        <translation>例：192.168.1.10 或 10.0.0.0/8</translation>
     </message>
 </context>
 <context>
@@ -2487,14 +2495,24 @@ It mainly includes four modules: user management, node management, image and ima
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="473"/>
-        <source>4</source>
-        <translation>4</translation>
+        <location filename="../src/pages/outline/outline-view.cpp" line="481"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="537"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="545"/>
+        <source>0</source>
+        <translation>0</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="481"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="545"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="592"/>
+        <source>0G</source>
+        <translation>0G</translation>
+    </message>
+    <message>
+        <source>4</source>
+        <translation type="vanished">4</translation>
+    </message>
+    <message>
         <source>1</source>
-        <translation>1</translation>
+        <translation type="vanished">1</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="494"/>
@@ -2507,9 +2525,8 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>容器总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="537"/>
         <source>2</source>
-        <translation>2</translation>
+        <translation type="vanished">2</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="558"/>
@@ -2527,9 +2544,8 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>镜像总容量：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="592"/>
         <source>3.9G</source>
-        <translation>3.9G</translation>
+        <translation type="vanished">3.9G</translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-view.cpp" line="612"/>
@@ -2940,8 +2956,8 @@ It mainly includes four modules: user management, node management, image and ima
 <context>
     <name>SecurityListItem</name>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-list-item.h" line="96"/>
+        <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="26"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-list-item.h" line="100"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -3338,49 +3354,49 @@ It mainly includes four modules: user management, node management, image and ima
 <context>
     <name>WarningListView</name>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="44"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="45"/>
         <source>Container Name</source>
         <translation>容器名</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="45"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="46"/>
         <source>Current Node</source>
         <translation>当前节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="46"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="47"/>
         <source>Warning Status</source>
         <translation>告警状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="47"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="48"/>
         <source>Warning Content</source>
         <translation>告警内容</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="48"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="49"/>
         <source>Upadate Times</source>
         <translation>更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="49"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="50"/>
         <source>Operation</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="52"/>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="66"/>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="192"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="53"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="67"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="193"/>
         <source>Readed</source>
         <translation>已读</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="75"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="76"/>
         <source>Ignore</source>
         <translation>忽略</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="194"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="195"/>
         <source>Unread</source>
         <translation>未读</translation>
     </message>

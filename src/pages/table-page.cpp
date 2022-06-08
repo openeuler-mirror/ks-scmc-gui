@@ -614,8 +614,8 @@ void TablePage::search()
             return;
         }
         //sort
-        ui->tableView->sortByColumn(0);
         ui->label_search_tips->clear();
+        setHeaderCheckable(true);
         //adjustTableSize();
     }
 }

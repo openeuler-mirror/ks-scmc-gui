@@ -37,6 +37,8 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
             [this](QString text) {
                 if (!text.isEmpty())
                     m_timer->start();
+                else
+                    ui->lab_error_tips->hide();
             });
 }
 
@@ -78,7 +80,7 @@ void SecurityListItem::checkPath()
     QString path = ui->lineEdit->text();
     if (!path.isEmpty())
     {
-        QRegExp regExp("^\/(\\w+\/?)+$");
+        QRegExp regExp("^/(\\w+/?)+$");
         if (regExp.exactMatch(path))
             m_isPathCorrect = true;
         else
