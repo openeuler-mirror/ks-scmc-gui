@@ -6,6 +6,7 @@ ContainerInfoPage::ContainerInfoPage(QWidget *parent) : TabPage(parent), m_monit
 {
     createSubPage(CONTAINER_INFO_SUB_PAGE_TYPE_MONITOR);
     createSubPage(CONTAINER_INFO_SUB_PAGE_TYPE_BACKUP);
+    connect(this, &ContainerInfoPage::sigTabBarClicked, this, &ContainerInfoPage::updatePageInfo);
 }
 
 void ContainerInfoPage::setContainerInfo(QMap<QString, QVariant> infoMap)
@@ -43,4 +44,8 @@ void ContainerInfoPage::updatePageInfo(int index)
 {
     if (index == CONTAINER_INFO_SUB_PAGE_TYPE_MONITOR)
         m_monitor->updateMonitorInfo(m_infoMap.value(NODE_ID).toInt(), m_infoMap.value(CONTAINER_ID).toString().toStdString());
+    else if (index == CONTAINER_INFO_SUB_PAGE_TYPE_BACKUP)
+        m_containerBackup->updateBackupList(m_infoMap.value(NODE_ID, -1).toInt(),
+                                            m_infoMap.value(CONTAINER_ID, "").toString().toStdString(),
+                                            m_infoMap.value(CONTAINER_STATUS, "").toString());
 }
