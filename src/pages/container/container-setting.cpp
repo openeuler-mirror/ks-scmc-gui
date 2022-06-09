@@ -531,7 +531,7 @@ void ContainerSetting::createContainer()
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
                                tr("Memory soft limit can't be greater than the maximum limit !"),
-                               tr(":/images/error.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }

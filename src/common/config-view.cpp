@@ -150,22 +150,22 @@ void ConfigDelegate::sendSaveSlot(ConfigOperateWidget *pCurWidget)
 
     if (m_pEditFirst[row]->text().isEmpty() && !m_pEditSecond[row]->text().isEmpty())
     {
-        std::string str = "Please enter variable";
+        QString str = tr("Please enter variable name");
         if (CONFIG_TABLE_TYPE_VOLUMES == m_ChooseTable)
-            str = "Please enter container path";
+            str = tr("Please enter container path");
         MessageDialog::message(tr("Save Data"),
                                tr("Data is empty!"),
-                               tr(str.data()),
+                               str,
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
     if (CONFIG_TABLE_TYPE_VOLUMES == m_ChooseTable && m_pEditSecond[row]->text().isEmpty() && !m_pEditFirst[row]->text().isEmpty())
     {
-        std::string str = "Please enter host path";
+        QString str = tr("Please enter host path");
         MessageDialog::message(tr("Save Data"),
                                tr("Data is empty!"),
-                               tr(str.data()),
+                               str,
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         return;
