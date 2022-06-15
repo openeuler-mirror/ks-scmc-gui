@@ -3,8 +3,9 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QTimer>
 #include "message-dialog.h"
-
+#define TIMEOUT 60000
 using namespace grpc;
 
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
@@ -17,6 +18,10 @@ ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
     initTable();
     initButtons();
     initConnect();
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, [this] {
+        updateInfo();
+    });
 }
 
 ContainerBackupPage::~ContainerBackupPage()
@@ -31,6 +36,11 @@ ContainerBackupPage::~ContainerBackupPage()
         delete m_backupEditDlg;
         m_backupEditDlg = nullptr;
     }
+    if (m_timer)
+    {
+        delete m_timer;
+        m_timer = nullptr;
+    }
 }
 
 void ContainerBackupPage::updateInfo(QString keyword)
@@ -43,6 +53,7 @@ void ContainerBackupPage::updateInfo(QString keyword)
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            m_timer->start(TIMEOUT);
         }
     }
 }
