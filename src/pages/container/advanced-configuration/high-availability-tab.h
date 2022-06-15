@@ -24,7 +24,6 @@ private slots:
 
 private:
     void initUI();
-    bool m_isVisible;
 
 private:
     Ui::HighAvailabilityTab *ui;
