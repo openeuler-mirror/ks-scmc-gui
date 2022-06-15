@@ -24,6 +24,7 @@ void HighAvailabilityTab::setRestartPolicy(container::RestartPolicy *cfg)
         auto index = ui->cb_high_avail_policy->findData(cfg->name().data());
         ui->cb_high_avail_policy->setCurrentIndex(index);
         ui->lineEdit_times->setText(QString("%1").arg(cfg->max_retry()));
+        onCbActivated(ui->cb_high_avail_policy->currentText());
     }
 }
 
@@ -42,20 +43,13 @@ void HighAvailabilityTab::getRestartPolicy(container::RestartPolicy *cfg)
 void HighAvailabilityTab::onCbActivated(QString text)
 {
     if (text == tr("on-failure"))
-    {
-        if (m_isVisible == false)
-            setLineEditVisible(true);
-    }
+        setLineEditVisible(true);
     else
-    {
-        if (m_isVisible == true)
-            setLineEditVisible(false);
-    }
+        setLineEditVisible(false);
 }
 
 void HighAvailabilityTab::setLineEditVisible(bool visible)
 {
-    m_isVisible = visible;
     ui->lab_auto_pull_time->setVisible(visible);
     ui->lineEdit_times->setVisible(visible);
     ui->lab_time->setVisible(visible);
@@ -69,7 +63,8 @@ void HighAvailabilityTab::initUI()
     ui->cb_high_avail_policy->addItem(tr("on-failure"), "on-failure");
     ui->cb_high_avail_policy->addItem(tr("unless-stopped"), "unless-stopped");
 
-    ui->lineEdit_times->setValidator(new QIntValidator(0, 20, this));
+    ui->lineEdit_times->setValidator(new QIntValidator(0, 65535, this));
+    ui->lineEdit_times->setPlaceholderText("0-65535");
 
     connect(ui->cb_high_avail_policy, QOverload<const QString &>::of(&QComboBox::activated), this, &HighAvailabilityTab::onCbActivated);
 }
