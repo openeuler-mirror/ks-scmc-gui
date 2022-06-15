@@ -42,6 +42,7 @@ private:
     std::string m_containerId;
     QString m_containerStatus;
     int64_t m_updateBackupId;
+    QTimer *m_timer;
 };
 
 #endif  // CONTAINERBACKUPPAGE_H
