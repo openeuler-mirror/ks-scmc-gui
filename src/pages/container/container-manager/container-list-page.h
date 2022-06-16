@@ -22,8 +22,7 @@ public:
     void operateAreaVisible(bool visible);
 
 private slots:
-    void
-    onBtnRun();
+    void onBtnRun();
     void onBtnRun(QModelIndex index);
     void onBtnStop();
     void onBtnStop(QModelIndex index);

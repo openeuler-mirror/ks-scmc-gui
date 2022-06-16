@@ -88,6 +88,7 @@ signals:
     void sigItemClicked(const QModelIndex &index);
     void sigItemEntered(const QModelIndex &index);  //鼠标进入item
     void sigUpdatePaging(int);                      //更新页面
+    void sigHasRunningCtn(bool);
 
 private slots:
     void onMonitor(int row);
