@@ -80,7 +80,7 @@ void SecurityListItem::checkPath()
     QString path = ui->lineEdit->text();
     if (!path.isEmpty())
     {
-        QRegExp regExp("^/(\\w+/?(\.?[A-Za-z]*)*)+$");
+        QRegExp regExp("^/(\\w+/?)+$");
         if (regExp.exactMatch(path))
             m_isPathCorrect = true;
         else
