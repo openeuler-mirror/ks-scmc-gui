@@ -209,7 +209,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
                 QString color = status.second;
                 QString state = status.first;
                 std::string strCntrCnt = "-/-";
-                std::string strCpuPct = "-";
+                QString strCpuPct = "-";
                 std::string strMemPct = "-";
                 std::string strDiskSize = "-";
                 if (node.has_status())
@@ -226,7 +226,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
                     {
                         char str[128]{};
                         sprintf(str, "%0.1f%%", status.cpu_stat().used() * 100);
-                        strCpuPct = std::string(str);
+                        strCpuPct = QString("%1 (%2 %3)").arg(str).arg(node.rsc_limit().cpu_limit()).arg(tr("core"));
                     }
 
                     if (status.has_mem_stat())
@@ -243,13 +243,12 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
                         strDiskSize = std::string(str);
                     }
                 }
-
                 QStandardItem *itemStatus = new QStandardItem(state);
                 itemStatus->setForeground(QBrush(QColor(color)));
                 itemStatus->setTextAlignment(Qt::AlignCenter);
                 QStandardItem *itemCntrCnt = new QStandardItem(strCntrCnt.data());
                 itemCntrCnt->setTextAlignment(Qt::AlignCenter);
-                QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
+                QStandardItem *itemCpu = new QStandardItem(strCpuPct);
                 itemCpu->setTextAlignment(Qt::AlignCenter);
                 QStandardItem *itemMem = new QStandardItem(strMemPct.data());
                 itemMem->setTextAlignment(Qt::AlignCenter);
