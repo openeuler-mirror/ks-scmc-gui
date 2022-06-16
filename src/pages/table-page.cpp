@@ -153,6 +153,7 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
     {
         m_model->setItem(row, i, items.at(i));
         items.at(i)->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+        //items.at(i)->setToolTip(items.at(i)->text());
     }
     //adjustTableSize();
 }
@@ -633,13 +634,24 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
     {
         if (changeItem->isCheckable())
         {
-            if (m_singleChoose)
+            bool hasRunningCtn = false;
+            for (int i = 0; i < m_model->rowCount(); i++)
             {
-                if (changeItem->checkState() == Qt::Checked)
+                auto item = m_model->item(i, 0);
+                auto nameItem = m_model->item(item->row(), 1);
+                if (nameItem)
                 {
-                    for (int i = 0; i < m_model->rowCount(); i++)
+                    auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
+                    if (infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked)
                     {
-                        auto item = m_model->item(i, 0);
+                        hasRunningCtn = true;
+                    }
+                }
+
+                if (m_singleChoose)
+                {
+                    if (changeItem->checkState() == Qt::Checked)
+                    {
                         if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
                         {
                             item->setCheckState(Qt::Unchecked);
@@ -652,6 +664,8 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
             if (num > 0)
             {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+                emit sigHasRunningCtn(hasRunningCtn);
+
                 if (num == m_model->rowCount())
                     m_headerView->setCheckState(true);
                 else
@@ -692,6 +706,17 @@ void TablePage::onHeaderCkbTog(bool toggled)
                 item->setCheckState(Qt::Checked);
             else
                 item->setCheckState(Qt::Unchecked);
+
+            auto nameItem = m_model->item(item->row(), 1);
+            auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
+            if (infoMap.value(CONTAINER_STATUS).toString() == "running")
+            {
+                KLOG_INFO() << "set delete btu status" << item->checkState();
+                if (item->checkState() == Qt::Checked)
+                    emit sigHasRunningCtn(true);
+                else
+                    emit sigHasRunningCtn(false);
+            }
         }
     }
 }
