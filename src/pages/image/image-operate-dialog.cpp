@@ -3,6 +3,8 @@
 #include <widget-property-helper.h>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QRegExpValidator>
+#include <QToolTip>
 #include "common/message-dialog.h"
 #include "ui_image-operate-dialog.h"
 ImageOperateDialog::ImageOperateDialog(ImageOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
@@ -46,10 +48,20 @@ void ImageOperateDialog::initUI()
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowModality(Qt::ApplicationModal);
     setTitle(tr("Image Operate"));
-    setFixedSize(600, 500);
+    setFixedSize(700, 600);
     setResizeable(false);
     setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btnSave, Kiran::BUTTON_Default);
+
+    ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
+    ui->btn_tip_name->setToolTip(tr("Only lowercase, digit or ._- three special characters;\nThe first and last characters cannot be special characters"));
+    ui->btn_tip_version->setIcon(QIcon(":/images/tips.svg"));
+    ui->btn_tip_version->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
+
+    ui->lineEditName->setMaxLength(50);
+    ui->lineEditName->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->lineEditVersion->setMaxLength(20);
+    ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 20 characters"));
 
     QPushButton *imageFileBtn = new QPushButton(this);
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectImage);
@@ -81,9 +93,9 @@ void ImageOperateDialog::UploadParamDeal()
     QString imageFile = ui->lineEditImageFile->text();
     QString signFile = ui->lineEditImageSign->text();
 
-    if (name.isEmpty() || version.isEmpty() || desc.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
+    if (name.isEmpty() || version.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
     {
-        KLOG_INFO() << name << version << desc << imageFile << signFile;
+        KLOG_INFO() << name << version << imageFile << signFile;
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image failed!"),
                                tr("Please improve the content!"),
@@ -116,6 +128,26 @@ void ImageOperateDialog::updateParamDeal()
     if ((!imageFile.isEmpty() && !signFile.isEmpty()) ||
         (imageFile.isEmpty() && signFile.isEmpty() && !desc.isEmpty()))
     {
+        if (!imageFile.isEmpty() && !signFile.isEmpty())
+        {
+            QFile fileImage(imageFile);
+            QFile fileSign(signFile);
+
+            if (!fileImage.open(QIODevice::ReadOnly))
+            {
+                ui->label_tip_image->setText(tr("Can't open image file!"));
+                return;
+            }
+            else if (!fileSign.open(QIODevice::ReadOnly))
+            {
+                ui->label_tip_sign->setText(tr("Can't open signature file!"));
+                return;
+            }
+
+            fileImage.close();
+            fileSign.close();
+        }
+
         QMap<QString, QString> updateInfo;
         updateInfo.insert("Image Id", imageId);
         updateInfo.insert("Image Name", name);
@@ -128,11 +160,18 @@ void ImageOperateDialog::updateParamDeal()
     }
     else
     {
-        MessageDialog::message(tr("Update Image"),
-                               tr("Update Image failed!"),
-                               tr("Please improve the content!"),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
+        if (imageFile.isEmpty())
+            ui->label_tip_image->setText(tr("Please input correct image file!"));
+        else if (signFile.isEmpty())
+            ui->label_tip_sign->setText(tr("Please input correct signature file!"));
+        else if (desc.isEmpty())
+            ui->label_tip_desc->setText(tr("Please input the description of image!"));
+
+        //        MessageDialog::message(tr("Update Image"),
+        //                               tr("Update Image failed!"),
+        //                               tr("Please improve the content!"),
+        //                               ":/images/warning.svg",
+        //                               MessageDialog::StandardButton::Ok);
         return;
     }
 }
@@ -192,6 +231,12 @@ void ImageOperateDialog::selectSign()
 
 void ImageOperateDialog::onSave()
 {
+    ui->label_tip_image->clear();
+    ui->label_tip_sign->clear();
+    ui->label_tip_desc->clear();
+    ui->label_tip_name->clear();
+    ui->label_tip_version->clear();
+
     switch (m_type)
     {
     case IMAGE_OPERATE_TYPE_UPLOAD:
