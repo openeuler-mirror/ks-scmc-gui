@@ -12,6 +12,11 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : QW
     setWindowIcon(QIcon(":/images/logo.png"));
     setWindowTitle(tr("Add Node"));
     ui->lineEdit_node_name->setFocus();
+    ui->lineEdit_node_name->setMaxLength(50);
+    ui->lineEdit_node_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->lineEdit_node_comment->setMaxLength(200);
+    ui->lineEdit_node_comment->setPlaceholderText(tr("Please input 0 to 200 characters"));
+
     if (type == NODE_OPERATE_TYPE_CREATE)
         setWindowTitle(tr("Add Node"));
     else
