@@ -7,7 +7,7 @@
 #define TIMEOUT 1000
 SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(parent),
                                                                     ui(new Ui::SecurityListItem),
-                                                                    m_isPathCorrect(false)
+                                                                    m_isPathCorrect(true)
 {
     ui->setupUi(this);
     ui->label_name->setText(text);
@@ -35,10 +35,14 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
             });
     connect(ui->lineEdit, &QLineEdit::textChanged,
             [this](QString text) {
+                ui->lineEdit->setToolTip(tooptipWordWrap(text));
                 if (!text.isEmpty())
                     m_timer->start();
                 else
+                {
+                    m_isPathCorrect = true;
                     ui->lab_error_tips->hide();
+                }
             });
 }
 
@@ -75,12 +79,20 @@ bool SecurityListItem::getPathCorrect()
     return m_isPathCorrect;
 }
 
+void SecurityListItem::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::EnabledChange)
+    {
+        ui->lineEdit->setCursorPosition(0);
+    }
+}
+
 void SecurityListItem::checkPath()
 {
     QString path = ui->lineEdit->text();
     if (!path.isEmpty())
     {
-        QRegExp regExp("^/(\\w+/?)+$");
+        QRegExp regExp("^/.+$");
         if (regExp.exactMatch(path))
             m_isPathCorrect = true;
         else
@@ -88,4 +100,43 @@ void SecurityListItem::checkPath()
 
         ui->lab_error_tips->setVisible(!m_isPathCorrect);
     }
+}
+
+QString SecurityListItem::tooptipWordWrap(const QString &org)
+{
+    QString result;
+    QFontMetrics fm(fontMetrics());
+    int textWidthInPxs = fm.width(org);
+    const int rear = org.length();
+    int pre = 0, vernier = 1;
+    unsigned int pickUpWidthPxs = 0;
+    QString pickUp;
+    unsigned int curLen = 0;
+
+    if (textWidthInPxs <= width())
+    {
+        result = org;
+        return result;
+    }
+
+    while (vernier <= rear)
+    {
+        curLen = vernier - pre;
+        pickUp = org.mid(pre, curLen);
+        pickUpWidthPxs = fm.width(pickUp);
+        if (pickUpWidthPxs >= width())
+        {
+            result += pickUp + "\n";  // 插入换行符，或者使用<br/>标签
+            pre = vernier;
+            pickUpWidthPxs = 0;
+        }
+        ++vernier;
+    }
+
+    if (pickUpWidthPxs < width() && !pickUp.isEmpty())
+    {
+        result += pickUp;
+    }
+
+    return result;
 }

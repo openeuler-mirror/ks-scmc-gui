@@ -542,13 +542,37 @@ void ContainerSetting::createContainer()
     auto securityCfg = cntrCfg->mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    fileProtectPage->getSecurityListInfo(securityCfg);
+    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    processProtectPage->getSecurityListInfo(securityCfg);
+    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    netProcessProtectPage->getSecurityListInfo(securityCfg);
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
     networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
@@ -562,6 +586,7 @@ void ContainerSetting::createContainer()
 void ContainerSetting::updateContainer()
 {
     container::UpdateRequest request;
+    ErrorCode ret;
     request.set_node_id(m_containerIds.first);
     request.set_container_id(m_containerIds.second.toStdString());
 
@@ -570,7 +595,16 @@ void ContainerSetting::updateContainer()
     cpuPage->getCPUInfo(rsrcCfg);
 
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    memoryPage->getMemoryInfo(rsrcCfg);
+    ret = memoryPage->getMemoryInfo(rsrcCfg);
+    if (ret == INPUT_ARG_ERROR)
+    {
+        MessageDialog::message(tr("Memory Data"),
+                               tr("Input error"),
+                               tr("Memory soft limit can't be greater than the maximum limit !"),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto policy = request.mutable_restart_policy();
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
@@ -585,13 +619,37 @@ void ContainerSetting::updateContainer()
     auto securityCfg = request.mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    fileProtectPage->getSecurityListInfo(securityCfg);
+    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    processProtectPage->getSecurityListInfo(securityCfg);
+    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    netProcessProtectPage->getSecurityListInfo(securityCfg);
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
     networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
@@ -678,13 +736,36 @@ void ContainerSetting::createTemplate()
     auto securityCfg = cntrCfg->mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    fileProtectPage->getSecurityListInfo(securityCfg);
-
+    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    processProtectPage->getSecurityListInfo(securityCfg);
+    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    netProcessProtectPage->getSecurityListInfo(securityCfg);
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
     networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
@@ -771,13 +852,37 @@ void ContainerSetting::updateTemplate()
     auto securityCfg = cntrCfg->mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    fileProtectPage->getSecurityListInfo(securityCfg);
+    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    processProtectPage->getSecurityListInfo(securityCfg);
+    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    netProcessProtectPage->getSecurityListInfo(securityCfg);
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    {
+        MessageDialog::message(windowTitle(),
+                               tr("Input error"),
+                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
     networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
