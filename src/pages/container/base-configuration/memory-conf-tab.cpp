@@ -14,7 +14,7 @@ MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
     ui->lineEdit_soft_limit->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_max_limit->setTextMargins(10, 0, 0, 0);
 
-    QRegExp regExp("[0-9]+.?[0-9]*");
+    QRegExp regExp("[0-9]+\\.?[0-9]+");
     ui->lineEdit_soft_limit->setValidator(new QRegExpValidator(regExp));
     ui->lineEdit_max_limit->setValidator(new QRegExpValidator(regExp));
 }
