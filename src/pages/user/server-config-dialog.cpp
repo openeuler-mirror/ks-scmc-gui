@@ -27,7 +27,6 @@ ServerConfigDialog::~ServerConfigDialog()
 
 QString ServerConfigDialog::getServerInfo()
 {
-    //10.200.12.181:10060
     QString server;
     if (!m_ip.isEmpty() && !m_port.isEmpty())
         server = m_ip + ":" + m_port;

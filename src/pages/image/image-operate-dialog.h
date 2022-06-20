@@ -52,6 +52,7 @@ private slots:
     void selectSign();
     void onSave();
     void onCancel();
+    void limitLength();
 
 private:
     Ui::ImageOperateDialog *ui;
