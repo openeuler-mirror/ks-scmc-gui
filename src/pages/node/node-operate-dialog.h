@@ -1,6 +1,7 @@
 #ifndef NODEOPERATEDIALOG_H
 #define NODEOPERATEDIALOG_H
 
+#include <kiran-titlebar-window.h>
 #include <QWidget>
 
 namespace Ui
@@ -14,7 +15,7 @@ enum NodeOperateType
     NODE_OPERATE_TYPE_EDIT
 };
 
-class NodeOperateDialog : public QWidget
+class NodeOperateDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
 
@@ -31,6 +32,7 @@ signals:
 private slots:
     void onSave();
     void onCancel();
+    void limitLength();
 
 private:
     Ui::NodeOperateDialog *ui;
