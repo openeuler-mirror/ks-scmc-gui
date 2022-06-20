@@ -608,56 +608,6 @@ TemplateListPage #btnRemove:disabled
     background:#393939;
 }
 
-/***************************NodeOperateDialog******************/
-NodeOperateDialog
-{
-    background-color:#ffffff;
-}
-NodeOperateDialog QLabel
-{
-    color:#000000;
-    font-size:14px;
-}
-NodeOperateDialog QLineEdit
-{
-    border:1px solid #E4E7ED;
-    border-radius:6px;
-    color:#000000;
-}
-NodeOperateDialog QLineEdit:disabled
-{
-    background-color:#F0F0F0;
-}
-NodeOperateDialog #btn_save
-{
-    background-color:#409EFF;
-    border: 1px solid #409EFF;
-    border-radius: 6px;
-    color:#ffffff;
-    font-size:14px;
-}
-NodeOperateDialog #btn_save:hover
-{
-    background-color:#66B1FF;
-}
-NodeOperateDialog #btn_cancel
-{
-    background-color:#ffffff;
-    border: 1px solid #E4E7ED;
-    border-radius: 6px;
-    color:#000000;
-    font-size:14px;
-}
-NodeOperateDialog #btn_cancel:hover
-{
-    background-color:#EBEEF5;
-}
-NodeOperateDialog #btn_save:focus,NodeOperateDialog #btn_cancel:focus
-{
-    outline: none;
-}
-
-
 /******************************ConfigTable**************************/
 ConfigTable #tableView
 {
@@ -1084,7 +1034,8 @@ ImageOperateDialog QToolButton#btn_tip_version
     border:none;
 }
 
-ImageOperateDialog QTextEdit#textDesc
+ImageOperateDialog QTextEdit#textDesc,
+NodeOperateDialog QTextEdit#browser_comment
 {
     color:#ffffff;
     font-size:14px;
@@ -1092,7 +1043,8 @@ ImageOperateDialog QTextEdit#textDesc
     border-radius:6px;
     padding-right：10px;
 }
-ImageOperateDialog QTextEdit#textDesc:focus
+ImageOperateDialog QTextEdit#textDesc:focus,
+NodeOperateDialog QTextEdit#browser_comment:focus
 {
     border:1px solid #2eb3ff ;
 }
