@@ -132,15 +132,15 @@ void ContainerSetting::setTemplateList(QMultiMap<int, QPair<int, QString>> templ
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
 {
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(ev);
-    if (obj == ui->btn_add && mouseEvent->type() == QEvent::MouseButtonPress)
+    if (obj == ui->btn_tab_add && mouseEvent->type() == QEvent::MouseButtonPress)
     {
-        int x = ui->btn_add->width() / 2 - m_addMenu->sizeHint().width() / 2;
-        int y = -m_addMenu->sizeHint().height() - 2;
+        int x = ui->btn_tab_add->width() / 2 - m_addMenu->sizeHint().width() / 2;
+        int y = ui->btn_tab_add->height() + 2;
         QPoint menuPos(x, y);
-        m_addMenu->popup(ui->btn_add->mapToGlobal(menuPos));
+        m_addMenu->popup(ui->btn_tab_add->mapToGlobal(menuPos));
         return true;
     }
-    return false;
+    return QWidget::eventFilter(obj, ev);
 }
 
 void ContainerSetting::initUI()
@@ -160,9 +160,9 @@ void ContainerSetting::initUI()
 
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
     ui->tabWidget->setAttribute(Qt::WA_StyledBackground);
-    ui->btn_add->setIcon(QIcon(":/images/addition.svg"));
-    ui->btn_add->setText(tr("Add"));
-    ui->btn_add->installEventFilter(this);
+    ui->btn_tab_add->setIcon(QIcon(":/images/addition.svg"));
+    ui->btn_tab_add->setText(tr("Add"));
+    ui->btn_tab_add->installEventFilter(this);
     m_addMenu = new QMenu(this);
     QAction *act = m_addMenu->addAction(tr("Network"));
     act->setData(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD);
