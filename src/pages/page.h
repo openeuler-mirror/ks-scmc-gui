@@ -10,7 +10,8 @@ class Page : public QWidget
     Q_OBJECT
 public:
     explicit Page(QWidget *parent = nullptr);
-    ~Page() = default;
+    ~Page();
+    void setMaskParent(QWidget *parent);
     void setBusy(bool);
     void setData(QVariant data);
     QVariant getData();
