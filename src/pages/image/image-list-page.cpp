@@ -512,6 +512,8 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
     //    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
+    updateInfo();
+    emit sigUpdateTipSums();
 }
 
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
