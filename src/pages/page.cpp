@@ -4,9 +4,24 @@
 #include "mask-widget.h"
 Page::Page(QWidget *parent) : QWidget(parent), m_maskWidget(nullptr), m_data(QVariant())
 {
-    m_maskWidget = new MaskWidget(this);
+    m_maskWidget = new MaskWidget();
     m_maskWidget->setFixedSize(this->size());  //设置窗口大小
     //this->stackUnder(qobject_cast<QWidget *>(m_maskWidget));
+}
+
+Page::~Page()
+{
+    if (m_maskWidget)
+    {
+        delete m_maskWidget;
+        m_maskWidget = nullptr;
+    }
+}
+
+//调用setbusy之前设置加载动画类父控件，只有指定了父控件，动画才能显示在对应的控件上
+void Page::setMaskParent(QWidget *parent)
+{
+    m_maskWidget->setParent(parent);
 }
 
 void Page::setBusy(bool status)
@@ -34,7 +49,7 @@ void Page::resizeEvent(QResizeEvent *event)
     {
         m_maskWidget->setAutoFillBackground(true);
         QPalette pal = m_maskWidget->palette();
-        pal.setColor(QPalette::Background, QColor(0x00, 0x00, 0x00, 0x20));
+        pal.setColor(QPalette::Background, QColor(186, 186, 186, 50));
         m_maskWidget->setPalette(pal);
         m_maskWidget->setFixedSize(this->size());
     }
