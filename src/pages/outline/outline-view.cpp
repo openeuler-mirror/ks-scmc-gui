@@ -245,6 +245,16 @@ void OutlineView::updateInfo(QString keyword)
     //    m_outlineCell_image->ui->Name_counts->setText("666");
 }
 
+QString OutlineView::getApproveSums()
+{
+    return m_outlineCell_examine->ui->Name_counts->text();
+}
+
+QString OutlineView::getWarningSums()
+{
+    return m_outlineCell_warning->ui->Name_counts->text();
+}
+
 void OutlineView::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;

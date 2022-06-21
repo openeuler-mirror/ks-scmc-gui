@@ -117,7 +117,8 @@ void LogListView::getLogList(LogListPageType type, int page_on)
 
     QDateTime time = QDateTime::currentDateTime();
     //    QString end = time.toString("yyyy/MM/dd hh:mm:ss");
-    request.set_end_time(m_xEnd.toSecsSinceEpoch());
+    // 结束时间加一天，到结束当天的23:59:59时，否则当天的日志无法获取
+    request.set_end_time(m_xEnd.toSecsSinceEpoch() + 86399);
 
     //    request.set_node_id(1);
     switch (type)
