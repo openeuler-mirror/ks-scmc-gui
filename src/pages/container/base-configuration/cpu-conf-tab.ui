@@ -133,6 +133,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_cpu_core</tabstop>
+  <tabstop>cb_sche_pri</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
