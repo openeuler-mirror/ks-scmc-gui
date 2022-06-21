@@ -34,6 +34,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     //初始化表格
     initTable();
     initConnect();
+    setMaskParent(this);
 
     m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
     m_statusMap.insert(CONTAINER_STATUS_EXITED, QPair<QString, QString>(tr("Offline"), "#d30000"));
