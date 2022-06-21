@@ -186,6 +186,7 @@
  <tabstops>
   <tabstop>lineEdit_node_name</tabstop>
   <tabstop>lineEdit_node_ip</tabstop>
+  <tabstop>text_comment</tabstop>
   <tabstop>btn_save</tabstop>
   <tabstop>btn_cancel</tabstop>
  </tabstops>

@@ -130,6 +130,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cb_high_avail_policy</tabstop>
+  <tabstop>lineEdit_times</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

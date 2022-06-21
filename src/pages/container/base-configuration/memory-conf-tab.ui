@@ -161,6 +161,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_soft_limit</tabstop>
+  <tabstop>cb_soft_unit</tabstop>
+  <tabstop>lineEdit_max_limit</tabstop>
+  <tabstop>cb_max_unit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

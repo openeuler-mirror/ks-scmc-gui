@@ -479,6 +479,19 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>cb_template</tabstop>
+  <tabstop>lineEdit_name</tabstop>
+  <tabstop>lineEdit_describe</tabstop>
+  <tabstop>cb_node</tabstop>
+  <tabstop>listwidget_base_config</tabstop>
+  <tabstop>listWidget_advanced_config</tabstop>
+  <tabstop>listWidget_security_config</tabstop>
+  <tabstop>btn_add</tabstop>
+  <tabstop>btn_confirm</tabstop>
+  <tabstop>btn_cancel</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
