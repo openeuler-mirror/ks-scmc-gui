@@ -18,10 +18,15 @@ void BubbleTipButton::setTipMsg(int num)
 {
     KLOG_INFO() << "setTipMsg:" << num;
     m_tipMsg = num;
+    QString text;
     QFont font;
-    font.setPixelSize(14);
+    font.setPixelSize(12);
     QFontMetrics fm(font);
-    m_bubbleWidth = fm.width(QString::number(num)) + 10;
+    if (m_tipMsg > 99)
+        text = "99+";
+    else
+        text = QString::number(m_tipMsg);
+    m_bubbleWidth = fm.width(text) + 10;
 }
 
 int BubbleTipButton::getTipMsgNum()
@@ -42,16 +47,20 @@ void BubbleTipButton::paintEvent(QPaintEvent *event)
 
     if (m_tipMsg > 0)
     {
+        painter.setRenderHint(QPainter::Antialiasing, true);
         painter.setPen(Qt::red);
         painter.setBrush(QBrush(Qt::red));
         QFont font;
-        font.setPixelSize(14);
+        font.setPixelSize(12);
 
         painter.drawEllipse(rt1);
         //painter.drawRect(rt1);
         painter.setPen(Qt::white);
         painter.setFont(font);
-        painter.drawText(rt1, Qt::AlignCenter, QString::number(m_tipMsg));
+        if (m_tipMsg < 100)
+            painter.drawText(rt1, Qt::AlignCenter, QString::number(m_tipMsg));
+        else
+            painter.drawText(rt1, Qt::AlignCenter, "99+");
     }
 
     QStyleOption opt;
