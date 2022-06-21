@@ -36,6 +36,7 @@ void AuditListPage::createSubPage(AuditListPageType type)
         m_imagelist_approve->setOperateAreaVisible(true);
         addTabPage(m_imagelist_approve,tr("Wait for Approve"));
         connect(m_imagelist_approve,&ImageListPage::sigUpdateAuditInfo,this,&AuditListPage::updateAuditInfo);
+        connect(m_imagelist_approve,&ImageListPage::sigUpdateTipSums,this,&AuditListPage::sigUpdateTipSums);
         break;
     }
     case AUDIT_PASSED:

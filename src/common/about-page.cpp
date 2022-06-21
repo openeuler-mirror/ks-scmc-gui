@@ -65,7 +65,13 @@ void AboutPage::initUI()
                         "color:#ffffff;"
                         "font:NotoSansCJKsc-Regular;"
                         "font-size:14px;}");
-    info->setText(QString("ks-scmc-gui: %1,").arg(getVersion(SCMC_GUI_VERSION_FILE_PATH)) + QString(" ks-scmc: %1").arg(getVersion(SCMC_VERSION_FILE_PATH)));
+    QString ksScmcGuiVersion = getVersion(SCMC_GUI_VERSION_FILE_PATH);
+    QString ksScmcVersion = getVersion(SCMC_VERSION_FILE_PATH);
+
+    if (ksScmcVersion == "")
+        info->setText(QString("ks-scmc-gui: %1,").arg(ksScmcGuiVersion) + QString(" ks-scmc: %1").arg("(none)"));
+    else
+        info->setText(QString("ks-scmc-gui: %1,").arg(ksScmcGuiVersion) + QString(" ks-scmc: %1").arg(ksScmcVersion));
     info->setAlignment(Qt::AlignCenter);
 
     QLabel *license = new QLabel(aboutWidget);
