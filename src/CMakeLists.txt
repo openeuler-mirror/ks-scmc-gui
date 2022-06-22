@@ -48,7 +48,9 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Charts
         Qt5::DBus
         ${KIRAN_WIDGETS_QT5_LIBRARIES}
-        ${KLOG_QT5_LIBRARIES})
+        ${KLOG_QT5_LIBRARIES}
+        ${GRPCXX_LIBRARIES}
+        ${PROTOBUF_LIBRARIES})
 
 install(FILES ${QM_FILES}
     DESTINATION ${TRANSLATIONS_DIR})
