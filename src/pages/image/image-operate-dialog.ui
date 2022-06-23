@@ -95,7 +95,7 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QToolButton" name="btn_tip_version">
+        <widget class="ToolTipButton" name="btn_tip_version">
          <property name="minimumSize">
           <size>
            <width>16</width>
@@ -117,7 +117,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QToolButton" name="btn_tip_name">
+        <widget class="ToolTipButton" name="btn_tip_name">
          <property name="minimumSize">
           <size>
            <width>16</width>
@@ -355,6 +355,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ToolTipButton</class>
+   <extends>QToolButton</extends>
+   <header location="global">tool-tip-button.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>lineEditName</tabstop>
   <tabstop>lineEditVersion</tabstop>
