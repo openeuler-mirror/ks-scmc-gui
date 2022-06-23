@@ -1,5 +1,6 @@
 /***********************MainWindow************************/
-QLabel
+QLabel,
+QLineEdit
 {
     font-size:14px;
 }
