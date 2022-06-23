@@ -210,11 +210,14 @@ void LoginDialog::initMessageBox()
     m_activate_page_box = new KiranMessageBox(this);
     QPushButton *activeButton = new QPushButton(tr("Active"));
     activeButton->setStyleSheet("QPushButton{"
-                                "color:black;"
+                                "color:#FFFFFF;"
                                 "font:NotoSansCJKsc-Regular;"
                                 "font-size:14px;"
-                                "border-radius:4px;"
-                                "background:rgba(255,255,255,255);}");
+                                "border-radius:8px;"
+                                "background:#43A3F2;}"
+                                "QPushButton:hover{"
+                                "background:#79C3FF;"
+                                "border:4px;}");
     activeButton->setFocusPolicy(Qt::NoFocus);
     m_activate_page_box->addButton(activeButton, QDialogButtonBox::AcceptRole);
     m_activate_page_box->setButtonSize(QSize(80, 30));
@@ -225,11 +228,14 @@ void LoginDialog::initMessageBox()
     m_dbusErrorBox->setWindowFlag(Qt::WindowStaysOnTopHint);
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setStyleSheet("QPushButton{"
-                            "color:black;"
+                            "color:#FFFFFF;"
                             "font:NotoSansCJKsc-Regular;"
                             "font-size:14px;"
-                            "border-radius:4px;"
-                            "background:rgba(255,255,255,255);}");
+                            "border-radius:8px;"
+                            "background:#43A3F2;}"
+                            "QPushButton:hover{"
+                            "background:#79C3FF;"
+                            "border:4px;}");
     okButton->setFocusPolicy(Qt::NoFocus);
     m_dbusErrorBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
