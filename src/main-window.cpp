@@ -165,6 +165,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
+    setTitle(tr("KylinSec Container System V1(Security Version)"));
     //创建消息提示按钮
     m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
     m_btnTransmission->setObjectName("btn_transmission");
@@ -372,9 +373,9 @@ void MainWindow::changePage(int)
 void MainWindow::onUpdateTipsSums()
 {
     m_outline->updateInfo();
-//    QThread::sleep(5);
-//    int a = m_outline->getWarningSums().toInt();
-//    setWarningTipNums(m_outline->getWarningSums().toInt());
+    //    QThread::sleep(5);
+    //    int a = m_outline->getWarningSums().toInt();
+    //    setWarningTipNums(m_outline->getWarningSums().toInt());
 }
 
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
