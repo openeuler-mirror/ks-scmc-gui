@@ -119,7 +119,8 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
     }
     QString currenItemData = currItem->data(Qt::UserRole).toString();
 
-    setPageName(guideItem->getItemText());
+    if (!m_groupMap.contains(currItem))
+        setPageName(guideItem->getItemText());
     if (guideItem->getItemText() == GENERAL_OUTLINE)
     {
         m_outline->updateInfo();
