@@ -111,6 +111,17 @@ void ImageOperateDialog::UploadParamDeal()
         return;
     }
 
+    if (!checkFileOpenable(imageFile))
+    {
+        ui->label_tip_image->setText(tr("Can't open image file!"));
+        return;
+    }
+    if (!checkFileOpenable(signFile))
+    {
+        ui->label_tip_sign->setText(tr("Can't open signature file!"));
+        return;
+    }
+
     QMap<QString, QString> uploadInfo;
     uploadInfo.insert("Image Name", name);
     uploadInfo.insert("Image Version", version);
@@ -230,6 +241,19 @@ QString ImageOperateDialog::ChooseFile(QString nameFilter)
     }
 
     return file;
+}
+
+bool ImageOperateDialog::checkFileOpenable(QString fileName)
+{
+    bool ret = false;
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly))
+    {
+        ret = true;
+    }
+
+    file.close();
+    return ret;
 }
 
 void ImageOperateDialog::selectImage()
