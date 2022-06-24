@@ -12,9 +12,14 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
     setAttribute(Qt::WA_DeleteOnClose);
     setIcon(QIcon(":/images/logo.png"));
     setTitle(tr("Add Node"));
+    setResizeable(false);
+    setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
+
     ui->lineEdit_node_name->setFocus();
     ui->lineEdit_node_name->setMaxLength(50);
     ui->lineEdit_node_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->lineEdit_node_name->setTextMargins(10, 0, 10, 0);
+    ui->lineEdit_node_ip->setTextMargins(10, 0, 10, 0);
     ui->text_comment->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     if (type == NODE_OPERATE_TYPE_CREATE)
