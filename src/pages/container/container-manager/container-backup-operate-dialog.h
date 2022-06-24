@@ -23,6 +23,9 @@ public:
     explicit ContainerBackupOperateDialog(BackupOperateType type, QWidget *parent = nullptr);
     ~ContainerBackupOperateDialog();
 
+private:
+    void limitLength();
+
 signals:
     void sigSave(BackupOperateType type, QString desc);
 

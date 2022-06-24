@@ -41,6 +41,7 @@ private:
     void UploadParamDeal();
     void updateParamDeal();
     QString ChooseFile(QString nameFilter);
+    bool checkFileOpenable(QString fileName);
 
 signals:
     void sigUploadSave(QMap<QString, QString>);
