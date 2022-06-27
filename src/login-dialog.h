@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/login-dialog.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef LOGIN_DIALOG_H
 #define LOGIN_DIALOG_H
 

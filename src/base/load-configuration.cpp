@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/base/load-configuration.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "load-configuration.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QSettings>

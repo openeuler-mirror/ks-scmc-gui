@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-operate-widget.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "config-operate-widget.h"
 #include "ui_config-operate-widget.h"
 

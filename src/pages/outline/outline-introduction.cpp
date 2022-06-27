@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-introduction.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "outline-introduction.h"
 #include "ui_outline-introduction.h"
 

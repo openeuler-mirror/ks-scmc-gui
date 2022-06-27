@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/image/image-list-page.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "image-list-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>

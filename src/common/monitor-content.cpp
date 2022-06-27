@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/monitor-content.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "monitor-content.h"
 #include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
