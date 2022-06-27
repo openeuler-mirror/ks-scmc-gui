@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/audit/warning-list/warning-list-view.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef WARNING_LIST_VIEW_H
 #define WARNING_LIST_VIEW_H
 

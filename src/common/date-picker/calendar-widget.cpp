@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/date-picker/calendar-widget.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "calendar-widget.h"
 
 #include <QLabel>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-table.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONFIGTABLE_H
 #define CONFIGTABLE_H
 

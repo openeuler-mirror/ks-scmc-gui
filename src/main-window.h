@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/main-window.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

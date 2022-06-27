@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/container-manager/container-info-page.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "container-info-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include "container-backup-page.h"

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/image/transmission-list.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef TRANSMISSIONLIST_H
 #define TRANSMISSIONLIST_H
 #include <QListWidget>
