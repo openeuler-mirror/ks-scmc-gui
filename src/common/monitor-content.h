@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/monitor-content.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef MONITOR_CONTENT_H
 #define MONITOR_CONTENT_H
 

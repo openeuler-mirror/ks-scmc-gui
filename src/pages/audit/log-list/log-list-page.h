@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/audit/log-list/log-list-page.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef LOGLISTPAGE_H
 #define LOGLISTPAGE_H
 

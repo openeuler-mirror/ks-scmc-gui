@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-cell.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef OUTLINECELL_H
 #define OUTLINECELL_H
 

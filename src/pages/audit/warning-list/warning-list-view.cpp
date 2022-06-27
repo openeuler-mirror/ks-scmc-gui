@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/audit/warning-list/warning-list-view.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "warning-list-view.h"
 #include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>

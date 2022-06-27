@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/advanced-configuration/high-availability-tab.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef HIGHAVAILABILITYTAB_H
 #define HIGHAVAILABILITYTAB_H
 

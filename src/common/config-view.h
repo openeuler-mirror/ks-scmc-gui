@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-view.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONFIGVIEW_H
 #define CONFIGVIEW_H
 

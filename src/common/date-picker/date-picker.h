@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/date-picker/date-picker.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef DATEPICKER_H
 #define DATEPICKER_H
 

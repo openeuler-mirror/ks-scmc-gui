@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/security-configuration/network-access-item.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "network-access-item.h"
 #include <kiran-log/qt5-log-i.h>
 #include "ui_network-access-item.h"

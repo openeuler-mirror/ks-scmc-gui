@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/main.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-single-application.h>
 #include <kiranwidgets-qt5/kiran-message-box.h>
