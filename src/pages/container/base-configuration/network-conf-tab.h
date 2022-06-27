@@ -1,4 +1,10 @@
-﻿#ifndef NETWORKCONFTAB_H
+﻿/**
+ * @file          /ks-scmc-gui/src/pages/container/base-configuration/network-conf-tab.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+#ifndef NETWORKCONFTAB_H
 #define NETWORKCONFTAB_H
 
 #include <QWidget>

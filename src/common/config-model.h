@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-model.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONFIGMODEL_H
 #define CONFIGMODEL_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/header-view.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "header-view.h"
 #include <QMouseEvent>
 #include <QPainter>

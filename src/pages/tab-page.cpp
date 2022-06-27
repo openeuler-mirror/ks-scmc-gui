@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/tab-page.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "tab-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QPainter>

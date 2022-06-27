@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-view.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef OUTLINEVIEW_H
 #define OUTLINEVIEW_H
 

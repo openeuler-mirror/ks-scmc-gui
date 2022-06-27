@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/dbus/dbus-utils.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef DBUSUTILS_H
 #define DBUSUTILS_H
 

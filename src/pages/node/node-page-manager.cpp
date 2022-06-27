@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/node/node-page-manager.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "node-page-manager.h"
 #include <kiran-log/qt5-log-i.h>
 #include "node-info-page.h"
@@ -37,7 +43,7 @@ void NodePageManager::createStackedPage(NodePageType type, QString key)
 void NodePageManager::updateInfo(QString keyword)
 {
     setCurrentPage(NODE_PAGE_TYPE_NODE_LIST);
-    updateCurrentPage();
+    updateCurrentPage(keyword);
 }
 
 void NodePageManager::onNodeNameClicked(qint64 nodeId)

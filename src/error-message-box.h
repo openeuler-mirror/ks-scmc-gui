@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/error-message-box.h
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef ERROR_MESSAGE_BOX_H
 #define ERROR_MESSAGE_BOX_H
 

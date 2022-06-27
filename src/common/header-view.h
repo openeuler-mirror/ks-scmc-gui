@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/header-view.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef HEADERVIEW_H
 #define HEADERVIEW_H
 

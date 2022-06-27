@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/image/transmission-list.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "transmission-list.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QLabel>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-view.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "outline-view.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QLabel>

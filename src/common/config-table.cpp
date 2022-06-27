@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-table.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "config-table.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QDebug>

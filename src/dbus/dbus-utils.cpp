@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/dbus/dbus-utils.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "dbus-utils.h"
 
 #include <kiran-log/qt5-log-i.h>

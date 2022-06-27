@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/base/load-configuration.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef LOADCONFIGURATION_H
 #define LOADCONFIGURATION_H
 

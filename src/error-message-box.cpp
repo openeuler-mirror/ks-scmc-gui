@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/error-message-box.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "error-message-box.h"
 
 #include <kiran-log/qt5-log-i.h>

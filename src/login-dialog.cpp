@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/login-dialog.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "login-dialog.h"
 #include <cryptopp/base64.h>
 #include <cryptopp/des.h>

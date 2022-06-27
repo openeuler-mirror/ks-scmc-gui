@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-status-icon.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "outline-status-icon.h"
 
 OutlineStatusIcon::OutlineStatusIcon(QString color, int x, int y, QWidget *parent ) : QWidget(parent)

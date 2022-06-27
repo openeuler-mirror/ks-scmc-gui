@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/base/user-configuration.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "user-configuration.h"
 #include <cryptopp/base64.h>
 #include <cryptopp/des.h>
