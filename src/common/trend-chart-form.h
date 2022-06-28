@@ -22,8 +22,8 @@ struct ChartInfo
     QString xFormat = "";
     int xTickCount = 11;
     QString yTitle = "";
-    double yStart;
-    double yEnd;
+    double yStart = 0.0;
+    double yEnd = 0.0;
     QString yFormat = "%d";
     int yTickCount = 11;
 };
