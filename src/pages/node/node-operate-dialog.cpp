@@ -17,7 +17,6 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
     ui->setupUi(getWindowContentWidget());
     setAttribute(Qt::WA_DeleteOnClose);
     setIcon(QIcon(":/images/logo.png"));
-    setTitle(tr("Add Node"));
     setResizeable(false);
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     setWindowModality(Qt::ApplicationModal);
@@ -30,10 +29,10 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
     ui->text_comment->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     if (type == NODE_OPERATE_TYPE_CREATE)
-        setWindowTitle(tr("Add Node"));
+        setTitle(tr("Add Node"));
     else
     {
-        setWindowTitle(tr("Update Node"));
+        setTitle(tr("Update Node"));
         ui->lineEdit_node_ip->setDisabled(true);
     }
 
