@@ -809,5 +809,11 @@ void TablePage::pageEditChage()
     if (page <= m_totalPages && page >= 1)
         updatePaging(page);
     else
-        clearTable();
+//        clearTable();
+    {
+        // 跳转至最后一页
+        updatePaging(m_totalPages);
+        // 设置输入框文本为最后一页
+        m_pageEdit->setText(QString::number(m_totalPages));
+    }
 }
