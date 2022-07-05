@@ -55,6 +55,7 @@ public:
     void setHeaderSections(QStringList names);
     void setHeaderCheckable(bool checkable);
     void setTableDefaultContent(QString text);
+    void setSearchableCol(int col);
     void clearText();
     int getTableRowCount();
     QStandardItem *getItem(int row, int col);
@@ -132,6 +133,7 @@ private:
 
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
+    bool m_isHeadCheckable;
     bool m_singleChoose;
     bool m_isSetTableActions;
     QLineEdit *m_pageEdit;  // 分页编辑框
@@ -139,6 +141,7 @@ private:
     bool m_isOpenPaging;
     QHBoxLayout *m_pagingHlayout;
     QLabel *m_totalPageLabel;
+    int m_searchCol;
 };
 
 #endif  // TABLEPAGE_H

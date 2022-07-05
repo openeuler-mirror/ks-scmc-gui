@@ -26,9 +26,11 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
                                                       ui(new Ui::TablePage),
                                                       m_searchTimer(nullptr),
                                                       m_refreshBtnTimer(nullptr),
+                                                      m_isHeadCheckable(false),
                                                       m_singleChoose(false),
                                                       m_isSetTableActions(false),
-                                                      m_pageEdit(nullptr)
+                                                      m_pageEdit(nullptr),
+                                                      m_searchCol(1)
 {
     ui->setupUi(this);
     initUI();
@@ -221,6 +223,7 @@ void TablePage::setHeaderSections(QStringList names)
 
 void TablePage::setHeaderCheckable(bool checkable)
 {
+    m_isHeadCheckable = checkable;
     m_headerView->setCheckable(checkable);
 }
 
@@ -237,6 +240,11 @@ void TablePage::setTableDefaultContent(QString text)
     //        item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     //        m_model->setItem(0, i, item);
     //    }
+}
+
+void TablePage::setSearchableCol(int col)
+{
+    m_searchCol = col;
 }
 
 void TablePage::clearText()
@@ -324,7 +332,6 @@ void TablePage::updatePaging(int page_no)
 
 void TablePage::initUI()
 {
-    ui->lineEdit_search->setPlaceholderText(tr("Please enter the keyword"));
     ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
     ui->btn_refresh->installEventFilter(this);
 
@@ -642,7 +649,7 @@ void TablePage::search()
         int rowCounts = m_model->rowCount();
         for (int i = 0; i < rowCounts; i++)
         {
-            QStandardItem *item = m_model->item(i, 1);
+            QStandardItem *item = m_model->item(i, m_searchCol);
             if (!item->text().contains(text))
             {
                 ui->tableView->setRowHidden(i, true);
@@ -658,12 +665,14 @@ void TablePage::search()
             ui->label_search_tips->setText(tr("No search results were found!"));
             //ui->tableView->setFixedHeight(120);
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-            setHeaderCheckable(false);
+            if (m_isHeadCheckable)
+                m_headerView->setCheckable(false);
             return;
         }
         //sort
         ui->label_search_tips->clear();
-        setHeaderCheckable(true);
+        if (m_isHeadCheckable)
+            m_headerView->setCheckable(true);
         //adjustTableSize();
     }
 }
