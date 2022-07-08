@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/table-page.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -16,6 +16,7 @@
 #include <iostream>
 #include "common/button-delegate.h"
 #include "common/header-view.h"
+#include "info-worker.h"
 #include "ui_table-page.h"
 
 using namespace std;
@@ -247,9 +248,17 @@ void TablePage::setSearchableCol(int col)
     m_searchCol = col;
 }
 
+void TablePage::setTips(QString text)
+{
+    if (isBusy())
+        setBusy(false);
+    ui->label_tips->setText(text);
+    m_timerID = this->startTimer(10000);  //10秒后提示消失
+}
+
 void TablePage::clearText()
 {
-    ui->label_search_tips->clear();
+    ui->label_tips->clear();
     ui->lineEdit_search->clear();
 }
 
@@ -332,6 +341,7 @@ void TablePage::updatePaging(int page_no)
 
 void TablePage::initUI()
 {
+    setMaskParent(this);
     ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
     ui->btn_refresh->installEventFilter(this);
 
@@ -434,9 +444,9 @@ void TablePage::initPaging()
 void TablePage::adjustTableSize()
 {
     //    int tableHeight = m_model->rowCount() * 60 + 40;
-    //    int tableAreaHeight = this->height() - 20 - 32 - ui->label_search_tips->height();
+    //    int tableAreaHeight = this->height() - 20 - 32 - ui->label_tips->height();
 
-    //    KLOG_INFO() << "this->height= " << this->height() << "tips->height = " << ui->label_search_tips->height() << "tableAreaHeight  = " << tableAreaHeight;
+    //    KLOG_INFO() << "this->height= " << this->height() << "tips->height = " << ui->label_tips->height() << "tableAreaHeight  = " << tableAreaHeight;
     //    KLOG_INFO() << "tableHeight  = " << tableHeight;
 
     //    //height = m_model->rowCount() * 60 + 40 + 20 + 32;  // row height+ header height + space
@@ -532,6 +542,15 @@ void TablePage::mouseMoveEvent(QMouseEvent *event)
     QCursor cur = this->cursor();
     if (cur != Qt::ArrowCursor)
         this->setCursor(Qt::ArrowCursor);
+}
+
+void TablePage::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == m_timerID)
+    {
+        ui->label_tips->clear();
+        killTimer(m_timerID);
+    }
 }
 
 void TablePage::onMonitor(int row)
@@ -662,7 +681,7 @@ void TablePage::search()
         }
         if (resultCount == 0)
         {
-            ui->label_search_tips->setText(tr("No search results were found!"));
+            ui->label_tips->setText(tr("No search results were found!"));
             //ui->tableView->setFixedHeight(120);
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
             if (m_isHeadCheckable)
@@ -670,7 +689,7 @@ void TablePage::search()
             return;
         }
         //sort
-        ui->label_search_tips->clear();
+        ui->label_tips->clear();
         if (m_isHeadCheckable)
             m_headerView->setCheckable(true);
         //adjustTableSize();
@@ -818,7 +837,7 @@ void TablePage::pageEditChage()
     if (page <= m_totalPages && page >= 1)
         updatePaging(page);
     else
-//        clearTable();
+    //        clearTable();
     {
         // 跳转至最后一页
         updatePaging(m_totalPages);

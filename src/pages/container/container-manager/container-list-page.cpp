@@ -42,7 +42,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     initConnect();
 
     //FIXME:以后在多出调用的maskwidget情况下，在updateInfo中调用该函数
-    setMaskParent(this);
+    //setMaskParent(this);
 
     m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
     m_statusMap.insert(CONTAINER_STATUS_EXITED, QPair<QString, QString>(tr("Offline"), "#d30000"));
@@ -390,10 +390,16 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         }
         else
         {
-            if (reply.first.error_code() == PERMISSION_DENIED)
+            if (PERMISSION_DENIED == reply.first.error_code())
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             else
+            {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+                if (DEADLINE_EXCEEDED == reply.first.error_code())
+                {
+                    setTips(tr("Response timeout!"));
+                }
+            }
             setHeaderCheckable(false);
             setTableDefaultContent("-");
         }
@@ -704,10 +710,10 @@ void ContainerListPage::getTemplateList()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
+    setBusy(true);
     std::vector<int64_t> vecNodeId;
     if (nodeId < 0)
     {
-        setBusy(true);
         InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取所有容器
     }
     else
@@ -789,8 +795,4 @@ void ContainerListPage::updateInfo(QString keyword)
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         timedRefresh(true);
     }
-}
-
-void ContainerListPage::operateAreaVisible(bool visible)
-{
 }
