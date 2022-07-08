@@ -155,6 +155,7 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     //    request.set_page_no(1);
     //    request.set_sort_by("aa");
     //    request.set_sort_desc(true);
+    setBusy(true);
     InfoWorker::getInstance().listRuntimeLogging(m_objId, request);
 }
 
@@ -167,6 +168,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
     KLOG_INFO() << "getListRuntime" << m_objId << objId;
     if (m_objId == objId)
     {
+        setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
@@ -296,6 +298,10 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
             KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
             setTableDefaultContent("-");
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
+            {
+                setTips(tr("Response timeout!"));
+            }
         }
     }
 }

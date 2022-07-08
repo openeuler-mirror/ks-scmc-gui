@@ -11,6 +11,8 @@
 #include <QMutexLocker>
 #include <QUuid>
 #include <QtConcurrent/QtConcurrent>
+#define DEADLINE 20000
+
 static std::string s_authKey = "";
 
 const int CHUNK_SIZE = 1024 * 1024;
@@ -25,22 +27,29 @@ const int CHUNK_SIZE = 1024 * 1024;
         delete watcher;                                                     \
     });
 
-#define RPC_IMPL(REPLY_TYPE, STUB, RPC_NAME)                                \
-    QPair<grpc::Status, REPLY_TYPE> r;                                      \
-    auto chan = get_rpc_channel(UserConfiguration::getServerAddr());        \
-    if (!chan)                                                              \
-    {                                                                       \
-        KLOG_INFO("%s %s failed to get connection", #STUB, #RPC_NAME);      \
-        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,                   \
-                               QObject::tr("Network Error").toStdString()); \
-        return r;                                                           \
-    }                                                                       \
-    grpc::ClientContext ctx;                                                \
-    if (s_authKey.size() > 0)                                               \
-        ctx.AddMetadata("authorization", s_authKey);                        \
-    r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                   \
-    if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())       \
-        emit InfoWorker::getInstance().sessinoExpire();                     \
+#define RPC_IMPL(REPLY_TYPE, STUB, RPC_NAME)                                                \
+    QPair<grpc::Status, REPLY_TYPE> r;                                                      \
+    auto chan = get_rpc_channel(UserConfiguration::getServerAddr());                        \
+    if (!chan)                                                                              \
+    {                                                                                       \
+        KLOG_INFO("%s %s failed to get connection", #STUB, #RPC_NAME);                      \
+        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,                                   \
+                               QObject::tr("Network Error").toStdString());                 \
+        return r;                                                                           \
+    }                                                                                       \
+    grpc::ClientContext ctx;                                                                \
+    auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE); \
+    ctx.set_deadline(deadline);                                                             \
+    if (s_authKey.size() > 0)                                                               \
+        ctx.AddMetadata("authorization", s_authKey);                                        \
+    r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                                   \
+    if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())                       \
+        emit InfoWorker::getInstance().sessinoExpire();                                     \
+    else if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())                   \
+    {                                                                                       \
+        r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,                         \
+                               QObject::tr("Response timeout").toStdString());              \
+    }                                                                                       \
     return r;
 
 InfoWorker::InfoWorker(QObject *parent) : QObject(parent)
@@ -325,7 +334,7 @@ void InfoWorker::readWarnLogging(const QString objId, QList<int64_t> ids)
     {
         req.add_ids(id);
     }
-    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId,req);
+    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId, req);
 }
 
 void InfoWorker::listNetwork(const QString objId, const int64_t node_id)
@@ -1001,9 +1010,16 @@ QPair<grpc::Status, user::LoginReply> InfoWorker::_login(const user::LoginReques
         return r;
     }
     grpc::ClientContext ctx;
+    auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE);
+    ctx.set_deadline(deadline);
     r.first = user::User::NewStub(chan)->Login(&ctx, req, &r.second);
     if (r.first.ok())
         s_authKey = r.second.auth_key();
+    if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())
+    {
+        r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
+                               QObject::tr("Response timeout").toStdString());
+    }
     return r;
 }
 
@@ -1019,11 +1035,18 @@ QPair<grpc::Status, user::LogoutReply> InfoWorker::_logout(const user::LogoutReq
         return r;
     }
     grpc::ClientContext ctx;
+    auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE);
+    ctx.set_deadline(deadline);
     if (s_authKey.size() > 0)
         ctx.AddMetadata("authorization", s_authKey);
     r.first = user::User::NewStub(chan)->Logout(&ctx, req, &r.second);
     if (r.first.ok())
         s_authKey = "";
+    if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())
+    {
+        r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
+                               QObject::tr("Response timeout").toStdString());
+    }
     return r;
 }
 
