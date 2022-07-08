@@ -35,6 +35,11 @@ void Page::setBusy(bool status)
     m_maskWidget->setMaskVisible(status);
 }
 
+bool Page::isBusy()
+{
+    m_maskWidget->maskIsVisible();
+}
+
 void Page::setData(QVariant data)
 {
     m_data = data;

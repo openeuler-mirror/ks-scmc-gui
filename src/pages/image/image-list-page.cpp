@@ -17,6 +17,8 @@
 #include "common/message-dialog.h"
 #include "def.h"
 
+using namespace grpc;
+
 ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_pImageOp(nullptr)
 {
     is_init_audit_btn = flag;
@@ -204,6 +206,7 @@ int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, 
 
 void ImageListPage::getImageList()
 {
+    setBusy(true);
     InfoWorker::getInstance().listDBImage(m_objId);
 }
 
@@ -527,6 +530,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
     KLOG_INFO() << "getListDBResult" << m_objId << objId;
     if (m_objId == objId)
     {
+        setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
@@ -630,6 +634,10 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
             KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
             setTableDefaultContent("-");
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (DEADLINE_EXCEEDED == reply.first.error_code())
+            {
+                setTips(tr("Response timeout!"));
+            }
         }
     }
 }

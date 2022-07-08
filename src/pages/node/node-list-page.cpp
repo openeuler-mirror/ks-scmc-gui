@@ -176,6 +176,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
     KLOG_INFO() << "getNodeListResult" << m_objId << objId;
     if (m_objId == objId)
     {
+        setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
@@ -274,7 +275,13 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
             if (reply.first.error_code() == PERMISSION_DENIED)
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             else
+            {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+                if (DEADLINE_EXCEEDED == reply.first.error_code())
+                {
+                    setTips(tr("Response timeout!"));
+                }
+            }
             setTableDefaultContent("-");
             setHeaderCheckable(false);
         }
@@ -429,6 +436,7 @@ void NodeListPage::initNodeConnect()
 
 void NodeListPage::getNodeList()
 {
+    setBusy(true);
     InfoWorker::getInstance().listNode(m_objId);
 }
 

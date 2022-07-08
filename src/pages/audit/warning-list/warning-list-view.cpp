@@ -141,6 +141,7 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
     }
 
     request.set_page_no(page_on);
+    setBusy(true);
     InfoWorker::getInstance().listWarnLogging(m_ObjId, request);
 }
 
@@ -154,6 +155,7 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
     KLOG_INFO() << "getListWarning" << m_ObjId << objId;
     if (m_ObjId == objId)
     {
+        setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
@@ -239,6 +241,10 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
             KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
             setTableDefaultContent("-");
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
+            {
+                setTips(tr("Response timeout!"));
+            }
         }
     }
 }
