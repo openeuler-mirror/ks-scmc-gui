@@ -6,7 +6,6 @@
  */
 #include "config-model.h"
 #include <kiran-log/qt5-log-i.h>
-#include <QDebug>
 
 ConfigModel::ConfigModel(QStringList &head)
 {
