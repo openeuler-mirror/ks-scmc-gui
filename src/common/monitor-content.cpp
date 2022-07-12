@@ -250,7 +250,7 @@ void MonitorContent::onCycleChanged(int index)
             m_xFormat = "dd hh:mm";
             m_xStart = startDate;
             m_xEnd = currDate;
-            m_xInterval = 1 * 60;
+            m_xInterval = 1 * 30;
             m_xTitle = tr("Time particle density(%1 hour)").arg(m_xInterval / 60);
             break;
         case CHART_CYCLE_ONE_WEEK:
