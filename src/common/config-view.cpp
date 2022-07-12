@@ -6,7 +6,6 @@
  */
 #include "config-view.h"
 #include <kiran-log/qt5-log-i.h>
-#include <QDebug>
 #include "common/message-dialog.h"
 #include "config-group.h"
 #include "config-operate-widget.h"
