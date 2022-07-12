@@ -224,12 +224,12 @@
 <context>
     <name>ConfigDelegate</name>
     <message>
-        <location filename="../src/common/config-view.cpp" line="24"/>
+        <location filename="../src/common/config-view.cpp" line="23"/>
         <source>ReadWrite</source>
         <translation>读写</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="25"/>
+        <location filename="../src/common/config-view.cpp" line="24"/>
         <source>ReadOnly</source>
         <translation>只读</translation>
     </message>
@@ -238,29 +238,29 @@
         <translation type="vanished">请输入值</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="159"/>
+        <location filename="../src/common/config-view.cpp" line="158"/>
         <source>Please enter variable name</source>
         <translation>请输入变量名</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="161"/>
+        <location filename="../src/common/config-view.cpp" line="160"/>
         <source>Please enter container path</source>
         <translation>请输入容器路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="162"/>
-        <location filename="../src/common/config-view.cpp" line="172"/>
+        <location filename="../src/common/config-view.cpp" line="161"/>
+        <location filename="../src/common/config-view.cpp" line="171"/>
         <source>Save Data</source>
         <translation>保存数据</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="163"/>
-        <location filename="../src/common/config-view.cpp" line="173"/>
+        <location filename="../src/common/config-view.cpp" line="162"/>
+        <location filename="../src/common/config-view.cpp" line="172"/>
         <source>Data is empty!</source>
         <translation>数据为空！</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="171"/>
+        <location filename="../src/common/config-view.cpp" line="170"/>
         <source>Please enter host path</source>
         <translation>请输入宿主机路径</translation>
     </message>
@@ -286,29 +286,29 @@
         <translation>配置表</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="49"/>
         <source>Container path</source>
         <translation>容器路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="49"/>
         <source>Host path</source>
         <translation>主机路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
-        <location filename="../src/common/config-table.cpp" line="52"/>
+        <location filename="../src/common/config-table.cpp" line="49"/>
+        <location filename="../src/common/config-table.cpp" line="51"/>
         <source>Permission</source>
         <translation>允许</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
-        <location filename="../src/common/config-table.cpp" line="52"/>
+        <location filename="../src/common/config-table.cpp" line="49"/>
+        <location filename="../src/common/config-table.cpp" line="51"/>
         <source>Quick Actions</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="52"/>
+        <location filename="../src/common/config-table.cpp" line="51"/>
         <source>Variable name</source>
         <translation>变量名</translation>
     </message>
@@ -317,7 +317,7 @@
         <translation type="vanished">名字</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="52"/>
+        <location filename="../src/common/config-table.cpp" line="51"/>
         <source>Value</source>
         <translation>值</translation>
     </message>
@@ -1886,37 +1886,52 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="175"/>
+        <location filename="../src/main-window.cpp" line="179"/>
+        <source>Quit Application</source>
+        <translation>退出程序</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="180"/>
+        <source>There are threads that have not finished!</source>
+        <translation>存在正在运行的线程！</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="181"/>
+        <source>Please wait for the thread to end before closing!</source>
+        <translation>请等待线程执行完成后退出！</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="236"/>
         <source>KylinSec Container System V1(Security Version)</source>
         <translation>麒麟信安容器系统V1（安全版）</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="181"/>
+        <location filename="../src/main-window.cpp" line="242"/>
         <source>Transmission</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="190"/>
+        <location filename="../src/main-window.cpp" line="251"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="198"/>
+        <location filename="../src/main-window.cpp" line="259"/>
         <source>Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="216"/>
+        <location filename="../src/main-window.cpp" line="277"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="217"/>
+        <location filename="../src/main-window.cpp" line="278"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="219"/>
+        <location filename="../src/main-window.cpp" line="280"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -2828,148 +2843,148 @@ It mainly includes four modules: user management, node management, image and ima
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="976"/>
-        <location filename="../src/common/message-dialog.cpp" line="112"/>
+        <location filename="../src/common/message-dialog.cpp" line="111"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="984"/>
-        <location filename="../src/common/message-dialog.cpp" line="100"/>
+        <location filename="../src/common/message-dialog.cpp" line="99"/>
         <source>OK</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="101"/>
+        <location filename="../src/common/message-dialog.cpp" line="100"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="102"/>
+        <location filename="../src/common/message-dialog.cpp" line="101"/>
         <source>Save All</source>
         <translation>保存所有</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="103"/>
+        <location filename="../src/common/message-dialog.cpp" line="102"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="104"/>
+        <location filename="../src/common/message-dialog.cpp" line="103"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="105"/>
+        <location filename="../src/common/message-dialog.cpp" line="104"/>
         <source>Yes to All</source>
         <translation>全部是</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="106"/>
+        <location filename="../src/common/message-dialog.cpp" line="105"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="107"/>
+        <location filename="../src/common/message-dialog.cpp" line="106"/>
         <source>No to All</source>
         <translation>全部否</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="108"/>
+        <location filename="../src/common/message-dialog.cpp" line="107"/>
         <source>Abort</source>
         <translation>中断</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="109"/>
+        <location filename="../src/common/message-dialog.cpp" line="108"/>
         <source>Retry</source>
         <translation>重试</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="110"/>
+        <location filename="../src/common/message-dialog.cpp" line="109"/>
         <source>Ignore</source>
         <translation>忽略</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="111"/>
+        <location filename="../src/common/message-dialog.cpp" line="110"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="113"/>
+        <location filename="../src/common/message-dialog.cpp" line="112"/>
         <source>Discard</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="114"/>
+        <location filename="../src/common/message-dialog.cpp" line="113"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="115"/>
+        <location filename="../src/common/message-dialog.cpp" line="114"/>
         <source>Apply</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="116"/>
+        <location filename="../src/common/message-dialog.cpp" line="115"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/common/message-dialog.cpp" line="117"/>
+        <location filename="../src/common/message-dialog.cpp" line="116"/>
         <source>Restore Defaults</source>
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="36"/>
+        <location filename="../src/main-window.cpp" line="33"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="37"/>
+        <location filename="../src/main-window.cpp" line="34"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="38"/>
+        <location filename="../src/main-window.cpp" line="35"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="39"/>
+        <location filename="../src/main-window.cpp" line="36"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="40"/>
+        <location filename="../src/main-window.cpp" line="37"/>
         <source>Audit Center</source>
         <translation>审计中心</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="41"/>
+        <location filename="../src/main-window.cpp" line="38"/>
         <source>Audit Apply List</source>
         <translation>审核列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="42"/>
+        <location filename="../src/main-window.cpp" line="39"/>
         <source>Audit Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="43"/>
+        <location filename="../src/main-window.cpp" line="40"/>
         <source>Audit Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="44"/>
+        <location filename="../src/main-window.cpp" line="41"/>
         <source>Image Manager</source>
         <translation>镜像管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="45"/>
+        <location filename="../src/main-window.cpp" line="42"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="46"/>
+        <location filename="../src/main-window.cpp" line="43"/>
         <source>System Manager</source>
         <translation>系统管理</translation>
     </message>
