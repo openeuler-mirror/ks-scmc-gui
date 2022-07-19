@@ -32,7 +32,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     //折线图
     for (auto iter = chartInfo.seriesInfo.begin(); iter != chartInfo.seriesInfo.end(); iter++)
     {
-        QLineSeries *series = new QLineSeries();
+        QSplineSeries *series = new QSplineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(2);
@@ -40,7 +40,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
         series->setPen(pen);          //折现序列的线条设置
         series->setName(iter.key());  //legend中的文字
         chart->addSeries(series);
-        connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
+        connect(series, &QSplineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
     }
 
     QFont font;
@@ -86,6 +86,16 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     }
 }
 
+void TrendChartForm::clearChart()
+{
+    QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
+    foreach (auto series, serieses)
+    {
+        QSplineSeries *ser = qobject_cast<QSplineSeries *>(series);
+        ser->clear();
+    }
+}
+
 void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames)
 {
     KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
@@ -106,7 +116,7 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
     QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
     foreach (auto series, serieses)
     {
-        QLineSeries *ser = qobject_cast<QLineSeries *>(series);
+        QSplineSeries *ser = qobject_cast<QSplineSeries *>(series);
         if (ser->name() == seriesNames)
         {
             KLOG_INFO() << ser->name();
@@ -166,12 +176,14 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
         font.setPixelSize(14);
         QFontMetrics fm(font);
         auto width = fm.width(QString::number(point.y()));
+        auto yValue = point.y();
+        yValue = point.y() > 0 ? yValue : 0;
         if (m_yAxis->labelFormat().contains("%d%%"))
         {
-            m_valueLabel->setText(QString::number(point.y()) + "%");
+            m_valueLabel->setText(QString::number(yValue) + "%");
         }
         else
-            m_valueLabel->setText(QString::number(point.y()));
+            m_valueLabel->setText(QString::number(yValue));
         m_valueLabel->setFixedWidth(width + 16);
 
         QPoint curPos = mapFromGlobal(QCursor::pos());
