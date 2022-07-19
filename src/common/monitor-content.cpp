@@ -35,11 +35,9 @@ MonitorContent::MonitorContent(QWidget *parent, int nodeId, std::string containe
                                                                                        m_datePicker(nullptr)
 {
     ui->setupUi(this);
+    m_objId = InfoWorker::getInstance().generateId(this);
     initUI();
     initChart();
-
-    m_objId = InfoWorker::getInstance().generateId(this);
-
     connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult, Qt::UniqueConnection);
 }
 
@@ -55,6 +53,7 @@ MonitorContent::~MonitorContent()
 
 void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
 {
+    clearChartPoint();
     if (nodeId >= 0)
     {
         m_nodeId = nodeId;
@@ -142,6 +141,14 @@ void MonitorContent::initChart()
 
     if (m_nodeId > 0)
         InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
+}
+
+void MonitorContent::clearChartPoint()
+{
+    m_cpuChartForm->clearChart();
+    m_memoryChartForm->clearChart();
+    m_diskChartForm->clearChart();
+    m_netChartForm->clearChart();
 }
 
 void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle, QString yformate)
