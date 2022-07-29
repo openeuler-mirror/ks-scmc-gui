@@ -8,16 +8,22 @@ import "security.proto";
 package container;
 
 service Container {
+    // 查询容器列表
     rpc List(ListRequest) returns (ListReply) {}
+    // 创建新容器
     rpc Create(CreateRequest) returns (CreateReply) {}
+    // 查看容器配置
     rpc Inspect(InspectRequest) returns (InspectReply) {}
+    // 开始运行容器
     rpc Start(StartRequest) returns (StartReply) {}
+    // 停止运行容器
     rpc Stop(StopRequest) returns (StopReply) {}
+    // 删除容器
     rpc Remove(RemoveRequest) returns (RemoveReply) {}
+    // 重启容器
     rpc Restart(RestartRequest) returns (RestartReply) {}
+    // 更新容器配置
     rpc Update(UpdateRequest) returns (UpdateReply) {}
-    rpc Kill(KillRequest) returns (KillReply) {}
-    rpc Status(StatusRequest) returns (StatusReply) {}
 
     // 容器备份客户端接口
     rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}  // 创建备份
@@ -31,11 +37,16 @@ service Container {
     rpc GetBackupJob(GetBackupJobRequest) returns (GetBackupJobReply) {}
     rpc DelBackupJob(DelBackupJobRequest) returns (DelBackupJobReply) {}
 
+    // 查询容器模板列表
     rpc ListTemplate(ListTemplateRequest) returns (ListTemplateReply) {}
+    // 创建容器模板
     rpc CreateTemplate(CreateTemplateRequest) returns (CreateTemplateReply) {}
+    // 更新容器模板
     rpc UpdateTemplate(UpdateTemplateRequest) returns (UpdateTemplateReply) {}
-    rpc RemoveTemplate(RemoveTemplateRequest) returns (RemoveTemplateReply) {}
+    // 查询单个容器模板详情
     rpc InspectTemplate(InspectTemplateRequest) returns (InspectTemplateReply) {}
+    // 删除容器模板
+    rpc RemoveTemplate(RemoveTemplateRequest) returns (RemoveTemplateReply) {}
 
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
@@ -77,7 +88,7 @@ message RemoveBackupRequest {
     int64 id = 1;
 
     // for agent service
-    string image_id = 11;
+    string image_ref = 11;
 }
 
 message RemoveBackupReply {}
@@ -129,6 +140,7 @@ message ListRequest {
 
 message ListReply {
     repeated NodeContainer containers = 1;
+    repeated string        fail_nodes = 2;
 }
 
 message CreateRequest {
@@ -155,7 +167,8 @@ message StartRequest {
 }
 
 message StartReply {
-    repeated string ok_ids = 1;
+    repeated string            ok_ids     = 1;
+    repeated ContainerFailInfo fail_infos = 2;
 }
 
 message StopRequest {
@@ -163,7 +176,8 @@ message StopRequest {
 }
 
 message StopReply {
-    repeated string ok_ids = 1;
+    repeated string            ok_ids     = 1;
+    repeated ContainerFailInfo fail_infos = 2;
 }
 
 message KillRequest {
@@ -171,7 +185,8 @@ message KillRequest {
 }
 
 message KillReply {
-    repeated string ok_ids = 1;
+    repeated string            ok_ids     = 1;
+    repeated ContainerFailInfo fail_infos = 2;
 }
 
 message RestartRequest {
@@ -179,7 +194,8 @@ message RestartRequest {
 }
 
 message RestartReply {
-    repeated string ok_ids = 1;
+    repeated string            ok_ids     = 1;
+    repeated ContainerFailInfo fail_infos = 2;
 }
 
 message UpdateRequest {
@@ -199,8 +215,9 @@ message RemoveRequest {
 }
 
 message RemoveReply {
-    repeated string ok_ids   = 1;
-    repeated string fail_ids = 2;
+    repeated string            ok_ids     = 1;
+    repeated string            fail_ids   = 2;
+    repeated ContainerFailInfo fail_infos = 3;
 }
 
 message StatusRequest {
@@ -460,4 +477,11 @@ message ContainerBackup {
     int64  image_size   = 9;   // 备份镜像大小
     int64  status       = 10;  // 参考 BACKUP_STATUS 定义
     int64  created_at   = 21;
+}
+
+message ContainerFailInfo {
+    string node_info      = 1;
+    string container_id   = 2;
+    string container_name = 3;
+    string fail_reason    = 4;
 }

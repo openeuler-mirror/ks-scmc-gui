@@ -21,6 +21,8 @@
 
 //extern std::string g_server_addr;
 
+static std::string s_authKey = "";
+
 enum ErrCode
 {
     ErrOK = 0,
@@ -67,6 +69,7 @@ public:
     }
 
     static QString generateId(QObject *callObj);
+    static std::string getAuthKey();
 
     // node management
     void listNode(const QString objId);
@@ -78,11 +81,11 @@ public:
     // container management
     void listContainer(const QString objId, const std::vector<int64_t> &node_ids, const bool all);
     void createContainer(const QString objId, const container::CreateRequest &);
-    void containerStatus(const QString objId, const int64_t node_id);
+    //void containerStatus(const QString objId, const int64_t node_id);
     void containerInspect(const QString objId, const int64_t node_id, const std::string &container_id);
     void startContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
     void stopContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
-    void killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    //void killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
     void restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
     void removeContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
     void updateContainer(const QString objId, const container::UpdateRequest &);
@@ -149,11 +152,11 @@ private:
     // container management
     static QPair<grpc::Status, container::ListReply> _listContainer(const container::ListRequest &);
     static QPair<grpc::Status, container::CreateReply> _createContainer(const container::CreateRequest &);
-    static QPair<grpc::Status, container::StatusReply> _containerStatus(const container::StatusRequest &);
+    //static QPair<grpc::Status, container::StatusReply> _containerStatus(const container::StatusRequest &);
     static QPair<grpc::Status, container::InspectReply> _containerInspect(const container::InspectRequest &);
     static QPair<grpc::Status, container::StartReply> _startContainer(const container::StartRequest &);
     static QPair<grpc::Status, container::StopReply> _stopContainer(const container::StopRequest &);
-    static QPair<grpc::Status, container::KillReply> _killContainer(const container::KillRequest &);
+    //static QPair<grpc::Status, container::KillReply> _killContainer(const container::KillRequest &);
     static QPair<grpc::Status, container::RestartReply> _restartContainer(const container::RestartRequest &);
     static QPair<grpc::Status, container::UpdateReply> _updateContainer(const container::UpdateRequest &);
     static QPair<grpc::Status, container::RemoveReply> _removeContainer(const container::RemoveRequest &);
@@ -213,11 +216,11 @@ signals:
     // container management
     void listContainerFinished(const QString objId, const QPair<grpc::Status, container::ListReply> &);
     void createContainerFinished(const QString objId, const QPair<grpc::Status, container::CreateReply> &);
-    void containerStatusFinished(const QString objId, const QPair<grpc::Status, container::StatusReply> &);
+    //void containerStatusFinished(const QString objId, const QPair<grpc::Status, container::StatusReply> &);
     void containerInspectFinished(const QString objId, const QPair<grpc::Status, container::InspectReply> &);
     void startContainerFinished(const QString objId, const QPair<grpc::Status, container::StartReply> &);
     void stopContainerFinished(const QString objId, const QPair<grpc::Status, container::StopReply> &);
-    void killContainerFinished(const QString objId, const QPair<grpc::Status, container::KillReply> &);
+    //void killContainerFinished(const QString objId, const QPair<grpc::Status, container::KillReply> &);
     void restartContainerFinished(const QString objId, const QPair<grpc::Status, container::RestartReply> &);
     void updateContainerFinished(const QString objId, const QPair<grpc::Status, container::UpdateReply> &);
     void removeContainerFinished(const QString objId, const QPair<grpc::Status, container::RemoveReply> &);

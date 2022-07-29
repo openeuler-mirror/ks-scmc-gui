@@ -42,6 +42,10 @@ public:
         }
         if (methods->QueryInterceptionHookPoint(HookPoints::POST_RECV_STATUS))
         {
+            if (strcmp(info_->method(), "/sys.System/Subscribe") == 0)
+            {
+                return;
+            }
             auto reply = static_cast<const google::protobuf::Message *>(methods->GetRecvMessage());
             auto status = methods->GetRecvStatus();
             auto time_cost = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -114,8 +118,9 @@ static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
 
     for (int i = 0; i < 2; i++)
     {
-        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
-            addr, SslCredentials(), args, std::move(creators));
+        auto chan = grpc::CreateCustomChannel(addr, SslCredentials(), args);
+        //        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
+        //            addr, SslCredentials(), args, std::move(creators));
         // auto chan = grpc::CreateChannel(addr, grpc::InsecureChannelCredentials());
         if (chan == nullptr || !is_channel_connected(chan, RPC_CONNECT_TIMEOUT))
         {
