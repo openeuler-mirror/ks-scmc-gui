@@ -10,7 +10,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
-#include <QMessageBox>
 #include <QStyle>
 #include <QStyleFactory>
 #include <QTranslator>
