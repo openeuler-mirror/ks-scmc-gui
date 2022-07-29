@@ -43,11 +43,6 @@ enum TabConfigGuideItemType
     TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL
 };
 
-enum MultiConfigType
-{
-    MULTI_CONFIG_TYPE_NETWOR
-};
-
 class GuideItem;
 class NetworkConfTab;
 class ContainerSetting : public QWidget

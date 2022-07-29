@@ -20,6 +20,7 @@
 #include "common/message-dialog.h"
 #include "main-window.h"
 #include "pages/user/server-config-dialog.h"
+#include "subscribe-thread.h"
 #include "ui_login-dialog.h"
 #include "user-configuration.h"
 #define TIMEOUT 300
@@ -37,7 +38,6 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     ui->setupUi(getWindowContentWidget());
 
     m_objID = InfoWorker::generateId(this);
-
     initMessageBox();
     m_license = new License;
     m_serverCfgDlg = new ServerConfigDialog(this);
@@ -51,6 +51,8 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
 
     QString licence_str = m_dbusutil->callInterface(GET_LICENSE);
     getLicense(licence_str);
+
+    createSubscribThread();
 
     initUI();
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
@@ -86,6 +88,16 @@ LoginDialog::~LoginDialog()
         delete m_dbusutil;
         m_dbusutil = nullptr;
     }
+    if (m_subscribeThread)
+    {
+        delete m_subscribeThread;
+        m_subscribeThread = nullptr;
+    }
+    if (m_thread)
+    {
+        m_thread->quit();
+        m_thread->wait();
+    }
 }
 
 void LoginDialog::paintEvent(QPaintEvent *event)
@@ -105,6 +117,30 @@ void LoginDialog::keyPressEvent(QKeyEvent *event)
         else if (ui->lineEdit_passwd->hasFocus())
             ui->btn_login->click();
     }
+}
+
+bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == m_mainWindow && event->type() == QEvent::Close)
+    {
+        if (m_thread->isRunning())
+        {
+            m_subscribeThread->cancel();
+            m_thread->terminate();
+        }
+        if (QThreadPool::globalInstance()->activeThreadCount())
+        {
+            MessageDialog::message(tr("Quit Application"),
+                                   tr("There are threads that have not finished!"),
+                                   tr("Please wait for the thread to end before closing!"),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Ok);
+            event->ignore();
+            return true;
+        }
+        event->accept();
+    }
+    return false;
 }
 
 void LoginDialog::initUI()
@@ -247,6 +283,22 @@ void LoginDialog::initMessageBox()
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
     m_dbusErrorBox->setText(tr("Failed to get data, please check the service status."));
     connect(okButton, SIGNAL(clicked(bool)), this, SLOT(close()));
+}
+
+void LoginDialog::createSubscribThread()
+{
+    m_thread = new QThread;
+    m_subscribeThread = new SubscribeThread;
+    m_subscribeThread->moveToThread(m_thread);
+
+    connect(m_subscribeThread, &SubscribeThread::sessinoExpire, this, &LoginDialog::sessionExpire, Qt::QueuedConnection);
+    //终止线程deleteLater
+    //    connect(m_thread, &QThread::finished,
+    //            [=] {
+    //                KLOG_INFO() << "subscribeThread finished!";
+    //                subscribeThread->deleteLater();
+    //            });
+    connect(m_thread, &QThread::started, m_subscribeThread, &SubscribeThread::subscribe);
 }
 
 void LoginDialog::loadConfig()
@@ -432,11 +484,15 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
         if (reply.first.ok())
         {
+            KLOG_INFO() << "before" << m_thread->isRunning();
+            m_thread->start();
+            KLOG_INFO() << "after" << m_thread->isRunning();
             if (!m_mainWindow)
             {
                 m_mainWindow = new MainWindow();
                 m_mainWindow->setUserName(ui->lineEdit_username->text());
                 m_mainWindow->showMaximized();
+                m_mainWindow->installEventFilter(this);
                 connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
                 hide();
             }
@@ -490,21 +546,18 @@ void LoginDialog::sessionExpire()
         KLOG_INFO() << "get lock fail and return";
         return;
     }
-
-    MessageDialog::message(tr("Login"),
-                           tr("session expire!"),
-                           tr("back to login page"),
-                           ":/images/warning.svg",
-                           MessageDialog::StandardButton::Ok);
     if (m_mainWindow)
     {
         delete m_mainWindow;
         m_mainWindow = nullptr;
     }
     show();
+    m_thread->quit();
+    m_thread->wait();
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
-    ui->lab_tips->hide();
+    ui->lab_tips->setText(tr("Session Expired,Please login again!"));
+    ui->lab_tips->show();
     m_sessionMutex.unlock();
 }
 
