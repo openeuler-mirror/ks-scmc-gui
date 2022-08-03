@@ -11,7 +11,7 @@
 #include <QMutexLocker>
 #include <QUuid>
 #include <QtConcurrent/QtConcurrent>
-#define DEADLINE 20000
+#define DEADLINE 8000
 
 const int CHUNK_SIZE = 1024 * 1024;
 
