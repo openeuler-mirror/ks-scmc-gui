@@ -97,6 +97,7 @@ LoginDialog::~LoginDialog()
     {
         m_thread->quit();
         m_thread->wait();
+        //m_thread->terminate();
     }
 }
 
@@ -126,7 +127,8 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
         if (m_thread->isRunning())
         {
             m_subscribeThread->cancel();
-            m_thread->terminate();
+            m_thread->quit();
+            m_thread->wait();
         }
         if (QThreadPool::globalInstance()->activeThreadCount())
         {
@@ -292,12 +294,6 @@ void LoginDialog::createSubscribThread()
     m_subscribeThread->moveToThread(m_thread);
 
     connect(m_subscribeThread, &SubscribeThread::sessinoExpire, this, &LoginDialog::sessionExpire, Qt::QueuedConnection);
-    //终止线程deleteLater
-    //    connect(m_thread, &QThread::finished,
-    //            [=] {
-    //                KLOG_INFO() << "subscribeThread finished!";
-    //                subscribeThread->deleteLater();
-    //            });
     connect(m_thread, &QThread::started, m_subscribeThread, &SubscribeThread::subscribe);
 }
 
