@@ -27,7 +27,6 @@ TrendChartForm::~TrendChartForm()
 
 void TrendChartForm::initChart(ChartInfo chartInfo)
 {
-    KLOG_INFO() << "initChart";
     QChart *chart = m_chartView->chart();
     //折线图
     for (auto iter = chartInfo.seriesInfo.begin(); iter != chartInfo.seriesInfo.end(); iter++)

@@ -756,20 +756,6 @@ void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc
 
         bool ret = reply.first.error_code() == 0 ? true : false;
         std::string msg = reply.first.error_message();
-        if (ret)
-        {
-            QString strSha256;
-            qint64 fileSize;
-            if (getImageFileInfo(reply.second.imageFile.data(), strSha256, fileSize))
-                ret = false;
-
-            if (reply.second.filesize != fileSize || reply.second.checksum != strSha256.toStdString())
-            {
-                KLOG_INFO() << reply.second.filesize << fileSize << reply.second.checksum.data() << strSha256.toStdString().data();
-                msg = "receive data error";
-                ret = false;
-            }
-        }
 
         if (ret)
         {

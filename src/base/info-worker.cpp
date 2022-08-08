@@ -927,8 +927,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     if (!ret)
     {
         KLOG_INFO() << "recv param err";
-        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
+        r.first = stream->Finish();
         emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }
@@ -948,7 +947,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     {
         KLOG_INFO() << "Failed to open " << wFileName.data();
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
+                               QObject::tr("Failed to open %1").arg(wFileName.data()).toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }
@@ -982,11 +981,52 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
             }
         }
     }
-
     wFile.close();
-    r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
+
+    QString message;
+    ImageTransmissionStatus status;
+    grpc::StatusCode statusCode;
+    //检测数据库中文件是否损坏
+    do
+    {
+        QFile file(wFileName);
+        QByteArray fileArray;
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            KLOG_INFO() << "Failed to open " << wFileName;
+            message = tr("Failed to open %1!").arg(wFileName);
+            statusCode = grpc::StatusCode::INTERNAL;
+            status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
+            progess = 99;
+            break;
+        }
+        auto fileSize = file.size();
+        fileArray = file.readAll();
+        file.close();
+        auto strSha256 = QCryptographicHash::hash(fileArray, QCryptographicHash::Sha256).toHex();
+
+        KLOG_INFO() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
+        if (outSize != fileSize || outChecksum != strSha256.toStdString())
+        {
+            KLOG_INFO() << outSize << fileSize << outChecksum.data() << strSha256.toStdString().data();
+            message = tr("file was broken!");
+            statusCode = grpc::StatusCode::INTERNAL;
+            status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
+            progess = 99;
+            break;
+        }
+
+        message = tr("Ok");
+        statusCode = grpc::StatusCode::OK;
+        status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL;
+        progess = 100;
+
+    } while (0);
+
+    r.first = grpc::Status(statusCode, message.toStdString());
     r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
-    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, QString::fromStdString(outName), QString::fromStdString(outVersion), 100);
+
+    emit InfoWorker::getInstance().transferImageStatus(status, QString::fromStdString(outName), QString::fromStdString(outVersion), progess);
     emit InfoWorker::getInstance().transferImageFinished(name, version);
     return r;
 }
