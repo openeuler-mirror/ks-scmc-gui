@@ -49,7 +49,6 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
 
 void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
 {
-    KLOG_INFO() << "setEnvInfo";
     auto envMap = cfg->envs();
 
     QList<QSharedPointer<ModelItem>> itemList;
