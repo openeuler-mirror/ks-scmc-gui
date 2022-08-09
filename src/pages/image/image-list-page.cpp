@@ -602,7 +602,6 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
                 // TODO parse unix timestamp
                 QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
                 QString updateTime = time.toString("yyyy/MM/dd hh:mm:ss");
-                KLOG_INFO() << "due time = " << updateTime;
                 QStandardItem *itemUpdateTime = new QStandardItem(updateTime);
 
                 itemName->setData(QVariant::fromValue(infoMap));

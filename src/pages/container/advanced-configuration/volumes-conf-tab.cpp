@@ -56,7 +56,6 @@ ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
 
 void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)
 {
-    KLOG_INFO() << "setVolumeInfo";
     QList<QSharedPointer<ModelItem>> itemList;
     for (auto mounts : cfg->mounts())
     {
