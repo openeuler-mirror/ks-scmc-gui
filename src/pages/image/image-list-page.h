@@ -58,7 +58,7 @@ private slots:
 signals:
     //void sigTransferImageInfo(ImageTransmissionStatus status, std::string name, std::string version, int rate);
     void sigUpdateAuditInfo();
-    void sigUpdateTipSums();
+    void sigUpdateAPproveTipSums(int tips = 0);
 
 private:
     QString m_objId;
