@@ -15,6 +15,12 @@ service Logging {
     rpc ReadWarn(ReadWarnRequest) returns (ReadWarnReply) {}
 }
 
+message Filter {
+    string property = 1;  // 匹配字段 'target' 'detail'
+    string query    = 2;  // 匹配值
+    bool   fuzzy    = 3;  // 是否模糊匹配
+}
+
 message ListRuntimeRequest {
     int64  start_time   = 1;
     int64  end_time     = 2;
@@ -25,6 +31,7 @@ message ListRuntimeRequest {
     int64  page_no      = 22;  // 分页页码
     string sort_by      = 23;  // 排序字段(暂不用)
     bool   sort_desc    = 24;  // 倒序排序
+    Filter filter       = 25;  // 字段匹配搜索
 }
 
 message ListRuntimeReply {
