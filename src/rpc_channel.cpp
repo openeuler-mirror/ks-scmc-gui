@@ -118,6 +118,9 @@ static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
 
     for (int i = 0; i < 2; i++)
     {
+//        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
+//                    addr, SslCredentials(), args, std::move(creators));
+
         auto chan = grpc::CreateCustomChannel(addr, SslCredentials(), args);
         //        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
         //            addr, SslCredentials(), args, std::move(creators));

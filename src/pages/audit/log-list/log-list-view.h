@@ -34,7 +34,7 @@ private:
     void initTable();
     void initButtons();
     void initLogListConnect();
-    void getLogList(LogListPageType type = CONTAINER_LOGS,int page_on = 1);
+    void getLogList(LogListPageType type = CONTAINER_LOGS, int page_on = 1);
 
 private slots:
     void onDateSelection();
@@ -43,6 +43,7 @@ private slots:
     void popupEndDatePicker();
     void applyDatePicker();
     void updatePagingInfo(int page_on);
+    void searchClicked(QString key); //搜索响应
 
 private:
     QString m_objId;
@@ -56,6 +57,7 @@ private:
     bool is_openPaging;
     int m_totalPages;
     int m_pageOn = 1;//当前页
+    QString m_searchKey;
 
 signals:
     void sigOpenPaging(int);

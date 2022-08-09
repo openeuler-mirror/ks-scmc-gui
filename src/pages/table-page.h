@@ -65,6 +65,9 @@ public:
     void clearCheckState();
     void setPaging(int totalPages = 0);  // 设置分页
     void updatePaging(int page_no = 1);
+//    QString getSearchKey();
+    void setSeachPageNone(); // 搜索结果为空
+    void hideSearchLine(); // 隐藏搜索框
 
 private:
     void initUI();
@@ -99,6 +102,8 @@ signals:
     void sigItemEntered(const QModelIndex &index);  //鼠标进入item
     void sigUpdatePaging(int);                      //更新页面
     void sigHasRunningCtn(bool);
+    void sigPagingSearch(QString);
+    void sigRefreshSearchResult(); // 刷新搜索结果
 
 private slots:
     void onMonitor(int row);

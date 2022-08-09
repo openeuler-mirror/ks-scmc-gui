@@ -33,6 +33,7 @@ void BubbleTipButton::setTipMsg(int num)
     else
         text = QString::number(m_tipMsg);
     m_bubbleWidth = fm.width(text) + 10;
+    repaint();
 }
 
 int BubbleTipButton::getTipMsgNum()
@@ -68,6 +69,8 @@ void BubbleTipButton::paintEvent(QPaintEvent *event)
         else
             painter.drawText(rt1, Qt::AlignCenter, "99+");
     }
+    else if (m_tipMsg == 0)
+        painter.eraseRect(rt1);
 
     QStyleOption opt;
     opt.init(this);
