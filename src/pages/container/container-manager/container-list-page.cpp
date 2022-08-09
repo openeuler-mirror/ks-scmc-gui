@@ -284,11 +284,9 @@ void ContainerListPage::getNetworkListResult(const QString objId, const QPair<gr
                                   .arg(QString::fromStdString(name))
                                   .arg(tr("Subnet"))
                                   .arg(QString::fromStdString(subnet));
-                KLOG_INFO() << str;
+                KLOG_INFO() << nodeId << str;
                 m_networksMap.insert(nodeId, str);
             }
-            KLOG_INFO() << m_networksMap.keys();
-            KLOG_INFO() << m_networksMap.values();
         }
         else
         {
@@ -773,7 +771,7 @@ void ContainerListPage::timedRefresh(bool start)
 
 void ContainerListPage::getNetworkInfo(int64_t node_id)
 {
-    KLOG_INFO() << "getNetworkInfo" << node_id;
+    KLOG_INFO() << "get node:" << node_id << "NetworkInfo";
     InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 

@@ -36,7 +36,8 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
     {
         int memLimit = limitDataHandle(true, cfg->memory_limit(), ui->cb_max_unit);
         int softLimit = limitDataHandle(true, cfg->memory_soft_limit(), ui->cb_soft_unit);
-        KLOG_INFO() << cfg->memory_limit() << cfg->memory_limit();
+        KLOG_INFO() << "memory_limit: " << cfg->memory_limit()
+                    << "memory_soft_limit" << cfg->memory_soft_limit();
 
         ui->lineEdit_soft_limit->setText(QString("%1").arg(softLimit));
         ui->lineEdit_max_limit->setText(QString("%1").arg(memLimit));
