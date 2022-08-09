@@ -469,13 +469,15 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_IMAGE_LIST:
     {
-        page = new ImageListPage(this);
+        ImageListPage* imagePage = new ImageListPage(this);
+        connect(imagePage, &ImageListPage::sigUpdateTipSums, this, &MainWindow::onUpdateTipsSums);
+        page = imagePage;
         break;
     }
     case GUIDE_ITEM_AUDIT_APPLY_LIST:
     {
         AuditListPage* auditPage = new AuditListPage(this);
-        connect(auditPage, &AuditListPage::sigUpdateTipSums, this, &MainWindow::onUpdateTipsSums);
+        connect(auditPage, &AuditListPage::sigUpdateTipSumsProxy, this, &MainWindow::onUpdateTipsSums);
         page = auditPage;
         break;
     }
