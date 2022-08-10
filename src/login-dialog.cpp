@@ -97,7 +97,7 @@ LoginDialog::~LoginDialog()
     {
         m_thread->quit();
         m_thread->wait();
-        //m_thread->terminate();
+        m_thread->deleteLater();
     }
 }
 
@@ -482,7 +482,8 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
         if (reply.first.ok())
         {
-            m_thread->start();
+            ///TODO:暂时去掉订阅功能，1.1版本加上
+            ///m_thread->start();
             if (!m_mainWindow)
             {
                 m_mainWindow = new MainWindow();
