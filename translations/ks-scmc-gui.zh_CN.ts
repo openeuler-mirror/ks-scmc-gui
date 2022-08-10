@@ -1305,8 +1305,8 @@ Please re-enter your path!</source>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="401"/>
         <location filename="../src/pages/image/image-list-page.cpp" line="410"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="710"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="719"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="709"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="718"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
@@ -1325,15 +1325,15 @@ Please re-enter your path!</source>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="452"/>
         <location filename="../src/pages/image/image-list-page.cpp" line="464"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="736"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="745"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="735"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="744"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="504"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="781"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="790"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="766"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="775"/>
         <source>Download Image</source>
         <translation>下载镜像</translation>
     </message>
@@ -1364,52 +1364,52 @@ Please re-enter your path!</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="643"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="642"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="672"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="671"/>
         <source>Check Image</source>
         <translation>校验镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="673"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="672"/>
         <source>Check image failed!</source>
         <translation>校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="694"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="693"/>
         <source>Remove image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="711"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="710"/>
         <source>Upload image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="720"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="719"/>
         <source>Upload image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="737"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="736"/>
         <source>Update image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="746"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="745"/>
         <source>Update image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="782"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="767"/>
         <source>Download image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="791"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="776"/>
         <source>Download image failed!</source>
         <translation>下载镜像失败！</translation>
     </message>
@@ -1422,7 +1422,7 @@ Please re-enter your path!</source>
         <translation type="vanished">校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="693"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="692"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
@@ -1635,17 +1635,17 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/base/info-worker.cpp" line="997"/>
         <source>Failed to open %1!</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 %1 文件失败！</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="1012"/>
         <source>file was broken!</source>
-        <translation type="unfinished"></translation>
+        <translation>文件已损坏！</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="1019"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>是</translation>
     </message>
 </context>
 <context>
@@ -1704,67 +1704,67 @@ The first characters must be letter or digit</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="235"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="244"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="280"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="289"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="232"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="241"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="277"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="286"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="238"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="268"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="283"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="292"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="235"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="265"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="280"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="289"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="241"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="253"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="271"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="286"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="295"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="238"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="250"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="268"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="283"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="292"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="247"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="244"/>
         <source>Start</source>
         <translation>开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="259"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="256"/>
         <source>Upload</source>
         <translation>上传</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="262"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="259"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="265"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="262"/>
         <source>Approve</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="274"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="271"/>
         <source>Login</source>
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="277"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="274"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="298"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="295"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="331"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="328"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
@@ -1773,12 +1773,12 @@ The first characters must be letter or digit</source>
         <translation type="vanished">运行</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="250"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="247"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="256"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="253"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
@@ -1834,17 +1834,17 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/login-dialog.cpp" line="135"/>
         <source>Quit Application</source>
-        <translation type="unfinished">退出程序</translation>
+        <translation>退出程序</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="136"/>
         <source>There are tasks that have not finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>存在正在运行的任务！</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="137"/>
         <source>Please wait for the tasks to end before closing!</source>
-        <translation type="unfinished"></translation>
+        <translation>请等待任务执行完成后退出！</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="154"/>
@@ -1868,9 +1868,9 @@ The first characters must be letter or digit</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="555"/>
+        <location filename="../src/login-dialog.cpp" line="556"/>
         <source>Session Expired,Please login again!</source>
-        <translation type="unfinished"></translation>
+        <translation>会话过期，请重新登录！</translation>
     </message>
     <message>
         <source>The software is not activated and the reinforcement function cannot be used. Please activate it.</source>
@@ -1916,7 +1916,7 @@ The first characters must be letter or digit</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="500"/>
+        <location filename="../src/login-dialog.cpp" line="501"/>
         <source>Login failed %1</source>
         <translation>登录失败 %1</translation>
     </message>
@@ -1933,17 +1933,17 @@ The first characters must be letter or digit</source>
         <translation type="vanished">登录失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="528"/>
+        <location filename="../src/login-dialog.cpp" line="529"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="529"/>
+        <location filename="../src/login-dialog.cpp" line="530"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="530"/>
+        <location filename="../src/login-dialog.cpp" line="531"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
@@ -1975,37 +1975,37 @@ The first characters must be letter or digit</source>
         <translation type="vanished">请等待线程执行完成后退出！</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="237"/>
+        <location filename="../src/main-window.cpp" line="236"/>
         <source>KylinSec Container System V1(Security Version)</source>
         <translation>麒麟信安容器系统V1（安全版）</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="243"/>
+        <location filename="../src/main-window.cpp" line="242"/>
         <source>Transmission</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="252"/>
+        <location filename="../src/main-window.cpp" line="251"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="260"/>
+        <location filename="../src/main-window.cpp" line="259"/>
         <source>Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="278"/>
+        <location filename="../src/main-window.cpp" line="277"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="279"/>
+        <location filename="../src/main-window.cpp" line="278"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="281"/>
+        <location filename="../src/main-window.cpp" line="280"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -2720,37 +2720,37 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="450"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="451"/>
         <source>node</source>
         <translation>节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="465"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="466"/>
         <source>Number of nodes: </source>
         <translation>节点总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="475"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="539"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="476"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="540"/>
         <source>online: </source>
         <translation>在线：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="484"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="548"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="485"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="549"/>
         <source>offline: </source>
         <translation>离线：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="493"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="501"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="557"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="565"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="494"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="502"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="558"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="566"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="612"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="613"/>
         <source>0G</source>
         <translation>0G</translation>
     </message>
@@ -2763,12 +2763,12 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation type="vanished">1</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="514"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="515"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="529"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="530"/>
         <source>Number of Container: </source>
         <translation>容器总数：</translation>
     </message>
@@ -2777,17 +2777,17 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation type="vanished">2</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="578"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="579"/>
         <source>Image</source>
         <translation>镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="593"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="594"/>
         <source>Number of Image: </source>
         <translation>镜像总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="603"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="604"/>
         <source>Image Capacity: </source>
         <translation>镜像总容量：</translation>
     </message>
@@ -2796,32 +2796,32 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation type="vanished">3.9G</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="632"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="633"/>
         <source>Template Container</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="647"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="648"/>
         <source>Number of Template: </source>
         <translation>容器模板总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="671"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="672"/>
         <source>Reviewed</source>
         <translation>待审核</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="686"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="687"/>
         <source>Number of Reviewed: </source>
         <translation>待审核总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="710"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="711"/>
         <source>Give Alarm</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="725"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="726"/>
         <source>Number of Give Alarm: </source>
         <translation>告警总数：</translation>
     </message>
@@ -2981,7 +2981,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     <message>
         <location filename="../src/base/info-worker.cpp" line="950"/>
         <source>Failed to open %1</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 %1 文件失败</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="978"/>
@@ -3338,12 +3338,12 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation type="vanished">请输入关键字</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="421"/>
+        <location filename="../src/pages/table-page.cpp" line="422"/>
         <source>last page</source>
         <translation>上一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="445"/>
+        <location filename="../src/pages/table-page.cpp" line="446"/>
         <source>next page</source>
         <translation>下一页</translation>
     </message>
