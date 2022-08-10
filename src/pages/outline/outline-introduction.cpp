@@ -27,7 +27,7 @@ OutlineIntroduction::OutlineIntroduction(QWidget *parent) :
                                 "font-size: 36px;"
                                 "border-radius:0px;"
                                 "color: #ffffff;}");
-    ui->label_1->setText(tr("Container platform"));
+    ui->label_1->setText(tr("Security container platform"));
     ui->label_2->setStyleSheet("QLabel {"
                                 "background: transparent;"
                                 "border:none;"
@@ -35,8 +35,10 @@ OutlineIntroduction::OutlineIntroduction(QWidget *parent) :
                                 "font-size: 14px;"
                                 "border-radius:0px;"
                                 "color: #ffffff;}");
-    ui->label_2->setText(tr("The security container management client mainly provides a management interface to realize the management of the server.\n\
-It mainly includes four modules: user management, node management, image and image warehouse management, and container management."));
+    ui->label_2->setText(tr("KylinSec container management system is built on the domestic Linux system to realize the self-developed security container platform. It provides \n"
+                            "a security container operation platform with fine-grained permission control for the new generation of power systems, and provides users with simple and \n"
+                            "easy-to-use experience through a friendly human-machine interface. The KylinSec container management system has the main functions of transparent deployment \n"
+                            "of applications, isolated operation of applications, centralized monitoring of application operation status, and minimum permission control strategy.\n"));
 }
 
 OutlineIntroduction::~OutlineIntroduction()
