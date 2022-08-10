@@ -408,6 +408,7 @@ void TablePage::initUI()
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &TablePage::refresh);
+    connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &TablePage::search);
     if (!m_isOpenPaging)
         connect(ui->lineEdit_search, &QLineEdit::textChanged,
                 [this](QString text) {
@@ -680,7 +681,13 @@ void TablePage::search()
     QString text = ui->lineEdit_search->text();
     if (text.isEmpty())
     {
-        updateInfo();
+        if (m_isOpenPaging)
+        {
+            clearText();
+            emit sigPagingSearch(text);
+        }
+        else
+            updateInfo();
     }
     else
     {
