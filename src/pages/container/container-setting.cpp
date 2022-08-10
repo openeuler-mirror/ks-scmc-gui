@@ -1074,7 +1074,7 @@ void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
     KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
     //创建容器/基于模板创建容器时获取镜像列表
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
         getImageInfo(m_nodeInfo.key(newStr));
 
     setNodeNetworkList(m_nodeInfo.key(newStr));
@@ -1131,7 +1131,7 @@ void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status
                 setNodeNetworkList(m_nodeInfo.key(ui->cb_node->currentText()));
 
             //创建容器/基于模板创建容器时获取镜像列表
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
                 getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
 
             //设置cpu核心数
