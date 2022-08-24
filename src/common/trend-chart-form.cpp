@@ -31,7 +31,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     //折线图
     for (auto iter = chartInfo.seriesInfo.begin(); iter != chartInfo.seriesInfo.end(); iter++)
     {
-        QSplineSeries *series = new QSplineSeries();
+        QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(2);
@@ -39,7 +39,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
         series->setPen(pen);          //折现序列的线条设置
         series->setName(iter.key());  //legend中的文字
         chart->addSeries(series);
-        connect(series, &QSplineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
+        connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
     }
 
     QFont font;
@@ -85,13 +85,22 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     }
 }
 
-void TrendChartForm::clearChart()
+void TrendChartForm::clearChart(QString seriesNames)
 {
     QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
     foreach (auto series, serieses)
     {
-        QSplineSeries *ser = qobject_cast<QSplineSeries *>(series);
-        ser->clear();
+        QLineSeries *ser = qobject_cast<QLineSeries *>(series);
+        if (seriesNames.isEmpty())
+        {
+            ser->clear();
+            continue;
+        }
+        else if (ser->name() == seriesNames)
+        {
+            ser->clear();
+            break;
+        }
     }
 }
 
@@ -115,7 +124,7 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
     QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
     foreach (auto series, serieses)
     {
-        QSplineSeries *ser = qobject_cast<QSplineSeries *>(series);
+        QLineSeries *ser = qobject_cast<QLineSeries *>(series);
         if (ser->name() == seriesNames)
         {
             KLOG_INFO() << ser->name();
