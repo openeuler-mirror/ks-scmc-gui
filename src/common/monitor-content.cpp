@@ -58,7 +58,8 @@ void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
     {
         m_nodeId = nodeId;
         m_containerId = containerId;
-        InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
+        ui->cb_select_cycle->setCurrentIndex(0);
+        onCycleChanged(0);
     }
 }
 
@@ -140,7 +141,10 @@ void MonitorContent::initChart()
     int startTimestamp = startDate.toTime_t();
 
     if (m_nodeId > 0)
+    {
+        KLOG_INFO() << "start monitor:" << startTimestamp << currTimeStamp << m_xInterval << m_containerId.data();
         InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
+    }
 }
 
 void MonitorContent::clearChartPoint()
@@ -336,6 +340,8 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 cpuChartInfo.yTitle = tr("CPU usage (%)");
                 m_cpuChartForm->updateChart(cpuChartInfo, pointList, CHART_SERIES_NAME_CPU);
             }
+            else
+                m_cpuChartForm->clearChart(CHART_SERIES_NAME_CPU);
 
             if (reply.second.memory_usage_size() > 0)
             {
@@ -344,7 +350,6 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
 
                 for (auto i : reply.second.memory_usage())
                 {
-                    //KLOG_INFO() << i.timestamp() << i.value();
                     QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
                     auto value = i.value() / memoryLimit * 100;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
@@ -356,6 +361,8 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 memoryChartInfo.yTitle = tr("Memory usage (%)");
                 m_memoryChartForm->updateChart(memoryChartInfo, pointList, CHART_SERIES_NAME_MEMORY);
             }
+            else
+                m_memoryChartForm->clearChart(CHART_SERIES_NAME_MEMORY);
 
             if (reply.second.disk_usage_size() > 0)
             {
@@ -373,7 +380,6 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 }
                 QString unit;
                 handleYValue(start, end, unit);
-                KLOG_INFO() << "******disk" << start << end << unit;
                 diskChartInfo.yStart = start;
                 diskChartInfo.yEnd = end;
                 diskChartInfo.yFormat = "%d";
@@ -386,11 +392,14 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                         value = value * K_BITE;
                     else if (unit == "G")
                         value = value / K_BITE;
+                    KLOG_INFO() << "disk:" << stempToPos.toMSecsSinceEpoch() << value;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     pointList.append(point);
                 }
                 m_diskChartForm->updateChart(diskChartInfo, pointList, CHART_SERIES_NAME_DISK);
             }
+            else
+                m_diskChartForm->clearChart(CHART_SERIES_NAME_DISK);
 
             if (reply.second.net_rx_size() > 0 || reply.second.net_tx_size() > 0)
             {
@@ -414,7 +423,6 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 }
                 QString unit;
                 handleYValue(start, end, unit);
-                KLOG_INFO() << "******net" << start << end << unit;
                 if (end == 0)
                 {
                     netChartInfo.yStart = 0;
@@ -452,6 +460,11 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
 
                 m_netChartForm->updateChart(netChartInfo, rxPointList, CHART_SERIES_NAME_NETWORK_RX);
                 m_netChartForm->updateChart(netChartInfo, txPointList, CHART_SERIES_NAME_NETWORK_TX);
+            }
+            else
+            {
+                m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_RX);
+                m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_TX);
             }
         }
         else
