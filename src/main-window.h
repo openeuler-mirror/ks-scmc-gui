@@ -34,9 +34,8 @@ class MainWindow : public KiranTitlebarWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QString name, QWidget *parent = nullptr);
     ~MainWindow();
-    void setUserName(QString name);
 
 protected:
     void onItemClicked(QListWidgetItem *currItem);
@@ -48,6 +47,8 @@ protected:
 private:
     void initUI();
     Page *createSubPage(GUIDE_ITEM itemEnum);
+    void loadUserPage();
+    void loadUserItem();
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
     void outlinePageChange(QString str);
@@ -73,6 +74,7 @@ signals:
 
 private:
     Ui::MainWindow *ui;
+    QString m_userName;
     QStackedWidget *m_stackedWidget;
     QMap<QString, Page *> m_pageMap;
     QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
@@ -84,8 +86,6 @@ private:
     BubbleTipButton *m_btnApproval;
     BubbleTipButton *m_btnWarning;
     QMutex m_mutex;
-    OutlineView *m_outline;
-    QString m_userName;
     PasswdUpdateDialog *m_pwUpdateDlg;
     //    bool m_filterInput;
     //    bool m_isClose;
