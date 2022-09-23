@@ -426,7 +426,7 @@ void ContainerListPage::getContainerStartResult(const QString objId, const QPair
             MessageDialog::message(tr("Start Container"),
                                    tr("Start container failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -450,7 +450,7 @@ void ContainerListPage::getContainerStopResult(const QString objId, const QPair<
             MessageDialog::message(tr("Stop Container"),
                                    tr("Stop container failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -473,7 +473,7 @@ void ContainerListPage::getContainerRestartResult(const QString objId, const QPa
             MessageDialog::message(tr("Restart Container"),
                                    tr("Restart container failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -495,7 +495,7 @@ void ContainerListPage::getContainerRemoveResult(const QString objId, const QPai
             MessageDialog::message(tr("Remove Container"),
                                    tr("Remove container failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
