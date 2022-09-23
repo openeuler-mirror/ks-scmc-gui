@@ -247,9 +247,6 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
                 QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
                 startTime->setTextAlignment(Qt::AlignCenter);
 
-                QStandardItem *itemImageref = new QStandardItem(data.image_ref().data());
-                itemImageref->setTextAlignment(Qt::AlignCenter);
-
                 QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
                 QStandardItem *itemSize = new QStandardItem(size);
                 itemSize->setTextAlignment(Qt::AlignCenter);
@@ -257,7 +254,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
                 QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
                 itemDesc->setTextAlignment(Qt::AlignCenter);
 
-                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemImageref << itemSize << itemDesc);
+                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemSize << itemDesc);
                 row++;
             }
         }
@@ -294,7 +291,7 @@ void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPa
             MessageDialog::message(tr("Update Container Backup"),
                                    tr("Update container backup failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -316,7 +313,7 @@ void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPa
             MessageDialog::message(tr("Create Container Backup"),
                                    tr("Create container backup failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -345,7 +342,7 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
             //            MessageDialog::message(tr("Resume Container Backup"),
             //                                   tr("Resume container backup failed!"),
             //                                   tr("Error: %1").arg(reply.first.error_message().data()),
-            //                                   tr(":/images/error.svg"),
+            //                                   ":/images/error.svg",
             //                                   MessageDialog::StandardButton::Ok);
         }
     }
@@ -365,7 +362,7 @@ void ContainerBackupPage::getRemoveBackupFinished(const QString objId, const QPa
             MessageDialog::message(tr("Remove Container Backup"),
                                    tr("Remove container backup failed!"),
                                    tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
+                                   ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
     }
@@ -375,10 +372,9 @@ void ContainerBackupPage::initTable()
 {
     QStringList tableHHeaderDate = {
         "",
-        QString(tr("Backup file Name")),
+        QString(tr("Backup version")),
         QString(tr("Backup status")),
         QString(tr("Backup start time")),
-        QString(tr("Backup version")),
         QString(tr("Backup size")),
         QString(tr("Description")),
         QString(tr("Quick Actions"))};
