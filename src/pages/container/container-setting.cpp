@@ -554,7 +554,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         MessageDialog::message(tr("Volumes Data"),
                                tr("Input error"),
                                tr("Please improve the contents in Volumes table!"),
-                               tr(":/images/error.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
@@ -573,7 +573,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         MessageDialog::message(tr("Env Data"),
                                tr("Input error"),
                                tr("Please improve the contents in Env table!"),
-                               tr(":/images/error.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
@@ -597,7 +597,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
                                tr("Memory soft limit can't be greater than the maximum limit !"),
-                               tr(":/images/error.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
@@ -680,7 +680,7 @@ void ContainerSetting::updateContainer()
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
                                tr("Memory soft limit can't be greater than the maximum limit !"),
-                               tr(":/images/error.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }

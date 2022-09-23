@@ -983,7 +983,8 @@ ImageOperateDialog QLabel#label_tip_version,
 ImageOperateDialog QLabel#label_tip_desc,
 ImageOperateDialog QLabel#label_tip_name,
 ImageOperateDialog QLabel#label_tip_sign,
-ContainerSetting QLabel#label_name_tip
+ContainerSetting QLabel#label_name_tip,
+ContainerBackupOperateDialog QLabel#label_tip_version
 {
     color:#d30000;
     font-size:14px;
@@ -1089,7 +1090,8 @@ NetworkAccessCtlTab #btn_delete:pressed,SecurityListTab #btn_delete:pressed
 /************************************ImageOperateDialog******************************/
 ImageOperateDialog QToolButton#btn_tip_name,
 ImageOperateDialog QToolButton#btn_tip_version,
-ContainerSetting QToolButton#btn_tip_name
+ContainerSetting QToolButton#btn_tip_name,
+ContainerBackupOperateDialog QToolButton#btn_tip
 {
     border:none;
     background:transparent;
