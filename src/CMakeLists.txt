@@ -34,7 +34,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${KLOG_QT5_INCLUDE_DIRS}
         ${KIRAN_WIDGETS_QT5_INCLUDE_DIRS}
         ${GENERAL_PROTO_HDRS}
-        ${KYLIN_LICENSE_INCLUDE_DIRS})
+        ${KYLIN_LICENSE_INCLUDE_DIRS}
+        ${LIBNOTIFY_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME}
         proto_lib
@@ -50,7 +51,8 @@ target_link_libraries(${PROJECT_NAME}
         ${KIRAN_WIDGETS_QT5_LIBRARIES}
         ${KLOG_QT5_LIBRARIES}
         ${GRPCXX_LIBRARIES}
-        ${PROTOBUF_LIBRARIES})
+        ${PROTOBUF_LIBRARIES}
+        ${LIBNOTIFY_LIBRARIES})
 
 install(FILES ${QM_FILES}
     DESTINATION ${TRANSLATIONS_DIR})
