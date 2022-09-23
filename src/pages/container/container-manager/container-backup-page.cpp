@@ -11,6 +11,7 @@
 #include <QDesktopWidget>
 #include <QTimer>
 #include "message-dialog.h"
+#include "notification-manager.h"
 #define TIMEOUT 60000
 using namespace grpc;
 
@@ -330,19 +331,22 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
         {
             m_containerId = reply.second.container_id().data();
             updateInfo();
-            MessageDialog::message(tr("Resume Container Backup"),
-                                   tr("Resume container backup seccessful!"),
-                                   "",
-                                   ":/images/success.svg",
-                                   MessageDialog::StandardButton::Ok);
+            NotificationManager::sendNotify(tr("Resume container backup seccessful!"), "");
+            //            MessageDialog::message(tr("Resume Container Backup"),
+            //                                   tr("Resume container backup seccessful!"),
+            //                                   "",
+            //                                   ":/images/success.svg",
+            //                                   MessageDialog::StandardButton::Ok);
         }
         else
         {
-            MessageDialog::message(tr("Resume Container Backup"),
-                                   tr("Resume container backup failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   tr(":/images/error.svg"),
-                                   MessageDialog::StandardButton::Ok);
+            NotificationManager::sendNotify(tr("Resume container backup failed!"),
+                                            tr("Error: %1").arg(reply.first.error_message().data()));
+            //            MessageDialog::message(tr("Resume Container Backup"),
+            //                                   tr("Resume container backup failed!"),
+            //                                   tr("Error: %1").arg(reply.first.error_message().data()),
+            //                                   tr(":/images/error.svg"),
+            //                                   MessageDialog::StandardButton::Ok);
         }
     }
 }
