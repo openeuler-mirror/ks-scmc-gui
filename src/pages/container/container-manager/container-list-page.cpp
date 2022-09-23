@@ -184,6 +184,12 @@ void ContainerListPage::onActBackup()
     KLOG_INFO() << "onBackup";
 }
 
+void ContainerListPage::onActGenerateTemp(QModelIndex index)
+{
+    KLOG_INFO() << "onActGenerateTemp" << index;
+    operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE, index.row());
+}
+
 void ContainerListPage::onMonitor(int row)
 {
     KLOG_INFO() << "ContainerListPage::onMonitor" << row;
@@ -240,7 +246,6 @@ void ContainerListPage::onTerminal(int row)
 
 void ContainerListPage::onItemClicked(const QModelIndex &index)
 {
-    KLOG_INFO() << "onItemClicked: " << index.column();
     auto item = getItem(index.row(), index.column());
     if (item)
     {
@@ -302,7 +307,6 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
     {
         setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-        KLOG_INFO() << "getContainerListResult";
         if (reply.first.ok())
         {
             clearTable();
@@ -481,7 +485,6 @@ void ContainerListPage::getContainerRemoveResult(const QString objId, const QPai
     if (m_objId == objId)
     {
         setBusy(false);
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
             getContainerList();
@@ -500,7 +503,6 @@ void ContainerListPage::getContainerRemoveResult(const QString objId, const QPai
 
 void ContainerListPage::getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
-    KLOG_INFO() << "getListTemplateFinishResult";
     if (m_objId == objId)
     {
         if (reply.first.ok())
@@ -599,9 +601,6 @@ void ContainerListPage::initButtons()
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RESTART], SIGNAL(clicked()), this, SLOT(onBtnRestart()));
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE], &QPushButton::clicked, this, &ContainerListPage::onBtnDelete);
 
-    connect(this, SIGNAL(sigRun(QModelIndex)), this, SLOT(onBtnRun(QModelIndex)));
-    connect(this, SIGNAL(sigStop(QModelIndex)), this, SLOT(onBtnStop(QModelIndex)));
-    connect(this, SIGNAL(sigRestart(QModelIndex)), this, SLOT(onBtnRestart(QModelIndex)));
     connect(this, &ContainerListPage::sigHasRunningCtn,
             [this](bool hasRunningCtn) {
                 m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE]->setDisabled(hasRunningCtn);
@@ -637,6 +636,10 @@ void ContainerListPage::initTable()
 
     connect(this, &ContainerListPage::sigMonitor, this, &ContainerListPage::onMonitor);
     connect(this, &ContainerListPage::sigEdit, this, &ContainerListPage::onEdit);
+    connect(this, SIGNAL(sigRun(QModelIndex)), this, SLOT(onBtnRun(QModelIndex)));
+    connect(this, SIGNAL(sigStop(QModelIndex)), this, SLOT(onBtnStop(QModelIndex)));
+    connect(this, SIGNAL(sigRestart(QModelIndex)), this, SLOT(onBtnRestart(QModelIndex)));
+    connect(this, &ContainerListPage::sigGenerateTemp, this, &ContainerListPage::onActGenerateTemp);
 
     connect(this, &ContainerListPage::sigItemClicked, this, &ContainerListPage::onItemClicked);
     connect(this, &ContainerListPage::sigItemEntered, this, &ContainerListPage::onItemEntered);
@@ -677,6 +680,14 @@ void ContainerListPage::operateContainer(ContainerSettingType type, int row)
             m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE, m_networksMap);
             if (!m_templateMap.isEmpty())
                 m_containerSetting->setTemplateList(m_templateMap);
+            break;
+        }
+        case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+        {
+            auto item = getItem(row, 1);
+            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE,
+                                                      m_networksMap,
+                                                      item->data().value<QMap<QString, QVariant>>());
             break;
         }
         default:
