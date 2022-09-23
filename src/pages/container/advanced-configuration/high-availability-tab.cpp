@@ -38,11 +38,14 @@ void HighAvailabilityTab::getRestartPolicy(container::RestartPolicy *cfg)
 {
     if (cfg)
     {
-        KLOG_INFO() << "Policy :" << ui->cb_high_avail_policy->currentText() << "times: " << ui->lineEdit_times->text();
+        KLOG_INFO() << "Policy :" << ui->cb_high_avail_policy->currentText() << "times: " << ui->lineEdit_times->text()
+                    << "times to int:" << ui->lineEdit_times->text().toInt();
         QString policy = ui->cb_high_avail_policy->itemData(ui->cb_high_avail_policy->currentIndex()).toString();
         cfg->set_name(policy.toStdString());
         if (ui->lineEdit_times->isVisible())
+        {
             cfg->set_max_retry(ui->lineEdit_times->text().toInt());
+        }
     }
 }
 
