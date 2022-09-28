@@ -483,10 +483,12 @@ ContainerSetting QToolButton#funcDescBtn
 }
 
 /****************************Graphic*************************/
-QCheckBox#graphic_checkBox::indicator {
+QCheckBox#graphic_checkBox::indicator
+{
     width: 30px;
     height: 30px;
 }
+
 
 QCheckBox#graphic_checkBox::indicator:unchecked
 {

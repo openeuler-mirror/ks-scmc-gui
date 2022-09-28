@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "scmc/rpc/pb/system";
 
-package sys;
+package sys;  // system will conflict with C++ namespace
 
 service System {
     // 测试服务连通性，无需登录

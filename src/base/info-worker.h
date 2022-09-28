@@ -101,10 +101,10 @@ public:
 
     //container backup
     void listBackup(const QString objId, int nodeId, std::string containerId);
-    void updateBackup(const QString objId, int id, std::string backupDesc);
+    void updateBackup(const QString objId, int nodeId, int id, std::string backupDesc);
     void createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc);
     void resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId);
-    void removeBackup(const QString objId, int64_t ids);
+    void removeBackup(const QString objId, int nodeId, int64_t ids);
 
     // network management
     void listNetwork(const QString objId, const int64_t);

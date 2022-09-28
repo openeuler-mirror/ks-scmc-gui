@@ -82,7 +82,8 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                 i.value().first == tr("Resume") ||
                 i.value().first == tr("Update") ||
                 i.value().first == tr("Remove") ||
-                i.value().first == tr("Readed"))
+                i.value().first == tr("Readed") ||
+                i.value().first == tr("Export"))
             {
                 painter->setPen(QColor(46, 179, 255));
                 QPalette *pal = new QPalette;
@@ -144,7 +145,8 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 i.value().first == tr("Update") ||
                 i.value().first == tr("Remove") ||
                 i.value().first == tr("Readed") ||
-                i.value().first == tr("Ignore"))
+                i.value().first == tr("Ignore") ||
+                i.value().first == tr("Export"))
                 btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
             // 鼠标位于按钮之上
             if (!btnRect.contains(m_mousePoint))
@@ -226,6 +228,11 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                     emit sigBackupRemove(index.row());
                     break;
                 }
+                case ACTION_BUTTON_TYPE_BACKUP_EXPORT:
+                {
+                    emit sigBackupExport(index.row());
+                    break;
+                }
                 case ACTION_BUTTON_TYPE_WARN_READ:
                 {
                     emit sigWarnRead(index.row());
@@ -244,6 +251,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                         QPoint point(QCursor::pos().x() + 10, QCursor::pos().y());
                         m_menu->popup(point);
                     }
+                    break;
                 }
                 default:
                     break;
