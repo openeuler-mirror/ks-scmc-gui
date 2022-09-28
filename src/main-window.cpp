@@ -23,6 +23,7 @@
 #include "pages/audit/warning-list/warning-list-page.h"
 #include "pages/container/container-manager/container-page-manager.h"
 #include "pages/container/template-manager/template-list-page.h"
+#include "pages/image/global-security-controller.h"
 #include "pages/image/image-approval-page.h"
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
@@ -43,6 +44,7 @@
 #define IMAGE_STOREHOUSE QObject::tr("Image Storehouse")
 #define IMAGE_APPROVAL QObject::tr("Image Approval")
 #define IMAGE_APPROVAL_LIST QObject::tr("Image Approval List")
+#define IMAGE_APPROVABLE_CONTROLLER QObject::tr("Approvable Controller")
 
 #define NODE_MANAGER QObject::tr("Node Manager")
 
@@ -318,8 +320,9 @@ void MainWindow::outlinePageChange(QString str)
         return;
     bool find = false;
     setPageName(str);
-    auto currItem = ui->listWidget->item(0);
-    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    auto outlineWidgetItem = ui->listWidget->item(0);
+    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
+    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(outlineWidgetItem));
     outlineItem->setSelected(false);
 
     QListWidgetItem* item = nullptr;
@@ -476,6 +479,12 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         page = approvePage;
         break;
     }
+    case GUIDE_ITEM_IMAGE_APPROVABLE_CONTROLLER:
+    {
+        GlobalSecurityController* ctr = new GlobalSecurityController(this);
+        page = ctr;
+        break;
+    }
     case GUIDE_ITEM_LOG_LIST:
     {
         page = new LogListPage(this);
@@ -511,7 +520,8 @@ void MainWindow::loadUserPage()
     {
         pageMap = {
             {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
-            {GUIDE_ITEM_IMAGE_APPROVAL_LIST, IMAGE_APPROVAL_LIST}};
+            {GUIDE_ITEM_IMAGE_APPROVAL_LIST, IMAGE_APPROVAL_LIST},
+            {GUIDE_ITEM_IMAGE_APPROVABLE_CONTROLLER, IMAGE_APPROVABLE_CONTROLLER}};
     }
     else if (m_userName == "audadm")
     {
@@ -565,7 +575,8 @@ void MainWindow::loadUserItem()
         imageApproval->setFlags(imageApproval->flags() & ~Qt::ItemIsSelectable);
 
         QListWidgetItem* imageApprovalList = createGuideItem(IMAGE_APPROVAL_LIST, GUIDE_ITEM_TYPE_SUB);
-        QList<QListWidgetItem*> iamgeApprovalSubItems = {imageApprovalList};
+        QListWidgetItem* imageApprovableCtr = createGuideItem(IMAGE_APPROVABLE_CONTROLLER, GUIDE_ITEM_TYPE_SUB);
+        QList<QListWidgetItem*> iamgeApprovalSubItems = {imageApprovalList, imageApprovableCtr};
         m_groupMap.insert(imageApproval, iamgeApprovalSubItems);
         m_isShowMap.insert(imageApproval, true);
     }
@@ -680,12 +691,21 @@ void MainWindow::popupTransmissionList()
 void MainWindow::onApprovalPage(bool check)
 {
     Q_UNUSED(check);
+
+    auto currItem = ui->listWidget->currentItem();
+    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
+    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    outlineItem->setSelected(false);
     outlineJumpPage(ONUTLINE_CELL_EXAMINE);
 }
 
 void MainWindow::onWarningPage(bool check)
 {
     Q_UNUSED(check);
+    auto currItem = ui->listWidget->currentItem();
+    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
+    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    outlineItem->setSelected(false);
     outlineJumpPage(ONUTLINE_CELL_NODE_WARNING);
 }
 

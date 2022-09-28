@@ -28,6 +28,7 @@ private slots:
     void onRemoveBackup(int row);
     void onResumeBackup(int row);
     void onUpdateBackup(int row);
+    void onExportBackup(int row);
 
     void getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
     void getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
@@ -39,11 +40,13 @@ private:
     void initTable();
     void initButtons();
     void initConnect();
+    KiranTitlebarWindow *createExportWindow();
 
 private:
     QString m_objId;
     ContainerBackupOperateDialog *m_backupAddDlg;
     ContainerBackupOperateDialog *m_backupEditDlg;
+    KiranTitlebarWindow *m_exportWindow;
     int m_nodeId;
     std::string m_containerId;
     QString m_containerStatus;
