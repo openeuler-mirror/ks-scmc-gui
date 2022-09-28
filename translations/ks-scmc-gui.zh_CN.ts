@@ -1102,6 +1102,14 @@ Please re-enter your path!</source>
     </message>
 </context>
 <context>
+    <name>GlobalSecurityController</name>
+    <message>
+        <location filename="../src/pages/image/global-security-controller.cpp" line="29"/>
+        <source>Enable image approval,and verity signature files</source>
+        <translation>开启镜像审批、签名文件校验</translation>
+    </message>
+</context>
+<context>
     <name>GraphicConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/graphic-conf-tab.ui" line="14"/>
@@ -1631,17 +1639,17 @@ The first characters must be letter or digit</source>
 <context>
     <name>InfoWorker</name>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="997"/>
+        <location filename="../src/base/info-worker.cpp" line="999"/>
         <source>Failed to open %1!</source>
         <translation>打开 %1 文件失败！</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1012"/>
+        <location filename="../src/base/info-worker.cpp" line="1014"/>
         <source>file was broken!</source>
         <translation>文件已损坏！</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1019"/>
+        <location filename="../src/base/info-worker.cpp" line="1021"/>
         <source>Ok</source>
         <translation>是</translation>
     </message>
@@ -1973,37 +1981,37 @@ The first characters must be letter or digit</source>
         <translation type="vanished">请等待线程执行完成后退出！</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="243"/>
+        <location filename="../src/main-window.cpp" line="245"/>
         <source>KylinSec Container System V1(Security Version)</source>
         <translation>麒麟信安容器系统V1（安全版）</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="249"/>
+        <location filename="../src/main-window.cpp" line="251"/>
         <source>Transmission</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="258"/>
+        <location filename="../src/main-window.cpp" line="260"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="266"/>
+        <location filename="../src/main-window.cpp" line="268"/>
         <source>Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="284"/>
+        <location filename="../src/main-window.cpp" line="286"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="285"/>
+        <location filename="../src/main-window.cpp" line="287"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="287"/>
+        <location filename="../src/main-window.cpp" line="289"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -2938,42 +2946,42 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>QObject</name>
     <message>
         <location filename="../src/base/info-worker.cpp" line="35"/>
-        <location filename="../src/base/info-worker.cpp" line="684"/>
-        <location filename="../src/base/info-worker.cpp" line="797"/>
-        <location filename="../src/base/info-worker.cpp" line="913"/>
-        <location filename="../src/base/info-worker.cpp" line="1052"/>
-        <location filename="../src/base/info-worker.cpp" line="1077"/>
+        <location filename="../src/base/info-worker.cpp" line="686"/>
+        <location filename="../src/base/info-worker.cpp" line="799"/>
+        <location filename="../src/base/info-worker.cpp" line="915"/>
+        <location filename="../src/base/info-worker.cpp" line="1054"/>
+        <location filename="../src/base/info-worker.cpp" line="1079"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="49"/>
-        <location filename="../src/base/info-worker.cpp" line="1064"/>
-        <location filename="../src/base/info-worker.cpp" line="1091"/>
+        <location filename="../src/base/info-worker.cpp" line="1066"/>
+        <location filename="../src/base/info-worker.cpp" line="1093"/>
         <source>Response timeout</source>
         <translation>响应超时</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="699"/>
-        <location filename="../src/base/info-worker.cpp" line="812"/>
+        <location filename="../src/base/info-worker.cpp" line="701"/>
+        <location filename="../src/base/info-worker.cpp" line="814"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="709"/>
-        <location filename="../src/base/info-worker.cpp" line="719"/>
-        <location filename="../src/base/info-worker.cpp" line="824"/>
-        <location filename="../src/base/info-worker.cpp" line="834"/>
+        <location filename="../src/base/info-worker.cpp" line="711"/>
+        <location filename="../src/base/info-worker.cpp" line="721"/>
+        <location filename="../src/base/info-worker.cpp" line="826"/>
+        <location filename="../src/base/info-worker.cpp" line="836"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="950"/>
+        <location filename="../src/base/info-worker.cpp" line="952"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="978"/>
+        <location filename="../src/base/info-worker.cpp" line="980"/>
         <location filename="../src/common/message-dialog.cpp" line="111"/>
         <source>Cancel</source>
         <translation>取消</translation>
@@ -3064,54 +3072,59 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="33"/>
+        <location filename="../src/main-window.cpp" line="34"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="35"/>
+        <location filename="../src/main-window.cpp" line="36"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="36"/>
+        <location filename="../src/main-window.cpp" line="37"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="37"/>
+        <location filename="../src/main-window.cpp" line="38"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="39"/>
+        <location filename="../src/main-window.cpp" line="40"/>
         <source>Warning Log</source>
         <translation>告警日志</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="40"/>
+        <location filename="../src/main-window.cpp" line="41"/>
         <source>Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="41"/>
+        <location filename="../src/main-window.cpp" line="42"/>
         <source>Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="43"/>
+        <location filename="../src/main-window.cpp" line="44"/>
         <source>Image Storehouse</source>
         <translation>镜像仓库</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="44"/>
+        <location filename="../src/main-window.cpp" line="45"/>
         <source>Image Approval</source>
         <translation>镜像审核</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="45"/>
+        <location filename="../src/main-window.cpp" line="46"/>
         <source>Image Approval List</source>
         <translation>审核列表</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="47"/>
+        <source>Approvable Controller</source>
+        <translation>审核开关</translation>
     </message>
     <message>
         <source>Audit Center</source>
@@ -3134,7 +3147,7 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation type="vanished">镜像管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="47"/>
+        <location filename="../src/main-window.cpp" line="49"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
