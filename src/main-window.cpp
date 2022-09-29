@@ -23,9 +23,9 @@
 #include "pages/audit/warning-list/warning-list-page.h"
 #include "pages/container/container-manager/container-page-manager.h"
 #include "pages/container/template-manager/template-list-page.h"
-#include "pages/image/global-security-controller.h"
 #include "pages/image/image-approval-page.h"
 #include "pages/image/image-list-page.h"
+#include "pages/image/security-switch-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-page-manager.h"
 #include "pages/user/passwd-update-dialog.h"
@@ -481,7 +481,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_IMAGE_APPROVABLE_CONTROLLER:
     {
-        GlobalSecurityController* ctr = new GlobalSecurityController(this);
+        SecuritySwitchPage* ctr = new SecuritySwitchPage(this);
         page = ctr;
         break;
     }
