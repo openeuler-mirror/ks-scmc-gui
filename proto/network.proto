@@ -16,8 +16,9 @@ service Network {
     rpc RemoveIPtables(RemoveIPtablesRequest) returns (RemoveIPtablesReply) {}
 
     // not implemented
-    rpc Create(CreateRequest) returns (CreateReply) {}
-    rpc Remove(RemoveRequest) returns (RemoveReply) {}
+    rpc CreateNic(CreateNicRequest) returns (CreateNicReply) {}
+    rpc RemoveNic(RemoveNicRequest) returns (RemoveNicReply) {}
+    rpc UpdateNic(UpdateNicRequest) returns (UpdateNicReply) {}
 }
 
 message ListRequest {
@@ -49,13 +50,32 @@ message DisconnectRequest {
 
 message DisconnectReply {}
 
-message CreateRequest {}
+message CreateNicRequest {
+    int64  node_id = 1;
+    string name    = 2;
+    string parent  = 3;  // 物理网卡
+    string subnet  = 4;  // 网段
+    string gateway = 5;  // 网关
+}
 
-message CreateReply {}
+message CreateNicReply {}
 
-message RemoveRequest {}
+message RemoveNicRequest {
+    int64  node_id = 1;
+    string name    = 2;
+}
 
-message RemoveReply {}
+message RemoveNicReply {}
+
+message UpdateNicRequest {
+    int64  node_id = 1;
+    string name    = 2;
+    string parent  = 3;  // 物理网卡
+    string subnet  = 4;  // 网段
+    string gateway = 5;  // 网关
+}
+
+message UpdateNicReply {}
 
 message ListIPtablesRequest {
     int64  node_id      = 1;  // require

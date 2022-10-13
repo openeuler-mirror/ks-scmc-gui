@@ -11,6 +11,10 @@ StackedPage::StackedPage(QWidget *parent) : Page(parent), m_stackedWidget(nullpt
     initUI();
 }
 
+StackedPage::~StackedPage()
+{
+}
+
 void StackedPage::addStackedPage(QWidget *w, QString key)
 {
     m_stackedWidget->addWidget(w);

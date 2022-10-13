@@ -557,7 +557,8 @@ MessageDialog #browser_body
 /***************************NodeListPage**********************/
 NodeListPage #btnCreate,
 TemplateListPage #btnCreate,
-ContainerBackupPage #btnCreate
+ContainerBackupPage #btnCreate,
+NetworkListPage #btnCreate
 {
     background-color:#2EB3FF;
     border:none;
@@ -568,26 +569,30 @@ ContainerBackupPage #btnCreate
 
 NodeListPage #btnCreate:hover,
 TemplateListPage #btnCreate:hover,
-ContainerBackupPage #btnCreate:hover
+ContainerBackupPage #btnCreate:hover,
+NetworkListPage #btnCreate:hover
 {
    background-color:#77ceff;
 }
 NodeListPage #btnCreate:focus,
 TemplateListPage #btnCreate:focus,
-ContainerBackupPage #btnCreate:focus
+ContainerBackupPage #btnCreate:focus,
+NetworkListPage #btnCreate:focus
 {
     outline: none;
 }
 NodeListPage #btnCreate:disabled,
 TemplateListPage #btnCreate:disabled,
-ContainerBackupPage #btnCreate:disabled
+ContainerBackupPage #btnCreate:disabled,
+NetworkListPage #btnCreate:disabled
 {
     color:#919191;
     background:#393939;
 }
 
 NodeListPage #btnRemove,
-TemplateListPage #btnRemove
+TemplateListPage #btnRemove,
+NetworkListPage #btnRemove
 {
     background-color:#ff4b4b;
     border:none;
@@ -595,17 +600,20 @@ TemplateListPage #btnRemove
     color:#ffffff;
 }
 NodeListPage #btnRemove:hover
-TemplateListPage #btnRemove:hover
+TemplateListPage #btnRemove:hover,
+NetworkListPage #btnRemove:hover
 {
     background-color:#ff6c6c;
 }
 NodeListPage #btnRemove:focus,
-TemplateListPage #btnRemove:focus
+TemplateListPage #btnRemove:focus,
+NetworkListPage #btnRemove:focus
 {
     outline:none;
 }
 NodeListPage #btnRemove:disabled,
-TemplateListPage #btnRemove:disabled
+TemplateListPage #btnRemove:disabled,
+NetworkListPage #btnRemove:disabled
 {
     color:#919191;
     background:#393939;
@@ -812,7 +820,8 @@ MonitorContent #btn_apply:focus
 }*/
 
 
-MonitorContent QComboBox
+MonitorContent QComboBox,
+NetworkPageManager QComboBox
 {
     border: 1px solid #393939;
     border-radius: 6px;
@@ -820,17 +829,20 @@ MonitorContent QComboBox
     combobox-popup:0;
     font-size:14px;
 }
-MonitorContent QComboBox:drop-down
+MonitorContent QComboBox:drop-down,
+NetworkPageManager QComboBox:drop-down
 {
     border:none;
     padding-right:10px;
 }
-MonitorContent QComboBox::down-arrow
+MonitorContent QComboBox::down-arrow,
+NetworkPageManager QComboBox::down-arrow
 {
     image: url(:/images/down-arrow.svg);
 }
 
-MonitorContent QComboBox QAbstractItemView
+MonitorContent QComboBox QAbstractItemView,
+NetworkPageManager QComboBox QAbstractItemView
 {
     background:#222222;
     color:#ffffff;
@@ -839,25 +851,29 @@ MonitorContent QComboBox QAbstractItemView
     border-radius: 6px;
     font-size:14px;
 }
-MonitorContent QComboBox QAbstractItemView::item
+MonitorContent QComboBox QAbstractItemView::item,
+NetworkPageManager QComboBox QAbstractItemView::item
 {
     height:30px;
     border-bottom:1px solid #393939;
 
 }
-MonitorContent QComboBox QAbstractItemView::item:first
+MonitorContent QComboBox QAbstractItemView::item:first,
+NetworkPageManager QComboBox QAbstractItemView::item:first
 {
     border-top-left-radius:6px;
     border-top-right-radius: 6px;
 }
-MonitorContent QComboBox QAbstractItemView::item:last
+MonitorContent QComboBox QAbstractItemView::item:last,
+NetworkPageManager QComboBox QAbstractItemView::item:last
 {
     border-bottom-left-radius:6px;
     border-bottom-right-radius: 6px;
     border-bottom:none;
 }
 
-MonitorContent QComboBox QAbstractItemView::item:selected
+MonitorContent QComboBox QAbstractItemView::item:selected,
+NetworkPageManager QComboBox QAbstractItemView::item:selected
 {
     background-color:#2D2D2D;
     color:#ffffff;
