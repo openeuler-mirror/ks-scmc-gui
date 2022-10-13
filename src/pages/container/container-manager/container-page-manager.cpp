@@ -46,8 +46,8 @@ void ContainerPageManager::updateInfo(QString keyword)
 
 void ContainerPageManager::onNameClicked(QMap<QString, QVariant> infoMap)
 {
+    updateCurrentPage("exitTimedRefresh");  //停止容器列表页面定时刷新
     setCurrentPage(CONTAINER_PAGE_TYPE_INFO);
-
     m_containerInfoPage->setContainerInfo(infoMap);
     updateCurrentPage();
 }
