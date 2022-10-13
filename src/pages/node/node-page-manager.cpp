@@ -48,6 +48,7 @@ void NodePageManager::updateInfo(QString keyword)
 
 void NodePageManager::onNodeNameClicked(qint64 nodeId)
 {
+    updateCurrentPage("exitTimedRefresh");  //停止节点列表页面定时刷新
     setCurrentPage(NODE_PAGE_TYPE_NODE_INFO);
     m_nodeInfoPage->setNodeId(nodeId);
     updateCurrentPage();
