@@ -302,8 +302,11 @@ void TablePage::sleep(int sec)
 
 void TablePage::clearCheckState()
 {
-    m_headerView->setCheckState(false);
-    onHeaderCkbTog(false);
+    if (m_isHeadCheckable)
+    {
+        m_headerView->setCheckState(false);
+        onHeaderCkbTog(false);
+    }
 }
 
 void TablePage::setPaging(int totalPages)
