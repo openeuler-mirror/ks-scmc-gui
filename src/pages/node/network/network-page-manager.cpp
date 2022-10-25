@@ -53,7 +53,6 @@ void NetworkPageManager::initUI()
     hLayout->setMargin(0);
     QLabel *label = new QLabel(tr("Network:"), this);
     m_cbNetwork = new QComboBox(this);
-    //    m_cbNetwork->setObjectName();
     m_cbNetwork->setFixedSize(238, 32);
     m_cbNetwork->addItem(tr("Real Interface"), NETWORK_IFS_TYPE_REAL);
     m_cbNetwork->addItem(tr("Virt Interface"), NETWORK_IFS_TYPE_VIRT);
@@ -74,12 +73,12 @@ void NetworkPageManager::initUI()
 
 void NetworkPageManager::createPhysicalNetTable()
 {
-    m_physicalPage = new NetworkListPage(NETWORK_IFS_TYPE_REAL);
+    m_physicalPage = new NetworkListPage(NETWORK_IFS_TYPE_REAL, this);
     m_stackedWidget->addWidget(m_physicalPage);
 }
 
 void NetworkPageManager::createVirtNetTable()
 {
-    m_virtPage = new NetworkListPage(NETWORK_IFS_TYPE_VIRT);
+    m_virtPage = new NetworkListPage(NETWORK_IFS_TYPE_VIRT, this);
     m_stackedWidget->addWidget(m_virtPage);
 }
