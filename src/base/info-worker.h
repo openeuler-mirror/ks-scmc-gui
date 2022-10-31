@@ -1,6 +1,6 @@
 ﻿/**
  * @file          /ks-scmc-gui/src/base/info-worker.h
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -142,8 +142,8 @@ public:
     void setSecuritySwitch(const QString objId, const bool &isOn);
     void getSecuritySwitch(const QString objId);
 
-    void stopTransfer(QString name, QString version, bool isStop);
-    bool isTransferStoped(QString name, QString version);
+    void stopTransfer(const QString &name, const QString &version, bool isStop);
+    bool isTransferStoped(const QString &name, const QString &version);
 
 private:
     InfoWorker(QObject *parent = nullptr);
