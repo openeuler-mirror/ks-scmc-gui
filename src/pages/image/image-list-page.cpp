@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/image/image-list-page.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -187,19 +187,23 @@ void ImageListPage::initImageConnect()
 
 int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
 {
-    QFile file(fileName);
-    QByteArray fileArray;
-
-    if (!file.open(QIODevice::ReadOnly))
+    QFile f(fileName);
+    if (!f.open(QIODevice::ReadOnly))
     {
         KLOG_INFO() << "Failed to open " << fileName;
         return -1;
     }
 
-    fileSize = file.size();
-    fileArray = file.readAll();
-    file.close();
-    strSha256 = QCryptographicHash::hash(fileArray, QCryptographicHash::Sha256).toHex();
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    if (!hash.addData(&f))
+    {
+        KLOG_INFO() << "Failed to read file " << fileName;
+        return -1;
+    }
+    f.close();
+
+    strSha256 = hash.result().toHex();
+    fileSize = f.size();
 
     KLOG_INFO() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
     return 0;
