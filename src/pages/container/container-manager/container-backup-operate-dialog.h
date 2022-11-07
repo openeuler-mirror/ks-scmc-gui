@@ -13,7 +13,8 @@
 enum BackupOperateType
 {
     BACKUP_OPERATE_TYPE_CREATE,
-    BACKUP_OPERATE_TYPE_EDIT
+    BACKUP_OPERATE_TYPE_EDIT,
+    BACKUP_OPERATE_TYPE_EXPORT
 };
 
 namespace Ui
@@ -32,8 +33,12 @@ public:
 private:
     void limitLength();
 
+private slots:
+    void save();
+
 signals:
-    void sigSave(BackupOperateType type, QString desc);
+    void sigSave(BackupOperateType type, QString desc, QString name);
+    void sigExport(bool isDownload, QString name, QString version, QString desc, QString path);
 
 private:
     Ui::ContainerBackupOperateDialog *ui;

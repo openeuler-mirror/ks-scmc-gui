@@ -281,12 +281,13 @@ void InfoWorker::updateBackup(const QString objId, int nodeId, int id, std::stri
     RPC_ASYNC(container::UpdateBackupReply, _updateBackup, updateBackupFinished, objId, req);
 }
 
-void InfoWorker::createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc)
+void InfoWorker::createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc, std::string backupName)
 {
     container::CreateBackupRequest req;
     req.set_node_id(nodeId);
     req.set_container_id(containerId);
     req.set_backup_desc(backupDesc);
+    req.set_backup_name(backupName);
     RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, objId, req);
 }
 
@@ -296,6 +297,11 @@ void InfoWorker::removeBackup(const QString objId, int nodeId, int64_t id)
     req.set_node_id(nodeId);
     req.set_id(id);
     RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, objId, req);
+}
+
+void InfoWorker::exportBackup(const QString objId, const container::ExportBackupRequest &req)
+{
+    RPC_ASYNC(container::ExportBackupReply, _exportBackup, exportBackupFinished, objId, req);
 }
 
 void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
@@ -643,6 +649,12 @@ QPair<grpc::Status, container::RemoveBackupReply> InfoWorker::_removeBackup(cons
     RPC_IMPL(container::RemoveBackupReply, container::Container::NewStub, RemoveBackup);
 }
 
+QPair<grpc::Status, container::ExportBackupReply> InfoWorker::_exportBackup(container::ExportBackupRequest &req)
+{
+    RPC_IMPL(container::ExportBackupReply, container::Container::NewStub, ExportBackup);
+    //return QPair<grpc::Status, container::ExportBackupReply>();
+}
+
 QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
 {
     RPC_IMPL(logging::ListRuntimeReply, logging::Logging::NewStub, ListRuntime);
@@ -827,6 +839,8 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
             {
                 progress = prog;
                 emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, name, version, progress);
+                if (prog == 100)
+                    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, name, version, progress);
             }
         }
     }
@@ -869,7 +883,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         {
             KLOG_INFO() << "send param err";
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                                QObject::tr("Internal Error").toStdString());
+                                   QObject::tr("Internal Error").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             return r;
         }
@@ -881,7 +895,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         {
             KLOG_INFO() << "Failed to open " << imageFile;
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                QObject::tr("Invalid Argument").toStdString());
+                                   QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             return r;
         }
@@ -891,7 +905,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         {
             KLOG_INFO() << "Failed to open " << signFile;
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                QObject::tr("Invalid Argument").toStdString());
+                                   QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             return r;
         }
@@ -902,7 +916,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             // 读取签名文件错误
             KLOG_INFO() << "Read sign file " << signFile;
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                QObject::tr("Invalid Argument").toStdString());
+                                   QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             return r;
         }
@@ -918,7 +932,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         {
             KLOG_INFO() << "send param err";
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                                QObject::tr("Internal Error").toStdString());
+                                   QObject::tr("Internal Error").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             goto finish;
         }
@@ -949,6 +963,8 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
                 {
                     progress = prog;
                     emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, name, version, progress);
+                    if (prog == 100)
+                        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, name, version, progress);
                 }
             }
         }
@@ -1037,7 +1053,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     do
     {
         QFile file(filePath);
-        QByteArray fileArray;
+        //QByteArray fileArray;
         if (!file.open(QIODevice::ReadOnly))
         {
             KLOG_INFO() << "Failed to open " << filePath;
@@ -1048,9 +1064,19 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
             break;
         }
         auto fileSize = file.size();
-        fileArray = file.readAll();
+
+        QCryptographicHash hash(QCryptographicHash::Sha256);
+        if (!hash.addData(&file))
+        {
+            KLOG_INFO() << "Failed to read file " << filePath;
+            message = tr("file was broken!");
+            statusCode = grpc::StatusCode::INTERNAL;
+            status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
+            progress = 99;
+            break;
+        }
         file.close();
-        auto strSha256 = QCryptographicHash::hash(fileArray, QCryptographicHash::Sha256).toHex();
+        auto strSha256 = hash.result().toHex();
 
         KLOG_INFO() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
         if (size != fileSize || checksum != strSha256.toStdString())
