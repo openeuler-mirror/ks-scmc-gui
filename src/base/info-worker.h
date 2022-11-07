@@ -102,9 +102,10 @@ public:
     //container backup
     void listBackup(const QString objId, int nodeId, std::string containerId);
     void updateBackup(const QString objId, int nodeId, int id, std::string backupDesc);
-    void createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc);
+    void createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc, std::string backupName);
     void resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId);
     void removeBackup(const QString objId, int nodeId, int64_t ids);
+    void exportBackup(const QString objId, const container::ExportBackupRequest &req);
 
     // network management
     void listNetwork(const QString objId, const int64_t);
@@ -182,6 +183,7 @@ private:
     static QPair<grpc::Status, container::CreateBackupReply> _createBackup(const container::CreateBackupRequest &);
     static QPair<grpc::Status, container::ResumeBackupReply> _resumeBackup(const container::ResumeBackupRequest &);
     static QPair<grpc::Status, container::RemoveBackupReply> _removeBackup(const container::RemoveBackupRequest &);
+    static QPair<grpc::Status, container::ExportBackupReply> _exportBackup(container::ExportBackupRequest &);
 
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
@@ -253,6 +255,7 @@ signals:
     void createBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &);
     void resumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &);
     void removeBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
+    void exportBackupFinished(const QString objId, const QPair<grpc::Status, container::ExportBackupReply> &);
 
     // network management
     void listNetworkFinished(const QString objId, const QPair<grpc::Status, network::ListReply> &);
