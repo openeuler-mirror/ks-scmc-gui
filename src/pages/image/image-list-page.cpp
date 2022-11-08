@@ -769,22 +769,12 @@ void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc
         {
             KLOG_INFO() << "download images success";
             NotificationManager::sendNotify(tr("Download image success!"), "");
-            //            MessageDialog::message(tr("Download Image"),
-            //                                   tr("Download image success!"),
-            //                                   tr(""),
-            //                                   ":/images/success.svg",
-            //                                   MessageDialog::StandardButton::Ok);
 
             getImageList();
         }
         else
         {
             NotificationManager::sendNotify(tr("Download image failed! "), QString::fromStdString(msg.data()));
-            //            MessageDialog::message(tr("Download Image"),
-            //                                   tr("Download image failed!"),
-            //                                   tr(msg.data()),
-            //                                   ":/images/error.svg",
-            //                                   MessageDialog::StandardButton::Ok);
         }
     }
 }
