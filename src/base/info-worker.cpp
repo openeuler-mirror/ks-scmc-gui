@@ -299,9 +299,9 @@ void InfoWorker::removeBackup(const QString objId, int nodeId, int64_t id)
     RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, objId, req);
 }
 
-void InfoWorker::exportBackup(const QString objId, const container::ExportBackupRequest &req)
+void InfoWorker::exportBackup(const QString objId, const container::ExportBackupRequest &req, const QString path)
 {
-    RPC_ASYNC(container::ExportBackupReply, _exportBackup, exportBackupFinished, objId, req);
+    RPC_ASYNC(QString, _exportBackup, exportBackupFinished, objId, req, path);
 }
 
 void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
@@ -649,10 +649,106 @@ QPair<grpc::Status, container::RemoveBackupReply> InfoWorker::_removeBackup(cons
     RPC_IMPL(container::RemoveBackupReply, container::Container::NewStub, RemoveBackup);
 }
 
-QPair<grpc::Status, container::ExportBackupReply> InfoWorker::_exportBackup(container::ExportBackupRequest &req)
+QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBackupRequest &req, const QString path)
 {
-    RPC_IMPL(container::ExportBackupReply, container::Container::NewStub, ExportBackup);
-    //return QPair<grpc::Status, container::ExportBackupReply>();
+    QPair<grpc::Status, QString> r;
+    bool isDownload = req.is_download();
+
+    auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
+    if (!chan)
+    {
+        KLOG_INFO() << "export backup failed to get connection";
+        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
+                               QObject::tr("Network Error").toStdString());
+        return r;
+    }
+
+    container::ExportBackupReply reply;
+    grpc::ClientContext context;
+    if (s_authKey.size() > 0)
+        context.AddMetadata("authorization", s_authKey);
+
+    auto stream = container::Container::NewStub(chan)->ExportBackup(&context, req);
+    bool ret = stream->Read(&reply);
+    if (!ret)
+    {
+        KLOG_INFO() << "recv param err";
+        r.first = stream->Finish();
+        return r;
+    }
+
+    //导出到镜像仓库，不处理data 流数据
+    if (!isDownload)
+    {
+        r.first = stream->Finish();
+        if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())
+            emit InfoWorker::getInstance().sessinoExpire();
+        else if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())
+        {
+            r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
+                                   QObject::tr("Response timeout").toStdString());
+        }
+        return r;
+    }
+
+    const auto name = QString::fromStdString(reply.img_name());
+    const auto version = QString::fromStdString(reply.img_version());
+    const auto size = reply.img_size();
+    QString exportName = name + "-" + version;
+    KLOG_INFO() << name << version << size;
+    if (InfoWorker::getInstance().m_exportList.contains(exportName))
+    {
+        r.first = grpc::Status(grpc::StatusCode::ALREADY_EXISTS, tr("The %1 backup is exporting,please wait a minute.").arg(exportName).toStdString());
+        return r;
+    }
+    else
+        InfoWorker::getInstance().m_exportList.append(exportName);
+
+    QString filePath = QString("%1%2_%3.tar").arg(path).arg(name).arg(version);
+    QFile imgFile(filePath);
+    if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        KLOG_INFO() << "Failed to open " << filePath.data();
+        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
+                               QObject::tr("Failed to open %1").arg(filePath.data()).toStdString());
+        InfoWorker::getInstance().m_exportList.removeAll(exportName);
+        return r;
+    }
+
+    int64_t trans(0), progress(0);
+    while (stream->Read(&reply))
+    {
+        if (InfoWorker::getInstance().isTransferStoped(name, version))
+        {
+            imgFile.close();
+            r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("Cancel").toStdString());
+            InfoWorker::getInstance().m_exportList.removeAll(exportName);
+            return r;
+        }
+
+        imgFile.write(reply.data().data(), qint64(reply.data().size()));
+        trans += reply.data().size();
+        int tmp = int(floor(trans * 100.0 / size));
+        if (progress != tmp)
+        {
+            progress = tmp > 100 ? 100 : tmp;  // steam数据包含镜像的信息，会比实际镜像大，所有进度>100后显示100
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING, name, version, progress);
+        }
+    }
+    if (progress != 100)
+    {
+        r.first = grpc::Status(grpc::StatusCode::ABORTED, tr("Export interruption!").toStdString());
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED, name, version, progress);
+    }
+    else
+    {
+        r.first = grpc::Status(grpc::StatusCode::OK, tr("Ok").toStdString());
+        r.second = filePath;
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, name, version, progress);
+    }
+    imgFile.close();
+    InfoWorker::getInstance().m_exportList.removeAll(exportName);
+    return r;
 }
 
 QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)
@@ -984,7 +1080,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO() << "uploadImage failed to get connection";
+        KLOG_INFO() << "download image failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);

@@ -175,11 +175,12 @@ void ContainerBackupPage::onUpdateBackup(int row)
     auto item = getItem(row, 1);
     QMap<QString, QVariant> infoMap = item->data().toMap();
     int64_t backupId = infoMap.value(BACKUP_ID).toInt();
+    QString backupName = infoMap.value(BACKUP_NAME).toString();
     m_updateBackupId = backupId;
 
     if (!m_backupEditDlg)
     {
-        m_backupEditDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EDIT);
+        m_backupEditDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EDIT, backupName);
         m_backupEditDlg->setTitle(tr("Backup Update"));
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -202,11 +203,12 @@ void ContainerBackupPage::onExportBackup(int row)
     auto item = getItem(row, 1);
     QMap<QString, QVariant> infoMap = item->data().toMap();
     int64_t backupId = infoMap.value(BACKUP_ID).toInt();
+    QString backupName = infoMap.value(BACKUP_NAME).toString();
     m_exportBackupId = backupId;
 
     if (m_backupExportDlg == nullptr)
     {
-        m_backupExportDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EXPORT);
+        m_backupExportDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EXPORT, backupName);
         connect(m_backupExportDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
                     KLOG_INFO() << " export backup dialog destroy";
@@ -223,19 +225,14 @@ void ContainerBackupPage::onExportBackup(int row)
     m_backupExportDlg->show();
 }
 
-void ContainerBackupPage::exportBackup(bool isDownload, QString name, QString version, QString desc, QString path)
+void ContainerBackupPage::exportBackup(bool isDownload, QString version, QString path)
 {
-    if (!isDownload)  //to image manager
-    {
-        container::ExportBackupRequest req;
-        req.set_node_id(m_nodeId);
-        req.set_backup_id(m_exportBackupId);
-        req.set_is_download(isDownload);
-        req.set_img_name(name);
-        req.set_img_version(version);
-        req.set_description(desc);
-        InfoWorker::exportBackup(m_objId, req);
-    }
+    container::ExportBackupRequest req;
+    req.set_node_id(m_nodeId);
+    req.set_backup_id(m_exportBackupId);
+    req.set_is_download(isDownload);
+    req.set_img_version(version.toStdString());
+    InfoWorker::getInstance().exportBackup(m_objId, req, path);
 }
 
 void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
@@ -403,6 +400,34 @@ void ContainerBackupPage::getRemoveBackupFinished(const QString objId, const QPa
     }
 }
 
+void ContainerBackupPage::getExportBackupFinished(const QString objId, const QPair<Status, QString> &reply)
+{
+    KLOG_INFO() << "getExportBackupFinished" << m_objId << objId;
+    if (m_objId == objId)
+    {
+        if (reply.first.ok())
+        {
+            updateInfo();
+            NotificationManager::sendNotify(tr("Export container backup seccessful!"),
+                                            reply.second.isEmpty() ? tr("You can see it in image manager.") : tr("Save path:%1").arg(reply.second));
+        }
+        else
+        {
+            if (reply.first.error_code() == grpc::StatusCode::ALREADY_EXISTS)
+            {
+                MessageDialog::message(tr("Export Container Backup"),
+                                       tr("Export container backup failed!"),
+                                       tr("Error: %1").arg(reply.first.error_message().data()),
+                                       ":/images/error.svg",
+                                       MessageDialog::StandardButton::Ok);
+            }
+            else
+                NotificationManager::sendNotify(tr("Export container backup failed!"),
+                                                tr("Error: %1").arg(reply.first.error_message().data()));
+        }
+    }
+}
+
 void ContainerBackupPage::initTable()
 {
     QStringList tableHHeaderDate = {
@@ -464,69 +489,5 @@ void ContainerBackupPage::initConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::listBackupFinished, this, &ContainerBackupPage::getListBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateBackupFinished, this, &ContainerBackupPage::getUpdateBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::resumeBackupFinished, this, &ContainerBackupPage::getResumeBackupFinished);
-}
-
-KiranTitlebarWindow *ContainerBackupPage::createExportWindow()
-{
-    KiranTitlebarWindow *window = new KiranTitlebarWindow(this);
-    window->setAttribute(Qt::WA_DeleteOnClose, true);
-    window->setTitle("Export");
-    window->setIcon(QIcon(":/images/logo.png"));
-    window->setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
-    window->setResizeable(false);
-
-    //创建内容窗口
-    QWidget *content = new QWidget(window);
-    QVBoxLayout *mainLayout = new QVBoxLayout(content);
-    mainLayout->setSpacing(20);
-    mainLayout->setContentsMargins(20, 20, 20, 20);
-
-    QHBoxLayout *versionLayout = new QHBoxLayout;
-    versionLayout->setMargin(0);
-    versionLayout->setSpacing(10);
-    QLabel *label = new QLabel(tr("Version"), content);
-    QLineEdit *line = new QLineEdit(content);
-    versionLayout->addWidget(label);
-    versionLayout->addWidget(line);
-
-    QHBoxLayout *radioBtnLayout = new QHBoxLayout;
-    radioBtnLayout->setMargin(0);
-    radioBtnLayout->setSpacing(10);
-    QRadioButton *btnToLocal = new QRadioButton(tr("Export to local"), content);
-    btnToLocal->setChecked(true);
-    QRadioButton *btnToImage = new QRadioButton(tr("Export to image manager"), content);
-    radioBtnLayout->addStretch();
-    radioBtnLayout->addWidget(btnToLocal);
-    radioBtnLayout->addWidget(btnToImage);
-    radioBtnLayout->addStretch();
-
-    QHBoxLayout *btnLayout = new QHBoxLayout;
-    btnLayout->setMargin(0);
-    btnLayout->setSpacing(20);
-
-    QPushButton *btnConfirm = new QPushButton(tr("Confirm"), content);
-    btnConfirm->setFixedSize(100, 40);
-    Kiran::WidgetPropertyHelper::setButtonType(btnConfirm, Kiran::BUTTON_Default);
-    connect(btnConfirm, &QPushButton::clicked,
-            [=] {
-
-            });
-
-    QPushButton *btnCancel = new QPushButton(tr("Cancel"), content);
-    btnCancel->setFixedSize(100, 40);
-    connect(btnCancel, &QPushButton::clicked, window, &KiranTitlebarWindow::close);
-
-    btnLayout->addStretch();
-    btnLayout->addWidget(btnConfirm);
-    btnLayout->addWidget(btnCancel);
-
-    mainLayout->addLayout(versionLayout);
-    mainLayout->addLayout(radioBtnLayout);
-    mainLayout->addStretch();
-    mainLayout->addLayout(btnLayout);
-
-    window->setWindowContentWidget(content);
-    window->resize(500, 400);
-
-    return window;
+    connect(&InfoWorker::getInstance(), &InfoWorker::exportBackupFinished, this, &ContainerBackupPage::getExportBackupFinished);
 }
