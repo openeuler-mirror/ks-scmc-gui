@@ -247,7 +247,8 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 {
     KiranTitlebarWindow *window = new KiranTitlebarWindow(this);
     window->setAttribute(Qt::WA_DeleteOnClose, true);
-    window->setTitle("Add virt interface");
+    window->setWindowModality(Qt::ApplicationModal);
+    window->setTitle(tr("Add virt interface"));
     window->setIcon(QIcon(":/images/logo.png"));
     window->setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
     window->setResizeable(false);
