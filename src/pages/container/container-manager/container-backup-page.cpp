@@ -209,6 +209,7 @@ void ContainerBackupPage::onExportBackup(int row)
     if (m_backupExportDlg == nullptr)
     {
         m_backupExportDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EXPORT, backupName);
+        m_backupExportDlg->setTitle(tr("Backup Export"));
         connect(m_backupExportDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
                     KLOG_INFO() << " export backup dialog destroy";

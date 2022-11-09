@@ -14,12 +14,13 @@ enum NodeInfoSubPageType
     NODE_INFO_SUB_PAGE_TYPE_CONTAINER,
     NODE_INFO_SUB_PAGE_TYPE_MONITOR,
     NODE_INFO_SUB_PAGE_TYPE_NETWORK,
-    NODE_INFO_SUB_PAGE_TYPE_SETTINGS
+    NODE_INFO_SUB_PAGE_TYPE_CONFIG
 };
 
 class MonitorContent;
 class ContainerListPage;
 class NetworkPageManager;
+class NodeConfigPage;
 class NodeInfoPage : public TabPage
 {
     Q_OBJECT
@@ -37,6 +38,7 @@ private:
     ContainerListPage *m_containerListPage;
     MonitorContent *m_monitor;
     NetworkPageManager *m_networkPage;
+    NodeConfigPage *m_configPage;
 };
 
 #endif  // NODEINFOPAGE_H
