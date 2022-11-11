@@ -304,6 +304,43 @@ void InfoWorker::exportBackup(const QString objId, const container::ExportBackup
     RPC_ASYNC(QString, _exportBackup, exportBackupFinished, objId, req, path);
 }
 
+void InfoWorker::listAppEntry(const QString objId, const int nodeId, const std::string containerId)
+{
+    container::ListAppEntryRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    RPC_ASYNC(container::ListAppEntryReply, _listAppEntry, listAppEntryFinished, objId, req);
+}
+
+void InfoWorker::addAppEntry(const QString objId, const container::AddAppEntryRequest &req)
+{
+    RPC_ASYNC(container::AddAppEntryReply, _addAppEntry, addAppEntryFinished, objId, req);
+}
+
+void InfoWorker::updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &req)
+{
+    RPC_ASYNC(container::UpdateAppEntryReply, _updateAppEntry, updateAppEntryFinished, objId, req);
+}
+
+void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const QList<int> appIds)
+{
+    container::RemoveAppEntryRequest req;
+    req.set_node_id(nodeId);
+    foreach (auto id, appIds)
+    {
+        req.add_app_ids(id);
+    }
+    RPC_ASYNC(container::RemoveAppEntryReply, _removeAppEntry, removeAppEntryFinished, objId, req);
+}
+
+void InfoWorker::runAppEntry(const QString objId, const int nodeId, const int appId)
+{
+    container::RunAppEntryRequest req;
+    req.set_node_id(nodeId);
+    req.set_app_id(appId);
+    RPC_ASYNC(container::RunAppEntryReply, _runAppEntry, runAppEntryFinished, objId, req);
+}
+
 void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
 {
     container::ResumeBackupRequest req;
@@ -749,6 +786,31 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     imgFile.close();
     InfoWorker::getInstance().m_exportList.removeAll(exportName);
     return r;
+}
+
+QPair<grpc::Status, container::ListAppEntryReply> InfoWorker::_listAppEntry(const container::ListAppEntryRequest &req)
+{
+    RPC_IMPL(container::ListAppEntryReply, container::Container::NewStub, ListAppEntry);
+}
+
+QPair<grpc::Status, container::AddAppEntryReply> InfoWorker::_addAppEntry(const container::AddAppEntryRequest &req)
+{
+    RPC_IMPL(container::AddAppEntryReply, container::Container::NewStub, AddAppEntry);
+}
+
+QPair<grpc::Status, container::UpdateAppEntryReply> InfoWorker::_updateAppEntry(const container::UpdateAppEntryRequest &req)
+{
+    RPC_IMPL(container::UpdateAppEntryReply, container::Container::NewStub, UpdateAppEntry);
+}
+
+QPair<grpc::Status, container::RemoveAppEntryReply> InfoWorker::_removeAppEntry(const container::RemoveAppEntryRequest &req)
+{
+    RPC_IMPL(container::RemoveAppEntryReply, container::Container::NewStub, RemoveAppEntry);
+}
+
+QPair<grpc::Status, container::RunAppEntryReply> InfoWorker::_runAppEntry(const container::RunAppEntryRequest &req)
+{
+    RPC_IMPL(container::RunAppEntryReply, container::Container::NewStub, RunAppEntry);
 }
 
 QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)

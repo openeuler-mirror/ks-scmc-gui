@@ -83,6 +83,8 @@ protected:
     virtual void timerEvent(QTimerEvent *event);
 
 signals:
+    void sigApp(int row);
+    void sigAppRun(int row);
     void sigMonitor(int row);
     void sigEdit(int row);
     void sigTerminal(int row);
