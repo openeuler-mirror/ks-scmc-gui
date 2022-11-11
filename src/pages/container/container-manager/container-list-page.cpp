@@ -20,6 +20,7 @@
 
 #include "common/message-dialog.h"
 #include "common/monitor-dialog.h"
+#include "container-app-page.h"
 #include "container-list-page.h"
 #include "load-configuration.h"
 
@@ -188,6 +189,34 @@ void ContainerListPage::onActGenerateTemp(QModelIndex index)
 {
     KLOG_INFO() << "onActGenerateTemp" << index;
     operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE, index.row());
+}
+
+void ContainerListPage::onApp(int row)
+{
+    KLOG_INFO() << "ContainerListPage::onApp" << row;
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+
+    int nodeId = idMap.value(NODE_ID).toInt();
+    std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
+    KLOG_INFO() << nodeId << containerId.data();
+
+    ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, containerId);
+
+    int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+    QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+    KLOG_INFO() << appPage->width() << appPage->height();
+    appPage->move(screenGeometry.x() + (screenGeometry.width() - appPage->width()) / 2,
+                  screenGeometry.y() + (screenGeometry.height() - appPage->height()) / 2);
+
+    appPage->show();
+
+    connect(appPage, &ContainerAppDialog::destroyed,
+            [=] {
+                KLOG_INFO() << " monitor destroy";
+                appPage->deleteLater();
+                //appPage = nullptr;
+            });
 }
 
 void ContainerListPage::onMonitor(int row)
@@ -627,13 +656,15 @@ void ContainerListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_APP, QPair<QString, QString>{tr("App"), ":/images/monitor.svg"}},
+                                                                                                   {ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_TERINAL, QPair<QString, QString>{tr("Terminal"), ":/images/terminal.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_MENU, QPair<QString, QString>{tr("More"), ":/images/more.svg"}}});
 
     setTableDefaultContent("-");
 
+    connect(this, &ContainerListPage::sigApp, this, &ContainerListPage::onApp);
     connect(this, &ContainerListPage::sigMonitor, this, &ContainerListPage::onMonitor);
     connect(this, &ContainerListPage::sigEdit, this, &ContainerListPage::onEdit);
     connect(this, SIGNAL(sigRun(QModelIndex)), this, SLOT(onBtnRun(QModelIndex)));
