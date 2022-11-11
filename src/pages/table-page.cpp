@@ -179,6 +179,8 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     connect(m_btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::onActBackupUpdate);
     connect(m_btnDelegate, &ButtonDelegate::sigBackupRemove, this, &TablePage::onActBackupRemove);
     connect(m_btnDelegate, &ButtonDelegate::sigBackupExport, this, &TablePage::sigBackupExport);
+    connect(m_btnDelegate, &ButtonDelegate::sigApp, this, &TablePage::sigApp);
+    connect(m_btnDelegate, &ButtonDelegate::sigAppRun, this, &TablePage::sigAppRun);
     connect(m_btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
     connect(m_btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
     connect(m_btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);

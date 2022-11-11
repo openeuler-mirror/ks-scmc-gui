@@ -24,6 +24,8 @@ protected:
     bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) override;
 
 signals:
+    void sigApp(int row);
+    void sigAppRun(int row);
     void sigMonitor(int row);
     void sigEdit(int row);
     void sigTerminal(int row);

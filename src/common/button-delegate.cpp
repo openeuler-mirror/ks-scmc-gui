@@ -5,6 +5,7 @@
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #include "button-delegate.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
@@ -78,20 +79,23 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                     button.state |= QStyle::State_Sunken;
                 }
             }
-            if (i.value().first == tr("Pass") ||
-                i.value().first == tr("Resume") ||
-                i.value().first == tr("Update") ||
-                i.value().first == tr("Remove") ||
-                i.value().first == tr("Readed") ||
-                i.value().first == tr("Export"))
+            if (i.value().second == tr("Pass") ||
+                i.value().second == tr("Resume") ||
+                i.value().second == tr("Update") ||
+                i.value().second == tr("Remove") ||
+                i.value().second == tr("Readed") ||
+                i.value().second == tr("Export") ||
+                i.value().second == tr("Run") ||
+                i.value().second == tr("Edit") ||
+                i.value().second == tr("Delete"))
             {
                 painter->setPen(QColor(46, 179, 255));
                 QPalette *pal = new QPalette;
                 pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
                 QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value().first);
             }
-            else if (i.value().first == tr("Refuse") ||
-                     i.value().first == tr("Ignore"))
+            else if (i.value().second == tr("Refuse") ||
+                     i.value().second == tr("Ignore"))
             {
                 painter->setPen(QColor(211, 0, 0));
                 QPalette *pal = new QPalette;
@@ -139,14 +143,17 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             // 绘制按钮
             QStyleOptionButton button;
             QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if (i.value().first == tr("Refuse") ||
-                i.value().first == tr("Pass") ||
-                i.value().first == tr("Resume") ||
-                i.value().first == tr("Update") ||
-                i.value().first == tr("Remove") ||
-                i.value().first == tr("Readed") ||
-                i.value().first == tr("Ignore") ||
-                i.value().first == tr("Export"))
+            if (i.value().second == tr("Refuse") ||
+                i.value().second == tr("Pass") ||
+                i.value().second == tr("Resume") ||
+                i.value().second == tr("Update") ||
+                i.value().second == tr("Remove") ||
+                i.value().second == tr("Readed") ||
+                i.value().second == tr("Ignore") ||
+                i.value().second == tr("Export") ||
+                i.value().second == tr("Run") ||
+                i.value().second == tr("Edit") ||
+                i.value().second == tr("Delete"))
                 btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
             // 鼠标位于按钮之上
             if (!btnRect.contains(m_mousePoint))
@@ -183,6 +190,16 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             {
                 switch (i.key())
                 {
+                case ACTION_BUTTON_TYPE_APP:
+                {
+                    emit sigApp(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_APP_RUN:
+                {
+                    emit sigAppRun(index.row());
+                    break;
+                }
                 case ACTION_BUTTON_TYPE_MONITOR:
                 {
                     emit sigMonitor(index.row());
