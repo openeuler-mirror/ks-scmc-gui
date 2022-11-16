@@ -322,10 +322,11 @@ void InfoWorker::updateAppEntry(const QString objId, const container::UpdateAppE
     RPC_ASYNC(container::UpdateAppEntryReply, _updateAppEntry, updateAppEntryFinished, objId, req);
 }
 
-void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const QList<int> appIds)
+void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std::string containerId, const QList<int> appIds)
 {
     container::RemoveAppEntryRequest req;
     req.set_node_id(nodeId);
+    req.set_container_id(containerId);
     foreach (auto id, appIds)
     {
         req.add_app_ids(id);
@@ -333,12 +334,22 @@ void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const QLi
     RPC_ASYNC(container::RemoveAppEntryReply, _removeAppEntry, removeAppEntryFinished, objId, req);
 }
 
-void InfoWorker::runAppEntry(const QString objId, const int nodeId, const int appId)
+void InfoWorker::runAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId)
 {
     container::RunAppEntryRequest req;
     req.set_node_id(nodeId);
+    req.set_container_id(containerId);
     req.set_app_id(appId);
     RPC_ASYNC(container::RunAppEntryReply, _runAppEntry, runAppEntryFinished, objId, req);
+}
+
+void InfoWorker::killAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId)
+{
+    container::KillAppEntryRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    req.set_app_id(appId);
+    RPC_ASYNC(container::KillAppEntryReply, _killAppEntry, killAppEntryFinished, objId, req);
 }
 
 void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
@@ -811,6 +822,11 @@ QPair<grpc::Status, container::RemoveAppEntryReply> InfoWorker::_removeAppEntry(
 QPair<grpc::Status, container::RunAppEntryReply> InfoWorker::_runAppEntry(const container::RunAppEntryRequest &req)
 {
     RPC_IMPL(container::RunAppEntryReply, container::Container::NewStub, RunAppEntry);
+}
+
+QPair<grpc::Status, container::KillAppEntryReply> InfoWorker::_killAppEntry(const container::KillAppEntryRequest &req)
+{
+    RPC_IMPL(container::KillAppEntryReply, container::Container::NewStub, KillAppEntry);
 }
 
 QPair<grpc::Status, logging::ListRuntimeReply> InfoWorker::_listRuntimeLogging(const logging::ListRuntimeRequest &req)

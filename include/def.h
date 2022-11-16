@@ -15,6 +15,7 @@
 #define NODE_COMMENT "node comment"
 #define CONTAINER_NAME "container name"
 #define CONTAINER_STATUS "container status"
+#define CONTAIENR_APP_IS_RUNNING "container app is_running"
 #define TEMPLATE_ID "template id"
 #define TEMPLATE_NAME "template name"
 #define BACKUP_ID "backup id"
@@ -46,6 +47,7 @@ enum GUIDE_ITEM
 enum ACTION_BUTTON_TYPE
 {
     ACTION_BUTTON_TYPE_APP,
+    ACTION_BUTTON_TYPE_APP_STOP,
     ACTION_BUTTON_TYPE_APP_RUN,
     ACTION_BUTTON_TYPE_MONITOR,
     ACTION_BUTTON_TYPE_EDIT,
