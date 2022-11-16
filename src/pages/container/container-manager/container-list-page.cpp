@@ -202,6 +202,7 @@ void ContainerListPage::onApp(int row)
     KLOG_INFO() << nodeId << containerId.data();
 
     ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, containerId);
+    appPage->resize(QSize(1650, 832));
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
