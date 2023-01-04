@@ -114,7 +114,7 @@ TablePage QTableView{
     padding: 0px;		/*内边距*/
     margin: 0px;			/*外边距*/
     color: #ffffff;		/*表格文本的颜色*/
-    background: #2d2d2d;	/*表格背景色*/
+    /*background: #2d2d2d;	表格背景色*/
     gridline-color:	#2d2d2d;		/*网格边框*/
     font-size: 14px;					/*表格文本大小*/
     font-weight:200;
@@ -124,8 +124,6 @@ TablePage QTableView::item
 {
     padding-left:10px;
     border-bottom : 1px solid #393939;
-    border-right : 1px solid #393939;
-/*     border-left : 1px solid #393939;*/
     height:60px;
 }
 TablePage QTableView::indicator
@@ -160,7 +158,6 @@ TablePage #label_tips
 TablePage
 {
     background:transparent;
-
 }
 
 /*************************ContainerList**********************/
@@ -1012,7 +1009,8 @@ ImageOperateDialog QLabel#label_tip_name,
 ImageOperateDialog QLabel#label_tip_sign,
 ContainerSetting QLabel#label_name_tip,
 ContainerBackupOperateDialog QLabel#label_tip_version,
-ContainerBackupOperateDialog QLabel#label_tip_image
+ContainerBackupOperateDialog QLabel#label_tip_image,
+ContainerAppOperateDialog QLabel#label_tip
 {
     color:#d30000;
     font-size:14px;
