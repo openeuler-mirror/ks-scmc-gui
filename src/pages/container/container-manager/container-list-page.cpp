@@ -199,9 +199,11 @@ void ContainerListPage::onApp(int row)
 
     int nodeId = idMap.value(NODE_ID).toInt();
     std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
-    KLOG_INFO() << nodeId << containerId.data();
+    auto nodeAddr = idMap.value(NODE_ADDRESS).toString();
+    QString containerName = idMap.value(CONTAINER_NAME).toString();
+    KLOG_INFO() << nodeId << containerId.data() << nodeAddr;
 
-    ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, containerId);
+    ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName);
     appPage->resize(QSize(1650, 832));
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
@@ -214,7 +216,7 @@ void ContainerListPage::onApp(int row)
 
     connect(appPage, &ContainerAppDialog::destroyed,
             [=] {
-                KLOG_INFO() << " monitor destroy";
+                KLOG_INFO() << " app destroy";
                 appPage->deleteLater();
                 //appPage = nullptr;
             });
@@ -657,7 +659,7 @@ void ContainerListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_APP, QPair<QString, QString>{tr("App"), ":/images/monitor.svg"}},
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_APP, QPair<QString, QString>{tr("App"), ":/images/container-manager.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_TERINAL, QPair<QString, QString>{tr("Terminal"), ":/images/terminal.svg"}},
