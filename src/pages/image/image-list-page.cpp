@@ -95,7 +95,8 @@ void ImageListPage::initButtons()
                 btn->setStyleSheet("#btn{background-color:#ff4b4b;"
                                    "border:none;"
                                    "border-radius: 4px;"
-                                   "color:#ffffff;}"
+                                   "color:#ffffff;"
+                                   "font-size:12px;}"
                                    "#btn:hover{ background-color:#ff6c6c;}"
                                    "#btn:focus{outline:none;}"
                                    "#btn:disabled{color:#919191;background:#393939;}");
@@ -104,7 +105,8 @@ void ImageListPage::initButtons()
                 btn->setStyleSheet("#btn{background-color:#2eb3ff;"
                                    "border:none;"
                                    "border-radius: 4px;"
-                                   "color:#ffffff;}"
+                                   "color:#ffffff;"
+                                   "font-size:12px;}"
                                    "#btn:hover{ background-color:#77ceff;}"
                                    "#btn:focus{outline:none;}"
                                    "#btn:disabled{color:#919191;background:#393939;}");

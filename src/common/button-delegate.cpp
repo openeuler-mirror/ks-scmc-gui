@@ -30,6 +30,10 @@ ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>
     if (m_btnInfo.contains(ACTION_BUTTON_TYPE_MENU))
     {
         m_menu = new QMenu();
+        QFont font = m_menu->font();
+        font.setPixelSize(12);
+        m_menu->setFont(font);
+
         m_menu->setObjectName("moreInTableMenu");
         m_menu->addAction(tr("Run"));
         m_menu->addAction(tr("Stop"));
