@@ -1,8 +1,12 @@
 /***********************MainWindow************************/
 QLabel,
-QLineEdit
+QLineEdit,
+QTextEdit,
+QPushButton,
+QRadioButton,
+QCheckBox
 {
-    font-size:14px;
+    font-size:12px;
 }
 
 QTextBrowser
@@ -10,6 +14,7 @@ QTextBrowser
     color:#000000;
     border:1px solid #2eb3ff;
     border-radius:4px;
+    font-size:12px;
 }
 
 MainWindow QWidget#widget_content
@@ -46,7 +51,7 @@ MainWindow GuideItem
 MainWindow GuideItem #label_text
 {
     color:#ffffff;
-    font-size:14px;
+    font-size:12px;
     font-weight:200;
 }
 
@@ -145,7 +150,7 @@ TablePage #lineEdit_search
     background:#222222;
     color:#919191;
     border-radius: 4px;
-    font-size:14px;
+    font-size:12px;
 }
 TablePage #lineEdit_search:focus
 {
@@ -160,7 +165,8 @@ TablePage
     background:transparent;
 }
 
-/*************************ContainerList**********************/
+/*************************QMenu**********************/
+
 QMenu#btnCreateMenu::item:disabled
 {
     color:#919191;
@@ -172,7 +178,7 @@ QMenu#addMenu
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#000000;
-    font-size:14px;
+    font-size:12px;
 }
 
 QMenu#addMenu::item
@@ -219,7 +225,7 @@ ContainerSetting #btn_confirm,#m_pBtnSave
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting #btn_confirm:hover,#m_pBtnSave:hover
 {
@@ -232,7 +238,7 @@ ContainerSetting #btn_cancel
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting #btn_cancel:hover
 {
@@ -250,7 +256,7 @@ ContainerSetting
 
 ContainerSetting QLabel
 {
-    font-size:14px;
+    font-size:12px;
     color:#000000;
 }
 
@@ -261,7 +267,7 @@ ContainerSetting QComboBox
     padding-left:10px;
     color:#000000;
     combobox-popup:0;
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting QComboBox:drop-down
 {
@@ -299,7 +305,7 @@ ContainerSetting QLineEdit
     border:1px solid #E4E7ED;
     border-radius:6px;
     color:#000000;
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting QLineEdit:focus
 {
@@ -359,7 +365,7 @@ ContainerSetting GuideItem #delBtn
     border:none;
     background-color:transparent;
 /*    outline: none;*/
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting  #btn_tab_add
 {
@@ -367,7 +373,7 @@ ContainerSetting  #btn_tab_add
     color:#ffffff;
     border:none;
     border-radius:6px;
-    font-size:14px;
+    font-size:12px;
 }
 ContainerSetting  #btn_tab_add:hover
 {
@@ -409,7 +415,7 @@ ContainerSetting QTabBar::tab {
 /*    min-width: 8ex;*/
     padding: 10px;
     color:#606266;
-    font-size:14px;
+    font-size:12px;
 }
 
 ContainerSetting QTabBar::tab:first
@@ -438,7 +444,7 @@ ContainerSetting QCheckBox
 ContainerSetting QCheckBox::indicator:disabled:unchecked
 {
     color:#919191;
-    font-size:14px;
+    font-size:12px;
     image: url(:/images/marquee_disable-default.png);
 }
 ContainerSetting QCheckBox::indicator:disabled:checked
@@ -509,7 +515,7 @@ MessageDialog
 MessageDialog QLabel
 {
     color:#000000;
-    font-size:14px;
+    font-size:12px;
 }
 
 MessageDialog #btn_Ok,MessageDialog #btn_Yes
@@ -518,7 +524,7 @@ MessageDialog #btn_Ok,MessageDialog #btn_Yes
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
-    font-size:14px;
+    font-size:12px;
 }
 MessageDialog #btn_Ok:hover,MessageDialog #btn_Yes:hover
 {
@@ -531,7 +537,7 @@ MessageDialog #btn_Cancel
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
-    font-size:14px;
+    font-size:12px;
 }
 MessageDialog #btn_Cancel:hover
 {
@@ -549,7 +555,7 @@ MessageDialog #label_summary
 }
 MessageDialog #browser_body
 {
-    font-size:14px;
+    font-size:12px;
     border:none;
 }
 /***************************NodeListPage**********************/
@@ -561,7 +567,7 @@ NetworkListPage #btnCreate
     background-color:#2EB3FF;
     border:none;
     border-radius: 4px;
-    font-size:14px;
+    font-size:12px;
     color:#ffffff;
 }
 
@@ -596,6 +602,7 @@ NetworkListPage #btnRemove
     border:none;
     border-radius: 4px;
     color:#ffffff;
+    font-size:12px;
 }
 NodeListPage #btnRemove:hover
 TemplateListPage #btnRemove:hover,
@@ -682,7 +689,7 @@ NodeOperateDialog QLineEdit
     background:transparent;
     border:1px solid #393939;
     border-radius:4px;
-    font-size:14px;
+    font-size:12px;
 }
 
 LoginDialog QLineEdit:focus,
@@ -732,13 +739,13 @@ TransmissionItem
 TransmissionItem #label_text
 {
     color:#ffffff;
-    font-size:14px;
+    font-size:12px;
 }
 
 TransmissionItem QPushButton#btn_close
 {
     border-radius:0px;
-    font-size:14px;
+    font-size:12px;
 }
 TransmissionItem QPushButton#btn_close:focus
 {
@@ -788,7 +795,7 @@ MonitorContent #btn_start, MonitorContent #btn_end
     border:1px solid #2eb3ff;
     background:transparent;
     border-radius:4px;
-    font-size:14px;
+    font-size:12px;
 }
 MonitorContent #btn_start:focus, MonitorContent #btn_end:focus
 {
@@ -799,7 +806,7 @@ MonitorContent #btn_apply
 {
     border-radius:4px;
     background:#2eb3ff;
-    font-size:14px;
+    font-size:12px;
 }
 MonitorContent #btn_apply:hover
 {
@@ -826,7 +833,7 @@ ContainerAppOperateDialog QComboBox
     border-radius: 6px;
     color:#ffffff;
     combobox-popup:0;
-    font-size:14px;
+    font-size:12px;
 }
 MonitorContent QComboBox:drop-down,
 NetworkPageManager QComboBox:drop-down,
@@ -851,7 +858,7 @@ ContainerAppOperateDialog QComboBox QAbstractItemView
     outline:none;
     border: 1px solid #2eb3ff;
     border-radius: 6px;
-    font-size:14px;
+    font-size:12px;
 }
 MonitorContent QComboBox QAbstractItemView::item,
 NetworkPageManager QComboBox QAbstractItemView::item,
@@ -998,7 +1005,7 @@ TabPage QTabBar::tab:selected {
     outline:none;
 }
 
-/*************************************************PasswdUpdateDialog**********************************/
+/*************************************************Tips**********************************/
 PasswdUpdateDialog QLabel#lab_old_pw_tips,
 PasswdUpdateDialog QLabel#lab_new_pw_tips,
 PasswdUpdateDialog QLabel#lab_confirm_pw_tips,
@@ -1013,7 +1020,7 @@ ContainerBackupOperateDialog QLabel#label_tip_image,
 ContainerAppOperateDialog QLabel#label_tip
 {
     color:#d30000;
-    font-size:14px;
+    font-size:12px;
 }
 
 /********************************************NetworkAccessCtlTab**********************************************/
@@ -1023,7 +1030,7 @@ SecurityListTab QListWidget::item
     background-color:transparent;
     border:none;
     outline:none;
-    font-size:14px;
+    font-size:12px;
 }
 NetworkAccessCtlTab QListWidget::item:hover,
 SecurityListTab QListWidget::item:hover
@@ -1081,7 +1088,7 @@ NetworkAccessCtlTab #btn_add,SecurityListTab #btn_add
     background-color:transparent;
     border:none;
     image:url(:/images/icon_plus_n.png);
-    font-size:14px;
+    font-size:12px;
 }
 NetworkAccessCtlTab #btn_add:pressed,SecurityListTab #btn_add:pressed
 {
@@ -1128,7 +1135,7 @@ ImageOperateDialog QTextEdit#textDesc,
 NodeOperateDialog QTextEdit#browser_comment
 {
     color:#ffffff;
-    font-size:14px;
+    font-size:12px;
     border:1px solid #393939 ;
     border-radius:6px;
     padding-right：10px;
