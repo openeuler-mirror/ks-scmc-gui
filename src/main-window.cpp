@@ -337,6 +337,13 @@ void MainWindow::outlinePageChange(QString str)
             item->setSelected(true);
             GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
             guideItem->setSelected(true);
+            foreach (GuideItem* item, m_pageItems)
+            {
+                if (item != guideItem)
+                {
+                    item->setSelected(false);
+                }
+            }
 
             auto i = m_groupMap.constBegin();
             while (i != m_groupMap.constEnd())
@@ -692,6 +699,8 @@ void MainWindow::onApprovalPage(bool check)
 {
     Q_UNUSED(check);
 
+    if (!m_pageMap[IMAGE_APPROVAL_LIST])
+        return;
     auto currItem = ui->listWidget->currentItem();
     KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
@@ -702,6 +711,9 @@ void MainWindow::onApprovalPage(bool check)
 void MainWindow::onWarningPage(bool check)
 {
     Q_UNUSED(check);
+    if (!m_pageMap[WORNING_LIST])
+        return;
+
     auto currItem = ui->listWidget->currentItem();
     KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
