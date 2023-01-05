@@ -32,8 +32,8 @@ void ActivatePage::init()
     KiranTitlebarWindow::setTitle(tr("Software Activation"));
     KiranTitlebarWindow::setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint | KiranTitlebarWindow::TitlebarMinimizeButtonHint);
     KiranTitlebarWindow::setIcon(QIcon(":/images/logo.png"));
-//        KiranTitlebarWindow::setTitleBarHeight(30);
-//    KiranTitlebarWindow::setFixedSize(500, 340);
+    //        KiranTitlebarWindow::setTitleBarHeight(30);
+    //    KiranTitlebarWindow::setFixedSize(500, 340);
     KiranTitlebarWindow::setFixedSize(500, 480);
     KiranTitlebarWindow::setWindowModality(Qt::ApplicationModal);
 
@@ -74,21 +74,21 @@ void ActivatePage::init()
     QWidget *widget = new QWidget();
     widget->setStyleSheet("QWidget{"
                           "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;}");
+                          "font-size:12px;}");
     QHBoxLayout *buttonLayout = new QHBoxLayout(widget);
     QPushButton *activeButton = new QPushButton(tr("Active"));
     QPushButton *canCelButton = new QPushButton(tr("Cancel"));
 
     widget->setMinimumHeight(52);
-    widget->setContentsMargins(0,0,0,0);
+    widget->setContentsMargins(0, 0, 0, 0);
 
     Kiran::WidgetPropertyHelper::setButtonType(activeButton, Kiran::ButtonType::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(canCelButton, Kiran::ButtonType::BUTTON_Normal);
 
     activeButton->setFixedHeight(36);
     canCelButton->setFixedHeight(40);
-//    activeButton->setMinimumHeight(36);
-//    canCelButton->setMinimumHeight(40);
+    //    activeButton->setMinimumHeight(36);
+    //    canCelButton->setMinimumHeight(40);
 
     buttonLayout->addWidget(new QLabel(""));
     buttonLayout->addWidget(activeButton);
@@ -127,8 +127,8 @@ void ActivatePage::createQRcode(QString machine_code)
     QVBoxLayout *vlayout = new QVBoxLayout(widget);
     QLabel *label = new QLabel(widget);
     label->setAlignment(Qt::AlignCenter);
-//    label->setMinimumSize(160,160);
-    label->setContentsMargins(0,0,0,0);
+    //    label->setMinimumSize(160,160);
+    label->setContentsMargins(0, 0, 0, 0);
 
     QLabel *textLabel = new QLabel(widget);
     textLabel->setAlignment(Qt::AlignCenter);
@@ -181,7 +181,7 @@ void ActivatePage::initMessageBox()
     button->setStyleSheet("QPushButton{"
                           "color:#FFFFFF;"
                           "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;"
+                          "font-size:12px;"
                           "border-radius:8px;"
                           "background:#43A3F2;}"
                           "QPushButton:hover{"
@@ -197,7 +197,7 @@ void ActivatePage::initMessageBox()
     bt->setStyleSheet("QPushButton{"
                       "color:#FFFFFF;"
                       "font:NotoSansCJKsc-Regular;"
-                      "font-size:14px;"
+                      "font-size:12px;"
                       "border-radius:8px;"
                       "background:#43A3F2;}"
                       "QPushButton:hover{"
@@ -213,7 +213,7 @@ void ActivatePage::initMessageBox()
     okButton->setStyleSheet("QPushButton{"
                             "color:#FFFFFF;"
                             "font:NotoSansCJKsc-Regular;"
-                            "font-size:14px;"
+                            "font-size:12px;"
                             "border-radius:8px;"
                             "background:#43A3F2;}"
                             "QPushButton:hover{"

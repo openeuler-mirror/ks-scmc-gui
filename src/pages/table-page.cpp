@@ -437,7 +437,7 @@ void TablePage::initPaging()
     m_pageEdit->setFixedSize(40, 30);
     m_pageEdit->setAlignment(Qt::AlignCenter);
     //    m_pageEdit->setContentsMargins(10,0,0,0);
-    m_pageEdit->setStyleSheet("QLineEdit{ border-width:1px;border-radius:10px;font-size:14px;\
+    m_pageEdit->setStyleSheet("QLineEdit{ border-width:1px;border-radius:10px;font-size:12px;\
                               border:1px solid #393939;}"
                               "QLineEdit:focus{border:1px solid #3EB3FF;}");
 

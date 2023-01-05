@@ -182,19 +182,19 @@ void NetworkAccessCtlTab::initUI()
     textBrowser->setFixedSize(495, 500);
 
     textBrowser->setHtml("<div id='u1490_text' class='text '>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:650;color:#555555;'>网络访问控制-功能说明</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>[规则]</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>1、网络协议：分类为TCP、UDP、ICMP；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>支持多选，至少选择一个协议；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>当白名单状态为开启时，才可对进程白名单进行编辑、修改、删除；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>当白名单为关闭状态时，进程白名称组件都为禁用状态。</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>2、网络地址：非必填项；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>网络地址可以填写单个 IP 地址，单个 IP 地址采用点分十进制表示，例如</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>192.168.1.1；也可以填写一个网段，由点分十进制的 IP 地址与掩码组成，例如192.168.1.1/24。</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>3、端口：非必填项，默认为0；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>端口合法范围为 1~65535。也可以填写 0 表示允许所有端口。</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>4、添加：添加数据不限制；</span></p>"
-                         "<p style='font-size:20px;'><span style='font-size: 14px;font-weight:400;'>5、删除：当只有一条数据时，无删除按钮</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:650;color:#555555;'>网络访问控制-功能说明</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>[规则]</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>1、网络协议：分类为TCP、UDP、ICMP；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>支持多选，至少选择一个协议；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>当白名单状态为开启时，才可对进程白名单进行编辑、修改、删除；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>当白名单为关闭状态时，进程白名称组件都为禁用状态。</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>2、网络地址：非必填项；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>网络地址可以填写单个 IP 地址，单个 IP 地址采用点分十进制表示，例如</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>192.168.1.1；也可以填写一个网段，由点分十进制的 IP 地址与掩码组成，例如192.168.1.1/24。</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>3、端口：非必填项，默认为0；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>端口合法范围为 1~65535。也可以填写 0 表示允许所有端口。</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>4、添加：添加数据不限制；</span></p>"
+                         "<p style='font-size:14px;'><span style='font-size:12px;font-weight:400;'>5、删除：当只有一条数据时，无删除按钮</span></p>"
                          "</div>");
     funcLayout->addWidget(textBrowser);
 

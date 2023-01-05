@@ -572,7 +572,7 @@ void ContainerListPage::initButtons()
     btnCreate->setStyleSheet("#btnCreate{background-color:#2EB3FF;"
                              "border:none;"
                              "border-radius: 4px;"
-                             "font-size:14px;"
+                             "font-size:12px;"
                              "color:#ffffff;}"
                              "#btnCreate:hover{background-color:#77ceff;}"
                              "#btnCreate:disabled{color:#919191;background:#393939;}"
@@ -584,6 +584,11 @@ void ContainerListPage::initButtons()
 
     QMenu *btnCreateMenu = new QMenu(btnCreate);
     btnCreateMenu->setObjectName("btnCreateMenu");
+
+    QFont font = btnCreateMenu->font();
+    font.setPixelSize(12);
+    btnCreateMenu->setFont(font);
+
     QAction *create = btnCreateMenu->addAction(tr("Create container"));
     m_createFromTemplateAct = btnCreateMenu->addAction(tr("Create container from template"));
     btnCreate->setMenu(btnCreateMenu);
@@ -607,7 +612,8 @@ void ContainerListPage::initButtons()
             btn->setStyleSheet("#btn{background-color:#ff4b4b;"
                                "border:none;"
                                "border-radius: 4px;"
-                               "color:#ffffff;}"
+                               "color:#ffffff;"
+                               "font-size:12px;}"
                                "#btn:hover{ background-color:#ff6c6c;}"
                                "#btn:focus{outline:none;}"
                                "#btn:disabled{color:#919191;background:#393939;}");
@@ -618,7 +624,8 @@ void ContainerListPage::initButtons()
             btn->setStyleSheet("#btn{background-color:#2eb3ff;"
                                "border:none;"
                                "border-radius: 4px;"
-                               "color:#ffffff;}"
+                               "color:#ffffff;"
+                               "font-size:12px;}"
                                "#btn:hover{ background-color:#77ceff;}"
                                "#btn:focus{outline:none;}"
                                "#btn:disabled{color:#919191;background:#393939;}");
