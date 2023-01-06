@@ -120,7 +120,7 @@ void NodeListPage::onRemoveNode()
 
 void NodeListPage::onEdit(int row)
 {
-    KLOG_INFO() << row;
+    KLOG_INFO() << "edit row:" << row;
     auto item = getItem(row, 1);
     QMap<QString, QVariant> nodeInfo = item->data().toMap();
 
@@ -194,7 +194,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
             QMap<QString, QVariant> idMap;
             for (auto node : reply.second.nodes())
             {
-                KLOG_INFO() << "nodeid:" << node.id();
+                KLOG_INFO() << "node id:" << node.id() << "node name:" << node.name().data();
                 qint64 nodeId = node.id();
                 idMap.insert(NODE_ID, nodeId);
                 idMap.insert(NODE_NAME, node.name().data());
@@ -339,7 +339,6 @@ void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status
     KLOG_INFO() << "getUpdateResult" << m_objId << objId;
     if (m_objId == objId)
     {
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
             getNodeList();
@@ -353,6 +352,7 @@ void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status
                                    tr("Error: %1").arg(reply.first.error_message().data()),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
+            KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         }
     }
 }
@@ -441,7 +441,7 @@ void NodeListPage::getNodeList()
 
 void NodeListPage::timedRefresh(bool start)
 {
-    KLOG_INFO() << start;
+    KLOG_INFO() << "node list time refresh:" << start;
     if (start)
         m_timer->start(60000);
     else
