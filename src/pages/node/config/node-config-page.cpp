@@ -82,7 +82,8 @@ void NodeConfigPage::onCancel()
 
 void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status, node::ListReply> &reply)
 {
-    KLOG_INFO() << "getListResult" << m_objId << objId << m_nodeId;
+    KLOG_INFO() << "getListResult" << m_objId << objId;
+    KLOG_INFO() << "node id:" << m_nodeId;
     if (m_objId == objId && m_nodeId > 0)
     {
         if (reply.first.ok())

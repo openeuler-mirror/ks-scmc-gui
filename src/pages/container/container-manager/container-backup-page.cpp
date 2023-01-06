@@ -81,6 +81,14 @@ void ContainerBackupPage::updateBackupList(int nodeId, std::string containerId, 
     }
 }
 
+void ContainerBackupPage::refresh(bool isRefresh)
+{
+    if (isRefresh)
+        m_timer->start(TIMEOUT);
+    else
+        m_timer->stop();
+}
+
 void ContainerBackupPage::onCreateBackupBtn()
 {
     if (!m_backupAddDlg)

@@ -39,7 +39,6 @@ TemplateListPage::~TemplateListPage()
 
 void TemplateListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "TemplateListPage updateInfo";
     clearCheckState();
     clearText();
     if (keyword.isEmpty())
@@ -164,18 +163,15 @@ void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grp
             for (auto ifs : reply.second.virtual_ifs())
             {
                 int nodeId = ifs.node_id();
-                KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
                 auto name = ifs.name();
                 auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
                 QString str = QString("%1 (%2:%3)")
                                   .arg(QString::fromStdString(name))
                                   .arg(tr("Subnet"))
                                   .arg(QString::fromStdString(subnet));
-                KLOG_INFO() << str;
+                KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
                 m_networksMap.insert(nodeId, str);
             }
-            KLOG_INFO() << m_networksMap.keys();
-            KLOG_INFO() << m_networksMap.values();
         }
         else
             KLOG_INFO() << "getNetworkListResult failed";

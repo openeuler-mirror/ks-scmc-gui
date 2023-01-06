@@ -326,7 +326,7 @@ void MainWindow::outlinePageChange(QString str)
     bool find = false;
     setPageName(str);
     auto outlineWidgetItem = ui->listWidget->item(0);
-    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
+    KLOG_INFO() << "current tab item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(outlineWidgetItem));
     outlineItem->setSelected(false);
 
@@ -436,6 +436,11 @@ void MainWindow::changePage(int)
     {
         if (m_pageMap[CONTAINER_LIST])
             m_pageMap[CONTAINER_LIST]->updateInfo(info);
+    }
+    if (data != CONTAINER_MANAGER)
+    {
+        if (m_pageMap[CONTAINER_MANAGER])
+            m_pageMap[CONTAINER_MANAGER]->updateInfo(info);
     }
 }
 

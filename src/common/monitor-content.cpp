@@ -175,7 +175,6 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QStrin
     chartInfo.yEnd = 100;
     chartInfo.yTitle = yTitle;
     chartInfo.yFormat = yformate;
-    KLOG_INFO() << "BuildCharts: " << chartInfo.seriesInfo.firstKey();
 
     chartForm->initChart(chartInfo);
 }
