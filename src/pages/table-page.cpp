@@ -81,9 +81,7 @@ TablePage::~TablePage()
 
 void TablePage::clearTable()
 {
-    KLOG_INFO() << "pre" << m_model->rowCount();
     m_model->removeRows(0, m_model->rowCount());
-    KLOG_INFO() << "current" << m_model->rowCount();
 }
 
 void TablePage::setOperateAreaVisible(bool visible)
