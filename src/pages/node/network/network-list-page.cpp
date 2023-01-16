@@ -90,34 +90,38 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
 {
     if (m_objId == objId)
     {
-        KLOG_INFO() << "get network list result";
         if (reply.first.ok())
         {
             clearTable();
             int row = 0;
+            int size = 0;
             if (m_type == NETWORK_IFS_TYPE_REAL)
             {
-                if (reply.second.real_ifs().size() <= 0)
+                size = reply.second.real_ifs().size();
+                KLOG_INFO() << "real ifs size: " << size;
+                if (size <= 0)
                 {
                     setTableDefaultContent("-");
                     return;
                 }
                 for (auto ifs : reply.second.real_ifs())
                 {
-                    auto name = ifs.name();
-                    auto ip = ifs.ip_address();
-                    auto mask = ifs.ip_mask();
-                    auto gateway = ifs.gateway();
-                    auto mac = ifs.mac_address();
+                    auto name = QString::fromStdString(ifs.name());
+                    auto ip = QString::fromStdString(ifs.ip_address());
+                    auto mask = QString::fromStdString(ifs.ip_mask());
+                    auto gateway = QString::fromStdString(ifs.gateway());
+                    auto mac = QString::fromStdString(ifs.mac_address());
                     auto status = ifs.is_up();
 
                     QStandardItem *checkItem = new QStandardItem();
-                    QStandardItem *nameItem = new QStandardItem(QString::fromStdString(name));
-                    QStandardItem *ipItem = new QStandardItem(QString::fromStdString(ip));
-                    QStandardItem *maskItem = new QStandardItem(QString::fromStdString(mask));
-                    QStandardItem *gatewayItem = new QStandardItem(QString::fromStdString(gateway));
-                    QStandardItem *macItem = new QStandardItem(QString::fromStdString(mac));
+                    QStandardItem *nameItem = new QStandardItem(name);
+                    QStandardItem *ipItem = new QStandardItem(ip);
+                    QStandardItem *maskItem = new QStandardItem(mask);
+                    QStandardItem *gatewayItem = new QStandardItem(gateway);
+                    QStandardItem *macItem = new QStandardItem(mac);
                     QStandardItem *statusItem = new QStandardItem(status == true ? tr("Up") : tr("Down"));
+
+                    KLOG_INFO() << "real ifs:" << name << ip;
 
                     setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << ipItem << maskItem << gatewayItem << macItem << statusItem);
                     row++;
@@ -126,34 +130,44 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
             else if (m_type == NETWORK_IFS_TYPE_VIRT)
             {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-                if (reply.second.virtual_ifs().size() <= 0)
-                {
-                    setTableDefaultContent("-");
-                    return;
-                }
                 m_realIfs.clear();
                 for (auto ifs : reply.second.real_ifs())
                 {
                     m_realIfs.append(QString::fromStdString(ifs.name()));
                 }
+                if (m_realIfs.isEmpty())
+                    KLOG_INFO() << "there is no real interface!";
+
+                size = reply.second.virtual_ifs().size();
+                KLOG_INFO() << "virture ifs size: " << size;
+
+                if (size <= 0)
+                {
+                    setTableDefaultContent("-");
+                    return;
+                }
                 QMap<QString, QVariant> infoMap;
                 for (auto ifs : reply.second.virtual_ifs())
                 {
-                    auto name = ifs.name();
-                    auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-                    auto realName = ifs.bind_real();
-                    auto gateway = ifs.gateway();
-                    infoMap.insert(NAME, QString::fromStdString(name));
-                    infoMap.insert(REAL_IFS, QString::fromStdString(realName));
-                    infoMap.insert(SUBNET, QString::fromStdString(subnet));
-                    infoMap.insert(GATEWAY, QString::fromStdString(gateway));
+                    auto name = QString::fromStdString(ifs.name());
+                    auto subnet = QString::fromStdString(ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len()));
+                    auto realName = QString::fromStdString(ifs.bind_real());
+                    auto gateway = QString::fromStdString(ifs.gateway());
+
+                    infoMap.insert(NAME, name);
+                    infoMap.insert(REAL_IFS, realName);
+                    infoMap.insert(SUBNET, subnet);
+                    infoMap.insert(GATEWAY, gateway);
 
                     QStandardItem *checkItem = new QStandardItem();
                     checkItem->setCheckable(true);
-                    QStandardItem *nameItem = new QStandardItem(QString::fromStdString(name));
+                    QStandardItem *nameItem = new QStandardItem(name);
                     nameItem->setData(QVariant::fromValue(infoMap));
-                    QStandardItem *subnetItem = new QStandardItem(QString::fromStdString(subnet));
-                    QStandardItem *realNameItem = new QStandardItem(QString::fromStdString(realName));
+                    QStandardItem *subnetItem = new QStandardItem(subnet);
+                    QStandardItem *realNameItem = new QStandardItem(realName);
+
+                    KLOG_INFO() << "virtual ifs:" << name << subnet;
+
                     setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << subnetItem << realNameItem);
                     row++;
                 }
@@ -357,7 +371,7 @@ void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name
     {
         connect(window, &KiranTitlebarWindow::destroyed,
                 [=] {
-                    KLOG_INFO() << " export backup window destroy";
+                    KLOG_INFO() << " network operate dialog destroy";
                     window->deleteLater();
                     //window = nullptr;
                 });

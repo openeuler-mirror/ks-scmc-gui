@@ -501,6 +501,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
         }
         else
         {
+            KLOG_INFO() << "Login failed:" << reply.first.error_message().data();
             ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
             ui->lab_tips->show();
             ui->lineEdit_passwd->clear();
@@ -534,6 +535,7 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
                                    tr("Error: ") + reply.first.error_message().data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
+            KLOG_INFO() << "Logout failed:" << reply.first.error_message().data();
         }
     }
 }
