@@ -58,7 +58,7 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::sessionExpire, this, &LoginDialog::sessionExpire, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     //loadConfig();
@@ -299,7 +299,7 @@ void LoginDialog::createSubscribThread()
     m_subscribeThread = new SubscribeThread;
     m_subscribeThread->moveToThread(m_thread);
 
-    connect(m_subscribeThread, &SubscribeThread::sessinoExpire, this, &LoginDialog::sessionExpire, Qt::QueuedConnection);
+    connect(m_subscribeThread, &SubscribeThread::sessionExpire, this, &LoginDialog::sessionExpire, Qt::QueuedConnection);
     connect(m_thread, &QThread::started, m_subscribeThread, &SubscribeThread::subscribe);
 }
 

@@ -309,7 +309,7 @@ signals:
     void loginFinished(const QString objId, const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QString objId, const QPair<grpc::Status, user::LogoutReply> &);
     void updatePasswordFinished(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> &);
-    void sessinoExpire();
+    void sessionExpire();
 
     // logging management
     void loggingRuntimeFinished(const QString objId, const QPair<grpc::Status, logging::ListRuntimeReply> &);

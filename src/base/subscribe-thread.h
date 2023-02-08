@@ -14,7 +14,7 @@ public:
     void cancel();
 
 signals:
-    void sessinoExpire();
+    void sessionExpire();
 
 private:
     bool m_isCanceled;

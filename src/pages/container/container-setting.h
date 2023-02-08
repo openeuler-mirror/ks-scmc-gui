@@ -78,7 +78,7 @@ private:
     void getImageInfo(int64_t node_id);
     void setNodeNetworkList(int nodeId);
 
-    void writeContainerConfig(container::ContainerConfigs *cntrCfg);
+    bool writeContainerConfig(container::ContainerConfigs *cntrCfg);
     void createContainer();
     void updateContainer();
 

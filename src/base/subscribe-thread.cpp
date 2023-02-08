@@ -11,6 +11,7 @@ SubscribeThread::SubscribeThread(QObject* parent) : m_isCanceled(false)
 
 void SubscribeThread::subscribe()
 {
+    m_isCanceled = false;
     sys::SubscribeRequest req;
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
@@ -43,10 +44,11 @@ void SubscribeThread::subscribe()
             if (ok)
             {
                 stream->Read(&reply, (void*)1);
+                KLOG_INFO() << "read subscribe data" << reply.msg_content().data();
                 if (reply.msg_type() == sys::UserSessionExpire)
                 {
                     KLOG_INFO() << "UserSessionExpire";
-                    emit sessinoExpire();
+                    emit sessionExpire();
                     break;
                 }
             }

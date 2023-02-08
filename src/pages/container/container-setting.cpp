@@ -538,7 +538,7 @@ void ContainerSetting::setNodeNetworkList(int nodeId)
     }
 }
 
-void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg)
+bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg)
 {
     ErrorCode ret;
     //Graph
@@ -555,7 +555,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
                                tr("Please improve the contents in Volumes table!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
     }
 
     //network
@@ -574,7 +574,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
                                tr("Please improve the contents in Env table!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
     }
 
     //High
@@ -586,7 +586,16 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 
     //cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(limit);
+    ret = cpuPage->getCPUInfo(limit);
+    if (ret == INPUT_OVERLIMIT_ERROR)
+    {
+        MessageDialog::message(tr("CPU Data"),
+                               tr("Input error"),
+                               tr("CPU core can't be greater than the node cpu core limit!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return false;
+    }
 
     //memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
@@ -595,10 +604,19 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
     {
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit !"),
+                               tr("Memory soft limit can't be greater than the maximum limit!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
+    }
+    else if (ret == INPUT_OVERLIMIT_ERROR)
+    {
+        MessageDialog::message(tr("Memory Data"),
+                               tr("Input error"),
+                               tr("The soft memory or max memory can't be greater than 2^31!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return false;
     }
 
     //security
@@ -612,7 +630,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
                                tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
     }
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
     if (!processProtectPage->getSecurityListInfo(securityCfg))
@@ -622,7 +640,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
                                tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
     }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
@@ -633,7 +651,7 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
                                tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        return;
+        return false;
     }
 
     auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
@@ -641,6 +659,8 @@ void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 
     auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
     securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+
+    return true;
 }
 
 void ContainerSetting::createContainer()
@@ -656,9 +676,10 @@ void ContainerSetting::createContainer()
     if (m_cbImage)
         cntrCfg->set_image(m_cbImage->currentText().toStdString());
 
-    writeContainerConfig(cntrCfg);
-
-    InfoWorker::getInstance().createContainer(m_objId, request);
+    if (writeContainerConfig(cntrCfg))
+    {
+        InfoWorker::getInstance().createContainer(m_objId, request);
+    }
 }
 
 void ContainerSetting::updateContainer()
@@ -670,7 +691,16 @@ void ContainerSetting::updateContainer()
 
     auto rsrcCfg = request.mutable_resource_limit();
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(rsrcCfg);
+    ret = cpuPage->getCPUInfo(rsrcCfg);
+    if (ret == INPUT_OVERLIMIT_ERROR)
+    {
+        MessageDialog::message(tr("CPU Data"),
+                               tr("Input error"),
+                               tr("CPU core can't be greater than the node cpu core limit!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     ret = memoryPage->getMemoryInfo(rsrcCfg);
@@ -678,7 +708,16 @@ void ContainerSetting::updateContainer()
     {
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit !"),
+                               tr("Memory soft limit can't be greater than the maximum limit!"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+    else if (ret == INPUT_OVERLIMIT_ERROR)
+    {
+        MessageDialog::message(tr("Memory Data"),
+                               tr("Input error"),
+                               tr("The soft memory or max memory can't be greater than 2^31!"),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
@@ -750,9 +789,10 @@ void ContainerSetting::createTemplate()
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
 
-    writeContainerConfig(cntrCfg);
-
-    InfoWorker::getInstance().createTemplate(m_objId, request);
+    if (writeContainerConfig(cntrCfg))
+    {
+        InfoWorker::getInstance().createTemplate(m_objId, request);
+    }
 }
 
 void ContainerSetting::updateTemplate()
@@ -767,9 +807,10 @@ void ContainerSetting::updateTemplate()
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
 
-    writeContainerConfig(cntrCfg);
-
-    InfoWorker::getInstance().updateTemplate(m_objId, request);
+    if (writeContainerConfig(cntrCfg))
+    {
+        InfoWorker::getInstance().updateTemplate(m_objId, request);
+    }
 }
 
 void ContainerSetting::onItemClicked(QListWidgetItem *item)

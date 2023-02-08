@@ -42,7 +42,7 @@ const int CHUNK_SIZE = 16 * 1024;
         ctx.AddMetadata("authorization", s_authKey);                                        \
     r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                                   \
     if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())                       \
-        emit InfoWorker::getInstance().sessinoExpire();                                     \
+        emit InfoWorker::getInstance().sessionExpire();                                     \
     else if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())                   \
     {                                                                                       \
         r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,                         \
@@ -731,7 +731,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     {
         r.first = stream->Finish();
         if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())
-            emit InfoWorker::getInstance().sessinoExpire();
+            emit InfoWorker::getInstance().sessionExpire();
         else if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())
         {
             r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
