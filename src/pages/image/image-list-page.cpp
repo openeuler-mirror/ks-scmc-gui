@@ -6,6 +6,7 @@
  */
 #include "image-list-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include <widget-property-helper.h>
 #include <QApplication>
 #include <QCryptographicHash>
 #include <QDateTime>
@@ -13,11 +14,12 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QInputDialog>
+#include <QPlainTextEdit>
 #include <QStandardPaths>
 #include "common/message-dialog.h"
 #include "def.h"
 #include "notification-manager.h"
-
 using namespace grpc;
 
 ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_pImageOp(nullptr)
@@ -272,6 +274,55 @@ bool ImageListPage::imageIsTransfering(QString imageName, QString version, QStri
     return false;
 }
 
+QString ImageListPage::getRefuseReason()
+{
+    QInputDialog *dlg = new QInputDialog(this);
+    dlg->setObjectName("InputDialog");
+    dlg->setFixedSize(400, 300);
+    dlg->setStyleSheet("#InputDialog QLabel{font-size:12px;}");
+    dlg->setOptions(QInputDialog::UsePlainTextEditForTextInput);
+    dlg->setLabelText(tr("Please input refuse reason:"));
+    dlg->setInputMethodHints(Qt::ImhNone);
+    dlg->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+
+    auto layout = dlg->layout();
+    layout->setMargin(0);
+    layout->setContentsMargins(24, 24, 24, 24);
+    layout->setSpacing(10);
+
+    auto textEdit = dlg->findChild<QPlainTextEdit *>();
+    textEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
+
+    //限制输入最多200个字符
+    connect(dlg, &QInputDialog::textValueChanged,
+            [=](QString text) {
+                int length = text.count();
+                int maxLength = 200;  // 最大字符数
+                if (length > maxLength)
+                {
+                    int position = textEdit->textCursor().position();
+                    QTextCursor textCursor = textEdit->textCursor();
+                    text.remove(position - (length - maxLength), length - maxLength);
+                    textEdit->setPlainText(text);
+                    textCursor.setPosition(position - (length - maxLength));
+                    textEdit->setTextCursor(textCursor);
+                }
+            });
+
+    auto buttonBox = dlg->findChild<QDialogButtonBox *>();
+    auto okBtn = buttonBox->button(QDialogButtonBox::Ok);
+    auto cancelBtn = buttonBox->button(QDialogButtonBox::Cancel);
+    Kiran::WidgetPropertyHelper::setButtonType(okBtn, Kiran::BUTTON_Default);
+    okBtn->setFixedSize(78, 32);
+    cancelBtn->setFixedSize(78, 32);
+
+    const int ret = dlg->exec();
+    if (ret)
+        return dlg->textValue();
+    else
+        return QString();
+}
+
 void ImageListPage::onBtnUpload()
 {
     OperateImage(IMAGE_OPERATE_TYPE_UPLOAD);
@@ -385,11 +436,14 @@ void ImageListPage::onBtnRefuseLabel(int row)
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     if (infoMap.isEmpty())
         return;
+
+    QString reson = getRefuseReason();
     auto image_id = infoMap.value(IMAGE_ID).toString();
+
     QMap<QString, QString> checkInfo;
     checkInfo.insert("Image Id", image_id);
     checkInfo.insert("Image Check", "Refuse");
-    checkInfo.insert("Image Reason", "");
+    checkInfo.insert("Image Reason", reson);
     checkSaveSlot(checkInfo);
 }
 
