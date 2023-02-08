@@ -33,7 +33,7 @@ private:
     void getImageList();
     void OperateImage(ImageOperateType type);
     bool imageIsTransfering(QString imageName, QString version, QString title);
-    QString getRefuseReason();
+    QString getRefuseReason(bool *ok);
 
 private slots:
     void onBtnUpload();

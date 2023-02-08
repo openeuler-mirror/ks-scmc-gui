@@ -274,7 +274,7 @@ bool ImageListPage::imageIsTransfering(QString imageName, QString version, QStri
     return false;
 }
 
-QString ImageListPage::getRefuseReason()
+QString ImageListPage::getRefuseReason(bool *ok)
 {
     QInputDialog *dlg = new QInputDialog(this);
     dlg->setObjectName("InputDialog");
@@ -317,6 +317,8 @@ QString ImageListPage::getRefuseReason()
     cancelBtn->setFixedSize(78, 32);
 
     const int ret = dlg->exec();
+    if (ok)
+        *ok = !!ret;
     if (ret)
         return dlg->textValue();
     else
@@ -437,14 +439,18 @@ void ImageListPage::onBtnRefuseLabel(int row)
     if (infoMap.isEmpty())
         return;
 
-    QString reson = getRefuseReason();
-    auto image_id = infoMap.value(IMAGE_ID).toString();
+    bool ok;
+    QString reson = getRefuseReason(&ok);
+    if (ok)
+    {
+        auto image_id = infoMap.value(IMAGE_ID).toString();
 
-    QMap<QString, QString> checkInfo;
-    checkInfo.insert("Image Id", image_id);
-    checkInfo.insert("Image Check", "Refuse");
-    checkInfo.insert("Image Reason", reson);
-    checkSaveSlot(checkInfo);
+        QMap<QString, QString> checkInfo;
+        checkInfo.insert("Image Id", image_id);
+        checkInfo.insert("Image Check", "Refuse");
+        checkInfo.insert("Image Reason", reson);
+        checkSaveSlot(checkInfo);
+    }
 }
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
@@ -581,7 +587,6 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
     //    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
-    updateInfo();
 }
 
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
@@ -721,15 +726,15 @@ void ImageListPage::getCheckResult(const QString objId, const QPair<grpc::Status
         KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
-            KLOG_INFO() << "check images success";
+            KLOG_INFO() << "Approve images success";
             emit sigUpdateAuditInfo();
             getImageList();
         }
         else
         {
             emit sigUpdateAuditInfo();
-            MessageDialog::message(tr("Check Image"),
-                                   tr("Check image failed!"),
+            MessageDialog::message(tr("Approve Image"),
+                                   tr("Approve image failed!"),
                                    tr(reply.first.error_message().data()),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
