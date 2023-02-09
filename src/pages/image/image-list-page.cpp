@@ -411,12 +411,16 @@ void ImageListPage::onBtnRefuse()
     if (!info.isEmpty())
     {
         QString imageId = info.at(0).value(IMAGE_ID).toString();
-
-        QMap<QString, QString> checkInfo;
-        checkInfo.insert("Image Id", imageId);
-        checkInfo.insert("Image Check", "Refuse");
-        checkInfo.insert("Image Reason", "");
-        checkSaveSlot(checkInfo);
+        bool ok;
+        QString reson = getRefuseReason(&ok);
+        if (ok)
+        {
+            QMap<QString, QString> checkInfo;
+            checkInfo.insert("Image Id", imageId);
+            checkInfo.insert("Image Check", "Refuse");
+            checkInfo.insert("Image Reason", reson);
+            checkSaveSlot(checkInfo);
+        }
     }
 }
 
@@ -723,16 +727,13 @@ void ImageListPage::getCheckResult(const QString objId, const QPair<grpc::Status
     KLOG_INFO() << "getCheckResult" << m_objId << objId;
     if (m_objId == objId)
     {
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
             KLOG_INFO() << "Approve images success";
-            emit sigUpdateAuditInfo();
             getImageList();
         }
         else
         {
-            emit sigUpdateAuditInfo();
             MessageDialog::message(tr("Approve Image"),
                                    tr("Approve image failed!"),
                                    tr(reply.first.error_message().data()),
@@ -747,9 +748,9 @@ void ImageListPage::getRemoveResult(const QString objId, const QPair<grpc::Statu
     KLOG_INFO() << "getRemoveResult" << m_objId << objId;
     if (m_objId == objId)
     {
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
+            NotificationManager::sendNotify(tr("Remove image success!"), "");
             getImageList();
         }
         else
@@ -771,11 +772,7 @@ void ImageListPage::getUploadResult(const QString objId, const QPair<grpc::Statu
         if (reply.first.ok())
         {
             KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
-            MessageDialog::message(tr("Upload Image"),
-                                   tr("Upload image success!"),
-                                   tr(""),
-                                   ":/images/success.svg",
-                                   MessageDialog::StandardButton::Ok);
+            NotificationManager::sendNotify(tr("Upload image success!"), "");
             getImageList();
         }
         else
@@ -797,11 +794,7 @@ void ImageListPage::getUpdateResult(const QString objId, const QPair<grpc::Statu
         if (reply.first.ok())
         {
             KLOG_INFO() << "update images success";
-            MessageDialog::message(tr("Update Image"),
-                                   tr("Update image success!"),
-                                   tr(""),
-                                   ":/images/success.svg",
-                                   MessageDialog::StandardButton::Ok);
+            NotificationManager::sendNotify(tr("Update image success!"), "");
             getImageList();
         }
         else

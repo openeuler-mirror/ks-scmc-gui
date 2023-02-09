@@ -249,6 +249,7 @@ void MainWindow::initUI()
     m_btnTransmission->setFixedSize(40, 32);
     m_btnTransmission->setCursor(Qt::PointingHandCursor);
     m_btnTransmission->setToolTip(tr("Transmission"));
+    m_btnTransmission->hide();
     m_btnTransmission->installEventFilter(this);
     ui->hlayout_btn->addWidget(m_btnTransmission);
     //connect(m_btnTransmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
@@ -258,6 +259,7 @@ void MainWindow::initUI()
     m_btnApproval->setFixedSize(40, 32);
     m_btnApproval->setCursor(Qt::PointingHandCursor);
     m_btnApproval->setToolTip(tr("Approval"));
+    m_btnApproval->hide();
     ui->hlayout_btn->addWidget(m_btnApproval);
     connect(m_btnApproval, &BubbleTipButton::clicked, this, &MainWindow::onApprovalPage);
 
@@ -266,6 +268,7 @@ void MainWindow::initUI()
     m_btnWarning->setFixedSize(40, 32);
     m_btnWarning->setCursor(Qt::PointingHandCursor);
     m_btnWarning->setToolTip(tr("Warning"));
+    m_btnWarning->hide();
     ui->hlayout_btn->addWidget(m_btnWarning);
     connect(m_btnWarning, &BubbleTipButton::clicked, this, &MainWindow::onWarningPage);
 
@@ -274,7 +277,8 @@ void MainWindow::initUI()
     palette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor("#000000"));
     QToolTip::setPalette(palette);
 
-    //m_btnApproval->setTipMsg(99);
+    loadUserButton();
+
     //创建传输列表控件
     m_transmissionList = new TransmissionList();
     m_transmissionList->setObjectName("transmissionList");
@@ -447,7 +451,7 @@ void MainWindow::changePage(int)
 void MainWindow::onUpdateWarnTipsSums()
 {
     OutlineView* outline = qobject_cast<OutlineView*>(m_pageMap[GENERAL_OUTLINE]);
-    outline->updateWarningSums();
+    outline->updateInfo();
 }
 
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
@@ -519,6 +523,22 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         break;
     }
     return page;
+}
+
+void MainWindow::loadUserButton()
+{
+    if (m_userName == "sysadm")
+    {
+        m_btnTransmission->show();
+    }
+    else if (m_userName == "secadm")
+    {
+        m_btnApproval->show();
+    }
+    else if (m_userName == "audadm")
+    {
+        m_btnWarning->show();
+    }
 }
 
 void MainWindow::loadUserPage()

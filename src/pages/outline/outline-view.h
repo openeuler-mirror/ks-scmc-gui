@@ -26,9 +26,6 @@ public:
     explicit OutlineView(QWidget *parent = nullptr);
     ~OutlineView() override;
     void updateInfo(QString keyword = "");
-    void updateWarningSums();
-    QString getApproveSums();
-    QString getWarningSums();
 
 protected:
     //    bool eventFilter(QObject *watched, QEvent *event);
@@ -38,8 +35,7 @@ protected:
 private:
     void initUI();
     void initConnect();
-    QWidget *getScrollCenterWidget();  //获取widget
-    void setOutlineCellNode();         //初始化概述页面的cell
+    void setOutlineCellNode();  //初始化概述页面的cell
     void setOutlineCellContainer();
     void setOutlineCellImage();
     void setOutlineCellTemplateContainer();
@@ -47,19 +43,7 @@ private:
     void setOutlineCellWarning();
 
 private slots:
-    void getOutlineCellNodeNums(const QString objId, const QPair<grpc::Status, node::ListReply> &reply);
-    void getOutlineCellContainerNums(const QString objId, const QPair<grpc::Status, container::ListReply> &reply);
-    void getOutlineCellImageNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply);
-    void getOutlineCellTemplateContainerNums(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
-    void getOutlineCellExamineNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply);  //待审核
-    void getOutlineCellWarningNums(const QString objId, const QPair<grpc::Status, node::ListReply> &);
-
-    void emitOutlineCellType();
-    void getlNodeList();
-    void getContainerList();
-    void getImageList();
-    void getlTemplateContainer();
-    void getWarnNums();
+    void getDashboardResult(const QString objId, const QPair<grpc::Status, sys::DashboardReply> &reply);
 
 signals:
     void outlineCellStepPages(OutlineCellType type);

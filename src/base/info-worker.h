@@ -150,7 +150,7 @@ public:
     //system management
     void setSecuritySwitch(const QString objId, const bool &isOn);
     void getSecuritySwitch(const QString objId);
-
+    void dashboard(const QString objId);
     void stopTransfer(const QString &name, const QString &version, bool isStop);
     bool isTransferStoped(const QString &name, const QString &version);
 
@@ -236,6 +236,7 @@ private:
     //system management
     static QPair<grpc::Status, sys::SetSecuritySwitchReply> _setSecuritySwitch(const sys::SetSecuritySwitchRequest &);
     static QPair<grpc::Status, sys::GetSecuritySwitchReply> _getSecuritySwitch(const sys::GetSecuritySwitchRequest &);
+    static QPair<grpc::Status, sys::DashboardReply> _dashboard(const sys::DashboardRequest &);
 
 signals:
     // node management
@@ -319,6 +320,7 @@ signals:
     //system management
     void setSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::SetSecuritySwitchReply> &);
     void getSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &);
+    void dashboardFinished(const QString objId, const QPair<grpc::Status, sys::DashboardReply> &);
 
 private:
     QMutex mutex;

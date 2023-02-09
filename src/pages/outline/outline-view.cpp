@@ -17,14 +17,7 @@
 
 using namespace std;
 
-OutlineView::OutlineView(QWidget *parent) : Page(parent),
-                                            m_outlineCell_node(static_cast<OutlineCell *>(parent)),
-                                            m_outlineCell_container(static_cast<OutlineCell *>(parent)),
-                                            m_outlineCell_image(static_cast<OutlineCell *>(parent)),
-                                            m_outlineCell_template_container(static_cast<OutlineCell *>(parent)),
-                                            m_outlineCell_examine(static_cast<OutlineCell *>(parent)),
-                                            m_outlineCell_warning(static_cast<OutlineCell *>(parent)),
-                                            m_outlineIntroduction(nullptr)
+OutlineView::OutlineView(QWidget *parent) : Page(parent)
 {
     m_objId = InfoWorker::generateId(this);
     initUI();
@@ -33,72 +26,6 @@ OutlineView::OutlineView(QWidget *parent) : Page(parent),
 
 OutlineView::~OutlineView()
 {
-    if (m_outlineIntroduction)
-    {
-        delete m_outlineIntroduction;
-        m_outlineIntroduction = nullptr;
-    }
-    if (m_outlineCell_node)
-    {
-        delete m_outlineCell_node;
-        m_outlineCell_node = nullptr;
-    }
-    if (m_outlineCell_container)
-    {
-        delete m_outlineCell_container;
-        m_outlineCell_container = nullptr;
-    }
-    if (m_outlineCell_image)
-    {
-        delete m_outlineCell_image;
-        m_outlineCell_image = nullptr;
-    }
-    if (m_outlineCell_template_container)
-    {
-        delete m_outlineCell_template_container;
-        m_outlineCell_template_container = nullptr;
-    }
-    if (m_outlineCell_examine)
-    {
-        delete m_outlineCell_examine;
-        m_outlineCell_examine = nullptr;
-    }
-    if (m_outlineCell_warning)
-    {
-        delete m_outlineCell_warning;
-        m_outlineCell_warning = nullptr;
-    }
-}
-
-void OutlineView::getlNodeList()
-{
-    InfoWorker::getInstance().listNode(m_objId);
-}
-
-void OutlineView::getContainerList()
-{
-    std::vector<int64_t> vecNodeId;
-    InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);
-}
-
-void OutlineView::getImageList()
-{
-    InfoWorker::getInstance().listDBImage(m_objId);
-}
-
-void OutlineView::getlTemplateContainer()
-{
-    InfoWorker::getInstance().listTemplate(m_objId);
-}
-
-void OutlineView::getWarnNums()
-{
-    InfoWorker::getInstance().listNode(m_objId);
-}
-
-QWidget *OutlineView::getScrollCenterWidget()
-{
-    return m_scrollWidget;
 }
 
 void OutlineView::initUI()
@@ -124,14 +51,14 @@ void OutlineView::initUI()
 
     QGridLayout *glayout = new QGridLayout();
     QVBoxLayout *vlayout = new QVBoxLayout(m_scrollWidget);
-    m_outlineIntroduction = new OutlineIntroduction;
+    m_outlineIntroduction = new OutlineIntroduction(this);
 
-    m_outlineCell_node = new OutlineCell;
-    m_outlineCell_container = new OutlineCell;
-    m_outlineCell_image = new OutlineCell;
-    m_outlineCell_template_container = new OutlineCell;
-    m_outlineCell_examine = new OutlineCell;
-    m_outlineCell_warning = new OutlineCell;
+    m_outlineCell_node = new OutlineCell(ONUTLINE_CELL_NODE, this);
+    m_outlineCell_container = new OutlineCell(ONUTLINE_CELL_CONTAINER, this);
+    m_outlineCell_image = new OutlineCell(ONUTLINE_CELL_IMAGE, this);
+    m_outlineCell_template_container = new OutlineCell(ONUTLINE_CELL_TEMPLATE_CONTAINER, this);
+    m_outlineCell_examine = new OutlineCell(ONUTLINE_CELL_EXAMINE, this);
+    m_outlineCell_warning = new OutlineCell(ONUTLINE_CELL_NODE_WARNING, this);
 
     setOutlineCellNode();
     setOutlineCellContainer();
@@ -179,88 +106,19 @@ void OutlineView::initUI()
 
 void OutlineView::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &OutlineView::getOutlineCellTemplateContainerNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellWarningNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::dashboardFinished, this, &OutlineView::getDashboardResult);
 
-    connect(m_outlineCell_node, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_node, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-
-    connect(m_outlineCell_container, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_container, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-
-    connect(m_outlineCell_image, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_image, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-
-    connect(m_outlineCell_template_container, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_template_container, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-
-    connect(m_outlineCell_examine, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_examine, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-
-    connect(m_outlineCell_warning, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
-    connect(m_outlineCell_warning, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
-}
-
-void OutlineView::emitOutlineCellType()
-{
-    if (m_outlineCell_node->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_NODE);
-        m_outlineCell_node->is_mouse_Press = false;
-    }
-    if (m_outlineCell_container->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_CONTAINER);
-        m_outlineCell_container->is_mouse_Press = false;
-    }
-    if (m_outlineCell_image->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_IMAGE);
-        m_outlineCell_image->is_mouse_Press = false;
-    }
-    if (m_outlineCell_template_container->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_TEMPLATE_CONTAINER);
-        m_outlineCell_template_container->is_mouse_Press = false;
-    }
-    if (m_outlineCell_examine->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_EXAMINE);
-        m_outlineCell_examine->is_mouse_Press = false;
-    }
-    if (m_outlineCell_warning->is_mouse_Press)
-    {
-        emit outlineCellStepPages(ONUTLINE_CELL_NODE_WARNING);
-        m_outlineCell_warning->is_mouse_Press = false;
-    }
+    connect(m_outlineCell_node, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
+    connect(m_outlineCell_container, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
+    connect(m_outlineCell_image, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
+    connect(m_outlineCell_template_container, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
+    connect(m_outlineCell_examine, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
+    connect(m_outlineCell_warning, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
 }
 
 void OutlineView::updateInfo(QString keyword)
 {
-    getlNodeList();
-    getContainerList();
-    getImageList();
-    getlTemplateContainer();
-    getWarnNums();
-    //    m_outlineCell_image->ui->Name_counts->setText("666");
-}
-
-void OutlineView::updateWarningSums()
-{
-    getWarnNums();
-}
-
-QString OutlineView::getApproveSums()
-{
-    return m_outlineCell_examine->ui->Name_counts->text();
-}
-
-QString OutlineView::getWarningSums()
-{
-    return m_outlineCell_warning->ui->Name_counts->text();
+    InfoWorker::getInstance().dashboard(m_objId);
 }
 
 void OutlineView::paintEvent(QPaintEvent *event)
@@ -271,326 +129,41 @@ void OutlineView::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void OutlineView::getOutlineCellNodeNums(const QString objId, const QPair<grpc::Status, node::ListReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellNodeNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        int online = 0;
-        int offline = 0;
-        int size = 0;
-        if (reply.first.ok())
-        {
-            size = reply.second.nodes_size();
-
-            for (auto node : reply.second.nodes())
-            {
-                if (node.has_status())
-                {
-                    if (node.status().state() == 10)
-                        online++;
-                    if (node.status().state() == 0)
-                        offline++;
-                }
-            }
-        }
-        m_outlineCell_node->ui->Name_counts->setText(QString::number(size, 10));
-        m_outlineCell_node->ui->online_counts->setText(QString::number(online, 10));
-        m_outlineCell_node->ui->offline_counts->setText(QString::number(offline, 10));
-    }
-}
-
-void OutlineView::getOutlineCellContainerNums(const QString objId, const QPair<grpc::Status, container::ListReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellContainerNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        int size = 0;
-        int online = 0;
-        int offline = 0;
-        if (reply.first.ok())
-        {
-            size = reply.second.containers_size();
-
-            for (auto container : reply.second.containers())
-            {
-                if (container.info().state() == "running")
-                    online++;
-                else
-                    offline++;
-            }
-        }
-        m_outlineCell_container->ui->Name_counts->setText(QString::number(size, 10));
-        m_outlineCell_container->ui->online_counts->setText(QString::number(online, 10));
-        m_outlineCell_container->ui->offline_counts->setText(QString::number(offline, 10));
-    }
-}
-
-void OutlineView::getOutlineCellImageNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellImageNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        if (reply.first.ok())
-        {
-            int row = 0;
-            int size;
-            long int image_size = 0;
-            size = reply.second.images_size();
-            for (auto image : reply.second.images())
-            {
-                image_size += image.size();
-                //    int size = reply.second.
-                row++;
-            }
-
-            double image_size_sum;
-            image_size_sum = double(image_size) / pow(2, 30);
-
-            if (image_size_sum < 1)
-            {
-                image_size_sum = double(image_size) / pow(2, 20);
-                QString str = QString::number(image_size_sum, 'f', 2);
-
-                m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
-                m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
-            }
-            else
-            {
-                QString str = QString::number(image_size_sum, 'f', 2);
-
-                m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
-                m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
-            }
-
-            getOutlineCellExamineNums(objId, reply);
-        }
-    }
-}
-
-void OutlineView::getOutlineCellTemplateContainerNums(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellTemplateContainerNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        int size = 0;
-        if (reply.first.ok())
-        {
-            size = reply.second.data_size();
-        }
-        m_outlineCell_template_container->ui->Name_counts->setText(QString::number(size, 10));
-    }
-}
-
-void OutlineView::getOutlineCellExamineNums(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellExamineNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        int count = 0;
-        if (reply.first.ok())
-        {
-            int row = 0;
-
-            for (auto image : reply.second.images())
-            {
-                if (image.approval_status() == 0)
-                    count++;
-                row++;
-            }
-            emit sigApproveSumNums(count);
-        }
-        m_outlineCell_examine->ui->Name_counts->setText(QString::number(count, 10));
-    }
-}
-
-void OutlineView::getOutlineCellWarningNums(const QString objId, const QPair<grpc::Status, node::ListReply> &reply)
-{
-    KLOG_INFO() << "getOutlineCellWarningNums" << m_objId << objId;
-    if (m_objId == objId)
-    {
-        int64_t read_warn_count = 0;
-        if (reply.first.ok())
-        {
-            int size = reply.second.nodes_size();
-            if (size <= 0)
-                return;
-            int row = 0;
-            for (auto node : reply.second.nodes())
-            {
-                read_warn_count += node.unread_warn();
-                row++;
-            }
-        }
-        emit sigWarnSumNums(int(read_warn_count));
-        m_outlineCell_warning->ui->Name_counts->setText(QString::number(read_warn_count, 10));
-    }
-}
-
 void OutlineView::setOutlineCellNode()
 {
     m_outlineCell_node->ui->label->setText(tr("node"));
-    m_outlineCell_node->ui->Name_label->setStyleSheet("QLabel {"
-                                                      "background: transparent;"
-                                                      "border:none;"
-                                                      "font: NotoSansCJKsc-Regular;"
-                                                      "font-size: 22px;"
-                                                      "border-radius:0px;"
-                                                      "color: #ffffff;}");
-    m_outlineCell_node->ui->Name_counts->setStyleSheet("QLabel {"
-                                                       "background: transparent;"
-                                                       "border:none;"
-                                                       "font: NotoSansCJKsc-Regular;"
-                                                       "font-size: 22px;"
-                                                       "border-radius:0px;"
-                                                       "color: #ffffff;}");
     m_outlineCell_node->ui->Name_label->setText(tr("Number of nodes: "));
     m_outlineCell_node->ui->Name_counts->setText("0");
 
-    m_outlineCell_node->ui->label_online_txt->setStyleSheet("QLabel {"
-                                                            "background: transparent;"
-                                                            "border:none;"
-                                                            "font: NotoSansCJKsc-Regular;"
-                                                            "font-size: 14px;"
-                                                            "border-radius:0px;"
-                                                            "color: #ffffff;}");
     m_outlineCell_node->ui->label_online_txt->setText(tr("online: "));
-
-    m_outlineCell_node->ui->label_offline_txt->setStyleSheet("QLabel {"
-                                                             "background: transparent;"
-                                                             "border:none;"
-                                                             "font: NotoSansCJKsc-Regular;"
-                                                             "font-size: 14px;"
-                                                             "border-radius:0px;"
-                                                             "color: #ffffff;}");
     m_outlineCell_node->ui->label_offline_txt->setText(tr("offline: "));
-
-    m_outlineCell_node->ui->online_counts->setStyleSheet("QLabel {"
-                                                         "background: transparent;"
-                                                         "border:none;"
-                                                         "font: NotoSansCJKsc-Regular;"
-                                                         "font-size: 36px;"
-                                                         "border-radius:0px;"
-                                                         "color: #ffffff;}");
     m_outlineCell_node->ui->online_counts->setText(tr("0"));
-    m_outlineCell_node->ui->offline_counts->setStyleSheet("QLabel {"
-                                                          "background: transparent;"
-                                                          "border:none;"
-                                                          "font: NotoSansCJKsc-Regular;"
-                                                          "font-size: 36px;"
-                                                          "border-radius:0px;"
-                                                          "color: #ffffff;}");
     m_outlineCell_node->ui->offline_counts->setText(tr("0"));
 
-    m_outlineCell_node->ui->outline_pix->setStyleSheet("QLabel{"
-                                                       //                                                        "border-image:url(:/images/node-number.png);"
-                                                       "background-image:url(:/images/node-number.png);"
-                                                       "background-position:center;"
-                                                       "background-repeat:no-repeat;"
-                                                       "}");
-    m_outlineCell_node->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_node->setIcon(":/images/node-number.png");
 }
 
 void OutlineView::setOutlineCellContainer()
 {
     m_outlineCell_container->ui->label->setText(tr("Container"));
-    m_outlineCell_container->ui->Name_label->setStyleSheet("QLabel {"
-                                                           "background: transparent;"
-                                                           "border:none;"
-                                                           "font: NotoSansCJKsc-Regular;"
-                                                           "font-size: 22px;"
-                                                           "border-radius:0px;"
-                                                           "color: #ffffff;}");
-    m_outlineCell_container->ui->Name_counts->setStyleSheet("QLabel {"
-                                                            "background: transparent;"
-                                                            "border:none;"
-                                                            "font: NotoSansCJKsc-Regular;"
-                                                            "font-size: 22px;"
-                                                            "border-radius:0px;"
-                                                            "color: #ffffff;}");
     m_outlineCell_container->ui->Name_label->setText(tr("Number of Container: "));
     m_outlineCell_container->ui->Name_counts->setText("0");
 
-    m_outlineCell_container->ui->label_online_txt->setStyleSheet("QLabel {"
-                                                                 "background: transparent;"
-                                                                 "border:none;"
-                                                                 "font: NotoSansCJKsc-Regular;"
-                                                                 "font-size: 14px;"
-                                                                 "border-radius:0px;"
-                                                                 "color: #ffffff;}");
     m_outlineCell_container->ui->label_online_txt->setText(tr("online: "));
-
-    m_outlineCell_container->ui->label_offline_txt->setStyleSheet("QLabel {"
-                                                                  "background: transparent;"
-                                                                  "border:none;"
-                                                                  "font: NotoSansCJKsc-Regular;"
-                                                                  "font-size: 14px;"
-                                                                  "border-radius:0px;"
-                                                                  "color: #ffffff;}");
     m_outlineCell_container->ui->label_offline_txt->setText(tr("offline: "));
-
-    m_outlineCell_container->ui->online_counts->setStyleSheet("QLabel {"
-                                                              "background: transparent;"
-                                                              "border:none;"
-                                                              "font: NotoSansCJKsc-Regular;"
-                                                              "font-size: 36px;"
-                                                              "border-radius:0px;"
-                                                              "color: #ffffff;}");
     m_outlineCell_container->ui->online_counts->setText(tr("0"));
-    m_outlineCell_container->ui->offline_counts->setStyleSheet("QLabel {"
-                                                               "background: transparent;"
-                                                               "border:none;"
-                                                               "font: NotoSansCJKsc-Regular;"
-                                                               "font-size: 36px;"
-                                                               "border-radius:0px;"
-                                                               "color: #ffffff;}");
     m_outlineCell_container->ui->offline_counts->setText(tr("0"));
 
-    m_outlineCell_container->ui->outline_pix->setStyleSheet("QLabel{"
-                                                            //                                                        "border-image:url(:/images/node-number.png);"
-                                                            "background-image:url(:/images/container-number.png);"
-                                                            "background-position:center;"
-                                                            "background-repeat:no-repeat;"
-                                                            "}");
-    m_outlineCell_container->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_container->setIcon(":/images/container-number.png");
 }
 
 void OutlineView::setOutlineCellImage()
 {
     m_outlineCell_image->ui->label->setText(tr("Image"));
-    m_outlineCell_image->ui->Name_label->setStyleSheet("QLabel {"
-                                                       "background: transparent;"
-                                                       "border:none;"
-                                                       "font: NotoSansCJKsc-Regular;"
-                                                       "font-size: 22px;"
-                                                       "border-radius:0px;"
-                                                       "color: #ffffff;}");
-    m_outlineCell_image->ui->Name_counts->setStyleSheet("QLabel {"
-                                                        "background: transparent;"
-                                                        "border:none;"
-                                                        "font: NotoSansCJKsc-Regular;"
-                                                        "font-size: 22px;"
-                                                        "border-radius:0px;"
-                                                        "color: #ffffff;}");
     m_outlineCell_image->ui->Name_label->setText(tr("Number of Image: "));
     m_outlineCell_image->ui->Name_counts->setText("0");
 
-    m_outlineCell_image->ui->label_online_txt->setStyleSheet("QLabel {"
-                                                             "background: transparent;"
-                                                             "border:none;"
-                                                             "font: NotoSansCJKsc-Regular;"
-                                                             "font-size: 14px;"
-                                                             "border-radius:0px;"
-                                                             "color: #ffffff;}");
     m_outlineCell_image->ui->label_online_txt->setText(tr("Image Capacity: "));
-
-    m_outlineCell_image->ui->label_offline_txt->setStyleSheet("QLabel {"
-                                                              "background: transparent;"
-                                                              "border:none;"
-                                                              "font: NotoSansCJKsc-Regular;"
-                                                              "font-size: 14px;"
-                                                              "border-radius:0px;"
-                                                              "color: #ffffff;}");
     m_outlineCell_image->ui->label_offline_txt->setText(tr("0G"));
 
     m_outlineCell_image->ui->label_online->deleteLater();
@@ -600,32 +173,12 @@ void OutlineView::setOutlineCellImage()
     m_outlineCell_image->ui->online_counts->deleteLater();
     m_outlineCell_image->ui->offline_counts->deleteLater();
 
-    m_outlineCell_image->ui->outline_pix->setStyleSheet("QLabel{"
-                                                        //                                                        "border-image:url(:/images/image-number.png);"
-                                                        "background-image:url(:/images/image-number.png);"
-                                                        "background-position:center;"
-                                                        "background-repeat:no-repeat;"
-                                                        "}");
-    m_outlineCell_image->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_image->setIcon(":/images/image-number.png");
 }
 
 void OutlineView::setOutlineCellTemplateContainer()
 {
-    m_outlineCell_template_container->ui->label->setText(tr("Template Container"));
-    m_outlineCell_template_container->ui->Name_label->setStyleSheet("QLabel {"
-                                                                    "background: transparent;"
-                                                                    "border:none;"
-                                                                    "font: NotoSansCJKsc-Regular;"
-                                                                    "font-size: 22px;"
-                                                                    "border-radius:0px;"
-                                                                    "color: #ffffff;}");
-    m_outlineCell_template_container->ui->Name_counts->setStyleSheet("QLabel {"
-                                                                     "background: transparent;"
-                                                                     "border:none;"
-                                                                     "font: NotoSansCJKsc-Regular;"
-                                                                     "font-size: 22px;"
-                                                                     "border-radius:0px;"
-                                                                     "color: #ffffff;}");
+    m_outlineCell_template_container->ui->label->setText(tr("Template"));
     m_outlineCell_template_container->ui->Name_label->setText(tr("Number of Template: "));
     m_outlineCell_template_container->ui->Name_counts->setText("0");
 
@@ -640,32 +193,13 @@ void OutlineView::setOutlineCellTemplateContainer()
     m_outlineCell_template_container->ui->horizontalLayout_2->deleteLater();
     m_outlineCell_template_container->ui->verticalLayout->setContentsMargins(0, 0, 0, 21);
 
-    m_outlineCell_template_container->ui->outline_pix->setStyleSheet("QLabel{"
-                                                                     "background-image:url(:/images/container-template-number.png);"
-                                                                     "background-position:center;"
-                                                                     "background-repeat:no-repeat;"
-                                                                     "}");
-    m_outlineCell_template_container->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_template_container->setIcon(":/images/container-template-number.png");
 }
 
 void OutlineView::setOutlineCellExamine()
 {
-    m_outlineCell_examine->ui->label->setText(tr("Reviewed"));
-    m_outlineCell_examine->ui->Name_label->setStyleSheet("QLabel {"
-                                                         "background: transparent;"
-                                                         "border:none;"
-                                                         "font: NotoSansCJKsc-Regular;"
-                                                         "font-size: 22px;"
-                                                         "border-radius:0px;"
-                                                         "color: #ffffff;}");
-    m_outlineCell_examine->ui->Name_counts->setStyleSheet("QLabel {"
-                                                          "background: transparent;"
-                                                          "border:none;"
-                                                          "font: NotoSansCJKsc-Regular;"
-                                                          "font-size: 22px;"
-                                                          "border-radius:0px;"
-                                                          "color: #ffffff;}");
-    m_outlineCell_examine->ui->Name_label->setText(tr("Number of Reviewed: "));
+    m_outlineCell_examine->ui->label->setText(tr("Approval"));
+    m_outlineCell_examine->ui->Name_label->setText(tr("Number of Approval: "));
     m_outlineCell_examine->ui->Name_counts->setText("0");
 
     m_outlineCell_examine->ui->label_online_txt->deleteLater();
@@ -679,32 +213,13 @@ void OutlineView::setOutlineCellExamine()
     m_outlineCell_examine->ui->horizontalLayout_2->deleteLater();
     m_outlineCell_examine->ui->verticalLayout->setContentsMargins(0, 0, 0, 21);
 
-    m_outlineCell_examine->ui->outline_pix->setStyleSheet("QLabel{"
-                                                          "background-image:url(:/images/approve-number.png);"
-                                                          "background-position:center;"
-                                                          "background-repeat:no-repeat;"
-                                                          "}");
-    m_outlineCell_examine->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_examine->setIcon(":/images/approve-number.png");
 }
 
 void OutlineView::setOutlineCellWarning()
 {
-    m_outlineCell_warning->ui->label->setText(tr("Give Alarm"));
-    m_outlineCell_warning->ui->Name_label->setStyleSheet("QLabel {"
-                                                         "background: transparent;"
-                                                         "border:none;"
-                                                         "font: NotoSansCJKsc-Regular;"
-                                                         "font-size: 22px;"
-                                                         "border-radius:0px;"
-                                                         "color: #ffffff;}");
-    m_outlineCell_warning->ui->Name_counts->setStyleSheet("QLabel {"
-                                                          "background: transparent;"
-                                                          "border:none;"
-                                                          "font: NotoSansCJKsc-Regular;"
-                                                          "font-size: 22px;"
-                                                          "border-radius:0px;"
-                                                          "color: #ffffff;}");
-    m_outlineCell_warning->ui->Name_label->setText(tr("Number of Give Alarm: "));
+    m_outlineCell_warning->ui->label->setText(tr("Unread Warning"));
+    m_outlineCell_warning->ui->Name_label->setText(tr("Number of Unread Warn: "));
     m_outlineCell_warning->ui->Name_counts->setText("0");
 
     m_outlineCell_warning->ui->label_online_txt->deleteLater();
@@ -718,10 +233,74 @@ void OutlineView::setOutlineCellWarning()
     m_outlineCell_warning->ui->horizontalLayout_2->deleteLater();
     m_outlineCell_warning->ui->verticalLayout->setContentsMargins(0, 0, 0, 21);
 
-    m_outlineCell_warning->ui->outline_pix->setStyleSheet("QLabel{"
-                                                          "background-image:url(:/images/warning-number.png);"
-                                                          "background-position:center;"
-                                                          "background-repeat:no-repeat;"
-                                                          "}");
-    m_outlineCell_warning->ui->outline_pix->setMinimumSize(78, 78);
+    m_outlineCell_warning->setIcon(":/images/warning-number.png");
+}
+
+void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Status, sys::DashboardReply> &reply)
+{
+    if (objId == m_objId)
+    {
+        if (reply.first.ok())
+        {
+            //node status
+            int nodeTotal = reply.second.node().total_count();
+            int nodeOnline = reply.second.node().online_count();
+            int nodeOffline = reply.second.node().offline_count();
+            m_outlineCell_node->ui->Name_counts->setText(QString::number(nodeTotal, 10));
+            m_outlineCell_node->ui->online_counts->setText(QString::number(nodeOnline, 10));
+            m_outlineCell_node->ui->offline_counts->setText(QString::number(nodeOffline, 10));
+
+            //container status
+            int containerTotal = reply.second.container().total_count();
+            int containerOnline = reply.second.container().online_count();
+            int containerOffline = reply.second.container().offline_count();
+            m_outlineCell_container->ui->Name_counts->setText(QString::number(containerTotal, 10));
+            m_outlineCell_container->ui->online_counts->setText(QString::number(containerOnline, 10));
+            m_outlineCell_container->ui->offline_counts->setText(QString::number(containerOffline, 10));
+
+            int templateTotal = reply.second.container().template_count();
+            m_outlineCell_template_container->ui->Name_counts->setText(QString::number(templateTotal, 10));
+
+            //image status
+            int imageTotal = reply.second.image().total_count();
+            m_outlineCell_image->ui->Name_counts->setText(QString::number(imageTotal, 10));
+
+            auto imageSize = reply.second.image().total_size();
+            double image_size_sum;
+            image_size_sum = double(imageSize) / pow(2, 30);
+
+            if (image_size_sum < 1)
+            {
+                image_size_sum = double(imageSize) / pow(2, 20);
+                QString str = QString::number(image_size_sum, 'f', 2);
+                m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
+            }
+            else
+            {
+                QString str = QString::number(image_size_sum, 'f', 2);
+                m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
+            }
+
+            //audit status
+            int approveCount = reply.second.audit().image_to_approve_count();
+            m_outlineCell_examine->ui->Name_counts->setText(QString::number(approveCount, 10));
+            emit sigApproveSumNums(approveCount);
+
+            //log status
+            int unreadWarnCount = reply.second.log().unread_warn_count();
+            m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
+            emit sigWarnSumNums(int(unreadWarnCount));
+
+            KLOG_INFO() << nodeTotal << nodeOnline << nodeOffline
+                        << containerTotal << containerOnline << containerOffline
+                        << templateTotal
+                        << imageTotal << imageSize
+                        << approveCount
+                        << unreadWarnCount;
+        }
+        else
+        {
+            KLOG_INFO() << "Can't get system dashboard information!";
+        }
+    }
 }

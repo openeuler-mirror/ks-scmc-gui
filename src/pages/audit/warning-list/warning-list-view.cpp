@@ -6,6 +6,7 @@
  */
 #include "warning-list-view.h"
 #include <kiran-log/qt5-log-i.h>
+#include <notification-manager.h>
 #include <widget-property-helper.h>
 #include <QDateTime>
 #include <QHBoxLayout>
@@ -36,10 +37,7 @@ void WarningListView::updateInfo(QString keyword)
     clearCheckState();
     if (keyword.isEmpty())
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarning);
-        //        connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarning);
         getWarningList(m_type, m_pageOn);
-        //        getReadWarn();
     }
 }
 
@@ -108,14 +106,13 @@ void WarningListView::initButtons()
 
     addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_WARN_READ]
                              /*<< opBtnMap[OPERATION_BUTTOM_WARN_IGNORE]*/);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void WarningListView::initLogListConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarning);
-    //     connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarn);
+    connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarningResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarningResult);
     connect(this, &WarningListView::sigUpdatePaging, this, &WarningListView::updatePagingInfo);
     connect(this, &WarningListView::sigOpenPaging, this, &WarningListView::setPaging);
 }
@@ -145,12 +142,12 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
     InfoWorker::getInstance().listWarnLogging(m_ObjId, request);
 }
 
-void WarningListView::getReadWarn(QList<int64_t> ids)
+void WarningListView::readWarn(QList<int64_t> ids)
 {
     InfoWorker::getInstance().readWarnLogging(m_ObjId, ids);
 }
 
-void WarningListView::getListWarning(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &reply)
+void WarningListView::getListWarningResult(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &reply)
 {
     KLOG_INFO() << "getListWarning" << m_ObjId << objId;
     if (m_ObjId == objId)
@@ -159,7 +156,6 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             clearTable();
 
             m_totalPages = int(reply.second.total_pages());
@@ -203,22 +199,6 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
                     item_status->setText(tr("Unread"));
 
                 QStandardItem *item_content = new QStandardItem(logging.detail().data());
-                //            switch (logging.event_type()) {
-                //            case 1001: //资源忙碌
-                //                item_content->setText(tr("Resource usage"));
-                //                break;
-                //            case 1002: //节点关闭
-                //                item_content->setText(tr("Node close"));
-                //                break;
-                //            case 1003: //非法容器
-                //                item_content->setText(tr("illegal container"));
-                //                break;
-                //            case 1004: //节点异常
-                //                item_content->setText(tr("Node abnormal"));
-                //                break;
-                //            default:
-                //                break;
-                //            }
 
                 QDateTime time = QDateTime::fromSecsSinceEpoch(logging.updated_at());
                 QString update = time.toString("yyyy/MM/dd hh:mm:ss");
@@ -230,17 +210,11 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
 
                 row++;
             }
-            if (getTableRowCount() == 0)
-            {
-                setTableDefaultContent("-");
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            }
         }
         else
         {
-            KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
+            KLOG_INFO() << "get warn list result failed: " << reply.first.error_message().data();
             setTableDefaultContent("-");
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
             {
                 setTips(tr("Response timeout!"));
@@ -249,15 +223,22 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
     }
 }
 
-//void WarningListView::getReadWarning(const QPair<grpc::Status, logging::ReadWarnReply> &reply)
-//{
-//    if (reply.first.ok())
-//    {
-////        int size = reply.second;
-////        if (size <= 0)
-////            ;
-//    }
-//}
+void WarningListView::getReadWarningResult(const QString objId, const QPair<grpc::Status, logging::ReadWarnReply> &reply)
+{
+    if (m_ObjId == objId)
+    {
+        if (reply.first.ok())
+        {
+            updateInfo();
+            emit sigUpdateWaringSums();
+        }
+        else
+        {
+            NotificationManager::sendNotify(tr("Read warning faild"), reply.first.error_message().data());
+            KLOG_INFO() << "read warning failed:" << reply.first.error_message().data();
+        }
+    }
+}
 
 void WarningListView::setLogListPageType(WarningListPageType type)
 {
@@ -274,9 +255,7 @@ void WarningListView::onBtnRead()
         {
             ids.append(idInfo.value(WARN_IDS).toInt());
         }
-        getReadWarn(ids);
-        updateInfo();
-        emit sigUpdateWaringSums();
+        readWarn(ids);
     }
 }
 
@@ -286,7 +265,7 @@ void WarningListView::onBtnIgnore()
     //    if (!info.isEmpty())
     //    {
     //        int64_t ids = info.at(0).value(WARN_IDS).toInt();
-    //        getReadWarn(ids);
+    //        readWarn(ids);
     //    }
 }
 
@@ -297,10 +276,7 @@ void WarningListView::onBtnReadLabel(int row)
         return;
     qint64 ids = infoMap.value(WARN_IDS).toInt();
     if (ids > 0)
-        getReadWarn(QList<int64_t>() << ids);
-    KLOG_INFO() << "ids = " << ids;
-    updateInfo();
-    emit sigUpdateWaringSums();
+        readWarn(QList<int64_t>() << ids);
 }
 
 void WarningListView::onBtnIgnoreLabel(int row)
