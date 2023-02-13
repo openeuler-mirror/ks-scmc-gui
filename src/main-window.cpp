@@ -17,6 +17,7 @@
 #include "common/about-page.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
+#include "config/config.h"
 #include "message-dialog.h"
 #include "page.h"
 #include "pages/audit/log-list/log-list-page.h"
@@ -296,10 +297,12 @@ void MainWindow::initUI()
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     userMenu->addSeparator();
     QAction* aboutAct = userMenu->addAction(tr("About"));
+    QAction* helpAct = userMenu->addAction(tr("Help"));
     ui->btn_user->setMenu(userMenu);
     connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
     connect(aboutAct, &QAction::triggered, this, &MainWindow::onAboutAction);
+    connect(helpAct, &QAction::triggered, this, &MainWindow::onHelpAction);
 
     //创建右侧堆叠页面
     m_stackedWidget = new QStackedWidget(this);
@@ -708,6 +711,20 @@ void MainWindow::onAboutAction(bool checked)
 
     about->move(x, y);
     about->show();
+}
+
+void MainWindow::onHelpAction(bool checked)
+{
+    Q_UNUSED(checked);
+    //popup user manual pdf
+    QString file = QString(HELP_MANUAL_PATH) + QString("manual.pdf");
+    if (QFile::exists(file))
+    {
+        KLOG_INFO() << "open help manual PDF. from system";
+        QDesktopServices::openUrl(QUrl::fromLocalFile(file));
+    }
+    else
+        KLOG_INFO() << file << "is not exit!";
 }
 
 void MainWindow::onUpdatePwSuccessful()

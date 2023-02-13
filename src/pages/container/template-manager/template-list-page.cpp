@@ -190,6 +190,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             clearTable();
             int size = reply.second.data_size();
+            KLOG_INFO() << "template size:" << size;
             if (size <= 0)
             {
                 setTableDefaultContent("-");
@@ -254,6 +255,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         }
         else
         {
+            KLOG_INFO() << "get template list failed!" << reply.first.error_message().data();
             if (reply.first.error_code() == PERMISSION_DENIED)
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             else

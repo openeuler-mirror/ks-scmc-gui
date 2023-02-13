@@ -127,7 +127,6 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
         QLineSeries *ser = qobject_cast<QLineSeries *>(series);
         if (ser->name() == seriesNames)
         {
-            KLOG_INFO() << ser->name();
             ser->clear();
             ser->append(datas);
             break;
