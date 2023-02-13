@@ -20,27 +20,26 @@ NetworkConfTab::~NetworkConfTab()
 {
     delete ui;
 }
-//创建容器使用
+//创建容器、模板使用
 void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
 {
     auto cfg = cntrCfg->add_networks();
     QString str = ui->cb_virt_networkcard->currentText();
     QString name = str.split(" ").first();  // 网卡名
-    container::NetworkConfig network;
 
+    KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
 
-//更新容器使用
+//更新容器、模板使用
 void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
 {
     auto cfg = req->add_networks();
     QString str = ui->cb_virt_networkcard->currentText();
     QString name = str.split(" ").first();  // 网卡名
-    container::NetworkConfig network;
 
-    KLOG_INFO() << "Network interface:" << name;
+    KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
@@ -49,7 +48,7 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
 void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<QString> networkList)
 {
     KLOG_INFO() << "setNetworkInfo: " << networkCfg->interface().data() << networkCfg->ip_address().data() << networkCfg->mac_address().data();
-    KLOG_INFO() << networkList;
+    KLOG_INFO() << "all network list" << networkList;
     auto name = networkCfg->interface().data();
 
     ui->cb_virt_networkcard->clear();

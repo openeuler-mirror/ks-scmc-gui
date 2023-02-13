@@ -1084,6 +1084,8 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
             {
                 auto networkConfig = info.networks(i);
                 NetworkConfTab *networkPage = m_netWorkPages.at(i);
+                if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
+                    networkConfig.set_ip_address("");
                 networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
             }
 
