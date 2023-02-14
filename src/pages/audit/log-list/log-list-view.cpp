@@ -200,7 +200,11 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
 
             m_totalPages = int(reply.second.total_pages());
             if (is_openPaging)
+            {
+                if (m_pageOn > m_totalPages)
+                    m_pageOn = m_totalPages;
                 emit sigOpenPaging(m_totalPages);
+            }
 
             int size = reply.second.logs_size();
             KLOG_INFO() << "size:" << size;

@@ -317,6 +317,9 @@ void TablePage::setPaging(int totalPages)
         //        initPaging(totalPages);
         m_totalPages = totalPages;
         m_totalPageLabel->setText(QString("/ ") + QString::number(m_totalPages));
+        if (m_pageEdit->text().toInt() > m_totalPages)
+            m_pageEdit->setText(QString::number(m_totalPages));
+
         if (m_totalPages <= 1)
         {
             for (int i = 0; i < m_pagingHlayout->count(); ++i)
