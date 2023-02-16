@@ -971,6 +971,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
     {
         KLOG_INFO() << "Failed to open " << signFile;
+        imgFile.close();
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -985,6 +986,8 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
+        sigFile.close();
+        imgFile.close();
         return r;
     }
     sigFile.close();
@@ -1036,6 +1039,8 @@ finish:
     imgFile.close();
     stream->WritesDone();
     r.first = stream->Finish();
+    if (r.first.error_code() == grpc::StatusCode::CANCELLED)
+        r.first = grpc::Status(r.first.error_code(), tr("The transmission was cancelled.").toStdString());
 
     emit InfoWorker::getInstance().transferImageFinished(name, version);
     KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
@@ -1094,6 +1099,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
+            imgFile.close();
             return r;
         }
 
@@ -1105,6 +1111,8 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
+            imgFile.close();
+            sigFile.close();
             return r;
         }
         sigFile.close();
@@ -1121,6 +1129,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                    QObject::tr("Internal Error").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
+            imgFile.close();
             goto finish;
         }
         req.release_sign();
@@ -1155,10 +1164,13 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
                 }
             }
         }
+        imgFile.close();
     }
 finish:
     stream->WritesDone();
     r.first = stream->Finish();
+    if (r.first.error_code() == grpc::StatusCode::CANCELLED)
+        r.first = grpc::Status(r.first.error_code(), tr("The transmission was cancelled.").toStdString());
 
     emit InfoWorker::getInstance().transferImageFinished(name, version);
     KLOG_INFO() << "return:" << r.first.error_code();
@@ -1217,7 +1229,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         if (InfoWorker::getInstance().isTransferStoped(name, version))
         {
             imgFile.close();
-            r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("Cancel").toStdString());
+            r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("The transmission was cancelled.").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
             return r;
         }
@@ -1260,6 +1272,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
             statusCode = grpc::StatusCode::INTERNAL;
             status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
             progress = 99;
+            file.close();
             break;
         }
         file.close();
