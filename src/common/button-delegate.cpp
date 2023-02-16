@@ -13,12 +13,12 @@
 #include <QToolTip>
 #define BUTTON_WIDTH 16
 #define BUTTON_HEIGHT 16
-#define BUTTON_SPACE 20
+#define BUTTON_SPACE 12
 #define BUTTON_TOP 22
 
-#define TEXT_WIDTH 50
+#define TEXT_WIDTH 28
 #define TEXT_HEIGHT 16
-#define TEXT_SPACE 10
+#define TEXT_SPACE 8
 #define TEXT_TOP 22
 
 ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo, QObject *parent)
@@ -72,6 +72,10 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
             QRect btnTextRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
 
             button.state |= QStyle::State_Enabled;
+
+            QFont font;
+            font.setPixelSize(14);
+            painter->setFont(font);
             if (btnRect.contains(m_mousePoint))
             {
                 if (m_nType == 0)

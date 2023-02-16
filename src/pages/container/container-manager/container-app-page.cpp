@@ -27,6 +27,7 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string
     initTable();
     initConnect();
     setStyleSheet("background-color:#222222;");
+    setMinimumWidth(900);
 }
 
 ContainerAppPage::~ContainerAppPage()
