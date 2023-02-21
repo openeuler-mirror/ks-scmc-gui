@@ -981,151 +981,151 @@ The first and last characters cannot be special characters</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="458"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="457"/>
         <source>Start Container</source>
         <translation>运行容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="459"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="458"/>
         <source>Start container failed!</source>
         <translation>运行容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="460"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="484"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="507"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="529"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="459"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="483"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="506"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="528"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="482"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="481"/>
         <source>Stop Container</source>
         <translation>停止容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="483"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="482"/>
         <source>Stop container failed!</source>
         <translation>停止容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="505"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="504"/>
         <source>Restart Container</source>
         <translation>重启容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="506"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="505"/>
         <source>Restart container failed!</source>
         <translation>重启容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="527"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="526"/>
         <source>Remove Container</source>
         <translation>移除容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="528"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="527"/>
         <source>Remove container failed!</source>
         <translation>移除容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="568"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="567"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="592"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="591"/>
         <source>Create container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="593"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="592"/>
         <source>Create container from template</source>
         <translation>基于模板创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="600"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="599"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="601"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="600"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="602"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="601"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="603"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="609"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="602"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="608"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="657"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="656"/>
         <source>Container Name</source>
         <translation>容器名</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="658"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="657"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="659"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="658"/>
         <source>Image</source>
         <translation>镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="660"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="659"/>
         <source>Node</source>
         <translation>节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="662"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="661"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="663"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="662"/>
         <source>Disk</source>
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="664"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="663"/>
         <source>Online Time</source>
         <translation>上线时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="665"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="664"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="669"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="668"/>
         <source>App</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="670"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="669"/>
         <source>Monitor</source>
         <translation>监控</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="671"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="670"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="672"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="671"/>
         <source>Terminal</source>
         <translation>终端</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="673"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="672"/>
         <source>More</source>
         <translation>更多</translation>
     </message>
@@ -2582,17 +2582,17 @@ p, li { white-space: pre-wrap; }
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="136"/>
+        <location filename="../src/common/monitor-content.cpp" line="133"/>
         <source>Network throughput (unit M)</source>
         <translation>网络吞吐量(单位 M)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="384"/>
+        <location filename="../src/common/monitor-content.cpp" line="382"/>
         <source>Disk usage(unit %1)</source>
         <translation>磁盘使用量(单位 %1)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="435"/>
+        <location filename="../src/common/monitor-content.cpp" line="431"/>
         <source>Network throughput (unit %1)</source>
         <translation>网络吞吐量(单位 %1)</translation>
     </message>
@@ -2610,12 +2610,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="124"/>
-        <location filename="../src/common/monitor-content.cpp" line="338"/>
+        <location filename="../src/common/monitor-content.cpp" line="337"/>
         <source>CPU usage (%)</source>
         <translation>CPU使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="128"/>
+        <location filename="../src/common/monitor-content.cpp" line="127"/>
         <location filename="../src/common/monitor-content.cpp" line="359"/>
         <source>Memory usage (%)</source>
         <translation>内存使用量（%）</translation>
@@ -2625,7 +2625,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">磁盘I/O（单位%1）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="132"/>
+        <location filename="../src/common/monitor-content.cpp" line="130"/>
         <source>Disk usage (unit M)</source>
         <translation>磁盘使用量（单位 M）</translation>
     </message>
@@ -2634,20 +2634,20 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">网络吞吐量（单位M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="168"/>
+        <location filename="../src/common/monitor-content.cpp" line="166"/>
         <source>Time particle density(1 minute)</source>
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="247"/>
-        <location filename="../src/common/monitor-content.cpp" line="255"/>
+        <location filename="../src/common/monitor-content.cpp" line="245"/>
+        <location filename="../src/common/monitor-content.cpp" line="253"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="263"/>
-        <location filename="../src/common/monitor-content.cpp" line="271"/>
-        <location filename="../src/common/monitor-content.cpp" line="302"/>
+        <location filename="../src/common/monitor-content.cpp" line="261"/>
+        <location filename="../src/common/monitor-content.cpp" line="269"/>
+        <location filename="../src/common/monitor-content.cpp" line="300"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>

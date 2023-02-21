@@ -122,18 +122,16 @@ void MonitorContent::initChart()
 {
     QMap<QString, QString> cpuSeriesInfo = {{CHART_SERIES_NAME_CPU, "#2eb3ff"}};
     BuildCharts(m_cpuChartForm, cpuSeriesInfo, tr("CPU usage (%)"), "%d%%");
-    m_cpuChartForm->setLegendVisible(false);
 
     QMap<QString, QString> memorySeriesInfo = {{CHART_SERIES_NAME_MEMORY, "#2eb3ff"}};
     BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"), "%d%%");
-    m_memoryChartForm->setLegendVisible(false);
 
     QMap<QString, QString> diskSeriesInfo = {{CHART_SERIES_NAME_DISK, "#2eb3ff"}};
     BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk usage (unit M)"), "%d");
-    m_diskChartForm->setLegendVisible(false);
 
     QMap<QString, QString> netSeriesInfo = {{CHART_SERIES_NAME_NETWORK_RX, "#2eb3ff"}, {CHART_SERIES_NAME_NETWORK_TX, "#F57900"}};
     BuildCharts(m_netChartForm, netSeriesInfo, tr("Network throughput (unit M)"), "%0.2f");
+    m_netChartForm->setLegendVisible(true);
 
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
     int currTimeStamp = currTime.toTime_t();            //将当前时间转为时间戳
@@ -329,6 +327,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                     //KLOG_INFO() << i.timestamp() << i.value();
                     QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
                     auto value = i.value() * 100;
+                    KLOG_INFO() << "cpu:" << stempToPos.toMSecsSinceEpoch() << value;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     pointList.append(point);
                 }
@@ -350,6 +349,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 {
                     QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
                     auto value = i.value() / memoryLimit * 100;
+                    KLOG_INFO() << "memory:" << stempToPos.toMSecsSinceEpoch() << value;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     pointList.append(point);
                 }
@@ -366,8 +366,6 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
             {
                 pointList.clear();
                 ChartInfo diskChartInfo = chartInfo;
-                KLOG_INFO() << reply.second.disk_usage_size();
-                KLOG_INFO() << reply.second.disk_usage(0).value();
 
                 auto start = reply.second.disk_usage(0).value();
                 auto end = start;
@@ -404,8 +402,6 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 QList<QPointF> rxPointList;
                 QList<QPointF> txPointList;
                 ChartInfo netChartInfo = chartInfo;
-                KLOG_INFO() << reply.second.net_rx_size();
-                KLOG_INFO() << reply.second.net_rx(0).value();
                 auto start = reply.second.net_rx(0).value();
                 auto end = start;
 
@@ -441,6 +437,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                         value = value * K_BITE;
                     else if (unit == "G")
                         value = value / K_BITE;
+                    KLOG_INFO() << "net rx:" << stempToPos.toMSecsSinceEpoch() << value;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     rxPointList.append(point);
                 }
@@ -452,6 +449,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                         value = value * K_BITE;
                     else if (unit == "G")
                         value = value / K_BITE;
+                    KLOG_INFO() << "net tx:" << stempToPos.toMSecsSinceEpoch() << value;
                     QPointF point(stempToPos.toMSecsSinceEpoch(), value);
                     txPointList.append(point);
                 }
