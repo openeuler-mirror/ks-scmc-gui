@@ -1701,99 +1701,110 @@ Please re-enter your path!</source>
         <translation>请输入拒绝理由：</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="343"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="318"/>
+        <source>OK</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="319"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="345"/>
         <source>Please select the path to save</source>
         <translation>请选择保存路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="379"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="381"/>
         <source>Delete Image</source>
         <translation>删除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="380"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="382"/>
         <source>Are you sure you want to delete the image?</source>
         <translation>确定删除该镜像？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="381"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="383"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="471"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="480"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="780"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="473"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="482"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="782"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="472"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="523"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="474"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="525"/>
         <source>Can&apos;t open &quot;%1&quot; file</source>
         <translation>无法打开”%1“文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="473"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="524"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="475"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="526"/>
         <source>Please make sure the file exists!</source>
         <translation>请确认该文件是否存在！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="522"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="534"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="802"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="524"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="536"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="804"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="574"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="576"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="831"/>
         <source>Download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="644"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="646"/>
         <source>Failed</source>
         <translation>未通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="648"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="650"/>
         <source>Abnormal</source>
         <translation>不正确</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="652"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="669"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="654"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="671"/>
         <source>Passed</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="661"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="663"/>
         <source>Wait for Approve</source>
         <translation>等待审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="665"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="667"/>
         <source>Rejected</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="711"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="713"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="737"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="739"/>
         <source>Approve Image</source>
         <translation>审批镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="738"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="740"/>
         <source>Approve image failed!</source>
         <translation>审批镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="753"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="755"/>
         <source>Remove image success!</source>
         <translation>移除镜像成功！</translation>
     </message>
@@ -1806,43 +1817,43 @@ Please re-enter your path!</source>
         <translation type="vanished">校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="759"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="761"/>
         <source>Remove image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="775"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="777"/>
         <source>Upload image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="781"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="783"/>
         <source>Upload image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="797"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="799"/>
         <source>Update image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="803"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="805"/>
         <source>Update image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="824"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="826"/>
         <source>Download image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="830"/>
         <source>Download image failed! </source>
-        <translation>下载镜像失败！ </translation>
+        <translation type="vanished">下载镜像失败！ </translation>
     </message>
     <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="832"/>
         <source>Download image failed!</source>
-        <translation type="vanished">下载镜像失败！</translation>
+        <translation>下载镜像失败！</translation>
     </message>
     <message>
         <source>Check Image success!</source>
@@ -1853,7 +1864,7 @@ Please re-enter your path!</source>
         <translation type="vanished">校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="758"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="760"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
