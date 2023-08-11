@@ -13,6 +13,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(GENERATE_TO_RUN "Is generate to run" ON)
 
 set(_REFLECTION grpc++_reflection)
 set(_PROTOBUF_LIBPROTOBUF protobuf)
@@ -48,6 +49,10 @@ configure_file (
     "${PROJECT_SOURCE_DIR}/config/config.h.in"
     "${PROJECT_BINARY_DIR}/config/config.h"
 )
+
+if (GENERATE_TO_RUN)
+    add_definitions(-DGENERATE_TO_RUN)
+endif ()
 
 add_subdirectory(proto)
 add_subdirectory(src)
