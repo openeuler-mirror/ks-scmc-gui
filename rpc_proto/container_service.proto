@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+option go_package = "scmc/rpc/pb/container";
+
+package container;
+
+import "common.proto";
+import "container_types.proto";
+
+service Container {
+  rpc List(ListRequest) returns (ListReply) {}
+  rpc Create(CreateRequest) returns (CreateReply) {}
+  rpc Inspect(InspectRequest) returns (InspectReply) {}
+  rpc Start(StartRequest) returns (StartReply) {}
+  rpc Stop(StopRequest) returns (StopReply) {}
+  rpc Remove(RemoveRequest) returns (RemoveReply) {}
+  rpc Restart(RestartRequest) returns (RestartReply) {}
+  rpc Update(UpdateRequest) returns (UpdateReply) {}
+  rpc Kill(KillRequest) returns (KillReply) {}
+  rpc Status(StatusRequest) returns (StatusReply) {}
+
+  // 监控历史数据查询
+  rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
+}
+
+message ListRequest {
+    common.RequestHeader header = 1;
+    repeated int64 node_ids = 2;
+    bool list_all = 3;
+}
+
+message ListReply {
+    common.ReplyHeader header = 1;
+
+    repeated NodeContainer containers = 2;
+}
+
+message CreateRequest {
+    common.RequestHeader header = 1;
+    int64 node_id = 2;
+    string name = 3;
+    bool enable_graphic = 4;
+
+    ContainerConfig config = 11;
+    HostConfig host_config = 12;
+    map<string, EndpointSetting> network_config = 13;
+}
+
+message CreateReply {
+    common.ReplyHeader header = 1;
+    string container_id = 2;
+    repeated string warnings = 3;
+}
+
+message InspectRequest {
+    common.RequestHeader header = 1;
+    int64 node_id = 2;
+    string container_id = 3;
+}
+
+message InspectReply {
+    common.ReplyHeader header = 1;
+    ContainerInfo info = 2;
+    HostConfig host_config = 3;
+    repeated Mount mounts = 4;
+    ContainerConfig config = 5;
+    map<string, EndpointSetting> network_settings = 6;
+}
+
+message StartRequest {
+    common.RequestHeader header = 1;
+    repeated ContainerIdList ids = 2;
+}
+
+message StartReply {
+    common.ReplyHeader header = 1;
+    repeated string ok_ids = 2;
+}
+
+message StopRequest {
+    common.RequestHeader header = 1;
+    repeated ContainerIdList ids = 2;
+}
+
+message StopReply {
+    common.ReplyHeader header = 1;
+    repeated string ok_ids = 2;
+}
+
+message KillRequest {
+    common.RequestHeader header = 1;
+    repeated ContainerIdList ids = 2;
+}
+
+message KillReply {
+    common.ReplyHeader header = 1;
+    repeated string ok_ids = 2;
+}
+
+message RestartRequest {
+    common.RequestHeader header = 1;
+    repeated ContainerIdList ids = 2;
+}
+
+message RestartReply {
+    common.ReplyHeader header = 1;
+    repeated string ok_ids = 2;
+}
+
+message UpdateRequest {
+    common.RequestHeader header = 1;
+    int64 node_id = 2;
+    string container_id = 3;
+    ResourceConfig resource_config = 4;
+    RestartPolicy restart_policy = 5;
+}
+
+message UpdateReply {
+    common.ReplyHeader header = 1;
+}
+
+message RemoveRequest {
+    common.RequestHeader header = 1;
+    repeated ContainerIdList ids = 2;
+    bool remove_volumes = 4;
+}
+
+message RemoveReply {
+    common.ReplyHeader header = 1;
+    repeated string ok_ids = 2;
+}
+
+message StatusRequest {
+    common.RequestHeader header = 1;
+    int64 node_id = 2;
+}
+
+message StatusReply {
+    common.ReplyHeader header = 1;
+    repeated ResourceStat status = 2;
+}
+
+message MonitorHistoryRequest {
+    common.RequestHeader header = 1;
+    int64 node_id = 2;
+    int64 start_time = 3;
+    int64 end_time = 4;
+    string container_id = 5;
+    string data_type = 6;	// CPU, memory, disk, network
+}
+
+message MonitorHistoryReply {
+    common.ReplyHeader header = 1;
+    repeated MonitorSample data = 2;
+}
+
+message MonitorSample {
+    int64 time = 1;
+    double cpu_usage = 10;
+    double memory_usage = 20;
+    double disk_usage = 30;
+}
