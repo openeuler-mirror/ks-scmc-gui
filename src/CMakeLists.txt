@@ -33,6 +33,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_BINARY_DIR}
         ${KLOG_QT5_INCLUDE_DIRS}
         ${KIRAN_WIDGETS_QT5_INCLUDE_DIRS}
+	${KIRAN_STYLE_INCLUDE_DIRS}
         ${GENERAL_PROTO_HDRS}
         ${KYLIN_LICENSE_INCLUDE_DIRS}
         ${LIBNOTIFY_INCLUDE_DIRS})
@@ -49,6 +50,7 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Charts
         Qt5::DBus
         ${KIRAN_WIDGETS_QT5_LIBRARIES}
+	${KIRAN_STYLE_LIBRARIES}
         ${KLOG_QT5_LIBRARIES}
         ${GRPCXX_LIBRARIES}
         ${PROTOBUF_LIBRARIES}
