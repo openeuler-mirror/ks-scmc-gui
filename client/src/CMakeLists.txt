@@ -41,6 +41,7 @@ target_link_libraries(ks-scmc-client
         grpc++_reflection
         gpr
         protobuf
+        cryptopp
         Qt5::Widgets
         ${KIRAN_WIDGETS_QT5_LIBRARIES}
         ${KLOG_QT5_LIBRARIES})

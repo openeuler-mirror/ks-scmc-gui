@@ -27,6 +27,7 @@ find_package(PkgConfig REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED LinguistTools)
 pkg_search_module(KIRAN_WIDGETS_QT5 REQUIRED kiranwidgets-qt5)
 pkg_search_module(KLOG_QT5 REQUIRED klog-qt5)
+pkg_search_module(CRYPTOPP REQUIRED cryptopp)
 
 #添加config.h.in文件
 configure_file (
