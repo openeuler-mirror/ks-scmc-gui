@@ -52,12 +52,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/common-page.cpp" line="207"/>
+        <location filename="../src/common/common-page.cpp" line="219"/>
         <source>Please enter the keyword</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/common-page.cpp" line="393"/>
+        <location filename="../src/common/common-page.cpp" line="405"/>
         <source>No search results were found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -213,42 +213,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="490"/>
+        <location filename="../src/pages/container/container-list.cpp" line="491"/>
         <source>Container Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="491"/>
+        <location filename="../src/pages/container/container-list.cpp" line="492"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="492"/>
+        <location filename="../src/pages/container/container-list.cpp" line="493"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="493"/>
+        <location filename="../src/pages/container/container-list.cpp" line="494"/>
         <source>Node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="495"/>
+        <location filename="../src/pages/container/container-list.cpp" line="496"/>
         <source>Memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="496"/>
+        <location filename="../src/pages/container/container-list.cpp" line="497"/>
         <source>Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="497"/>
+        <location filename="../src/pages/container/container-list.cpp" line="498"/>
         <source>Online Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list.cpp" line="498"/>
+        <location filename="../src/pages/container/container-list.cpp" line="499"/>
         <source>Quick Actions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -910,7 +910,7 @@
     <name>Login</name>
     <message>
         <location filename="../src/pages/user/login.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="207"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="199"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -920,73 +920,83 @@
         <location filename="../src/pages/user/login.ui" line="104"/>
         <location filename="../src/pages/user/login.ui" line="111"/>
         <location filename="../src/pages/user/login.ui" line="135"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="208"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="209"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="210"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="211"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="212"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="200"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="201"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="202"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="203"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="204"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.ui" line="180"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="213"/>
+        <location filename="../src/pages/user/login.ui" line="161"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="205"/>
         <source>Remember the password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.ui" line="196"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="215"/>
+        <location filename="../src/pages/user/login.ui" line="177"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_login.h" line="207"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="51"/>
+        <location filename="../src/pages/user/login.cpp" line="75"/>
         <source>KylinSec security Container magic Cube</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="54"/>
-        <source>Please input user name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/login.cpp" line="68"/>
-        <source>Please input user name!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/login.cpp" line="73"/>
-        <source>Please input password!</source>
+        <location filename="../src/pages/user/login.cpp" line="77"/>
+        <source>Please input password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/user/login.cpp" line="78"/>
+        <source>Please input server address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/login.cpp" line="79"/>
+        <source>Please input user name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/login.cpp" line="133"/>
+        <source>Please input user name!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/login.cpp" line="138"/>
+        <source>Please input password!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/login.cpp" line="143"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="84"/>
+        <location filename="../src/pages/user/login.cpp" line="149"/>
         <source>Please enter a server address!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="166"/>
+        <location filename="../src/pages/user/login.cpp" line="253"/>
         <source>Login failed! %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="186"/>
+        <location filename="../src/pages/user/login.cpp" line="275"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="187"/>
+        <location filename="../src/pages/user/login.cpp" line="276"/>
         <source>Logout failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/login.cpp" line="188"/>
+        <location filename="../src/pages/user/login.cpp" line="277"/>
         <source>Error: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -995,8 +1005,28 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/main-window.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="118"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="194"/>
         <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.ui" line="219"/>
+        <location filename="../src/main-window.ui" line="257"/>
+        <location filename="../src/main-window.ui" line="264"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="198"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="201"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="202"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.ui" line="241"/>
+        <location filename="../src/main-window.ui" line="248"/>
+        <location filename="../src/main-window.ui" line="273"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="199"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="200"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="203"/>
+        <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1005,59 +1035,59 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="107"/>
-        <location filename="../src/main-window.cpp" line="137"/>
+        <location filename="../src/main-window.cpp" line="106"/>
+        <location filename="../src/main-window.cpp" line="136"/>
         <source>Container List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="108"/>
+        <location filename="../src/main-window.cpp" line="107"/>
         <source>Node List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="109"/>
-        <location filename="../src/main-window.cpp" line="143"/>
+        <location filename="../src/main-window.cpp" line="108"/>
+        <location filename="../src/main-window.cpp" line="142"/>
         <source>Image Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="126"/>
+        <location filename="../src/main-window.cpp" line="125"/>
         <source>Home Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="127"/>
+        <location filename="../src/main-window.cpp" line="126"/>
         <source>Audit Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="128"/>
+        <location filename="../src/main-window.cpp" line="127"/>
         <source>Audit Apply List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="129"/>
+        <location filename="../src/main-window.cpp" line="128"/>
         <source>Audit Warning List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="130"/>
+        <location filename="../src/main-window.cpp" line="129"/>
         <source>Audit Log List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="136"/>
+        <location filename="../src/main-window.cpp" line="135"/>
         <source>Container Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="138"/>
+        <location filename="../src/main-window.cpp" line="137"/>
         <source>Container Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="144"/>
+        <location filename="../src/main-window.cpp" line="143"/>
         <source>Node Manager</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1257,42 +1287,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="222"/>
+        <location filename="../src/pages/node/node-list.cpp" line="223"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="234"/>
+        <location filename="../src/pages/node/node-list.cpp" line="236"/>
         <source>Node Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="235"/>
+        <location filename="../src/pages/node/node-list.cpp" line="237"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="236"/>
+        <location filename="../src/pages/node/node-list.cpp" line="238"/>
         <source>IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="237"/>
+        <location filename="../src/pages/node/node-list.cpp" line="239"/>
         <source>Container Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="239"/>
+        <location filename="../src/pages/node/node-list.cpp" line="241"/>
         <source>Memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="240"/>
+        <location filename="../src/pages/node/node-list.cpp" line="242"/>
         <source>Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list.cpp" line="241"/>
+        <location filename="../src/pages/node/node-list.cpp" line="243"/>
         <source>Quick Actions</source>
         <translation type="unfinished"></translation>
     </message>

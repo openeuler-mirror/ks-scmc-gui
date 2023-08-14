@@ -1,14 +1,13 @@
 #include "image-operate.h"
-#include "ui_image-operate.h"
-#include "common/message-dialog.h"
 #include <kiran-log/qt5-log-i.h>
-#include <QFileInfo>
 #include <QFileDialog>
+#include <QFileInfo>
+#include "common/message-dialog.h"
+#include "ui_image-operate.h"
 
-ImageOperate::ImageOperate(int page, QMap<QString, qint64> imageInfo, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ImageOperate),
-    m_IdNameMap(imageInfo)
+ImageOperate::ImageOperate(int page, QMap<QString, qint64> imageInfo, QWidget *parent) : QWidget(parent),
+                                                                                         ui(new Ui::ImageOperate),
+                                                                                         m_IdNameMap(imageInfo)
 {
     KLOG_INFO() << "ImageOperate";
     ui->setupUi(this);
@@ -25,6 +24,7 @@ ImageOperate::ImageOperate(int page, QMap<QString, qint64> imageInfo, QWidget *p
 
 ImageOperate::~ImageOperate()
 {
+    KLOG_INFO() << "**********Deconstruction ImageOperate";
     delete ui;
 }
 
@@ -125,7 +125,7 @@ void ImageOperate::downloadParamDeal()
 {
     QString imageId = QString::number(m_IdNameMap[ui->downloadImage->currentText()]);
     QString imagePath = ui->downloadPath->text();
-    if (imagePath.at(imagePath.size()-1) != "/")
+    if (imagePath.at(imagePath.size() - 1) != "/")
         imagePath += "/";
 
     KLOG_INFO() << imageId << ui->downloadImage->currentText() << imagePath;
@@ -152,7 +152,7 @@ void ImageOperate::checkParamDeal()
     QString status = ui->checkStatus->currentText();
     QString reason = ui->checkReason->text();
 
-    KLOG_INFO() << status << reason << imageId << ui->checkImage->currentText() ;
+    KLOG_INFO() << status << reason << imageId << ui->checkImage->currentText();
 
     if (status == "Reject" && reason.isEmpty())
     {
@@ -179,7 +179,8 @@ QString ImageOperate::ChooseFile()
     pFile->setDirectory(".");
     pFile->setNameFilter("*.tar *.zip");
     pFile->setViewMode(QFileDialog::Detail);
-    if (pFile->exec()) {
+    if (pFile->exec())
+    {
         KLOG_INFO() << "fileNames:" << pFile->selectedFiles()[0];
         file = pFile->selectedFiles()[0];
         delete pFile;
@@ -202,7 +203,7 @@ void ImageOperate::downloadSelectPath()
 {
     QFileDialog *pFile = new QFileDialog(this);
     QString file_path = pFile->getExistingDirectory(this, tr("Please select the path to save"), "./");
-    if(file_path.isEmpty())
+    if (file_path.isEmpty())
     {
         return;
     }
@@ -216,20 +217,20 @@ void ImageOperate::onSave()
     KLOG_INFO() << "curPage:" << curPage;
     switch (curPage)
     {
-        case UPLOAD_PAGE:
-            UploadParamDeal();
-            break;
-        case UPDATE_PAGE:
-            updateParamDeal();
-            break;
-        case DOWNLOAD_PAGE:
-            downloadParamDeal();
-            break;
-        case CHECK_PAGE:
-            checkParamDeal();
-            break;
-        default:
-            break;
+    case UPLOAD_PAGE:
+        UploadParamDeal();
+        break;
+    case UPDATE_PAGE:
+        updateParamDeal();
+        break;
+    case DOWNLOAD_PAGE:
+        downloadParamDeal();
+        break;
+    case CHECK_PAGE:
+        checkParamDeal();
+        break;
+    default:
+        break;
     }
 
     this->close();
@@ -239,7 +240,3 @@ void ImageOperate::onCancel()
 {
     this->close();
 }
-
-
-
-

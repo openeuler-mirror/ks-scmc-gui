@@ -32,6 +32,7 @@ private:
     void initUI();
     CommonPage *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
+    void setPageName(QString name);
 
 private slots:
     void onLogoutAction(QAction *action);

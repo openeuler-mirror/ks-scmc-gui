@@ -78,9 +78,9 @@ void Login::initUI()
     ui->lineEdit_server->setPlaceholderText(tr("Please input server address"));
     ui->lineEdit_username->setPlaceholderText(tr("Please input user name"));
 
-    //    ui->lineEdit_username->setText("test");
-    //    ui->lineEdit_passwd->setText("12345678");
-    //    ui->lineEdit_server->setText("10.200.12.181:10060");
+    ui->lineEdit_username->setText("test");
+    ui->lineEdit_passwd->setText("12345678");
+    ui->lineEdit_server->setText("10.200.12.181:10060");
 
     connect(ui->btn_login, &QPushButton::clicked, this, &Login::onLogin);
     connect(ui->radio_btn_remember_pw, &QRadioButton::toggled, this, &Login::onBtnRemember);

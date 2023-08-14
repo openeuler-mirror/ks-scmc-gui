@@ -9,7 +9,7 @@
 #include "common/message-dialog.h"
 #include "image-operate.h"
 #define IMAGE_ID "image id"
-ImageManager::ImageManager(QWidget *parent) : CommonPage(parent)
+ImageManager::ImageManager(QWidget *parent) : CommonPage(parent), m_pImageOp(nullptr)
 {
     initButtons();
     initTable();
@@ -17,6 +17,7 @@ ImageManager::ImageManager(QWidget *parent) : CommonPage(parent)
 
 ImageManager::~ImageManager()
 {
+    KLOG_INFO() << "************Deconstruction ImageManager";
     if (m_pImageOp)
     {
         delete m_pImageOp;
@@ -84,7 +85,7 @@ void ImageManager::initButtons()
     connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_CHECK], &QPushButton::clicked, this, &ImageManager::onBtnCheck);
     connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageManager::onBtnRemove);
 
-    addOperationButtons(opBtnMap.values());
+    addBatchOperationButtons(opBtnMap.values());
 }
 
 void ImageManager::initImageConnect()
@@ -150,7 +151,7 @@ void ImageManager::OperateImage(int page)
         }
         connect(m_pImageOp, &ImageOperate::destroyed,
                 [=] {
-                    KLOG_INFO() << "destroy";
+                    KLOG_INFO() << "destroy  ImageOperate";
                     m_pImageOp->deleteLater();
                     m_pImageOp = nullptr;
                 });
@@ -347,7 +348,7 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
     m_IdNameMap.clear();
     if (reply.first.ok())
     {
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         clearTable();
         int size = reply.second.images_size();
         if (size <= 0)
