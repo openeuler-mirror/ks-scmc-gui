@@ -39,13 +39,15 @@ void ImageManager::updateInfo(QString keyword)
 
 void ImageManager::initTable()
 {
-    QList<QString> tableHHeaderDate = {tr("Image Name"),
-                                       tr("Version"),
-                                       tr("Description"),
-                                       tr("Inspection Status"),
-                                       tr("Approval Status"),
-                                       tr("Last Update"),
-                                       tr("Quick Actions")};
+    QList<QString> tableHHeaderDate = {
+        "",
+        tr("Image Name"),
+        tr("Version"),
+        tr("Description"),
+        tr("Inspection Status"),
+        tr("Approval Status"),
+        tr("Last Update"),
+        tr("Quick Actions")};
     setHeaderSections(tableHHeaderDate);
     setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/edit.svg");
     setTableDefaultContent("-");
@@ -365,9 +367,12 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
             QString str = QString("%1_%2").arg(image.name().data()).arg(image.version().data());
             m_IdNameMap.insert(str, imageId);
 
+            QStandardItem *itemCheck = new QStandardItem();
+            itemCheck->setCheckable(true);
+
             QStandardItem *itemName = new QStandardItem(image.name().data());
             itemName->setData(QVariant::fromValue(idMap));
-            itemName->setCheckable(true);
+            itemName->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemVer = new QStandardItem(image.version().data());
             itemVer->setTextAlignment(Qt::AlignCenter);
@@ -389,7 +394,7 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
                         << "version:" << image.version().data() << "description:" << image.description().data()
                         << "approval_status:" << image.approval_status() << "update_time:" << image.update_time().data();
 
-            setTableItems(row, 0, QList<QStandardItem *>() << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
             row++;
         }
     }
