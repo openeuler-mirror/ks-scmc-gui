@@ -48,6 +48,7 @@ public:
 private:
     void initUI();
     void adjustTableSize();
+    int getCheckedItemNum();
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
@@ -88,7 +89,6 @@ private:
     MaskWidget *m_maskWidget;
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
-    bool m_isItemChecked = false;
 };
 
 #endif  // COMMONPAGE_H
