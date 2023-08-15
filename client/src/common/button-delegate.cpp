@@ -63,6 +63,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         QPixmap pixBtn;
         pixBtn.load(i.value());
         QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
+        //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
         ++i;
         count++;
     }
