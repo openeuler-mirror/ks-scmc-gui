@@ -52,12 +52,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/common-page.cpp" line="225"/>
+        <location filename="../src/common/common-page.cpp" line="236"/>
         <source>Please enter the keyword</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/common-page.cpp" line="428"/>
+        <location filename="../src/common/common-page.cpp" line="442"/>
         <source>No search results were found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -586,122 +586,117 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="61"/>
-        <source>Import</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="62"/>
-        <source>Export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/pages/image/image-manager.cpp" line="63"/>
-        <source>Edit</source>
+        <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-manager.cpp" line="64"/>
-        <source>Check</source>
+        <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-manager.cpp" line="65"/>
-        <source>Remove</source>
+        <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="196"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="184"/>
+        <source>Please select the path to save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-manager.cpp" line="216"/>
         <source>Delete Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="197"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="217"/>
         <source>Are you sure you want to delete the image?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="198"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="218"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="236"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="245"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="256"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="265"/>
         <source>Upload Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="237"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="257"/>
         <source>Upload Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="246"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="266"/>
         <source>Upload Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="280"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="289"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="300"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="309"/>
         <source>update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="281"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="301"/>
         <source>update Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="290"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="310"/>
         <source>update Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="322"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="331"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="342"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="351"/>
         <source>download Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="323"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="343"/>
         <source>download Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="332"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="352"/>
         <source>download Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="409"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="418"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="432"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="441"/>
         <source>Check Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="410"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="433"/>
         <source>Check Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="419"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="442"/>
         <source>Check Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="432"/>
-        <location filename="../src/pages/image/image-manager.cpp" line="445"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="455"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="468"/>
         <source>Remove Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="433"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="456"/>
         <source>Remove Image success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-manager.cpp" line="446"/>
+        <location filename="../src/pages/image/image-manager.cpp" line="469"/>
         <source>Remove Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -710,182 +705,134 @@
     <name>ImageOperate</name>
     <message>
         <location filename="../src/pages/image/image-operate.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="404"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="268"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="56"/>
-        <location filename="../src/pages/image/image-operate.ui" line="155"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="405"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="411"/>
-        <source>name</source>
+        <location filename="../src/pages/image/image-operate.ui" line="30"/>
+        <location filename="../src/pages/image/image-operate.ui" line="108"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="269"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="277"/>
+        <source>Signature file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="70"/>
-        <location filename="../src/pages/image/image-operate.ui" line="169"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="406"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="412"/>
-        <source>version</source>
+        <location filename="../src/pages/image/image-operate.ui" line="40"/>
+        <location filename="../src/pages/image/image-operate.ui" line="81"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="270"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="274"/>
+        <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="84"/>
-        <location filename="../src/pages/image/image-operate.ui" line="183"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="407"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="413"/>
+        <location filename="../src/pages/image/image-operate.ui" line="53"/>
+        <location filename="../src/pages/image/image-operate.ui" line="91"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="271"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="275"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-operate.ui" line="60"/>
+        <location filename="../src/pages/image/image-operate.ui" line="118"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="272"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="278"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/pages/image/image-operate.ui" line="67"/>
         <location filename="../src/pages/image/image-operate.ui" line="98"/>
-        <location filename="../src/pages/image/image-operate.ui" line="197"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="408"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="414"/>
-        <source>path</source>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="273"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="276"/>
+        <source>Image Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="108"/>
-        <location filename="../src/pages/image/image-operate.ui" line="207"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="409"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="415"/>
-        <source>choose file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="134"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="410"/>
-        <source>Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="225"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="416"/>
-        <source>update page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="243"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="417"/>
-        <source>download page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="252"/>
-        <location filename="../src/pages/image/image-operate.ui" line="317"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="418"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="421"/>
+        <location filename="../src/pages/image/image-operate.ui" line="137"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="279"/>
         <source>image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="273"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="419"/>
+        <location filename="../src/pages/image/image-operate.ui" line="158"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="280"/>
         <source>save path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="283"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="420"/>
+        <location filename="../src/pages/image/image-operate.ui" line="168"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="281"/>
         <source>chose path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="338"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="422"/>
-        <source>check</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="352"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="423"/>
-        <source>reject reason</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.ui" line="376"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="424"/>
+        <location filename="../src/pages/image/image-operate.ui" line="209"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="282"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.ui" line="389"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="425"/>
+        <location filename="../src/pages/image/image-operate.ui" line="216"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_image-operate.h" line="283"/>
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="15"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="45"/>
         <source>Image Operate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="61"/>
-        <source>Pass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="61"/>
-        <source>Reject</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="79"/>
-        <source>Upload Image</source>
+        <location filename="../src/pages/image/image-operate.cpp" line="62"/>
+        <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate.cpp" line="80"/>
-        <source>Upload Image failed!</source>
+        <source>Upload Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate.cpp" line="81"/>
-        <location filename="../src/pages/image/image-operate.cpp" line="109"/>
-        <location filename="../src/pages/image/image-operate.cpp" line="137"/>
-        <location filename="../src/pages/image/image-operate.cpp" line="161"/>
+        <source>Upload Image failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-operate.cpp" line="82"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="110"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="138"/>
         <source>Please improve the content!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="107"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="108"/>
         <source>Update Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="108"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="109"/>
         <source>Update Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="135"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="136"/>
         <source>Download Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="136"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="137"/>
         <source>Download Image failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="159"/>
-        <source>Check Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="160"/>
-        <source>Check Image failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="178"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="179"/>
         <source>Please select an image file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate.cpp" line="205"/>
+        <location filename="../src/pages/image/image-operate.cpp" line="206"/>
         <source>Please select the path to save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -981,7 +928,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/main-window.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="194"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="158"/>
         <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
@@ -989,18 +936,17 @@
         <location filename="../src/main-window.ui" line="128"/>
         <location filename="../src/main-window.ui" line="178"/>
         <location filename="../src/main-window.ui" line="185"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="198"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="201"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="202"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="159"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="162"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="163"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main-window.ui" line="169"/>
         <location filename="../src/main-window.ui" line="194"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="199"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="200"/>
-        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="203"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="161"/>
+        <location filename="../build/src/ks-scmc-client_autogen/include/ui_main-window.h" line="164"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
