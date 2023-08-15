@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUserName(QString name)
 {
-    ui->label_name->setText(name);
+    ui->lab_user_name->setText(name);
 }
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
@@ -73,6 +73,7 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
 
     if (!m_pageMap.value(currenRow))
         return;
+    setPageName(guideItem->getItemText());
     m_pageMap[currenRow]->updateInfo();
     m_stackedWidget->setCurrentWidget(m_pageMap.value(currenRow));
 }
@@ -100,8 +101,7 @@ void MainWindow::initUI()
 
     m_stackedWidget = new QStackedWidget(this);
     m_stackedWidget->setObjectName("stackedWidget");
-    QLayout* layout = getWindowContentWidget()->layout();
-    layout->addWidget(m_stackedWidget);
+    ui->vlayout_page->addWidget(m_stackedWidget);
 
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_CONTAINER_LIST, tr("Container List")},
@@ -149,6 +149,7 @@ void MainWindow::initUI()
 
     GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(containerList));
     item->setSelected(true);
+    setPageName(item->getItemText());
 
     foreach (QListWidgetItem* subItem, containerSubItems)
     {
@@ -221,6 +222,11 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     ui->listWidget->setGridSize(QSize(230, 50));
 
     return newItem;
+}
+
+void MainWindow::setPageName(QString name)
+{
+    ui->lab_page_name->setText(name);
 }
 
 void MainWindow::onLogoutAction(QAction* action)

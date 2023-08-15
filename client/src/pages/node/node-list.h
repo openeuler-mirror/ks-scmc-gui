@@ -30,6 +30,7 @@ private slots:
     void getListResult(const QPair<grpc::Status, node::ListReply> &);
     void getCreateResult(const QPair<grpc::Status, node::CreateReply> &);
     void getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &);
+    void onItemClicked(const QModelIndex &index);
 
 private:
     void initButtons();

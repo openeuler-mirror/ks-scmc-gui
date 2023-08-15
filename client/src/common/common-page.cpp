@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
 #include <QPainter>
+#include <QTableView>
 #include <QTime>
 #include <QTimer>
 #include <iostream>
@@ -54,7 +55,8 @@ CommonPage::~CommonPage()
 void CommonPage::setBusy(bool status)
 {
     m_maskWidget->setMaskVisible(status);
-    setOpBtnEnabled(!status);
+    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, !status);
+    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, !status);
 }
 
 void CommonPage::clearTable()
@@ -64,25 +66,36 @@ void CommonPage::clearTable()
     KLOG_INFO() << "current" << m_model->rowCount();
 }
 
-void CommonPage::addOperationButton(QToolButton *btn)
+void CommonPage::addSingleOperationButton(QAbstractButton *btn)
 {
     ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+    m_singleOpBtns.append(btn);
 }
 
-void CommonPage::addOperationButtons(QList<QPushButton *> opBtns)
+void CommonPage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
     {
         ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+        m_batchOpBtns.append(btn);
     }
 }
 
-void CommonPage::setOpBtnEnabled(bool enabled)
+void CommonPage::setOpBtnEnabled(OperatorButtonType type, bool enabled)
 {
-    for (int i = 0; i < ui->hLayout_OpBtns->count(); i++)
+    if (type == OPERATOR_BUTTON_TYPE_BATCH)
     {
-        QAbstractButton *btn = qobject_cast<QAbstractButton *>(ui->hLayout_OpBtns->itemAt(i)->widget());
-        btn->setEnabled(enabled);
+        foreach (QAbstractButton *btn, m_batchOpBtns)
+        {
+            btn->setEnabled(enabled);
+        }
+    }
+    else if (type == OPERATOR_BUTTON_TYPE_SINGLE)
+    {
+        foreach (QAbstractButton *btn, m_singleOpBtns)
+        {
+            btn->setEnabled(enabled);
+        }
     }
 }
 
@@ -243,6 +256,8 @@ void CommonPage::initUI()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
 
+    connect(ui->tableView, &QTableView::clicked, this, &CommonPage::onItemClicked);
+    connect(m_model, &QStandardItemModel::itemChanged, this, &CommonPage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &CommonPage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &CommonPage::onHeaderCkbTog);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &CommonPage::refresh);
@@ -392,13 +407,13 @@ void CommonPage::search()
         {
             ui->label_search_tips->setText(tr("No search results were found!"));
             ui->tableView->setFixedHeight(120);
-            setOpBtnEnabled(false);
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
             return;
         }
         //sort
         ui->tableView->sortByColumn(0);
         ui->label_search_tips->clear();
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
         adjustTableSize();
     }
 }
@@ -410,10 +425,33 @@ void CommonPage::refresh()
     updateInfo();
 }
 
+void CommonPage::onItemChecked(QStandardItem *item)
+{
+    if (item)
+    {
+        if (item->isCheckable())
+        {
+            m_isItemChecked = item->checkState();
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, item->checkState());
+        }
+    }
+}
+
+void CommonPage::onItemClicked(const QModelIndex &index)
+{
+    QStandardItem *item = m_model->itemFromIndex(index);
+    //    if (item->isCheckable() && m_isItemChecked == item->checkState
+
+    emit sigItemClicked(index);
+}
+
 void CommonPage::onHeaderCkbTog(bool toggled)
 {
     int rowCounts = m_model->rowCount();
     KLOG_INFO() << "onHeaderCkbTog" << rowCounts;
+
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled);
+
     for (int i = 0; i < rowCounts; i++)
     {
         QStandardItem *item = m_model->item(i, 0);
