@@ -18,7 +18,6 @@ public:
     void updateInfo(QString keyword = "");  //刷新表格
 
 private slots:
-    void onBtnCreate();
     void onBtnRun();
     void onBtnRun(QModelIndex index);
     void onBtnStop();
@@ -26,6 +25,7 @@ private slots:
     void onBtnRestart();
     void onBtnRestart(QModelIndex index);
     void onBtnDelete();
+    void onActCreate();
     void onActCopyConfig();
     void onActBatchUpdate();
     void onActBatchEdit();
@@ -54,7 +54,7 @@ private:
 private:
     QMenu *m_createMenu;
     QMenu *m_moreMenu;
-    QMap<int, QPushButton *> m_opBtnMap;
+    QMap<int, QPushButton *> m_batchOpBtnMap;
     ContainerSetting *m_createCTSetting;
     ContainerSetting *m_editCTSetting;
     std::vector<int64_t> m_vecNodeId;

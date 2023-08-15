@@ -104,7 +104,7 @@ void NodeList::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
 {
     if (reply.first.ok())
     {
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         int size = reply.second.nodes_size();
         if (size <= 0)
         {
@@ -178,7 +178,7 @@ void NodeList::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
     else
     {
         setTableDefaultContent("-");
-        setOpBtnEnabled(false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     }
 }
 
@@ -210,12 +210,21 @@ void NodeList::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &rep
     }
 }
 
+void NodeList::onItemClicked(const QModelIndex &index)
+{
+    if (index.column() == 0)
+    {
+        KLOG_INFO() << "onItemClicked: " << index.column();
+    }
+}
+
 void NodeList::initButtons()
 {
     QPushButton *btnCreate = new QPushButton(this);
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
+    addSingleOperationButton(btnCreate);
     connect(btnCreate, &QPushButton::clicked, this, &NodeList::onCreateNode);
 
     QPushButton *btnRemove = new QPushButton(this);
@@ -224,8 +233,9 @@ void NodeList::initButtons()
     btnRemove->setFixedSize(QSize(78, 32));
     connect(btnRemove, &QPushButton::clicked, this, &NodeList::onRemoveNode);
 
-    addOperationButtons(QList<QPushButton *>() << btnCreate << btnRemove);
-    setOpBtnEnabled(false);
+    addBatchOperationButtons(QList<QPushButton *>() << btnRemove);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void NodeList::initTable()
@@ -248,6 +258,7 @@ void NodeList::initTable()
     setTableDefaultContent("-");
 
     connect(this, &NodeList::sigMonitor, this, &NodeList::onMonitor);
+    connect(this, &NodeList::sigItemClicked, this, &NodeList::onItemClicked);
 }
 
 void NodeList::initNodeConnect()
