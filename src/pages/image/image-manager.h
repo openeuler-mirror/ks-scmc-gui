@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "common/common-page.h"
 #include "common/info-worker.h"
+#include "image-operate.h"
 
 class ImageOperate;
 class ImageManager : public CommonPage
@@ -20,25 +21,24 @@ private:
     void initImageConnect();
     int getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize);
     void getImageList();
-    void OperateImage(int page);
+    void OperateImage(ImageOperateType type);
 
 private slots:
-    void onBtnImport();
-    void onBtnExport();
-    void onBtnEdit();
+    void onBtnUpload();
+    void onBtnDownload();
+    void onBtnUpdate();
     void onBtnRemove();
-    void onBtnCheck();
     void uploadSaveSlot(QMap<QString, QString> Info);
     void updateSaveSlot(QMap<QString, QString> Info);
     void downloadSaveSlot(QMap<QString, QString> Info);
     void checkSaveSlot(QMap<QString, QString> Info);
     void getListDBResult(const QPair<grpc::Status, image::ListDBReply> &);
-    void getCheckResult(const QPair<grpc::Status, image::CheckReply> &);
+    void getCheckResult(const QPair<grpc::Status, image::ApproveReply> &);
     void getRemoveResult(const QPair<grpc::Status, image::RemoveReply> &);
 
 private:
     ImageOperate *m_pImageOp;
-    QMap<QString, qint64> m_IdNameMap;
+    QMap<QString, QVariant> m_imageInfoMap;
 };
 
 #endif  // IMAGEMANAGER_H
