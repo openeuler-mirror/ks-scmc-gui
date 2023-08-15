@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
+#include <QMenu>
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
@@ -24,7 +25,8 @@ std::string g_server_addr;
 Login::Login(QWidget *parent) : KiranTitlebarWindow(parent),
                                 ui(new Ui::Login),
                                 m_mainWindow(nullptr),
-                                m_timer(nullptr)
+                                m_timer(nullptr),
+                                m_serverConfig(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
     QStringList args = qApp->arguments();
@@ -60,6 +62,11 @@ Login::~Login()
         delete m_loginSettings;
         m_loginSettings = nullptr;
     }
+    if (m_serverConfig)
+    {
+        delete m_serverConfig;
+        m_serverConfig = nullptr;
+    }
 }
 
 void Login::paintEvent(QPaintEvent *event)
@@ -73,6 +80,21 @@ void Login::paintEvent(QPaintEvent *event)
 void Login::initUI()
 {
     setTitle(tr("KylinSec security Container magic Cube"));
+
+    //创建标题栏中菜单按钮
+    setTitlebarCustomLayoutAlignHCenter(false);
+    QHBoxLayout *titleBarLayout = getTitlebarCustomLayout();
+    QPushButton *btnMenu = new QPushButton(this);
+    btnMenu->setFixedSize(QSize(16, 16));
+    titleBarLayout->addStretch();
+    titleBarLayout->addWidget(btnMenu, Qt::AlignRight);
+
+    //创建标题栏中菜单
+    QMenu *menu = new QMenu(this);
+    menu->addActions(QList<QAction *>() << new QAction(tr("Config server"), menu) << new QAction(tr("About"), menu));
+    btnMenu->setMenu(menu);
+    connect(menu, &QMenu::triggered, this, &Login::onMenuTrigger);
+
     ui->lineEdit_passwd->setEchoMode(QLineEdit::Password);
     ui->lineEdit_passwd->setPlaceholderText(tr("Please input password"));
     ui->lineEdit_server->setPlaceholderText(tr("Please input server address"));
@@ -144,11 +166,11 @@ bool Login::inspectLoginParam()
         return false;
     }
 
-    if (ui->lineEdit_server->text().isEmpty())
-    {
-        ui->lab_tips->setText(tr("Please enter a server address!"));
-        return false;
-    }
+    //    if (ui->lineEdit_server->text().isEmpty())
+    //    {
+    //        ui->lab_tips->setText(tr("Please enter a server address!"));
+    //        return false;
+    //    }
     return true;
 }
 
@@ -201,6 +223,18 @@ void Login::getPasswd()
 void Login::onBtnRemember(bool checked)
 {
     m_isRemember = checked;
+}
+
+void Login::onMenuTrigger(QAction *act)
+{
+    if (act->text() == tr("Config server"))
+    {
+        if (!m_serverConfig)
+        {
+            m_serverConfig = new ServerConfiguration();
+            m_serverConfig->show();
+        }
+    }
 }
 
 void Login::onLogin()
@@ -278,4 +312,58 @@ void Login::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &reply)
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
+}
+
+ServerConfiguration::ServerConfiguration(QWidget *parent) : KiranTitlebarWindow(parent)
+{
+    initUI();
+}
+
+ServerConfiguration::~ServerConfiguration()
+{
+}
+
+void ServerConfiguration::ServerConfiguration::initUI()
+{
+    setTitle(tr("Config Server"));
+    setButtonHints(TitlebarButtonHint::TitlebarCloseButtonHint);
+    this->setFixedSize(400, 300);
+
+    QWidget *windowContentWidget = getWindowContentWidget();
+    QVBoxLayout *mainVLayout = new QVBoxLayout(windowContentWidget);
+    mainVLayout->setSpacing(10);
+    this->setLayout(mainVLayout);
+
+    QWidget *ipWidget = new QWidget(windowContentWidget);
+    QVBoxLayout *ipLayout = new QVBoxLayout(ipWidget);
+    ipLayout->setMargin(0);
+    ipLayout->setSpacing(10);
+    QLabel *ipLab = new QLabel(tr("Ip Address"), ipWidget);
+    QLineEdit *ipLineEdit = new QLineEdit(ipWidget);
+    ipLineEdit->setFixedHeight(32);
+    ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
+    ipLayout->addWidget(ipLab);
+    ipLayout->addWidget(ipLineEdit);
+
+    QWidget *portWidget = new QWidget(windowContentWidget);
+    QVBoxLayout *portLayout = new QVBoxLayout(portWidget);
+    portLayout->setMargin(0);
+    portLayout->setSpacing(10);
+    QLabel *portLab = new QLabel(tr("Port"), portWidget);
+    QLineEdit *portLineEdit = new QLineEdit(portWidget);
+    portLineEdit->setFixedHeight(32);
+    portLineEdit->setPlaceholderText(tr("Please input port"));
+    portLayout->addWidget(portLab);
+    portLayout->addWidget(portLineEdit);
+
+    QHBoxLayout *btnLayout = new QHBoxLayout();
+    QPushButton *confirmBtn = new QPushButton(tr("Confirm"));
+    QPushButton *cancleBtn = new QPushButton(tr("Cancle"));
+    btnLayout->addWidget(confirmBtn);
+    btnLayout->addWidget(cancleBtn);
+
+    mainVLayout->addWidget(ipWidget);
+    mainVLayout->addWidget(portWidget);
+    mainVLayout->addStretch();
+    mainVLayout->addLayout(btnLayout);
 }
