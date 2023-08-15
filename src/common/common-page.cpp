@@ -18,7 +18,8 @@ CommonPage::CommonPage(QWidget *parent) : QWidget(parent),
                                           ui(new Ui::CommonPage),
                                           m_searchTimer(nullptr),
                                           m_refreshBtnTimer(nullptr),
-                                          m_maskWidget(nullptr)
+                                          m_maskWidget(nullptr),
+                                          m_singleChoose(false)
 {
     ui->setupUi(this);
     initUI();
@@ -144,6 +145,11 @@ void CommonPage::setTableActions(int col, QStringList actionIcons)
     connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &CommonPage::onActRestart);
 }
 
+void CommonPage::setTableSingleChoose(bool isSingleChoose)
+{
+    m_singleChoose = isSingleChoose;
+}
+
 void CommonPage::setSortableCol(QList<int> cols)
 {
     m_headerView->setSortableCols(cols);
@@ -167,16 +173,21 @@ void CommonPage::setHeaderSections(QStringList names)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 100);
+    ui->tableView->setColumnWidth(0, 30);
+}
+
+void CommonPage::setHeaderCheckable(bool checkable)
+{
+    m_headerView->setCheckable(checkable);
 }
 
 void CommonPage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    for (int i = 0; i < m_model->columnCount(); i++)
+    for (int i = 1; i < m_model->columnCount(); i++)
     {
         QStandardItem *item = new QStandardItem(text);
-        item->setTextAlignment(Qt::AlignCenter);
+        item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
         m_model->setItem(0, i, item);
     }
 }
@@ -206,8 +217,8 @@ QList<QMap<QString, QVariant>> CommonPage::getCheckedItemInfo(int col)
         if (item->checkState() == Qt::CheckState::Checked)
         {
             auto infoItem = m_model->item(i, col + 1);
-            QMap<QString, QVariant> idMap = infoItem->data().value<QMap<QString, QVariant>>();
-            checkedItemInfo.append(idMap);
+            QMap<QString, QVariant> infoMap = infoItem->data().value<QMap<QString, QVariant>>();
+            checkedItemInfo.append(infoMap);
         }
     }
     return checkedItemInfo;
@@ -247,7 +258,6 @@ void CommonPage::initUI()
     //设置表头
     m_headerView = new HeaderView(true, ui->tableView);
     m_headerView->setStretchLastSection(false);
-    //m_headerView->setStyleSheet("alignment: left;");
     ui->tableView->setHorizontalHeader(m_headerView);
 
     //隐藏列表头
@@ -283,7 +293,8 @@ void CommonPage::adjustTableSize()
 
 int CommonPage::getCheckedItemNum()
 {
-    int count;
+    KLOG_INFO() << "getCheckedItemNum";
+    int count = 0;
     for (int i = 0; i < m_model->rowCount(); i++)
     {
         auto item = m_model->item(i, 0);
@@ -412,7 +423,7 @@ void CommonPage::search()
         int rowCounts = m_model->rowCount();
         for (int i = 0; i < rowCounts; i++)
         {
-            QStandardItem *item = m_model->item(i, 0);
+            QStandardItem *item = m_model->item(i, 1);
             if (!item->text().contains(text))
             {
                 ui->tableView->setRowHidden(i, true);
@@ -445,16 +456,33 @@ void CommonPage::refresh()
     updateInfo();
 }
 
-void CommonPage::onItemChecked(QStandardItem *item)
+void CommonPage::onItemChecked(QStandardItem *changeItem)
 {
-    if (item)
+    if (changeItem)
     {
-        if (item->isCheckable())
+        if (changeItem->isCheckable())
         {
-            if (getCheckedItemNum() > 0)
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+            if (m_singleChoose)
+            {
+                if (changeItem->checkState() == Qt::Checked)
+                {
+                    for (int i = 0; i < m_model->rowCount(); i++)
+                    {
+                        auto item = m_model->item(i, 0);
+                        if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
+                        {
+                            item->setCheckState(Qt::Unchecked);
+                        }
+                    }
+                }
+            }
             else
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+            {
+                if (getCheckedItemNum() > 0)
+                    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+                else
+                    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+            }
         }
     }
 }

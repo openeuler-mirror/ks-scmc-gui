@@ -475,6 +475,11 @@ NodeList #btnCreate:focus,NodeList #btnRemove:focus
 {
     outline: none;
 }
+NodeList #btnCreate:disabled,NodeList #btnRemove:disabled
+{
+    color:#919191;
+    background:#393939;
+}
 
 /***************************NodeAddition******************/
 NodeAddition
