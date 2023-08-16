@@ -22,7 +22,9 @@ add_executable(ks-scmc-client
         ${QM_FILES}
         "common/transmission-item.cpp"
         "common/transmission-item.h"
-        "common/transmission-item.ui")
+        "common/transmission-item.ui"
+        "common/transmission-list.cpp"
+        "common/transmission-list.h")
 
 
 target_include_directories(ks-scmc-client PRIVATE

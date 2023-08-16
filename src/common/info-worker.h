@@ -48,6 +48,16 @@ struct downloadImageInfo
     int64_t filesize;
 };
 
+enum ImageTransmissionStatus
+{
+    IMAGE_TRANSMISSION_STATUS_UPLOADING = 0,
+    IMAGE_TRANSMISSION_STATUS_DOWNLOADING = 1,
+    IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL,
+    IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL,
+    IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED,
+    IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED
+};
+
 class InfoWorker : public QObject
 {
     Q_OBJECT
@@ -159,6 +169,7 @@ signals:
     void downloadImageFinished(const QPair<grpc::Status, downloadImageInfo> &);
     void checkImageFinished(const QPair<grpc::Status, image::ApproveReply> &);
     void removeImageFinished(const QPair<grpc::Status, image::RemoveReply> &);
+    void transferImageStatus(ImageTransmissionStatus, std::string, std::string, int);
 
     // user management
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);

@@ -7,6 +7,11 @@ TransmissionItem::TransmissionItem(QWidget *parent) : QWidget(parent),
 {
     ui->setupUi(this);
     ui->btn_close->setIcon(QIcon(""));
+    ui->progressBar->setRange(0, 100);
+    connect(ui->btn_close, &QPushButton::clicked,
+            [this] {
+                emit sigClose();
+            });
 }
 
 TransmissionItem::~TransmissionItem()
@@ -32,6 +37,7 @@ void TransmissionItem::setStatus(QString status)
 void TransmissionItem::setRate(int rate)
 {
     ui->lab_rate->setText(QString("%1%").arg(rate));
+    ui->progressBar->setValue(rate);
 }
 
 void TransmissionItem::paintEvent(QPaintEvent *event)
