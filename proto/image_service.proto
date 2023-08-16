@@ -30,7 +30,8 @@ message ListDBReply {
 
 message UploadRequest {
     UploadInfo info = 1;
-    bytes chunk_data = 2;
+    SignInfo sign = 2;
+    bytes chunk_data = 3;
 }
 
 message UploadReply {
@@ -40,7 +41,8 @@ message UploadReply {
 message UpdateRequest {
     int64 image_id = 1;
     UploadInfo info = 2;
-    bytes chunk_data = 3;
+    SignInfo sign = 3;
+    bytes chunk_data = 4;
 }
 
 message UpdateReply {}
@@ -97,4 +99,10 @@ message UploadInfo {
     string checksum = 4;
     string description = 5;
     int64 size = 6;
+}
+
+message SignInfo {
+    string name = 1;
+    int64 size = 2;
+    bytes chunk_data = 3;
 }
