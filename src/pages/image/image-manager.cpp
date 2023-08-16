@@ -115,6 +115,7 @@ void ImageManager::initImageConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManager::getUploadResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageManager::getUpdateResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageManager::getDownloadImageResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &ImageManager::getTransferImageStatus, Qt::QueuedConnection);
 }
 
 int ImageManager::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
@@ -268,10 +269,10 @@ void ImageManager::uploadSaveSlot(QMap<QString, QString> Info)
     auto pSignInfo = request.mutable_sign();
     QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
     KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
-    pSignInfo->set_name(fileInfo.fileName().toStdString());
     pSignInfo->set_size(fileInfo.size());
     pSignInfo->mutable_chunk_data();
 
+    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().uploadImage(request, imageFile, Info["Sign File"]);
 }
 
@@ -299,16 +300,18 @@ void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
     auto pSignInfo = request.mutable_sign();
     QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
     KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
-    pSignInfo->set_name(fileInfo.fileName().toStdString());
     pSignInfo->set_size(fileInfo.size());
     pSignInfo->mutable_chunk_data();
 
+    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().updateImage(request, imageFile, Info["Sign File"]);
 }
 
 void ImageManager::downloadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
+
+    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Path"]);
 }
 
@@ -318,6 +321,8 @@ void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
                 << "Reason" << Info["Image Reason"];
 
     bool checkStatus = Info["Image Check"] == "Pass" ? true : false;
+
+    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().checkImage(Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
 }
 
@@ -546,3 +551,9 @@ void ImageManager::getDownloadImageResult(const QPair<grpc::Status, downloadImag
                                MessageDialog::StandardButton::Ok);
     }
 }
+
+//void ImageManager::getTransferImageStatus(ImageTransmissionStatus status, std::string name, std::string version, int rate)
+//{
+//    KLOG_INFO() << "getTransferImageStatus:" << status << name.data() << version.data() << rate;
+//    emit sigTransferImageInfo(status, QString::fromStdString(name), QString::fromStdString(version), rate);
+//}

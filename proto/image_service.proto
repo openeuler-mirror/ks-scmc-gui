@@ -102,7 +102,6 @@ message UploadInfo {
 }
 
 message SignInfo {
-    string name = 1;
     int64 size = 2;
     bytes chunk_data = 3;
 }
