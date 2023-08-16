@@ -355,9 +355,22 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
             QStandardItem *itemDesc = new QStandardItem(image.description().data());
             infoMap.insert(IMAGE_DESC, image.description().data());
 
-            QStandardItem *itemChkStatus = new QStandardItem(image.check_status() ? tr("Passed") : tr("Rejected"));
-            //TODO:add chkStatus color
-            itemChkStatus->setForeground(image.check_status() ? QBrush(QColor("#00921b")) : QBrush(QColor("#d30000")));
+            QStandardItem *itemChkStatus = new QStandardItem();
+            switch (image.verify_status())
+            {
+            case 0:
+                itemChkStatus->setText(tr("Failed"));
+                itemChkStatus->setForeground(QBrush(QColor("#d30000")));
+                break;
+            case 1:
+                itemChkStatus->setText(tr("Abnormal"));
+                itemChkStatus->setForeground(QBrush(QColor("#d30000")));
+                break;
+            case 2:
+                itemChkStatus->setText(tr("Passed"));
+                itemChkStatus->setForeground(QBrush(QColor("#00921b")));
+                break;
+            }
 
             QStandardItem *itemApprovalStatus = new QStandardItem();
             switch (image.approval_status())
