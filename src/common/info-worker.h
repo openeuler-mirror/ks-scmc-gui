@@ -92,8 +92,8 @@ public:
     // image management
     void listImage(const int64_t);
     void listDBImage();
-    void uploadImage(image::UploadRequest &req, const QString &imageFile);
-    void updateImage(image::UpdateRequest &req, const QString &imageFile);
+    void uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile);
+    void updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile);
     void downloadImage(const int64_t &image_id, const QString &savePath);
     void checkImage(const int64_t image_id, const bool approve, const std::string reject_reason);
     void removeImage(const std::vector<int64_t> &image_ids);
@@ -129,8 +129,8 @@ private:
     // image management
     static QPair<grpc::Status, image::ListReply> _listImage(const image::ListRequest &);
     static QPair<grpc::Status, image::ListDBReply> _listDBImage(const image::ListDBRequest &);
-    static QPair<grpc::Status, image::UploadReply> _uploadImage(image::UploadRequest &req, const QString &imageFile);
-    static QPair<grpc::Status, image::UpdateReply> _updateImage(image::UpdateRequest &req, const QString &imageFile);
+    static QPair<grpc::Status, image::UploadReply> _uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile);
+    static QPair<grpc::Status, image::UpdateReply> _updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile);
     static QPair<grpc::Status, downloadImageInfo> _downloadImage(image::DownloadRequest &req, const int64_t &image_id, const QString &savePath);
     static QPair<grpc::Status, image::ApproveReply> _checkImage(const image::ApproveRequest &);
     static QPair<grpc::Status, image::RemoveReply> _removeImage(const image::RemoveRequest &);
