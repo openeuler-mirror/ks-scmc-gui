@@ -86,7 +86,7 @@ message ImageDBInfo {
     string name = 2;
     string version = 3;
     string description = 4;
-    bool check_status = 5;
+    int32 verify_status = 5;    // 0:验签失败 1:异常 2:验签成功
     int32 approval_status = 6;  // 0:待审批 1:审批拒绝 2:审批通过
     int64 create_at = 7;
     int64 update_at = 8;
