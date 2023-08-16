@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QObject>
 #include <QPair>
+#include "def.h"
 
 #include <grpcpp/grpcpp.h>
 
@@ -102,6 +103,9 @@ public:
     void login(const std::string &username, const std::string &password);
     void logout();
 
+    void stopTransfer(QString name, QString version, bool isStop);
+    bool isTransferStoped(QString name, QString version);
+
 private:
     InfoWorker(QObject *parent = nullptr);
 
@@ -169,7 +173,7 @@ signals:
     void downloadImageFinished(const QPair<grpc::Status, downloadImageInfo> &);
     void checkImageFinished(const QPair<grpc::Status, image::ApproveReply> &);
     void removeImageFinished(const QPair<grpc::Status, image::RemoveReply> &);
-    void transferImageStatus(ImageTransmissionStatus, std::string, std::string, int);
+    void transferImageStatus(ImageTransmissionStatus, QString, QString, int);
 
     // user management
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
@@ -177,6 +181,7 @@ signals:
 
 private:
     QMutex mutex;
+    QMap<QString, bool> m_transferStatusMap;
 };
 
 #endif  // INFOWORKER_H

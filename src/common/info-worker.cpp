@@ -38,6 +38,7 @@ const int CHUNK_SIZE = 1024 * 1024;
 InfoWorker::InfoWorker(QObject *parent) : QObject(parent)
 {
     QMutexLocker locker(&mutex);
+    qRegisterMetaType<ImageTransmissionStatus>("ImageTransmissionStatus");
 }
 
 void InfoWorker::listNode()
@@ -259,6 +260,19 @@ void InfoWorker::logout()
     RPC_ASYNC(user::LogoutReply, _logout, logoutFinished, req);
 }
 
+void InfoWorker::stopTransfer(QString name, QString version, bool isStop)
+{
+    m_transferStatusMap.insert(name + "-" + version, isStop);
+}
+
+bool InfoWorker::isTransferStoped(QString name, QString version)
+{
+    if (m_transferStatusMap.contains(name + "-" + version))
+        return m_transferStatusMap.value(name + "-" + version);
+    else
+        return false;
+}
+
 QPair<grpc::Status, node::ListReply> InfoWorker::_listNode(const node::ListRequest &req)
 {
     RPC_IMPL(node::ListReply, node::Node::NewStub, List);
@@ -394,33 +408,52 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     req.set_chunk_data(pBuf, (size_t)readret);
     double totalCnt = ceil(req.info().size() / 1048576.0);
     int curCnt = 0;
+    QString imageInfo = QString::fromStdString(req.info().name()) + "-" + QString::fromStdString(req.info().version());
     if (stream->Write(req))
     {
         int progess = 0;
         while (!file.atEnd())
         {
-            readret = file.read(pBuf, CHUNK_SIZE);
-            req.mutable_chunk_data();
-            req.set_chunk_data(pBuf, (size_t)readret);
-            if (!stream->Write(req))
+            if (InfoWorker::getInstance().m_transferStatusMap.contains(imageInfo))
             {
-                KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
-                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
-                break;
+                if (!InfoWorker::getInstance().m_transferStatusMap.value(imageInfo))
+                {
+                    readret = file.read(pBuf, CHUNK_SIZE);
+                    req.mutable_chunk_data();
+                    req.set_chunk_data(pBuf, (size_t)readret);
+                    if (!stream->Write(req))
+                    {
+                        KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
+                        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), progess);
+                        break;
+                    }
+                    int tmp = int(floor((curCnt / totalCnt) * 100));
+                    if (progess != tmp)
+                    {
+                        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), progess);
+                    }
+                    progess = tmp;
+                    curCnt++;
+                }
+                else
+                {
+                    KLOG_INFO() << "Transmission interruption";
+                    context.TryCancel();
+                    r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                           QObject::tr("Invalid Argument").toStdString());
+                    file.close();
+                    filesign.close();
+                    delete[] pBuf;
+                    return r;
+                    //emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 0);
+                }
             }
-            int tmp = int(floor((curCnt / totalCnt) * 100));
-            if (progess != tmp)
-            {
-                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
-            }
-            progess = tmp;
-            curCnt++;
         }
     }
     else
     {
         KLOG_INFO() << "sign file broken stream";
-        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), 0);
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 0);
     }
 
     file.close();
@@ -430,7 +463,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     delete[] pBuf;
     if (curCnt == (int)totalCnt)
     {
-        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
     }
     KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
 
@@ -484,33 +517,51 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     req.set_chunk_data(pBuf, (size_t)readret);
     double totalCnt = ceil(req.info().size() / 1048576.0);
     int curCnt = 0;
+    QString imageInfo = QString::fromStdString(req.info().name()) + "-" + QString::fromStdString(req.info().version());
     if (stream->Write(req))
     {
         int progess = 0;
         while (!file.atEnd())
         {
-            readret = file.read(pBuf, CHUNK_SIZE);
-            req.mutable_chunk_data();
-            req.set_chunk_data(pBuf, (size_t)readret);
-            if (!stream->Write(req))
+            if (InfoWorker::getInstance().m_transferStatusMap.contains(imageInfo))
             {
-                KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
-                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
-                break;
+                if (!InfoWorker::getInstance().m_transferStatusMap.value(imageInfo))
+                {
+                    readret = file.read(pBuf, CHUNK_SIZE);
+                    req.mutable_chunk_data();
+                    req.set_chunk_data(pBuf, (size_t)readret);
+                    if (!stream->Write(req))
+                    {
+                        KLOG_INFO() << "Broken stream, curCnt:" << curCnt;
+                        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), progess);
+                        break;
+                    }
+                    int tmp = int(floor((curCnt / totalCnt) * 100));
+                    if (progess != tmp)
+                    {
+                        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), progess);
+                    }
+                    progess = tmp;
+                    curCnt++;
+                }
+                else
+                {
+                    KLOG_INFO() << "Transmission interruption";
+                    context.TryCancel();
+                    r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                           QObject::tr("Invalid Argument").toStdString());
+                    file.close();
+                    filesign.close();
+                    delete[] pBuf;
+                    return r;
+                }
             }
-            int tmp = int(floor((curCnt / totalCnt) * 100));
-            if (progess != tmp)
-            {
-                emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
-            }
-            progess = tmp;
-            curCnt++;
         }
     }
     else
     {
         KLOG_INFO() << "sign file broken stream";
-        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), 0);
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 0);
     }
 
     file.close();
@@ -521,7 +572,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     KLOG_INFO() << "return:" << r.first.error_code();
     if (curCnt == (int)totalCnt)
     {
-        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
     }
 
     return r;
@@ -575,23 +626,36 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     double totalCnt = ceil(outSize / 1048576.0);
     int curCnt = 0;
     int progess = 0;
+    QString imageInfo = QString::fromStdString(outName) + "-" + QString::fromStdString(outVersion);
     while (stream->Read(&reply))
     {
-        wFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
-        int tmp = int(floor((curCnt / totalCnt) * 100));
-        if (progess != tmp)
+        if (InfoWorker::getInstance().m_transferStatusMap.contains(imageInfo))
         {
-            printf("download progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
-            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING, outName, outVersion, progess);
+            if (!InfoWorker::getInstance().m_transferStatusMap.value(imageInfo))
+            {
+                wFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
+                int tmp = int(floor((curCnt / totalCnt) * 100));
+                if (progess != tmp)
+                {
+                    KLOG_INFO("download progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
+                    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING, QString::fromStdString(outName), QString::fromStdString(outVersion), progess);
+                }
+                progess = tmp;
+                curCnt++;
+            }
+            else
+            {
+                wFile.close();
+                r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("Cancel").toStdString());
+                return r;
+            }
         }
-        progess = tmp;
-        curCnt++;
     }
 
     wFile.close();
     r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
     r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
-    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, outName, outVersion, 100);
+    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, QString::fromStdString(outName), QString::fromStdString(outVersion), 100);
     return r;
 }
 
