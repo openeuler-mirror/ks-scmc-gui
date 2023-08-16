@@ -40,9 +40,14 @@ MainWindow GuideItem #label_text
     font-size:14px;
 }
 
-QLabel#lab_user_icon
+MainWindow QLabel#lab_user_icon
 {
     image: url(:/images/user.png);
+}
+
+MainWindow QLabel#lab_dot
+{
+    image: url(:/images/dot.svg);
 }
 
 MainWindow > BubbleTipButton
@@ -549,9 +554,53 @@ ConfigTable #tableView::item
     color:#ffffff;
 }*/
 
+/****************************TransmissionList**************/
+TransmissionList
+{
+    background:transparent;
+}
+TransmissionList #transmissionListWidget
+{
+    background:transparent;
+/*     show-decoration-selected: 1;*/
+    border:none;
+}
+TransmissionList #transmissionListWidget::item
+{
+    background:transparent;
+    border:none;
+/*    margin-top:2px;*/
+
+}
+/*#transmissionListWidget::Item:selected
+{
+    background-color:transparent;
+}
+#transmissionListWidget::Item:hover
+{
+    background-color:transparent;
+}*/
+
 /****************************TransmissionItem********************/
+TransmissionItem
+{
+    border-radius:4px;
+    background-color:#222222;
+    border:1px solid #393939;
+}
+
+TransmissionItem #label_text
+{
+    color:#ffffff;
+    font-size:14px;
+}
+
 TransmissionItem QPushButton#btn_close
 {
     border-radius:0px;
+}
+TransmissionItem QPushButton#btn_close:focus
+{
+    outline:none;
 }
 

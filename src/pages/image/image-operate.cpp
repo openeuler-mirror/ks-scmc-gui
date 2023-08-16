@@ -49,9 +49,15 @@ void ImageOperate::initUI()
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperate::selectImage);
     initLineEdit(ui->lineEditImageFile, imageFileBtn);
 
+    //TODO:方便测试，后续去掉
+    ui->lineEditImageFile->setText("/home/yuanxing/Documents/image/httpd.tar");
+
     QPushButton *imageSignBtn = new QPushButton(this);
     connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperate::selectSign);
     initLineEdit(ui->lineEditImageSign, imageSignBtn);
+
+    //TODO:方便测试，后续去掉
+    ui->lineEditImageSign->setText("/home/yuanxing/Documents/image/httpd.tar.sig");
 }
 
 void ImageOperate::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
@@ -176,7 +182,7 @@ void ImageOperate::selectImage()
 
 void ImageOperate::selectSign()
 {
-    ui->lineEditImageSign->setText(ChooseFile("*.sign"));
+    ui->lineEditImageSign->setText(ChooseFile("*.sig"));
 }
 
 void ImageOperate::onSave()
