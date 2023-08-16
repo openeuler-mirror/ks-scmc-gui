@@ -38,6 +38,10 @@ private slots:
     void getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply);
     void getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply);
     void getDownloadImageResult(const QPair<grpc::Status, downloadImageInfo> &reply);
+    //void getTransferImageStatus(ImageTransmissionStatus status, std::string name, std::string version, int rate);
+
+signals:
+    //void sigTransferImageInfo(ImageTransmissionStatus status, std::string name, std::string version, int rate);
 
 private:
     ImageOperate *m_pImageOp;
