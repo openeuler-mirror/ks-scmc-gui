@@ -42,7 +42,9 @@ void ImageOperate::setImageInfo(QMap<QString, QVariant> imageInfoMap)
 void ImageOperate::initUI()
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("Image Operate"));
+    setWindowModality(Qt::ApplicationModal);
+    setTitle(tr("Image Operate"));
+    setFixedSize(600, 500);
     setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
 
     QPushButton *imageFileBtn = new QPushButton(this);
@@ -99,6 +101,7 @@ void ImageOperate::UploadParamDeal()
     uploadInfo.insert("Image File", imageFile);
     uploadInfo.insert("Sign File", signFile);
     emit sigUploadSave(uploadInfo);
+    close();
 }
 
 void ImageOperate::updateParamDeal()
@@ -130,6 +133,7 @@ void ImageOperate::updateParamDeal()
     updateInfo.insert("Image File", imageFile);
     updateInfo.insert("Sign File", signFile);
     emit sigUpdateSave(updateInfo);
+    close();
 }
 
 //void ImageOperate::checkParamDeal()
@@ -198,8 +202,6 @@ void ImageOperate::onSave()
     default:
         break;
     }
-
-    this->close();
 }
 
 void ImageOperate::onCancel()

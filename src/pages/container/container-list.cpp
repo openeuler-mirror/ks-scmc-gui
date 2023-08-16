@@ -155,8 +155,8 @@ void ContainerList::onActCreate()
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
-                                screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
+        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_createCTSetting->width()) / 2,
+                                screenGeometry.y() + (screenGeometry.height() - m_createCTSetting->height()) / 2);
 
         m_createCTSetting->show();
         connect(m_createCTSetting, &ContainerSetting::destroyed,
@@ -205,8 +205,8 @@ void ContainerList::onEdit(int row)
         m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT);
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
-                              screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
+        m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editCTSetting->width()) / 2,
+                              screenGeometry.y() + (screenGeometry.height() - m_editCTSetting->height()) / 2);
         m_editCTSetting->show();
 
         auto item = getItem(row, 0);
