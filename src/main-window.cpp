@@ -323,6 +323,11 @@ void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString 
     else
     {
         m_transmissionList->updateItem(name, version, status, rate);
+        if (status != IMAGE_TRANSMISSION_STATUS_DOWNLOADING && status != IMAGE_TRANSMISSION_STATUS_UPLOADING)
+        {
+            auto num = m_btnTransmission->getTipMsgNum();
+            m_btnTransmission->setTipMsg(--num);
+        }
     }
 }
 
@@ -333,7 +338,11 @@ void MainWindow::onTransferItemDeleted(QString name, QString version, ImageTrans
     {
         if (m_transferImages.contains(transferImage, Qt::CaseInsensitive))
         {
-            InfoWorker::getInstance().stopTransfer(name, version, true);
+            if (status == IMAGE_TRANSMISSION_STATUS_DOWNLOADING || status == IMAGE_TRANSMISSION_STATUS_UPLOADING)
+            {
+                InfoWorker::getInstance().stopTransfer(name, version, true);
+            }
+            QMutexLocker locker(&m_mutex);
             m_transferImages.removeOne(transferImage);
             m_btnTransmission->setTipMsg(m_transferImages.size());
             KLOG_INFO() << "stop transfer:" << name << version << ",tipMsg:" << m_transferImages.size();
