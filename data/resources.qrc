@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>style/theme.qss</file>
-        <file>images/check-default.png</file>
-        <file>images/checked.png</file>
         <file>images/sort-down.png</file>
         <file>images/sort-nomal.png</file>
         <file>images/sort-up.png</file>
@@ -41,5 +39,17 @@
         <file>images/home.svg</file>
         <file>images/down-arrow-black.png</file>
         <file>images/arrow_n.png</file>
+        <file>images/warning-number.png</file>
+        <file>images/warning-info.svg</file>
+        <file>images/transmit.svg</file>
+        <file>images/system-manager.svg</file>
+        <file>images/node-number.png</file>
+        <file>images/image-number.png</file>
+        <file>images/container-template-number.png</file>
+        <file>images/container-number.png</file>
+        <file>images/approve-number.png</file>
+        <file>images/approve.svg</file>
+        <file>images/checked.svg</file>
+        <file>images/check-default.svg</file>
     </qresource>
 </RCC>

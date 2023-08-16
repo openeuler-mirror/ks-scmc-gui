@@ -29,7 +29,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUserName(QString name)
 {
-    ui->lab_user_name->setText(name);
+    ui->btn_user->setText(name);
 }
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
@@ -91,6 +91,9 @@ void MainWindow::paintEvent(QPaintEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
+    ui->btn_transmission->setIcon(QIcon(":/images/transmit.svg"));
+    ui->btn_approval->setIcon(QIcon(":/images/approve.svg"));
+    ui->btn_warning->setIcon(QIcon(":/images/warning-info.svg"));
 
     ui->btn_approval->setTipMsg(9);
 
@@ -99,7 +102,7 @@ void MainWindow::initUI()
     QAction* changePasswdAct = userMenu->addAction(tr("Change Password"));
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     QAction* aboutAct = userMenu->addAction(tr("About"));
-    ui->btn_user_menu->setMenu(userMenu);
+    ui->btn_user->setMenu(userMenu);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
 
     m_stackedWidget = new QStackedWidget(this);
