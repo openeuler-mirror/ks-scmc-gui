@@ -380,6 +380,9 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     }
 
     char *pBuf = new char[CHUNK_SIZE];
+    double totalCnt = ceil(req.info().size() / 1048576.0);
+    int curCnt = 0;
+    int progess = 0;
     while (!file.atEnd())
     {
         qint64 ret = file.read(pBuf, CHUNK_SIZE);
@@ -388,14 +391,25 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         if (!stream->Write(req))
         {
             KLOG_INFO() << "Broken stream";
+            printf("Broken stream:%d\n", curCnt);
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
             break;
         }
+        int tmp = int(floor((curCnt / totalCnt) * 100));
+        if (progess != tmp)
+        {
+            printf("upload progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
+        }
+        progess = tmp;
+        curCnt++;
     }
 
     file.close();
     stream->WritesDone();
     r.first = stream->Finish();
     delete[] pBuf;
+    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
     KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
 
     return r;
@@ -434,6 +448,9 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     }
 
     char *pBuf = new char[CHUNK_SIZE];
+    double totalCnt = ceil(req.info().size() / 1048576.0);
+    int curCnt = 0;
+    int progess = 0;
     while (!file.atEnd())
     {
         qint64 ret = file.read(pBuf, CHUNK_SIZE);
@@ -442,8 +459,17 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         if (!stream->Write(req))
         {
             KLOG_INFO() << "Broken stream";
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, req.info().name(), req.info().version(), progess);
             break;
         }
+        int tmp = int(floor((curCnt / totalCnt) * 100));
+        if (progess != tmp)
+        {
+            printf("update progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING, req.info().name(), req.info().version(), progess);
+        }
+        progess = tmp;
+        curCnt++;
     }
 
     file.close();
@@ -451,7 +477,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     r.first = stream->Finish();
     delete[] pBuf;
     KLOG_INFO() << "return:" << r.first.error_code();
-
+    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, req.info().name(), req.info().version(), 100);
     return r;
 }
 
@@ -500,14 +526,26 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         return r;
     }
 
+    double totalCnt = ceil(outSize / 1048576.0);
+    int curCnt = 0;
+    int progess = 0;
     while (stream->Read(&reply))
     {
         wFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
+        int tmp = int(floor((curCnt / totalCnt) * 100));
+        if (progess != tmp)
+        {
+            printf("download progess:%d, cnt:%d, %lf\n", progess, curCnt, totalCnt);
+            emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING, outName, outVersion, progess);
+        }
+        progess = tmp;
+        curCnt++;
     }
 
     wFile.close();
     r.first = grpc::Status(grpc::StatusCode::OK, QObject::tr("OK").toStdString());
     r.second = downloadImageInfo{outName, outVersion, outType, outChecksum, wFileName.toStdString(), outSize};
+    emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_DOWNLOADING_SUCCESSFUL, outName, outVersion, 100);
     return r;
 }
 

@@ -14,7 +14,7 @@
 int main(int argc, char *argv[])
 {
     //设置日志输出
-    if (klog_qt5_init("", "kylinsec-session", "ks-scmc-client", "ks-scmc-client") < 0)
+    if (klog_qt5_init("", "kylinsec-session", "ks-scmc-gui", "ks-scmc-gui") < 0)
     {
         std::cout << "init klog error" << std::endl;
     }
