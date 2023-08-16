@@ -157,8 +157,6 @@ void ImageManager::OperateImage(ImageOperateType type)
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        KLOG_INFO() << screenGeometry;
-        KLOG_INFO() << m_pImageOp->width() << m_pImageOp->height();
         m_pImageOp->move(screenGeometry.x() + (screenGeometry.width() - m_pImageOp->width()) / 2,
                          screenGeometry.y() + (screenGeometry.height() - m_pImageOp->height()) / 2);
 

@@ -96,11 +96,15 @@ void TransmissionItem::paintEvent(QPaintEvent *event)
 void TransmissionItem::onItemClose()
 {
     //判断传输状态, 若传输没有结束，则弹窗提示
-    auto ret = MessageDialog::message(tr("Cancel Transmission"),
-                                      tr("Are you sure to cancel the %1(%2) transmission?").arg(name()).arg(version()),
-                                      tr("The image %1(%2) is being transferred,the transmission will be interrupted after close!").arg(name()).arg(version()),
-                                      ":/images/warning.svg",
-                                      MessageDialog::StandardButton::Cancel | MessageDialog::StandardButton::Yes);
-    if (ret == MessageDialog::StandardButton::Yes)
-        emit sigClose();
+    if (status() == IMAGE_TRANSMISSION_STATUS_DOWNLOADING || status() == IMAGE_TRANSMISSION_STATUS_UPLOADING)
+    {
+        auto ret = MessageDialog::message(tr("Cancel Transmission"),
+                                          tr("Are you sure to cancel the %1(%2) transmission?").arg(name()).arg(version()),
+                                          tr("The image %1(%2) is being transferred,the transmission will be interrupted after close!").arg(name()).arg(version()),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Cancel | MessageDialog::StandardButton::Yes);
+        if (ret == MessageDialog::StandardButton::Cancel)
+            return;
+    }
+    emit sigClose();
 }
