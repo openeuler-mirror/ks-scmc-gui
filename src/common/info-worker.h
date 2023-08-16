@@ -84,7 +84,7 @@ public:
     void listDBImage();
     void uploadImage(image::UploadRequest &req, const QString &imageFile);
     void updateImage(image::UpdateRequest &req, const QString &imageFile);
-    QPair<grpc::Status, downloadImageInfo> downloadImage(const int64_t image_id, const QString &savePath);
+    void downloadImage(const int64_t &image_id, const QString &savePath);
     void checkImage(const int64_t image_id, const bool approve, const std::string reject_reason);
     void removeImage(const std::vector<int64_t> &image_ids);
 
@@ -121,6 +121,7 @@ private:
     static QPair<grpc::Status, image::ListDBReply> _listDBImage(const image::ListDBRequest &);
     static QPair<grpc::Status, image::UploadReply> _uploadImage(image::UploadRequest &req, const QString &imageFile);
     static QPair<grpc::Status, image::UpdateReply> _updateImage(image::UpdateRequest &req, const QString &imageFile);
+    static QPair<grpc::Status, downloadImageInfo> _downloadImage(image::DownloadRequest &req, const int64_t &image_id, const QString &savePath);
     static QPair<grpc::Status, image::ApproveReply> _checkImage(const image::ApproveRequest &);
     static QPair<grpc::Status, image::RemoveReply> _removeImage(const image::RemoveRequest &);
 
@@ -155,6 +156,7 @@ signals:
     void listDBImageFinished(const QPair<grpc::Status, image::ListDBReply> &);
     void uploadFinished(const QPair<grpc::Status, image::UploadReply> &);
     void updateFinished(const QPair<grpc::Status, image::UpdateReply> &);
+    void downloadImageFinished(const QPair<grpc::Status, downloadImageInfo> &);
     void checkImageFinished(const QPair<grpc::Status, image::ApproveReply> &);
     void removeImageFinished(const QPair<grpc::Status, image::RemoveReply> &);
 

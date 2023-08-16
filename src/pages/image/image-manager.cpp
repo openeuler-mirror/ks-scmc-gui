@@ -114,6 +114,7 @@ void ImageManager::initImageConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageManager::getRemoveResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManager::getUploadResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageManager::getUpdateResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageManager::getDownloadImageResult);
 }
 
 int ImageManager::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
@@ -296,43 +297,7 @@ void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
 void ImageManager::downloadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
-    QPair<grpc::Status, downloadImageInfo> reply = InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Path"]);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    bool ret = reply.first.error_code() == 0 ? true : false;
-    std::string msg = reply.first.error_message();
-    if (ret)
-    {
-        QString strSha256;
-        qint64 fileSize;
-        if (getImageFileInfo(reply.second.imageFile.data(), strSha256, fileSize))
-            ret = false;
-
-        if (reply.second.filesize != fileSize || reply.second.checksum != strSha256.toStdString())
-        {
-            KLOG_INFO() << reply.second.filesize << fileSize << reply.second.checksum.data() << strSha256.toStdString().data();
-            msg = "receive data error";
-            ret = false;
-        }
-    }
-
-    if (ret)
-    {
-        KLOG_INFO() << "download images success";
-        MessageDialog::message(tr("download Image"),
-                               tr("download Image success!"),
-                               tr(""),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        getImageList();
-    }
-    else
-    {
-        MessageDialog::message(tr("download Image"),
-                               tr("download Image failed!"),
-                               tr(msg.data()),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-    }
+    InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Path"]);
 }
 
 void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
@@ -512,6 +477,46 @@ void ImageManager::getUpdateResult(const QPair<grpc::Status, image::UpdateReply>
         MessageDialog::message(tr("update Image"),
                                tr("update Image failed!"),
                                tr(reply.first.error_message().data()),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
+
+void ImageManager::getDownloadImageResult(const QPair<grpc::Status, downloadImageInfo> &reply)
+{
+    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+    bool ret = reply.first.error_code() == 0 ? true : false;
+    std::string msg = reply.first.error_message();
+    if (ret)
+    {
+        QString strSha256;
+        qint64 fileSize;
+        if (getImageFileInfo(reply.second.imageFile.data(), strSha256, fileSize))
+            ret = false;
+
+        if (reply.second.filesize != fileSize || reply.second.checksum != strSha256.toStdString())
+        {
+            KLOG_INFO() << reply.second.filesize << fileSize << reply.second.checksum.data() << strSha256.toStdString().data();
+            msg = "receive data error";
+            ret = false;
+        }
+    }
+
+    if (ret)
+    {
+        KLOG_INFO() << "download images success";
+        MessageDialog::message(tr("download Image"),
+                               tr("download Image success!"),
+                               tr(""),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("download Image"),
+                               tr("download Image failed!"),
+                               tr(msg.data()),
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
