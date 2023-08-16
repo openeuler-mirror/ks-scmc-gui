@@ -36,6 +36,7 @@ private slots:
     void getCheckResult(const QPair<grpc::Status, image::ApproveReply> &);
     void getRemoveResult(const QPair<grpc::Status, image::RemoveReply> &);
     void getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply);
+    void getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply);
 
 private:
     ImageOperate *m_pImageOp;
