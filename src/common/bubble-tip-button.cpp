@@ -1,4 +1,5 @@
 #include "bubble-tip-button.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QPainter>
 #include <QStyleOption>
 
@@ -15,6 +16,7 @@ BubbleTipButton::~BubbleTipButton()
 
 void BubbleTipButton::setTipMsg(int num)
 {
+    KLOG_INFO() << "setTipMsg:" << num;
     m_tipMsg = num;
     QFont font;
     font.setPixelSize(14);
