@@ -1,6 +1,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QComboBox>
+#include <QDateTime>
 #include <QDesktopWidget>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -10,6 +11,7 @@
 #include <QTimer>
 
 #include "common/message-dialog.h"
+#include "common/monitor.h"
 #include "container-list.h"
 #include "container-setting.h"
 
@@ -26,6 +28,7 @@ ContainerList::ContainerList(QWidget *parent)
     : CommonPage(parent),
       m_createCTSetting(nullptr),
       m_editCTSetting(nullptr),
+      m_monitor(nullptr),
       m_timer(nullptr)
 {
     initButtons();
@@ -58,6 +61,11 @@ ContainerList::~ContainerList()
     {
         delete m_editCTSetting;
         m_editCTSetting = nullptr;
+    }
+    if (m_monitor)
+    {
+        delete m_monitor;
+        m_monitor = nullptr;
     }
 }
 
@@ -167,7 +175,7 @@ void ContainerList::onActCreate()
                 });
         connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    getContainerList();
+                    updateInfo();
                 });
     }
 }
@@ -195,6 +203,31 @@ void ContainerList::onActBackup()
 void ContainerList::onMonitor(int row)
 {
     KLOG_INFO() << "ContainerList::onMonitor" << row;
+    //setBusy(true);
+
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+
+    int nodeId = idMap.value(NODE_ID).toInt();
+    std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
+    KLOG_INFO() << nodeId << containerId.data();
+
+    if (!m_monitor)
+    {
+        m_monitor = new Monitor(nodeId, containerId);
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_monitor->move(screenGeometry.x() + (screenGeometry.width() - m_monitor->width()) / 2,
+                        screenGeometry.y() + (screenGeometry.height() - m_monitor->height()) / 2);
+        m_monitor->show();
+
+        connect(m_monitor, &Monitor::destroyed,
+                [=] {
+                    KLOG_INFO() << " monitor destroy";
+                    m_monitor->deleteLater();
+                    m_monitor = nullptr;
+                });
+    }
 }
 
 void ContainerList::onEdit(int row)
@@ -209,7 +242,7 @@ void ContainerList::onEdit(int row)
                               screenGeometry.y() + (screenGeometry.height() - m_editCTSetting->height()) / 2);
         m_editCTSetting->show();
 
-        auto item = getItem(row, 0);
+        auto item = getItem(row, 1);
         QPair<int64_t, QString> ids = {item->data().toMap().value(NODE_ID).toInt(),
                                        item->data().toMap().value(CONTAINER_ID).toString()};
         m_editCTSetting->setContainerNodeIds(ids);
@@ -222,14 +255,14 @@ void ContainerList::onEdit(int row)
                 });
         connect(m_editCTSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    getContainerList();
+                    updateInfo();
                 });
     }
 }
 
 void ContainerList::onTerminal(int row)
 {
-    auto infoMap = getItem(row, 0)->data().value<QMap<QString, QVariant>>();
+    auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     auto nodeAddr = infoMap.value(NODE_ADDRESS).toString();
     auto containerName = infoMap.value(CONTAINER_NAME).toString();
     auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
@@ -347,7 +380,7 @@ void ContainerList::getContainerStartResult(const QPair<grpc::Status, container:
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        getContainerList();
+        updateInfo();
         return;
     }
 }
@@ -359,7 +392,7 @@ void ContainerList::getContainerStopResult(const QPair<grpc::Status, container::
     if (reply.first.ok())
     {
         KLOG_INFO() << "stop surccessful";
-        getContainerList();
+        updateInfo();
         return;
     }
     else
@@ -374,7 +407,7 @@ void ContainerList::getContainerRestartResult(const QPair<grpc::Status, containe
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        getContainerList();
+        updateInfo();
         return;
     }
 }
@@ -385,7 +418,7 @@ void ContainerList::getContainerRemoveResult(const QPair<grpc::Status, container
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        getContainerList();
+        updateInfo();
         return;
     }
 }
@@ -534,7 +567,7 @@ void ContainerList::getCheckedItemsId(std::map<int64_t, std::vector<std::string>
 
 void ContainerList::getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids)
 {
-    auto item = getItem(row, 0);
+    auto item = getItem(row, 1);
     QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
 
     std::vector<std::string> container_ids;
@@ -553,7 +586,7 @@ void ContainerList::updateInfo(QString keyword)
     {
         //initConnect();
         //gRPC->拿数据->填充内容
-        getContainerList();
         connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerList::getNodeListResult);
+        getContainerList();
     }
 }
