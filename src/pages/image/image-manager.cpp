@@ -196,6 +196,8 @@ void ImageManager::onBtnDownload()
     if (!info.isEmpty())
     {
         QString imageId = info.at(0).value(IMAGE_ID).toString();
+        QString imageName = info.at(0).value(IMAGE_NAME).toString();
+        QString imageVersion = info.at(0).value(IMAGE_VERSION).toString();
 
         QFileDialog *pFile = new QFileDialog(this);
         QString imagePath = pFile->getExistingDirectory(this, tr("Please select the path to save"), "./");
@@ -208,6 +210,8 @@ void ImageManager::onBtnDownload()
         KLOG_INFO() << "imagePath:" << imagePath;
 
         QMap<QString, QString> downloadInfo;
+        downloadInfo.insert("Image Name", imageName);
+        downloadInfo.insert("Image Version", imageVersion);
         downloadInfo.insert("Image Id", imageId);
         downloadInfo.insert("Image Path", imagePath);
         downloadSaveSlot(downloadInfo);
@@ -328,6 +332,7 @@ void ImageManager::checkSaveSlot(QMap<QString, QString> Info)
 
 void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     m_imageInfoMap.clear();
     if (reply.first.ok())
     {
@@ -361,7 +366,7 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
             infoMap.insert(IMAGE_DESC, image.description().data());
 
             QStandardItem *itemChkStatus = new QStandardItem();
-            switch (image.verify_status())
+            switch (image.check_status())
             {
             case 0:
                 itemChkStatus->setText(tr("Failed"));
