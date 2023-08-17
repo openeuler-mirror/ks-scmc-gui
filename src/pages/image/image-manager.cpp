@@ -366,7 +366,7 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
             infoMap.insert(IMAGE_DESC, image.description().data());
 
             QStandardItem *itemChkStatus = new QStandardItem();
-            switch (image.check_status())
+            switch (image.verify_status())
             {
             case 0:
                 itemChkStatus->setText(tr("Failed"));
