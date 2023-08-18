@@ -23,37 +23,22 @@
     </message>
 </context>
 <context>
-    <name>CPUConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-page.h" line="100"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-page.h" line="101"/>
-        <source>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-page.h" line="102"/>
-        <source>Scheduling priority:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CPUConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="100"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="75"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="101"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Total CPU cores:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="82"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="102"/>
         <source>Scheduling priority:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -67,12 +52,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/common-page.cpp" line="236"/>
+        <location filename="../src/pages/common-page.cpp" line="246"/>
         <source>Please enter the keyword</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/common-page.cpp" line="438"/>
+        <location filename="../src/pages/common-page.cpp" line="448"/>
         <source>No search results were found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -106,7 +91,7 @@
     <name>ConfigTable</name>
     <message>
         <location filename="../src/common/config-table.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_configtable.h" line="51"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-table.h" line="51"/>
         <source>ConfigTable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -483,31 +468,11 @@
     </message>
 </context>
 <context>
-    <name>EnvsConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_envs-conf-page.h" line="35"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_envs-conf-tab.h" line="35"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>GraphicConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-page.h" line="76"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-page.h" line="77"/>
-        <source>Graphic:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -515,11 +480,13 @@
     <name>GraphicConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/graphic-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="76"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/graphic-conf-tab.ui" line="43"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="77"/>
         <source>Graphic:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -534,47 +501,28 @@
     </message>
 </context>
 <context>
-    <name>HighAvailabilityPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-page.h" line="102"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-page.h" line="103"/>
-        <source>High availability policy: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-page.h" line="104"/>
-        <source>Auto pulling times:         </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-page.h" line="105"/>
-        <source>times</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>HighAvailabilityTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="102"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="69"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="103"/>
         <source>High availability policy: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="105"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="104"/>
         <source>Auto pulling times:         </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="112"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="105"/>
         <source>times</source>
         <translation type="unfinished"></translation>
     </message>
@@ -802,127 +750,80 @@
     </message>
 </context>
 <context>
-    <name>ImageOperate</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="268"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="269"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="277"/>
-        <source>Signature file </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="270"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="274"/>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="271"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="275"/>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="272"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="278"/>
-        <source>Description</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="273"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="276"/>
-        <source>Image Select</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="279"/>
-        <source>image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="280"/>
-        <source>save path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="281"/>
-        <source>chose path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="282"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate.h" line="283"/>
-        <source>cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ImageOperateDialog</name>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="268"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="30"/>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="108"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="269"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="277"/>
         <source>Signature file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="40"/>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="81"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="270"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="274"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="53"/>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="91"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="271"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="275"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="60"/>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="118"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="272"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="278"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="67"/>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="98"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="273"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="276"/>
         <source>Image Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="137"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="279"/>
         <source>image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="158"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="280"/>
         <source>save path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="168"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="281"/>
         <source>chose path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="209"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="282"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="216"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="283"/>
         <source>cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -989,68 +890,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="89"/>
+        <location filename="../src/login-dialog.cpp" line="85"/>
         <source>KylinSec security Container magic Cube</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="101"/>
-        <location filename="../src/login-dialog.cpp" line="174"/>
+        <location filename="../src/login-dialog.cpp" line="97"/>
+        <location filename="../src/login-dialog.cpp" line="170"/>
         <source>Config server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="101"/>
+        <location filename="../src/login-dialog.cpp" line="97"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="106"/>
+        <location filename="../src/login-dialog.cpp" line="102"/>
         <source>Please input password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="107"/>
+        <location filename="../src/login-dialog.cpp" line="103"/>
         <source>Please input user name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="133"/>
+        <location filename="../src/login-dialog.cpp" line="129"/>
         <source>Please input user name!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="138"/>
+        <location filename="../src/login-dialog.cpp" line="134"/>
         <source>Please input password!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="143"/>
+        <location filename="../src/login-dialog.cpp" line="139"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="149"/>
+        <location filename="../src/login-dialog.cpp" line="145"/>
         <source>Please config a server address!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="227"/>
+        <location filename="../src/login-dialog.cpp" line="223"/>
         <source>Login failed! %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="248"/>
+        <location filename="../src/login-dialog.cpp" line="244"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="249"/>
+        <location filename="../src/login-dialog.cpp" line="245"/>
         <source>Logout failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="250"/>
+        <location filename="../src/login-dialog.cpp" line="246"/>
         <source>Error: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1070,93 +971,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="156"/>
+        <location filename="../src/main-window.cpp" line="168"/>
         <source>Change Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="157"/>
+        <location filename="../src/main-window.cpp" line="169"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="158"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="168"/>
-        <location filename="../src/main-window.cpp" line="199"/>
-        <source>Container List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="169"/>
-        <source>Node List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/main-window.cpp" line="170"/>
-        <location filename="../src/main-window.cpp" line="205"/>
-        <source>Image Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="188"/>
-        <source>Home Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="189"/>
-        <source>Audit Center</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="190"/>
-        <source>Audit Apply List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="191"/>
-        <source>Audit Warning List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="192"/>
-        <source>Audit Log List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="198"/>
-        <source>Container Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="200"/>
-        <source>Container Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="206"/>
-        <source>Node Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MemoryConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-page.h" line="114"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-page.h" line="115"/>
-        <source>&lt;font color=red&gt;*&lt;/font&gt; Memory soft limit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-page.h" line="116"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum limit:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1164,16 +990,19 @@
     <name>MemoryConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="114"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="115"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt; Memory soft limit:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="117"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="116"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum limit:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1196,27 +1025,16 @@
     </message>
 </context>
 <context>
-    <name>Monitor</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor.h" line="95"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor.h" line="96"/>
-        <source>Cycle</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MonitorDialog</name>
     <message>
         <location filename="../src/common/monitor-dialog.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-dialog.h" line="95"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-dialog.ui" line="35"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-dialog.h" line="96"/>
         <source>Cycle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1282,67 +1100,40 @@
     </message>
 </context>
 <context>
-    <name>NetworkConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="132"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="133"/>
-        <source>Virtual network card:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="134"/>
-        <source>Network type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="135"/>
-        <source>IP:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="136"/>
-        <source>MAC address:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-page.h" line="137"/>
-        <source>Bridge</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>NetworkConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="132"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="133"/>
         <source>Virtual network card:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="47"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="134"/>
         <source>Network type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="54"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="135"/>
         <source>IP:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="119"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="136"/>
         <source>MAC address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="168"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="137"/>
         <source>Bridge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1354,57 +1145,34 @@
     </message>
 </context>
 <context>
-    <name>NodeAddition</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition.h" line="118"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition.h" line="119"/>
-        <source>Node Name:   &lt;font color=red&gt;*&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition.h" line="120"/>
-        <source>Node IP:  &lt;font color=red&gt;*&lt;/font&gt; </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition.h" line="121"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition.h" line="122"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>NodeAdditionDialog</name>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="26"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="118"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="71"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="119"/>
         <source>Node Name:   &lt;font color=red&gt;*&lt;/font&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="78"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="120"/>
         <source>Node IP:  &lt;font color=red&gt;*&lt;/font&gt; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="146"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="121"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-addition-dialog.ui" line="165"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-addition-dialog.h" line="122"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1526,7 +1294,7 @@
     <name>OperateWidget</name>
     <message>
         <location filename="../src/common/operate-widget.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_operatewidget.h" line="153"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_operate-widget.h" line="153"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1540,40 +1308,40 @@
     <name>QObject</name>
     <message>
         <location filename="../src/base/info-worker.cpp" line="29"/>
-        <location filename="../src/base/info-worker.cpp" line="386"/>
-        <location filename="../src/base/info-worker.cpp" line="498"/>
-        <location filename="../src/base/info-worker.cpp" line="611"/>
-        <location filename="../src/base/info-worker.cpp" line="707"/>
-        <location filename="../src/base/info-worker.cpp" line="725"/>
+        <location filename="../src/base/info-worker.cpp" line="390"/>
+        <location filename="../src/base/info-worker.cpp" line="502"/>
+        <location filename="../src/base/info-worker.cpp" line="615"/>
+        <location filename="../src/base/info-worker.cpp" line="711"/>
+        <location filename="../src/base/info-worker.cpp" line="729"/>
         <source>Network Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="400"/>
-        <location filename="../src/base/info-worker.cpp" line="510"/>
-        <location filename="../src/base/info-worker.cpp" line="626"/>
-        <location filename="../src/base/info-worker.cpp" line="646"/>
+        <location filename="../src/base/info-worker.cpp" line="404"/>
+        <location filename="../src/base/info-worker.cpp" line="514"/>
+        <location filename="../src/base/info-worker.cpp" line="630"/>
+        <location filename="../src/base/info-worker.cpp" line="650"/>
         <source>Internal Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="409"/>
-        <location filename="../src/base/info-worker.cpp" line="418"/>
-        <location filename="../src/base/info-worker.cpp" line="460"/>
-        <location filename="../src/base/info-worker.cpp" line="520"/>
-        <location filename="../src/base/info-worker.cpp" line="530"/>
-        <location filename="../src/base/info-worker.cpp" line="573"/>
+        <location filename="../src/base/info-worker.cpp" line="413"/>
+        <location filename="../src/base/info-worker.cpp" line="422"/>
+        <location filename="../src/base/info-worker.cpp" line="464"/>
+        <location filename="../src/base/info-worker.cpp" line="524"/>
+        <location filename="../src/base/info-worker.cpp" line="534"/>
+        <location filename="../src/base/info-worker.cpp" line="577"/>
         <source>Invalid Argument</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="674"/>
+        <location filename="../src/base/info-worker.cpp" line="678"/>
         <location filename="../src/common/message-dialog.cpp" line="106"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="682"/>
+        <location filename="../src/base/info-worker.cpp" line="686"/>
         <location filename="../src/common/message-dialog.cpp" line="94"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
@@ -1657,6 +1425,61 @@
         <location filename="../src/common/message-dialog.cpp" line="111"/>
         <source>Restore Defaults</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="19"/>
+        <source>General Outline</source>
+        <translation>概要</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="20"/>
+        <source>Container Manager</source>
+        <translation>容器管理</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="21"/>
+        <source>Container List</source>
+        <translation>容器列表</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="22"/>
+        <source>Container Template</source>
+        <translation>容器模板</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="23"/>
+        <source>Audit Center</source>
+        <translation>审计中心</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="24"/>
+        <source>Audit Apply List</source>
+        <translation>审批列表</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="25"/>
+        <source>Audit Warning List</source>
+        <translation>告警列表</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="26"/>
+        <source>Audit Log List</source>
+        <translation>日志列表</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="27"/>
+        <source>Image Manager</source>
+        <translation>镜像管理</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="28"/>
+        <source>Node Manager</source>
+        <translation>节点管理</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="29"/>
+        <source>System Manager</source>
+        <translation>系统管理</translation>
     </message>
 </context>
 <context>
@@ -1794,17 +1617,10 @@
     </message>
 </context>
 <context>
-    <name>VolumesConfPage</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_volumes-conf-page.h" line="35"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>VolumesConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_volumes-conf-tab.h" line="35"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
