@@ -1,6 +1,7 @@
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
 
+#include <QMutex>
 #include <QWidget>
 #include "common/common-page.h"
 #include "common/info-worker.h"
@@ -22,6 +23,7 @@ private:
     int getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize);
     void getImageList();
     void OperateImage(ImageOperateType type);
+    bool imageIsTransfering(QString imageName, QString version, QString title);
 
 private slots:
     void onBtnUpload();
@@ -38,14 +40,15 @@ private slots:
     void getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply);
     void getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply);
     void getDownloadImageResult(const QPair<grpc::Status, downloadImageInfo> &reply);
-    //void getTransferImageStatus(ImageTransmissionStatus status, std::string name, std::string version, int rate);
+    void getTransferImageFinishedResult(QString name, QString version);
 
 signals:
     //void sigTransferImageInfo(ImageTransmissionStatus status, std::string name, std::string version, int rate);
 
 private:
     ImageOperate *m_pImageOp;
-    QMap<QString, QVariant> m_imageInfoMap;
+    QStringList m_transferImages = {};
+    QMutex m_mutex;
 };
 
 #endif  // IMAGEMANAGER_H
