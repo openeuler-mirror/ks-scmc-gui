@@ -16,6 +16,18 @@
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
 
+#define GENERAL_OUTLINE QObject::tr("General Outline")
+#define CONTAINER_MANAGER QObject::tr("Container Manager")
+#define CONTAINER_LIST QObject::tr("Container List")
+#define CONTAINER_TEMPLATE QObject::tr("Container Template")
+#define AUDIT_CENTER QObject::tr("Audit Center")
+#define AUDIT_APPLY_LIST QObject::tr("Audit Apply List")
+#define AUDIT_WORNING_LIST QObject::tr("Audit Warning List")
+#define AUDIT_LOG_LIST QObject::tr("Audit Log List")
+#define IMAGE_MANAGER QObject::tr("Image Manager")
+#define NODE_MANAGER QObject::tr("Node Manager")
+#define SYSTEM_MANAGER QObject::tr("System Manager")
+
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
     : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr), m_timer(nullptr)
@@ -82,13 +94,13 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
             m_isShowMap.insert(currItem, true);
         }
     }
-    int currenRow = ui->listWidget->row(currItem);
+    QString currenItemData = currItem->data(Qt::UserRole).toString();
 
-    if (!m_pageMap.value(currenRow))
+    if (!m_pageMap.value(currenItemData))
         return;
     setPageName(guideItem->getItemText());
-    m_pageMap[currenRow]->updateInfo();
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(currenRow));
+    m_pageMap[currenItemData]->updateInfo();
+    m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
 }
 
 void MainWindow::paintEvent(QPaintEvent* event)
@@ -166,45 +178,46 @@ void MainWindow::initUI()
 
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
-        {GUIDE_ITEM_CONTAINER_LIST, tr("Container List")},
-        {GUIDE_ITEM_NODE_MANAGER, tr("Node List")},
-        {GUIDE_ITEM_IMAGE_MANAGER, tr("Image Manager")}};
+        {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
+        {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
+        {GUIDE_ITEM_IMAGE_MANAGER, IMAGE_MANAGER}};
     for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
     {
         GUIDE_ITEM itemEnum = iter.key();
         QString desc = iter.value();
-        qInfo() << desc << itemEnum;
+        KLOG_INFO() << desc << itemEnum;
 
         auto subPage = createSubPage(itemEnum);
         if (!subPage)
         {
-            qWarning() << "sub page is null,ignore!";
+            KLOG_WARNING() << "sub page is null,ignore!";
             continue;
         }
+        subPage->setData(QVariant(iter.value()));
         m_stackedWidget->addWidget(subPage);
-        m_pageMap[itemEnum] = subPage;
+        m_pageMap[iter.value()] = subPage;
     }
 
     //创建左侧侧边栏
-    QListWidgetItem* homeItem = createGuideItem(tr("Home Page"), GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
-    QListWidgetItem* auditCenter = createGuideItem(tr("Audit Center"), GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
-    QListWidgetItem* auditApplyList = createGuideItem(tr("Audit Apply List"), GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* auditWarningList = createGuideItem(tr("Audit Warning List"), GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* auditLogList = createGuideItem(tr("Audit Log List"), GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
+    QListWidgetItem* auditCenter = createGuideItem(AUDIT_CENTER, GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
+    QListWidgetItem* auditApplyList = createGuideItem(AUDIT_APPLY_LIST, GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* auditWarningList = createGuideItem(AUDIT_WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* auditLogList = createGuideItem(AUDIT_LOG_LIST, GUIDE_ITEM_TYPE_SUB);
     QList<QListWidgetItem*> auditSubItems = {auditApplyList, auditWarningList, auditLogList};
     m_groupMap.insert(auditCenter, auditSubItems);
     ///TODO: m_isShowMap.insert(auditCenter, false);
     m_isShowMap.insert(auditCenter, false);
 
-    QListWidgetItem* containerManager = createGuideItem(tr("Container Manager"), GUIDE_ITEM_TYPE_GROUP, ":/images/container-manager.svg");
-    QListWidgetItem* containerList = createGuideItem(tr("Container List"), GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* containerTemplate = createGuideItem(tr("Container Template"), GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP, ":/images/container-manager.svg");
+    QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
     QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
     m_groupMap.insert(containerManager, containerSubItems);
     m_isShowMap.insert(containerManager, true);
 
-    QListWidgetItem* imageManager = createGuideItem(tr("Image Manager"), GUIDE_ITEM_TYPE_NORMAL, ":/images/image-manager.svg");
-    QListWidgetItem* nodeManager = createGuideItem(tr("Node Manager"), GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
+    QListWidgetItem* imageManager = createGuideItem(IMAGE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/image-manager.svg");
+    QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
 
     //show first
     GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(containerManager));
@@ -219,9 +232,9 @@ void MainWindow::initUI()
         subItem->setHidden(false);
     }
     ///TODO:set current widget to home
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(GUIDE_ITEM_CONTAINER_LIST));
-    ui->listWidget->setCurrentRow(GUIDE_ITEM_CONTAINER_LIST);
-    m_pageMap[GUIDE_ITEM_CONTAINER_LIST]->updateInfo();
+    m_stackedWidget->setCurrentWidget(m_pageMap.value(CONTAINER_LIST));
+    ui->listWidget->setCurrentRow(6);
+    m_pageMap[CONTAINER_LIST]->updateInfo();
 
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
@@ -283,6 +296,8 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     else
         customItem->setArrow(true);
     ui->listWidget->setGridSize(QSize(220, 50));
+
+    newItem->setData(Qt::UserRole, text);
 
     return newItem;
 }
