@@ -2,7 +2,6 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QTime>
 #include "flowlayout.h"
-#include "trend-chart-form.h"
 #include "ui_monitor.h"
 
 #define CHART_SERIES_NAME_CPU "CPU Usage"
@@ -97,10 +96,6 @@ void Monitor::BuildCharts(TrendChartForm *chartForm, QStringList seriesNames, QS
     chartForm->initChart(chartInfo);
 }
 
-void Monitor::setChartData()
-{
-}
-
 void Monitor::onCycleChanged(int index)
 {
     KLOG_INFO() << "onCycleChanged: " << index;
@@ -124,32 +119,32 @@ void Monitor::onCycleChanged(int index)
         m_xInterval = 5;
         break;
     case CHART_CYCLE_ONE_DAY:
-        startDate = currDate.addSecs(-(24 * 60 * 60));
-        m_xFormat = "dd:hh:mm";
+        startDate = currDate.addDays(-1);
+        m_xFormat = "dd hh:mm";
         m_xStart = startDate;
         m_xEnd = currDate;
         m_xInterval = 2 * 60;
         break;
     case CHART_CYCLE_ONE_WEEK:
-        startDate = currDate.addSecs(-(7 * 24 * 60 * 60));
-        m_xFormat = "MM:dd:hh:mm";
+        startDate = currDate.addDays(-7);
+        m_xFormat = "MM-dd hh:mm";
         m_xStart = startDate;
         m_xEnd = currDate;
         m_xInterval = 12 * 60;
         break;
     case CHART_CYCLE_ONE_MONTH:
-        startDate = currDate.addSecs(-(30 * 24 * 60 * 60));
-        m_xFormat = "yy:MM:dd:hh:mm";
+        startDate = currDate.addDays(-30);
+        m_xFormat = "yy-MM-dd hh:mm";
         m_xStart = startDate;
         m_xEnd = currDate;
         m_xInterval = 2 * 24 * 60;
         break;
     case CHART_CYCLE_CUSTOM:
-        startDate = currDate.addSecs(-(30 * 24 * 60 * 60));
-        m_xFormat = "yy:MM:dd:hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 2 * 24 * 60;
+        //        startDate = currDate.addDays();
+        //        m_xFormat = "yy-MM-dd hh:mm";
+        //        m_xStart = startDate;
+        //        m_xEnd = currDate;
+        //        m_xInterval = 2 * 24 * 60;
         break;
     default:
         break;
@@ -170,60 +165,110 @@ void Monitor::getMonitorHistoryResult(const QPair<grpc::Status, container::Monit
         chartInfo.xEnd = m_xEnd;
 
         QList<QPointF> pointList;
-        pointList.clear();
-        chartInfo.yStart = reply.second.cpu_usage(0).value();
-        chartInfo.yEnd = reply.second.cpu_usage(0).value();
-        KLOG_INFO() << reply.second.cpu_usage_size();
-        KLOG_INFO() << reply.second.cpu_usage(0).value();
-
-        for (auto i : reply.second.cpu_usage())
+        if (reply.second.cpu_usage_size() > 0)
         {
-            KLOG_INFO() << i.timestamp() << i.value();
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
-            pointList.append(point);
+            ChartInfo cpuChartInfo = chartInfo;
+            pointList.clear();
+            cpuChartInfo.yStart = reply.second.cpu_usage(0).value();
+            cpuChartInfo.yEnd = reply.second.cpu_usage(0).value();
+            KLOG_INFO() << reply.second.cpu_usage_size();
+            KLOG_INFO() << reply.second.cpu_usage(0).value();
 
-            chartInfo.yStart = i.value() < chartInfo.yStart ? i.value() : chartInfo.yStart;
-            chartInfo.yEnd = i.value() > chartInfo.yEnd ? i.value() : chartInfo.yEnd;
+            for (auto i : reply.second.cpu_usage())
+            {
+                //KLOG_INFO() << i.timestamp() << i.value();
+                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
+                pointList.append(point);
+
+                cpuChartInfo.yStart = i.value() < cpuChartInfo.yStart ? i.value() : cpuChartInfo.yStart;
+                cpuChartInfo.yEnd = i.value() > cpuChartInfo.yEnd ? i.value() : cpuChartInfo.yEnd;
+            }
+            cpuChartInfo.yEnd = cpuChartInfo.yStart == cpuChartInfo.yEnd ? (cpuChartInfo.yStart + 10) : cpuChartInfo.yEnd;
+            m_cpuChartForm->updateChart(cpuChartInfo);
+            m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
         }
-        m_cpuChartForm->updateChart(chartInfo);
-        m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
 
-        pointList.clear();
-        chartInfo.yStart = reply.second.memory_usage(0).value();
-        chartInfo.yEnd = reply.second.memory_usage(0).value();
-        KLOG_INFO() << reply.second.memory_usage_size();
-        KLOG_INFO() << reply.second.memory_usage(0).value();
-
-        for (auto i : reply.second.memory_usage())
+        if (reply.second.memory_usage_size() > 0)
         {
-            KLOG_INFO() << i.timestamp() << i.value();
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
-            pointList.append(point);
+            pointList.clear();
+            ChartInfo memoryChartInfo = chartInfo;
+            memoryChartInfo.yStart = reply.second.memory_usage(0).value();
+            memoryChartInfo.yEnd = reply.second.memory_usage(0).value();
+            KLOG_INFO() << reply.second.memory_usage_size();
+            KLOG_INFO() << reply.second.memory_usage(0).value();
 
-            chartInfo.yStart = i.value() < chartInfo.yStart ? i.value() : chartInfo.yStart;
-            chartInfo.yEnd = i.value() > chartInfo.yEnd ? i.value() : chartInfo.yEnd;
+            for (auto i : reply.second.memory_usage())
+            {
+                //KLOG_INFO() << i.timestamp() << i.value();
+                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
+                pointList.append(point);
+
+                memoryChartInfo.yStart = i.value() < memoryChartInfo.yStart ? i.value() : memoryChartInfo.yStart;
+                memoryChartInfo.yEnd = i.value() > memoryChartInfo.yEnd ? i.value() : memoryChartInfo.yEnd;
+            }
+            memoryChartInfo.yEnd = memoryChartInfo.yStart == memoryChartInfo.yEnd ? (memoryChartInfo.yStart + 10) : memoryChartInfo.yEnd;
+            m_memoryChartForm->updateChart(memoryChartInfo);
+            m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
         }
-        m_memoryChartForm->updateChart(chartInfo);
-        m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
 
-        //        for (auto i : reply.second.memory_usage())
-        //        {
-        //            KLOG_INFO() << i.timestamp() << i.value();
-        //        }
-        //        for (auto i : reply.second.disk_usage())
-        //        {
-        //            KLOG_INFO() << i.timestamp() << i.value();
-        //        }
-        //        for (auto i : reply.second.net_rx())
-        //        {
-        //            KLOG_INFO() << i.timestamp() << i.value();
-        //        }
-        //        for (auto i : reply.second.net_tx())
-        //        {
-        //            KLOG_INFO() << i.timestamp() << i.value();
-        //        }
+        if (reply.second.disk_usage_size() > 0)
+        {
+            pointList.clear();
+            ChartInfo diskChartInfo = chartInfo;
+            diskChartInfo.yStart = reply.second.disk_usage(0).value();
+            diskChartInfo.yEnd = reply.second.disk_usage(0).value();
+            KLOG_INFO() << reply.second.disk_usage_size();
+            KLOG_INFO() << reply.second.disk_usage(0).value();
+
+            for (auto i : reply.second.disk_usage())
+            {
+                //KLOG_INFO() << i.timestamp() << i.value();
+                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
+                pointList.append(point);
+
+                diskChartInfo.yStart = i.value() < diskChartInfo.yStart ? i.value() : diskChartInfo.yStart;
+                diskChartInfo.yEnd = i.value() > diskChartInfo.yEnd ? i.value() : diskChartInfo.yEnd;
+            }
+            diskChartInfo.yEnd = diskChartInfo.yStart == diskChartInfo.yEnd ? (diskChartInfo.yStart + 10) : diskChartInfo.yEnd;
+            m_diskChartForm->updateChart(diskChartInfo);
+            m_diskChartForm->setData(pointList, CHART_SERIES_NAME_DISK);
+        }
+
+        if (reply.second.net_rx_size() > 0)
+        {
+            QList<QPointF> rxPointList;
+            QList<QPointF> txPointList;
+            ChartInfo netChartInfo = chartInfo;
+            netChartInfo.yStart = reply.second.net_rx(0).value();
+            netChartInfo.yEnd = reply.second.net_rx(0).value();
+            KLOG_INFO() << reply.second.net_rx_size();
+            KLOG_INFO() << reply.second.net_rx(0).value();
+
+            for (auto i : reply.second.net_rx())
+            {
+                //KLOG_INFO() << i.timestamp() << i.value();
+                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
+                rxPointList.append(point);
+
+                netChartInfo.yStart = i.value() < netChartInfo.yStart ? i.value() : netChartInfo.yStart;
+                netChartInfo.yEnd = i.value() > netChartInfo.yEnd ? i.value() : netChartInfo.yEnd;
+            }
+            for (auto i : reply.second.net_tx())
+            {
+                //KLOG_INFO() << i.timestamp() << i.value();
+                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                QPointF point(stempToPos.toMSecsSinceEpoch(), i.value());
+                txPointList.append(point);
+            }
+            netChartInfo.yEnd = netChartInfo.yStart == netChartInfo.yEnd ? (netChartInfo.yStart + 10) : netChartInfo.yEnd;
+            m_netChartForm->updateChart(netChartInfo);
+            m_netChartForm->setData(rxPointList, CHART_SERIES_NAME_NETWORK_RX);
+            m_netChartForm->setData(txPointList, CHART_SERIES_NAME_NETWORK_TX);
+        }
     }
     else
     {
