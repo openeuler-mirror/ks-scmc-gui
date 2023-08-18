@@ -1,4 +1,4 @@
-project(client)
+project(ks-scmc-gui)
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -35,8 +35,8 @@ pkg_search_module(CRYPTOPP REQUIRED cryptopp)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(DATA_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}")
 set(BIN_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
-set(ICON_DIR "${DATA_DIR}/ks-scmc/icons")
-set(TRANSLATIONS_DIR "${DATA_DIR}/ks-scmc/translations/")
+set(ICON_DIR "${DATA_DIR}/${PROJECT_NAME}/icons")
+set(TRANSLATIONS_DIR "${DATA_DIR}/${PROJECT_NAME}/translations/")
 
 #添加config.h.in文件
 configure_file (
