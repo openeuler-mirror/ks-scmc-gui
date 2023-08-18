@@ -6,8 +6,8 @@
 #include <QMutex>
 #include <QStackedWidget>
 #include <QWidget>
-#include "common/def.h"
-#include "common/info-worker.h"
+#include "base/info-worker.h"
+#include "def.h"
 QT_BEGIN_NAMESPACE
 namespace Ui
 {

@@ -465,8 +465,8 @@ MessageDialog #label_body
 {
     font-size:14px;
 }
-/***************************NodeList**********************/
-NodeList #btnCreate,NodeList #btnRemove
+/***************************NodeListPage**********************/
+NodeListPage #btnCreate,NodeListPage #btnRemove
 {
     background-color:#2EB3FF;
     border:none;
@@ -474,58 +474,58 @@ NodeList #btnCreate,NodeList #btnRemove
     font-size:14px;
     color:#ffffff;
 }
-NodeList #btnCreate:hover,NodeList #btnRemove:hover
+NodeListPage #btnCreate:hover,NodeListPage #btnRemove:hover
 {
    background-color:#77ceff;
 }
-NodeList #btnCreate:focus,NodeList #btnRemove:focus
+NodeListPage #btnCreate:focus,NodeListPage #btnRemove:focus
 {
     outline: none;
 }
-NodeList #btnCreate:disabled,NodeList #btnRemove:disabled
+NodeListPage #btnCreate:disabled,NodeListPage #btnRemove:disabled
 {
     color:#919191;
     background:#393939;
 }
 
-/***************************NodeAddition******************/
-NodeAddition
+/***************************NodeAdditionDialog******************/
+NodeAdditionDialog
 {
     background-color:#ffffff;
 }
-NodeAddition QLabel
+NodeAdditionDialog QLabel
 {
     color:#000000;
 }
-NodeAddition QLineEdit
+NodeAdditionDialog QLineEdit
 {
     border:1px solid #E4E7ED;
     border-radius:6px;
     color:#000000;
 }
-NodeAddition #btn_save
+NodeAdditionDialog #btn_save
 {
     background-color:#409EFF;
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
 }
-NodeAddition #btn_save:hover
+NodeAdditionDialog #btn_save:hover
 {
     background-color:#66B1FF;
 }
-NodeAddition #btn_cancel
+NodeAdditionDialog #btn_cancel
 {
     background-color:#ffffff;
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
 }
-NodeAddition #btn_cancel:hover
+NodeAdditionDialog #btn_cancel:hover
 {
     background-color:#EBEEF5;
 }
-NodeAddition #btn_save:focus,NodeAddition #btn_cancel:focus
+NodeAdditionDialog #btn_save:focus,NodeAdditionDialog #btn_cancel:focus
 {
     outline: none;
 }
