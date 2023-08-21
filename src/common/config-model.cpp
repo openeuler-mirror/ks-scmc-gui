@@ -1,6 +1,5 @@
-#include <QDebug>
 #include "config-model.h"
-#include "operate-widget.h"
+#include <QDebug>
 
 ConfigModel::ConfigModel(QStringList &head)
 {
