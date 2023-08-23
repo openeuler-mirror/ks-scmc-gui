@@ -40,7 +40,7 @@ private:
     CommonPage *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
-    void outlinePageChange(GUIDE_ITEM type);
+    void outlinePageChange(int type,QString str);
 
 private slots:
     void onLogoutAction(bool checked);
