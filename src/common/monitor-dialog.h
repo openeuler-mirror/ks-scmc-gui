@@ -24,7 +24,6 @@ enum ChartCycleNum
     CHART_CYCLE_ONE_HOUR,        //12  //5
     CHART_CYCLE_ONE_DAY,         //12  //2 * 60
     CHART_CYCLE_ONE_WEEK,        //14  //12 * 60,
-    CHART_CYCLE_ONE_MONTH,       //15  //2 * 24 * 60
     CHART_CYCLE_CUSTOM           //10  //24 * 60
 };
 
@@ -49,6 +48,8 @@ private:
     void initUI();
     void initChart();
     void BuildCharts(TrendChartForm *chartForm, QStringList seriesName, QString yTitle);
+    int getbit(double num);
+    void handleYValue(double &start, double &end, QString &unit);
 
 private slots:
     void onCycleChanged(int index);
@@ -72,6 +73,7 @@ private:
     QDateTime m_xEnd;
     int m_xInterval;
     QString m_xFormat;
+    QString m_xTitle;
 };
 
 #endif  // MONITOR_DIALOG_H
