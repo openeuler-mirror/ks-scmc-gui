@@ -1,4 +1,5 @@
 #include "config-view.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QDebug>
 #include "common/message-dialog.h"
 #include "config-group.h"
@@ -188,7 +189,7 @@ void ConfigDelegate::sendSaveSlot(ConfigOperateWidget *pCurWidget)
 void ConfigDelegate::sendEditSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
-    qDebug() << __func__ << __LINE__ << ", row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
+    KLOG_DEBUG() << __func__ << __LINE__ << ", row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
 
     if (m_pEditFirst.size() > row)
         m_pEditFirst[row]->setDisabled(false);
