@@ -3,7 +3,7 @@
 
 #include <QDateTime>
 #include <QWidget>
-#include "base/info-worker.h"
+#include "info-worker.h"
 #include "trend-chart-form.h"
 namespace Ui
 {
