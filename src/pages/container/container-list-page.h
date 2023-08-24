@@ -4,12 +4,12 @@
 #include <QMenu>
 #include <QStandardItemModel>
 #include <QWidget>
-#include "base/info-worker.h"
-#include "common-page.h"
+#include "info-worker.h"
+#include "table-page.h"
 
 class ContainerSetting;
 class MonitorDialog;
-class ContainerListPage : public CommonPage
+class ContainerListPage : public TablePage
 {
     Q_OBJECT
 

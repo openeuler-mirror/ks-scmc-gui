@@ -165,7 +165,7 @@ void MonitorDialog::handleYValue(double &start, double &end, QString &unit)
         auto positiveStart = fabs(start);
         int startBit = getbit(positiveStart);
         positiveStart = pow(10, startBit);
-        start = -positiveStart;
+        start = -1 * positiveStart;
         end = 0;
     }
 }

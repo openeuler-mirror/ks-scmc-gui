@@ -1,4 +1,3 @@
-#include "image-manager-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QCryptographicHash>
@@ -10,17 +9,18 @@
 #include <QStandardPaths>
 #include "common/message-dialog.h"
 #include "def.h"
+#include "image-list-page.h"
 
-ImageManagerPage::ImageManagerPage(QWidget *parent) : CommonPage(parent), m_pImageOp(nullptr)
+ImageListPage::ImageListPage(QWidget *parent) : TablePage(parent), m_pImageOp(nullptr)
 {
     initButtons();
     initTable();
     initImageConnect();
 }
 
-ImageManagerPage::~ImageManagerPage()
+ImageListPage::~ImageListPage()
 {
-    KLOG_INFO() << "************Deconstruction ImageManagerPage";
+    KLOG_INFO() << "************Deconstruction ImageListPage";
     if (m_pImageOp)
     {
         delete m_pImageOp;
@@ -28,7 +28,7 @@ ImageManagerPage::~ImageManagerPage()
     }
 }
 
-void ImageManagerPage::updateInfo(QString keyword)
+void ImageListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ImageList updateInfo";
     clearText();
@@ -38,7 +38,7 @@ void ImageManagerPage::updateInfo(QString keyword)
     }
 }
 
-void ImageManagerPage::initTable()
+void ImageListPage::initTable()
 {
     QList<QString> tableHHeaderDate = {
         "",
@@ -55,7 +55,7 @@ void ImageManagerPage::initTable()
     setTableSingleChoose(true);
 }
 
-void ImageManagerPage::initButtons()
+void ImageListPage::initButtons()
 {
     QMap<int, QPushButton *> opBtnMap;
     //按钮
@@ -94,10 +94,10 @@ void ImageManagerPage::initButtons()
         btn->setFixedSize(QSize(78, 32));
         opBtnMap.insert(iter.key(), btn);
     }
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD], &QPushButton::clicked, this, &ImageManagerPage::onBtnUpload);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD], &QPushButton::clicked, this, &ImageManagerPage::onBtnDownload);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE], &QPushButton::clicked, this, &ImageManagerPage::onBtnUpdate);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageManagerPage::onBtnRemove);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnUpload);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnDownload);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE], &QPushButton::clicked, this, &ImageListPage::onBtnUpdate);
+    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageListPage::onBtnRemove);
 
     addSingleOperationButton(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD]);
     addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE]
@@ -107,18 +107,18 @@ void ImageManagerPage::initButtons()
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
-void ImageManagerPage::initImageConnect()
+void ImageListPage::initImageConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageManagerPage::getListDBResult);
-    //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageManagerPage::getCheckResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageManagerPage::getRemoveResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManagerPage::getUploadResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageManagerPage::getUpdateResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageManagerPage::getDownloadImageResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageManagerPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageListPage::getDownloadImageResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageListPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
 }
 
-int ImageManagerPage::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
+int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
 {
     QFile file(fileName);
     QByteArray fileArray;
@@ -138,12 +138,12 @@ int ImageManagerPage::getImageFileInfo(const QString fileName, QString &strSha25
     return 0;
 }
 
-void ImageManagerPage::getImageList()
+void ImageListPage::getImageList()
 {
     InfoWorker::getInstance().listDBImage();
 }
 
-void ImageManagerPage::OperateImage(ImageOperateType type)
+void ImageListPage::OperateImage(ImageOperateType type)
 {
     if (!m_pImageOp)
     {
@@ -165,13 +165,13 @@ void ImageManagerPage::OperateImage(ImageOperateType type)
         switch (type)
         {
         case IMAGE_OPERATE_TYPE_UPLOAD:
-            connect(m_pImageOp, &ImageOperateDialog::sigUploadSave, this, &ImageManagerPage::uploadSaveSlot);
+            connect(m_pImageOp, &ImageOperateDialog::sigUploadSave, this, &ImageListPage::uploadSaveSlot);
             break;
         case IMAGE_OPERATE_TYPE_UPDATE:
-            connect(m_pImageOp, &ImageOperateDialog::sigUpdateSave, this, &ImageManagerPage::updateSaveSlot);
+            connect(m_pImageOp, &ImageOperateDialog::sigUpdateSave, this, &ImageListPage::updateSaveSlot);
             break;
         case IMAGE_OPERATE_TYPE_DOWNLOAD:
-            connect(m_pImageOp, &ImageOperateDialog::sigDownloadSave, this, &ImageManagerPage::downloadSaveSlot);
+            connect(m_pImageOp, &ImageOperateDialog::sigDownloadSave, this, &ImageListPage::downloadSaveSlot);
             break;
         default:
             break;
@@ -185,7 +185,7 @@ void ImageManagerPage::OperateImage(ImageOperateType type)
     }
 }
 
-bool ImageManagerPage::imageIsTransfering(QString imageName, QString version, QString title)
+bool ImageListPage::imageIsTransfering(QString imageName, QString version, QString title)
 {
     if (m_transferImages.contains(imageName + "-" + version))
     {
@@ -199,12 +199,12 @@ bool ImageManagerPage::imageIsTransfering(QString imageName, QString version, QS
     return false;
 }
 
-void ImageManagerPage::onBtnUpload()
+void ImageListPage::onBtnUpload()
 {
     OperateImage(IMAGE_OPERATE_TYPE_UPLOAD);
 }
 
-void ImageManagerPage::onBtnDownload()
+void ImageListPage::onBtnDownload()
 {
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
     if (!info.isEmpty())
@@ -232,12 +232,12 @@ void ImageManagerPage::onBtnDownload()
     }
 }
 
-void ImageManagerPage::onBtnUpdate()
+void ImageListPage::onBtnUpdate()
 {
     OperateImage(IMAGE_OPERATE_TYPE_UPDATE);
 }
 
-void ImageManagerPage::onBtnRemove()
+void ImageListPage::onBtnRemove()
 {
     KLOG_INFO() << "onRemoveImage";
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
@@ -264,7 +264,7 @@ void ImageManagerPage::onBtnRemove()
     }
 }
 
-void ImageManagerPage::uploadSaveSlot(QMap<QString, QString> Info)
+void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
@@ -300,7 +300,7 @@ void ImageManagerPage::uploadSaveSlot(QMap<QString, QString> Info)
     InfoWorker::getInstance().uploadImage(request, imageFile, Info["Sign File"]);
 }
 
-void ImageManagerPage::updateSaveSlot(QMap<QString, QString> Info)
+void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
@@ -339,7 +339,7 @@ void ImageManagerPage::updateSaveSlot(QMap<QString, QString> Info)
     InfoWorker::getInstance().updateImage(request, imageFile, Info["Sign File"]);
 }
 
-void ImageManagerPage::downloadSaveSlot(QMap<QString, QString> Info)
+void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
 
@@ -354,7 +354,7 @@ void ImageManagerPage::downloadSaveSlot(QMap<QString, QString> Info)
     InfoWorker::getInstance().downloadImage(Info["Image Id"].toInt(), Info["Image Name"], Info["Image Version"], Info["Image Path"]);
 }
 
-void ImageManagerPage::checkSaveSlot(QMap<QString, QString> Info)
+void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "Id" << Info["Image Id"] << "Check" << Info["Image Check"]
                 << "Reason" << Info["Image Reason"];
@@ -365,7 +365,7 @@ void ImageManagerPage::checkSaveSlot(QMap<QString, QString> Info)
     InfoWorker::getInstance().checkImage(Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
 }
 
-void ImageManagerPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
+void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     if (reply.first.ok())
@@ -457,7 +457,7 @@ void ImageManagerPage::getListDBResult(const QPair<grpc::Status, image::ListDBRe
     }
 }
 
-void ImageManagerPage::getCheckResult(const QPair<grpc::Status, image::ApproveReply> &reply)
+void ImageListPage::getCheckResult(const QPair<grpc::Status, image::ApproveReply> &reply)
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
@@ -480,7 +480,7 @@ void ImageManagerPage::getCheckResult(const QPair<grpc::Status, image::ApproveRe
     }
 }
 
-void ImageManagerPage::getRemoveResult(const QPair<grpc::Status, image::RemoveReply> &reply)
+void ImageListPage::getRemoveResult(const QPair<grpc::Status, image::RemoveReply> &reply)
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
@@ -507,7 +507,7 @@ void ImageManagerPage::getRemoveResult(const QPair<grpc::Status, image::RemoveRe
     }
 }
 
-void ImageManagerPage::getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply)
+void ImageListPage::getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply)
 {
     if (reply.first.ok())
     {
@@ -529,7 +529,7 @@ void ImageManagerPage::getUploadResult(const QPair<grpc::Status, image::UploadRe
     }
 }
 
-void ImageManagerPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply)
+void ImageListPage::getUpdateResult(const QPair<grpc::Status, image::UpdateReply> &reply)
 {
     if (reply.first.ok())
     {
@@ -551,7 +551,7 @@ void ImageManagerPage::getUpdateResult(const QPair<grpc::Status, image::UpdateRe
     }
 }
 
-void ImageManagerPage::getDownloadImageResult(const QPair<grpc::Status, downloadImageInfo> &reply)
+void ImageListPage::getDownloadImageResult(const QPair<grpc::Status, downloadImageInfo> &reply)
 {
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     bool ret = reply.first.error_code() == 0 ? true : false;
@@ -591,7 +591,7 @@ void ImageManagerPage::getDownloadImageResult(const QPair<grpc::Status, download
     }
 }
 
-void ImageManagerPage::getTransferImageFinishedResult(QString name, QString version)
+void ImageListPage::getTransferImageFinishedResult(QString name, QString version)
 {
     QString image = name + "-" + version;
     QMutexLocker locker(&m_mutex);
