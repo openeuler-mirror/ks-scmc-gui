@@ -1,13 +1,13 @@
+#include "node-list-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QDesktopWidget>
 #include "common/message-dialog.h"
 #include "node-addition-dialog.h"
-#include "node-list-page.h"
 #include "rpc.h"
 #define NODE_ID "node id"
 #define ACTION_COL 1
-NodeListPage::NodeListPage(QWidget *parent) : CommonPage(parent),
+NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr)
 {
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));

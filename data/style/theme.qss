@@ -82,12 +82,12 @@ QPushButton#btn_user::menu-indicator
 /*    left: -5px;*/
 }
 
-/*************************CommonPage*************************/
+/*************************TablePage*************************/
 QToolButton#btn_refresh
 {
     border:none;
 }
-CommonPage QTableView{
+TablePage QTableView{
 /*    border: 1px solid  red;		/*表格外边框*/
     border:none;
     border-top:1px solid #393939;
@@ -99,22 +99,22 @@ CommonPage QTableView{
     font-size: 14px;					/*表格文本大小*/
 /*    font-family: "PingFang SC Regular";		/*表格文本字体*/
 }
-CommonPage QTableView::item
+TablePage QTableView::item
 {
     padding-left:10px;
     border-bottom : 1px solid #393939;
 /*     border-left : 1px solid #393939;*/
     height:60px;
 }
-CommonPage QTableView::indicator:unchecked
+TablePage QTableView::indicator:unchecked
 {
     image: url(:/images/check-default.svg);
 }
-CommonPage QTableView#tableView::indicator:checked
+TablePage QTableView#tableView::indicator:checked
 {
     image: url(:/images/checked.svg);
 }
-CommonPage #lineEdit_search
+TablePage #lineEdit_search
 {
     border:1px solid #393939 ;
     background:#222222;
@@ -122,15 +122,15 @@ CommonPage #lineEdit_search
     border-radius: 4px;
     font-size:14px;
 }
-CommonPage #lineEdit_search:focus
+TablePage #lineEdit_search:focus
 {
     border:1px solid #409EFF ;
 }
-CommonPage #label_search_tips
+TablePage #label_search_tips
 {
     color:#F57900;
 }
-CommonPage
+TablePage
 {
     background:transparent;
 
@@ -223,7 +223,7 @@ QMenu#userMenu::item:selected
 }
 
 /************************HeaderView************************/
-CommonPage HeaderView
+TablePage HeaderView
 {
     background-color:#2d2d2d;
     border:none;
@@ -233,7 +233,7 @@ CommonPage HeaderView
     height:40px;
 }
 
-CommonPage HeaderView::section
+TablePage HeaderView::section
 {
     padding-left:10px;
     background:#2d2d2d;
