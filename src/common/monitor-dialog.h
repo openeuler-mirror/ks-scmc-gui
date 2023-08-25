@@ -43,6 +43,7 @@ class MonitorDialog : public QWidget
 public:
     explicit MonitorDialog(int nodeId, std::string containerId = "", QWidget *parent = nullptr);
     ~MonitorDialog();
+    void updateMonitorInfo();
 
 private:
     void initUI();
@@ -67,7 +68,7 @@ private:
     TrendChartForm *m_memoryChartForm;
     TrendChartForm *m_diskChartForm;
     TrendChartForm *m_netChartForm;
-    int m_nodeId;
+    int m_nodeId = -1;
     std::string m_containerId;
     QDateTime m_xStart;
     QDateTime m_xEnd;
