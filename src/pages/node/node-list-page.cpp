@@ -217,9 +217,15 @@ void NodeListPage::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> 
 
 void NodeListPage::onItemClicked(const QModelIndex &index)
 {
+    KLOG_INFO() << "onItemClicked: " << index.column();
     if (index.column() == 1)
     {
-        KLOG_INFO() << "onItemClicked: " << index.column();
+        auto item = getItem(index.row(), index.column());
+        auto itemInfo = item->data().toMap();
+        qint64 nodeId = itemInfo[NODE_ID].toInt();
+        KLOG_INFO() << "node " << nodeId << "clicked";
+
+        emit sigNodeNameClicked(nodeId);
     }
 }
 
