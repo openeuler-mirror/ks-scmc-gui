@@ -18,6 +18,9 @@ public:
     void addTabPage(QWidget *tabPage, QString key);
     void updateCurrentPage();
 
+protected:
+    void paintEvent(QPaintEvent *event) override;
+
 private:
     void initUI();
 

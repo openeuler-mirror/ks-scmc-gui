@@ -1,8 +1,10 @@
 #include "trend-chart-form.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QDateTimeAxis>
+#include <QStyleOption>
 #include <QVBoxLayout>
 #include <iostream>
+
 TrendChartForm::TrendChartForm(QWidget *parent) : QWidget(parent), m_valueLabel(nullptr), m_chartView(nullptr), m_xAxis(nullptr), m_yAxis(nullptr)
 {
     qRegisterMetaType<ChartInfo>("ChartInfo");
@@ -17,44 +19,52 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
 {
     QChart *chart = m_chartView->chart();
     //折线图
-    int i = 1;
     foreach (auto name, chartInfo.seriesNames)
     {
         QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(2);
-        pen.setColor(QColor(21 * i, 100, 255));
+        pen.setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
         series->setPen(pen);    //折现序列的线条设置
         series->setName(name);  //legend中的文字
         chart->addSeries(series);
-        i++;
-        //series0->setPointLabelsVisible(true);
         connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
     }
+
+    QFont font;
+    font.setPixelSize(12);
+    font.setStyle(QFont::StyleNormal);
     //x轴
     m_xAxis = new QDateTimeAxis();
     m_xAxis->setRange(chartInfo.xStart, chartInfo.xEnd);
+    m_xAxis->setTitleVisible(true);
     m_xAxis->setTitleText(chartInfo.xTitle);
-
+    m_xAxis->setTitleBrush(QBrush(QColor(255, 255, 255)));
     m_xAxis->setTickCount(chartInfo.xTickCount);  //主分隔个数 //设置大刻度线的数目，默认是5，不能小于2
     m_xAxis->setGridLineVisible(true);
     m_xAxis->setMinorGridLineVisible(false);
     m_xAxis->setFormat(chartInfo.xFormat);
+    m_xAxis->setLabelsFont(font);
+    m_xAxis->setLabelsColor(QColor("#919191"));
 
     //Y轴
     m_yAxis = new QValueAxis();
     m_yAxis->setRange(chartInfo.yStart, chartInfo.yEnd);
     m_yAxis->setTickCount(chartInfo.yTickCount);
     m_yAxis->setTitleText(chartInfo.yTitle);
+    m_yAxis->setTitleBrush(QBrush(QColor(255, 255, 255)));
     m_yAxis->setLabelFormat(chartInfo.yFormat);  //"0.00f%"
-    m_yAxis->setMinorTickCount(0);               //设置小刻度线的数目，小刻度线就是没有刻度的线，这里要注意一下，如果你设成5，就是说明两个大刻度线之间有5条小刻度线，分成了6个小区间，而不是5个小区间。
+    m_yAxis->setLabelsFont(font);
+    m_yAxis->setLabelsColor(QColor("#919191"));
+    m_yAxis->setMinorTickCount(0);  //设置小刻度线的数目，小刻度线就是没有刻度的线，这里要注意一下，如果你设成5，就是说明两个大刻度线之间有5条小刻度线，分成了6个小区间，而不是5个小区间。
 
     QPen axisPen;
-    axisPen.setColor(QColor(231, 238, 251));
-    axisPen.setStyle(Qt::DotLine);
-    axisPen.setWidth(2);
+    axisPen.setColor(QColor(57, 57, 57));
+    axisPen.setStyle(Qt::SolidLine);
+    axisPen.setWidth(1);
     m_yAxis->setGridLinePen(axisPen);
+    m_xAxis->setGridLinePen(axisPen);
 
     QList<QAbstractSeries *> series = m_chartView->chart()->series();
     foreach (auto serie, series)
@@ -67,15 +77,18 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
 void TrendChartForm::updateChart(ChartInfo chartInfo)
 {
     KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
+    QChart *chart = m_chartView->chart();
     //x轴
-    m_xAxis->setRange(chartInfo.xStart, chartInfo.xEnd);
-    m_xAxis->setTitleText(chartInfo.xTitle);
-    m_xAxis->setTickCount(chartInfo.xTickCount);  //主分隔个数 //设置大刻度线的数目，默认是5，不能小于2
-    m_xAxis->setFormat(chartInfo.xFormat);
+    chart->axisX()->setRange(chartInfo.xStart, chartInfo.xEnd);
+    chart->axisX()->setTitleText(chartInfo.xTitle);
+    qobject_cast<QDateTimeAxis *>(chart->axisX())->setTickCount(chartInfo.xTickCount);  //主分隔个数 //设置大刻度线的数目，默认是5，不能小于2
+    qobject_cast<QDateTimeAxis *>(chart->axisX())->setFormat(chartInfo.xFormat);
 
     //Y轴
-    m_yAxis->setRange(chartInfo.yStart, chartInfo.yEnd);
-    m_yAxis->setLabelFormat(chartInfo.yFormat);
+    chart->axisY()->setRange(chartInfo.yStart, chartInfo.yEnd);
+    qobject_cast<QValueAxis *>(chart->axisY())->setLabelFormat(chartInfo.yFormat);
+
+    update();
 }
 
 void TrendChartForm::setData(QList<QPointF> datas, QString seriesNames)
@@ -101,11 +114,17 @@ void TrendChartForm::setLegendVisible(bool visible)
     chart->legend()->setVisible(visible);
 }
 
+QSize TrendChartForm::sizeHint() const
+{
+    return QSize(800, 400);
+}
+
 void TrendChartForm::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
     ///TODO:方便测试，后续去掉
-    setFixedSize(800, 400);
+    //setFixedSize(800, 400);
+    //setStyleSheet("QWidget{background:red;}");
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(0);
@@ -113,20 +132,22 @@ void TrendChartForm::initUI()
 
     m_chartView = new QChartView(this);
     m_chartView->setObjectName(QStringLiteral("chartView"));
+    //m_chartView->setStyleSheet("#chartView{background:transparent;}");
     mainLayout->addWidget(m_chartView);
 
     m_valueLabel = new QLabel(this);
-    m_valueLabel->setStyleSheet(QString("QLabel{color:#1564FF; font-family:\"Microsoft Yahei\"; font-size:14px; font-weight:bold;"
-                                        " background-color:rgba(21, 100, 255, 51); border-radius:4px; text-align:center;}"));
-    m_valueLabel->setFixedSize(44, 24);
+    m_valueLabel->setStyleSheet(QString("QLabel{color:#1564FF;font-size:12px; font-weight:normal;"
+                                        " background-color:rgba(255, 255, 255); border-radius:4px; text-align:center;}"));
+    //m_valueLabel->setFixedSize(44, 24);
     m_valueLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_valueLabel->hide();
 
     QChart *chart = new QChart();
     m_chartView->setChart(chart);
     m_chartView->setRenderHint(QPainter::Antialiasing);
-    chart->setBackgroundBrush(QBrush(QColor(248, 251, 255)));
+    chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
     setLegendVisible(true);
+    chart->legend()->setLabelColor(QColor(255, 255, 255));
 }
 
 void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
@@ -153,4 +174,13 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
     {
         m_valueLabel->hide();
     }
+}
+
+void TrendChartForm::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
