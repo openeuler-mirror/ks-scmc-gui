@@ -15,6 +15,7 @@
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
+#include "pages/node/node-page-manager.h"
 #include "table-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
@@ -189,7 +190,7 @@ void MainWindow::initUI()
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
-        {GUIDE_ITEM_NODE_LIST, NODE_MANAGER},
+        {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
         {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
     for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
     {
@@ -325,9 +326,10 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
     {
     }
-    case GUIDE_ITEM_NODE_LIST:
+    case GUIDE_ITEM_NODE_MANAGER:
     {
-        page = new NodeListPage(this);
+        //page = new NodeListPage(this);
+        page = new NodePageManager(this);
         break;
     }
     case GUIDE_ITEM_IMAGE_LIST:

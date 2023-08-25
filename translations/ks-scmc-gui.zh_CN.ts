@@ -973,17 +973,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="178"/>
+        <location filename="../src/main-window.cpp" line="179"/>
         <source>Change Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="179"/>
+        <location filename="../src/main-window.cpp" line="180"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="180"/>
+        <location filename="../src/main-window.cpp" line="181"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1638,63 +1638,63 @@ So as to implement resource allocation based on enterprise organizational struct
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="20"/>
+        <location filename="../src/main-window.cpp" line="21"/>
         <source>General Outline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="21"/>
+        <location filename="../src/main-window.cpp" line="22"/>
         <source>Container Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="22"/>
+        <location filename="../src/main-window.cpp" line="23"/>
         <source>Container List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="23"/>
+        <location filename="../src/main-window.cpp" line="24"/>
         <source>Container Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="24"/>
+        <location filename="../src/main-window.cpp" line="25"/>
         <source>Audit Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="25"/>
+        <location filename="../src/main-window.cpp" line="26"/>
         <source>Audit Apply List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="26"/>
+        <location filename="../src/main-window.cpp" line="27"/>
         <source>Audit Warning List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="27"/>
+        <location filename="../src/main-window.cpp" line="28"/>
         <source>Audit Log List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="28"/>
+        <location filename="../src/main-window.cpp" line="29"/>
         <source>Image Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="29"/>
+        <location filename="../src/main-window.cpp" line="30"/>
         <source>Node Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="30"/>
+        <location filename="../src/main-window.cpp" line="31"/>
         <source>System Manager</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ServerConfigDialog::ServerConfigDialog</name>
+    <name>ServerConfigDialog</name>
     <message>
         <location filename="../src/pages/user/server-config-dialog.cpp" line="48"/>
         <source>Config Server</source>
