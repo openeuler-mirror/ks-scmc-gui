@@ -7,19 +7,19 @@
         <location filename="../src/common/button-delegate.cpp" line="19"/>
         <location filename="../src/common/button-delegate.cpp" line="156"/>
         <source>Run</source>
-        <translation type="unfinished"></translation>
+        <translation>运行</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="20"/>
         <location filename="../src/common/button-delegate.cpp" line="158"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="21"/>
         <location filename="../src/common/button-delegate.cpp" line="160"/>
         <source>Restart</source>
-        <translation type="unfinished"></translation>
+        <translation>重启</translation>
     </message>
 </context>
 <context>
@@ -88,39 +88,39 @@
         <location filename="../src/common/config-table.ui" line="14"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-table.h" line="51"/>
         <source>ConfigTable</source>
-        <translation type="unfinished"></translation>
+        <translation>配置表</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="45"/>
         <source>Container path</source>
-        <translation type="unfinished"></translation>
+        <translation>容器路径</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="45"/>
         <source>Host path</source>
-        <translation type="unfinished"></translation>
+        <translation>主机路径</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="45"/>
         <location filename="../src/common/config-table.cpp" line="47"/>
         <source>Permission</source>
-        <translation type="unfinished"></translation>
+        <translation>允许</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="45"/>
         <location filename="../src/common/config-table.cpp" line="47"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>操作</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="47"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名字</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="47"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>值</translation>
     </message>
 </context>
 <context>
@@ -128,108 +128,108 @@
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="39"/>
         <source>Running</source>
-        <translation type="unfinished"></translation>
+        <translation>运行中</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="40"/>
         <source>Exited</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="41"/>
         <source>Created</source>
-        <translation type="unfinished"></translation>
+        <translation>新建</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="142"/>
         <source>Delete Container</source>
-        <translation type="unfinished"></translation>
+        <translation>删除容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="143"/>
         <source>Are you sure you want to delete the container?</source>
-        <translation type="unfinished"></translation>
+        <translation>您确定要删除这个容器吗？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="144"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>它可以&apos;删除后无法恢复。你确定要继续吗？</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="433"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>创建</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="440"/>
         <source>Create container</source>
-        <translation type="unfinished"></translation>
+        <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="441"/>
         <source>Create container from template</source>
-        <translation type="unfinished"></translation>
+        <translation>创建容器模板</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="448"/>
         <source>Run</source>
-        <translation type="unfinished"></translation>
+        <translation>运行</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="449"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="450"/>
         <source>Restart</source>
-        <translation type="unfinished"></translation>
+        <translation>重启</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="451"/>
         <location filename="../src/pages/container/container-list-page.cpp" line="457"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>删除</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="502"/>
         <source>Container Name</source>
-        <translation type="unfinished"></translation>
+        <translation>容器名</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="503"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>状态</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="504"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="505"/>
         <source>Node</source>
-        <translation type="unfinished"></translation>
+        <translation>节点</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="507"/>
         <source>Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>内存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="508"/>
         <source>Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>磁盘</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="509"/>
         <source>Online Time</source>
-        <translation type="unfinished"></translation>
+        <translation>上线时间</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-list-page.cpp" line="510"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>操作</translation>
     </message>
 </context>
 <context>
@@ -244,62 +244,62 @@
         <location filename="../src/pages/container/container-setting.ui" line="78"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="263"/>
         <source>Node:</source>
-        <translation type="unfinished"></translation>
+        <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="264"/>
         <source>Container Describe:</source>
-        <translation type="unfinished"></translation>
+        <translation>容器描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="108"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="265"/>
         <source>Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="115"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="266"/>
         <source>Container Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>容器名</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="205"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="267"/>
         <source>Desribe:</source>
-        <translation type="unfinished"></translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="212"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="268"/>
         <source>Container Template Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>容器模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="248"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="270"/>
         <source>Basic configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="305"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="269"/>
         <location filename="../src/pages/container/container-setting.cpp" line="97"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="315"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="271"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="392"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="272"/>
         <source>Confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="411"/>
@@ -1030,7 +1030,7 @@
     <message>
         <location filename="../src/common/monitor-content.ui" line="65"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="154"/>
-        <source>Cycle</source>
+        <source>Cycle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1052,75 +1052,75 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="96"/>
+        <location filename="../src/common/monitor-content.cpp" line="95"/>
         <source>10 minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="97"/>
+        <location filename="../src/common/monitor-content.cpp" line="96"/>
         <source>1 hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="98"/>
+        <location filename="../src/common/monitor-content.cpp" line="97"/>
         <source>1 day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="99"/>
+        <location filename="../src/common/monitor-content.cpp" line="98"/>
         <source>1 week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="100"/>
+        <location filename="../src/common/monitor-content.cpp" line="99"/>
         <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="110"/>
+        <location filename="../src/common/monitor-content.cpp" line="109"/>
         <source>CPU usage (unit %)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="111"/>
+        <location filename="../src/common/monitor-content.cpp" line="110"/>
         <source>Memory usage (unit %)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="112"/>
+        <location filename="../src/common/monitor-content.cpp" line="111"/>
         <source>Disk usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="113"/>
+        <location filename="../src/common/monitor-content.cpp" line="112"/>
         <source>Network usage (unit M)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="134"/>
+        <location filename="../src/common/monitor-content.cpp" line="133"/>
         <source>Time particle density(1 minute)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="212"/>
-        <location filename="../src/common/monitor-content.cpp" line="220"/>
+        <location filename="../src/common/monitor-content.cpp" line="211"/>
+        <location filename="../src/common/monitor-content.cpp" line="219"/>
         <source>Time particle density(%1 minute)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="228"/>
-        <location filename="../src/common/monitor-content.cpp" line="236"/>
-        <location filename="../src/common/monitor-content.cpp" line="267"/>
+        <location filename="../src/common/monitor-content.cpp" line="227"/>
+        <location filename="../src/common/monitor-content.cpp" line="235"/>
+        <location filename="../src/common/monitor-content.cpp" line="266"/>
         <source>Time particle density(%1 hour)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="344"/>
+        <location filename="../src/common/monitor-content.cpp" line="343"/>
         <source>Disk IO(unit %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="385"/>
+        <location filename="../src/common/monitor-content.cpp" line="384"/>
         <source>Network usage (unit %1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1231,7 +1231,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="36"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="35"/>
         <source>Monitor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1321,12 +1321,12 @@
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="266"/>
         <source>Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>磁盘</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="267"/>
         <source>Quick Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>操作</translation>
     </message>
 </context>
 <context>
@@ -1387,9 +1387,10 @@
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.cpp" line="32"/>
-        <source>A single neutral console manages heterogeneous infrastructure, interfaces with existing business process platforms, and logically Pools Resources on the cloud,
-So as to implement resource allocation based on enterprise organizational structure and provide standard processes and standardized cloud services.</source>
-        <translation type="unfinished"></translation>
+        <source>The security container management client mainly provides a management interface to realize the management of the server.
+It mainly includes four modules: user management, node management, image and image warehouse management, and container management.</source>
+        <translation>安全容器管理客户端，主要是提供一个管理界面，以实现对服务端的管理。
+主要包含用户管理、节点管理、镜像与镜像仓库管理、容器管理四个模块。</translation>
     </message>
 </context>
 <context>
@@ -1713,42 +1714,42 @@ So as to implement resource allocation based on enterprise organizational struct
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="61"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="60"/>
         <source>Ip Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="64"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="63"/>
         <source>Please input server ip address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="72"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="71"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="75"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="74"/>
         <source>Please input port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="80"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="79"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="81"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="80"/>
         <source>Cancle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="100"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="99"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="101"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="100"/>
         <source>Please input complete server information!</source>
         <translation type="unfinished"></translation>
     </message>
