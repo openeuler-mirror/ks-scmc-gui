@@ -129,6 +129,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             QStandardItem *itemName = new QStandardItem(node.name().data());
             itemName->setData(QVariant::fromValue(idMap));
             itemName->setTextAlignment(Qt::AlignCenter);
+            itemName->setForeground(QBrush(QColor(46, 179, 255)));
 
             QStandardItem *itemIp = new QStandardItem(node.address().data());
             itemIp->setTextAlignment(Qt::AlignCenter);
