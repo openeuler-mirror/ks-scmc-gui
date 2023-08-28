@@ -17,10 +17,10 @@ ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(
     m_pModel = nullptr;
     m_pDelegate = nullptr;
     initwindow();
-    connect(m_pDelegate.get(), SIGNAL(sendSaveSig(int)), this, SLOT(saveRowSlot(int)));
-    connect(m_pDelegate.get(), SIGNAL(sendEditSig(int)), this, SLOT(editRowSlot(int)));
-    connect(m_pDelegate.get(), SIGNAL(sendAddSig(int)), this, SLOT(addRowSlot(int)));
-    connect(m_pDelegate.get(), SIGNAL(sendDeleteSig(int)), this, SLOT(removeRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendSaveSig(int)), this, SLOT(saveRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendEditSig(int)), this, SLOT(editRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendAddSig(int)), this, SLOT(addRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendDeleteSig(int)), this, SLOT(removeRowSlot(int)));
 }
 
 ConfigTable::~ConfigTable()
@@ -40,7 +40,7 @@ void ConfigTable::initwindow()
     ui->tableView->setMouseTracking(true);
     ui->tableView->resizeColumnsToContents();
     m_pHeaderView.reset(new ConfigView(Qt::Horizontal, this));
-    ui->tableView->setHorizontalHeader(m_pHeaderView.get());
+    ui->tableView->setHorizontalHeader(m_pHeaderView.data());
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
 
     QStringList head;
@@ -52,7 +52,7 @@ void ConfigTable::initwindow()
 
     ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:#F0F0F0;color:Black;font-size:12px;}");
     m_pModel.reset(new ConfigModel(head));
-    ui->tableView->setModel(m_pModel.get());
+    ui->tableView->setModel(m_pModel.data());
 
     KLOG_DEBUG() << __func__ << ",whichTable:" << m_ChooseTable;
     if (m_ChooseTable)
@@ -69,7 +69,7 @@ void ConfigTable::initwindow()
     }
 
     m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
-    ui->tableView->setItemDelegate(m_pDelegate.get());
+    ui->tableView->setItemDelegate(m_pDelegate.data());
     initTable();
 }
 
@@ -111,7 +111,7 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
         return;
 
     m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
-    ui->tableView->setItemDelegate(m_pDelegate.get());
+    ui->tableView->setItemDelegate(m_pDelegate.data());
     m_pModel->deleteModelByRow(0);
     for (auto pItem : itemList)
     {

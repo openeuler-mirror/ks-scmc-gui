@@ -36,7 +36,8 @@ public:
             strcmp(info_->method(), "/user.User/UpdatePassword"))
         {
             m_begin = std::chrono::steady_clock::now();
-            auto request = static_cast<const google::protobuf::Message *>(methods->GetSendMessage());
+            //auto request = static_cast<const google::protobuf::Message *>(methods->GetSendMessage());
+	    auto request = (const google::protobuf::Message* )(methods->GetSendMessage());
             // TODO DEBUG LOG
             KLOG_INFO() << "RPC " << info_->method() << "\nrequest: " << request->DebugString().data();
         }
