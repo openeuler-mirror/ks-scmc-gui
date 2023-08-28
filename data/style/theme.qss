@@ -617,16 +617,18 @@ CalendarWidget #CalendarDataLabel
     color:black;
 }
 
-QPushButton#CalendarLeftYearBtn {
+CalendarWidget
+{
+    background:#ffffff;
 }
 
-QPushButton#CalendarLeftMonthBtn {
-}
-
-QPushButton#CalendarRightYearBtn {
-}
-
-QPushButton#CalendarRightMonthBtn {
+CalendarWidget #CalendarLeftYearBtn,
+CalendarWidget #CalendarLeftMonthBtn,
+CalendarWidget #CalendarRightYearBtn,
+CalendarWidget #CalendarRightMonthBtn
+{
+    background:#ffffff;
+    border:none;
 }
 
 CalendarWidget QAbstractItemView {
@@ -634,14 +636,77 @@ CalendarWidget QAbstractItemView {
     color:#919191;
     font: 12px;
 }
-QCalendarWidget QAbstractItemView:enabled
+CalendarWidget QAbstractItemView:enabled
 {
     background:#ffffff;
     color:black;
     font: 12px;
 }
 
-/*CalendarWidget QWidget
+MonitorContent #btn_start, MonitorContent #btn_end
 {
-    background:green;
-}*/
+    border:1px solid #2eb3ff;
+    background:transparent;
+    border-radius:4px;
+}
+MonitorContent #btn_start:focus, MonitorContent #btn_end:focus
+{
+    outline:none;
+}
+
+MonitorContent #btn_apply
+{
+    border-radius:4px;
+    background:#2eb3ff;
+}
+MonitorContent #btn_apply:hover
+{
+    background:#77ceff;
+}
+MonitorContent #btn_apply:focus
+{
+    outline:none;
+}
+
+MonitorContent #cb_select_cycle
+{
+    background:#222222;
+}
+
+TabPage QTabWidget::pane {
+    border:none;
+}
+
+TabPage QTabWidget::tab-bar {
+   /*  left: 5px; move to the right by 5px */
+/*   min-height:30px;*/
+   background: #E5EBF6;
+/*   padding-bottom:10px;*/
+   alignment: left;
+}
+
+/* Style the tab using the tab sub-control. Note that
+    it reads QTabBar _not_ QTabWidget */
+TabPage QTabBar::tab{
+/*    padding-bottom:10px;*/
+    background: #393939;
+    border:none;
+    width: 92px;
+    height:30px;
+    margin:0;
+    margin-bottom: 10px;
+    margin-right:2px;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    font-size:12px;
+}
+TabPage QTabBar::tab:first
+{
+    margin-left:20px;
+}
+
+TabPage QTabBar::tab:selected {
+    background:#2eb3ff;
+/*    border-bottom:2px solid #43A3F5;*/
+    outline:none;
+}

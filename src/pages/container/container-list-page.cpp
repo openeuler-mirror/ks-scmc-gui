@@ -217,8 +217,11 @@ void ContainerListPage::onMonitor(int row)
         m_monitor = new MonitorDialog(nodeId, containerId);
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_monitor->resize(QSize(1650, 832));
+        KLOG_INFO() << m_monitor->width() << m_monitor->height();
         m_monitor->move(screenGeometry.x() + (screenGeometry.width() - m_monitor->width()) / 2,
                         screenGeometry.y() + (screenGeometry.height() - m_monitor->height()) / 2);
+
         m_monitor->show();
 
         connect(m_monitor, &MonitorDialog::destroyed,
@@ -520,7 +523,7 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
@@ -530,7 +533,7 @@ void ContainerListPage::initConnect()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
-    if (nodeId > 0)
+    if (nodeId < 0)
     {
         setBusy(true);
         InfoWorker::getInstance().listNode();
@@ -539,6 +542,7 @@ void ContainerListPage::getContainerList(qint64 nodeId)
     {
         std::vector<int64_t> vecNodeId;
         vecNodeId.push_back(nodeId);
+        connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         InfoWorker::getInstance().listContainer(vecNodeId, true);
     }
 }
@@ -591,11 +595,14 @@ void ContainerListPage::updateInfo(QString keyword)
     clearText();
     //InfoWorker::getInstance().disconnect();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
     if (keyword.isEmpty())
     {
         //initConnect();
         //gRPC->拿数据->填充内容
         connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
+
         getContainerList();
     }
 }

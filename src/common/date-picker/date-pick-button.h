@@ -10,6 +10,9 @@ public:
     explicit DatePickButton(QWidget *parent = nullptr);
     void setText(QString);
 
+protected:
+    void paintEvent(QPaintEvent *event) override;
+
 private:
     void initUI();
     QLabel *m_dateLabel;
