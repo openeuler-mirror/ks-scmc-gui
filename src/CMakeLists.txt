@@ -1,6 +1,6 @@
 set(INCLUDE_DIRS "../include/" "pages/" "common/" "base/")
-set(PAGE_HEAD_DIR "pages/container/")
 set(TS_FILES "../translations/${PROJECT_NAME}.zh_CN.ts" )
+set(PROTO_LIB_DIR "${PROJECT_BINARY_DIR}/proto/")
 
 file(GLOB_RECURSE cur_src "*.cpp")
 file(GLOB_RECURSE HEADERS "*.h")
@@ -26,7 +26,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_BINARY_DIR}
         ${KLOG_QT5_INCLUDE_DIRS}
         ${KIRAN_WIDGETS_QT5_INCLUDE_DIRS}
-        ${PAGE_HEAD_DIR})
+        ${GENERAL_PROTO_HDRS})
 
 target_link_libraries(${PROJECT_NAME}
         proto_lib
