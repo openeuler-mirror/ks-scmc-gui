@@ -3,7 +3,7 @@ QLabel
 {
     font-size:14px;
 }
-QWidget#widget_content
+MainWindow QWidget#widget_content
 {
     background:#2d2d2d;
     border-radius:4px;
@@ -671,6 +671,30 @@ MonitorContent #btn_apply:focus
 MonitorContent #cb_select_cycle
 {
     background:#222222;
+}
+
+/*MonitorContent #widget_content
+{
+    background:transparent;
+}*/
+
+MonitorContent QScrollArea QScrollBar:vertical{
+            min-width: 2px;
+            border-radius:2px;
+            background-color:#919191;
+}
+MonitorContent  QScrollArea QScrollBar::handle:vertical
+{
+           border-radius:4px;
+            background-color:#393939;
+}
+MonitorContent  QScrollArea QScrollBar::sub-line:vertical
+{
+    image:none;
+}
+MonitorContent  QScrollArea QScrollBar::add-line:vertical
+{
+    image:none;
 }
 
 TabPage QTabWidget::pane {

@@ -8,6 +8,11 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId = "", QWidget *
     setMonitorContent(nodeId, containerId);
 }
 
+QSize MonitorDialog::sizeHint() const
+{
+    return QSize(1630, 820);
+}
+
 void MonitorDialog::setMonitorContent(int nodeId, std::string containerId)
 {
     QVBoxLayout *mainVLayout = new QVBoxLayout(getWindowContentWidget());
