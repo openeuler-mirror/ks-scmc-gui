@@ -17,10 +17,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(_REFLECTION grpc++_reflection)
 set(_PROTOBUF_LIBPROTOBUF protobuf)
 set(_GRPC_GRPCPP grpc++)
-set(_CLIENT_FILE client.cpp)
 
 find_program(_PROTOBUF_PROTOC protoc)
-find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
 
 find_package(Protobuf REQUIRED)
 find_package(PkgConfig REQUIRED)
