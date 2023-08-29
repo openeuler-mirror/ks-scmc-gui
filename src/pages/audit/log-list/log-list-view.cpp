@@ -33,6 +33,11 @@ LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(paren
 
 LogListView::~LogListView()
 {
+    if (m_datePicker)
+    {
+        delete m_datePicker;
+        m_datePicker = nullptr;
+    }
 }
 
 void LogListView::updateInfo(QString keyword)
@@ -66,18 +71,18 @@ void LogListView::initTable()
 
 void LogListView::initButtons()
 {
-    QWidget *btn_widget = new QWidget;
+    QWidget *btn_widget = new QWidget(this);
     btn_widget->setContentsMargins(0, 0, 0, 0);
 
-    QLabel *label = new QLabel;
+    QLabel *label = new QLabel(btn_widget);
     label->setText("-");
 
-    m_datePickStart = new DatePickButton;
-    m_datePickEnd = new DatePickButton;
-    QDate currDate = QDate::currentDate();
+    m_datePickStart = new DatePickButton(btn_widget);
+    m_datePickEnd = new DatePickButton(btn_widget);
+    QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
 
-    m_xEnd.setDate(currDate);
-    m_xStart.setDate(currDate.addDays(-7));
+    m_xEnd = currTime;
+    m_xStart.setDate(currTime.date().addDays(-7));
     m_datePickEnd->setText(m_xEnd.date().toString("yy-MM-dd"));
     m_datePickStart->setText(m_xStart.date().toString("yy-MM-dd"));
 
@@ -100,7 +105,7 @@ void LogListView::initButtons()
                 m_datePickEnd->setText(date);
             });
 
-    m_BtnApply = new QPushButton;
+    m_BtnApply = new QPushButton(this);
     Kiran::WidgetPropertyHelper::setButtonType(m_BtnApply, Kiran::BUTTON_Default);
     m_BtnApply->setText(tr("Apply"));
 
@@ -129,16 +134,10 @@ void LogListView::initLogListConnect()
 void LogListView::getLogList(LogListPageType type, int page_on)
 {
     logging::ListRuntimeRequest request;
-
-    //    QDateTime *start_time = new QDateTime();
-    //    start_time->setDate(QDate(2022,5,13));
-    //    start_time->setTime(QTime(1,0));
     request.set_start_time(m_xStart.toSecsSinceEpoch());
-
-    QDateTime time = QDateTime::currentDateTime();
-    //    QString end = time.toString("yyyy/MM/dd hh:mm:ss");
-    // 结束时间加一天，到结束当天的23:59:59时，否则当天的日志无法获取
-    request.set_end_time(m_xEnd.toSecsSinceEpoch() + 86399);
+    request.set_end_time(m_xEnd.toSecsSinceEpoch());
+    KLOG_INFO() << "start:" << m_xStart.toString("yyyy/MM/dd hh:mm:ss")
+                << "end:" << m_xEnd.toString("yyyy/MM/dd hh:mm:ss");
 
     //    request.set_node_id(1);
     switch (type)
@@ -304,7 +303,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
 
                 QStandardItem *itemUser = new QStandardItem(logging.username().data());
                 QStandardItem *itemRes = new QStandardItem();
-                if (logging.error().data())
+                if (!QString::fromStdString(logging.error().data()).isEmpty())
                     itemRes->setText(tr("failed"));
                 else
                     itemRes->setText(tr("success"));

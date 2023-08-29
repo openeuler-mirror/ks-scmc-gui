@@ -30,13 +30,21 @@ QDateTime DatePicker::getStartDate()
 
 QDateTime DatePicker::getEndDate()
 {
-    QDate startDate = m_startCalendar->getSelectDate();
+    //QDate startDate = m_startCalendar->getSelectDate();
     QDate endDate = m_endCalendar->getSelectDate();
     QDateTime end = QDateTime(endDate);
-    if (startDate == endDate)
+    QDateTime curr = QDateTime::currentDateTime();
+
+    //结束日期为当天，则设置结束日期为当前时间
+    if (end.date() == curr.date())
+    {
+        end = curr;
+    }
+    else
     {
         end.setTime(QTime(23, 59, 59));
     }
+
     return end;
 }
 
