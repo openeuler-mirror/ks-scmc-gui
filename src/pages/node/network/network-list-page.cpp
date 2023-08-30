@@ -277,7 +277,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     gridLayout->setMargin(0);
     gridLayout->setSpacing(10);
 
-    QLabel *labName = new QLabel(QString("%1 <font color=red>*</font>").arg(tr("Name:")), content);
+    QLabel *labName = new QLabel(QString("%1<font color=red>*</font>").arg(tr("Name:")), content);
     QLineEdit *lineEditName = new QLineEdit(content);
     lineEditName->setMaxLength(200);
     lineEditName->setFixedHeight(36);
@@ -287,16 +287,12 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     if (type == OPERATE_TYPE_EDIT)
         lineEditName->setDisabled(true);
 
-    QLabel *labSubnet = new QLabel(tr("Subnet:"), content);
+    QLabel *labSubnet = new QLabel(QString("%1<font color=red>*</font>").arg(tr("Subnet:")), content);
     QLineEdit *lineEditSubnet = new QLineEdit(content);
     lineEditSubnet->setFixedHeight(36);
     lineEditSubnet->setPlaceholderText("xxx.xxx.xxx.xxx/xx");
     if (!subnet.isEmpty())
         lineEditSubnet->setText(subnet);
-
-    QRegExp regExp("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?/{1})([0-9]|[12][0-9]|3[0-2])\\b");
-    QRegExpValidator *validator = new QRegExpValidator(regExp, this);
-    lineEditSubnet->setValidator(validator);
 
     QLabel *labBindRealIfs = new QLabel(tr("Bind real interface:"), content);
     QComboBox *cbBindRealIfs = new QComboBox(content);
@@ -335,6 +331,20 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     labTip->setText(tr("Please input complete infomation!"));
                     labTip->show();
                     return;
+                }
+                else
+                {
+                    auto inputSubnet = lineEditSubnet->text();
+                    QRegExp regExp("^(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/([1-9]|[1-2][0-9]|3[0-2])$");
+                    QRegExpValidator *validator = new QRegExpValidator(regExp, this);
+                    int pos = 0;
+                    auto status = validator->validate(inputSubnet, pos);
+                    if (status != QValidator::Acceptable)
+                    {
+                        labTip->setText(tr("Please input correct subnet!"));
+                        labTip->show();
+                        return;
+                    }
                 }
                 labTip->hide();
                 if (type == OPERATE_TYPE_CREATE)
@@ -383,7 +393,6 @@ void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name
     {
         connect(window, &KiranTitlebarWindow::destroyed,
                 [=] {
-                    KLOG_INFO() << " network operate dialog destroy";
                     window->deleteLater();
                     //window = nullptr;
                 });
