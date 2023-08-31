@@ -19,6 +19,8 @@ public:
     void setNodeId(int64_t nodeId);
     void updateInfo(QString keyword = "");
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 private slots:
     void onSave();
     void onCancel();
