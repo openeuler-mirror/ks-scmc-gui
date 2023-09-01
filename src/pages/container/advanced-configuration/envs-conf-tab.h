@@ -23,7 +23,7 @@ class EnvsConfTab : public QWidget
 public:
     explicit EnvsConfTab(QWidget *parent = nullptr);
     ~EnvsConfTab();
-    ErrorCode getEnvInfo(container::ContainerConfigs *cntrCfg);
+    bool getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errMsg);
     void setEnvInfo(const container::ContainerConfigs *cfg);
 
 private:

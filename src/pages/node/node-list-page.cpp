@@ -84,7 +84,6 @@ void NodeListPage::onCreateNode()
         connect(m_nodeAddition, &NodeOperateDialog::sigSave, this, &NodeListPage::onSaveSlot);
         connect(m_nodeAddition, &NodeOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " m_nodeAdditiong destroy";
                     m_nodeAddition->deleteLater();
                     m_nodeAddition = nullptr;
                 });

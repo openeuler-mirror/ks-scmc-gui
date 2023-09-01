@@ -21,7 +21,7 @@ VolumesConfTab::~VolumesConfTab()
     delete ui;
 }
 
-ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
+bool VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg, QString &errMSg)
 {
     if (cfg)
     {
@@ -46,12 +46,17 @@ ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
             }
             else
             {
-                return INPUT_NULL_ERROR;
+                errMSg = tr("Please improve the contents in volumes table!");
+                return false;
             }
         }
-        return NO_ERROR;
+        return true;
     }
-    return CONFIG_ARG_ERROR;
+    else
+    {
+        errMSg = tr("The container config arg is error.");
+        return false;
+    }
 }
 
 void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)

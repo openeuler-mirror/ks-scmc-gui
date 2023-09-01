@@ -23,7 +23,7 @@ class VolumesConfTab : public QWidget
 public:
     explicit VolumesConfTab(QWidget *parent = nullptr);
     ~VolumesConfTab();
-    ErrorCode getVolumeInfo(container::ContainerConfigs *cfg);
+    bool getVolumeInfo(container::ContainerConfigs *cfg, QString &errMSg);
     void setVolumeInfo(const container::ContainerConfigs *cfg);
 
 private:

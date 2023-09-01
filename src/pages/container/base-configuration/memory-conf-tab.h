@@ -25,12 +25,12 @@ public:
     explicit MemoryConfTab(QWidget *parent = nullptr);
     ~MemoryConfTab();
     void setMemoryInfo(container::ResourceLimit *cfg);
-    ErrorCode getMemoryInfo(container::ResourceLimit *cfg);
+    bool getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg);
 
 private:
     //MB->GB,GB->MB
     //stom: Small to Max
-    int limitDataHandle(double originData, QComboBox *unitWidget);
+    double limitDataHandle(double originData, QComboBox *unitWidget);
 
 private:
     Ui::MemoryConfTab *ui;

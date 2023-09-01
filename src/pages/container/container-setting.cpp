@@ -540,19 +540,18 @@ void ContainerSetting::setNodeNetworkList(int nodeId)
 
 bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg)
 {
-    ErrorCode ret;
+    QString errMsg = "";
     //Graph
     auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
     cntrCfg->set_enable_graphic(graphicPage->isGraphic());
 
     //volume mounts
     auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-    ret = volumePage->getVolumeInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
+    if (!volumePage->getVolumeInfo(cntrCfg, errMsg))
     {
         MessageDialog::message(tr("Volumes Data"),
                                tr("Input error"),
-                               tr("Please improve the contents in Volumes table!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
@@ -566,12 +565,11 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-    ret = envPage->getEnvInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
+    if (!envPage->getEnvInfo(cntrCfg, errMsg))
     {
         MessageDialog::message(tr("Env Data"),
                                tr("Input error"),
-                               tr("Please improve the contents in Env table!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
@@ -586,12 +584,11 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 
     //cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    ret = cpuPage->getCPUInfo(limit);
-    if (ret == INPUT_OVERLIMIT_ERROR)
+    if (!cpuPage->getCPUInfo(limit, errMsg))
     {
         MessageDialog::message(tr("CPU Data"),
                                tr("Input error"),
-                               tr("CPU core can't be greater than the node cpu core limit!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
@@ -599,21 +596,11 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 
     //memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    ret = memoryPage->getMemoryInfo(limit);
-    if (ret == INPUT_ARG_ERROR)
+    if (!memoryPage->getMemoryInfo(limit, errMsg))
     {
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return false;
-    }
-    else if (ret == INPUT_OVERLIMIT_ERROR)
-    {
-        MessageDialog::message(tr("Memory Data"),
-                               tr("Input error"),
-                               tr("The soft memory or max memory can't be greater than 2^31!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
@@ -684,40 +671,29 @@ void ContainerSetting::createContainer()
 
 void ContainerSetting::updateContainer()
 {
+    QString errMsg = "";
     container::UpdateRequest request;
-    ErrorCode ret;
     request.set_node_id(m_containerIds.first);
     request.set_container_id(m_containerIds.second.toStdString());
 
     auto rsrcCfg = request.mutable_resource_limit();
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    ret = cpuPage->getCPUInfo(rsrcCfg);
-    if (ret == INPUT_OVERLIMIT_ERROR)
+    if (!cpuPage->getCPUInfo(rsrcCfg, errMsg))
     {
         MessageDialog::message(tr("CPU Data"),
                                tr("Input error"),
-                               tr("CPU core can't be greater than the node cpu core limit!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
 
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    ret = memoryPage->getMemoryInfo(rsrcCfg);
-    if (ret == INPUT_ARG_ERROR)
+    if (!memoryPage->getMemoryInfo(rsrcCfg, errMsg))
     {
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-    else if (ret == INPUT_OVERLIMIT_ERROR)
-    {
-        MessageDialog::message(tr("Memory Data"),
-                               tr("Input error"),
-                               tr("The soft memory or max memory can't be greater than 2^31!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
@@ -798,7 +774,6 @@ void ContainerSetting::createTemplate()
 void ContainerSetting::updateTemplate()
 {
     container::UpdateTemplateRequest request;
-    ErrorCode ret;
     auto data = request.mutable_data();
     data->set_id(m_templateId);
     data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));

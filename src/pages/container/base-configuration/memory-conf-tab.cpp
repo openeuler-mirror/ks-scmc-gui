@@ -7,6 +7,9 @@
 #include "memory-conf-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include "ui_memory-conf-tab.h"
+
+#define MIN_SOFT_LIMIT 6
+#define MAX_SOFT_LIMIT INT_MAX
 MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
                                                 ui(new Ui::MemoryConfTab)
 {
@@ -17,12 +20,13 @@ MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
         cb->addItems(QStringList() << "MB"
                                    << "GB");
     }
+    ui->lineEdit_soft_limit->setPlaceholderText(tr("Between %1MB - %2MB").arg(MIN_SOFT_LIMIT).arg(MAX_SOFT_LIMIT));
     ui->lineEdit_soft_limit->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_max_limit->setTextMargins(10, 0, 0, 0);
 
-    QRegExp regExp("[0-9]+\\.?[0-9]+");
-    ui->lineEdit_soft_limit->setValidator(new QRegExpValidator(regExp));
-    ui->lineEdit_max_limit->setValidator(new QRegExpValidator(regExp));
+    QRegExp regExp("[0-9]*\\.?([0-9]{2})");
+    ui->lineEdit_soft_limit->setValidator(new QRegExpValidator(regExp, this));
+    ui->lineEdit_max_limit->setValidator(new QRegExpValidator(regExp, this));
 }
 
 MemoryConfTab::~MemoryConfTab()
@@ -34,8 +38,8 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        int memLimit = limitDataHandle(cfg->memory_limit(), ui->cb_max_unit);
-        int softLimit = limitDataHandle(cfg->memory_soft_limit(), ui->cb_soft_unit);
+        auto memLimit = limitDataHandle(cfg->memory_limit(), ui->cb_max_unit);
+        auto softLimit = limitDataHandle(cfg->memory_soft_limit(), ui->cb_soft_unit);
         KLOG_INFO() << "memory_limit: " << cfg->memory_limit()
                     << "memory_soft_limit" << cfg->memory_soft_limit();
 
@@ -44,7 +48,7 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
     }
 }
 
-ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg)
+bool MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg)
 {
     if (cfg)
     {
@@ -56,23 +60,32 @@ ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg)
 
         if (maxLimit < 0 || softLimit < 0)  //判断内存软限制和最大值是否溢出
         {
-            KLOG_INFO() << "The soft memory or max memory is overload";
-            return INPUT_OVERLIMIT_ERROR;
+            errMsg = tr("The memory soft limit or max limit is more than %1 MB.").arg(MAX_SOFT_LIMIT);
+            return false;
+        }
+        else if (softLimit < MIN_SOFT_LIMIT)
+        {
+            errMsg = tr("The memory soft limit is less then %1 MB.").arg(MIN_SOFT_LIMIT);
+            return false;
         }
         else if (softLimit > maxLimit)  // 判断内存软限制是否大于最大限制
         {
-            KLOG_INFO() << "The soft momory is greater then the max memory";
-            return INPUT_ARG_ERROR;
+            errMsg = tr("The momory soft limit is greater then the memory max limit.");
+            return false;
         }
 
         cfg->set_memory_limit(maxLimit);
         cfg->set_memory_soft_limit(softLimit);
-        return NO_ERROR;
+        return true;
     }
-    return CONFIG_ARG_ERROR;
+    else
+    {
+        errMsg = tr("The container resource limit config arg is error.");
+        return false;
+    }
 }
 
-int MemoryConfTab::limitDataHandle(double originData, QComboBox *unitWidget)
+double MemoryConfTab::limitDataHandle(double originData, QComboBox *unitWidget)
 {
     QString unit = unitWidget->currentText();
     int limit = originData;

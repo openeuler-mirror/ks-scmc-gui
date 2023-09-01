@@ -22,7 +22,7 @@ EnvsConfTab::~EnvsConfTab()
     delete ui;
 }
 
-ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
+bool EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errMsg)
 {
     if (cntrCfg)
     {
@@ -38,15 +38,22 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
             if (key.isEmpty())
             {
                 if (!value.isEmpty())
-                    return INPUT_NULL_ERROR;
+                {
+                    errMsg = tr("Please improve the contents in Env table!");
+                    return false;
+                }
                 else
                     continue;
             }
             env->insert({key.toStdString(), value.toStdString()});
         }
-        return NO_ERROR;
+        return true;
     }
-    return CONFIG_ARG_ERROR;
+    else
+    {
+        errMsg = tr("The container config arg is error.");
+        return false;
+    }
 }
 
 void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)

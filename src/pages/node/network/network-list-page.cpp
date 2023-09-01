@@ -294,6 +294,10 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     if (!subnet.isEmpty())
         lineEditSubnet->setText(subnet);
 
+    QRegExp regExp("^[0-9./]+$");
+    QRegExpValidator *validator = new QRegExpValidator(regExp, this);
+    lineEditSubnet->setValidator(validator);
+
     QLabel *labBindRealIfs = new QLabel(tr("Bind real interface:"), content);
     QComboBox *cbBindRealIfs = new QComboBox(content);
     cbBindRealIfs->setFixedHeight(36);

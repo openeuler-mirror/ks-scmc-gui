@@ -12,6 +12,7 @@
 #include <QDesktopWidget>
 #include <QLabel>
 #include <QPushButton>
+#include <QRegExpValidator>
 #include <QVBoxLayout>
 #include "user-configuration.h"
 
@@ -65,6 +66,8 @@ void ServerConfigDialog::initUI()
     m_ipLineEdit->setFixedSize(370, 36);
     m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
     m_ipLineEdit->setTextMargins(10, 0, 0, 0);
+    QRegExp rx("^[0-9.]+$");
+    m_ipLineEdit->setValidator(new QRegExpValidator(rx, this));
     ipLayout->addWidget(ipLab);
     ipLayout->addWidget(m_ipLineEdit);
 
