@@ -18,28 +18,40 @@ NetworkConfTab::~NetworkConfTab()
 
 void NetworkConfTab::getNetworkInfo(container::CreateRequest *req)
 {
-    //    auto cfg = req->mutable_network_config();
-    //    QString str = ui->cb_virt_networkcard->currentText();
-    //    QString name = str.split(" ").first();  // 网卡名
+        auto cfg = req->add_network_config();
+        QString str = ui->cb_virt_networkcard->currentText();
+        QString name = str.split(" ").first();  // 网卡名
+        container::NetworkConfig network;
 
-    //    container::EndpointSetting setting;
-    //    auto ipam = setting.mutable_ipam_config();
-    //    ipam->set_ipv4_address(ui->lineEdit_ip->text().toStdString());
-    //    setting.set_mac_address(ui->lineEdit_mac->text().toStdString());
-
-    //    cfg->insert({name.toStdString(), setting});
+        cfg->set_interface(name.toStdString());
+        cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
+        cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
 }
 
 void NetworkConfTab::updateNetworkInfo(int64_t node_id)
 {
+    KLOG_INFO() << node_id;
     InfoWorker::getInstance().listNetwork(node_id);
 }
 
 void NetworkConfTab::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
 {
-    //    if (reply.first.ok())
-    //    {
-    //        ui->cb_virt_networkcard->clear();
+        KLOG_INFO();
+        if (reply.first.ok())
+        {
+            ui->cb_virt_networkcard->clear();
+            for (auto ifs : reply.second.virtual_ifs())
+            {
+                KLOG_INFO() << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
+                auto name = ifs.name();
+                auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+                QString str = QString("%1 (%2:%3)")
+                    .arg(QString::fromStdString(name))
+                    .arg(tr("Subnet"))
+                    .arg(QString::fromStdString(subnet));
+                KLOG_INFO() << str;
+                ui->cb_virt_networkcard->addItem(str);
+            }
     //        QString gatewaykStr;
     //        QString tips;
     //        for (auto bridge : reply.second.bridge_if())
@@ -80,7 +92,7 @@ void NetworkConfTab::getNetworkListResult(const QPair<grpc::Status, network::Lis
     //                ui->lineEdit_ip->setToolTip(tips);
     //            }
     //        }
-    //    }
+        }
 }
 
 void NetworkConfTab::initUI()
