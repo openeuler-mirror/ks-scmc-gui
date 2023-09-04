@@ -54,6 +54,7 @@ private slots:
     void getUploadResult(const QString objId, const QPair<grpc::Status, image::UploadReply> &reply);
     void getUpdateResult(const QString objId, const QPair<grpc::Status, image::UpdateReply> &reply);
     void getDownloadImageResult(const QString objId, const QPair<grpc::Status, downloadImageInfo> &reply);
+    void getSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &reply);
     void getTransferImageFinishedResult(QString name, QString version);
 
 signals:
@@ -68,6 +69,7 @@ private:
     QVector<QString> is_del_row;
     bool is_init_audit_btn = false;
     bool is_open_checkbox = true;
+    bool m_securityOpen;
 };
 
 #endif  // IMAGELISTPAGE_H

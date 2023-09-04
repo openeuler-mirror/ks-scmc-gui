@@ -37,7 +37,7 @@ class ImageOperateDialog : public KiranTitlebarWindow
     Q_OBJECT
 
 public:
-    explicit ImageOperateDialog(ImageOperateType type, QWidget *parent = nullptr);
+    explicit ImageOperateDialog(ImageOperateType type, bool securityOpen, QWidget *parent = nullptr);
     ~ImageOperateDialog();
     void setImageInfo(QMap<QString, QVariant> imageInfoMap);
 
@@ -66,6 +66,7 @@ private:
     QString m_imageId;
     ImageOperateType m_type;
     QString m_desc;
+    bool m_securityOpen;
 };
 
 #endif  // IMAGEOPERATEDIALOG_H

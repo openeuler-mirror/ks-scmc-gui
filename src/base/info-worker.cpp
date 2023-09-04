@@ -938,6 +938,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UploadReply> r;
 
+    //检测rpc连接
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
@@ -948,10 +949,12 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         return r;
     }
 
+    //检测用户认证
     grpc::ClientContext context;
     if (s_authKey.size() > 0)
         context.AddMetadata("authorization", s_authKey);
 
+    //检测镜像文件
     QFile imgFile(imageFile);
     if (!imgFile.open(QIODevice::ReadOnly))
     {
@@ -967,32 +970,36 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     size_t n;
     char buf[CHUNK_SIZE];
 
-    QFile sigFile(signFile);
-    if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
+    //检测签名文件
+    if (!signFile.isEmpty())
     {
-        KLOG_INFO() << "Failed to open " << signFile;
-        imgFile.close();
-        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                               QObject::tr("Invalid Argument").toStdString());
-        emit InfoWorker::getInstance().transferImageFinished(name, version);
-        return r;
-    }
+        QFile sigFile(signFile);
+        if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
+        {
+            KLOG_INFO() << "Failed to open " << signFile;
+            imgFile.close();
+            r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                   QObject::tr("Invalid Argument").toStdString());
+            emit InfoWorker::getInstance().transferImageFinished(name, version);
+            return r;
+        }
 
-    auto signContent = sigFile.readAll();
-    if (signContent.size() == 0)
-    {
-        // 读取签名文件错误
-        KLOG_INFO() << "Read sign file " << signFile;
-        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                               QObject::tr("Invalid Argument").toStdString());
-        emit InfoWorker::getInstance().transferImageFinished(name, version);
+        auto signContent = sigFile.readAll();
+        if (signContent.size() == 0)
+        {
+            // 读取签名文件错误
+            KLOG_INFO() << "Read sign file " << signFile;
+            r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                   QObject::tr("Invalid Argument").toStdString());
+            emit InfoWorker::getInstance().transferImageFinished(name, version);
+            sigFile.close();
+            imgFile.close();
+            return r;
+        }
         sigFile.close();
-        imgFile.close();
-        return r;
+        req.mutable_sign()->set_chunk_data(signContent.data(), signContent.size());
     }
-    sigFile.close();
 
-    req.mutable_sign()->set_chunk_data(signContent.data(), signContent.size());
     auto stream = image::Image::NewStub(chan)->Upload(&context, &r.second);
     if (!stream->Write(req))
     {
@@ -1002,7 +1009,11 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         emit InfoWorker::getInstance().transferImageFinished(name, version);
         goto finish;
     }
-    req.release_sign();
+    if (req.has_sign())
+    {
+        //第一次Write后就会将签名文件写入至Stream，这里释放是为了防止后面将签名文件重复写入，节约时间
+        req.release_sign();
+    }
 
     while ((n = imgFile.read(buf, CHUNK_SIZE)) > 0)
     {
@@ -1054,6 +1065,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UpdateReply> r;
 
+    //检测rpc连接
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
@@ -1064,12 +1076,14 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         return r;
     }
 
+    //检测用户认证
     grpc::ClientContext context;
     if (s_authKey.size() > 0)
         context.AddMetadata("authorization", s_authKey);
 
+    //检测镜像文件
     auto stream = image::Image::NewStub(chan)->Update(&context, &r.second);
-    if (imageFile.isEmpty() && signFile.isEmpty())
+    if (imageFile.isEmpty() && signFile.isEmpty())  //只修改描述信息
     {
         if (!stream->Write(req))
         {
@@ -1092,37 +1106,41 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             return r;
         }
 
-        QFile sigFile(signFile);
-        if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
+        if (!signFile.isEmpty())
         {
-            KLOG_INFO() << "Failed to open " << signFile;
-            r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                   QObject::tr("Invalid Argument").toStdString());
-            emit InfoWorker::getInstance().transferImageFinished(name, version);
-            imgFile.close();
-            return r;
-        }
+            QFile sigFile(signFile);
+            if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
+            {
+                KLOG_INFO() << "Failed to open " << signFile;
+                r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                       QObject::tr("Invalid Argument").toStdString());
+                emit InfoWorker::getInstance().transferImageFinished(name, version);
+                imgFile.close();
+                return r;
+            }
 
-        auto signContent = sigFile.readAll();
-        if (signContent.size() == 0)
-        {
-            // 读取签名文件错误
-            KLOG_INFO() << "Read sign file " << signFile;
-            r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                   QObject::tr("Invalid Argument").toStdString());
-            emit InfoWorker::getInstance().transferImageFinished(name, version);
-            imgFile.close();
+            auto signContent = sigFile.readAll();
+            if (signContent.size() == 0)
+            {
+                // 读取签名文件错误
+                KLOG_INFO() << "Read sign file " << signFile;
+                r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                                       QObject::tr("Invalid Argument").toStdString());
+                emit InfoWorker::getInstance().transferImageFinished(name, version);
+                imgFile.close();
+                sigFile.close();
+                return r;
+            }
+
+            req.mutable_sign()->set_chunk_data(signContent.data(), signContent.size());
             sigFile.close();
-            return r;
         }
-        sigFile.close();
 
         const auto imgFileSize = imgFile.size();
         int64_t trans(0), progress(0);
         size_t n;
         char buf[CHUNK_SIZE];
 
-        req.mutable_sign()->set_chunk_data(signContent.data(), signContent.size());
         if (!stream->Write(req))
         {
             KLOG_INFO() << "send param err";
@@ -1132,7 +1150,11 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             imgFile.close();
             goto finish;
         }
-        req.release_sign();
+        if (req.has_sign())
+        {
+            //第一次Write后就会将签名文件写入至Stream，这里释放是为了防止后面将签名文件重复写入，节约时间
+            req.release_sign();
+        }
 
         while ((n = imgFile.read(buf, CHUNK_SIZE)) > 0)
         {

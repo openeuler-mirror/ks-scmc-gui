@@ -22,13 +22,17 @@
 #include "notification-manager.h"
 using namespace grpc;
 
-ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_pImageOp(nullptr)
+ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent),
+                                                           m_pImageOp(nullptr),
+                                                           m_securityOpen(true)
 {
     is_init_audit_btn = flag;
     m_objId = InfoWorker::generateId(this);
+
     initButtons();
     initTable();
     initImageConnect();
+    InfoWorker::getInstance().getSecuritySwitch(m_objId);
 }
 
 ImageListPage::~ImageListPage()
@@ -185,6 +189,7 @@ void ImageListPage::initImageConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageListPage::getDownloadImageResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::getSecuritySwitchFinished, this, &ImageListPage::getSecuritySwitchResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageListPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
 }
 
@@ -222,7 +227,7 @@ void ImageListPage::OperateImage(ImageOperateType type)
 {
     if (!m_pImageOp)
     {
-        m_pImageOp = new ImageOperateDialog(type);
+        m_pImageOp = new ImageOperateDialog(type, m_securityOpen);
         if (type == IMAGE_OPERATE_TYPE_UPDATE)
         {
             QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);  //只能选择一个
@@ -465,7 +470,8 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
                 << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
-    QString imageFile = Info["Image File"];
+    const QString imageFile = Info["Image File"];
+    const QString signFile = Info["Sign File"];
     QString strSha256;
     qint64 fileSize;
     if (0 > getImageFileInfo(imageFile, strSha256, fileSize))
@@ -495,14 +501,18 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
     pInfo->set_checksum(strSha256.toStdString());
     pInfo->set_description(Info["Image Description"].toStdString());
     pInfo->set_size(fileSize);
-    auto pSignInfo = request.mutable_sign();
-    QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
-    KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
-    pSignInfo->set_size(fileInfo.size());
-    pSignInfo->mutable_chunk_data();
+
+    if (!signFile.isEmpty())
+    {
+        auto pSignInfo = request.mutable_sign();
+        QFileInfo fileInfo = QFileInfo(signFile);
+        KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
+        pSignInfo->set_size(fileInfo.size());
+        pSignInfo->mutable_chunk_data();
+    }
 
     InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().uploadImage(m_objId, request, imageFile, Info["Sign File"]);
+    InfoWorker::getInstance().uploadImage(m_objId, request, imageFile, signFile);
 }
 
 void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
@@ -556,11 +566,14 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         pInfo->set_type(suffix.toStdString());
         pInfo->set_checksum(strSha256.toStdString());
 
-        auto pSignInfo = request.mutable_sign();
-        QFileInfo fileInfo = QFileInfo(signFile);
-        KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
-        pSignInfo->set_size(fileInfo.size());
-        pSignInfo->mutable_chunk_data();
+        if (!signFile.isEmpty())
+        {
+            auto pSignInfo = request.mutable_sign();
+            QFileInfo fileInfo = QFileInfo(signFile);
+            KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
+            pSignInfo->set_size(fileInfo.size());
+            pSignInfo->mutable_chunk_data();
+        }
     }
 
     pInfo->set_size(fileSize);
@@ -833,6 +846,20 @@ void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc
                                    msg.data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
+        }
+    }
+}
+void ImageListPage::getSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &reply)
+{
+    if (m_objId == objId)
+    {
+        if (reply.first.ok())
+        {
+            m_securityOpen = reply.second.is_on();
+        }
+        else
+        {
+            KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
         }
     }
 }

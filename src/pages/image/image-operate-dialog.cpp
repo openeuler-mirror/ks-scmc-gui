@@ -13,11 +13,11 @@
 #include <QToolTip>
 #include "common/message-dialog.h"
 #include "ui_image-operate-dialog.h"
-ImageOperateDialog::ImageOperateDialog(ImageOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
-                                                                                 ui(new Ui::ImageOperateDialog),
-                                                                                 m_type(type)
+ImageOperateDialog::ImageOperateDialog(ImageOperateType type, bool securityOpen, QWidget *parent) : KiranTitlebarWindow(parent),
+                                                                                                    ui(new Ui::ImageOperateDialog),
+                                                                                                    m_type(type),
+                                                                                                    m_securityOpen(securityOpen)
 {
-    KLOG_INFO() << "ImageOperateDialog";
     ui->setupUi(getWindowContentWidget());
     initUI();
 
@@ -105,9 +105,8 @@ void ImageOperateDialog::UploadParamDeal()
     QString imageFile = ui->lineEditImageFile->text();
     QString signFile = ui->lineEditImageSign->text();
 
-    if (name.isEmpty() || version.isEmpty() || imageFile.isEmpty() || signFile.isEmpty())
+    if (name.isEmpty() || version.isEmpty() || imageFile.isEmpty() || (m_securityOpen && signFile.isEmpty()))
     {
-        KLOG_INFO() << name << version << imageFile << signFile;
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload Image failed!"),
                                tr("Please improve the content!"),
@@ -121,7 +120,7 @@ void ImageOperateDialog::UploadParamDeal()
         ui->label_tip_image->setText(tr("Can't open image file!"));
         return;
     }
-    if (!checkFileOpenable(signFile))
+    if (m_securityOpen && !checkFileOpenable(signFile))
     {
         ui->label_tip_sign->setText(tr("Can't open signature file!"));
         return;
@@ -132,7 +131,7 @@ void ImageOperateDialog::UploadParamDeal()
     uploadInfo.insert("Image Version", version);
     uploadInfo.insert("Image Description", desc);
     uploadInfo.insert("Image File", imageFile);
-    uploadInfo.insert("Sign File", signFile);
+    uploadInfo.insert("Sign File", m_securityOpen ? signFile : "");
     emit sigUploadSave(uploadInfo);
     close();
 }
@@ -148,61 +147,81 @@ void ImageOperateDialog::updateParamDeal()
 
     KLOG_INFO() << name << version << imageId << desc << imageFile;
 
-    bool checkVal = false;
-
     //逻辑没有问题，用户如果想把desc变空，只能将镜像和签名重新传一次
-    if ((!imageFile.isEmpty() && !signFile.isEmpty()) ||
-        (imageFile.isEmpty() && signFile.isEmpty() && !desc.isEmpty()))
+    if (m_securityOpen)
     {
-        if (!imageFile.isEmpty() && !signFile.isEmpty())
+        if (imageFile.isEmpty() && signFile.isEmpty() && desc.isEmpty())
+        {
+            MessageDialog::message(tr("Update Image"),
+                                   tr("Update Image failed!"),
+                                   tr("Please improve the content!"),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Ok);
+            return;
+        }
+
+        if (imageFile.isEmpty() && !signFile.isEmpty())
+        {
+            ui->label_tip_image->setText(tr("Please input image file!"));
+            return;
+        }
+        else if (signFile.isEmpty() && !imageFile.isEmpty())
+        {
+            ui->label_tip_sign->setText(tr("Please input signature file!"));
+            return;
+        }
+        else if (!imageFile.isEmpty() && !signFile.isEmpty())
         {
             QFile fileImage(imageFile);
             QFile fileSign(signFile);
-            do
+
+            if (!fileImage.open(QIODevice::ReadOnly))
             {
-                if (!fileImage.open(QIODevice::ReadOnly))
-                {
-                    ui->label_tip_image->setText(tr("Can't open image file!"));
-                    checkVal = false;
-                    break;
-                }
-                else if (!fileSign.open(QIODevice::ReadOnly))
-                {
-                    ui->label_tip_sign->setText(tr("Can't open signature file!"));
-                    checkVal = false;
-                    break;
-                }
-                checkVal = true;
-
-            } while (0);
-
-            fileImage.close();
-            fileSign.close();
-            if (!checkVal)
+                ui->label_tip_image->setText(tr("Can't open image file!"));
                 return;
-        }
+            }
+            fileImage.close();
 
-        QMap<QString, QString> updateInfo;
-        updateInfo.insert("Image Id", imageId);
-        updateInfo.insert("Image Name", name);
-        updateInfo.insert("Image Version", version);
-        updateInfo.insert("Image Description", desc);
-        updateInfo.insert("Image File", imageFile);
-        updateInfo.insert("Sign File", signFile);
-        emit sigUpdateSave(updateInfo);
-        close();
+            if (!fileSign.open(QIODevice::ReadOnly))
+            {
+                ui->label_tip_sign->setText(tr("Can't open signature file!"));
+                return;
+            }
+            fileSign.close();
+        }
     }
     else
     {
-        //修改判断顺序，当镜像/签名有一个存在时，判断另一个
-        if (imageFile.isEmpty() && !signFile.isEmpty())
-            ui->label_tip_image->setText(tr("Please input image file!"));
-        else if (signFile.isEmpty() && !imageFile.isEmpty())
-            ui->label_tip_sign->setText(tr("Please input signature file!"));
-        else if (desc.isEmpty())
-            ui->label_tip_desc->setText(tr("Please input the description of image!"));
-        return;
+        if (imageFile.isEmpty() && desc.isEmpty())
+        {
+            MessageDialog::message(tr("Update Image"),
+                                   tr("Update Image failed!"),
+                                   tr("Please improve the content!"),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Ok);
+            return;
+        }
+        else if (!imageFile.isEmpty())
+        {
+            QFile fileImage(imageFile);
+            if (!fileImage.open(QIODevice::ReadOnly))
+            {
+                ui->label_tip_image->setText(tr("Can't open image file!"));
+                return;
+            }
+            fileImage.close();
+        }
     }
+
+    QMap<QString, QString> updateInfo;
+    updateInfo.insert("Image Id", imageId);
+    updateInfo.insert("Image Name", name);
+    updateInfo.insert("Image Version", version);
+    updateInfo.insert("Image Description", desc);
+    updateInfo.insert("Image File", imageFile);
+    updateInfo.insert("Sign File", m_securityOpen ? signFile : "");
+    emit sigUpdateSave(updateInfo);
+    close();
 }
 
 //void ImageOperateDialog::checkParamDeal()
