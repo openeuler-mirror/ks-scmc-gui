@@ -575,7 +575,6 @@ void ContainerListPage::initButtons()
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
-    addSingleOperationButton(btnCreate);
     btnCreate->setStyleSheet("#btnCreate{background-color:#2EB3FF;"
                              "border:none;"
                              "border-radius: 4px;"
@@ -652,6 +651,7 @@ void ContainerListPage::initButtons()
                 m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE]->setDisabled(hasRunningCtn);
             });
 
+    addSingleOperationButton(btnCreate);
     addBatchOperationButtons(m_batchOpBtnMap.values());
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
