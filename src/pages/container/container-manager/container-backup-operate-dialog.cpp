@@ -123,8 +123,7 @@ void ContainerBackupOperateDialog::save()
         }
 
         emit sigExport(isDownLoad, version, path);
-        close();
-
         //popup file dialog
     }
+    close();
 }

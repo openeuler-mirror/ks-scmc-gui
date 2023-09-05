@@ -105,7 +105,7 @@ void ContainerBackupPage::onCreateBackupBtn()
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " m_backupAddDlg destroy";
+                    KLOG_INFO() << " create backup dialog destroy";
                     m_backupAddDlg->deleteLater();
                     m_backupAddDlg = nullptr;
                 });
@@ -200,7 +200,7 @@ void ContainerBackupPage::onUpdateBackup(int row)
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " m_backupEditDlg destroy";
+                    KLOG_INFO() << " edit backup dialog destroy";
                     m_backupEditDlg->deleteLater();
                     m_backupEditDlg = nullptr;
                 });
@@ -336,8 +336,6 @@ void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPa
         if (reply.first.ok())
         {
             updateInfo();
-            if (m_backupEditDlg)
-                m_backupEditDlg->close();
         }
         else
         {
@@ -358,8 +356,6 @@ void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPa
         if (reply.first.ok())
         {
             updateInfo();
-            if (m_backupAddDlg)
-                m_backupAddDlg->close();
         }
         else
         {
