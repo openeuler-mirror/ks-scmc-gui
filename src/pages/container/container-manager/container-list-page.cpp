@@ -672,7 +672,7 @@ void ContainerListPage::initTable()
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
-    setSortableCol(sortablCol);
+    setSortableCols(sortablCol);
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_APP, QPair<QString, QString>{tr("App"), ":/images/container-manager.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_MONITOR, QPair<QString, QString>{tr("Monitor"), ":/images/monitor.svg"}},
                                                                                                    {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},

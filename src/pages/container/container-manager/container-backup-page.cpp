@@ -16,6 +16,7 @@
 #include "message-dialog.h"
 #include "notification-manager.h"
 #define TIMEOUT 60000
+#define BACKUP_TIME_COL 3
 using namespace grpc;
 
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
@@ -308,6 +309,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
                 setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemSize << itemDesc);
                 row++;
             }
+            setSortableCol(BACKUP_TIME_COL, Qt::DescendingOrder);
         }
         else
         {

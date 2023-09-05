@@ -199,9 +199,14 @@ void TablePage::setTableSingleChoose(bool isSingleChoose)
     m_singleChoose = isSingleChoose;
 }
 
-void TablePage::setSortableCol(QList<int> cols)
+void TablePage::setSortableCols(QList<int> cols)
 {
     m_headerView->setSortableCols(cols);
+}
+
+void TablePage::setSortableCol(int col, Qt::SortOrder order)
+{
+    ui->tableView->sortByColumn(col, order);
 }
 
 void TablePage::setHeaderSections(QStringList names)
