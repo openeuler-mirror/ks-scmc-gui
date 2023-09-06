@@ -29,7 +29,6 @@ void NodeInfoPage::updateInfo(QString keyword)
     KLOG_INFO() << "NodeInfoPage UpdateInfo" << m_nodeId;
     setCurrentPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     m_containerListPage->getContainerList(m_nodeId);
-    //    m_monitor->updateMonitorInfo(m_nodeId);
 }
 
 void NodeInfoPage::createSubPage(NodeInfoSubPageType type)

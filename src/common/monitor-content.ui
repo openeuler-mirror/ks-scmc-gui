@@ -54,7 +54,7 @@
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>20</number>
       </property>
       <property name="bottomMargin">
        <number>0</number>
@@ -187,6 +187,25 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="RefreshButton" name="btn_refresh">
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -250,6 +269,11 @@
    <class>DatePickButton</class>
    <extends>QPushButton</extends>
    <header location="global">common/date-picker/date-pick-button.h</header>
+  </customwidget>
+  <customwidget>
+   <class>RefreshButton</class>
+   <extends>QToolButton</extends>
+   <header>common/refresh-button.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

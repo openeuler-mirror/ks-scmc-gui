@@ -26,7 +26,8 @@ void MonitorDialog::setMonitorContent(int nodeId, std::string containerId)
     QVBoxLayout *mainVLayout = new QVBoxLayout(getWindowContentWidget());
     mainVLayout->setMargin(0);
 
-    MonitorContent *monitorContent = new MonitorContent(this, nodeId, containerId);
+    MonitorContent *monitorContent = new MonitorContent(this);
     monitorContent->setParent(getWindowContentWidget());
     mainVLayout->addWidget(monitorContent);
+    monitorContent->updateMonitorInfo(nodeId, containerId);
 }
