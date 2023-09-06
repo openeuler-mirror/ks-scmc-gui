@@ -231,7 +231,6 @@ void TrendChartForm::initUI()
     m_chartView->setChart(chart);
     m_chartView->setRenderHint(QPainter::Antialiasing);
     chart->setBackgroundVisible(false);
-    //chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
 
     setLegendVisible(false);
     chart->legend()->setLabelColor(QColor(255, 255, 255));

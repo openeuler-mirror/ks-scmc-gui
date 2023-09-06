@@ -251,7 +251,6 @@ void LoginDialog::initUI()
     ui->lineEdit_passwd->setTextMargins(30, 0, 10, 0);
 
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
-    //    connect(m_activate_page,SIGNAL(activate(QString)),this,SLOT(activation(QSting)));
 }
 
 void LoginDialog::initMessageBox()
@@ -351,7 +350,6 @@ void LoginDialog::getLicense(QString license_str)
         if (doc.isObject())
         {
             QJsonObject object = doc.object();
-            //objectParsing(&object);
             QJsonObject::iterator it = object.begin();
             while (it != object.end())
             {
@@ -426,7 +424,6 @@ void LoginDialog::showErrorBox()
     int y = this->y() + this->height() / 2 + m_dbusErrorBox->height() / 4;
     m_dbusErrorBox->move(x, y);
     m_dbusErrorBox->show();
-    //this->close();
 }
 
 void LoginDialog::actionAboutClicked()
@@ -442,7 +439,7 @@ void LoginDialog::activation(QString activation_code)
 {
     if (activation_code.isNull())
     {
-        KLOG_DEBUG() << "Null activation_code";
+        KLOG_DEBUG() << "activation code id null.";
         return;
     }
 
@@ -479,70 +476,68 @@ void LoginDialog::onLogout()
 
 void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, user::LoginReply> &reply)
 {
-    KLOG_INFO() << "getLoginResult" << m_objID << objID;
-    if (m_objID == objID)
-    {
-        QApplication::restoreOverrideCursor();
+    if (m_objID != objID)
+        return;
 
-        if (reply.first.ok())
+    QApplication::restoreOverrideCursor();
+
+    if (reply.first.ok())
+    {
+        //订阅功能，1.1版本加上
+        m_thread->start();
+        if (!m_mainWindow)
         {
-            //订阅功能，1.1版本加上
-            m_thread->start();
-            if (!m_mainWindow)
-            {
-                m_mainWindow = new MainWindow(ui->lineEdit_username->text());
-                m_mainWindow->showMaximized();
-                m_mainWindow->installEventFilter(this);
-                connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
-                hide();
-            }
-            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
-            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
+            m_mainWindow = new MainWindow(ui->lineEdit_username->text());
+            m_mainWindow->showMaximized();
+            m_mainWindow->installEventFilter(this);
+            connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
+            hide();
         }
-        else
-        {
-            KLOG_INFO() << "Login failed:" << reply.first.error_message().data();
-            ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
-            ui->lab_tips->show();
-            ui->lineEdit_passwd->clear();
-        }
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
+    }
+    else
+    {
+        KLOG_INFO() << "Login failed:" << reply.first.error_message().data();
+        ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
+        ui->lab_tips->show();
+        ui->lineEdit_passwd->clear();
     }
 }
 
 void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status, user::LogoutReply> &reply)
 {
-    KLOG_INFO() << "getLogoutResult" << m_objID << objID;
-    if (m_objID == objID)
-    {
-        QApplication::restoreOverrideCursor();
+    if (m_objID != objID)
+        return;
 
-        if (reply.first.ok() || reply.first.error_code() == UNAUTHENTICATED)
+    QApplication::restoreOverrideCursor();
+
+    if (reply.first.ok() || reply.first.error_code() == UNAUTHENTICATED)
+    {
+        if (m_mainWindow)
         {
-            if (m_mainWindow)
-            {
-                delete m_mainWindow;
-                m_mainWindow = nullptr;
-            }
-            show();
-            ui->lineEdit_passwd->clear();
-            ui->lab_tips->clear();
-            ui->lab_tips->hide();
+            delete m_mainWindow;
+            m_mainWindow = nullptr;
         }
-        else
-        {
-            MessageDialog::message(tr("Logout"),
-                                   tr("Logout failed!"),
-                                   tr("Error: ") + reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-            KLOG_INFO() << "Logout failed:" << reply.first.error_message().data();
-        }
+        show();
+        ui->lineEdit_passwd->clear();
+        ui->lab_tips->clear();
+        ui->lab_tips->hide();
+    }
+    else
+    {
+        MessageDialog::message(tr("Logout"),
+                               tr("Logout failed!"),
+                               tr("Error: ") + reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        KLOG_INFO() << "Logout failed:" << reply.first.error_message().data();
     }
 }
 
 void LoginDialog::sessionExpire()
 {
-    KLOG_INFO() << "sessionExpire";
+    KLOG_INFO() << "get session expire!";
     if (!m_sessionMutex.tryLock())
     {
         KLOG_INFO() << "get lock fail and return";

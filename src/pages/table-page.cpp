@@ -148,21 +148,21 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     ui->tableView->setItemDelegateForColumn(col, m_btnDelegate);
     m_isSetTableActions = true;
 
-    connect(m_btnDelegate, &ButtonDelegate::sigBackupResume, this, &TablePage::onActBackupResume);
-    connect(m_btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::onActBackupUpdate);
-    connect(m_btnDelegate, &ButtonDelegate::sigBackupRemove, this, &TablePage::onActBackupRemove);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupResume, this, &TablePage::sigBackupResume);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::sigBackupUpdate);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupRemove, this, &TablePage::sigBackupRemove);
     connect(m_btnDelegate, &ButtonDelegate::sigBackupExport, this, &TablePage::sigBackupExport);
     connect(m_btnDelegate, &ButtonDelegate::sigApp, this, &TablePage::sigApp);
     connect(m_btnDelegate, &ButtonDelegate::sigAppRun, this, &TablePage::sigAppRun);
     connect(m_btnDelegate, &ButtonDelegate::sigAppStop, this, &TablePage::sigAppStop);
-    connect(m_btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
-    connect(m_btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
-    connect(m_btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
-    connect(m_btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::onDelete);
-    connect(m_btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
-    connect(m_btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
+    connect(m_btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::sigMonitor);
+    connect(m_btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::sigEdit);
+    connect(m_btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::sigTerminal);
+    connect(m_btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::sigDelete);
+    connect(m_btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::sigRun);
+    connect(m_btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::sigStop);
     connect(m_btnDelegate, &ButtonDelegate::sigActGenerateTemp, this, &TablePage::sigGenerateTemp);
-    connect(m_btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
+    connect(m_btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::sigRestart);
     connect(m_btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::sigImagePass);
     connect(m_btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::sigImageRefuse);
     connect(m_btnDelegate, &ButtonDelegate::sigWarnRead, this, &TablePage::sigWarnRead);
@@ -389,7 +389,7 @@ void TablePage::initUI()
     //对鼠标进行监控
     this->setMouseTracking(true);
 
-    connect(ui->tableView, &QTableView::clicked, this, &TablePage::onItemClicked);
+    connect(ui->tableView, &QTableView::clicked, this, &TablePage::sigItemClicked);
     connect(ui->tableView, &QTableView::entered, this, &TablePage::onItemEntered);
     connect(m_model, &QStandardItemModel::itemChanged, this, &TablePage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
@@ -543,66 +543,6 @@ void TablePage::timerEvent(QTimerEvent *event)
         ui->label_tips->clear();
         killTimer(m_timerID);
     }
-}
-
-void TablePage::onMonitor(int row)
-{
-    KLOG_INFO() << "TablePage::onMonitor" << row;
-    emit sigMonitor(row);
-}
-
-void TablePage::onTerminal(int row)
-{
-    KLOG_INFO() << "TablePage::onTerminal" << row;
-    emit sigTerminal(row);
-}
-
-void TablePage::onEdit(int row)
-{
-    KLOG_INFO() << "TablePage::onEdit" << row;
-    emit sigEdit(row);
-}
-
-void TablePage::onDelete(int row)
-{
-    KLOG_INFO() << "TablePage::onDelete" << row;
-    emit sigDelete(row);
-}
-
-void TablePage::onActRun(QModelIndex index)
-{
-    KLOG_INFO() << index.row();
-    emit sigRun(index);
-}
-
-void TablePage::onActStop(QModelIndex index)
-{
-    KLOG_INFO() << index.row();
-    emit sigStop(index);
-}
-
-void TablePage::onActRestart(QModelIndex index)
-{
-    KLOG_INFO() << index.row();
-    emit sigRestart(index);
-}
-
-void TablePage::onActBackupResume(int row)
-{
-    KLOG_INFO() << "TablePage::onActBackupResume" << row;
-    emit sigBackupResume(row);
-}
-
-void TablePage::onActBackupUpdate(int row)
-{
-    KLOG_INFO() << "TablePage::onActBackupUpdate" << row;
-    emit sigBackupUpdate(row);
-}
-
-void TablePage::onActBackupRemove(int row)
-{
-    KLOG_INFO() << "TablePage::onActBackupRemove" << row;
-    emit sigBackupRemove(row);
 }
 
 void TablePage::search()

@@ -7,10 +7,7 @@
 #include "log-list-page.h"
 #include <kiran-log/qt5-log-i.h>
 
-LogListPage::LogListPage(QWidget *parent) : TabPage(parent)
-  ,m_loglistview_container(nullptr)
-  ,m_loglistview_system(nullptr)
-  ,m_loglistview_users(nullptr)
+LogListPage::LogListPage(QWidget *parent) : TabPage(parent), m_loglistview_container(nullptr), m_loglistview_system(nullptr), m_loglistview_users(nullptr)
 {
     createSubPage(CONTAINER_LOGS);
     createSubPage(SYSTEM_LOGS);
@@ -22,7 +19,6 @@ void LogListPage::updateInfo(QString keyword)
 {
     setCurrentPage(CONTAINER_LOGS);
     m_loglistview_container->updateInfo();
-//    m_loglistview_system->updateInfo();
 }
 
 void LogListPage::createSubPage(LogListPageType type)
@@ -31,23 +27,23 @@ void LogListPage::createSubPage(LogListPageType type)
     {
     case CONTAINER_LOGS:
     {
-        m_loglistview_container = new LogListView(this,true);
+        m_loglistview_container = new LogListView(this, true);
         m_loglistview_container->setLogListPageType(CONTAINER_LOGS);
-        addTabPage(m_loglistview_container,tr("container logs"));
+        addTabPage(m_loglistview_container, tr("container logs"));
         break;
     }
     case SYSTEM_LOGS:
     {
-        m_loglistview_system = new LogListView(this,true);
+        m_loglistview_system = new LogListView(this, true);
         m_loglistview_system->setLogListPageType(SYSTEM_LOGS);
-        addTabPage(m_loglistview_system,tr("system logs"));
+        addTabPage(m_loglistview_system, tr("system logs"));
         break;
     }
     case USERS_LOGS:
     {
-        m_loglistview_users = new LogListView(this,true);
+        m_loglistview_users = new LogListView(this, true);
         m_loglistview_users->setLogListPageType(USERS_LOGS);
-        addTabPage(m_loglistview_users,tr("users logs"));
+        addTabPage(m_loglistview_users, tr("users logs"));
         break;
     }
     default:

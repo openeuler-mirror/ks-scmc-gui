@@ -35,7 +35,6 @@ void ConfigTable::initwindow()
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    //ui->tableView->setAlternatingRowColors(true);
     ui->tableView->setShowGrid(true);
     ui->tableView->setMouseTracking(true);
     ui->tableView->resizeColumnsToContents();

@@ -22,7 +22,6 @@ void ContainerInfoPage::setContainerInfo(QMap<QString, QVariant> infoMap)
 
 void ContainerInfoPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "ContainerInfoPage UpdateInfo";
     if (keyword == "exitTimedRefresh")
     {
         m_containerBackup->refresh(false);

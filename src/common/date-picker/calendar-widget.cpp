@@ -107,27 +107,13 @@ void CalendarWidget::initControl()
     singleFormat.setFont(font);
     QTextCharFormat doubleFormat;
     doubleFormat.setForeground(QColor(0, 0, 0));
-    //doubleFormat.setBackground(QColor(210, 218, 232));
     doubleFormat.setFont(font);
-
-    //    QTextCharFormat dayFormat;
-    //    dayFormat.setForeground(QColor(0, 0, 0));
-    //    dayFormat.setBackground(QColor(255, 255, 255));
-    //    dayFormat.setFont(font);
 
     setHeaderTextFormat(singleFormat);
     setWeekdayTextFormat(Qt::Saturday, doubleFormat);
     setWeekdayTextFormat(Qt::Sunday, doubleFormat);
-    //    setWeekdayTextFormat(Qt::Monday, doubleFormat);
-    //    setWeekdayTextFormat(Qt::Tuesday, singleFormat);
-    //    setWeekdayTextFormat(Qt::Wednesday, doubleFormat);
-    //    setWeekdayTextFormat(Qt::Thursday, singleFormat);
-    //    setWeekdayTextFormat(Qt::Friday, doubleFormat);
-
-    //setStyleSheet("QAbstractItemView{color:black;background:#888A85}");
 
     initTopWidget();
-    //initBottomWidget();
 
     connect(this, &QCalendarWidget::currentPageChanged, [this](int year, int month) {
         setDataLabelTimeText(year, month);
@@ -143,40 +129,11 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
         painter->setPen(Qt::NoPen);
         painter->setBrush(QColor(46, 179, 255));
         painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
-        //painter->drawRoundedRect(rect.x(), rect.y(), rect.width(), rect.height(), 3, 3);
         painter->setPen(QColor(255, 255, 255));
 
         painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
         painter->restore();
     }
-    //    else if (date == QDate::currentDate())
-    //    {
-    //        //        painter->save();
-    //        //        painter->setRenderHint(QPainter::Antialiasing);
-    //        //        painter->setPen(Qt::NoPen);
-    //        //        painter->setBrush(QColor(0, 161, 255));
-    //        //        painter->drawRoundedRect(rect.x(), rect.y(), rect.width(), rect.height(), 3, 3);
-    //        //        painter->setBrush(QColor(255, 255, 255));
-    //        //        painter->drawRoundedRect(rect.x() + 1, rect.y() + 4, rect.width() - 2, rect.height() - 8, 2, 2);
-    //        //        painter->setPen(QColor(46, 179, 255));
-
-    //        //        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
-    //        //        painter->restore();
-    //    }
-    //    else if (date >= minimumDate() && date <= maximumDate())
-    //    {
-    //        painter->save();
-    //        painter->setRenderHint(QPainter::Antialiasing);
-    //        painter->setPen(Qt::NoPen);
-    //        painter->setBrush(QColor(255, 255, 255));
-
-    //        painter->drawRect(rect.x(), rect.y() + 3, rect.width(), rect.height() - 6);
-    //        painter->setPen(QColor(0, 0, 0));
-    //        // painter->setPen(QColor(255, 0, 0));
-
-    //        painter->drawText(rect, Qt::AlignCenter, QString::number(date.day()));
-    //        painter->restore();
-    //    }
     else if (date >= m_selectableStart && date <= m_selectableEnd)
     {
         painter->save();
@@ -283,12 +240,12 @@ void CalendarWidget::initBottomWidget()
     m_ensureBtn = new QPushButton(this);
     m_ensureBtn->setObjectName("CalendarEnsureBtn");
     m_ensureBtn->setFixedSize(40, 22);
-    m_ensureBtn->setText(QStringLiteral("确定"));
+    m_ensureBtn->setText(tr("Confirm"));
 
     m_toDayBtn = new QPushButton(this);
     m_toDayBtn->setObjectName("CalendarTodayBtn");
     m_toDayBtn->setFixedSize(40, 22);
-    m_toDayBtn->setText(QStringLiteral("现在"));
+    m_toDayBtn->setText(tr("Now"));
 
     hboxLayout->addStretch();
     hboxLayout->addWidget(m_toDayBtn);
@@ -310,7 +267,7 @@ void CalendarWidget::initBottomWidget()
 
 void CalendarWidget::setDataLabelTimeText(int year, int month)
 {
-    m_dataLabel->setText(QStringLiteral("%1年%2月").arg(year).arg(month));
+    m_dataLabel->setText(tr("%1 year %2 mouth").arg(year).arg(month));
 }
 
 void CalendarWidget::onbtnClicked()

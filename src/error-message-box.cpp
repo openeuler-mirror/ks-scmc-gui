@@ -110,7 +110,6 @@ void ErrorMessageBox::calcTextSize()
     }
     else
     {
-        KLOG_DEBUG() << "2222" << real_width;
         QRect textRect = QRect(0, 0, text_max_width, 0);
         int flags = Qt::TextWordWrap;  // 自动换行
         textRect = metrics.boundingRect(textRect, flags, label_str);

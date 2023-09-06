@@ -51,9 +51,5 @@ void TabPage::initUI()
 
 void TabPage::onCurrentPageChanged(int index)
 {
-    KLOG_INFO() << "tabBarClicked: " << index;
     emit sigTabBarClicked(index);
-    //    TablePage *page = qobject_cast<TablePage *>(m_tabWidget->currentWidget());
-    //    if (page)
-    //        page->updateInfo();
 }

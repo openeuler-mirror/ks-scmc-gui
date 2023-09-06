@@ -177,8 +177,6 @@ void ContainerAppPage::onDelete()
         {
             InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, appIds);
         }
-        else
-            KLOG_INFO() << "cancel";
     }
 }
 
@@ -198,8 +196,6 @@ void ContainerAppPage::onDelete(int row)
 
         InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, QList<int>() << appId);
     }
-    else
-        KLOG_INFO() << "cancel";
 }
 
 void ContainerAppPage::onSaveApp(const QString name, const QString path, const bool isGui)
@@ -253,151 +249,150 @@ void ContainerAppPage::guiAppStatus(QProcess::ProcessState state)
 
 void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &reply)
 {
-    KLOG_INFO() << "getListAppEntryFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    setBusy(false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+
+    if (!reply.first.ok())
     {
-        setBusy(false);
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-        if (reply.first.ok())
-        {
-            clearTable();
+        KLOG_INFO() << "get container app list failed:" << reply.first.error_message().data();
+        if (PERMISSION_DENIED == reply.first.error_code())
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            int size = reply.second.apps_size();
-            KLOG_INFO() << "container app  size:" << size;
-            if (size <= 0)
-            {
-                setHeaderCheckable(false);
-                return;
-            }
-            setHeaderCheckable(true);
-            int row = 0;
-            QMap<QString, QVariant> infoMap;
-            for (auto app : reply.second.apps())
-            {
-                std::string contaienrId = app.container_id().data();
-                std::string appName = app.name().data();
-                std::string appPath = app.exe_path().data();
-                bool isGUI = app.is_gui();
-                bool isRuning = app.is_running();
-                infoMap.insert(NODE_ID, m_nodeId);
-                infoMap.insert(CONTAINER_ID, contaienrId.data());
-                infoMap.insert(CONTAINER_APP_ID, QVariant::fromValue(app.id()));
-                infoMap.insert(CONTAINER_APP_NAME, appName.data());
-                infoMap.insert(CONTAINER_APP_PATH, appPath.data());
-                infoMap.insert(CONTAINER_APP_IS_GUI, isGUI);
-                infoMap.insert(CONTAIENR_APP_IS_RUNNING, isRuning);
-
-                QStandardItem *itemCheck = new QStandardItem();
-                itemCheck->setCheckable(true);
-
-                QStandardItem *itemName = new QStandardItem(appName.data());
-                itemName->setData(infoMap);
-
-                QStandardItem *itemType = new QStandardItem(isGUI ? tr("Gui") : tr("Non Gui"));
-
-                QStandardItem *itemPath = new QStandardItem(app.exe_path().data());
-
-                QStandardItem *itemStatus = new QStandardItem(isRuning ? tr("Running") : tr("Stop"));
-                itemStatus->setForeground(QBrush(QColor(isRuning ? "#00921b" : "#d30000")));
-
-                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemType << itemPath << itemStatus);
-                row++;
-            }
-        }
         else
         {
-            KLOG_INFO() << "get container app list failed:" << reply.first.error_message().data();
-            if (PERMISSION_DENIED == reply.first.error_code())
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            else
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (DEADLINE_EXCEEDED == reply.first.error_code())
             {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-                if (DEADLINE_EXCEEDED == reply.first.error_code())
-                {
-                    setTips(tr("Response timeout!"));
-                }
+                setTips(tr("Response timeout!"));
             }
-            setHeaderCheckable(false);
-            setTableDefaultContent("-");
         }
+        setHeaderCheckable(false);
+        setTableDefaultContent("-");
+        return;
+    }
+
+    clearTable();
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    int size = reply.second.apps_size();
+    KLOG_INFO() << "container app  size:" << size;
+    if (size <= 0)
+    {
+        setHeaderCheckable(false);
+        return;
+    }
+    setHeaderCheckable(true);
+    int row = 0;
+    QMap<QString, QVariant> infoMap;
+    for (auto app : reply.second.apps())
+    {
+        std::string contaienrId = app.container_id().data();
+        std::string appName = app.name().data();
+        std::string appPath = app.exe_path().data();
+        bool isGUI = app.is_gui();
+        bool isRuning = app.is_running();
+        infoMap.insert(NODE_ID, m_nodeId);
+        infoMap.insert(CONTAINER_ID, contaienrId.data());
+        infoMap.insert(CONTAINER_APP_ID, QVariant::fromValue(app.id()));
+        infoMap.insert(CONTAINER_APP_NAME, appName.data());
+        infoMap.insert(CONTAINER_APP_PATH, appPath.data());
+        infoMap.insert(CONTAINER_APP_IS_GUI, isGUI);
+        infoMap.insert(CONTAIENR_APP_IS_RUNNING, isRuning);
+
+        QStandardItem *itemCheck = new QStandardItem();
+        itemCheck->setCheckable(true);
+
+        QStandardItem *itemName = new QStandardItem(appName.data());
+        itemName->setData(infoMap);
+
+        QStandardItem *itemType = new QStandardItem(isGUI ? tr("Gui") : tr("Non Gui"));
+
+        QStandardItem *itemPath = new QStandardItem(app.exe_path().data());
+
+        QStandardItem *itemStatus = new QStandardItem(isRuning ? tr("Running") : tr("Stop"));
+        itemStatus->setForeground(QBrush(QColor(isRuning ? "#00921b" : "#d30000")));
+
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemType << itemPath << itemStatus);
+        row++;
     }
 }
 
 void ContainerAppPage::getAddAppEntryFinished(const QString objId, const QPair<grpc::Status, container::AddAppEntryReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            m_appOp->close();
-            updateInfo();
-            NotificationManager::sendNotify(tr("Add container app successful!"), "");
-        }
-        else
-            NotificationManager::sendNotify(tr("Add container app failed!"),
-                                            reply.first.error_message().data());
+        m_appOp->close();
+        updateInfo();
+        NotificationManager::sendNotify(tr("Add container app successful!"), "");
     }
+    else
+        NotificationManager::sendNotify(tr("Add container app failed!"),
+                                        reply.first.error_message().data());
 }
 
 void ContainerAppPage::getUpdateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            m_appOp->close();
-            updateInfo();
-            NotificationManager::sendNotify(tr("Update container app successful!"), "");
-        }
-        else
-            NotificationManager::sendNotify(tr("Update container app failed!"),
-                                            reply.first.error_message().data());
+        m_appOp->close();
+        updateInfo();
+        NotificationManager::sendNotify(tr("Update container app successful!"), "");
     }
+    else
+        NotificationManager::sendNotify(tr("Update container app failed!"),
+                                        reply.first.error_message().data());
 }
 
 void ContainerAppPage::getRemoveAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RemoveAppEntryReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-            NotificationManager::sendNotify(tr("Remove container app successful!"), "");
-        }
-        else
-            NotificationManager::sendNotify(tr("Remove container app failed!"),
-                                            reply.first.error_message().data());
+        updateInfo();
+        NotificationManager::sendNotify(tr("Remove container app successful!"), "");
     }
+    else
+        NotificationManager::sendNotify(tr("Remove container app failed!"),
+                                        reply.first.error_message().data());
 }
 
 void ContainerAppPage::getRunAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RunAppEntryReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-            NotificationManager::sendNotify(tr("Run container app successful!"), "");
-        }
-        else
-            NotificationManager::sendNotify(tr("Run container app failed!"),
-                                            reply.first.error_message().data());
+        updateInfo();
+        NotificationManager::sendNotify(tr("Run container app successful!"), "");
     }
+    else
+        NotificationManager::sendNotify(tr("Run container app failed!"),
+                                        reply.first.error_message().data());
 }
 
 void ContainerAppPage::getKillAppEntryFinished(const QString objId, const QPair<Status, container::KillAppEntryReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-            NotificationManager::sendNotify(tr("Stop container app successful!"), "");
-        }
-        else
-            NotificationManager::sendNotify(tr("Stop container app failed!"),
-                                            reply.first.error_message().data());
+        updateInfo();
+        NotificationManager::sendNotify(tr("Stop container app successful!"), "");
     }
+    else
+        NotificationManager::sendNotify(tr("Stop container app failed!"),
+                                        reply.first.error_message().data());
 }
 
 void ContainerAppPage::initButtons()

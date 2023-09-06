@@ -81,8 +81,6 @@ void NetworkConfTab::setVirtNetwork(QString virtNetwork)
 //初始化网卡页面信息
 void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
 {
-    KLOG_INFO() << "initVirtNetworkInfo";
-
     ui->cb_virt_networkcard->clear();
     ui->cb_virt_networkcard->addItems(QStringList(networks));
     ui->lineEdit_ip->clear();

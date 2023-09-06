@@ -46,7 +46,6 @@ ImageListPage::~ImageListPage()
 
 void ImageListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "ImageList updateInfo";
     clearCheckState();
     clearText();
     if (keyword.isEmpty())
@@ -258,7 +257,6 @@ void ImageListPage::OperateImage(ImageOperateType type)
         }
         connect(m_pImageOp, &ImageOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << "destroy  ImageOperateDialog";
                     m_pImageOp->deleteLater();
                     m_pImageOp = nullptr;
                 });
@@ -372,12 +370,11 @@ void ImageListPage::onBtnUpdate()
 
 void ImageListPage::onBtnRemove()
 {
-    KLOG_INFO() << "onRemoveImage";
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     std::vector<int64_t> ids;
     foreach (auto &idMap, info)
     {
-        KLOG_INFO() << idMap.value(IMAGE_ID).toInt();
+        KLOG_INFO() << "remove image: " << idMap.value(IMAGE_ID).toInt();
         ids.push_back(idMap.value(IMAGE_ID).toInt());
     }
 
@@ -392,8 +389,6 @@ void ImageListPage::onBtnRemove()
         {
             InfoWorker::getInstance().removeImage(m_objId, ids);
         }
-        else
-            KLOG_INFO() << "cancel";
     }
 }
 
@@ -466,7 +461,7 @@ void ImageListPage::onBtnRefuseLabel(int row)
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "uploadSaveSlot:  ***********"
+    KLOG_INFO() << "upload:  ***********"
                 << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
@@ -517,7 +512,8 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
+    KLOG_INFO() << "update: ************"
+                << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
     const QString imageFile = Info["Image File"];
@@ -584,7 +580,8 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
+    KLOG_INFO() << "download: ********"
+                << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
 
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Download Image")))
     {
@@ -599,7 +596,8 @@ void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "Id" << Info["Image Id"] << "Check" << Info["Image Check"]
+    KLOG_INFO() << "check: *********"
+                << "Id" << Info["Image Id"] << "Check" << Info["Image Check"]
                 << "Reason" << Info["Image Reason"];
 
     bool checkStatus = Info["Image Check"] == "Pass" ? true : false;
@@ -610,123 +608,118 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
 {
-    KLOG_INFO() << "getListDBResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    setBusy(false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+
+    if (!reply.first.ok())
     {
-        setBusy(false);
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-        if (reply.first.ok())
+        KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
+        setTableDefaultContent("-");
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        if (DEADLINE_EXCEEDED == reply.first.error_code())
         {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            clearTable();
-            int size = reply.second.images_size();
-            if (size <= 0)
-            {
-                emit sigUpdateAPproveTipSums();
-                setTableDefaultContent("-");
-                return;
-            }
-
-            int row = 0;
-            int count = 0;
-            for (auto image : reply.second.images())
-            {
-                if (image.approval_status() == 0)
-                    count++;
-                QMap<QString, QVariant> infoMap;
-                qint64 imageId = image.id();
-                infoMap.insert(IMAGE_ID, imageId);
-
-                QStandardItem *itemCheck = new QStandardItem();
-                if (is_open_checkbox)
-                    itemCheck->setCheckable(true);
-                else
-                    itemCheck->setCheckable(false);
-
-                QStandardItem *itemName = new QStandardItem(image.name().data());
-                infoMap.insert(IMAGE_NAME, image.name().data());
-
-                QStandardItem *itemVer = new QStandardItem(image.version().data());
-                infoMap.insert(IMAGE_VERSION, image.version().data());
-
-                QStandardItem *itemDesc = new QStandardItem(image.description().data());
-                infoMap.insert(IMAGE_DESC, image.description().data());
-
-                QStandardItem *itemChkStatus = new QStandardItem();
-                switch (image.verify_status())
-                {
-                case 0:
-                    itemChkStatus->setText(tr("Failed"));
-                    itemChkStatus->setForeground(QBrush(QColor("#d30000")));
-                    break;
-                case 1:
-                    itemChkStatus->setText(tr("Abnormal"));
-                    itemChkStatus->setForeground(QBrush(QColor("#d30000")));
-                    break;
-                case 2:
-                    itemChkStatus->setText(tr("Passed"));
-                    itemChkStatus->setForeground(QBrush(QColor("#00921b")));
-                    break;
-                }
-
-                QStandardItem *itemApprovalStatus = new QStandardItem();
-                switch (image.approval_status())
-                {
-                case 0:
-                    itemApprovalStatus->setText(tr("Wait for Approve"));
-                    itemApprovalStatus->setForeground(QBrush(QColor("#EEA43C")));
-                    break;
-                case 1:
-                    itemApprovalStatus->setText(tr("Rejected"));
-                    itemApprovalStatus->setForeground(QBrush(QColor("#d30000")));
-                    break;
-                case 2:
-                    itemApprovalStatus->setText(tr("Passed"));
-                    itemApprovalStatus->setForeground(QBrush(QColor("#00921b")));
-                    break;
-                }
-
-                // TODO parse unix timestamp
-                QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
-                QString updateTime = time.toString("yyyy/MM/dd hh:mm:ss");
-                QStandardItem *itemUpdateTime = new QStandardItem(updateTime);
-
-                itemName->setData(QVariant::fromValue(infoMap));
-
-                //            KLOG_INFO() << "imageId:" << image.id() << "name:" << image.name().data()
-                //                        << "version:" << image.version().data() << "description:" << image.description().data()
-                //                        << "approval_status:" << image.approval_status() << "update_time:" << image.update_time().data();
-
-                for (int i = 0; i < is_del_row.count(); i++)
-                {
-                    QString str = itemApprovalStatus->text();
-                    if (is_del_row[i] == str)
-                        goto _END;
-                }
-
-                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
-                row++;
-            _END:
-                continue;
-            }
-            if (getTableRowCount() == 0)
-            {
-                setTableDefaultContent("-");
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            }
-            emit sigUpdateAPproveTipSums(count);
+            setTips(tr("Response timeout!"));
         }
-        else
-        {
-            KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
-            setTableDefaultContent("-");
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            if (DEADLINE_EXCEEDED == reply.first.error_code())
-            {
-                setTips(tr("Response timeout!"));
-            }
-        }
+        return;
     }
+
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    clearTable();
+    int size = reply.second.images_size();
+    if (size <= 0)
+    {
+        emit sigUpdateAPproveTipSums();
+        setTableDefaultContent("-");
+        return;
+    }
+
+    int row = 0;
+    int count = 0;
+    for (auto image : reply.second.images())
+    {
+        if (image.approval_status() == 0)
+            count++;
+        QMap<QString, QVariant> infoMap;
+        qint64 imageId = image.id();
+        infoMap.insert(IMAGE_ID, imageId);
+
+        QStandardItem *itemCheck = new QStandardItem();
+        if (is_open_checkbox)
+            itemCheck->setCheckable(true);
+        else
+            itemCheck->setCheckable(false);
+
+        QStandardItem *itemName = new QStandardItem(image.name().data());
+        infoMap.insert(IMAGE_NAME, image.name().data());
+
+        QStandardItem *itemVer = new QStandardItem(image.version().data());
+        infoMap.insert(IMAGE_VERSION, image.version().data());
+
+        QStandardItem *itemDesc = new QStandardItem(image.description().data());
+        infoMap.insert(IMAGE_DESC, image.description().data());
+
+        QStandardItem *itemChkStatus = new QStandardItem();
+        switch (image.verify_status())
+        {
+        case 0:
+            itemChkStatus->setText(tr("Failed"));
+            itemChkStatus->setForeground(QBrush(QColor("#d30000")));
+            break;
+        case 1:
+            itemChkStatus->setText(tr("Abnormal"));
+            itemChkStatus->setForeground(QBrush(QColor("#d30000")));
+            break;
+        case 2:
+            itemChkStatus->setText(tr("Passed"));
+            itemChkStatus->setForeground(QBrush(QColor("#00921b")));
+            break;
+        }
+
+        QStandardItem *itemApprovalStatus = new QStandardItem();
+        switch (image.approval_status())
+        {
+        case 0:
+            itemApprovalStatus->setText(tr("Wait for Approve"));
+            itemApprovalStatus->setForeground(QBrush(QColor("#EEA43C")));
+            break;
+        case 1:
+            itemApprovalStatus->setText(tr("Rejected"));
+            itemApprovalStatus->setForeground(QBrush(QColor("#d30000")));
+            break;
+        case 2:
+            itemApprovalStatus->setText(tr("Passed"));
+            itemApprovalStatus->setForeground(QBrush(QColor("#00921b")));
+            break;
+        }
+
+        // TODO parse unix timestamp
+        QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
+        QString updateTime = time.toString("yyyy/MM/dd hh:mm:ss");
+        QStandardItem *itemUpdateTime = new QStandardItem(updateTime);
+
+        itemName->setData(QVariant::fromValue(infoMap));
+
+        for (int i = 0; i < is_del_row.count(); i++)
+        {
+            QString str = itemApprovalStatus->text();
+            if (is_del_row[i] == str)
+                goto _END;
+        }
+
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
+        row++;
+    _END:
+        continue;
+    }
+    if (getTableRowCount() == 0)
+    {
+        setTableDefaultContent("-");
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    }
+    emit sigUpdateAPproveTipSums(count);
 }
 
 void ImageListPage::setDelRow(const QString type1, const QString type2)
@@ -739,128 +732,118 @@ void ImageListPage::setDelRow(const QString type1, const QString type2)
 
 void ImageListPage::getCheckResult(const QString objId, const QPair<grpc::Status, image::ApproveReply> &reply)
 {
-    KLOG_INFO() << "getCheckResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "Approve images success";
-            getImageList();
-        }
-        else
-        {
-            MessageDialog::message(tr("Approve Image"),
-                                   tr("Approve image failed!"),
-                                   reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Approve Image"),
+                               tr("Approve image failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ImageListPage::getRemoveResult(const QString objId, const QPair<grpc::Status, image::RemoveReply> &reply)
 {
-    KLOG_INFO() << "getRemoveResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Remove image success!"), "");
-            getImageList();
-        }
-        else
-        {
-            MessageDialog::message(tr("Remove Image"),
-                                   tr("Remove image failed!"),
-                                   reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        NotificationManager::sendNotify(tr("Remove image success!"), "");
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Remove Image"),
+                               tr("Remove image failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ImageListPage::getUploadResult(const QString objId, const QPair<grpc::Status, image::UploadReply> &reply)
 {
-    KLOG_INFO() << "getUploadResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
-            NotificationManager::sendNotify(tr("Upload image success!"), "");
-            getImageList();
-        }
-        else
-        {
-            MessageDialog::message(tr("Upload Image"),
-                                   tr("Upload image failed!"),
-                                   reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
+        NotificationManager::sendNotify(tr("Upload image success!"), "");
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Upload Image"),
+                               tr("Upload image failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ImageListPage::getUpdateResult(const QString objId, const QPair<grpc::Status, image::UpdateReply> &reply)
 {
-    KLOG_INFO() << "getUpdateResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "update images success";
-            NotificationManager::sendNotify(tr("Update image success!"), "");
-            getImageList();
-        }
-        else
-        {
-            MessageDialog::message(tr("Update Image"),
-                                   tr("Update image failed!"),
-                                   reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        NotificationManager::sendNotify(tr("Update image success!"), "");
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update Image"),
+                               tr("Update image failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc::Status, downloadImageInfo> &reply)
 {
-    KLOG_INFO() << "getDownloadImageResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    bool ret = reply.first.error_code() == 0 ? true : false;
+    std::string msg = reply.first.error_message();
+
+    if (ret)
     {
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-
-        bool ret = reply.first.error_code() == 0 ? true : false;
-        std::string msg = reply.first.error_message();
-
-        if (ret)
-        {
-            KLOG_INFO() << "download images success";
-            NotificationManager::sendNotify(tr("Download image success!"), "");
-            getImageList();
-        }
-        else
-        {
-            MessageDialog::message(tr("Download Image"),
-                                   tr("Download image failed!"),
-                                   msg.data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        NotificationManager::sendNotify(tr("Download image success!"), "");
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Download Image"),
+                               tr("Download image failed!"),
+                               msg.data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 void ImageListPage::getSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            m_securityOpen = reply.second.is_on();
-        }
-        else
-        {
-            KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
-        }
+        m_securityOpen = reply.second.is_on();
+    }
+    else
+    {
+        KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
     }
 }
 

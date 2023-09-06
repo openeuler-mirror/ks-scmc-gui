@@ -253,7 +253,6 @@ void MainWindow::initUI()
     m_btnTransmission->hide();
     m_btnTransmission->installEventFilter(this);
     ui->hlayout_btn->addWidget(m_btnTransmission);
-    //connect(m_btnTransmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
 
     m_btnApproval = new BubbleTipButton(":/images/approve.svg", this);
     m_btnApproval->setObjectName("btn_approval");
@@ -484,7 +483,6 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_NODE_MANAGER:
     {
-        //page = new NodeListPage(this);
         page = new NodePageManager(this);
         break;
     }
@@ -694,7 +692,6 @@ void MainWindow::onChangePwAction(bool checked)
 
         connect(m_pwUpdateDlg, &PasswdUpdateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " PasswdUpdateDialog destroy";
                     m_pwUpdateDlg->deleteLater();
                     m_pwUpdateDlg = nullptr;
                 });
@@ -780,7 +777,7 @@ void MainWindow::setWarningTipNums(int nums)
 
 void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate)
 {
-    KLOG_INFO() << "getTransferImageInfo:" << status << name << version << rate;
+    KLOG_INFO() << "get transfer image info:" << status << name << version << rate;
 
     QString transferImage = name + "-" + version;
 

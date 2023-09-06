@@ -936,391 +936,379 @@ void ContainerSetting::onTempSelectedChanged(QString newStr)
 
 void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &reply)
 {
-    KLOG_INFO() << "getNodeListResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    m_nodeInfo.clear();
+    ui->cb_node->clear();
+    for (auto n : reply.second.nodes())
     {
-        if (reply.first.ok())
-        {
-            m_nodeInfo.clear();
-            ui->cb_node->clear();
-            for (auto n : reply.second.nodes())
-            {
-                int nodeId = n.id();
-                m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
-                ui->cb_node->addItem(QString("%1").arg(n.address().data()));
-                auto totalCPU = n.status().cpu_stat().total();
-                m_nodeTotalCPU.insert(nodeId, totalCPU);
-            }
-
-            //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT || m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
-                ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
-            else if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
-            {
-                //get Node id
-                auto templateId = ui->cb_template->currentData().toInt();
-                QPair<int, QString> templateInfo = m_templateMap.value(templateId);
-                qint64 nodeId = templateInfo.first;
-                ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
-                getTemplateInspect(templateId);
-            }
-            else  // 创建容器，创建模板
-                setNodeNetworkList(m_nodeInfo.key(ui->cb_node->currentText()));
-
-            //创建容器/基于模板创建容器时获取镜像列表
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
-                getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
-
-            //设置cpu核心数
-            auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-            cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
-        }
+        int nodeId = n.id();
+        m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
+        ui->cb_node->addItem(QString("%1").arg(n.address().data()));
+        auto totalCPU = n.status().cpu_stat().total();
+        m_nodeTotalCPU.insert(nodeId, totalCPU);
     }
+
+    //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT || m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
+        ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
+    else if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+    {
+        //get Node id
+        auto templateId = ui->cb_template->currentData().toInt();
+        QPair<int, QString> templateInfo = m_templateMap.value(templateId);
+        qint64 nodeId = templateInfo.first;
+        ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
+        getTemplateInspect(templateId);
+    }
+    else  // 创建容器，创建模板
+        setNodeNetworkList(m_nodeInfo.key(ui->cb_node->currentText()));
+
+    //创建容器/基于模板创建容器时获取镜像列表
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
+        getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
+
+    //设置cpu核心数
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
 }
 
 void ContainerSetting::getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &reply)
 {
-    KLOG_INFO() << "getCreateContainerResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "create container successful!";
-            emit sigUpdateContainer();
-            close();
-        }
-        else
-        {
-            KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
-            MessageDialog::message(tr("Create Container"),
-                                   tr("Create container failed!"),
-                                   tr("Error: ") + reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        emit sigUpdateContainer();
+        close();
+    }
+    else
+    {
+        KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
+        MessageDialog::message(tr("Create Container"),
+                               tr("Create container failed!"),
+                               tr("Error: ") + reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc::Status, container::InspectReply> &reply)
 {
-    KLOG_INFO() << "getContainerInspectResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    //init ui
+    auto info = reply.second.configs();
+
+    showLongText(ui->lineEdit_name, info.name().data());
+    KLOG_INFO() << info.name().data() << info.image().data();
+
+    if (m_labImage)
+        m_labImage->setText(info.image().data());
+
+    if (!QString::fromStdString(info.desc().data()).isEmpty())
     {
-        if (reply.first.ok())
-        {
-            //init ui
-            auto info = reply.second.configs();
-
-            showLongText(ui->lineEdit_name, info.name().data());
-            KLOG_INFO() << info.name().data() << info.image().data();
-
-            if (m_labImage)
-                m_labImage->setText(info.image().data());
-
-            if (!QString::fromStdString(info.desc().data()).isEmpty())
-            {
-                showLongText(ui->lineEdit_describe, info.desc().data());
-            }
-            else
-                ui->lineEdit_describe->setText(tr("none"));
-
-            // network
-            auto size = info.networks_size();
-            KLOG_INFO() << "network_config_size:" << size;
-            for (int i = 0; i < size - 1; ++i)
-            {
-                //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
-                GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                                  NETWORK_CARD,
-                                                  GUIDE_ITEM_TYPE_NORMAL,
-                                                  ":/images/container-net-card.svg");
-                m_baseItems.append(item);
-                NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
-                m_baseConfStack->addWidget(networkConfTab);
-                m_netWorkPages.append(networkConfTab);
-            }
-            updateRemovableItem(NETWORK_CARD);
-
-            //更新网络页面信息
-            QList<QString> networkList = m_networksMap.values(m_containerIds.first);
-            for (int i = 0; i < size; i++)
-            {
-                auto networkConfig = info.networks(i);
-                NetworkConfTab *networkPage = m_netWorkPages.at(i);
-                if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
-                    networkConfig.set_ip_address("");
-                networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
-            }
-
-            //Graph
-            //info.enable_graphic();
-            auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-            graphPage->setGraphicInfo(&info);
-
-            //volume
-            auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-            volumesPage->setVolumeInfo(&info);
-
-            //env
-            auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-            envPage->setEnvInfo(&info);
-
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
-            {
-                graphPage->setDisabled(true);
-                volumesPage->setDisabled(true);
-                envPage->setDisabled(true);
-            }
-
-            //high-availability
-            auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-            auto policy = info.restart_policy();
-            highAvailabilityPage->setRestartPolicy(&policy);
-
-            auto limit = info.resouce_limit();
-            //cpu
-            auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-            cpuPage->setCPUInfo(&limit);
-
-            //memory
-            auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-            memoryPage->setMemoryInfo(&limit);
-
-            //security
-            auto securityCfg = info.security_config();
-
-            auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-            fileProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-            processProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-            netProcessProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
-            networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
-
-            auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
-            startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
-        }
+        showLongText(ui->lineEdit_describe, info.desc().data());
     }
+    else
+        ui->lineEdit_describe->setText(tr("none"));
+
+    // network
+    auto size = info.networks_size();
+    KLOG_INFO() << "network config size:" << size;
+    for (int i = 0; i < size - 1; ++i)
+    {
+        //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
+        GuideItem *item = createGuideItem(ui->listwidget_base_config,
+                                          NETWORK_CARD,
+                                          GUIDE_ITEM_TYPE_NORMAL,
+                                          ":/images/container-net-card.svg");
+        m_baseItems.append(item);
+        NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+        m_baseConfStack->addWidget(networkConfTab);
+        m_netWorkPages.append(networkConfTab);
+    }
+    updateRemovableItem(NETWORK_CARD);
+
+    //更新网络页面信息
+    QList<QString> networkList = m_networksMap.values(m_containerIds.first);
+    for (int i = 0; i < size; i++)
+    {
+        auto networkConfig = info.networks(i);
+        NetworkConfTab *networkPage = m_netWorkPages.at(i);
+        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
+            networkConfig.set_ip_address("");
+        networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
+    }
+
+    //Graph
+    //info.enable_graphic();
+    auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+    graphPage->setGraphicInfo(&info);
+
+    //volume
+    auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    volumesPage->setVolumeInfo(&info);
+
+    //env
+    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+    envPage->setEnvInfo(&info);
+
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+    {
+        graphPage->setDisabled(true);
+        volumesPage->setDisabled(true);
+        envPage->setDisabled(true);
+    }
+
+    //high-availability
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    auto policy = info.restart_policy();
+    highAvailabilityPage->setRestartPolicy(&policy);
+
+    auto limit = info.resouce_limit();
+    //cpu
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->setCPUInfo(&limit);
+
+    //memory
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    memoryPage->setMemoryInfo(&limit);
+
+    //security
+    auto securityCfg = info.security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
 }
 
 void ContainerSetting::getUpdateContainerResult(QString objId, const QPair<grpc::Status, container::UpdateReply> &reply)
 {
-    KLOG_INFO() << "getUpdateContainerResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "update container successful!";
-            sigUpdateContainer();
-            close();
-        }
-        else
-        {
-            KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
-            MessageDialog::message(tr("Update Container"),
-                                   tr("Update container failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        sigUpdateContainer();
+        close();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update Container"),
+                               tr("Update container failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair<grpc::Status, container::InspectTemplateReply> &reply)
 {
-    KLOG_INFO() << "getInspectTemplateFinishResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    //init ui
+    auto info = reply.second.data().conf();
+    qint64 nodeId;
+
+    if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
     {
-        if (reply.first.ok())
+        ui->lineEdit_name->setText(info.name().data());
+        ui->lineEdit_name->setCursorPosition(0);
+
+        if (!QString::fromStdString(info.desc().data()).isEmpty())
+            ui->lineEdit_describe->setText(info.desc().data());
+        else
+            ui->lineEdit_describe->setText(tr("none"));
+
+        ui->lineEdit_describe->setCursorPosition(0);
+
+        nodeId = m_containerIds.first;
+    }
+    else
+        nodeId = m_nodeInfo.key(ui->cb_node->currentText());
+    KLOG_INFO() << "node id: " << nodeId;
+
+    //Graph
+    //info.enable_graphic();
+    auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+    graphPage->setGraphicInfo(&info);
+
+    //volume
+    auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    volumesPage->setVolumeInfo(&info);
+
+    // network
+    auto size = info.networks_size();
+    KLOG_INFO() << "network config size:" << size;
+    if (size > m_netWorkPages.size())
+    {
+        for (int i = 0; i < (size - m_netWorkPages.size()); ++i)
         {
-            //init ui
-            auto info = reply.second.data().conf();
-            qint64 nodeId;
-
-            if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
-            {
-                ui->lineEdit_name->setText(info.name().data());
-                ui->lineEdit_name->setCursorPosition(0);
-                KLOG_INFO() << info.name().data();
-
-                if (!QString::fromStdString(info.desc().data()).isEmpty())
-                    ui->lineEdit_describe->setText(info.desc().data());
-                else
-                    ui->lineEdit_describe->setText(tr("none"));
-
-                ui->lineEdit_describe->setCursorPosition(0);
-
-                nodeId = m_containerIds.first;
-            }
-            else
-                nodeId = m_nodeInfo.key(ui->cb_node->currentText());
-            KLOG_INFO() << nodeId;
-
-            //Graph
-            //info.enable_graphic();
-            auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-            graphPage->setGraphicInfo(&info);
-
-            //volume
-            auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-            volumesPage->setVolumeInfo(&info);
-
-            // network
-            auto size = info.networks_size();
-            KLOG_INFO() << "network_config_size:" << size;
-            if (size > m_netWorkPages.size())
-            {
-                for (int i = 0; i < (size - m_netWorkPages.size()); ++i)
-                {
-                    //创建网卡tab页，由于初始页面已经创建过一次，创建个数 - m_netWorkPages.size()
-                    GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                                      NETWORK_CARD,
-                                                      GUIDE_ITEM_TYPE_NORMAL,
-                                                      ":/images/container-net-card.svg");
-                    m_baseItems.append(item);
-                    NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
-                    m_baseConfStack->addWidget(networkConfTab);
-                    m_netWorkPages.append(networkConfTab);
-                }
-            }
-            else if (size < m_netWorkPages.size())
-            {
-                //删除页面上多余的网卡tab页
-                int row = 0;
-                int count = m_netWorkPages.size() - size;
-                while (row < ui->listwidget_base_config->count() && m_netWorkCount > 1 && count > 0)
-                {
-                    QListWidgetItem *item = ui->listwidget_base_config->item(row);
-                    GuideItem *guidItem = qobject_cast<GuideItem *>(ui->listwidget_base_config->itemWidget(item));
-                    if (guidItem->getItemText() == NETWORK_CARD)
-                    {
-                        deleteItem(NETWORK_CARD, row);
-                        count--;
-                    }
-                    row++;
-                }
-            }
-
-            updateRemovableItem(NETWORK_CARD);
-            //更新网络页面信息
-            QList<QString> networkList = m_networksMap.values(nodeId);
-            for (int i = 0; i < size; i++)
-            {
-                auto networkConfig = info.networks(i);
-                NetworkConfTab *networkPage = m_netWorkPages.at(i);
-                networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
-            }
-
-            //env
-            auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-            envPage->setEnvInfo(&info);
-
-            //high-availability
-            auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-            auto policy = info.restart_policy();
-            highAvailabilityPage->setRestartPolicy(&policy);
-
-            auto limit = info.resouce_limit();
-            //cpu
-            auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-            cpuPage->setCPUInfo(&limit);
-
-            //memory
-            auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-            memoryPage->setMemoryInfo(&limit);
-
-            //security
-            auto securityCfg = info.security_config();
-
-            auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-            fileProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-            processProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-            netProcessProtectPage->setSecurityListInfo(&securityCfg);
-
-            auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
-            networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
-
-            auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
-            startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
+            //创建网卡tab页，由于初始页面已经创建过一次，创建个数 - m_netWorkPages.size()
+            GuideItem *item = createGuideItem(ui->listwidget_base_config,
+                                              NETWORK_CARD,
+                                              GUIDE_ITEM_TYPE_NORMAL,
+                                              ":/images/container-net-card.svg");
+            m_baseItems.append(item);
+            NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+            m_baseConfStack->addWidget(networkConfTab);
+            m_netWorkPages.append(networkConfTab);
         }
     }
+    else if (size < m_netWorkPages.size())
+    {
+        //删除页面上多余的网卡tab页
+        int row = 0;
+        int count = m_netWorkPages.size() - size;
+        while (row < ui->listwidget_base_config->count() && m_netWorkCount > 1 && count > 0)
+        {
+            QListWidgetItem *item = ui->listwidget_base_config->item(row);
+            GuideItem *guidItem = qobject_cast<GuideItem *>(ui->listwidget_base_config->itemWidget(item));
+            if (guidItem->getItemText() == NETWORK_CARD)
+            {
+                deleteItem(NETWORK_CARD, row);
+                count--;
+            }
+            row++;
+        }
+    }
+
+    updateRemovableItem(NETWORK_CARD);
+    //更新网络页面信息
+    QList<QString> networkList = m_networksMap.values(nodeId);
+    for (int i = 0; i < size; i++)
+    {
+        auto networkConfig = info.networks(i);
+        NetworkConfTab *networkPage = m_netWorkPages.at(i);
+        networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
+    }
+
+    //env
+    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+    envPage->setEnvInfo(&info);
+
+    //high-availability
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    auto policy = info.restart_policy();
+    highAvailabilityPage->setRestartPolicy(&policy);
+
+    auto limit = info.resouce_limit();
+    //cpu
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->setCPUInfo(&limit);
+
+    //memory
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    memoryPage->setMemoryInfo(&limit);
+
+    //security
+    auto securityCfg = info.security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->setSecurityListInfo(&securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
 }
 
 void ContainerSetting::getCreateTemplateFinishResult(QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &reply)
 {
-    KLOG_INFO() << "getCreateTemplateFinishResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
-                NotificationManager::sendNotify(tr("Create template successful!"), tr("You can see it in container template page."));
-            emit sigUpdateTemplate();
-            close();
-        }
-        else
-        {
-            MessageDialog::message(tr("Create template"),
-                                   tr("Create template failed!"),
-                                   tr("error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
+            NotificationManager::sendNotify(tr("Create template successful!"), tr("You can see it in container template page."));
+        emit sigUpdateTemplate();
+        close();
+    }
+    else
+    {
+        MessageDialog::message(tr("Create template"),
+                               tr("Create template failed!"),
+                               tr("error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerSetting::getUpdateTemplateFinishedResult(QString objId, const QPair<grpc::Status, container::UpdateTemplateReply> &reply)
 {
-    KLOG_INFO() << "getUpdateTemplateFinishedResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            emit sigUpdateTemplate();
-            close();
-        }
-        else
-        {
-            MessageDialog::message(tr("Update template"),
-                                   tr("Update template failed!"),
-                                   tr("error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        emit sigUpdateTemplate();
+        close();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update template"),
+                               tr("Update template failed!"),
+                               tr("error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerSetting::getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &reply)
 {
-    KLOG_INFO() << "getListImageFinishedResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
+        if (m_cbImage)
         {
-            if (m_cbImage)
+            m_cbImage->clear();
+            for (auto info : reply.second.images())
             {
-                m_cbImage->clear();
-                for (auto info : reply.second.images())
-                {
-                    m_cbImage->addItem(QString::fromStdString(info.name()));
-                }
+                m_cbImage->addItem(QString::fromStdString(info.name()));
             }
         }
-        else
-        {
-            MessageDialog::message(tr("List Image"),
-                                   tr("Get image List failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+    }
+    else
+    {
+        MessageDialog::message(tr("List Image"),
+                               tr("Get image List failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
