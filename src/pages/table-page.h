@@ -78,7 +78,6 @@ private:
     QString tooptipWordWrap(const QString &org);
 
 protected:
-    bool eventFilter(QObject *watched, QEvent *event);
     void paintEvent(QPaintEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     virtual void timerEvent(QTimerEvent *event);
@@ -119,12 +118,9 @@ private slots:
     void onActRun(QModelIndex index);
     void onActStop(QModelIndex index);
     void onActRestart(QModelIndex index);
-    //void onActImagePass(int row);
-    //void onActImageRefuse(int row);
     void onActBackupResume(int row);
     void onActBackupUpdate(int row);
     void onActBackupRemove(int row);
-    void onRefreshTimeout();
     void search();
     void refresh();
     void onItemChecked(QStandardItem *changeItem);
@@ -141,7 +137,6 @@ private:
     QStandardItemModel *m_model;
     HeaderView *m_headerView;
     QTimer *m_searchTimer;
-    QTimer *m_refreshBtnTimer;
     int m_timerID;
     ButtonDelegate *m_btnDelegate;
 

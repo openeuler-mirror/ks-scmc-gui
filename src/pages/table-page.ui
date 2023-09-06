@@ -119,7 +119,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="btn_refresh">
+       <widget class="RefreshButton" name="btn_refresh">
         <property name="minimumSize">
          <size>
           <width>16</width>
@@ -205,6 +205,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RefreshButton</class>
+   <extends>QToolButton</extends>
+   <header>common/refresh-button.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
