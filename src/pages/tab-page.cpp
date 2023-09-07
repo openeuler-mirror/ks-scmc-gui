@@ -36,16 +36,14 @@ void TabPage::initUI()
 
     m_tabWidget = new QTabWidget(this);
     mainLayout->addWidget(m_tabWidget);
-
-    auto tabBar = m_tabWidget->tabBar();
-    // tabBar->setFixedHeight(40);
-    //tabBar->setFixedWidth(92);
-    //connect(m_tabWidget, &QTabWidget::tabBarClicked, this, &TabPage::onCurrentPageChanged);
+    connect(m_tabWidget, &QTabWidget::tabBarClicked, this, &TabPage::onCurrentPageChanged);
 }
 
 void TabPage::onCurrentPageChanged(int index)
 {
-    TablePage *page = qobject_cast<TablePage *>(m_tabWidget->currentWidget());
-    if (page)
-        page->updateInfo();
+    KLOG_INFO() << "tabBarClicked: " << index;
+    emit sigTabBarClicked(index);
+    //    TablePage *page = qobject_cast<TablePage *>(m_tabWidget->currentWidget());
+    //    if (page)
+    //        page->updateInfo();
 }
