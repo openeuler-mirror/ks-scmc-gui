@@ -115,6 +115,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             return;
         }
         clearTable();
+        setHeaderCheckable(true);
         int row = 0;
         QMap<QString, QVariant> idMap;
         for (auto node : reply.second.nodes())
@@ -185,6 +186,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
     {
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        setHeaderCheckable(false);
     }
 }
 
