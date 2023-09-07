@@ -610,32 +610,32 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
     auto securityCfg = cntrCfg->mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    if (!fileProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
     }
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    if (!processProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
     }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return false;
@@ -712,33 +712,33 @@ void ContainerSetting::updateContainer()
     auto securityCfg = request.mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    if (!fileProtectPage->getSecurityListInfo(securityCfg))
+    if (!fileProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
 
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    if (!processProtectPage->getSecurityListInfo(securityCfg))
+    if (!processProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
     }
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
+    if (!netProcessProtectPage->getSecurityListInfo(securityCfg, errMsg))
     {
         MessageDialog::message(windowTitle(),
                                tr("Input error"),
-                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
+                               errMsg,
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
         return;
