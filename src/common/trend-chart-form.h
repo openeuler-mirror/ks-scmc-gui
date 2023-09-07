@@ -14,7 +14,7 @@ struct ChartInfo
     QDateTime xStart;
     QDateTime xEnd;
     QString xFormat;
-    int xTickCount = 10;
+    int xTickCount = 11;
     QString yTitle;
     double yStart;
     double yEnd;
