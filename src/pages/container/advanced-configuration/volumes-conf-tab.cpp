@@ -47,6 +47,12 @@ ErrorCode VolumesConfTab::getVolumeInfo(container::HostConfig *cfg)
     return CONFIG_ARG_ERROR;
 }
 
+void VolumesConfTab::setVolumeInfo(const container::Mount *mounts)
+{
+    KLOG_INFO() << "setVolumeInfo";
+    KLOG_INFO() << mounts->source().data() << mounts->target().data() << mounts->read_only();
+}
+
 void VolumesConfTab::initUI()
 {
     m_configTable = new ConfigTable(CONFIG_TABLE_TYPE_VOLUMES, this);
