@@ -249,60 +249,6 @@ void ContainerListPage::onTerminal(int row)
     proc.startDetached(cmd);
 }
 
-void ContainerListPage::onItemClicked(const QModelIndex &index)
-{
-    auto item = getItem(index.row(), index.column());
-    if (item)
-    {
-        if (index.column() == 1 && item->text() != "-")
-        {
-            auto item = getItem(index.row(), index.column());
-            auto infoMap = item->data().value<QMap<QString, QVariant>>();
-
-            emit sigContainerNameClicked(infoMap);
-        }
-    }
-}
-
-void ContainerListPage::onItemEntered(const QModelIndex &index)
-{
-    auto item = getItem(index.row(), index.column());
-    if (item)
-    {
-        if (index.column() == 1 && item->text() != "-")
-            this->setCursor(Qt::PointingHandCursor);
-        else
-            this->setCursor(Qt::ArrowCursor);
-    }
-}
-
-void ContainerListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
-{
-    if (m_objId != objId)
-        return;
-
-    if (reply.first.ok())
-    {
-        m_networksMap.clear();
-        for (auto ifs : reply.second.virtual_ifs())
-        {
-            int nodeId = ifs.node_id();
-            auto name = ifs.name();
-            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-            QString str = QString("%1 (%2:%3)")
-                              .arg(QString::fromStdString(name))
-                              .arg(tr("Subnet"))
-                              .arg(QString::fromStdString(subnet));
-            KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
-            m_networksMap.insert(nodeId, str);
-        }
-    }
-    else
-    {
-        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
-    }
-}
-
 void ContainerListPage::getContainerListResult(const QString objId, const QPair<grpc::Status, container::ListReply> &reply)
 {
     if (m_objId != objId)
@@ -518,6 +464,228 @@ void ContainerListPage::getListTemplateFinishResult(const QString objId, const Q
         m_createFromTemplateAct->setDisabled(true);
 }
 
+void ContainerListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
+    {
+        m_networksMap.clear();
+        for (auto ifs : reply.second.virtual_ifs())
+        {
+            int nodeId = ifs.node_id();
+            auto name = ifs.name();
+            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+            QString str = QString("%1 (%2:%3)")
+                              .arg(QString::fromStdString(name))
+                              .arg(tr("Subnet"))
+                              .arg(QString::fromStdString(subnet));
+            KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
+            m_networksMap.insert(nodeId, str);
+        }
+    }
+    else
+    {
+        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+    }
+}
+
+void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, node::ListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    m_nodeInfoMap.clear();
+    for (auto n : reply.second.nodes())
+    {
+        auto nodeId = n.id();
+        auto nodeInfo = new NodeInfo;
+        nodeInfo->nodeID = nodeId;
+        nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
+        nodeInfo->totalCPU = n.status().cpu_stat().total();
+        m_nodeInfoMap.insert(nodeId, nodeInfo);
+    }
+}
+
+void ContainerListPage::getListImageFinishedResult(QString objId, const QPair<Status, image::ListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    m_imageInfos.clear();
+    for (auto info : reply.second.images())
+    {
+        auto image = QString::fromStdString(info.name());
+        m_imageInfos.append(image);
+    }
+}
+
+void ContainerListPage::getTemplateList()
+{
+    InfoWorker::getInstance().listTemplate(m_objId);
+}
+
+void ContainerListPage::getNetworkInfo(int64_t node_id)
+{
+    KLOG_INFO() << "get node:" << node_id << "NetworkInfo";
+    InfoWorker::getInstance().listNetwork(m_objId, node_id);
+}
+
+void ContainerListPage::getNodeInfo()
+{
+    InfoWorker::getInstance().listNode(m_objId);
+}
+
+void ContainerListPage::getImageInfo()
+{
+    InfoWorker::getInstance().listImage(m_objId);
+}
+
+void ContainerListPage::getContainerList(qint64 nodeId)
+{
+    m_nodeId = nodeId;
+    setBusy(true);
+    std::vector<int64_t> vecNodeId;
+    if (nodeId < 0)
+    {
+        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取所有容器
+    }
+    else
+    {
+        KLOG_INFO() << "get container list of node " << nodeId;
+        vecNodeId.push_back(nodeId);
+        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
+        getNetworkInfo(-1);                                                 //-1返回所有节点的网卡信息
+        getNodeInfo();
+        getImageInfo();
+    }
+}
+
+void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
+{
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+    int64_t node_id{};
+
+    foreach (auto idMap, info)
+    {
+        KLOG_INFO() << "node Id:" << idMap.value(NODE_ID).toInt() << "container id:" << idMap.value(CONTAINER_ID).toString();
+        node_id = idMap.value(NODE_ID).toInt();
+        std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
+        if (iter == ids.end())
+        {
+            std::vector<std::string> container_ids;
+            container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
+            ids.insert(std::pair<int64_t, std::vector<std::string>>(node_id, container_ids));
+        }
+        else
+        {
+            ids[node_id].push_back(idMap.value(CONTAINER_ID).toString().toStdString());
+        }
+    }
+}
+
+void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids)
+{
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+
+    std::vector<std::string> container_ids;
+    container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
+    auto nodeId = idMap.value(NODE_ID).toInt();
+    ids.insert(std::pair<int64_t, std::vector<std::string>>(nodeId, container_ids));
+}
+
+void ContainerListPage::onItemClicked(const QModelIndex &index)
+{
+    auto item = getItem(index.row(), index.column());
+    if (item)
+    {
+        if (index.column() == 1 && item->text() != "-")
+        {
+            auto item = getItem(index.row(), index.column());
+            auto infoMap = item->data().value<QMap<QString, QVariant>>();
+
+            emit sigContainerNameClicked(infoMap);
+        }
+    }
+}
+
+void ContainerListPage::onItemEntered(const QModelIndex &index)
+{
+    auto item = getItem(index.row(), index.column());
+    if (item)
+    {
+        if (index.column() == 1 && item->text() != "-")
+            this->setCursor(Qt::PointingHandCursor);
+        else
+            this->setCursor(Qt::ArrowCursor);
+    }
+}
+
+void ContainerListPage::operateContainer(ContainerSettingType type, int row)
+{
+    if (!m_containerSetting)
+    {
+        m_containerSetting = new ContainerSetting(type);
+        m_containerSetting->setNodeInfos(m_nodeInfoMap);
+        m_containerSetting->setImageList(m_imageInfos);
+        m_containerSetting->setNetworkInfos(m_networksMap);
+        switch (type)
+        {
+        case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
+        {
+            auto item = getItem(row, 1);
+            auto idMap = item->data().value<QMap<QString, QVariant>>();
+            int nodeId = idMap.value(NODE_ID).toInt();
+            QString containerId = idMap.value(CONTAINER_ID).toString();
+            m_containerSetting->getContainerInspect(nodeId, containerId);
+            break;
+        }
+        case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+        {
+            if (!m_templateMap.isEmpty())
+                m_containerSetting->setTemplateList(m_templateMap);
+            m_containerSetting->getTemplateInspect();
+            break;
+        }
+        case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+        {
+            auto item = getItem(row, 1);
+            auto idMap = item->data().value<QMap<QString, QVariant>>();
+            int nodeId = idMap.value(NODE_ID).toInt();
+            QString containerId = idMap.value(CONTAINER_ID).toString();
+            m_containerSetting->getContainerInspect(nodeId, containerId);
+            break;
+        }
+        default:
+            break;
+        }
+
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_containerSetting->move(screenGeometry.x() + (screenGeometry.width() - m_containerSetting->width()) / 2,
+                                 screenGeometry.y() + (screenGeometry.height() - m_containerSetting->height()) / 2);
+
+        m_containerSetting->show();
+        connect(m_containerSetting, &ContainerSetting::destroyed,
+                [=] {
+                    m_containerSetting->deleteLater();
+                    m_containerSetting = nullptr;
+                });
+        connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
+                [=] {
+                    getContainerList(m_nodeId);
+                });
+    }
+}
+
 void ContainerListPage::initButtons()
 {
     //创建按钮及菜单
@@ -647,125 +815,14 @@ void ContainerListPage::initConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerListPage::getListImageFinishedResult);
+
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
-}
-
-void ContainerListPage::operateContainer(ContainerSettingType type, int row)
-{
-    if (!m_containerSetting)
-    {
-        switch (type)
-        {
-        case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
-        {
-            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE, m_networksMap);
-            break;
-        }
-        case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
-        {
-            auto item = getItem(row, 1);
-            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
-                                                      m_networksMap,
-                                                      item->data().value<QMap<QString, QVariant>>());
-            break;
-        }
-        case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
-        {
-            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE, m_networksMap);
-            if (!m_templateMap.isEmpty())
-                m_containerSetting->setTemplateList(m_templateMap);
-            break;
-        }
-        case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
-        {
-            auto item = getItem(row, 1);
-            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE,
-                                                      m_networksMap,
-                                                      item->data().value<QMap<QString, QVariant>>());
-            break;
-        }
-        default:
-            break;
-        }
-
-        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_containerSetting->move(screenGeometry.x() + (screenGeometry.width() - m_containerSetting->width()) / 2,
-                                 screenGeometry.y() + (screenGeometry.height() - m_containerSetting->height()) / 2);
-
-        m_containerSetting->show();
-        connect(m_containerSetting, &ContainerSetting::destroyed,
-                [=] {
-                    KLOG_INFO() << "container setting destroy";
-                    m_containerSetting->deleteLater();
-                    m_containerSetting = nullptr;
-                });
-        connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
-                    getContainerList(m_nodeId);
-                });
-    }
-}
-
-void ContainerListPage::getTemplateList()
-{
-    InfoWorker::getInstance().listTemplate(m_objId);
-}
-
-void ContainerListPage::getContainerList(qint64 nodeId)
-{
-    m_nodeId = nodeId;
-    setBusy(true);
-    std::vector<int64_t> vecNodeId;
-    if (nodeId < 0)
-    {
-        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取所有容器
-    }
-    else
-    {
-        KLOG_INFO() << "get container list of node " << nodeId;
-        vecNodeId.push_back(nodeId);
-        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
-        getNetworkInfo(-1);                                                 //-1返回所有节点的网卡信息
-    }
-}
-
-void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
-{
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
-    int64_t node_id{};
-
-    foreach (auto idMap, info)
-    {
-        KLOG_INFO() << "node Id:" << idMap.value(NODE_ID).toInt() << "container id:" << idMap.value(CONTAINER_ID).toString();
-        node_id = idMap.value(NODE_ID).toInt();
-        std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
-        if (iter == ids.end())
-        {
-            std::vector<std::string> container_ids;
-            container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
-            ids.insert(std::pair<int64_t, std::vector<std::string>>(node_id, container_ids));
-        }
-        else
-        {
-            ids[node_id].push_back(idMap.value(CONTAINER_ID).toString().toStdString());
-        }
-    }
-}
-
-void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids)
-{
-    auto item = getItem(row, 1);
-    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
-
-    std::vector<std::string> container_ids;
-    container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
-    auto nodeId = idMap.value(NODE_ID).toInt();
-    ids.insert(std::pair<int64_t, std::vector<std::string>>(nodeId, container_ids));
 }
 
 void ContainerListPage::timedRefresh(bool start)
@@ -777,12 +834,6 @@ void ContainerListPage::timedRefresh(bool start)
     {
         m_timer->stop();
     }
-}
-
-void ContainerListPage::getNetworkInfo(int64_t node_id)
-{
-    KLOG_INFO() << "get node:" << node_id << "NetworkInfo";
-    InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 
 void ContainerListPage::updateInfo(QString keyword)
@@ -802,6 +853,8 @@ void ContainerListPage::updateInfo(QString keyword)
         getContainerList(m_nodeId);
         getTemplateList();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
+        getNodeInfo();
+        getImageInfo();
         timedRefresh(true);
     }
 }

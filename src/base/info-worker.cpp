@@ -496,6 +496,12 @@ void InfoWorker::listImage(const QString objId, const int64_t node_id)
     RPC_ASYNC(image::ListReply, _listImage, listImageFinished, objId, req);
 }
 
+void InfoWorker::listImage(const QString objId)
+{
+    image::ListRequest req;
+    RPC_ASYNC(image::ListReply, _listImage, listImageFinished, objId, req);
+}
+
 void InfoWorker::listDBImage(const QString objId)
 {
     image::ListDBRequest req;

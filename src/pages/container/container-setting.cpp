@@ -42,68 +42,22 @@
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
-ContainerSetting::ContainerSetting(ContainerSettingType type, QMultiMap<int, QString> networksMap, QMap<QString, QVariant> ids, QWidget *parent) : QWidget(parent),
-                                                                                                                                                   ui(new Ui::ContainerSetting),
-                                                                                                                                                   m_baseConfStack(nullptr),
-                                                                                                                                                   m_advancedConfStack(nullptr),
-                                                                                                                                                   m_securityConfStack(nullptr),
-                                                                                                                                                   m_addMenu(nullptr),
-                                                                                                                                                   m_cbImage(nullptr),
-                                                                                                                                                   m_labImage(nullptr),
-                                                                                                                                                   m_templateId(-1),
-                                                                                                                                                   m_netWorkCount(0),
-                                                                                                                                                   m_type(type)
+ContainerSetting::ContainerSetting(ContainerSettingType type, QWidget *parent) : QWidget(parent),
+                                                                                 ui(new Ui::ContainerSetting),
+                                                                                 m_baseConfStack(nullptr),
+                                                                                 m_advancedConfStack(nullptr),
+                                                                                 m_securityConfStack(nullptr),
+                                                                                 m_addMenu(nullptr),
+                                                                                 m_templateId(-1),
+                                                                                 m_netWorkCount(0),
+                                                                                 m_type(type)
 
 {
     ui->setupUi(this);
-    initUI();
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerSetting::getNodeListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerSetting::getListImageFinishedResult);
-
     m_objId = InfoWorker::generateId(this);
-    m_containerIds.first = ids.value(NODE_ID).toInt();
-    m_containerIds.second = ids.value(CONTAINER_ID).toString();
-    m_templateId = ids.value(TEMPLATE_ID).toInt();
-    m_networksMap = networksMap;
 
-    switch (type)
-    {
-    case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
-        if (!ids.isEmpty())
-            getContainerInspect();
-        getNodeInfo();
-        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
-        break;
-    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
-        getNodeInfo();
-        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
-        break;
-    case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
-        getNodeInfo();
-        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
-        break;
-    case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
-        if (!ids.isEmpty())
-            getTemplateInspect(m_templateId);
-        getNodeInfo();
-        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
-        break;
-    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:  //这里不需要获取节点数据,设置模板列表时获取节点数据
-        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
-        break;
-    case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
-        if (!ids.isEmpty())
-            getContainerInspect();
-        getNodeInfo();
-        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
-        break;
-    default:
-        break;
-    }
+    initUI();
+    initConnection();
 }
 
 ContainerSetting::~ContainerSetting()
@@ -140,7 +94,60 @@ void ContainerSetting::setTemplateList(QMultiMap<int, QPair<int, QString>> templ
         ui->cb_template->addItem(templateName, templateId);
         iter++;
     }
-    getNodeInfo();
+}
+
+void ContainerSetting::setNodeInfos(QMap<int, NodeInfo *> nodeInfoMap)
+{
+    m_nodeInfoMap = nodeInfoMap;
+    ui->cb_node->clear();
+    auto iter = nodeInfoMap.begin();
+    while (iter != nodeInfoMap.end())
+    {
+        auto nodeId = iter.key();
+        auto nodeInfo = iter.value();
+        ui->cb_node->addItem(nodeInfo->nodeAddr, nodeId);
+        m_nodeTotalCPU.insert(nodeId, nodeInfo->totalCPU);
+        iter++;
+    }
+
+    //设置cpu核心数
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
+}
+
+void ContainerSetting::setImageList(QStringList imageList)
+{
+    m_imageList = imageList;
+    ui->cb_image->clear();
+    ui->cb_image->addItems(imageList);
+}
+
+void ContainerSetting::setNetworkInfos(QMultiMap<int, QString> networksMap)
+{
+    m_networksMap = networksMap;
+    setNodeNetworkList(ui->cb_node->currentData().toInt());
+}
+
+void ContainerSetting::getContainerInspect(int nodeID, const QString containerID)
+{
+    m_nodeID = nodeID;
+    m_containerID = containerID;
+    InfoWorker::getInstance().containerInspect(m_objId, nodeID, containerID.toStdString());
+}
+
+void ContainerSetting::getTemplateInspect()
+{
+    //获取模板下拉框中的当前模板绑定的模板id
+    auto templateId = ui->cb_template->currentData().toInt();
+    m_templateId = templateId;
+
+    InfoWorker::getInstance().inspectTemplate(m_objId, templateId);
+}
+
+void ContainerSetting::getTemplateInspect(int templateID)
+{
+    m_templateId = templateID;
+    InfoWorker::getInstance().inspectTemplate(m_objId, templateID);
 }
 
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
@@ -275,20 +282,15 @@ void ContainerSetting::initSummaryUI()
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
     {
         setWindowTitle(tr("Create Container"));
-        m_cbImage = new QComboBox(this);
-        m_cbImage->setParent(this);
-        m_cbImage->setFixedSize(QSize(420, 30));
-        QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
-        layout->addWidget(m_cbImage, 3, 1);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
     {
         setWindowTitle(tr("Edit Container"));
         ui->btn_tip_name->hide();
-        m_labImage = new QLabel(this);
-        QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
-        layout->addWidget(m_labImage, 3, 1);
+        ui->cb_image->setEnabled(false);
+        ui->cb_image->setStyleSheet("#cb_image{border:none;margin-left:0px;padding-left:0px;}"
+                                    "#cb_image::down-arrow{image:none;}");
         ui->cb_node->setEnabled(false);
         ui->cb_node->setStyleSheet("#cb_node{border:none;margin-left:0px;padding-left:0px;}"
                                    "#cb_node::down-arrow{image:none;}");
@@ -310,30 +312,56 @@ void ContainerSetting::initSummaryUI()
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         setWindowTitle(tr("Create template"));
-        ui->label_image->hide();
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
-        ui->label_image->hide();
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
     {
         setWindowTitle(tr("Create container from template"));
         ui->label_template_name->show();
         ui->cb_template->show();
-        m_cbImage = new QComboBox(this);
-        m_cbImage->setParent(this);
-        m_cbImage->setFixedSize(QSize(420, 30));
-        QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
-        layout->addWidget(m_cbImage, 3, 1);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
     {
         setWindowTitle(tr("Generate template"));
-        ui->label_image->hide();
+        ui->cb_image->setEnabled(false);
+        ui->cb_image->setStyleSheet("#cb_image{border:none;margin-left:0px;padding-left:0px;}"
+                                    "#cb_image::down-arrow{image:none;}");
         break;
     }
+    default:
+        break;
+    }
+}
+
+void ContainerSetting::initConnection()
+{
+    switch (m_type)
+    {
+    case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
+        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
+        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        break;
+    case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
+        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
+        break;
+    case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
+        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
+        break;
     default:
         break;
     }
@@ -508,26 +536,6 @@ void ContainerSetting::updateRemovableItem(QString itemText)
     }
 }
 
-void ContainerSetting::getContainerInspect()
-{
-    InfoWorker::getInstance().containerInspect(m_objId, m_containerIds.first, m_containerIds.second.toStdString());
-}
-
-void ContainerSetting::getTemplateInspect(int templateId)
-{
-    InfoWorker::getInstance().inspectTemplate(m_objId, templateId);
-}
-
-void ContainerSetting::getNodeInfo()
-{
-    InfoWorker::getInstance().listNode(m_objId);
-}
-
-void ContainerSetting::getImageInfo(int64_t node_id)
-{
-    InfoWorker::getInstance().listImage(m_objId, node_id);
-}
-
 void ContainerSetting::setNodeNetworkList(int nodeId)
 {
     QList<QString> networks = m_networksMap.values(nodeId);
@@ -653,15 +661,14 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 void ContainerSetting::createContainer()
 {
     container::CreateRequest request;
-    request.set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
+    request.set_node_id(ui->cb_node->currentData().toInt());
     auto cntrCfg = request.mutable_configs();
     //cntrCfg->set_container_id("");
     cntrCfg->set_uuid("");
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     //cntrCfg->set_status("");
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
-    if (m_cbImage)
-        cntrCfg->set_image(m_cbImage->currentText().toStdString());
+    cntrCfg->set_image(ui->cb_image->currentText().toStdString());
 
     if (writeContainerConfig(cntrCfg))
     {
@@ -673,8 +680,8 @@ void ContainerSetting::updateContainer()
 {
     QString errMsg = "";
     container::UpdateRequest request;
-    request.set_node_id(m_containerIds.first);
-    request.set_container_id(m_containerIds.second.toStdString());
+    request.set_node_id(m_nodeID);
+    request.set_container_id(m_containerID.toStdString());
 
     auto rsrcCfg = request.mutable_resource_limit();
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
@@ -758,12 +765,14 @@ void ContainerSetting::createTemplate()
     container::CreateTemplateRequest request;
 
     auto data = request.mutable_data();
-    data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
+    data->set_node_id(ui->cb_node->currentData().toInt());
 
     auto cntrCfg = data->mutable_conf();
 
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
+    KLOG_INFO() << "********** get template image:" << ui->cb_image->currentText();
+    cntrCfg->set_image(ui->cb_image->currentText().toStdString());
 
     if (writeContainerConfig(cntrCfg))
     {
@@ -776,11 +785,13 @@ void ContainerSetting::updateTemplate()
     container::UpdateTemplateRequest request;
     auto data = request.mutable_data();
     data->set_id(m_templateId);
-    data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
+    data->set_node_id(ui->cb_node->currentData().toInt());
 
     auto cntrCfg = data->mutable_conf();
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
+    KLOG_INFO() << "********** get template image:" << ui->cb_image->currentText();
+    cntrCfg->set_image(ui->cb_image->currentText().toStdString());
 
     if (writeContainerConfig(cntrCfg))
     {
@@ -845,7 +856,7 @@ void ContainerSetting::onAddItem(QAction *action)
         NetworkConfTab *networkConfPage = new NetworkConfTab(this);
         m_netWorkPages.append(networkConfPage);
         m_baseConfStack->addWidget(networkConfPage);
-        int nodeId = m_nodeInfo.key(ui->cb_node->currentText());
+        int nodeId = ui->cb_node->currentData().toInt();
         networkConfPage->initVirtNetworkInfo(m_networksMap.values(nodeId));
         break;
     }
@@ -856,7 +867,6 @@ void ContainerSetting::onAddItem(QAction *action)
 
 void ContainerSetting::onDelItem()
 {
-    KLOG_INFO() << "onDelItem";
     GuideItem *guideItem = qobject_cast<GuideItem *>(sender());
     auto ret = MessageDialog::message(tr("Delete Network card"),
                                       tr("Are you sure you want to delete the network card?"),
@@ -878,8 +888,6 @@ void ContainerSetting::onDelItem()
             row++;
         }
     }
-    else
-        KLOG_INFO() << "cancel";
 }
 
 void ContainerSetting::onConfirm()
@@ -909,21 +917,16 @@ void ContainerSetting::onConfirm()
 
 void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
-    KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
-    //创建容器/基于模板创建容器时获取镜像列表
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
-        getImageInfo(m_nodeInfo.key(newStr));
+    //更新网络列表
+    setNodeNetworkList(ui->cb_node->currentData().toInt());
 
-    setNodeNetworkList(m_nodeInfo.key(newStr));
-
-    //设置cpu核心数
+    //更新cpu最大值
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
+    cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
 {
-    KLOG_INFO() << "onTempSelectedChanged :" << newStr;
     int index = ui->cb_template->findText(newStr);
     auto templateId = ui->cb_template->itemData(index).toInt();
 
@@ -931,50 +934,7 @@ void ContainerSetting::onTempSelectedChanged(QString newStr)
 
     QPair<int, QString> templateInfo = m_templateMap.value(templateId);
     qint64 nodeId = templateInfo.first;
-    ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
-}
-
-void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &reply)
-{
-    if (m_objId != objId)
-        return;
-
-    if (!reply.first.ok())
-        return;
-
-    m_nodeInfo.clear();
-    ui->cb_node->clear();
-    for (auto n : reply.second.nodes())
-    {
-        int nodeId = n.id();
-        m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
-        ui->cb_node->addItem(QString("%1").arg(n.address().data()));
-        auto totalCPU = n.status().cpu_stat().total();
-        m_nodeTotalCPU.insert(nodeId, totalCPU);
-    }
-
-    //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT || m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
-        ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
-    else if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
-    {
-        //get Node id
-        auto templateId = ui->cb_template->currentData().toInt();
-        QPair<int, QString> templateInfo = m_templateMap.value(templateId);
-        qint64 nodeId = templateInfo.first;
-        ui->cb_node->setCurrentText(m_nodeInfo.value(nodeId));
-        getTemplateInspect(templateId);
-    }
-    else  // 创建容器，创建模板
-        setNodeNetworkList(m_nodeInfo.key(ui->cb_node->currentText()));
-
-    //创建容器/基于模板创建容器时获取镜像列表
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
-        getImageInfo(m_nodeInfo.key(ui->cb_node->currentText()));
-
-    //设置cpu核心数
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->setTotalCPU(m_nodeTotalCPU.value(m_nodeInfo.key(ui->cb_node->currentText())));
+    ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeId));
 }
 
 void ContainerSetting::getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &reply)
@@ -1009,18 +969,20 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     //init ui
     auto info = reply.second.configs();
 
+    //名字
     showLongText(ui->lineEdit_name, info.name().data());
     KLOG_INFO() << info.name().data() << info.image().data();
-
-    if (m_labImage)
-        m_labImage->setText(info.image().data());
-
+    //描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
     {
         showLongText(ui->lineEdit_describe, info.desc().data());
     }
     else
         ui->lineEdit_describe->setText(tr("none"));
+    //镜像
+    ui->cb_image->setCurrentText(info.image().data());
+    //节点
+    ui->cb_node->setCurrentIndex(ui->cb_node->findData(m_nodeID));
 
     // network
     auto size = info.networks_size();
@@ -1040,7 +1002,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     updateRemovableItem(NETWORK_CARD);
 
     //更新网络页面信息
-    QList<QString> networkList = m_networksMap.values(m_containerIds.first);
+    QList<QString> networkList = m_networksMap.values(m_nodeID);
     for (int i = 0; i < size; i++)
     {
         auto networkConfig = info.networks(i);
@@ -1132,26 +1094,25 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
         return;
 
     //init ui
+    int nodeID = reply.second.data().node_id();
+    KLOG_INFO() << "template node id: " << nodeID;
+
     auto info = reply.second.data().conf();
-    qint64 nodeId;
 
-    if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
-    {
-        ui->lineEdit_name->setText(info.name().data());
-        ui->lineEdit_name->setCursorPosition(0);
-
-        if (!QString::fromStdString(info.desc().data()).isEmpty())
-            ui->lineEdit_describe->setText(info.desc().data());
-        else
-            ui->lineEdit_describe->setText(tr("none"));
-
-        ui->lineEdit_describe->setCursorPosition(0);
-
-        nodeId = m_containerIds.first;
-    }
+    //名字
+    ui->lineEdit_name->setText(info.name().data());
+    ui->lineEdit_name->setCursorPosition(0);
+    //描述
+    if (!QString::fromStdString(info.desc().data()).isEmpty())
+        ui->lineEdit_describe->setText(info.desc().data());
     else
-        nodeId = m_nodeInfo.key(ui->cb_node->currentText());
-    KLOG_INFO() << "node id: " << nodeId;
+        ui->lineEdit_describe->setText(tr("none"));
+    ui->lineEdit_describe->setCursorPosition(0);
+    //节点
+    ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeID));
+    //镜像
+    KLOG_INFO() << "!!!!!!! template image: " << QString::fromStdString(info.image());
+    ui->cb_image->setCurrentText(QString::fromStdString(info.image()));
 
     //Graph
     //info.enable_graphic();
@@ -1200,7 +1161,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
 
     updateRemovableItem(NETWORK_CARD);
     //更新网络页面信息
-    QList<QString> networkList = m_networksMap.values(nodeId);
+    QList<QString> networkList = m_networksMap.values(nodeID);
     for (int i = 0; i < size; i++)
     {
         auto networkConfig = info.networks(i);
@@ -1282,32 +1243,6 @@ void ContainerSetting::getUpdateTemplateFinishedResult(QString objId, const QPai
         MessageDialog::message(tr("Update template"),
                                tr("Update template failed!"),
                                tr("error: %1").arg(reply.first.error_message().data()),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-    }
-}
-
-void ContainerSetting::getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &reply)
-{
-    if (m_objId != objId)
-        return;
-
-    if (reply.first.ok())
-    {
-        if (m_cbImage)
-        {
-            m_cbImage->clear();
-            for (auto info : reply.second.images())
-            {
-                m_cbImage->addItem(QString::fromStdString(info.name()));
-            }
-        }
-    }
-    else
-    {
-        MessageDialog::message(tr("List Image"),
-                               tr("Get image List failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
     }

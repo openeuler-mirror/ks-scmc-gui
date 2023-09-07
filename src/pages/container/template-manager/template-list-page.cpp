@@ -9,7 +9,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QPushButton>
-#include "container/container-setting.h"
 #include "def.h"
 #include "message-dialog.h"
 
@@ -46,6 +45,8 @@ void TemplateListPage::updateInfo(QString keyword)
         //gRPC->拿数据->填充内容
         getTemplateInfo();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
+        getNodeInfo();
+        getImageInfo();
     }
 }
 
@@ -58,9 +59,15 @@ void TemplateListPage::onEdit(int row)
 
     if (!m_editTPSetting)
     {
-        m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
-                                               m_networksMap,
-                                               item->data().value<QMap<QString, QVariant>>());
+        m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT);
+        m_editTPSetting->setNodeInfos(m_nodeInfoMap);
+        m_editTPSetting->setNetworkInfos(m_networksMap);
+        m_editTPSetting->setImageList(m_imageInfos);
+
+        auto item = getItem(row, 1);
+        auto idMap = item->data().value<QMap<QString, QVariant>>();
+        int templateID = idMap.value(TEMPLATE_ID).toInt();
+        m_editTPSetting->getTemplateInspect(templateID);
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -104,7 +111,10 @@ void TemplateListPage::onCreateTemplate()
 {
     if (!m_createTPSetting)
     {
-        m_createTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_CREATE, m_networksMap);
+        m_createTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_CREATE);
+        m_createTPSetting->setNodeInfos(m_nodeInfoMap);
+        m_createTPSetting->setNetworkInfos(m_networksMap);
+        m_createTPSetting->setImageList(m_imageInfos);
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -166,6 +176,42 @@ void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grp
     }
     else
         KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+}
+
+void TemplateListPage::getNodeListResult(QString objId, const QPair<Status, node::ListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    m_nodeInfoMap.clear();
+    for (auto n : reply.second.nodes())
+    {
+        auto nodeId = n.id();
+        auto nodeInfo = new NodeInfo;
+        nodeInfo->nodeID = nodeId;
+        nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
+        nodeInfo->totalCPU = n.status().cpu_stat().total();
+        m_nodeInfoMap.insert(nodeId, nodeInfo);
+    }
+}
+
+void TemplateListPage::getListImageFinishedResult(QString objId, const QPair<Status, image::ListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    m_imageInfos.clear();
+    for (auto info : reply.second.images())
+    {
+        auto image = QString::fromStdString(info.name());
+        m_imageInfos.append(image);
+    }
 }
 
 void TemplateListPage::getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
@@ -325,6 +371,8 @@ void TemplateListPage::initTemplateConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &TemplateListPage::getNodeListResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &TemplateListPage::getListImageFinishedResult);
 }
 
 void TemplateListPage::getCheckedItemsId(QList<int64_t> &ids)
@@ -353,4 +401,14 @@ void TemplateListPage::getTemplateInfo()
 {
     setBusy(true);
     InfoWorker::getInstance().listTemplate(m_objId);
+}
+
+void TemplateListPage::getNodeInfo()
+{
+    InfoWorker::getInstance().listNode(m_objId);
+}
+
+void TemplateListPage::getImageInfo()
+{
+    InfoWorker::getInstance().listImage(m_objId);
 }
