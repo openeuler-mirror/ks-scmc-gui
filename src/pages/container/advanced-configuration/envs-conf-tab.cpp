@@ -1,6 +1,7 @@
+#include "envs-conf-tab.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QVBoxLayout>
 #include "common/message-dialog.h"
-#include "envs-conf-tab.h"
 #include "ui_envs-conf-tab.h"
 EnvsConfTab::EnvsConfTab(QWidget *parent) : QWidget(parent),
                                             ui(new Ui::EnvsConfTab)
@@ -37,6 +38,13 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfig *cfg)
         return NO_ERROR;
     }
     return CONFIG_ARG_ERROR;
+}
+
+void EnvsConfTab::setEnvInfo(const container::ContainerConfig *cfg)
+{
+    KLOG_INFO() << "setEnvInfo";
+    auto envMap = cfg->env();
+    KLOG_INFO() << envMap["PATH"].data();
 }
 
 void EnvsConfTab::initUI()

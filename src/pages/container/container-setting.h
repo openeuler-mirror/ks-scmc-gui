@@ -31,7 +31,13 @@ enum TabConfigGuideItemType
     TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY
 };
 
+enum MultiConfigType
+{
+    MULTI_CONFIG_TYPE_NETWOR
+};
+
 class GuideItem;
+class NetworkConfTab;
 class ContainerSetting : public QWidget
 {
     Q_OBJECT
@@ -85,9 +91,10 @@ private:
     ContainerSettingType m_type;
     QComboBox *m_cbImage = nullptr;
     QLabel *m_labImage = nullptr;
-    QMap<int64_t, QString> m_nodeInfo;
-    QPair<int64_t, QString> m_containerIds;
+    QMap<int64_t, QString> m_nodeInfo;       //id,address
+    QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
     double m_totalCPU = 0.0;
+    QList<NetworkConfTab *> m_netWorkPages;
 };
 
 #endif  // CONTAINERSETTING_H
