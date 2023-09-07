@@ -31,6 +31,7 @@ private slots:
     void getCreateResult(const QPair<grpc::Status, node::CreateReply> &);
     void getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &);
     void onItemClicked(const QModelIndex &index);
+    void onItemEntered(const QModelIndex &index);
 
 signals:
     void sigNodeNameClicked(qint64 nodeId);
