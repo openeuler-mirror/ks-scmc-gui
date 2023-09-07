@@ -20,15 +20,15 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     KLOG_INFO() << "initChart";
     QChart *chart = m_chartView->chart();
     //折线图
-    foreach (auto name, chartInfo.seriesNames)
+    for (auto iter = chartInfo.seriesInfo.begin(); iter != chartInfo.seriesInfo.end(); iter++)
     {
         QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(2);
-        pen.setColor(QColor(46, 179, 255));
-        series->setPen(pen);    //折现序列的线条设置
-        series->setName(name);  //legend中的文字
+        pen.setColor(QColor(iter.value()));
+        series->setPen(pen);          //折现序列的线条设置
+        series->setName(iter.key());  //legend中的文字
         chart->addSeries(series);
         connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
     }
@@ -161,7 +161,7 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
         font.setPixelSize(14);
         QFontMetrics fm(font);
         auto width = fm.width(QString::number(point.y()));
-        if (m_yAxis->labelFormat().contains("%"))
+        if (m_yAxis->labelFormat().contains("%d%%"))
         {
             m_valueLabel->setText(QString::number(point.y()) + "%");
         }

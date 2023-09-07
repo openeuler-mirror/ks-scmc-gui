@@ -93,6 +93,7 @@ void ContainerSetting::initUI()
     setWindowModality(Qt::ApplicationModal);
     //    ui->tabWidget->setStyleSheet(QString("QTabWidget::tab-bar{width:%1px;}").arg(this->geometry().width() + 20));
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
+    ui->tabWidget->setAttribute(Qt::WA_StyledBackground);
     ui->btn_add->setIcon(QIcon(":/images/addition.svg"));
     ui->btn_add->setText(tr("Add"));
     ui->btn_add->installEventFilter(this);
@@ -152,15 +153,15 @@ void ContainerSetting::initUI()
         cb->setItemDelegate(new QStyledItemDelegate(cb));
     }
 
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
-    {
-        ui->listwidget_base_config->setItemHidden(ui->listwidget_base_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD), true);
-        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS), true);
-        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC), true);
-        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES), true);
-        m_advancedConfStack->setCurrentIndex(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY);
-        ui->btn_add->hide();
-    }
+    //    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+    //    {
+    //        ui->listwidget_base_config->setItemHidden(ui->listwidget_base_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD), true);
+    //        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS), true);
+    //        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC), true);
+    //        ui->listWidget_advanced_config->setItemHidden(ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES), true);
+    //        m_advancedConfStack->setCurrentIndex(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY);
+    //        ui->btn_add->hide();
+    //    }
 
     connect(ui->listwidget_base_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->listWidget_advanced_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
@@ -236,6 +237,7 @@ void ContainerSetting::initBaseConfPages()
 
     NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
     m_baseConfStack->addWidget(networkConfTab);
+    m_netWorkPages.append(networkConfTab);
 }
 
 void ContainerSetting::initAdvancedConfPages()
@@ -328,8 +330,10 @@ void ContainerSetting::createContainer()
     highAvailabilityPage->getRestartPolicy(policy);
 
     //network card
-    auto networkPage = qobject_cast<NetworkConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
-    networkPage->getNetworkInfo(&request);
+    foreach (auto networkPage, m_netWorkPages)
+    {
+        networkPage->getNetworkInfo(&request);
+    }
 
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
@@ -428,7 +432,9 @@ void ContainerSetting::onAddItem(QAction *action)
         m_baseItems.append(item);
         updateRemovableItem(tr("Network card"));
         NetworkConfTab *networkConfPage = new NetworkConfTab(this);
+        m_netWorkPages.append(networkConfPage);
         m_baseConfStack->addWidget(networkConfPage);
+        networkConfPage->updateNetworkInfo(m_nodeInfo.key(ui->cb_node->currentText()));
         break;
     }
     default:
@@ -457,6 +463,7 @@ void ContainerSetting::onDelItem()
                 m_baseItems.removeAt(row);
                 auto page = m_baseConfStack->widget(row);
                 m_baseConfStack->removeWidget(page);
+                m_netWorkPages.removeOne(qobject_cast<NetworkConfTab *>(page));
                 m_netWorkCount--;
                 updateRemovableItem("Network card");
 
@@ -490,8 +497,9 @@ void ContainerSetting::onConfirm()
 
 void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
-    auto networkPage = qobject_cast<NetworkConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
-    networkPage->updateNetworkInfo(m_nodeInfo.key(newStr));
+    KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
+    //        networkPage->updateNetworkInfo(m_nodeInfo.key(newStr));
+    InfoWorker::getInstance().listNetwork(m_nodeInfo.key(newStr));
     getImageInfo(m_nodeInfo.key(newStr));
 }
 
@@ -563,6 +571,46 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         //memory
         auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
         memoryPage->setMemoryInfo(&host);
+
+        // network
+        auto size = reply.second.network_config_size();
+        KLOG_INFO() << "network_config_size:" << size;
+        for (int i = 0; i < size - 1; ++i)
+        {
+            //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
+            GuideItem *item = createGuideItem(ui->listwidget_base_config,
+                                              tr("Network card"),
+                                              GUIDE_ITEM_TYPE_NORMAL,
+                                              ":/images/container-net-card.svg");
+            m_baseItems.append(item);
+            NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+            m_baseConfStack->addWidget(networkConfTab);
+            m_netWorkPages.append(networkConfTab);
+        }
+        //更新网络页面信息
+        InfoWorker::getInstance().listNetwork(m_nodeInfo.key(ui->cb_node->currentText()));
+
+        for (int i = 0; i < size; i++)
+        {
+            auto networkConfig = reply.second.network_config(i);
+            NetworkConfTab *networkPage = m_netWorkPages.at(i);
+            networkPage->setNetworkInfo(&networkConfig);
+        }
+
+        //env
+        auto envPage = qobject_cast<EnvsConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+        envPage->setEnvInfo(&ctnCfg);
+
+        //volume
+        auto volumesPage = qobject_cast<VolumesConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+        for (auto mount : reply.second.mounts())
+        {
+            volumesPage->setVolumeInfo(&mount);
+        }
+
+        //Graph
+        auto graphPage = qobject_cast<GraphicConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+        graphPage->setGraphicInfo();
 
         //high-availability
         auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));

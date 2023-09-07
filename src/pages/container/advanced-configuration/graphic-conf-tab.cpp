@@ -12,6 +12,10 @@ GraphicConfTab::~GraphicConfTab()
     delete ui;
 }
 
+void GraphicConfTab::setGraphicInfo()
+{
+}
+
 void GraphicConfTab::getGraphicInfo(container::CreateRequest* request)
 {
     request->set_enable_graphic(ui->graphic_checkBox->isChecked());
