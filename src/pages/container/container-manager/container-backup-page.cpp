@@ -57,7 +57,6 @@ ContainerBackupPage::~ContainerBackupPage()
 
 void ContainerBackupPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "ContainerBackupPage updateInfo";
     clearCheckState();
     clearText();
     if (keyword.isEmpty())
@@ -66,7 +65,6 @@ void ContainerBackupPage::updateInfo(QString keyword)
         {
             setBusy(true);
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
-            m_timer->start(TIMEOUT);
         }
     }
 }
@@ -82,12 +80,16 @@ void ContainerBackupPage::updateBackupList(int nodeId, std::string containerId, 
     }
 }
 
-void ContainerBackupPage::refresh(bool isRefresh)
+void ContainerBackupPage::showEvent(QShowEvent *event)
 {
-    if (isRefresh)
-        m_timer->start(TIMEOUT);
-    else
-        m_timer->stop();
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void ContainerBackupPage::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
 }
 
 void ContainerBackupPage::onCreateBackupBtn()
@@ -127,8 +129,6 @@ void ContainerBackupPage::onRemoveBackupBtn()
             auto backupId = infoMap.at(0).value(BACKUP_ID).toInt();
             InfoWorker::getInstance().removeBackup(m_objId, m_nodeId, backupId);
         }
-        else
-            KLOG_INFO() << "cancel";
     }
 }
 
@@ -154,8 +154,6 @@ void ContainerBackupPage::onRemoveBackup(int row)
         auto backupId = infoMap.value(BACKUP_ID).toInt();
         InfoWorker::getInstance().removeBackup(m_objId, m_nodeId, backupId);
     }
-    else
-        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onResumeBackup(int row)
@@ -175,8 +173,6 @@ void ContainerBackupPage::onResumeBackup(int row)
         auto backupId = infoMap.value(BACKUP_ID).toInt();
         InfoWorker::getInstance().resumeBackup(m_objId, m_nodeId, m_containerId, backupId);
     }
-    else
-        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onUpdateBackup(int row)

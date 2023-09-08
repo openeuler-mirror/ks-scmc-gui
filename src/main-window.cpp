@@ -64,7 +64,6 @@ MainWindow::MainWindow(QString name, QWidget* parent)
     initUI();
     ui->btn_user->setText(name);
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
-    connect(m_stackedWidget, SIGNAL(currentChanged(int)), this, SLOT(changePage(int)));
 }
 
 MainWindow::~MainWindow()
@@ -425,28 +424,6 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     default:
         break;
-    }
-}
-
-void MainWindow::changePage(int)
-{
-    QString info = "exitTimedRefresh";
-    Page* page = qobject_cast<Page*>(m_stackedWidget->currentWidget());
-    QString data = page->getData().toString();
-    if (data != NODE_MANAGER)
-    {
-        if (m_pageMap[NODE_MANAGER])
-            m_pageMap[NODE_MANAGER]->updateInfo(info);
-    }
-    if (data != CONTAINER_LIST)
-    {
-        if (m_pageMap[CONTAINER_LIST])
-            m_pageMap[CONTAINER_LIST]->updateInfo(info);
-    }
-    if (data != CONTAINER_MANAGER)
-    {
-        if (m_pageMap[CONTAINER_MANAGER])
-            m_pageMap[CONTAINER_MANAGER]->updateInfo(info);
     }
 }
 

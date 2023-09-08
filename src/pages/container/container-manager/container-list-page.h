@@ -26,6 +26,10 @@ public:
     void updateInfo(QString keyword = "");  //刷新表格
     void getContainerList(qint64 nodeId = -1);
 
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+
 private slots:
     void onBtnRun();
     void onBtnRun(QModelIndex index);
@@ -69,7 +73,6 @@ private:
     void getTemplateList();
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
-    void timedRefresh(bool start);
     void getNetworkInfo(int64_t node_id);
     void getNodeInfo();
     void getImageInfo();

@@ -613,53 +613,53 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
     if (!changeItem)
         return;
 
-    if (changeItem->isCheckable())
+    if (!changeItem->isCheckable())
+        return;
+
+    bool hasRunningCtn = false;
+    for (int i = 0; i < m_model->rowCount(); i++)
     {
-        bool hasRunningCtn = false;
-        for (int i = 0; i < m_model->rowCount(); i++)
+        //针对容器列表：获取列表中是否有正在运行的容器
+        auto item = m_model->item(i, 0);
+        auto nameItem = m_model->item(i, 1);
+        if (nameItem)
         {
-            //针对容器列表：获取列表中是否有正在运行的容器
-            auto item = m_model->item(i, 0);
-            auto nameItem = m_model->item(i, 1);
-            if (nameItem)
+            auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
+            if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
+                (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
             {
-                auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
-                if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
-                    (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
-                {
-                    hasRunningCtn = true;
-                }
+                hasRunningCtn = true;
             }
-            //若为单选，将其他选中复选框置为未选中
-            if (m_singleChoose)
+        }
+        //若为单选，将其他选中复选框置为未选中
+        if (m_singleChoose)
+        {
+            if (changeItem->checkState() == Qt::Checked)
             {
-                if (changeItem->checkState() == Qt::Checked)
+                if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
                 {
-                    if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
-                    {
-                        item->setCheckState(Qt::Unchecked);
-                    }
+                    item->setCheckState(Qt::Unchecked);
                 }
             }
         }
+    }
 
-        //更新表头复选框状态、更新批量处理按钮状态
-        int num = getCheckedItemNum();
-        if (num > 0)
-        {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
-            emit sigHasRunningCtn(hasRunningCtn);
+    //更新表头复选框状态、更新批量处理按钮状态
+    int num = getCheckedItemNum();
+    if (num > 0)
+    {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+        emit sigHasRunningCtn(hasRunningCtn);
 
-            if (num == m_model->rowCount())
-                m_headerView->setCheckState(true);
-            else
-                m_headerView->setCheckState(false);
-        }
+        if (num == m_model->rowCount())
+            m_headerView->setCheckState(true);
         else
-        {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
             m_headerView->setCheckState(false);
-        }
+    }
+    else
+    {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+        m_headerView->setCheckState(false);
     }
 }
 

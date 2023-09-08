@@ -17,6 +17,8 @@
 using namespace grpc;
 
 #define ACTION_COL 1
+#define TIMEOUT 60000
+
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr),
                                               m_nodeUpdate(nullptr),
@@ -53,21 +55,24 @@ NodeListPage::~NodeListPage()
 
 void NodeListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "NodeListPage updateInfo, keyword:" << keyword;
-    if (keyword == "exitTimedRefresh")
-    {
-        timedRefresh(false);
-        clearCheckState();
-        return;
-    }
-
+    //clearCheckState();
     clearText();
     if (keyword.isEmpty())
     {
-        //initNodeConnect();
         getNodeList();
-        timedRefresh(true);
     }
+}
+
+void NodeListPage::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void NodeListPage::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
 }
 
 void NodeListPage::onCreateNode()
@@ -422,15 +427,4 @@ void NodeListPage::getNodeList()
 {
     setBusy(true);
     InfoWorker::getInstance().listNode(m_objId);
-}
-
-void NodeListPage::timedRefresh(bool start)
-{
-    KLOG_INFO() << "node list time refresh:" << start;
-    if (start)
-        m_timer->start(60000);
-    else
-    {
-        m_timer->stop();
-    }
 }

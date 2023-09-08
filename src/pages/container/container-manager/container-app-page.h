@@ -23,6 +23,10 @@ public:
     ~ContainerAppPage();
     void updateInfo(QString keyword = "");
 
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+
 private slots:
     void onCreate();
     void onEdit(int row);
@@ -55,6 +59,7 @@ private:
     ContainerAppOperateDialog *m_appOp;
     QProcess *m_proc;
     int m_runningAppRow;
+    QTimer *m_timer;
 };
 
 #endif  // CONTAINERAPPDIALOG_H
