@@ -79,6 +79,7 @@ ContainerListPage::~ContainerListPage()
         delete m_monitor;
         m_monitor = nullptr;
     }
+    qDeleteAll(m_batchOpBtnMap);
 }
 
 void ContainerListPage::onBtnRun()
@@ -499,7 +500,7 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
     if (!reply.first.ok())
         return;
 
-    m_nodeInfoMap.clear();
+    qDeleteAll(m_nodeInfoMap);
     for (auto n : reply.second.nodes())
     {
         auto nodeId = n.id();
@@ -507,6 +508,7 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
         nodeInfo->nodeID = nodeId;
         nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
         nodeInfo->totalCPU = n.status().cpu_stat().total();
+        nodeInfo->totalMemory = n.status().mem_stat().total();
         m_nodeInfoMap.insert(nodeId, nodeInfo);
     }
 }

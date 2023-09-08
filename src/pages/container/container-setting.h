@@ -50,10 +50,12 @@ struct NodeInfo
     {
         nodeID = 0;
         totalCPU = 0;
+        totalMemory = 0;
     }
     int nodeID;
     QString nodeAddr;
-    int totalCPU;
+    double totalCPU;
+    double totalMemory;
 };
 
 class GuideItem;
@@ -139,7 +141,8 @@ private:
     int m_netWorkCount;
 
     ContainerSettingType m_type;
-    QMap<int, double> m_nodeTotalCPU;  //node total cpu
+    QMap<int, double> m_nodeTotalCPU;     //node total cpu
+    QMap<int, double> m_nodeTotalMemory;  //node total memory
     QList<NetworkConfTab *> m_netWorkPages;
     QMultiMap<int, QString> m_networksMap;
     QMultiMap<int, QPair<int, QString>> m_templateMap;
