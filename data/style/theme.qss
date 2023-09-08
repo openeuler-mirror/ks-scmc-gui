@@ -3,6 +3,7 @@ QLabel
 {
     font-size:14px;
 }
+
 MainWindow QWidget#widget_content
 {
     background:#2d2d2d;
@@ -590,10 +591,18 @@ ConfigTable #tableView::item
 }
 
 /********************************Login****************************/
-/*Login #cb_user_name
+Login #btn_login
 {
+    background:#2eb3ff;
     color:#ffffff;
-}*/
+    border-radius:4px;
+}
+
+Login QLineEdit
+{
+    background:transparent;
+    border:1px solid #2eb3ff;
+}
 
 /****************************TransmissionList**************/
 TransmissionList
