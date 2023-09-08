@@ -15,10 +15,11 @@
 #include <QTranslator>
 #include <iostream>
 #include "config/config.h"
+#include "global-application.h"
 #include "login-dialog.h"
 
 #ifdef KIRAN_STYLE_FOUND
-	#include <kiran-style/style-palette.h>
+#include <kiran-style/style-palette.h>
 #endif
 
 #define TRANSLATION_DIR TRANSLATIONS_FILE_DIR
@@ -32,7 +33,8 @@ int main(int argc, char *argv[])
     }
     KLOG_INFO("******New Output*********\n");
 
-    KiranSingleApplication a(argc, argv);
+    //KiranSingleApplication a(argc, argv);
+    GlobalApplication a(argc, argv);
 
 #ifdef KIRAN_STYLE_FOUND
     //设在主题不跟随系统主题变化,KY3.4-4,KY3.3-6中不需要此功能

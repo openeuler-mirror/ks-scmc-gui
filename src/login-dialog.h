@@ -43,7 +43,6 @@ protected:
 private:
     void initUI();
     void initMessageBox();
-    void createSubscribThread();
     void loadConfig();
     bool inspectLoginParam();
     void getLicense(QString license_str);
@@ -80,8 +79,6 @@ private:
     QLabel *activate_label;
     AboutPage *m_about;
     QMutex m_sessionMutex;
-    QThread *m_thread;
-    SubscribeThread *m_subscribeThread;
 };
 
 #endif  // LOGIN_DIALOG_H
