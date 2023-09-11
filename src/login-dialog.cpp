@@ -21,9 +21,9 @@
 #include "global-application.h"
 #include "main-window.h"
 #include "pages/user/server-config-dialog.h"
-#include "subscribe-thread.h"
 #include "ui_login-dialog.h"
 #include "user-configuration.h"
+
 #define TIMEOUT 300
 
 using namespace CryptoPP;
@@ -34,7 +34,9 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                             m_mainWindow(nullptr),
                                             m_serverCfgDlg(nullptr),
                                             m_activate_page(nullptr),
-                                            m_dbusutil(nullptr)
+                                            m_dbusutil(nullptr),
+                                            m_isLogin(false),
+                                            m_isSessionExpired(false)
 {
     ui->setupUi(getWindowContentWidget());
 
@@ -57,17 +59,17 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
+    auto application = static_cast<GlobalApplication *>(QCoreApplication::instance());
+    connect(application, &GlobalApplication::sessionExpired, this, &LoginDialog::sessionExpire);
+
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::sessionExpire, this, &LoginDialog::sessionExpire);
     //loadConfig();
-
-    auto qAPP = static_cast<GlobalApplication *>(QCoreApplication::instance());
-    connect(qAPP, &GlobalApplication::sessionExpired, this, &LoginDialog::sessionExpire);
 }
 
 LoginDialog::~LoginDialog()
 {
-    KLOG_INFO() << "*************Deconstruction LoginDialog";
     delete ui;
     if (m_mainWindow)
     {
@@ -456,6 +458,8 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
     if (reply.first.ok())
     {
+        m_isLogin = true;
+        m_isSessionExpired = false;
         if (!m_mainWindow)
         {
             m_mainWindow = new MainWindow(ui->lineEdit_username->text());
@@ -485,15 +489,24 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
 
     if (reply.first.ok() || reply.first.error_code() == UNAUTHENTICATED)
     {
+        m_isLogin = false;
+
         if (m_mainWindow)
         {
             delete m_mainWindow;
             m_mainWindow = nullptr;
         }
-        show();
         ui->lineEdit_passwd->clear();
-        ui->lab_tips->clear();
-        ui->lab_tips->hide();
+        if (m_isSessionExpired)
+        {
+            ui->lab_tips->setText(tr("Session Expired,Please login again!"));
+        }
+        else
+        {
+            ui->lab_tips->clear();
+        }
+        ui->lab_tips->setVisible(!ui->lab_tips->text().isEmpty());
+        show();
     }
     else
     {
@@ -508,22 +521,20 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
 
 void LoginDialog::sessionExpire()
 {
-    KLOG_INFO() << "get session expire!";
+    //注销状态下不处理
+    if (!m_isLogin)
+        return;
+
+    KLOG_INFO() << "get session expired!";
+
     if (!m_sessionMutex.tryLock())
     {
         KLOG_INFO() << "get lock fail and return";
         return;
     }
-    if (m_mainWindow)
-    {
-        delete m_mainWindow;
-        m_mainWindow = nullptr;
-    }
-    show();
-    ui->lineEdit_passwd->clear();
-    ui->lab_tips->clear();
-    ui->lab_tips->setText(tr("Session Expired,Please login again!"));
-    ui->lab_tips->show();
+
+    m_isSessionExpired = true;
+    onLogout();
     m_sessionMutex.unlock();
 }
 

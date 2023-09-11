@@ -13,7 +13,7 @@ public:
     bool notify(QObject *receiver, QEvent *e);
 
 private:
-    void logout();
+    void expired();
 
 signals:
     void sessionExpired();
