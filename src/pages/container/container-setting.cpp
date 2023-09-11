@@ -12,7 +12,6 @@
 #include <QPainter>
 #include <QPair>
 #include "advanced-configuration/envs-conf-tab.h"
-#include "advanced-configuration/graphic-conf-tab.h"
 #include "advanced-configuration/high-availability-tab.h"
 #include "advanced-configuration/volumes-conf-tab.h"
 #include "base-configuration/cpu-conf-tab.h"
@@ -31,7 +30,6 @@
 #define MEMORY QObject::tr("Memory")
 #define NETWORK_CARD QObject::tr("Network card")
 #define ENVS QObject::tr("ENVS")
-#define GRAPHIC QObject::tr("Graphic")
 #define VOLUMES QObject::tr("Volumes")
 #define HIGH_AVAILABILITY QObject::tr("High availability")
 #define FILE_PROTECT QObject::tr("File protect")
@@ -224,7 +222,6 @@ void ContainerSetting::initUI()
     ui->listwidget_base_config->setCurrentRow(0);
 
     QList<QPair<QString, QString>> advancedConfItemInfo = {{ENVS, ":/images/container-env.png"},
-                                                           {GRAPHIC, ":/images/container-graphic.png"},
                                                            {VOLUMES, ":/images/container-volumes.png"},
                                                            {HIGH_AVAILABILITY, ":/images/container-high-avail.png"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
@@ -417,9 +414,6 @@ void ContainerSetting::initAdvancedConfPages()
     EnvsConfTab *envsConfTab = new EnvsConfTab(ui->tab_advanced_config);
     m_advancedConfStack->addWidget(envsConfTab);
 
-    GraphicConfTab *graphicConfTab = new GraphicConfTab(ui->tab_advanced_config);
-    m_advancedConfStack->addWidget(graphicConfTab);
-
     VolumesConfTab *volumesConfTab = new VolumesConfTab(ui->tab_advanced_config);
     m_advancedConfStack->addWidget(volumesConfTab);
 
@@ -554,9 +548,6 @@ void ContainerSetting::setNodeNetworkList(int nodeId)
 bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg)
 {
     QString errMsg = "";
-    //Graph
-    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    cntrCfg->set_enable_graphic(graphicPage->isGraphic());
 
     //volume mounts
     auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
@@ -1021,11 +1012,6 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
     }
 
-    //Graph
-    //info.enable_graphic();
-    auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    graphPage->setGraphicInfo(&info);
-
     //volume
     auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     volumesPage->setVolumeInfo(&info);
@@ -1036,7 +1022,6 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
     {
-        graphPage->setDisabled(true);
         volumesPage->setDisabled(true);
         envPage->setDisabled(true);
     }
@@ -1122,11 +1107,6 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     //镜像
     KLOG_INFO() << "!!!!!!! template image: " << QString::fromStdString(info.image());
     ui->cb_image->setCurrentText(QString::fromStdString(info.image()));
-
-    //Graph
-    //info.enable_graphic();
-    auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    graphPage->setGraphicInfo(&info);
 
     //volume
     auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
