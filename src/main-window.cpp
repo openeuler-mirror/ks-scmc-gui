@@ -211,7 +211,17 @@ void MainWindow::initUI()
 
     //创建左侧侧边栏
     QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
-    //    QListWidgetItem* outline = createGuideItem(OUTLINE_PAGES, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
+
+    QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
+    QListWidgetItem* imageManager = createGuideItem(IMAGE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/image-manager.svg");
+
+    QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP, ":/images/container-manager.svg");
+    QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
+    QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
+    QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
+    m_groupMap.insert(containerManager, containerSubItems);
+    m_isShowMap.insert(containerManager, false);
+
     QListWidgetItem* auditCenter = createGuideItem(AUDIT_CENTER, GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
     QListWidgetItem* auditApplyList = createGuideItem(AUDIT_APPLY_LIST, GUIDE_ITEM_TYPE_SUB);
     QListWidgetItem* auditWarningList = createGuideItem(AUDIT_WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
@@ -221,28 +231,9 @@ void MainWindow::initUI()
     ///TODO: m_isShowMap.insert(auditCenter, false);
     m_isShowMap.insert(auditCenter, false);
 
-    QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP, ":/images/container-manager.svg");
-    QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
-    QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
-    m_groupMap.insert(containerManager, containerSubItems);
-    m_isShowMap.insert(containerManager, false);
-
-    QListWidgetItem* imageManager = createGuideItem(IMAGE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/image-manager.svg");
-    QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
-
-    //show first
-    //    GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(containerManager));
-    //    guideItem->setArrow(false);
-
     GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(homeItem));
     item->setSelected(true);
     setPageName(item->getItemText());
-
-    //    foreach (QListWidgetItem* subItem, containerSubItems)
-    //    {
-    //        subItem->setHidden(false);
-    //    }
 
     m_outline = new OutlineView;
     m_stackedWidget->addWidget(m_outline);

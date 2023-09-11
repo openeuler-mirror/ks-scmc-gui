@@ -5,6 +5,9 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 
+#define PASSWORD "password"
+#define USERNAME "username"
+
 using namespace CryptoPP;
 static std::string m_ServerAddr;
 UserConfiguration::UserConfiguration() : m_loginSettings(nullptr), m_serverSetting(nullptr)
@@ -81,6 +84,13 @@ void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QStri
     settings->beginGroup(group);
     settings->setValue(key, variant);
     settings->endGroup();
+}
+
+QString UserConfiguration::getDecryptedPw(QString userName)
+{
+    QString decryptedPw;
+    readConfig(CONFIG_SETTING_TYPE_LOGIN, userName, PASSWORD, decryptedPw);
+    return decryptedPw;
 }
 
 std::string UserConfiguration::getServerAddr()
