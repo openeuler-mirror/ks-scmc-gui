@@ -234,16 +234,15 @@ void LoginDialog::getLoginResult(const QPair<grpc::Status, user::LoginReply> &re
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
             hide();
         }
-        //        if (m_isRemember)
-        //        {
-        //            QString encryptedPw = QString::fromStdString(m_userConfig->desEncrypt(ui->lineEdit_passwd->text().toStdString()));
-        //            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_NAME, ui->lineEdit_username->text());
-        //            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, encryptedPw);
-        //        }
+
+        QString encryptedPw = QString::fromStdString(m_userConfig->desEncrypt(ui->lineEdit_passwd->text().toStdString()));
+        m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_NAME, ui->lineEdit_username->text());
+        m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, encryptedPw);
     }
     else
     {
-        ui->lab_tips->setText(tr("Login failed! %1").arg(reply.first.error_message().data()));
+        ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
+        ui->lab_tips->show();
         ui->lineEdit_passwd->clear();
     }
 }
@@ -261,6 +260,8 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
             m_mainWindow = nullptr;
         }
         show();
+        ui->lab_tips->clear();
+        ui->lab_tips->hide();
     }
     else
     {
