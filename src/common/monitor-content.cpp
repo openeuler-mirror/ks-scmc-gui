@@ -108,12 +108,15 @@ void MonitorContent::initChart()
 {
     QMap<QString, QString> cpuSeriesInfo = {{CHART_SERIES_NAME_CPU, "#2eb3ff"}};
     BuildCharts(m_cpuChartForm, cpuSeriesInfo, tr("CPU usage (%)"));
+    m_cpuChartForm->setLegendVisible(false);
 
     QMap<QString, QString> memorySeriesInfo = {{CHART_SERIES_NAME_MEMORY, "#2eb3ff"}};
     BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"));
+    m_memoryChartForm->setLegendVisible(false);
 
     QMap<QString, QString> diskSeriesInfo = {{CHART_SERIES_NAME_DISK, "#2eb3ff"}};
     BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk usage (unit M)"));
+    m_diskChartForm->setLegendVisible(false);
 
     QMap<QString, QString> netSeriesInfo = {{CHART_SERIES_NAME_NETWORK_RX, "#2eb3ff"}, {CHART_SERIES_NAME_NETWORK_TX, "#F57900"}};
     BuildCharts(m_netChartForm, netSeriesInfo, tr("Network throughput (unit M)"));
