@@ -272,7 +272,6 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
     if (m_objId != objId)
         return;
 
-    setBusy(false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 
     if (!reply.first.ok())

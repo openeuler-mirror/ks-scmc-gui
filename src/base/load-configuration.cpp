@@ -32,11 +32,12 @@ LoadConfiguration &LoadConfiguration::Instance()
 
 void LoadConfiguration::initConfig()
 {
-    auto terminal = getTerminal();
-    m_values.insert("TERMINAL_CMD", QString("%1 -e").arg(terminal));
+    QString cmd, totalCmd;
+    getCmd(cmd, totalCmd);
+
+    m_values.insert("TERMINAL_CMD", cmd);
     m_values.insert("BASHRC_FILE", "/etc/ks-scmc/graphic_rc");
-    m_values.insert("TERMINAL_USAGE", QString("%1 --disable-factory -e \"ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"")
-                                          .arg(terminal));
+    m_values.insert("TERMINAL_USAGE", totalCmd);
     m_values.insert("SSL_ENABLE", "false");
     m_values.insert("SSL_CA", "/etc/ks-scmc/x509/ca.pem");
     m_values.insert("SSL_CERT", "/etc/ks-scmc/x509/client-cert.pem");
@@ -118,15 +119,13 @@ void LoadConfiguration::_getSSLConfig(bool &enable, QString &ca, QString &cert, 
         key = m_values["SSL_KEY"];
 }
 
-QString LoadConfiguration::getTerminal()
+void LoadConfiguration::getCmd(QString &cmd, QString &totalCmd)
 {
 #ifdef HAS_MATE_TERMINAL
-    return "mate-terminal";
+    cmd = "mate-terminal -e";
+    totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
+#elif HAS_KONSOLE
+    cmd = "konsole -e";
+    totalCmd = "konsole -e ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
 #endif
-
-#ifdef HAS_KONSOLE
-    return "konsole";
-#endif
-
-    return QString();
 }

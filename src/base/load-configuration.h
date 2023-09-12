@@ -29,7 +29,7 @@ private:
     QString readConfig(QString group, QString key);
     QString _getTerminalConfig(QString nodeAddr, QString containerName, QString appexec);
     void _getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key);
-    QString getTerminal();
+    void getCmd(QString &cmd, QString &totalCmd);
 
 private:
     QSettings *m_settings;
