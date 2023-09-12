@@ -50,7 +50,6 @@ private:
     int m_pageOn = 1;  //当前页
 
 signals:
-    void sigOpenPaging(int);
     void sigUpdateWaringSums();  //刷新告警总数
 };
 

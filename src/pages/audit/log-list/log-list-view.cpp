@@ -125,7 +125,6 @@ void LogListView::initLogListConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
     connect(this, &LogListView::sigUpdatePaging, this, &LogListView::updatePagingInfo);
-    connect(this, &LogListView::sigOpenPaging, this, &LogListView::setPaging);
 }
 
 void LogListView::getLogList(LogListPageType type, int page_on)
@@ -134,7 +133,8 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     request.set_start_time(m_xStart.toSecsSinceEpoch());
     request.set_end_time(m_xEnd.toSecsSinceEpoch());
     KLOG_INFO() << "start:" << m_xStart.toString("yyyy/MM/dd hh:mm:ss")
-                << "end:" << m_xEnd.toString("yyyy/MM/dd hh:mm:ss");
+                << "end:" << m_xEnd.toString("yyyy/MM/dd hh:mm:ss")
+                << "curr page:" << page_on;
 
     switch (type)
     {
@@ -204,9 +204,12 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
     m_totalPages = int(reply.second.total_pages());
     if (is_openPaging)
     {
+        if (m_totalPages < 1)
+            m_totalPages = 1;
         if (m_pageOn > m_totalPages)
             m_pageOn = m_totalPages;
-        emit sigOpenPaging(m_totalPages);
+
+        setPaging(m_totalPages);
     }
 
     int size = reply.second.logs_size();
