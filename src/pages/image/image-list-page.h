@@ -3,6 +3,7 @@
 
 #include <QMutex>
 #include <QWidget>
+#include <QVector>
 #include "image-operate-dialog.h"
 #include "info-worker.h"
 #include "table-page.h"
@@ -15,6 +16,7 @@ public:
     explicit ImageListPage(QWidget *parent = nullptr);
     ~ImageListPage();
     void updateInfo(QString keyword = "");  //刷新表格
+    void setDelRow(const QString type1 = "",const QString type2 = ""); //"Wait for Approve","Rejected","Passed"
 
 private:
     void initTable();
@@ -49,6 +51,7 @@ private:
     ImageOperateDialog *m_pImageOp;
     QStringList m_transferImages = {};
     QMutex m_mutex;
+    QVector<QString> is_del_row;
 };
 
 #endif  // IMAGELISTPAGE_H
