@@ -1,6 +1,6 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.1.1
-%global pkg_rel 2
+%global pkg_rel 3
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
@@ -56,7 +56,6 @@ Requires:	libnotify
 Requires:       ks-license-client
 Requires:	qt5-qtcharts
 Requires:	c-ares
-#Requres:	zlog
 
 %if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4
@@ -101,6 +100,9 @@ killall ks-scmc-gui
 %endif
 
 %changelog
+* Thu Aug 17 2023 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-3
+- KYOS-F: fix bugs of ks-scmc-gui-1.1
+
 * Thu Aug 17 2023 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-2
 - KYOS-F: add build to run option and set theme don't change with system kiran theme
 
@@ -166,4 +168,5 @@ killall ks-scmc-gui
 
 * Wed Apr 20 2022 chendingjian <chendingjian@kylinos.com.cn> -1.0.0-1
 - KYOS-F: First commit.
+
 
