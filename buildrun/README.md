@@ -19,6 +19,6 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin-release
 2 change /etc/yum.conf make keepcache=1
 
 3 get depend packages
-yum install install cryptopp gflags grpc kiran-widgets-qt5 ks-scmc-gui protobuf protobuf-compiler qt5-qtcharts qt5-qtdeclarative qt5-qtxmlpatterns re2 ks-scmc-gui
+yum localinstall ks-scmc-gui
 
 4 build run 
