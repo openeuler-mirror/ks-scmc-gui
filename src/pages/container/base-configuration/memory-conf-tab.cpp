@@ -21,34 +21,33 @@ MemoryConfTab::~MemoryConfTab()
     delete ui;
 }
 
-void MemoryConfTab::setMemoryInfo(container::HostConfig *cfg)
+void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        auto resourceCfg = cfg->mutable_resource_config();
-        int memLimit = limitDataHandle(true, resourceCfg->mem_limit(), ui->cb_max_unit);
-        int sofgLimit = limitDataHandle(true, resourceCfg->mem_soft_limit(), ui->cb_soft_unit);
-        KLOG_INFO() << resourceCfg->mem_limit() << resourceCfg->mem_soft_limit();
+        int memLimit = limitDataHandle(true, cfg->memory_limit(), ui->cb_max_unit);
+        int softLimit = limitDataHandle(true, cfg->memory_soft_limit(), ui->cb_soft_unit);
+        KLOG_INFO() << cfg->memory_limit() << cfg->memory_limit();
 
-        ui->lineEdit_soft_limit->setText(QString("%1").arg(sofgLimit));
+        ui->lineEdit_soft_limit->setText(QString("%1").arg(softLimit));
         ui->lineEdit_max_limit->setText(QString("%1").arg(memLimit));
     }
 }
 
-ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceConfig *cfg)
+ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        auto softLimit = limitDataHandle(false, ui->lineEdit_soft_limit->text().toInt(), ui->cb_soft_unit);
+        auto softLimit = limitDataHandle(false, ui->lineEdit_soft_limit->text().toDouble(), ui->cb_soft_unit);
         KLOG_INFO() << "Memory soft limit: " << softLimit;
 
-        auto maxLimit = limitDataHandle(false, ui->lineEdit_max_limit->text().toInt(), ui->cb_max_unit);
+        auto maxLimit = limitDataHandle(false, ui->lineEdit_max_limit->text().toDouble(), ui->cb_max_unit);
         KLOG_INFO() << "Memory max limit: " << maxLimit;
 
         if (softLimit <= maxLimit)
         {
-            cfg->set_mem_limit(maxLimit);
-            cfg->set_mem_soft_limit(softLimit);
+            cfg->set_memory_limit(maxLimit);
+            cfg->set_memory_soft_limit(softLimit);
             return NO_ERROR;
         }
         else
@@ -57,23 +56,19 @@ ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceConfig *cfg)
     return CONFIG_ARG_ERROR;
 }
 
-int MemoryConfTab::limitDataHandle(bool stom, int originData, QComboBox *unitWidget)
+int MemoryConfTab::limitDataHandle(bool stom, double originData, QComboBox *unitWidget)
 {
     QString unit = unitWidget->currentText();
-    int limit;
-    if (stom)  //bites->M/GB
+    int limit = originData;
+    if (stom)  // MB->GB
     {
-        if (unit == "MB")
-            limit = originData >> 20;
-        else
-            limit = originData >> 30;
+        if (unit == "GB")
+            limit = originData / 1024.0;
     }
-    else  //M/GB->bites
+    else  // GB->MB
     {
-        if (unit == "MB")
-            limit = originData << 20;
-        else
-            limit = originData << 30;
+        if (unit == "GB")
+            limit = originData * 1024.0;
     }
     return limit;
 }

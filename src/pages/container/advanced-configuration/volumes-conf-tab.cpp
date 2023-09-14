@@ -14,7 +14,7 @@ VolumesConfTab::~VolumesConfTab()
     delete ui;
 }
 
-ErrorCode VolumesConfTab::getVolumeInfo(container::HostConfig *cfg)
+ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
 {
     if (cfg)
     {

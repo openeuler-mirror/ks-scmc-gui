@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option go_package = "scmc/rpc/pb/security";
+
+package security;
+
+service Security {
+    // 进程保护
+    rpc ListProcProtection(ListProcProtectionRequest) returns (ListProcProtectionReply) {}
+    rpc UpdateProcProtection(UpdateProcProtectionRequest) returns (UpdateProcProtectionReply) {}
+
+    // 文件保护
+    rpc ListFileProtection(ListFileProtectionRequest) returns (ListFileProtectionReply) {}
+    rpc UpdateFileProtection(UpdateFileProtectionRequest) returns (UpdateFileProtectionReply) {}
+}
+
+enum PROC_PROTECTION {
+    NONE           = 0;
+    EXEC_WHITELIST = 1;  // 进程白名单
+    NET_WHITELIST  = 2;  // 网络进程白名单
+}
+
+message ListProcProtectionRequest {
+    int64  node_id         = 1;  // 必填
+    string container_id    = 2;  // 必填
+    int64  protection_type = 3;  // PROC_PROTECTION 必填
+}
+
+message ListProcProtectionReply {
+    bool            is_on    = 1;
+    repeated string exe_list = 2;
+}
+
+message UpdateProcProtectionRequest {
+    int64           node_id         = 1;  // 必填
+    string          container_id    = 2;  // 必填
+    int64           protection_type = 3;  // PROC_PROTECTION 必填
+    bool            is_on           = 4;  // 开关
+    repeated string to_append       = 5;  // 新增保护程序列表
+    repeated string to_remove       = 6;  // 删除保护程序列表
+}
+
+message UpdateProcProtectionReply {}
+
+message ListFileProtectionRequest {
+    int64  node_id      = 1;  // 必填
+    string container_id = 2;  // 选填
+}
+
+message ListFileProtectionReply {
+    bool            is_on     = 1;
+    repeated string file_list = 2;
+}
+
+message UpdateFileProtectionRequest {
+    int64           node_id      = 1;  // 必填
+    string          container_id = 2;  // 选填
+    bool            is_on        = 3;  // 开关
+    repeated string to_append    = 4;  // 新增保护文件列表
+    repeated string to_remove    = 5;  // 删除保护文件列表
+}
+
+message UpdateFileProtectionReply {}
+
+message ProcProtection {
+    int64           protection_type = 1;  // PROC_PROTECTION 必填
+    bool            is_on           = 2;  // 开关
+    repeated string exe_list        = 3;
+}
+
+message FileProtection {
+    bool            is_on     = 1;
+    repeated string file_list = 2;
+}
