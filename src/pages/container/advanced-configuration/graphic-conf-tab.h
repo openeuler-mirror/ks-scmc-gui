@@ -17,6 +17,7 @@ public:
     ~GraphicConfTab();
     void setGraphicInfo();
     void getGraphicInfo(container::CreateRequest *request);
+    bool isGraphic();
 
 private:
     Ui::GraphicConfTab *ui;

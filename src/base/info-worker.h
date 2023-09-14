@@ -81,6 +81,13 @@ public:
 
     // network management
     void listNetwork(const int64_t);
+    void connectNetwork(const network::ConnectRequest &);
+    void disconnectNetwork(const int64_t node_id, std::string interface, std::string container_id);
+    void listIPtables(const int64_t node_id, std::string container_id = "");
+    void enableIPtables(const int64_t node_id, bool enable, std::string container_id = "");
+    void createIPtables(const network::CreateIPtablesRequest &);
+    void modifyIPtables(const network::ModifyIPtablesRequest &);
+    void removeIPtables(const network::RemoveIPtablesRequest &);
 
     // image management
     void listImage(const int64_t);
@@ -123,6 +130,14 @@ private:
 
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
+    static QPair<grpc::Status, network::ConnectReply> _connectNetwork(const network::ConnectRequest &);
+    static QPair<grpc::Status, network::DisconnectReply> _disconnectNetwork(const network::DisconnectRequest &);
+    static QPair<grpc::Status, network::ListIPtablesReply> _listIPtables(const network::ListIPtablesRequest &);
+    static QPair<grpc::Status, network::EnableIPtablesReply> _enableIPtables(const network::EnableIPtablesRequest &);
+    static QPair<grpc::Status, network::CreateIPtablesReply> _createIPtables(const network::CreateIPtablesRequest &);
+    static QPair<grpc::Status, network::ModifyIPtablesReply> _modifyIPtables(const network::ModifyIPtablesRequest &);
+    static QPair<grpc::Status, network::RemoveIPtablesReply> _removeIPtables(const network::RemoveIPtablesRequest &);
+
 
     // image management
     static QPair<grpc::Status, image::ListReply> _listImage(const image::ListRequest &);
@@ -159,6 +174,13 @@ signals:
 
     // network management
     void listNetworkFinished(const QPair<grpc::Status, network::ListReply> &);
+    void connectNetworkFinished(const QPair<grpc::Status, network::ConnectReply> &);
+    void disconnectNetworkFinished(const QPair<grpc::Status, network::DisconnectReply> &);
+    void listIPtablesFinished(const QPair<grpc::Status, network::ListIPtablesReply> &);
+    void enableIPtablesFinished(const QPair<grpc::Status, network::EnableIPtablesReply> &);
+    void createIPtablesFinished(const QPair<grpc::Status, network::CreateIPtablesReply> &);
+    void modifyIPtablesFinished(const QPair<grpc::Status, network::ModifyIPtablesReply> &);
+    void removeIPtablesFinished(const QPair<grpc::Status, network::RemoveIPtablesReply> &);
 
     // image management
     void listImageFinished(const QPair<grpc::Status, image::ListReply> &);
