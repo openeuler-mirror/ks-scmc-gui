@@ -344,6 +344,8 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
 
             std::string strCpuPct = "-";
             std::string strMemPct = "-";
+            std::string strDiskPct = "-";
+            std::string strOnlineTime = "-";
 
             if (i.info().has_resource_stat())
             {
@@ -356,17 +358,26 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
 
                 if (i.info().resource_stat().has_mem_stat())
                 {
-                    double used = i.info().resource_stat().mem_stat().used() / 1048576;
                     char str[128]{};
-                    sprintf(str, "%0.0fMB", used);
+                    sprintf(str, "%0.1fMB", i.info().resource_stat().mem_stat().used());
                     strMemPct = std::string(str);
+                }
+
+                if (i.info().resource_stat().has_disk_stat())
+                {
+                    char str[128]{};
+                    sprintf(str, "%0.0fMB", i.info().resource_stat().disk_stat().used());
+                    strDiskPct = std::string(str);
                 }
             }
 
+            auto dt = QDateTime::fromSecsSinceEpoch(i.info().created());
+
             QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
-            QStandardItem *itemDisk = new QStandardItem("-");
-            QStandardItem *onlineTime = new QStandardItem("-");
+            QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
+            QStandardItem *onlineTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
+
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
