@@ -980,6 +980,12 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     else
         ui->lineEdit_describe->setText(tr("none"));
     //镜像
+    KLOG_INFO() << "!!!!!!! container image: " << QString::fromStdString(info.image().data());
+    //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
+    if (0 > ui->cb_image->findText(info.image().data()))
+    {
+        ui->cb_image->addItem(info.image().data());
+    }
     ui->cb_image->setCurrentText(info.image().data());
     //节点
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(m_nodeID));
@@ -1106,6 +1112,11 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeID));
     //镜像
     KLOG_INFO() << "!!!!!!! template image: " << QString::fromStdString(info.image());
+    //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
+    if (0 > ui->cb_image->findText(info.image().data()))
+    {
+        ui->cb_image->addItem(info.image().data());
+    }
     ui->cb_image->setCurrentText(QString::fromStdString(info.image()));
 
     //volume
