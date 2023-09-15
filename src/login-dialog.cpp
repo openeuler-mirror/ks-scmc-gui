@@ -458,11 +458,24 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
     if (reply.first.ok())
     {
+        auto userRole = reply.second.user_role().name().data();
+        if (0 != QString::compare(userRole, USER_ROLE_SYSADM) &&
+            0 != QString::compare(userRole, USER_ROLE_SECADM) &&
+            0 != QString::compare(userRole, USER_ROLE_AUDADM))
+        {
+            auto msg = tr("Login failed: there is no %1 user role").arg(userRole);
+            KLOG_INFO() << msg;
+            ui->lab_tips->setText(msg);
+            ui->lab_tips->show();
+            ui->lineEdit_passwd->clear();
+            return;
+        }
+
         m_isLogin = true;
         m_isSessionExpired = false;
         if (!m_mainWindow)
         {
-            m_mainWindow = new MainWindow(ui->lineEdit_username->text());
+            m_mainWindow = new MainWindow(ui->lineEdit_username->text(), userRole);
             m_mainWindow->showMaximized();
             m_mainWindow->installEventFilter(this);
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);

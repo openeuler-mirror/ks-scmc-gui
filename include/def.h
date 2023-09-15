@@ -23,6 +23,10 @@
 #define SCMC_GUI_VERSION_FILE_PATH "/usr/share/ks-scmc-gui/ks-scmc-gui.version"
 #define SCMC_VERSION_FILE_PATH "/usr/share/ks-scmc/ks-scmc.version"
 
+#define USER_ROLE_SYSADM "sysadm_r"
+#define USER_ROLE_SECADM "secadm_r"
+#define USER_ROLE_AUDADM "audadm_r"
+
 enum GUIDE_ITEM_TYPE
 {
     GUIDE_ITEM_TYPE_NORMAL,

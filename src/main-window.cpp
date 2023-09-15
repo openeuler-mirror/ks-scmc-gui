@@ -53,10 +53,11 @@
 //#define OUTLINE_PAGES QObject::tr("Outline")
 
 #define TIMEOUT 200
-MainWindow::MainWindow(QString name, QWidget* parent)
+MainWindow::MainWindow(QString name, QString userRole, QWidget* parent)
     : KiranTitlebarWindow(parent),
       ui(new Ui::MainWindow),
       m_userName(name),
+      m_userRole(userRole),
       m_transmissionList(nullptr),
       m_pwUpdateDlg(nullptr)
 {
@@ -505,15 +506,15 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 
 void MainWindow::loadUserButton()
 {
-    if (m_userName == "sysadm")
+    if (m_userRole == USER_ROLE_SYSADM)
     {
         m_btnTransmission->show();
     }
-    else if (m_userName == "secadm")
+    else if (m_userRole == USER_ROLE_SECADM)
     {
         m_btnApproval->show();
     }
-    else if (m_userName == "audadm")
+    else if (m_userRole == USER_ROLE_AUDADM)
     {
         m_btnWarning->show();
     }
@@ -522,7 +523,7 @@ void MainWindow::loadUserButton()
 void MainWindow::loadUserPage()
 {
     QMap<GUIDE_ITEM, QString> pageMap;
-    if (m_userName == "sysadm")
+    if (m_userRole == USER_ROLE_SYSADM)
     {
         pageMap = {
             {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
@@ -531,19 +532,24 @@ void MainWindow::loadUserPage()
             {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
             {GUIDE_ITEM_IMAGE_LIST, IMAGE_STOREHOUSE}};
     }
-    else if (m_userName == "secadm")
+    else if (m_userRole == USER_ROLE_SECADM)
     {
         pageMap = {
             {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
             {GUIDE_ITEM_IMAGE_APPROVAL_LIST, IMAGE_APPROVAL_LIST},
             {GUIDE_ITEM_IMAGE_APPROVABLE_CONTROLLER, IMAGE_APPROVABLE_CONTROLLER}};
     }
-    else if (m_userName == "audadm")
+    else if (m_userRole == USER_ROLE_AUDADM)
     {
         pageMap = {
             {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
             {GUIDE_ITEM_WARNING_LIST, WORNING_LIST},
             {GUIDE_ITEM_LOG_LIST, LOG_LIST}};
+    }
+    else
+    {
+        KLOG_INFO() << "create page failed,there is no such user role!";
+        return;
     }
 
     for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
@@ -565,7 +571,7 @@ void MainWindow::loadUserItem()
 {
     QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL,
                                                 ":/images/home.svg");
-    if (m_userName == "sysadm")
+    if (m_userRole == USER_ROLE_SYSADM)
     {
         QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
                                                        ":/images/node-manager.svg");
@@ -583,7 +589,7 @@ void MainWindow::loadUserItem()
         m_groupMap.insert(containerManager, containerSubItems);
         m_isShowMap.insert(containerManager, true);
     }
-    else if (m_userName == "secadm")
+    else if (m_userRole == USER_ROLE_SECADM)
     {
         QListWidgetItem* imageApproval = createGuideItem(IMAGE_APPROVAL, GUIDE_ITEM_TYPE_GROUP,
                                                          ":/images/image-manager.svg");
@@ -595,7 +601,7 @@ void MainWindow::loadUserItem()
         m_groupMap.insert(imageApproval, iamgeApprovalSubItems);
         m_isShowMap.insert(imageApproval, true);
     }
-    else if (m_userName == "audadm")
+    else if (m_userRole == USER_ROLE_AUDADM)
     {
         QListWidgetItem* warningLog = createGuideItem(WARNING_LOG, GUIDE_ITEM_TYPE_GROUP,
                                                       ":/images/audit-center.svg");
@@ -606,6 +612,11 @@ void MainWindow::loadUserItem()
         QList<QListWidgetItem*> auditSubItems = {warningList, logList};
         m_groupMap.insert(warningLog, auditSubItems);
         m_isShowMap.insert(warningLog, true);
+    }
+    else
+    {
+        KLOG_INFO() << "create side item failed, there is no such user role!";
+        return;
     }
 }
 
