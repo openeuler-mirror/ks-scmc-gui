@@ -182,7 +182,10 @@ void TemplateListPage::getNodeListResult(QString objId, const QPair<Status, node
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
         return;
+    }
 
     m_nodeInfoMap.clear();
     for (auto n : reply.second.nodes())
@@ -203,7 +206,10 @@ void TemplateListPage::getListImageFinishedResult(QString objId, const QPair<Sta
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get image list result failed:" << reply.first.error_message().data();
         return;
+    }
 
     m_imageInfos.clear();
     for (auto info : reply.second.images())

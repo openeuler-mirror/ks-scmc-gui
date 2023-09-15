@@ -119,7 +119,10 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
         return;
+    }
 
     int size = reply.second.nodes_size();
     if (size <= 0)
