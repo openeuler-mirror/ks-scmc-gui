@@ -3,6 +3,7 @@
 
 #include <kiran-titlebar-window.h>
 #include <QWidget>
+#include "info-worker.h"
 
 enum PasswordType
 {
@@ -24,10 +25,13 @@ public:
     explicit PasswdUpdateDialog(QString userName, QWidget *parent = nullptr);
     ~PasswdUpdateDialog();
 
+private:
+    void updatePassword(QString oldPw, QString newPw);
+
 private slots:
     bool checkPassword(PasswordType type, QString inputPw);
     void onConfirm();
-    void updatePassword(QString oldPw, QString newPw);
+    void getUpdatePasswordResult(const QPair<grpc::Status, user::UpdatePasswordReply> reply);
 
 signals:
     void sigUpdatePasswdSuccessful();
