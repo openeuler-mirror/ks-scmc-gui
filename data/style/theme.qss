@@ -717,7 +717,7 @@ CalendarWidget QAbstractItemView:enabled
     color:black;
     font: 12px;
 }
-
+/***************************************************************MonitorContent************************************/
 MonitorContent #btn_start, MonitorContent #btn_end
 {
     border:1px solid #2eb3ff;
@@ -748,11 +748,6 @@ MonitorContent #cb_select_cycle
     background:#222222;
 }
 
-/*MonitorContent #widget_content
-{
-    background:transparent;
-}*/
-
 MonitorContent QScrollArea QScrollBar:vertical{
             min-width: 2px;
             border-radius:2px;
@@ -772,15 +767,13 @@ MonitorContent  QScrollArea QScrollBar::add-line:vertical
     image:none;
 }
 
+/********************************************************TabPage****************************************/
 TabPage QTabWidget::pane {
     border:none;
 }
 
 TabPage QTabWidget::tab-bar {
-   /*  left: 5px; move to the right by 5px */
-/*   min-height:30px;*/
    background: #E5EBF6;
-/*   padding-bottom:10px;*/
    alignment: left;
 }
 
@@ -814,3 +807,10 @@ TabPage QTabBar::tab:selected {
 /*    border-bottom:2px solid #43A3F5;*/
     outline:none;
 }
+
+/******************************************************PasswdUpdateDialog**********************************/
+PasswdUpdateDialog #lab_old_pw_tips,#lab_new_pw_tips, #lab_confirm_pw_tips
+{
+    color:#d30000;
+}
+

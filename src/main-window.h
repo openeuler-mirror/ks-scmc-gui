@@ -22,6 +22,7 @@ class TablePage;
 class TransmissionList;
 class BubbleTipButton;
 class Page;
+class PasswdUpdateDialog;
 class MainWindow : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -45,6 +46,8 @@ private:
 
 private slots:
     void onLogoutAction(bool checked);
+    void onChangePwAction(bool checked);
+    void onUpdatePwSuccessful();
     void popupTransmissionList();
     void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);
     void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
@@ -68,5 +71,7 @@ private:
     QTimer *m_timer;
     QMutex m_mutex;
     OutlineView *m_outline;
+    QString m_userName;
+    PasswdUpdateDialog *m_pwUpdateDlg;
 };
 #endif  // MAINWINDOW_H

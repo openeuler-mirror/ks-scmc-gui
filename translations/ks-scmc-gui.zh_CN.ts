@@ -1005,17 +1005,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="180"/>
+        <location filename="../src/main-window.cpp" line="181"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="181"/>
+        <location filename="../src/main-window.cpp" line="182"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="182"/>
+        <location filename="../src/main-window.cpp" line="183"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1658,10 +1658,24 @@ It mainly includes four modules: user management, node management, image and ima
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="154"/>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="173"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="174"/>
+        <source>Confirm</source>
+        <translation type="unfinished">确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="173"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="175"/>
-        <source>PushButton</source>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="21"/>
+        <source>Change Password</source>
+        <translation type="unfinished">修改密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="28"/>
+        <source>The password should contain at least a combination of password and number, with a length range of 8-32 characters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
