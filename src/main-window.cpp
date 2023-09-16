@@ -1,7 +1,9 @@
 #include "main-window.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QAction>
+#include <QApplication>
 #include <QDebug>
+#include <QDesktopWidget>
 #include <QIcon>
 #include <QMutexLocker>
 #include <QPainter>
@@ -16,6 +18,7 @@
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
 #include "pages/node/node-page-manager.h"
+#include "pages/user/passwd-update-dialog.h"
 #include "table-page.h"
 #include "pages/audit/audit-list/audit-list-page.h"
 
@@ -34,7 +37,11 @@
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
-    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr), m_timer(nullptr)
+    : KiranTitlebarWindow(parent),
+      ui(new Ui::MainWindow),
+      m_transmissionList(nullptr),
+      m_timer(nullptr),
+      m_pwUpdateDlg(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
@@ -53,11 +60,17 @@ MainWindow::~MainWindow()
         delete m_transmissionList;
         m_transmissionList = nullptr;
     }
+    if (m_pwUpdateDlg)
+    {
+        delete m_pwUpdateDlg;
+        m_pwUpdateDlg = nullptr;
+    }
 }
 
 void MainWindow::setUserName(QString name)
 {
     ui->btn_user->setText(name);
+    m_userName = name;
 }
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
@@ -181,6 +194,7 @@ void MainWindow::initUI()
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     QAction* aboutAct = userMenu->addAction(tr("About"));
     ui->btn_user->setMenu(userMenu);
+    connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
 
     //创建右侧内容页面
@@ -392,6 +406,33 @@ void MainWindow::setPageName(QString name)
 void MainWindow::onLogoutAction(bool checked)
 {
     Q_UNUSED(checked);
+    emit sigLogout();
+}
+
+void MainWindow::onChangePwAction(bool checked)
+{
+    Q_UNUSED(checked);
+    if (!m_pwUpdateDlg)
+    {
+        m_pwUpdateDlg = new PasswdUpdateDialog(m_userName);
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_pwUpdateDlg->move(screenGeometry.x() + (screenGeometry.width() - m_pwUpdateDlg->width()) / 2,
+                            screenGeometry.y() + (screenGeometry.height() - m_pwUpdateDlg->height()) / 2);
+        m_pwUpdateDlg->show();
+
+        connect(m_pwUpdateDlg, &PasswdUpdateDialog::destroyed,
+                [=] {
+                    KLOG_INFO() << " PasswdUpdateDialog destroy";
+                    m_pwUpdateDlg->deleteLater();
+                    m_pwUpdateDlg = nullptr;
+                });
+        connect(m_pwUpdateDlg, &PasswdUpdateDialog::sigUpdatePasswdSuccessful, this, &MainWindow::onUpdatePwSuccessful);
+    }
+}
+
+void MainWindow::onUpdatePwSuccessful()
+{
     emit sigLogout();
 }
 

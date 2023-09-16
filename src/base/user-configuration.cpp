@@ -5,9 +5,6 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 
-#define PASSWORD "password"
-#define USERNAME "username"
-
 using namespace CryptoPP;
 static std::string m_ServerAddr;
 UserConfiguration::UserConfiguration() : m_loginSettings(nullptr), m_serverSetting(nullptr)
