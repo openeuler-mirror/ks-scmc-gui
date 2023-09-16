@@ -64,19 +64,19 @@ private slots:
 
 private:
     Ui::MonitorContent *ui;
-    DatePicker *m_datePicker;
     FlowLayout *m_flowLayout;
+    int m_nodeId;
+    std::string m_containerId;
     TrendChartForm *m_cpuChartForm;
     TrendChartForm *m_memoryChartForm;
     TrendChartForm *m_diskChartForm;
     TrendChartForm *m_netChartForm;
-    int m_nodeId;
-    std::string m_containerId;
     QDateTime m_xStart;
     QDateTime m_xEnd;
     int m_xInterval;
     QString m_xFormat;
     QString m_xTitle;
+    DatePicker *m_datePicker;
 };
 
 #endif  // MONITOR_CONTENT_H
