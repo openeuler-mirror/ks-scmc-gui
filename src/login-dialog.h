@@ -42,8 +42,8 @@ private:
     Ui::LoginDialog *ui;
     MainWindow *m_mainWindow;
     QTimer *m_timer;
-    UserConfiguration *m_userConfig;
     ServerConfigDialog *m_serverCfgDlg;
+    UserConfiguration *m_userConfig;
     QString m_server;
 };
 

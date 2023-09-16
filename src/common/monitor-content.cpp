@@ -31,7 +31,7 @@ MonitorContent::MonitorContent(QWidget *parent, int nodeId, std::string containe
     ui->setupUi(this);
     initUI();
     initChart();
-    connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult, Qt::UniqueConnection);
 }
 
 MonitorContent::~MonitorContent()
