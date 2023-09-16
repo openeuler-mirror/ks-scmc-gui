@@ -238,18 +238,17 @@ void ContainerListPage::onEdit(int row)
     KLOG_INFO() << row;
     if (!m_editCTSetting)
     {
-        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT);
+        auto item = getItem(row, 1);
+        QPair<int64_t, QString> ids = {item->data().toMap().value(NODE_ID).toInt(),
+                                       item->data().toMap().value(CONTAINER_ID).toString()};
+
+        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT, ids);
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editCTSetting->width()) / 2,
                               screenGeometry.y() + (screenGeometry.height() - m_editCTSetting->height()) / 2);
         m_editCTSetting->show();
 
-        auto item = getItem(row, 1);
-        QPair<int64_t, QString> ids = {item->data().toMap().value(NODE_ID).toInt(),
-                                       item->data().toMap().value(CONTAINER_ID).toString()};
-        m_editCTSetting->setContainerNodeIds(ids);
-        getContainerInspect(item->data().toMap());
         connect(m_editCTSetting, &ContainerSetting::destroyed,
                 [=] {
                     KLOG_INFO() << " edit container setting destroy";
@@ -377,7 +376,6 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
             QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
             QStandardItem *onlineTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
-
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
@@ -563,11 +561,11 @@ void ContainerListPage::getContainerList(qint64 nodeId)
     }
 }
 
-void ContainerListPage::getContainerInspect(QMap<QString, QVariant> itemData)
-{
-    //    setBusy(true);
-    InfoWorker::getInstance().containerInspect(itemData.value(NODE_ID).toInt(), itemData.value(CONTAINER_ID).toString().toStdString());
-}
+//void ContainerListPage::getContainerInspect(QMap<QString, QVariant> itemData)
+//{
+//    //    setBusy(true);
+//    InfoWorker::getInstance().containerInspect(itemData.value(NODE_ID).toInt(), itemData.value(CONTAINER_ID).toString().toStdString());
+//}
 
 void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
 {

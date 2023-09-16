@@ -15,22 +15,20 @@ class NetworkConfTab : public QWidget
 public:
     explicit NetworkConfTab(QWidget *parent = nullptr);
     ~NetworkConfTab();
-    void getNetworkInfo(container::CreateRequest *req);
+    //void getNetworkInfo(container::CreateRequest *req);
     void getNetworkInfo(container::ContainerConfigs *cntrCfg);
     void getNetworkInfo(container::UpdateRequest *req);
     void setNetworkInfo(container::NetworkConfig *networkCfg);
-    void setNetworkInfo1(container::NetworkConfig *networkCfg);
-    void updateNetworkInfo(int64_t node_id);
-
-private:
-    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
+    void setVirtNetworkData(QString virtNetwork);
+    void setVirtNetwork();
+    void setVirtNetworkList(const QPair<grpc::Status, network::ListReply> &reply);
 
 private:
     void initUI();
-    void getNetworkInfo();
 
 private:
     Ui::NetworkConfTab *ui;
+    QString m_virtNetwork;
 };
 
 #endif  // NETWORKCONFTAB_H
