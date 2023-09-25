@@ -512,6 +512,7 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
         nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
         nodeInfo->totalCPU = n.status().cpu_stat().total();
         nodeInfo->totalMemory = n.status().mem_stat().total();
+        KLOG_INFO() << "get node info: " << nodeInfo->nodeID << nodeInfo->nodeAddr << nodeInfo->totalCPU << nodeInfo->totalMemory;
         m_nodeInfoMap.insert(nodeId, nodeInfo);
     }
 }

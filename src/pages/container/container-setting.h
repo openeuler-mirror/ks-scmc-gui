@@ -112,7 +112,7 @@ private slots:
     void onAddItem(QAction *action);
     void onDelItem();
     void onConfirm();
-    void onNodeSelectedChanged(QString newStr);
+    void onNodeSelectedChanged(const QString &newStr);
     void onTempSelectedChanged(QString newStr);
 
     void getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &);
