@@ -28,9 +28,9 @@ public:
     void updateInfo(QString keyword = "");
 
 protected:
-    //    bool eventFilter(QObject *watched, QEvent *event);
-    //    virtual void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
 
 private:
     void initUI();
@@ -47,8 +47,8 @@ private slots:
 
 signals:
     void outlineCellStepPages(OutlineCellType type);
-    void sigApproveSumNums(int size);  // 传出待审核总数
-    void sigWarnSumNums(int size);     // 传出告警总数
+    void sigApproveSumNums(int size);   // 传出待审核总数
+    void sigWarnSumNums(int64_t size);  // 传出告警总数
 
 private:
     QString m_objId;
@@ -62,6 +62,7 @@ private:
     QScrollArea *m_scrollArea;  //滚动区域
     QWidget *m_scrollWidget;    //滚动区域的窗口
     QHBoxLayout *m_layout;      //水平布局滚动区域
+    QTimer *m_timer;
 };
 
 #endif  // OUTLINEVIEW_H

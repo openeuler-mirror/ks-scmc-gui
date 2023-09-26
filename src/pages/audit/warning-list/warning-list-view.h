@@ -47,10 +47,11 @@ private:
     bool is_showContainerName;
     bool is_openPaging;
     int m_totalPages;
+    int64_t m_totalWarnning;
     int m_pageOn = 1;  //当前页
 
 signals:
-    void sigUpdateWaringSums();  //刷新告警总数
+    void sigUpdateWaringSums(int64_t);  //刷新告警总数
 };
 
 #endif  // LOGLISTVIEW_H

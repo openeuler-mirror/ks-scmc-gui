@@ -11,7 +11,7 @@
 #include "warning-list-view.h"
 
 class WarningListView;
-class WarningListPage  : public TabPage
+class WarningListPage : public TabPage
 {
     Q_OBJECT
 public:
@@ -27,10 +27,7 @@ private:
     WarningListView *m_warninglistview_node;
 
 signals:
-    void sigReadedUpdateWaringSums();
+    void sigUpdateWaringSums(int64_t);
 };
 
-
-
-
-#endif // LOGLISTPAGE_H
+#endif  // LOGLISTPAGE_H
