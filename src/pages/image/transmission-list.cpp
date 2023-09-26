@@ -41,7 +41,7 @@ void TransmissionList::paintEvent(QPaintEvent *event)
 
 void TransmissionList::addItem(QString name, QString version, ImageTransmissionStatus status, int rate)
 {
-    KLOG_INFO() << "addItem" << name << version;
+    KLOG_INFO() << "transmission list add item:" << name << version;
     QListWidgetItem *newItem = nullptr;
     TransmissionItem *customItem = nullptr;
 
@@ -80,26 +80,6 @@ void TransmissionList::updateItem(QString name, QString version, ImageTransmissi
         {
             item->setStatus(status);
             item->setRate(rate);
-            break;
-        }
-    }
-}
-
-void TransmissionList::removeItem(QString name, QString version)
-{
-    if (!m_transfersItems.size())
-        return;
-
-    QString itemMark = name + "-" + version;
-    foreach (auto item, m_transfersItems)
-    {
-        if (item->name() + "-" + item->version() == itemMark)
-        {
-            m_transfersItems.removeOne(item);
-            auto num = --m_transfersNum;
-            setTransfersNum(num);
-            delete item;
-            item = nullptr;
             break;
         }
     }

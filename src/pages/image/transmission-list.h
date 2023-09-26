@@ -20,7 +20,6 @@ public:
     ~TransmissionList();
     void addItem(QString name, QString version, ImageTransmissionStatus status, int rate);
     void updateItem(QString name, QString version, ImageTransmissionStatus status, int rate);
-    void removeItem(QString name, QString version);
     int getTransfersNum();
 
 protected:
