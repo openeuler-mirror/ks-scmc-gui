@@ -52,37 +52,37 @@ void TransmissionList::addItem(QString name, QString version, ImageTransmissionS
 
 void TransmissionList::updateItem(QString name, QString version, ImageTransmissionStatus status, int rate)
 {
+    if (!m_transfersItems.size())
+        return;
+
     QString itemMark = name + "-" + version;
-    if (m_transfersItems.size() != 0)
+    foreach (auto item, m_transfersItems)
     {
-        foreach (auto item, m_transfersItems)
+        if (item->name() + "-" + item->version() == itemMark)
         {
-            if (item->name() + "-" + item->version() == itemMark)
-            {
-                item->setStatus(status);
-                item->setRate(rate);
-                break;
-            }
+            item->setStatus(status);
+            item->setRate(rate);
+            break;
         }
     }
 }
 
 void TransmissionList::removeItem(QString name, QString version)
 {
+    if (!m_transfersItems.size())
+        return;
+
     QString itemMark = name + "-" + version;
-    if (m_transfersItems.size() != 0)
+    foreach (auto item, m_transfersItems)
     {
-        foreach (auto item, m_transfersItems)
+        if (item->name() + "-" + item->version() == itemMark)
         {
-            if (item->name() + "-" + item->version() == itemMark)
-            {
-                m_transfersItems.removeOne(item);
-                auto num = --m_transfersNum;
-                setTransfersNum(num);
-                delete item;
-                item = nullptr;
-                break;
-            }
+            m_transfersItems.removeOne(item);
+            auto num = --m_transfersNum;
+            setTransfersNum(num);
+            delete item;
+            item = nullptr;
+            break;
         }
     }
 }
