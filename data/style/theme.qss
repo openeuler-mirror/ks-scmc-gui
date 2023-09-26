@@ -760,6 +760,7 @@ TransmissionList #transmissionListWidget
     background:transparent;
 /*     show-decoration-selected: 1;*/
     border:none;
+    outline:none;
 }
 TransmissionList #transmissionListWidget::item
 {
