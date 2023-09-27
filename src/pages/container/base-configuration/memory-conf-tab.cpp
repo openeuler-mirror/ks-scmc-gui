@@ -9,7 +9,6 @@
 #include "ui_memory-conf-tab.h"
 
 #define MIN_SOFT_LIMIT 6
-#define MAX_SOFT_LIMIT INT_MAX
 MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
                                                 ui(new Ui::MemoryConfTab),
                                                 m_totalMemory(0)
@@ -23,6 +22,8 @@ MemoryConfTab::MemoryConfTab(QWidget *parent) : QWidget(parent),
     }
     ui->lineEdit_soft_limit->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_max_limit->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_max_limit->setMaxLength(7);
+    ui->lineEdit_soft_limit->setMaxLength(7);
 
     QRegExp regExp("[0-9]*\\.?([0-9]{2})");
     ui->lineEdit_soft_limit->setValidator(new QRegExpValidator(regExp, this));
@@ -47,10 +48,13 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        auto memLimit = limitDataHandle(cfg->memory_limit(), ui->cb_max_unit);
-        auto softLimit = limitDataHandle(cfg->memory_soft_limit(), ui->cb_soft_unit);
+        auto memLimit = cfg->memory_limit();
+        auto softLimit = cfg->memory_soft_limit();
         KLOG_INFO() << "memory_limit: " << cfg->memory_limit()
                     << "memory_soft_limit" << cfg->memory_soft_limit();
+
+        ui->cb_max_unit->setCurrentText("MB");
+        ui->cb_soft_unit->setCurrentText("MB");
 
         ui->lineEdit_soft_limit->setText(QString("%1").arg(softLimit));
         ui->lineEdit_max_limit->setText(QString("%1").arg(memLimit));
@@ -69,7 +73,7 @@ bool MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg
 
         if (maxLimit < 0 || softLimit < 0)  //判断内存软限制和最大值是否溢出
         {
-            errMsg = tr("The memory soft limit or max limit is more than %1 MB.").arg(MAX_SOFT_LIMIT);
+            errMsg = tr("The memory soft limit or max limit is more than %1 MB.").arg(m_totalMemory);
             return false;
         }
         else if (maxLimit > m_totalMemory || softLimit > m_totalMemory)
@@ -102,7 +106,7 @@ bool MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg
 double MemoryConfTab::limitDataHandle(double originData, QComboBox *unitWidget)
 {
     QString unit = unitWidget->currentText();
-    int limit = originData;
+    auto limit = originData;
     if (unit == "GB")
     {
         limit = originData * 1024.0;
