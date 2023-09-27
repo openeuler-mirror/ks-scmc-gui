@@ -190,6 +190,42 @@ void InfoWorker::monitorHistory(int node_id, int start_time, int end_time, uint3
     RPC_ASYNC(container::MonitorHistoryReply, _monitorHistory, monitorHistoryFinished, req);
 }
 
+void InfoWorker::listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch)
+{
+    container::ListTemplateRequest req;
+    req.set_per_page(perPage);
+    req.set_next_page(nextPage);
+    req.set_sort(sort);
+    req.set_like_search(likeSearch);
+    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
+}
+
+void InfoWorker::listTemplate()
+{
+    container::ListTemplateRequest req;
+    RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
+}
+
+void InfoWorker::createTemplate(const container::CreateTemplateRequest &req)
+{
+    RPC_ASYNC(container::CreateTemplateReply, _createTemplate, createTemplateFinished, req);
+}
+
+void InfoWorker::updateTemplate(const container::UpdateTemplateRequest &req)
+{
+    RPC_ASYNC(container::UpdateTemplateReply, _updateTemplate, updateTemplateFinished, req);
+}
+
+void InfoWorker::removeTemplate(QList<int64_t> ids)
+{
+    container::RemoveTemplateRequest req;
+    foreach (int64_t id, ids)
+    {
+        req.add_ids(id);
+    }
+    RPC_ASYNC(container::RemoveTemplateReply, _removeTemplate, removeTemplateFinished, req);
+}
+
 void InfoWorker::removeContainer(const std::map<int64_t, std::vector<std::string>> &ids)
 {
     container::RemoveRequest req;
@@ -416,6 +452,26 @@ QPair<grpc::Status, container::RemoveReply> InfoWorker::_removeContainer(const c
 QPair<grpc::Status, container::MonitorHistoryReply> InfoWorker::_monitorHistory(const container::MonitorHistoryRequest &req)
 {
     RPC_IMPL(container::MonitorHistoryReply, container::Container::NewStub, MonitorHistory);
+}
+
+QPair<grpc::Status, container::ListTemplateReply> InfoWorker::_listTemplate(const container::ListTemplateRequest &req)
+{
+    RPC_IMPL(container::ListTemplateReply, container::Container::NewStub, ListTemplate);
+}
+
+QPair<grpc::Status, container::CreateTemplateReply> InfoWorker::_createTemplate(const container::CreateTemplateRequest &req)
+{
+    RPC_IMPL(container::CreateTemplateReply, container::Container::NewStub, CreateTemplate);
+}
+
+QPair<grpc::Status, container::UpdateTemplateReply> InfoWorker::_updateTemplate(const container::UpdateTemplateRequest &req)
+{
+    RPC_IMPL(container::UpdateTemplateReply, container::Container::NewStub, UpdateTemplate);
+}
+
+QPair<grpc::Status, container::RemoveTemplateReply> InfoWorker::_removeTemplate(const container::RemoveTemplateRequest &req)
+{
+    RPC_IMPL(container::RemoveTemplateReply, container::Container::NewStub, RemoveTemplate);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
