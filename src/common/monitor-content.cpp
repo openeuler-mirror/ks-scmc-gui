@@ -50,7 +50,7 @@ MonitorContent::~MonitorContent()
     }
 }
 
-void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
+void MonitorContent::updateMonitorInfo(qint64 nodeId, const std::string &containerId)
 {
     clearChartPoint();
     if (nodeId >= 0)

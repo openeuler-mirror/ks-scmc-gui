@@ -15,7 +15,7 @@
 class WinStyle : public QProxyStyle
 {
 public:
-    WinStyle(QWidget *parent)
+    explicit WinStyle(QWidget *parent)
     {
         setParent(parent);
     };

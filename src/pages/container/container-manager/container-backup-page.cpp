@@ -266,8 +266,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
 
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     clearTable();
-    int size = reply.second.data_size();
-    if (size <= 0)
+    if (reply.second.data_size() <= 0)
     {
         setTableDefaultContent("-");
         return;

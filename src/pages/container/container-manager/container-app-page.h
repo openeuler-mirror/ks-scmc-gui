@@ -19,7 +19,7 @@ class ContainerAppPage : public TablePage
 {
     Q_OBJECT
 public:
-    explicit ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent = nullptr);
+    explicit ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::string &containerId, QString containerName, QWidget *parent = nullptr);
     ~ContainerAppPage();
     void updateInfo(QString keyword = "");
 

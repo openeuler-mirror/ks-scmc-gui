@@ -26,8 +26,7 @@ LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(paren
     connect(this, &TablePage::sigPagingSearch, this, &LogListView::searchClicked);
     connect(this, &TablePage::sigRefreshSearchResult, this,
             [this]() {
-                if (m_searchKey != "")
-                    m_searchKey = "";
+                m_searchKey = "";
             });
 }
 

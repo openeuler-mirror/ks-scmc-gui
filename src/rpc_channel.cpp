@@ -27,7 +27,7 @@ using HookPoints = grpc::experimental::InterceptionHookPoints;
 class LoggingInterceptor : public grpc::experimental::Interceptor
 {
 public:
-    LoggingInterceptor(grpc::experimental::ClientRpcInfo *info) { info_ = info; }
+    explicit LoggingInterceptor(grpc::experimental::ClientRpcInfo *info) { info_ = info; }
 
     virtual void Intercept(grpc::experimental::InterceptorBatchMethods *methods)
     {

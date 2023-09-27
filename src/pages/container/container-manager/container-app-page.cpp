@@ -14,7 +14,7 @@ using namespace grpc;
 #define CONTAINER_APP_IS_GUI "container app is_gui"
 #define STATUS_COL 4
 #define TIMEOUT 30000
-ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : TablePage(parent),
+ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::string &containerId, QString containerName, QWidget *parent) : TablePage(parent),
                                                                                                                                         m_nodeId(nodeId),
                                                                                                                                         m_containerId(containerId),
                                                                                                                                         m_nodeAddr(nodeAddr),

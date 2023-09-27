@@ -366,7 +366,7 @@ void LoginDialog::getLicense(QString license_str)
                     break;
                 }
                 }
-                it++;
+                ++it;
             }
         }
     }

@@ -22,7 +22,7 @@ class ConfigView : public QHeaderView
 {
     Q_OBJECT
 public:
-    ConfigView(Qt::Orientation orientation, QWidget *parent = nullptr);
+    explicit ConfigView(Qt::Orientation orientation, QWidget *parent = nullptr);
 };
 
 class ConfigOperateWidget;
@@ -30,7 +30,7 @@ class ConfigDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    ConfigDelegate(ConfigTableType whichTable, QWidget *parent = nullptr);
+    explicit ConfigDelegate(ConfigTableType whichTable, QWidget *parent = nullptr);
     ~ConfigDelegate();
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;

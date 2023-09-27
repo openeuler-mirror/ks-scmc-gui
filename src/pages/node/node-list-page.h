@@ -13,7 +13,7 @@
 
 struct nodeInfo_s
 {
-    nodeInfo_s(std::string _name, std::string _addr, std::string _comment) : name(_name), address(_addr), comment(_comment) {}
+    nodeInfo_s(const std::string &_name, const std::string &_addr, const std::string &_comment) : name(_name), address(_addr), comment(_comment) {}
     std::string name;
     std::string address;
     std::string comment;

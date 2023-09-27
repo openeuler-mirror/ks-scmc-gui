@@ -13,7 +13,7 @@ class MonitorDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
 public:
-    explicit MonitorDialog(int nodeId, std::string containerId, QWidget *parent = nullptr);
+    explicit MonitorDialog(int nodeId, const std::string &containerId, QWidget *parent = nullptr);
     virtual QSize sizeHint() const override;
 
 private:

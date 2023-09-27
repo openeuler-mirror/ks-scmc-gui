@@ -7,7 +7,7 @@
 #include "monitor-dialog.h"
 #include <QVBoxLayout>
 #include "monitor-content.h"
-MonitorDialog::MonitorDialog(int nodeId, std::string containerId = "", QWidget *parent) : KiranTitlebarWindow(parent)
+MonitorDialog::MonitorDialog(int nodeId, const std::string &containerId = "", QWidget *parent) : KiranTitlebarWindow(parent)
 {
     setIcon(QIcon(":/images/logo.png"));
     setAttribute(Qt::WA_DeleteOnClose);

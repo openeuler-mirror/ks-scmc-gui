@@ -15,7 +15,7 @@ class ConfigModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit ConfigModel(QStringList &head);
+    explicit ConfigModel(const QStringList &head);
     ~ConfigModel();
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

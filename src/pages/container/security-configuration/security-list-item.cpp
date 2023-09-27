@@ -100,7 +100,6 @@ QString SecurityListItem::tooptipWordWrap(const QString &org)
     int pre = 0, vernier = 1;
     unsigned int pickUpWidthPxs = 0;
     QString pickUp;
-    unsigned int curLen = 0;
 
     if (textWidthInPxs <= width())
     {
@@ -110,8 +109,7 @@ QString SecurityListItem::tooptipWordWrap(const QString &org)
 
     while (vernier <= rear)
     {
-        curLen = vernier - pre;
-        pickUp = org.mid(pre, curLen);
+        pickUp = org.mid(pre, vernier - pre);
         pickUpWidthPxs = fm.width(pickUp);
         if (pickUpWidthPxs >= width())
         {

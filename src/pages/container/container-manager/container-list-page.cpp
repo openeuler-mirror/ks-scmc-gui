@@ -592,12 +592,11 @@ void ContainerListPage::hideEvent(QHideEvent *event)
 void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
 {
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
-    int64_t node_id{};
 
     foreach (auto idMap, info)
     {
         KLOG_INFO() << "node Id:" << idMap.value(NODE_ID).toInt() << "container id:" << idMap.value(CONTAINER_ID).toString();
-        node_id = idMap.value(NODE_ID).toInt();
+        int64_t node_id = idMap.value(NODE_ID).toInt();
         std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
         if (iter == ids.end())
         {
@@ -630,7 +629,6 @@ void ContainerListPage::onItemClicked(const QModelIndex &index)
     {
         if (index.column() == 1 && item->text() != "-")
         {
-            auto item = getItem(index.row(), index.column());
             auto infoMap = item->data().value<QMap<QString, QVariant>>();
 
             emit sigContainerNameClicked(infoMap);
