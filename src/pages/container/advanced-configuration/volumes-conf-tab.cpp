@@ -3,7 +3,8 @@
 #include <QVBoxLayout>
 #include "ui_volumes-conf-tab.h"
 VolumesConfTab::VolumesConfTab(QWidget *parent) : QWidget(parent),
-                                                  ui(new Ui::VolumesConfTab)
+                                                  ui(new Ui::VolumesConfTab),
+                                                  m_configTable(nullptr)
 {
     ui->setupUi(this);
     initUI();
