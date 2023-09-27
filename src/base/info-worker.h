@@ -1,4 +1,4 @@
-#ifndef INFOWorker_H
+﻿#ifndef INFOWorker_H
 #define INFOWorker_H
 
 #include <QFuture>
@@ -79,6 +79,13 @@ public:
     void updateContainer(const container::UpdateRequest &);
     void monitorHistory(int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
 
+    // container template
+    void listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
+    void listTemplate();
+    void createTemplate(const container::CreateTemplateRequest &);
+    void updateTemplate(const container::UpdateTemplateRequest &);
+    void removeTemplate(QList<int64_t> ids);
+
     // network management
     void listNetwork(const int64_t);
     void connectNetwork(const network::ConnectRequest &);
@@ -129,6 +136,12 @@ private:
     static QPair<grpc::Status, container::RemoveReply> _removeContainer(const container::RemoveRequest &);
     static QPair<grpc::Status, container::MonitorHistoryReply> _monitorHistory(const container::MonitorHistoryRequest &);
 
+    //container template
+    static QPair<grpc::Status, container::ListTemplateReply> _listTemplate(const container::ListTemplateRequest &);
+    static QPair<grpc::Status, container::CreateTemplateReply> _createTemplate(const container::CreateTemplateRequest &);
+    static QPair<grpc::Status, container::UpdateTemplateReply> _updateTemplate(const container::UpdateTemplateRequest &);
+    static QPair<grpc::Status, container::RemoveTemplateReply> _removeTemplate(const container::RemoveTemplateRequest &);
+
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
     static QPair<grpc::Status, network::ConnectReply> _connectNetwork(const network::ConnectRequest &);
@@ -172,6 +185,12 @@ signals:
     void updateContainerFinished(const QPair<grpc::Status, container::UpdateReply> &);
     void removeContainerFinished(const QPair<grpc::Status, container::RemoveReply> &);
     void monitorHistoryFinished(const QPair<grpc::Status, container::MonitorHistoryReply> &);
+
+    // container template
+    void listTemplateFinished(const QPair<grpc::Status, container::ListTemplateReply> &);
+    void createTemplateFinished(const QPair<grpc::Status, container::CreateTemplateReply> &);
+    void updateTemplateFinished(const QPair<grpc::Status, container::UpdateTemplateReply> &);
+    void removeTemplateFinished(const QPair<grpc::Status, container::RemoveTemplateReply> &);
 
     // network management
     void listNetworkFinished(const QPair<grpc::Status, network::ListReply> &);
