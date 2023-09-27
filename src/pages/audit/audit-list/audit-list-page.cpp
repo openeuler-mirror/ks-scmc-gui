@@ -1,20 +1,24 @@
 #include "audit-list-page.h"
 #include <kiran-log/qt5-log-i.h>
 
-AuditListPage::AuditListPage(QWidget *parent) : TabPage(parent) , m_imagelist_approve(nullptr)
+AuditListPage::AuditListPage(QWidget *parent) : TabPage(parent)
+  , m_imagelist_approve(nullptr)
+  , m_imagelist_passed(nullptr)
+  , m_imagelist_rejected(nullptr)
 {
     createSubPage(WAIT_FOR_APPROVE);
     createSubPage(AUDIT_PASSED);
     createSubPage(AUDIT_REFUSED);
+//    updateInfo();
     connect(this, &AuditListPage::sigTabBarClicked, this, &AuditListPage::updatePageInfo);
 }
 
 void AuditListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "NodeInfoPage UpdateInfo";
-    m_imagelist_approve->updateInfo(keyword);
-    m_imagelist_passed->updateInfo(keyword);
-    m_imagelist_rejected->updateInfo(keyword);
+    KLOG_INFO() << "AuditListPage UpdateInfo";
+    m_imagelist_approve->updateInfo();
+//    m_imagelist_passed->updateInfo();
+//    m_imagelist_rejected->updateInfo();
 }
 
 void AuditListPage::createSubPage(AuditListPageType type)
@@ -23,9 +27,10 @@ void AuditListPage::createSubPage(AuditListPageType type)
     {
     case WAIT_FOR_APPROVE:
     {
-        m_imagelist_approve = new ImageListPage(this);
+        m_imagelist_approve = new ImageListPage(this,true);
         m_imagelist_approve->setDelRow(tr("Rejected"),tr("Passed"));
-        m_imagelist_approve->setOperateAreaVisible(false);
+//        m_imagelist_approve->setIsInitAuditButtons(true);
+        m_imagelist_approve->setOperateAreaVisible(true);
         addTabPage(m_imagelist_approve,tr("Wait for Approve"));
         break;
     }
