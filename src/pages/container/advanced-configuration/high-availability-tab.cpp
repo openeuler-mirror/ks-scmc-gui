@@ -29,8 +29,12 @@ void HighAvailabilityTab::setRestartPolicy(container::RestartPolicy *cfg)
 
         auto index = ui->cb_high_avail_policy->findData(cfg->name().data());
         ui->cb_high_avail_policy->setCurrentIndex(index);
+        if (0 == QString::compare(cfg->name().data(), "on-failure"))
+            setLineEditVisible(true);
+        else
+            setLineEditVisible(false);
+
         ui->lineEdit_times->setText(QString("%1").arg(cfg->max_retry()));
-        onCbActivated(ui->cb_high_avail_policy->currentText());
     }
 }
 
@@ -51,7 +55,7 @@ void HighAvailabilityTab::getRestartPolicy(container::RestartPolicy *cfg)
 
 void HighAvailabilityTab::onCbActivated(QString text)
 {
-    if (text == tr("on-failure"))
+    if (ui->cb_high_avail_policy->currentData() == "on-failure")
         setLineEditVisible(true);
     else
         setLineEditVisible(false);
