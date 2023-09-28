@@ -1,6 +1,6 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.1.1
-%global pkg_rel 3
+%global pkg_rel 4
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
@@ -56,6 +56,7 @@ Requires:	libnotify
 Requires:       ks-license-client
 Requires:	qt5-qtcharts
 Requires:	c-ares
+Requires:	fcitx-qt5
 
 %if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4
