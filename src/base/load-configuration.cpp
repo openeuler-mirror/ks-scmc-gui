@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/base/load-configuration.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -9,6 +9,18 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QSettings>
+
+#define VERSION_NAME "version"
+#define VERSION_NUMBER "1.1.1"
+#define SSL_GROUP_NAME "ssl"
+#define SSL_ENABLE "enable"
+#define SSL_CA "ca"
+#define SSL_CERT "cert"
+#define SSL_KEY "key"
+#define TERMINAL_GROUP_NAME "terminal"
+#define TERMINAL_CMD "cmd"
+#define TERMINAL_RCFILE "rcfile"
+#define TERMINAL_TOTAL_CMD "total_cmd"
 
 LoadConfiguration::LoadConfiguration(QObject *parent) : m_settings(nullptr)
 {
@@ -25,57 +37,9 @@ LoadConfiguration::~LoadConfiguration()
     }
 }
 
-LoadConfiguration &LoadConfiguration::Instance()
+QString LoadConfiguration::getTerminalConfig(QString nodeAddr, QString containerName, QString appexec)
 {
-    static LoadConfiguration loadCfg;
-    return loadCfg;
-}
-
-void LoadConfiguration::initConfig()
-{
-    QString cmd, totalCmd;
-    getCmd(cmd, totalCmd);
-
-    m_values.insert("TERMINAL_CMD", cmd);
-    m_values.insert("BASHRC_FILE", "/etc/ks-scmc/graphic_rc");
-    m_values.insert("TERMINAL_USAGE", totalCmd);
-    m_values.insert("SSL_ENABLE", "false");
-    m_values.insert("SSL_CA", "/etc/ks-scmc/x509/ca.pem");
-    m_values.insert("SSL_CERT", "/etc/ks-scmc/x509/client-cert.pem");
-    m_values.insert("SSL_KEY", "/etc/ks-scmc/x509/client-key.pem");
-
-    QFileInfo fileinfo(m_settings->fileName());
-    fileinfo.isFile();
-    if (!fileinfo.isFile())
-    {
-        m_settings->beginGroup("terminal");
-        m_settings->setValue("cmd", m_values["TERMINAL_CMD"]);
-        m_settings->setValue("rcfile", m_values["BASHRC_FILE"]);
-        m_settings->setValue("total_cmd", m_values["TERMINAL_USAGE"]);
-        m_settings->endGroup();
-
-        m_settings->beginGroup("ssl");
-        m_settings->setValue("enable", m_values["SSL_ENABLE"]);
-        m_settings->setValue("ca", m_values["SSL_CA"]);
-        m_settings->setValue("cert", m_values["SSL_CERT"]);
-        m_settings->setValue("key", m_values["SSL_KEY"]);
-        m_settings->endGroup();
-        m_settings->sync();
-    }
-}
-
-QString LoadConfiguration::readConfig(QString group, QString key)
-{
-    QString value = m_settings->value(group + "/" + key).toString();
-    return value;
-}
-
-QString LoadConfiguration::_getTerminalConfig(QString nodeAddr, QString containerName, QString appexec)
-{
-    const QString group = "terminal";
-    QString cmd = readConfig(group, "total_cmd");
-    if (cmd.isEmpty())
-        cmd = m_values["TERMINAL_USAGE"];
+    QString cmd = _getTerminalConfig();
     QString result;
     if (appexec.isEmpty())
     {
@@ -85,54 +49,156 @@ QString LoadConfiguration::_getTerminalConfig(QString nodeAddr, QString containe
     {
         result = cmd.replace("${nodeAddr}", nodeAddr).replace("${containerName}", containerName).replace("${appexec}", appexec);
     }
-
-    //    QString execmd = readConfig(group, "cmd");
-    //    if (execmd.isEmpty())
-    //        execmd = m_values["TERMINAL_CMD"];
-    //    QString file = readConfig(group,  "rcfile");
-    //    if (file.isEmpty())
-    //        file = m_values["BASHRC_FILE"];
-
     return result;
 }
 
-void LoadConfiguration::_getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key)
+void LoadConfiguration::getSslConfig(bool &enable, QString &ca, QString &cert, QString &key)
 {
-    const QString group = "ssl";
-    QString strEnable = readConfig(group, "enable");
-    if (strEnable.isEmpty())
-        strEnable = m_values["SSL_ENABLE"];
-    if (strEnable == "true")
-        enable = true;
-    else
-        enable = false;
-
-    ca = readConfig(group, "ca");
-    if (ca.isEmpty())
-        ca = m_values["SSL_CA"];
-
-    cert = readConfig(group, "cert");
-    if (cert.isEmpty())
-        cert = m_values["SSL_CERT"];
-
-    key = readConfig(group, "key");
-    if (key.isEmpty())
-        key = m_values["SSL_KEY"];
+    enable = m_enable;
+    ca = m_ca;
+    cert = m_cert;
+    key = m_key;
 }
 
-void LoadConfiguration::getCmd(QString &cmd, QString &totalCmd)
+LoadConfiguration &LoadConfiguration::Instance()
 {
+    static LoadConfiguration loadCfg;
+    return loadCfg;
+}
+
+void LoadConfiguration::initConfig()
+{
+    getTerminalCmd();
+    QFileInfo fileinfo(m_settings->fileName());
+    if (!fileinfo.isFile())
+    {
+        KLOG_DEBUG() << "create config file";
+        setValue();
+    }
+    else
+    {
+        KLOG_DEBUG() << "config version:" << QString(m_settings->value(VERSION_NAME).toString()) << VERSION_NUMBER;
+        if (QString(m_settings->value(VERSION_NAME).toString()) != VERSION_NUMBER)
+        {
+            KLOG_DEBUG() << "update config file";
+            m_settings->clear();
+            setValue();
+        }
+    }
+}
+
+void LoadConfiguration::setValue()
+{
+    m_settings->setValue(VERSION_NAME, VERSION_NUMBER);
+    m_settings->beginGroup(TERMINAL_GROUP_NAME);
+    m_settings->setValue(TERMINAL_CMD, m_cmd);
+    m_settings->setValue(TERMINAL_RCFILE, "/etc/ks-scmc/graphic_rc");
+    m_settings->setValue(TERMINAL_TOTAL_CMD, m_totalCmd);
+    m_settings->endGroup();
+    m_settings->beginGroup(SSL_GROUP_NAME);
+    m_settings->setValue(SSL_ENABLE, "false");
+    m_settings->setValue(SSL_CA, "/etc/ks-scmc/x509/ca.pem");
+    m_settings->setValue(SSL_CERT, "/etc/ks-scmc/x509/client-cert.pem");
+    m_settings->setValue(SSL_KEY, "/etc/ks-scmc/x509/client-key.pem");
+    m_settings->endGroup();
+    m_settings->sync();
+}
+
+void LoadConfiguration::getTerminalCmd()
+{
+    const QString sshCmd = "ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
     if (0 == QProcess::execute("which mate-terminal"))
     {
-        cmd = "mate-terminal -e";
-        totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
+        m_cmd = "mate-terminal --disable-factory -e";
+        m_totalCmd = m_cmd + " \"" + sshCmd + "\"";
     }
     else
     {
         if (0 == QProcess::execute("which konsole"))
         {
-            cmd = "konsole -e";
-            totalCmd = "konsole -e ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
+            m_cmd = "konsole --nofork -e";
+            m_totalCmd = m_cmd + " " + sshCmd;
+        }
+    }
+}
+
+QString LoadConfiguration::_getTerminalConfig()
+{
+    QString cmd = m_settings->value(QString(TERMINAL_GROUP_NAME) + "/" + QString(TERMINAL_TOTAL_CMD)).toString();
+    if (cmd.isEmpty())
+    {
+        cmd = m_totalCmd;
+    }
+
+    return cmd;
+}
+
+void LoadConfiguration::_getSslConfig()
+{
+    m_settings->beginGroup(SSL_GROUP_NAME);
+    QString enableVal = m_settings->value(SSL_ENABLE).toString();
+    QString caVal = m_settings->value(SSL_CA).toString();
+    QString certVal = m_settings->value(SSL_CERT).toString();
+    QString keyVal = m_settings->value(SSL_KEY).toString();
+    m_settings->endGroup();
+    //    KLOG_DEBUG() << enableVal << caVal << certVal << keyVal;
+
+    m_enable = enableVal == "true" ? true : false;
+    if (!m_enable)
+    {
+        return;
+    }
+
+    if (!caVal.isEmpty())
+    {
+        QFile file(caVal);
+        if (file.open(QIODevice::ReadOnly))
+        {
+            KLOG_INFO() << "ca file size:" << file.size();
+            m_ca = file.readAll();
+            file.close();
+        }
+        else
+        {
+            KLOG_ERROR() << "ca:" << caVal << file.errorString();
+        }
+    }
+
+    if (!certVal.isEmpty())
+    {
+        m_cert = "error";
+        QFile file(certVal);
+        if (file.open(QIODevice::ReadOnly))
+        {
+            KLOG_DEBUG() << "cert file size:" << file.size();
+            if (0 != file.size())
+            {
+                m_cert = file.readAll();
+            }
+            file.close();
+        }
+        else
+        {
+            KLOG_ERROR() << "cert:" << certVal << file.errorString();
+        }
+    }
+
+    if (!keyVal.isEmpty())
+    {
+        m_key = "error";
+        QFile file(keyVal);
+        if (file.open(QIODevice::ReadOnly))
+        {
+            KLOG_DEBUG() << "key file size:" << file.size();
+            if (0 != file.size())
+            {
+                m_key = file.readAll();
+            }
+            file.close();
+        }
+        else
+        {
+            KLOG_ERROR() << "key:" << keyVal << file.errorString();
         }
     }
 }

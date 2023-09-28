@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/base/load-configuration.h
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -13,28 +13,27 @@ class LoadConfiguration : public QObject
 {
     Q_OBJECT
 public:
+    static LoadConfiguration &Instance();
     LoadConfiguration(QObject *parent = nullptr);
     ~LoadConfiguration();
-    static QString getTerminalConfig(QString nodeAddr, QString containerName, QString appexec = "")
-    {
-        return LoadConfiguration::Instance()._getTerminalConfig(nodeAddr, containerName, appexec);
-    }
-    static void getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key)
-    {
-        LoadConfiguration::Instance()._getSSLConfig(enable, ca, cert, key);
-    }
+    QString getTerminalConfig(QString nodeAddr, QString containerName, QString appexec = "");
+    void getSslConfig(bool &enable, QString &ca, QString &cert, QString &key);
 
 private:
-    static LoadConfiguration &Instance();
     void initConfig();
-    QString readConfig(QString group, QString key);
-    QString _getTerminalConfig(QString nodeAddr, QString containerName, QString appexec);
-    void _getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key);
-    void getCmd(QString &cmd, QString &totalCmd);
+    void setValue();
+    void getTerminalCmd();
+    QString _getTerminalConfig();
+    void _getSslConfig();
 
 private:
     QSettings *m_settings;
-    QMap<QString, QString> m_values;
+    bool m_enable;
+    QString m_ca;
+    QString m_cert;
+    QString m_key;
+    QString m_cmd;
+    QString m_totalCmd;
 };
 
 #endif  // LOADCONFIGURATION_H

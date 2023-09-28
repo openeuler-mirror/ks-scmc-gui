@@ -133,7 +133,7 @@ void ContainerAppPage::onRun(int row)
             return;
         }
 
-        auto cmd = LoadConfiguration::getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
+        auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
         KLOG_INFO() << cmd;
 
         m_runningAppRow = row;

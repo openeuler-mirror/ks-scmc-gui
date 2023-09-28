@@ -97,8 +97,8 @@ static std::shared_ptr<grpc::ChannelCredentials> SslCredentials()
 {
     bool enable;
     QString ca, cert, key;
-    LoadConfiguration::getSSLConfig(enable, ca, cert, key);
-    KLOG_INFO() << "enable ssl: " << enable;
+    LoadConfiguration::Instance().getSslConfig(enable, ca, cert, key);
+    KLOG_DEBUG() << "enable ssl: " << enable;
     if (!enable)
     {
         return grpc::InsecureChannelCredentials();
@@ -108,6 +108,7 @@ static std::shared_ptr<grpc::ChannelCredentials> SslCredentials()
     ssl_opts.pem_root_certs = ca.toStdString();
     ssl_opts.pem_cert_chain = cert.toStdString();
     ssl_opts.pem_private_key = key.toStdString();
+
     return grpc::SslCredentials(ssl_opts);
 }
 
