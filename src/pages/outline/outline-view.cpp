@@ -15,7 +15,7 @@
 #include <cmath>
 #include "outline-cell.h"
 #include "ui_outline-cell.h"
-#define TIMEOUT 60000
+#define TIMEOUT 5000
 
 OutlineView::OutlineView(QWidget *parent) : Page(parent)
 {

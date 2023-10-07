@@ -17,7 +17,7 @@
 using namespace grpc;
 
 #define ACTION_COL 1
-#define TIMEOUT 60000
+#define TIMEOUT 5000
 
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeAddition(nullptr),
@@ -32,7 +32,6 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     initTable();
     initNodeConnect();
 
-    m_timer = new QTimer(this);
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
         updateInfo();
@@ -175,7 +174,6 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
     if (m_objId != objId)
         return;
 
-    setBusy(false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 
     if (!reply.first.ok())
@@ -425,6 +423,5 @@ void NodeListPage::initNodeConnect()
 
 void NodeListPage::getNodeList()
 {
-    setBusy(true);
     InfoWorker::getInstance().listNode(m_objId);
 }

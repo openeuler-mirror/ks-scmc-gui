@@ -13,15 +13,15 @@ using namespace grpc;
 #define CONTAINER_APP_PATH "container app path"
 #define CONTAINER_APP_IS_GUI "container app is_gui"
 #define STATUS_COL 4
-#define TIMEOUT 30000
+#define TIMEOUT 5000
 ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::string &containerId, QString containerName, QWidget *parent) : TablePage(parent),
-                                                                                                                                        m_nodeId(nodeId),
-                                                                                                                                        m_containerId(containerId),
-                                                                                                                                        m_nodeAddr(nodeAddr),
-                                                                                                                                        m_containerName(containerName),
-                                                                                                                                        m_appOp(nullptr),
-                                                                                                                                        m_proc(nullptr),
-                                                                                                                                        m_timer(nullptr)
+                                                                                                                                               m_nodeId(nodeId),
+                                                                                                                                               m_containerId(containerId),
+                                                                                                                                               m_nodeAddr(nodeAddr),
+                                                                                                                                               m_containerName(containerName),
+                                                                                                                                               m_appOp(nullptr),
+                                                                                                                                               m_proc(nullptr),
+                                                                                                                                               m_timer(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
     m_timer = new QTimer(this);

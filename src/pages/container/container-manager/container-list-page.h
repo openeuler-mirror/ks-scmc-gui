@@ -24,7 +24,7 @@ public:
     explicit ContainerListPage(QWidget *parent = nullptr);
     ~ContainerListPage();
     void updateInfo(QString keyword = "");  //刷新表格
-    void getContainerList(qint64 nodeId = -1);
+    void setNodeID(qint64 nodeID);
 
 protected:
     void showEvent(QShowEvent *event);
@@ -73,6 +73,7 @@ private:
     void getTemplateList();
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
+    void getContainerList();
     void getNetworkInfo(int64_t node_id);
     void getNodeInfo();
     void getImageInfo();
