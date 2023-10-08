@@ -12,7 +12,6 @@
 #include "common/message-dialog.h"
 #include "def.h"
 #include "node-operate-dialog.h"
-#include "rpc.h"
 
 using namespace grpc;
 
@@ -34,7 +33,7 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        updateInfo();
+        refresh();
     });
 }
 
@@ -54,12 +53,7 @@ NodeListPage::~NodeListPage()
 
 void NodeListPage::updateInfo(QString keyword)
 {
-    //clearCheckState();
-    clearText();
-    if (keyword.isEmpty())
-    {
-        getNodeList();
-    }
+    refresh(keyword, true);
 }
 
 void NodeListPage::showEvent(QShowEvent *event)
@@ -440,5 +434,16 @@ void NodeListPage::getCheckedItemsId(QList<qint64> &ids)
     foreach (auto idMap, info)
     {
         ids.append(idMap.value(NODE_ID).toInt());
+    }
+}
+
+void NodeListPage::refresh(const QString keyword, bool clear)
+{
+    if (clear)
+        clearCheckState();
+    clearText();
+    if (keyword.isEmpty())
+    {
+        getNodeList();
     }
 }

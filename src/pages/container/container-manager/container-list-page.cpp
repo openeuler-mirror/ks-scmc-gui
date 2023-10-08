@@ -61,7 +61,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        updateInfo();
+        refresh();
     });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
@@ -569,6 +569,23 @@ void ContainerListPage::getImageInfo()
     InfoWorker::getInstance().listImage(m_objId);
 }
 
+void ContainerListPage::refresh(const QString keyword, bool clear)
+{
+    if (clear)
+        clearCheckState();
+
+    clearText();
+    if (keyword.isEmpty())
+    {
+        //gRPC->拿数据->填充内容
+        getContainerList();
+        getTemplateList();
+        getNetworkInfo(-1);  //-1返回所有节点的网卡信息
+        getNodeInfo();
+        getImageInfo();
+    }
+}
+
 void ContainerListPage::getContainerList()
 {
     std::vector<int64_t> vecNodeId;
@@ -840,17 +857,7 @@ void ContainerListPage::initConnect()
 
 void ContainerListPage::updateInfo(QString keyword)
 {
-    //clearCheckState();
-    clearText();
-    if (keyword.isEmpty())
-    {
-        //gRPC->拿数据->填充内容
-        getContainerList();
-        getTemplateList();
-        getNetworkInfo(-1);  //-1返回所有节点的网卡信息
-        getNodeInfo();
-        getImageInfo();
-    }
+    refresh(keyword, true);
 }
 
 void ContainerListPage::setNodeID(qint64 nodeID)

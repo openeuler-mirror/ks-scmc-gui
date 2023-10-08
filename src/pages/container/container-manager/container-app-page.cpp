@@ -34,7 +34,7 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
 
     connect(m_timer, &QTimer::timeout,
             [this] {
-                updateInfo();
+                refresh();
             });
 }
 
@@ -49,8 +49,7 @@ ContainerAppPage::~ContainerAppPage()
 
 void ContainerAppPage::updateInfo(QString keyword)
 {
-    clearText();
-    InfoWorker::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
+    refresh(keyword, true);
 }
 
 void ContainerAppPage::showEvent(QShowEvent *event)
@@ -522,6 +521,14 @@ void ContainerAppPage::getCheckedItemsId(QList<qint64> &ids)
     {
         ids.append(idMap.value(CONTAINER_APP_ID).toInt());
     }
+}
+
+void ContainerAppPage::refresh(const QString keyword, bool clear)
+{
+    if (clear)
+        clearCheckState();
+    clearText();
+    InfoWorker::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
 }
 
 ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : KiranTitlebarWindow(parent)

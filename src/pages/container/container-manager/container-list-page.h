@@ -77,6 +77,7 @@ private:
     void getNetworkInfo(int64_t node_id);
     void getNodeInfo();
     void getImageInfo();
+    void refresh(const QString keyword = "", bool clear = false);
 
 private:
     QString m_objId;

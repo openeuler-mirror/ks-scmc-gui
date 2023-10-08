@@ -32,7 +32,7 @@ ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
     initConnect();
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        updateInfo();
+        refresh();
     });
 }
 
@@ -57,15 +57,7 @@ ContainerBackupPage::~ContainerBackupPage()
 
 void ContainerBackupPage::updateInfo(QString keyword)
 {
-    clearCheckState();
-    clearText();
-    if (keyword.isEmpty())
-    {
-        if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
-        {
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
-        }
-    }
+    refresh(keyword, true);
 }
 
 void ContainerBackupPage::updateBackupList(int nodeId, std::string containerId, QString containerStatus)
@@ -500,5 +492,20 @@ void ContainerBackupPage::getCheckedItemsId(QList<qint64> &ids)
     foreach (auto idMap, info)
     {
         ids.append(idMap.value(BACKUP_ID).toInt());
+    }
+}
+
+void ContainerBackupPage::refresh(const QString keyword, bool clear)
+{
+    if (clear)
+        clearCheckState();
+
+    clearText();
+    if (keyword.isEmpty())
+    {
+        if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
+        {
+            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+        }
     }
 }
