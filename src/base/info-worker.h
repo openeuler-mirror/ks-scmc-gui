@@ -83,11 +83,10 @@ public:
     void createContainer(const QString objId, const container::CreateRequest &);
     //void containerStatus(const QString objId, const int64_t node_id);
     void containerInspect(const QString objId, const int64_t node_id, const std::string &container_id);
-    void startContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
-    void stopContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
-    //void killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
-    void restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
-    void removeContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids);
+    void startContainer(const QString objId, QMap<int64_t, QStringList> &ids);
+    void stopContainer(const QString objId, QMap<int64_t, QStringList> &ids);
+    void restartContainer(const QString objId, QMap<int64_t, QStringList> &ids);
+    void removeContainer(const QString objId, QMap<int64_t, QStringList> &ids);
     void updateContainer(const QString objId, const container::UpdateRequest &);
     void monitorHistory(const QString objId, int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
 
@@ -111,7 +110,7 @@ public:
     void listAppEntry(const QString objId, const int nodeId, const std::string &containerId);
     void addAppEntry(const QString objId, const container::AddAppEntryRequest &);
     void updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &);
-    void removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<int> appIds);
+    void removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<qint64> appIds);
     void runAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
     void killAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
 

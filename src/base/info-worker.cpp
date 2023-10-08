@@ -141,68 +141,74 @@ void InfoWorker::containerInspect(const QString objId, const int64_t node_id, co
     RPC_ASYNC(container::InspectReply, _containerInspect, containerInspectFinished, objId, req);
 }
 
-void InfoWorker::startContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::startContainer(const QString objId, QMap<int64_t, QStringList> &ids)
 {
     container::StartRequest req;
-    for (auto &id : ids)
+    auto i = ids.constBegin();
+    while (i != ids.constEnd())
     {
         auto pId = req.add_ids();
-        pId->set_node_id(id.first);
-        for (auto &container_id : id.second)
+        pId->set_node_id(i.key());
+        for (QString container_id : i.value())
         {
-            pId->add_container_ids(container_id);
+            pId->add_container_ids(container_id.toStdString());
         }
+        ++i;
     }
 
     RPC_ASYNC(container::StartReply, _startContainer, startContainerFinished, objId, req);
 }
 
-void InfoWorker::stopContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::stopContainer(const QString objId, QMap<int64_t, QStringList> &ids)
 {
     container::StopRequest req;
-    for (auto &id : ids)
+    auto i = ids.constBegin();
+    while (i != ids.constEnd())
     {
         auto pId = req.add_ids();
-        pId->set_node_id(id.first);
-        for (auto &container_id : id.second)
+        pId->set_node_id(i.key());
+        for (QString container_id : i.value())
         {
-            pId->add_container_ids(container_id);
+            pId->add_container_ids(container_id.toStdString());
         }
+        ++i;
     }
 
     RPC_ASYNC(container::StopReply, _stopContainer, stopContainerFinished, objId, req);
 }
 
-//void InfoWorker::killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
-//{
-//    container::KillRequest req;
-//    for (auto &id : ids)
-//    {
-//        auto pId = req.add_ids();
-//        pId->set_node_id(id.first);
-//        for (auto &container_id : id.second)
-//        {
-//            pId->add_container_ids(container_id);
-//        }
-//    }
-
-//    RPC_ASYNC(container::KillReply, _killContainer, killContainerFinished, objId, req);
-//}
-
-void InfoWorker::restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
+void InfoWorker::restartContainer(const QString objId, QMap<int64_t, QStringList> &ids)
 {
     container::RestartRequest req;
-    for (auto &id : ids)
+    auto i = ids.constBegin();
+    while (i != ids.constEnd())
     {
         auto pId = req.add_ids();
-        pId->set_node_id(id.first);
-        for (auto &container_id : id.second)
+        pId->set_node_id(i.key());
+        for (QString container_id : i.value())
         {
-            pId->add_container_ids(container_id);
+            pId->add_container_ids(container_id.toStdString());
         }
+        ++i;
     }
-
     RPC_ASYNC(container::RestartReply, _restartContainer, restartContainerFinished, objId, req);
+}
+
+void InfoWorker::removeContainer(const QString objId, QMap<int64_t, QStringList> &ids)
+{
+    container::RemoveRequest req;
+    auto i = ids.constBegin();
+    while (i != ids.constEnd())
+    {
+        auto pId = req.add_ids();
+        pId->set_node_id(i.key());
+        for (QString container_id : i.value())
+        {
+            pId->add_container_ids(container_id.toStdString());
+        }
+        ++i;
+    }
+    RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, objId, req);
 }
 
 void InfoWorker::updateContainer(const QString objId, const container::UpdateRequest &req)
@@ -323,7 +329,7 @@ void InfoWorker::updateAppEntry(const QString objId, const container::UpdateAppE
     RPC_ASYNC(container::UpdateAppEntryReply, _updateAppEntry, updateAppEntryFinished, objId, req);
 }
 
-void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<int> appIds)
+void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<qint64> appIds)
 {
     container::RemoveAppEntryRequest req;
     req.set_node_id(nodeId);
@@ -360,21 +366,6 @@ void InfoWorker::resumeBackup(const QString objId, int nodeId, std::string conta
     req.set_container_id(containerId);
     req.set_backup_id(backupId);
     RPC_ASYNC(container::ResumeBackupReply, _resumeBackup, resumeBackupFinished, objId, req);
-}
-
-void InfoWorker::removeContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
-{
-    container::RemoveRequest req;
-    for (auto &id : ids)
-    {
-        auto pId = req.add_ids();
-        pId->set_node_id(id.first);
-        for (auto &container_id : id.second)
-        {
-            pId->add_container_ids(container_id);
-        }
-    }
-    RPC_ASYNC(container::RemoveReply, _removeContainer, removeContainerFinished, objId, req);
 }
 
 void InfoWorker::listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &req)

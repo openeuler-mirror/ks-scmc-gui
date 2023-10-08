@@ -48,6 +48,7 @@ private:
     void initTable();
     void initConnect();
     void showOperateDlg();
+    void getCheckedItemsId(QList<qint64> &ids);
 
 private:
     QString m_objId;

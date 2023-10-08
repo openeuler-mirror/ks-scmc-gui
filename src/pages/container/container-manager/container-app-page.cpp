@@ -178,13 +178,8 @@ void ContainerAppPage::onStop(int row)
 
 void ContainerAppPage::onDelete()
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
-    QList<int> appIds;
-    foreach (auto idMap, info)
-    {
-        KLOG_INFO() << idMap.value(CONTAINER_APP_ID).toInt();
-        appIds.append(idMap.value(CONTAINER_APP_ID).toInt());
-    }
+    QList<qint64> appIds;
+    getCheckedItemsId(appIds);
 
     if (!appIds.empty())
     {
@@ -211,10 +206,9 @@ void ContainerAppPage::onDelete(int row)
     {
         auto item = getItem(row, 1);
         QMap<QString, QVariant> appInfo = item->data().toMap();
+        auto appId = appInfo.value(CONTAINER_APP_ID).toInt();
 
-        int appId = appInfo.value(CONTAINER_APP_ID).toInt();
-
-        InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, QList<int>() << appId);
+        InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, QList<qint64>() << appId);
     }
 }
 
@@ -292,6 +286,9 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
         return;
     }
 
+    QList<qint64> ids;
+    getCheckedItemsId(ids);
+
     clearTable();
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     int size = reply.second.apps_size();
@@ -309,11 +306,12 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
         std::string contaienrId = app.container_id().data();
         std::string appName = app.name().data();
         std::string appPath = app.exe_path().data();
+        qint64 appID = app.id();
         bool isGUI = app.is_gui();
         bool isRuning = app.is_running();
         infoMap.insert(NODE_ID, m_nodeId);
         infoMap.insert(CONTAINER_ID, contaienrId.data());
-        infoMap.insert(CONTAINER_APP_ID, QVariant::fromValue(app.id()));
+        infoMap.insert(CONTAINER_APP_ID, appID);
         infoMap.insert(CONTAINER_APP_NAME, appName.data());
         infoMap.insert(CONTAINER_APP_PATH, appPath.data());
         infoMap.insert(CONTAINER_APP_IS_GUI, isGUI);
@@ -321,6 +319,10 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
+        if (-1 != ids.indexOf(appID))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
 
         QStandardItem *itemName = new QStandardItem(appName.data());
         itemName->setData(infoMap);
@@ -510,6 +512,16 @@ void ContainerAppPage::showOperateDlg()
                 m_appOp->deleteLater();
                 m_appOp = nullptr;
             });
+}
+
+void ContainerAppPage::getCheckedItemsId(QList<qint64> &ids)
+{
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+
+    foreach (auto idMap, info)
+    {
+        ids.append(idMap.value(CONTAINER_APP_ID).toInt());
+    }
 }
 
 ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : KiranTitlebarWindow(parent)

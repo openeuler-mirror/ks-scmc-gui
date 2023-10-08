@@ -245,6 +245,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
     if (m_objId != objId)
         return;
 
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     if (!reply.first.ok())
     {
         if (reply.first.error_code() == PERMISSION_DENIED)
@@ -260,8 +261,11 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
         setTableDefaultContent("-");
         return;
     }
-
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+
+    QList<qint64> ids;
+    getCheckedItemsId(ids);
+
     clearTable();
     if (reply.second.data_size() <= 0)
     {
@@ -278,6 +282,10 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
+        if (-1 != ids.indexOf(backupId))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
 
         QStandardItem *itemName = new QStandardItem(data.backup_name().data());
         itemName->setTextAlignment(Qt::AlignCenter);
@@ -483,4 +491,14 @@ void ContainerBackupPage::initConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::updateBackupFinished, this, &ContainerBackupPage::getUpdateBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::resumeBackupFinished, this, &ContainerBackupPage::getResumeBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::exportBackupFinished, this, &ContainerBackupPage::getExportBackupFinished);
+}
+
+void ContainerBackupPage::getCheckedItemsId(QList<qint64> &ids)
+{
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+
+    foreach (auto idMap, info)
+    {
+        ids.append(idMap.value(BACKUP_ID).toInt());
+    }
 }

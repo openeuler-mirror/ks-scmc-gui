@@ -71,8 +71,8 @@ private:
     void initConnect();
     void operateContainer(ContainerSettingType type, int row = -1);
     void getTemplateList();
-    void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
-    void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
+    void getCheckedItemsId(QMap<int64_t, QStringList> &ids);
+    void getItemId(int row, QMap<int64_t, QStringList> &ids);
     void getContainerList();
     void getNetworkInfo(int64_t node_id);
     void getNodeInfo();
