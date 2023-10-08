@@ -12,7 +12,7 @@
 #include <QTextBrowser>
 #include <QVBoxLayout>
 #include <QWidget>
-#include "info-worker.h"
+#include "proto/container.grpc.pb.h"
 
 class NetworkAccessItem;
 class NetworkAccessCtlTab : public QWidget

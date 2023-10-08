@@ -16,7 +16,6 @@
 #include <iostream>
 #include "common/button-delegate.h"
 #include "common/header-view.h"
-#include "info-worker.h"
 #include "ui_table-page.h"
 
 using namespace std;
@@ -286,8 +285,8 @@ void TablePage::clearCheckState()
     if (m_isHeadCheckable)
     {
         m_headerView->setCheckState(false);
-        onHeaderCkbTog(false);
     }
+    updateCheckStatus(false);
 }
 
 void TablePage::setPaging(int totalPages)
@@ -394,7 +393,7 @@ void TablePage::initUI()
     connect(ui->tableView, &QTableView::entered, this, &TablePage::onItemEntered);
     connect(m_model, &QStandardItemModel::itemChanged, this, &TablePage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
-    connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
+    connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::updateCheckStatus);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &TablePage::refresh);
     connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &TablePage::search);
     if (!m_isOpenPaging)
@@ -686,7 +685,7 @@ void TablePage::onItemEntered(const QModelIndex &index)
     emit sigItemEntered(index);
 }
 
-void TablePage::onHeaderCkbTog(bool toggled)
+void TablePage::updateCheckStatus(bool toggled)
 {
     int rowCounts = m_model->rowCount();
 

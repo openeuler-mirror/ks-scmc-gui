@@ -8,7 +8,7 @@
 #define HIGHAVAILABILITYTAB_H
 
 #include <QWidget>
-#include "info-worker.h"
+#include "proto/container.grpc.pb.h"
 namespace Ui
 {
 class HighAvailabilityTab;

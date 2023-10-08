@@ -10,7 +10,7 @@
 #include <QTimer>
 #include <QWidget>
 #include "def.h"
-#include "info-worker.h"
+#include "proto/container.grpc.pb.h"
 namespace Ui
 {
 class CPUConfTab;
