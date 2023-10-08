@@ -1,6 +1,13 @@
 #ifndef DEF_H
 #define DEF_H
 #include <QString>
+
+#define CONTAINER_ID "container id"
+#define NODE_ID "node id"
+#define NODE_ADDRESS "node address"
+#define CONTAINER_NAME "container name"
+#define TEMPLATE_ID "template id"
+
 enum GUIDE_ITEM_TYPE
 {
     GUIDE_ITEM_TYPE_NORMAL,
@@ -26,6 +33,7 @@ enum ACTION_BUTTON_TYPE
     ACTION_BUTTON_TYPE_MONITOR,
     ACTION_BUTTON_TYPE_EDIT,
     ACTION_BUTTON_TYPE_TERINAL,
+    ACTION_BUTTON_TYPE_DELETE,
     ACTION_BUTTON_TYPE_MENU
 };
 

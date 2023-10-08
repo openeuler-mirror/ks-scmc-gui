@@ -206,6 +206,13 @@ void InfoWorker::listTemplate()
     RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, req);
 }
 
+void InfoWorker::inspectTemplate(int64_t id)
+{
+    container::InspectTemplateRequest req;
+    req.set_id(id);
+    RPC_ASYNC(container::InspectTemplateReply, _inspectTemplate, inspectTemplateFinished, req);
+}
+
 void InfoWorker::createTemplate(const container::CreateTemplateRequest &req)
 {
     RPC_ASYNC(container::CreateTemplateReply, _createTemplate, createTemplateFinished, req);
@@ -462,6 +469,11 @@ QPair<grpc::Status, container::MonitorHistoryReply> InfoWorker::_monitorHistory(
 QPair<grpc::Status, container::ListTemplateReply> InfoWorker::_listTemplate(const container::ListTemplateRequest &req)
 {
     RPC_IMPL(container::ListTemplateReply, container::Container::NewStub, ListTemplate);
+}
+
+QPair<grpc::Status, container::InspectTemplateReply> InfoWorker::_inspectTemplate(const container::InspectTemplateRequest &req)
+{
+    RPC_IMPL(container::InspectTemplateReply, container::Container::NewStub, InspectTemplate);
 }
 
 QPair<grpc::Status, container::CreateTemplateReply> InfoWorker::_createTemplate(const container::CreateTemplateRequest &req)

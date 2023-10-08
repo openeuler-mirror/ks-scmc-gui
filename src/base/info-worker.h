@@ -82,6 +82,7 @@ public:
     // container template
     void listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
     void listTemplate();
+    void inspectTemplate(int64_t id);
     void createTemplate(const container::CreateTemplateRequest &);
     void updateTemplate(const container::UpdateTemplateRequest &);
     void removeTemplate(QList<int64_t> ids);
@@ -141,6 +142,7 @@ private:
 
     //container template
     static QPair<grpc::Status, container::ListTemplateReply> _listTemplate(const container::ListTemplateRequest &);
+    static QPair<grpc::Status, container::InspectTemplateReply> _inspectTemplate(const container::InspectTemplateRequest &);
     static QPair<grpc::Status, container::CreateTemplateReply> _createTemplate(const container::CreateTemplateRequest &);
     static QPair<grpc::Status, container::UpdateTemplateReply> _updateTemplate(const container::UpdateTemplateRequest &);
     static QPair<grpc::Status, container::RemoveTemplateReply> _removeTemplate(const container::RemoveTemplateRequest &);
@@ -194,6 +196,7 @@ signals:
 
     // container template
     void listTemplateFinished(const QPair<grpc::Status, container::ListTemplateReply> &);
+    void inspectTemplateFinished(const QPair<grpc::Status, container::InspectTemplateReply> &);
     void createTemplateFinished(const QPair<grpc::Status, container::CreateTemplateReply> &);
     void updateTemplateFinished(const QPair<grpc::Status, container::UpdateTemplateReply> &);
     void removeTemplateFinished(const QPair<grpc::Status, container::RemoveTemplateReply> &);

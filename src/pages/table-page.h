@@ -1,11 +1,12 @@
 #ifndef TABLEPAGE_H
 #define TABLEPAGE_H
 
+#include <QMouseEvent>
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QMouseEvent>
 #include <QWidget>
+#include "def.h"
 #include "page.h"
 namespace Ui
 {
@@ -39,7 +40,7 @@ public:
     void setTableRowNum(int num);
     void setTableItem(int row, int col, QStandardItem *item);
     void setTableItems(int row, int col, QList<QStandardItem *> items);
-    void setTableActions(int col, QStringList actionIcons);
+    void setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnInfo);
     void setTableSingleChoose(bool isSingleChoose);
     void setSortableCol(QList<int> cols);
     void setHeaderSections(QStringList names);
@@ -65,17 +66,19 @@ signals:
     void sigMonitor(int row);
     void sigEdit(int row);
     void sigTerminal(int row);
+    void sigDelete(int row);
     void sigRun(QModelIndex index);
     void sigStop(QModelIndex index);
     void sigRestart(QModelIndex index);
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
-    void sigItemEntered(const QModelIndex &index);//鼠标进入item
+    void sigItemEntered(const QModelIndex &index);  //鼠标进入item
 
 private slots:
     void onMonitor(int row);
     void onTerminal(int row);
     void onEdit(int row);
+    void onDelete(int row);
     void onActRun(QModelIndex index);
     void onActStop(QModelIndex index);
     void onActRestart(QModelIndex index);

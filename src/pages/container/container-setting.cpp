@@ -25,19 +25,16 @@
 #define VOLUMES "Volumes"
 #define HIGH_AVAILABILITY "High availability"
 
-#define NODE_ID "node id"
-#define NODE_ADDRESS "node address"
-
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
-ContainerSetting::ContainerSetting(ContainerSettingType type, QPair<int64_t, QString> ids, QWidget *parent) : QWidget(parent),
+ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVariant> ids, QWidget *parent) : QWidget(parent),
                                                                                                               ui(new Ui::ContainerSetting),
                                                                                                               m_baseConfStack(nullptr),
                                                                                                               m_advancedConfStack(nullptr),
                                                                                                               m_addMenu(nullptr),
                                                                                                               m_cbImage(nullptr),
                                                                                                               m_labImage(nullptr),
-                                                                                                              m_containerIds(ids),
+                                                                                                              m_templateId(-1),
                                                                                                               m_netWorkCount(0),
                                                                                                               m_type(type),
                                                                                                               m_totalCPU(0.0)
@@ -53,6 +50,11 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QPair<int64_t, QSt
     getNodeInfo();
     if (type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
     {
+        if (!ids.isEmpty())
+        {
+            m_containerIds.first = ids.value(NODE_ID).toInt();
+            m_containerIds.second = ids.value(CONTAINER_ID).toString();
+        }
         getContainerInspect();
         connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
@@ -67,6 +69,12 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QPair<int64_t, QSt
     }
     else if (type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
     {
+        if (!ids.isEmpty())
+        {
+            m_templateId = ids.value(TEMPLATE_ID).toInt();
+            getTemplateInspect();
+        }
+        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
     }
 }
@@ -192,7 +200,6 @@ void ContainerSetting::initSummaryUI()
         m_cbImage->setFixedSize(QSize(200, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 2, 1);
-        //ui->stackedWidget->setCurrentWidget(ui->page_container);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
@@ -203,18 +210,15 @@ void ContainerSetting::initSummaryUI()
         layout->addWidget(m_labImage, 2, 1);
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
-        //ui->stackedWidget->setCurrentWidget(ui->page_container);
         break;
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         setWindowTitle(tr("Create template"));
         ui->label_image->hide();
-        //ui->stackedWidget->setCurrentWidget(ui->page_template);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
         ui->label_image->hide();
-        //ui->stackedWidget->setCurrentWidget(ui->page_template);
         break;
     default:
         break;
@@ -235,8 +239,8 @@ GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, 
         ++m_netWorkCount;
         if (m_netWorkCount == 1)
             customItem->setDeleteBtnVisible(false);
-        if (m_netWorkCount > 1)
-            customItem->setName(QString("%1%2").arg(text).arg(m_netWorkCount - 1));
+        //if (m_netWorkCount > 1)
+        customItem->setName(QString("%1%2").arg(text).arg(m_netWorkCount));
         connect(customItem, &GuideItem::sigDeleteItem, this, &ContainerSetting::onDelItem);
     }
     customItem->setTipLinePosition(TIP_LINE_POSITION_RIGHT);
@@ -302,6 +306,11 @@ void ContainerSetting::updateRemovableItem(QString itemText)
 void ContainerSetting::getContainerInspect()
 {
     InfoWorker::getInstance().containerInspect(m_containerIds.first, m_containerIds.second.toStdString());
+}
+
+void ContainerSetting::getTemplateInspect()
+{
+    InfoWorker::getInstance().inspectTemplate(m_templateId);
 }
 
 void ContainerSetting::getNodeInfo()
@@ -491,6 +500,28 @@ void ContainerSetting::createTemplate()
 
 void ContainerSetting::updateTemplate()
 {
+    container::UpdateTemplateRequest request;
+    auto data = request.mutable_data();
+    data->set_id(m_templateId);
+
+    auto cntrCfg = data->mutable_conf();
+    auto rsrcCfg = cntrCfg->mutable_resouce_limit();
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->getCPUInfo(rsrcCfg);
+
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    memoryPage->getMemoryInfo(rsrcCfg);
+
+    auto policy = cntrCfg->mutable_restart_policy();
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    highAvailabilityPage->getRestartPolicy(policy);
+
+    foreach (auto networkPage, m_netWorkPages)
+    {
+        networkPage->getNetworkInfo(cntrCfg);
+    }
+
+    InfoWorker::getInstance().updateTemplate(request);
 }
 
 void ContainerSetting::onItemClicked(QListWidgetItem *item)
@@ -569,7 +600,7 @@ void ContainerSetting::onDelItem()
                 auto page = m_baseConfStack->widget(row);
                 m_baseConfStack->removeWidget(page);
                 m_netWorkPages.removeOne(qobject_cast<NetworkConfTab *>(page));
-                m_netWorkCount--;
+                --m_netWorkCount;
                 updateRemovableItem("Network card");
 
                 delete page;
@@ -698,6 +729,7 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             m_baseConfStack->addWidget(networkConfTab);
             m_netWorkPages.append(networkConfTab);
         }
+        updateRemovableItem(tr("Network card"));
         InfoWorker::getInstance().listNetwork(m_containerIds.first);
         //更新网络页面信息
         for (int i = 0; i < size; i++)
@@ -747,6 +779,83 @@ void ContainerSetting::getUpdateContainerResult(const QPair<grpc::Status, contai
     }
 }
 
+void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, container::InspectTemplateReply> &reply)
+{
+    KLOG_INFO() << "getInspectTemplateFinishResult";
+    if (reply.first.ok())
+    {
+        //init ui
+        auto info = reply.second.data().conf();
+        ui->lineEdit_name->setText(info.name().data());
+        KLOG_INFO() << info.name().data() << info.image().data();
+
+        if (!QString::fromStdString(info.desc().data()).isEmpty())
+            ui->lineEdit_describe->setText(info.desc().data());
+        else
+            ui->lineEdit_describe->setText(tr("None"));
+        ui->lineEdit_describe->setStyleSheet("border:none;");
+        ui->lineEdit_describe->setDisabled(true);
+
+        //Graph
+        //info.enable_graphic();
+        auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+        graphPage->setGraphicInfo(&info);
+        graphPage->setDisabled(true);
+
+        //volume
+        auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+        for (auto mount : info.mounts())
+        {
+            volumesPage->setVolumeInfo(&mount);
+        }
+        volumesPage->setDisabled(true);
+
+        // network
+        auto size = info.networks_size();
+        KLOG_INFO() << "network_config_size:" << size;
+        for (int i = 0; i < size - 1; ++i)
+        {
+            //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
+            GuideItem *item = createGuideItem(ui->listwidget_base_config,
+                                              tr("Network card"),
+                                              GUIDE_ITEM_TYPE_NORMAL,
+                                              ":/images/container-net-card.svg");
+            m_baseItems.append(item);
+            NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+            m_baseConfStack->addWidget(networkConfTab);
+            m_netWorkPages.append(networkConfTab);
+        }
+        updateRemovableItem(tr("Network card"));
+        InfoWorker::getInstance().listNetwork(m_containerIds.first);
+        //更新网络页面信息
+        for (int i = 0; i < size; i++)
+        {
+            auto networkConfig = info.networks(i);
+            NetworkConfTab *networkPage = m_netWorkPages.at(i);
+            networkPage->setNetworkInfo(&networkConfig);
+        }
+
+        //env
+        auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+        envPage->setEnvInfo(&info);
+        envPage->setDisabled(true);
+
+        //high-availability
+        auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+        auto policy = info.restart_policy();
+        highAvailabilityPage->setRestartPolicy(&policy);
+
+        auto limit = info.resouce_limit();
+        //cpu
+        auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+        cpuPage->setCPUInfo(&limit);
+
+        //memory
+        auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+        memoryPage->setMemoryInfo(&limit);
+    }
+}
+
 void ContainerSetting::getCreateTemplateFinishResult(const QPair<grpc::Status, container::CreateTemplateReply> &reply)
 {
     KLOG_INFO() << "getCreateTemplateFinishResult";
@@ -767,6 +876,20 @@ void ContainerSetting::getCreateTemplateFinishResult(const QPair<grpc::Status, c
 
 void ContainerSetting::getUpdateTemplateFinishedResult(const QPair<grpc::Status, container::UpdateTemplateReply> &reply)
 {
+    KLOG_INFO() << "getUpdateTemplateFinishedResult";
+    if (reply.first.ok())
+    {
+        emit sigUpdateTemplate();
+        close();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update template"),
+                               tr("Update template failed!"),
+                               tr("error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void ContainerSetting::getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &reply)
