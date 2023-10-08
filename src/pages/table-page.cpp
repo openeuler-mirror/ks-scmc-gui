@@ -143,7 +143,6 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
 {
     //设置表中操作按钮代理
     m_btnDelegate = new ButtonDelegate(btnInfo, this);
-    m_btnDelegate->isSetDelegateDefault(false);
     ui->tableView->setItemDelegateForColumn(col, m_btnDelegate);
     m_isSetTableActions = true;
 
@@ -524,13 +523,13 @@ void TablePage::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    Page::paintEvent(event);
 }
 
-void TablePage::mouseMoveEvent(QMouseEvent *event)
+void TablePage::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    QCursor cur = this->cursor();
-    if (cur.shape() != Qt::ArrowCursor)
+    if (this->cursor() != Qt::ArrowCursor)
         this->setCursor(Qt::ArrowCursor);
 }
 
@@ -659,11 +658,6 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         m_headerView->setCheckState(false);
     }
-}
-
-void TablePage::onItemClicked(const QModelIndex &index)
-{
-    emit sigItemClicked(index);
 }
 
 void TablePage::onItemEntered(const QModelIndex &index)

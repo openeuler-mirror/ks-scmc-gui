@@ -8,8 +8,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include "node-info-page.h"
 #include "node-list-page.h"
-#include "page.h"
-#include "table-page.h"
+
 NodePageManager::NodePageManager(QWidget *parent) : StackedPage(parent), m_nodeInfoPage(nullptr)
 {
     createStackedPage(NODE_PAGE_TYPE_NODE_LIST, "Node List");

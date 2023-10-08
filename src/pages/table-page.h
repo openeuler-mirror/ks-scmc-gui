@@ -80,7 +80,7 @@ private:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
+    void leaveEvent(QEvent *event);
     virtual void timerEvent(QTimerEvent *event);
 
 signals:
@@ -115,7 +115,6 @@ private slots:
     void search();
     void refresh();
     void onItemChecked(QStandardItem *changeItem);
-    void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
     void updateCheckStatus(bool toggled);
     void lastBtnClick();

@@ -635,27 +635,26 @@ void ContainerListPage::getItemId(int row, QMap<int64_t, QStringList> &ids)
 
 void ContainerListPage::onItemClicked(const QModelIndex &index)
 {
+    if (index.column() != 1)
+        return;
+
     auto item = getItem(index.row(), index.column());
     if (item)
     {
-        if (index.column() == 1 && item->text() != "-")
-        {
-            auto infoMap = item->data().value<QMap<QString, QVariant>>();
-
-            emit sigContainerNameClicked(infoMap);
-        }
+        auto infoMap = item->data().value<QMap<QString, QVariant>>();
+        emit sigContainerNameClicked(infoMap);
     }
 }
 
 void ContainerListPage::onItemEntered(const QModelIndex &index)
 {
-    auto item = getItem(index.row(), index.column());
-    if (item)
+    if (index.column() != 1 && this->cursor() != Qt::ArrowCursor)
     {
-        if (index.column() == 1 && item->text() != "-")
-            this->setCursor(Qt::PointingHandCursor);
-        else
-            this->setCursor(Qt::ArrowCursor);
+        this->setCursor(Qt::ArrowCursor);
+    }
+    else
+    {
+        this->setCursor(Qt::PointingHandCursor);
     }
 }
 
