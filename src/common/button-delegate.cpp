@@ -1,13 +1,13 @@
 #include "button-delegate.h"
 #include <QApplication>
 #include <QMouseEvent>
-#include "def.h"
+
 #define BUTTON_WIDTH 16
 #define BUTTON_HEIGHT 16
 #define BUTTON_SPACE 20
 #define BUTTON_TOP 22
 
-ButtonDelegate::ButtonDelegate(QMap<int, QString> btnInfo, QObject *parent)
+ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QString> btnInfo, QObject *parent)
     : QStyledItemDelegate(parent),
       m_btnInfo(btnInfo),
       m_menu(nullptr)
@@ -42,7 +42,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     QStyledItemDelegate::paint(painter, viewOption, index);
     int count = 0;
 
-    QMap<int, QString>::const_iterator i = m_btnInfo.constBegin();
+    QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
     while (i != m_btnInfo.constEnd())
     {
         // 绘制按钮
@@ -79,7 +79,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
 
     bool repaint = false;
     int count = 0;
-    QMap<int, QString>::const_iterator i = m_btnInfo.constBegin();
+    QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
     while (i != m_btnInfo.constEnd())
     {
         // 绘制按钮
@@ -127,6 +127,11 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             case ACTION_BUTTON_TYPE_TERINAL:
             {
                 emit sigTerminal(index.row());
+                break;
+            }
+            case ACTION_BUTTON_TYPE_DELETE:
+            {
+                emit sigdelete(index.row());
                 break;
             }
             case ACTION_BUTTON_TYPE_MENU:
