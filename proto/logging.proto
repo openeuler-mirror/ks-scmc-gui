@@ -63,6 +63,10 @@ enum EVENT_MODULE {
     USER      = 4;
 }
 
+// NODE 100 - 199
+// CONTAINER 200 - 299
+// IMAGE 300 - 399
+// USER 400 - 499
 enum EVENT_TYPE {
     TYPE_NONE         = 0;
     CREATE_NODE       = 101;
@@ -77,19 +81,21 @@ enum EVENT_TYPE {
     DOWNLOAD_IMAGE    = 302;
     APPROVE_IMAGE     = 303;
     UPDATE_IMAGE      = 304;
-    REMOVE_IMAGE      = 405;
-    USER_LOGIN        = 501;
-    USER_LOGOUT       = 502;
-    CREATE_USER       = 503;
-    UPDATE_USER       = 504;
-    REMOVE_USER       = 505;
-    CREATE_ROLE       = 506;
-    UPDATE_ROLE       = 507;
-    REMOVE_ROLE       = 508;
+    REMOVE_IMAGE      = 305;
+    USER_LOGIN        = 401;
+    USER_LOGOUT       = 402;
+    CREATE_USER       = 403;
+    UPDATE_USER       = 404;
+    REMOVE_USER       = 405;
+    CREATE_ROLE       = 406;
+    UPDATE_ROLE       = 407;
+    REMOVE_ROLE       = 408;
+    UPDATE_PASSWORD   = 409;
 
     WARN_RESOURCE_USAGE    = 1001;
     WARN_NODE_OFFLINE      = 1002;
     WARN_ILLEGAL_CONTAINER = 1003;
+    WARN_NODE_ABNORMAL     = 1004;
 }
 
 message RuntimeLog {

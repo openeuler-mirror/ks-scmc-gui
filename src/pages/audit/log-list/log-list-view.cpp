@@ -27,7 +27,7 @@ void LogListView::updateInfo(QString keyword)
     if (keyword.isEmpty())
     {
         connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
-        getLogList();
+        getLogList(m_type);
     }
 
 }
@@ -59,8 +59,11 @@ void LogListView::initButtons()
     m_datePickStart = new DatePickButton;
     m_datePickEnd = new DatePickButton;
     QDate currDate = QDate::currentDate();
-    m_datePickEnd->setText(currDate.toString("yy-MM-dd"));
-    m_datePickStart->setText(currDate.addDays(-7).toString("yy-MM-dd"));
+
+    m_xEnd.setDate(currDate);
+    m_xStart.setDate(currDate.addDays(-7));
+    m_datePickEnd->setText(m_xEnd.date().toString("yy-MM-dd"));
+    m_datePickStart->setText(m_xStart.date().toString("yy-MM-dd"));
 
     m_datePickEnd->setStyleSheet("DatePickButton {border:1px solid #2eb3ff;"
                                  "background:transparent;"
@@ -106,7 +109,7 @@ void LogListView::initLogListConnect()
      connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
 }
 
-void LogListView::getLogList()
+void LogListView::getLogList(LogListPageType type)
 {
     logging::ListRuntimeRequest request;
 
@@ -120,7 +123,27 @@ void LogListView::getLogList()
     request.set_end_time(time.toSecsSinceEpoch());
 
 //    request.set_node_id(1);
-    request.set_event_module(2);
+    switch (type)
+    {
+    case CONTAINER_LOGS:
+    {
+        request.set_event_module(2);
+        break;
+    }
+    case SYSTEM_LOGS:
+    {
+        request.set_event_module(3);
+        break;
+    }
+    case USERS_LOGS:
+    {
+        request.set_event_module(4);
+        break;
+    }
+    default:
+        break;
+    }
+
 //    request.set_username("chendingjian");
 //    request.set_page_size(10);
 //    request.set_page_no(1);
@@ -156,6 +179,10 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
             QDateTime time = QDateTime::fromSecsSinceEpoch(logging.created_at());
             QString created = time.toString("yyyy/MM/dd hh:mm:ss");
             KLOG_INFO() << __func__ << "due time = " << created;
+
+            if(m_xStart.date().toJulianDay() > time.date().toJulianDay() || m_xEnd.date().toJulianDay() < time.date().toJulianDay())
+                continue;
+
             QStandardItem *itemUpdateTime = new QStandardItem(created);
 
             QStandardItem *itemObj = new QStandardItem(logging.target().data());
@@ -179,7 +206,11 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
             }
 
             QStandardItem *itemUser = new QStandardItem(logging.username().data());
-            QStandardItem *itemRes = new QStandardItem(logging.error().data());
+            QStandardItem *itemRes = new QStandardItem();
+            if(logging.error().data())
+                itemRes->setText("success");
+            else
+                itemRes->setText("failed");
             QStandardItem *itemDetail = new QStandardItem(logging.detail().data());
 
             QStandardItem *itemCheck = new QStandardItem();
@@ -187,6 +218,11 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck  << itemUpdateTime << itemObj << itemOpt << itemUser << itemRes << itemDetail);
             row++;
+        }
+        if(getTableRowCount() == 0)
+        {
+            setTableDefaultContent("-");
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
         }
     }
     else
@@ -216,11 +252,13 @@ void LogListView::popupEndDatePicker()
 
 void LogListView::applyDatePicker()
 {
-    m_xFormat = "dd hh:mm";
     m_xStart = m_datePicker->getStartDate();
     m_xEnd = m_datePicker->getEndDate();
-//    m_xInterval = 1 * 60;
-//    m_xTitle = tr("Time particle density(%1 hour)").arg(m_xInterval / 60);
-//    InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
+    updateInfo();
+}
+
+void LogListView::setLogListPageType(LogListPageType type)
+{
+    m_type = type;
 }
 

@@ -53,7 +53,6 @@ void ImageListPage::initTable()
         tr("Last Update")};
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
-    //setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/edit.svg");
     setTableDefaultContent("-");
     setTableSingleChoose(true);
 }
@@ -494,18 +493,18 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             //                        << "version:" << image.version().data() << "description:" << image.description().data()
             //                        << "approval_status:" << image.approval_status() << "update_time:" << image.update_time().data();
 
-
-            for (int i = 0; i < is_del_row.count() ; i++) {
+            for (int i = 0; i < is_del_row.count(); i++)
+            {
                 QString str = itemApprovalStatus->text();
                 if(is_del_row[i] == str)
                     goto _END;
             }
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
             row++;
-            _END:
-                continue;
+        _END:
+            continue;
         }
-        if(getTableRowCount() == 0)
+        if (getTableRowCount() == 0)
         {
             setTableDefaultContent("-");
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
@@ -519,9 +518,9 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
     }
 }
 
-void ImageListPage::setDelRow(const QString type1,const QString type2)
+void ImageListPage::setDelRow(const QString type1, const QString type2)
 {
-    if(!is_del_row.isEmpty())
+    if (!is_del_row.isEmpty())
         is_del_row.clear();
     is_del_row.append(type1);
     is_del_row.append(type2);
