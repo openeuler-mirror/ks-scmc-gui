@@ -52,6 +52,8 @@ ButtonDelegate::~ButtonDelegate()
 
 void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    painter->save();
+
     int count = 0;
     QStyleOptionViewItem viewOption(option);
     initStyleOption(&viewOption, index);
@@ -95,6 +97,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         ++i;
         count++;
     }
+    painter->restore();
     QStyledItemDelegate::paint(painter, viewOption, index);
 }
 
@@ -103,17 +106,14 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     Q_UNUSED(model);
     Q_UNUSED(index);
     QMouseEvent *pEvent = static_cast<QMouseEvent *>(event);
-    m_mousePoint = pEvent->pos();
     QApplication::restoreOverrideCursor();
-
-    bool repaint = false;
     int count = 0;
 
     QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>::const_iterator i = m_btnInfo.constBegin();
     while (i != m_btnInfo.constEnd())
     {
         // 绘制按钮
-        QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+        QRect btnRect;
         if (i.value().second == tr("Refuse") ||
             i.value().second == tr("Pass") ||
             i.value().second == tr("Resume") ||
@@ -127,14 +127,17 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             i.value().second == tr("Edit") ||
             i.value().second == tr("Delete"))
             btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
+        else
+        {
+            btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
+        }
         // 鼠标位于按钮之上
-        if (!btnRect.contains(m_mousePoint))
+        if (!btnRect.contains(pEvent->pos()))
         {
             ++i;
             count++;
             continue;
         }
-        repaint = true;
         switch (event->type())
         {
         // 鼠标滑过
@@ -148,13 +151,11 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             palette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor("#ffffff"));
             palette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor("#000000"));
             QToolTip::setPalette(palette);
-            m_nType = 0;
             break;
         }
         // 鼠标按下
         case QEvent::MouseButtonPress:
         {
-            m_nType = 1;
             break;
         }
         // 鼠标释放
@@ -257,7 +258,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
         count++;
         ++i;
     }
-    return repaint;
+    return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 
 void ButtonDelegate::onActTriggered(QAction *act)

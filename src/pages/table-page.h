@@ -60,7 +60,7 @@ public:
     void setTableDefaultContent(QString text);
     void setSearchableCol(int col);
     void setTips(QString text);
-    int getTableRowCount();
+    int getRowCount();
     QStandardItem *getItem(int row, int col);
     QList<QMap<QString, QVariant>> getCheckedItemInfo(int col);
     void sleep(int sec);
@@ -134,7 +134,6 @@ private:
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_isHeadCheckable;
     bool m_singleChoose;
-    bool m_isSetTableActions;
     QLineEdit *m_pageEdit;  // 分页编辑框
     int m_totalPages = 1;
     bool m_isOpenPaging;

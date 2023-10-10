@@ -27,7 +27,6 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
                                                       m_searchTimer(nullptr),
                                                       m_isHeadCheckable(false),
                                                       m_singleChoose(false),
-                                                      m_isSetTableActions(false),
                                                       m_pageEdit(nullptr),
                                                       m_searchCol(1)
 {
@@ -144,7 +143,6 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     //设置表中操作按钮代理
     m_btnDelegate = new ButtonDelegate(btnInfo, this);
     ui->tableView->setItemDelegateForColumn(col, m_btnDelegate);
-    m_isSetTableActions = true;
 
     connect(m_btnDelegate, &ButtonDelegate::sigBackupResume, this, &TablePage::sigBackupResume);
     connect(m_btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::sigBackupUpdate);
@@ -212,16 +210,6 @@ void TablePage::setHeaderCheckable(bool checkable)
 void TablePage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    //    auto colCount = m_isSetTableActions ? m_model->columnCount() - 1 : m_model->columnCount();
-    //    //    if(m_isSetTableActions == true)
-    //    //        m_btnDelegate->isSetDelegateDefault(true);
-
-    //    for (int i = 1; i < colCount; i++)
-    //    {
-    //        QStandardItem *item = new QStandardItem(text);
-    //        item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-    //        m_model->setItem(0, i, item);
-    //    }
 }
 
 void TablePage::setSearchableCol(int col)
@@ -243,7 +231,7 @@ void TablePage::clearText()
     ui->lineEdit_search->clear();
 }
 
-int TablePage::getTableRowCount()
+int TablePage::getRowCount()
 {
     return m_model->rowCount();
 }
@@ -406,15 +394,11 @@ void TablePage::initPaging()
 {
     //上一页
     QPushButton *last_btn = new QPushButton(tr("last page"), this);
-    //    last_btn->setStyleSheet("QPushButton{ border-width:1px;border-radius:8px;font-size:14px;\
-//                            border:1px solid #393939;}"
-    //                            "QPushButton:focus{border:1px solid #3EB3FF;}");
     connect(last_btn, &QPushButton::clicked, this, &TablePage::lastBtnClick);
     //编辑框
     m_pageEdit = new QLineEdit(QString::number(1), this);
     m_pageEdit->setFixedSize(40, 30);
     m_pageEdit->setAlignment(Qt::AlignCenter);
-    //    m_pageEdit->setContentsMargins(10,0,0,0);
     m_pageEdit->setStyleSheet("QLineEdit{ border-width:1px;border-radius:10px;font-size:12px;\
                               border:1px solid #393939;}"
                               "QLineEdit:focus{border:1px solid #3EB3FF;}");
@@ -425,14 +409,9 @@ void TablePage::initPaging()
     m_totalPageLabel = new QLabel(QString("/ ") + QString::number(m_totalPages), this);
     m_totalPageLabel->setFixedSize(50, 30);
     m_totalPageLabel->setContentsMargins(10, 0, 0, 0);
-    //    m_totalPageLabel->setStyleSheet("QLabel{ border-width:1px;border-radius:8px;font-size:14px;\
-//                                    border:1px solid #393939;}"
-    //                                    "QLabel:focus{border:1px solid #3EB3FF;}");
+
     //下一页
     QPushButton *next_btn = new QPushButton(tr("next page"), this);
-    //    next_btn->setStyleSheet("QPushButton{ border-width:1px;border-radius:8px;font-size:14px;\
-//                            border:1px solid #393939;}"
-    //                            "QPushButton:focus{border:1px solid #3EB3FF;}");
     connect(next_btn, &QPushButton::clicked, this, &TablePage::nextBtnClick);
     m_pagingHlayout = new QHBoxLayout();
     m_pagingHlayout->setSpacing(3);

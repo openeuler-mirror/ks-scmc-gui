@@ -17,7 +17,6 @@ class ButtonDelegate : public QStyledItemDelegate
 public:
     explicit ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo, QObject* parent = nullptr);
     ~ButtonDelegate();
-    void isSetDelegateDefault(bool key = false);
 
 protected:
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
@@ -48,10 +47,8 @@ private slots:
     void onActTriggered(QAction* act);
 
 private:
-    QPoint m_mousePoint;
     QModelIndex m_index;
     QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> m_btnInfo;
-    int m_nType;  // 按钮状态：0-划过 1-按下
     QMenu* m_menu;
 };
 
