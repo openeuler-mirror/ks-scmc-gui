@@ -46,6 +46,13 @@ void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
     KLOG_INFO() << "setEnvInfo";
     auto envMap = cfg->envs();
     KLOG_INFO() << envMap["PATH"].data();
+
+    QList<QSharedPointer<ModelItem>> itemList;
+    QSharedPointer<ModelItem> pItem(new ModelItem());
+    pItem->m_firstColVal = "PATH";
+    pItem->m_secondColVal = envMap["PATH"].data();
+    itemList.push_back(pItem);
+    m_configTable->setData(itemList);
 }
 
 void EnvsConfTab::initUI()

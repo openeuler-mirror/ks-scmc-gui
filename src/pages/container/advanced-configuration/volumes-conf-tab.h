@@ -18,7 +18,7 @@ public:
     explicit VolumesConfTab(QWidget *parent = nullptr);
     ~VolumesConfTab();
     ErrorCode getVolumeInfo(container::ContainerConfigs *cfg);
-    void setVolumeInfo(const container::Mount *mounts);
+    void setVolumeInfo(const container::ContainerConfigs *cfg);
 
 private:
     void initUI();
