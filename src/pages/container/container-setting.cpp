@@ -762,10 +762,8 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
 
         //volume
         auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-        for (auto mount : info.mounts())
-        {
-            volumesPage->setVolumeInfo(&mount);
-        }
+        volumesPage->setVolumeInfo(&info);
+
         volumesPage->setDisabled(true);
 
         // network
@@ -857,10 +855,7 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
 
         //volume
         auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-        for (auto mount : info.mounts())
-        {
-            volumesPage->setVolumeInfo(&mount);
-        }
+        volumesPage->setVolumeInfo(&info);
 
         // network
         auto size = info.networks_size();
