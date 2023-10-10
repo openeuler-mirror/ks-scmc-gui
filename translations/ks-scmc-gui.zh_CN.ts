@@ -4,23 +4,23 @@
 <context>
     <name>AuditListPage</name>
     <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="31"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="40"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="50"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="32"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="42"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="53"/>
         <source>Rejected</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="31"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="42"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="48"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="32"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="44"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="51"/>
         <source>Passed</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="34"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="40"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="48"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="35"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="42"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="51"/>
         <source>Wait for Approve</source>
         <translation>等待审批</translation>
     </message>
@@ -28,22 +28,32 @@
 <context>
     <name>ButtonDelegate</name>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="19"/>
-        <location filename="../src/common/button-delegate.cpp" line="156"/>
+        <location filename="../src/common/button-delegate.cpp" line="20"/>
+        <location filename="../src/common/button-delegate.cpp" line="192"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="20"/>
-        <location filename="../src/common/button-delegate.cpp" line="158"/>
+        <location filename="../src/common/button-delegate.cpp" line="21"/>
+        <location filename="../src/common/button-delegate.cpp" line="194"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="21"/>
-        <location filename="../src/common/button-delegate.cpp" line="160"/>
+        <location filename="../src/common/button-delegate.cpp" line="22"/>
+        <location filename="../src/common/button-delegate.cpp" line="196"/>
         <source>Restart</source>
         <translation>重启</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="65"/>
+        <source>Pass</source>
+        <translation>通过</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="73"/>
+        <source>Refuse</source>
+        <translation>拒绝</translation>
     </message>
 </context>
 <context>
@@ -162,108 +172,108 @@
         <translation type="vanished">退出</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="39"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="35"/>
         <source>Online</source>
         <translation>在线</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="40"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="36"/>
         <source>Offline</source>
         <translation>离线</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="41"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="37"/>
         <source>Created</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="142"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="138"/>
         <source>Delete Container</source>
         <translation>删除容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="143"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="139"/>
         <source>Are you sure you want to delete the container?</source>
         <translation>确定删除该容器？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="144"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="140"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="446"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="440"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="453"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="447"/>
         <source>Create container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="454"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="448"/>
         <source>Create container from template</source>
         <translation>创建容器模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="461"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="455"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="462"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="456"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="463"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="457"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
+        <location filename="../src/pages/container/container-list-page.cpp" line="458"/>
         <location filename="../src/pages/container/container-list-page.cpp" line="464"/>
-        <location filename="../src/pages/container/container-list-page.cpp" line="470"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="515"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="509"/>
         <source>Container Name</source>
         <translation>容器名</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="516"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="510"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="517"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="511"/>
         <source>Image</source>
         <translation>镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="518"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="512"/>
         <source>Node</source>
         <translation>节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="520"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="514"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="521"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="515"/>
         <source>Disk</source>
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="522"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="516"/>
         <source>Online Time</source>
         <translation>上线时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-list-page.cpp" line="523"/>
+        <location filename="../src/pages/container/container-list-page.cpp" line="517"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
@@ -272,229 +282,286 @@
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="271"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="233"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="78"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="272"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="234"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="85"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="273"/>
         <source>Container Describe:</source>
-        <translation>容器描述：</translation>
+        <translation type="vanished">容器描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="274"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="236"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="115"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="275"/>
         <source>Container Name:</source>
-        <translation>容器名：</translation>
+        <translation type="vanished">容器名：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="205"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="276"/>
         <source>Desribe:</source>
-        <translation>描述：</translation>
+        <translation type="vanished">描述：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="212"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="277"/>
         <source>Container Template Name:</source>
-        <translation>容器模板名：</translation>
+        <translation type="vanished">容器模板名：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="251"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="279"/>
+        <location filename="../src/pages/container/container-setting.ui" line="85"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="235"/>
+        <source>Describe:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.ui" line="115"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="237"/>
+        <source> Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.ui" line="183"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="239"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="339"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="278"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="105"/>
+        <location filename="../src/pages/container/container-setting.ui" line="271"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="238"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="127"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="350"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="280"/>
+        <location filename="../src/pages/container/container-setting.ui" line="282"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="240"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="427"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="281"/>
+        <location filename="../src/pages/container/container-setting.ui" line="359"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="241"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="446"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="282"/>
+        <location filename="../src/pages/container/container-setting.ui" line="378"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="242"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="108"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="130"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="122"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="144"/>
         <source>CPU</source>
         <translation>CPU</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="123"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="145"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="124"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="221"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="444"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="448"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="589"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="146"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="236"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="565"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="569"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="724"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="732"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="820"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="828"/>
         <source>Network card</source>
         <translation>网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="137"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="159"/>
         <source>Envs</source>
         <translation>环境变量</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="138"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="160"/>
         <source>Graphic</source>
         <translation>图形化使用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="139"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="161"/>
         <source>Volumes</source>
         <translation>共享目录</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="140"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="162"/>
         <source>High availability</source>
         <translation>高可用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="186"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="547"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="198"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="675"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="196"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="207"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="368"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="391"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="490"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="327"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="345"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="369"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="350"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="368"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="392"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="449"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="467"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="491"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="370"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="393"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="492"/>
         <source>Memory soft limit can&apos;t be greater than the maximum limit !</source>
         <translation>内存软限制不能高于最大限制！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="329"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="347"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="371"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="352"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="370"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="394"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="451"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="469"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="493"/>
         <source>:/images/error.svg</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="344"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="367"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="466"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="346"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="369"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="468"/>
         <source>Please improve the contents in Env table!</source>
         <translation>请完善环境变量表格中的内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="326"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="349"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="448"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="328"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="216"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="869"/>
+        <source>Create template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="220"/>
+        <source>Edit template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="351"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="450"/>
         <source>Please improve the contents in Volumes table!</source>
         <translation>请完善共享目录表格中的内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="464"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="585"/>
         <source>Delete Network card</source>
         <translation>删除网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="465"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="586"/>
         <source>Are you sure you want to delete the network card?</source>
         <translation>确定要删除此网卡？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="466"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="587"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="548"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="676"/>
         <source>Create container failed!</source>
         <translation>创建容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="549"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="677"/>
         <source>Error: </source>
         <translation>错误:</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="637"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="699"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="795"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="774"/>
         <source>Update Container</source>
         <translation>更新容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="638"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="775"/>
         <source>Update container failed!</source>
         <translation>更新容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="639"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="661"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="776"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="911"/>
         <source>Error: %1</source>
         <translation>错误：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="640"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="777"/>
         <source>:/images/warning.svg</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="659"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="870"/>
+        <source>Create template failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="871"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="889"/>
+        <source>error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="887"/>
+        <source>Update template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="888"/>
+        <source>Update template failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="909"/>
         <source>List Image</source>
         <translation>列出镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="660"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="910"/>
         <source>Get image List failed!</source>
         <translation>获取镜像列表失败！</translation>
     </message>
@@ -613,180 +680,187 @@
         <translation>最后更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="68"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="73"/>
         <source>Upload</source>
         <translation>上传</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="69"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="74"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="70"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="75"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="71"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="79"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="76"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="84"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="119"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="58"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="124"/>
         <source>Pass</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="120"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="56"/>
+        <source>Operation</source>
+        <translation>操作</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="57"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="125"/>
         <source>Refuse</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="231"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="238"/>
         <source>The image &quot;%1&quot; is being transferred.</source>
         <translation>镜像”%1“正在传输。</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="232"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="239"/>
         <source> Please operate after the transfer is completed!</source>
         <translation>请在镜像传输完成后再操作！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="255"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="262"/>
         <source>Please select the path to save</source>
         <translation>请选择保存路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="291"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="298"/>
         <source>Delete Image</source>
         <translation>删除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="292"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="299"/>
         <source>Are you sure you want to delete the image?</source>
         <translation>确定删除该镜像？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="293"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="300"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="320"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="585"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="594"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="327"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="595"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="604"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="357"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="364"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="395"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="402"/>
         <source>Download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="455"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="464"/>
         <source>Failed</source>
         <translation>未通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="459"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="468"/>
         <source>Abnormal</source>
         <translation>不正确</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="463"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="480"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="472"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="489"/>
         <source>Passed</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="472"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="481"/>
         <source>Wait for Approve</source>
         <translation>等待审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="476"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="485"/>
         <source>Rejected</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="536"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="545"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="546"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="555"/>
         <source>Check Image</source>
         <translation>校验镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="537"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="547"/>
         <source>Check Image success!</source>
         <translation>校验镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="546"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="556"/>
         <source>Check Image failed!</source>
         <translation>校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="559"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="572"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="569"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="582"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="560"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="570"/>
         <source>Remove Image success!</source>
         <translation>移除镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="573"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="583"/>
         <source>Remove Image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="586"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="596"/>
         <source>Upload Image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="595"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="605"/>
         <source>Upload Image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="607"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="616"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="617"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="626"/>
         <source>update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="608"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="618"/>
         <source>update Image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="617"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="627"/>
         <source>update Image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="647"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="656"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="657"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="666"/>
         <source>download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="648"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="658"/>
         <source>download Image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="657"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="667"/>
         <source>download Image failed!</source>
         <translation>下载镜像失败！</translation>
     </message>
@@ -914,17 +988,17 @@
 <context>
     <name>LogListPage</name>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="24"/>
+        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="29"/>
         <source>container logs</source>
         <translation>容器日志</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="30"/>
+        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="36"/>
         <source>system logs</source>
         <translation>系统日志</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="36"/>
+        <location filename="../src/pages/audit/log-list/log-list-page.cpp" line="43"/>
         <source>users logs</source>
         <translation>用户日志</translation>
     </message>
@@ -962,29 +1036,87 @@
         <translation>操作详情</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="86"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="89"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="166"/>
-        <source>Run</source>
-        <translation>运行</translation>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="193"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="202"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="238"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="247"/>
+        <source>Create</source>
+        <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="169"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="196"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="226"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="241"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="250"/>
+        <source>Update</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="199"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="211"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="229"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="244"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="253"/>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="205"/>
+        <source>Start</source>
+        <translation>开启</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="217"/>
+        <source>Upload</source>
+        <translation>上传</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="220"/>
+        <source>Download</source>
+        <translation>下载</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="223"/>
+        <source>Approve</source>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="232"/>
+        <source>Login</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="235"/>
+        <source>Logout</source>
+        <translation>注销</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="256"/>
+        <source>Update Password</source>
+        <translation>修改密码</translation>
+    </message>
+    <message>
+        <source>Run</source>
+        <translation type="vanished">运行</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="208"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="172"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="214"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="175"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation type="vanished">删除</translation>
     </message>
 </context>
 <context>
@@ -1091,17 +1223,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="194"/>
+        <location filename="../src/main-window.cpp" line="195"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="195"/>
+        <location filename="../src/main-window.cpp" line="196"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="196"/>
+        <location filename="../src/main-window.cpp" line="197"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1488,9 +1620,8 @@
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="278"/>
         <source>Quick Actions</source>
-        <translation>快捷操作</translation>
+        <translation type="vanished">快捷操作</translation>
     </message>
 </context>
 <context>
@@ -1811,38 +1942,38 @@ It mainly includes four modules: user management, node management, image and ima
     <name>QObject</name>
     <message>
         <location filename="../src/base/info-worker.cpp" line="29"/>
-        <location filename="../src/base/info-worker.cpp" line="489"/>
-        <location filename="../src/base/info-worker.cpp" line="606"/>
-        <location filename="../src/base/info-worker.cpp" line="721"/>
-        <location filename="../src/base/info-worker.cpp" line="817"/>
-        <location filename="../src/base/info-worker.cpp" line="835"/>
+        <location filename="../src/base/info-worker.cpp" line="557"/>
+        <location filename="../src/base/info-worker.cpp" line="674"/>
+        <location filename="../src/base/info-worker.cpp" line="789"/>
+        <location filename="../src/base/info-worker.cpp" line="885"/>
+        <location filename="../src/base/info-worker.cpp" line="903"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="504"/>
-        <location filename="../src/base/info-worker.cpp" line="618"/>
-        <location filename="../src/base/info-worker.cpp" line="736"/>
-        <location filename="../src/base/info-worker.cpp" line="756"/>
+        <location filename="../src/base/info-worker.cpp" line="572"/>
+        <location filename="../src/base/info-worker.cpp" line="686"/>
+        <location filename="../src/base/info-worker.cpp" line="804"/>
+        <location filename="../src/base/info-worker.cpp" line="824"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="514"/>
-        <location filename="../src/base/info-worker.cpp" line="524"/>
-        <location filename="../src/base/info-worker.cpp" line="628"/>
-        <location filename="../src/base/info-worker.cpp" line="638"/>
+        <location filename="../src/base/info-worker.cpp" line="582"/>
+        <location filename="../src/base/info-worker.cpp" line="592"/>
+        <location filename="../src/base/info-worker.cpp" line="696"/>
+        <location filename="../src/base/info-worker.cpp" line="706"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="784"/>
+        <location filename="../src/base/info-worker.cpp" line="852"/>
         <location filename="../src/common/message-dialog.cpp" line="106"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="792"/>
+        <location filename="../src/base/info-worker.cpp" line="860"/>
         <location filename="../src/common/message-dialog.cpp" line="94"/>
         <source>OK</source>
         <translation>是</translation>
@@ -1928,57 +2059,57 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="26"/>
+        <location filename="../src/main-window.cpp" line="27"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="27"/>
+        <location filename="../src/main-window.cpp" line="28"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="28"/>
+        <location filename="../src/main-window.cpp" line="29"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="29"/>
+        <location filename="../src/main-window.cpp" line="30"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="30"/>
+        <location filename="../src/main-window.cpp" line="31"/>
         <source>Audit Center</source>
         <translation>审计中心</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="31"/>
+        <location filename="../src/main-window.cpp" line="32"/>
         <source>Audit Apply List</source>
         <translation>审核列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="32"/>
+        <location filename="../src/main-window.cpp" line="33"/>
         <source>Audit Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="33"/>
+        <location filename="../src/main-window.cpp" line="34"/>
         <source>Audit Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="34"/>
+        <location filename="../src/main-window.cpp" line="35"/>
         <source>Image Manager</source>
         <translation>镜像管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="35"/>
+        <location filename="../src/main-window.cpp" line="36"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="36"/>
+        <location filename="../src/main-window.cpp" line="37"/>
         <source>System Manager</source>
         <translation>系统管理</translation>
     </message>
@@ -2065,14 +2196,110 @@ It mainly includes four modules: user management, node management, image and ima
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="252"/>
+        <location filename="../src/pages/table-page.cpp" line="250"/>
         <source>Please enter the keyword</source>
         <translation>请输入关键字</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="450"/>
+        <location filename="../src/pages/table-page.cpp" line="466"/>
         <source>No search results were found!</source>
         <translation>未搜索到结果！</translation>
+    </message>
+</context>
+<context>
+    <name>TemplateListPage</name>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="79"/>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="127"/>
+        <source>Remove Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="80"/>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="128"/>
+        <source>Are you sure you want to Remove the Template?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="81"/>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="129"/>
+        <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
+        <translation type="unfinished">该操作不可恢复，确定要继续操作？</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="179"/>
+        <source>CPU:%1core 
+ Memory:%2G 
+ Network:%3piece</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="187"/>
+        <source>Open</source>
+        <translation type="unfinished">打开</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="187"/>
+        <source>Close</source>
+        <translation type="unfinished">关闭</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="189"/>
+        <source>Env:%1 
+ Mount:%2 
+ Graphic:%3 
+ RestartPolicy:%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="214"/>
+        <source>Remove template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="215"/>
+        <source>Remove template failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="216"/>
+        <source>Error: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="226"/>
+        <source>Template Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="227"/>
+        <source>description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="228"/>
+        <source>Basic configuration</source>
+        <translation type="unfinished">基本配置</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="229"/>
+        <source>Advanced configuration</source>
+        <translation type="unfinished">高级配置</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="230"/>
+        <source>Quick Actions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="245"/>
+        <source>Create</source>
+        <translation type="unfinished">创建</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template/template-list-page.cpp" line="251"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

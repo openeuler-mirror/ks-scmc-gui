@@ -189,17 +189,71 @@ void LogListView::getListRuntime(const QPair<grpc::Status,logging::ListRuntimeRe
 
             QStandardItem *itemOpt = new QStandardItem();
             switch (logging.event_type()) {
-            case 0:
-                itemOpt->setText(tr("Run"));
+            case 101:
+                itemOpt->setText(tr("Create"));
                 break;
-            case 1:
+            case 102:
+                itemOpt->setText(tr("Update"));
+                break;
+            case 103:
+                itemOpt->setText(tr("Remove"));
+                break;
+            case 201:
+                itemOpt->setText(tr("Create"));
+                break;
+            case 202:
+                itemOpt->setText(tr("Start"));
+                break;
+            case 203:
                 itemOpt->setText(tr("Stop"));
                 break;
-            case 2:
+            case 204:
+                itemOpt->setText(tr("Remove"));
+                break;
+            case 205:
                 itemOpt->setText(tr("Restart"));
                 break;
-            case 3:
-                itemOpt->setText(tr("Delete"));
+            case 301:
+                itemOpt->setText(tr("Upload"));
+                break;
+            case 302:
+                itemOpt->setText(tr("Download"));
+                break;
+            case 303:
+                itemOpt->setText(tr("Approve"));
+                break;
+            case 304:
+                itemOpt->setText(tr("Update"));
+                break;
+            case 305:
+                itemOpt->setText(tr("Remove"));
+                break;
+            case 401:
+                itemOpt->setText(tr("Login"));
+                break;
+            case 402:
+                itemOpt->setText(tr("Logout"));
+                break;
+            case 403:
+                itemOpt->setText(tr("Create"));
+                break;
+            case 404:
+                itemOpt->setText(tr("Update"));
+                break;
+            case 405:
+                itemOpt->setText(tr("Remove"));
+                break;
+            case 406:
+                itemOpt->setText(tr("Create"));
+                break;
+            case 407:
+                itemOpt->setText(tr("Update"));
+                break;
+            case 408:
+                itemOpt->setText(tr("Remove"));
+                break;
+            case 409:
+                itemOpt->setText(tr("Update Password"));
                 break;
             default:
                 break;
