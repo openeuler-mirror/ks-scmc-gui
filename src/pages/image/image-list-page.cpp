@@ -13,7 +13,7 @@
 
 ImageListPage::ImageListPage(QWidget *parent,bool flag) : TablePage(parent), m_pImageOp(nullptr)
 {
-    is_init_btn = flag;
+    is_init_audit_btn = flag;
     initButtons();
     initTable();
     initImageConnect();
@@ -51,6 +51,12 @@ void ImageListPage::initTable()
         tr("Inspection Status"),
         tr("Approval Status"),
         tr("Last Update")};
+    if(is_init_audit_btn)
+    {
+        tableHHeaderDate.append(tr("Operation"));
+        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")},
+                                                                                       {ACTION_BUTTON_TYPE_IMAGE_PASS,  tr("Pass")}});
+    }
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
     setTableDefaultContent("-");
@@ -59,7 +65,7 @@ void ImageListPage::initTable()
 
 void ImageListPage::initButtons()
 {
-    if(!is_init_btn)
+    if(!is_init_audit_btn)
     {
         QMap<int, QPushButton *> opBtnMap;
         //按钮
@@ -136,6 +142,8 @@ void ImageListPage::initButtons()
         }
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS], &QPushButton::clicked, this, &ImageListPage::onBtnPass);
         connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE], &QPushButton::clicked, this, &ImageListPage::onBtnRefuse);
+        connect(this,&TablePage::sigImagePass,this,&ImageListPage::onBtnPass);
+        connect(this,&TablePage::sigImageRefuse,this,&ImageListPage::onBtnRefuse);
 
         addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS]
                                                         << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE]);
@@ -428,7 +436,6 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
         }
 
         int row = 0;
-
         for (auto image : reply.second.images())
         {
             QMap<QString, QVariant> infoMap;
@@ -436,7 +443,10 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             infoMap.insert(IMAGE_ID, imageId);
 
             QStandardItem *itemCheck = new QStandardItem();
-            itemCheck->setCheckable(true);
+            if(is_open_checkbox)
+                itemCheck->setCheckable(true);
+            else
+                itemCheck->setCheckable(false);
 
             QStandardItem *itemName = new QStandardItem(image.name().data());
             infoMap.insert(IMAGE_NAME, image.name().data());
@@ -499,6 +509,7 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
                 if(is_del_row[i] == str)
                     goto _END;
             }
+
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
             row++;
         _END:
@@ -668,4 +679,8 @@ void ImageListPage::getTransferImageFinishedResult(QString name, QString version
     {
         m_transferImages.removeAll(image);
     }
+}
+void ImageListPage::setCheckBox(bool flag)
+{
+    is_open_checkbox = flag;
 }
