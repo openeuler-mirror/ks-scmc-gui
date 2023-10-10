@@ -44,10 +44,11 @@ MonitorContent::~MonitorContent()
     }
 }
 
-void MonitorContent::updateMonitorInfo(qint64 nodeId)
+void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
 {
     m_nodeId = nodeId;
-    InfoWorker::getInstance().monitorHistory(nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
+    m_containerId = containerId;
+    InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
 }
 
 QSize MonitorContent::sizeHint() const
