@@ -33,6 +33,8 @@ const int CHUNK_SIZE = 1024 * 1024;
     if (s_authKey.size() > 0)                                               \
         ctx.AddMetadata("authorization", s_authKey);                        \
     r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                   \
+    if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())       \
+        emit InfoWorker::getInstance().sessinoExpire();                     \
     return r;
 
 InfoWorker::InfoWorker(QObject *parent) : QObject(parent)
