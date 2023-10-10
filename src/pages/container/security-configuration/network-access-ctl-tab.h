@@ -25,7 +25,6 @@ private:
     void initUI();
 
 private:
-    QVBoxLayout *m_itemLayout;
     QListWidget *m_listWidget;
     QWidget *m_funcDesc;
 };
