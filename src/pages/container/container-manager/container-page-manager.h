@@ -9,6 +9,7 @@ enum ContainerPageType
     CONTAINER_PAGE_TYPE_INFO
 };
 
+class ContainerInfoPage;
 class ContainerPageManager : public StackedPage
 {
     Q_OBJECT
@@ -21,7 +22,7 @@ private slots:
     void onNameClicked(QMap<QString, QVariant> infoMap);
 
 private:
-    //NodeInfoPage *m_nodeInfoPage;
+    ContainerInfoPage *m_containerInfoPage;
 };
 
 #endif  // CONTAINERPAGEMANAGER_H

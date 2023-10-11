@@ -35,8 +35,6 @@ private slots:
     void onBtnRemove();
     void onBtnPass();
     void onBtnRefuse();
-    void onBtnPassLabel(int row);
-    void onBtnRefuseLabel(int row);
     void uploadSaveSlot(QMap<QString, QString> Info);
     void updateSaveSlot(QMap<QString, QString> Info);
     void downloadSaveSlot(QMap<QString, QString> Info);
