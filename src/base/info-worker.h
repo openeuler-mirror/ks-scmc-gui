@@ -92,7 +92,7 @@ public:
     void updateBackup(int id, std::string backupDesc);
     void createBackup(int nodeId, std::string containerId, std::string backupDesc);
     void resumeBackup(int nodeId, std::string containerId, int backupId);
-    void removeBackup(int id);
+    void removeBackup(int64_t ids);
 
     // network management
     void listNetwork(const int64_t);

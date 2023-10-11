@@ -15,10 +15,7 @@
 #include "common/monitor-dialog.h"
 #include "container-list-page.h"
 #include "container/container-setting.h"
-
-// TODO read from config file.
-const QString TERMINAL_CMD = "mate-terminal -e";
-const QString BASHRC_FILE = "/etc/ks-scmc/graphic_rc";
+#include "load-configuration.h"
 
 ContainerListPage::ContainerListPage(QWidget *parent)
     : TablePage(parent),
@@ -37,12 +34,12 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    m_timer->start(10000);
-    connect(m_timer, &QTimer::timeout,
-            [this] {
-                std::vector<int64_t> vecNodeId;
-                InfoWorker::getInstance().listContainer(vecNodeId, true);
-            });
+    m_timer->start(2000);
+    //    connect(m_timer, &QTimer::timeout,
+    //            [this] {
+    //                //setBusy(true);
+    //                InfoWorker::getInstance().listNode();
+    //            });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
@@ -262,8 +259,10 @@ void ContainerListPage::onTerminal(int row)
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     auto nodeAddr = infoMap.value(NODE_ADDRESS).toString();
     auto containerName = infoMap.value(CONTAINER_NAME).toString();
-    auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
-                   .arg(TERMINAL_CMD, nodeAddr, containerName, BASHRC_FILE);
+    //    auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
+    //                   .arg(TERMINAL_CMD, nodeAddr, containerName, BASHRC_FILE);
+
+    auto cmd = LoadConfiguration::getTerminalConfig(nodeAddr, containerName);
 
     KLOG_INFO() << cmd;
     QProcess proc;
@@ -304,11 +303,11 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
             KLOG_INFO() << n.id();
             m_vecNodeId.push_back(n.id());
         }
-//        if (!m_vecNodeId.empty())
-//        {
-//            setBusy(true);
-//            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-//        }
+        if (!m_vecNodeId.empty())
+        {
+            setBusy(true);
+            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
+        }
     }
     else
     {
@@ -340,6 +339,7 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
             infoMap.insert(NODE_ID, nodeId);
             infoMap.insert(CONTAINER_ID, i.info().id().data());
             infoMap.insert(CONTAINER_NAME, i.info().name().data());
+            infoMap.insert(CONTAINER_STATUS, i.info().state().data());
             infoMap.insert(NODE_ADDRESS, i.node_address().data());
 
             QStandardItem *itemCheck = new QStandardItem();
@@ -566,16 +566,14 @@ void ContainerListPage::initConnect()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
-    std::vector<int64_t> vecNodeId;
     if (nodeId < 0)
     {
         setBusy(true);
         InfoWorker::getInstance().listNode();
-        InfoWorker::getInstance().listContainer(vecNodeId, true);
     }
     else
     {
-        KLOG_INFO() << "get container list of node " << nodeId;
+        std::vector<int64_t> vecNodeId;
         vecNodeId.push_back(nodeId);
         connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult);
         InfoWorker::getInstance().listContainer(vecNodeId, true);
@@ -590,7 +588,7 @@ void ContainerListPage::getContainerList(qint64 nodeId)
 
 void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     int64_t node_id{};
 
     foreach (auto idMap, info)
