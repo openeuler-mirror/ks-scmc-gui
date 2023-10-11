@@ -6,6 +6,7 @@
 #include <QStandardItemModel>
 #include <QToolButton>
 #include <QWidget>
+#include "common/button-delegate.h"
 #include "def.h"
 #include "page.h"
 namespace Ui
@@ -87,8 +88,8 @@ private slots:
     void onActRun(QModelIndex index);
     void onActStop(QModelIndex index);
     void onActRestart(QModelIndex index);
-    void onActImagePass(int row);
-    void onActImageRefuse(int row);
+    //void onActImagePass(int row);
+    //void onActImageRefuse(int row);
     void onActBackupResume(int row);
     void onActBackupUpdate(int row);
     void onActBackupRemove(int row);
@@ -107,6 +108,8 @@ private:
     HeaderView *m_headerView;
     QTimer *m_searchTimer;
     QTimer *m_refreshBtnTimer;
+    ButtonDelegate *m_btnDelegate;
+
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
