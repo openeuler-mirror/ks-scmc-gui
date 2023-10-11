@@ -16,7 +16,8 @@
 #include "common/message-dialog.h"
 #include "def.h"
 #include "security-configuration/network-access-ctl-tab.h"
-#include "security-configuration/white-list-tab.h"
+#include "security-configuration/security-list-tab.h"
+#include "security-configuration/start-stop-control-tab.h"
 #include "ui_container-setting.h"
 
 #define CPU "CPU"
@@ -26,8 +27,11 @@
 #define GRAPHIC QObject::tr("Graphic")
 #define VOLUMES QObject::tr("Volumes")
 #define HIGH_AVAILABILITY QObject::tr("High availability")
+#define FILE_PROTECT QObject::tr("File protect")
+#define PROCESS_SECURITY QObject::tr("Process security")
 #define NETWORK_ACCESS_CONTROL QObject::tr("Network access control")
-#define PROCESS_WHITELIST QObject::tr("Process whitelist")
+#define NETWORK_PROCESS_WHITE_LIST QObject::tr("Network process white list")
+#define START_STOP_CONTROL QObject::tr("Start stop control")
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
@@ -126,7 +130,7 @@ void ContainerSetting::initUI()
     setWindowModality(Qt::ApplicationModal);
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlags(Qt::WindowCloseButtonHint);
-    setFixedSize(780, 700);
+    setFixedSize(840, 700);
 
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
     ui->tabWidget->setAttribute(Qt::WA_StyledBackground);
@@ -168,7 +172,7 @@ void ContainerSetting::initUI()
     ui->listwidget_base_config->setCurrentRow(0);
 
     QList<QPair<QString, QString>> advancedConfItemInfo = {{ENVS, ":/images/container-env.png"},
-                                                           {GRAPHIC, ":/images/audit-center.svg"},
+                                                           {GRAPHIC, ":/images/container-graphic.png"},
                                                            {VOLUMES, ":/images/container-volumes.png"},
                                                            {HIGH_AVAILABILITY, ":/images/container-high-avail.png"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
@@ -183,8 +187,11 @@ void ContainerSetting::initUI()
     m_advancedItems.first()->setSelected(true);
     ui->listWidget_advanced_config->setCurrentRow(0);
 
-    QList<QPair<QString, QString>> securityConfItemInfo = {{NETWORK_ACCESS_CONTROL, ":/images/container-env.png"},
-                                                           {PROCESS_WHITELIST, ":/images/audit-center.svg"}};
+    QList<QPair<QString, QString>> securityConfItemInfo = {{FILE_PROTECT, ":/images/container-file-protect.png"},
+                                                           {PROCESS_SECURITY, ":/images/process-security.png"},
+                                                           {NETWORK_ACCESS_CONTROL, ":/images/net-access-control.png"},
+                                                           {NETWORK_PROCESS_WHITE_LIST, ":/images/net-process-white-list.png"},
+                                                           {START_STOP_CONTROL, ":/images/cmd_operation.png"}};
     for (int i = 0; i < securityConfItemInfo.count(); i++)
     {
         QString name = securityConfItemInfo.at(i).first;
@@ -206,7 +213,6 @@ void ContainerSetting::initUI()
     foreach (auto cb, cbList)
     {
         cb->setItemDelegate(new QStyledItemDelegate(cb));
-        cb->setStyleSheet("QComboBox {combobox-popup:0;}");
     }
 
     connect(ui->listwidget_base_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
@@ -309,11 +315,20 @@ void ContainerSetting::initAdvancedConfPages()
 
 void ContainerSetting::initSecurityConfPages()
 {
+    SecurityListTab *fileProtectTab = new SecurityListTab(PROTECT_FILE_LIST, ui->tab_security_config);
+    m_securityConfStack->addWidget(fileProtectTab);
+
+    SecurityListTab *processWhiteList = new SecurityListTab(EXEC_WHITELIST, ui->tab_security_config);
+    m_securityConfStack->addWidget(processWhiteList);
+
     NetworkAccessCtlTab *netAccessCtlTab = new NetworkAccessCtlTab(ui->tab_security_config);
     m_securityConfStack->addWidget(netAccessCtlTab);
 
-    WhiteListTab *processWhiteList = new WhiteListTab(EXEC_WHITELIST, ui->tab_security_config);
-    m_securityConfStack->addWidget(processWhiteList);
+    SecurityListTab *netWorkProcessWhiteList = new SecurityListTab(NET_EXEC_WHITELIST, ui->tab_security_config);
+    m_securityConfStack->addWidget(netWorkProcessWhiteList);
+
+    StartStopControlTab *startStopCtlTab = new StartStopControlTab(ui->tab_security_config);
+    m_securityConfStack->addWidget(startStopCtlTab);
 }
 
 void ContainerSetting::updateRemovableItem(QString itemText)
@@ -440,6 +455,24 @@ void ContainerSetting::createContainer()
 
     //limit->set_disk_limit();
 
+    //security
+    auto securityCfg = cntrCfg->mutable_security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->getSecurityListInfo(securityCfg);
+
+    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    //    processProtectPage->getSecurityListInfo(securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->getSecurityListInfo(securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+
     InfoWorker::getInstance().createContainer(request);
 }
 
@@ -464,6 +497,24 @@ void ContainerSetting::updateContainer()
     {
         networkPage->getNetworkInfo(&request);
     }
+
+    //security
+    auto securityCfg = request.mutable_security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->getSecurityListInfo(securityCfg);
+
+    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    //    processProtectPage->getSecurityListInfo(securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->getSecurityListInfo(securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
 
     InfoWorker::getInstance().updateContainer(request);
 }
@@ -857,6 +908,24 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         //memory
         auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
         memoryPage->setMemoryInfo(&limit);
+
+        //security
+        auto securityCfg = info.security_config();
+
+        auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+        fileProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+        processProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+        netProcessProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+        networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
+
+        auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+        startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
     }
 }
 
