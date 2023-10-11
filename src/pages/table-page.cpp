@@ -303,10 +303,10 @@ void TablePage::initUI()
 
 void TablePage::adjustTableSize()
 {
-    int height = 0;
-    height = m_model->rowCount() * 60 + 40 + 20;  // row height+ header height + space
-    ui->tableView->setFixedHeight(height);
-    emit sigTableHeightChanged(height);
+    //    int height = 0;
+    //    height = m_model->rowCount() * 60 + 40 + 20;  // row height+ header height + space
+    //    ui->tableView->setFixedHeight(height);
+    //    emit sigTableHeightChanged(height);
 }
 
 int TablePage::getCheckedItemNum()

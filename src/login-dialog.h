@@ -2,15 +2,10 @@
 #define LOGIN_DIALOG_H
 
 #include <kiranwidgets-qt5/kiran-titlebar-window.h>
-#include <kylin-license/license-i.h>
 #include <QLineEdit>
 #include <QSettings>
 #include <QWidget>
 #include "info-worker.h"
-#include "common/license.h"
-#include "dbus/dbus-utils.h"
-#include "activate-page.h"
-#include "error-message-box.h"
 
 namespace Ui
 {
@@ -32,10 +27,8 @@ protected:
 
 private:
     void initUI();
-    void initMessageBox();
     void loadConfig();
     bool inspectLoginParam();
-    void getLicense(QString license_str);
 
 private slots:
     void onMenuTrigger(QAction *act);
@@ -44,13 +37,6 @@ private slots:
     void getLoginResult(const QPair<grpc::Status, user::LoginReply> &);
     void getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &);
     void sessionExpire();
-    void updateLicense(bool);
-    void activation(QString);
-    void showActivatePage();
-    void showErrorBox();
-
-signals:
-    void sigLicenseChange();
 
 private:
     Ui::LoginDialog *ui;
@@ -58,14 +44,6 @@ private:
     QTimer *m_timer;
     ServerConfigDialog *m_serverCfgDlg;
     QString m_server;
-    ActivatePage *m_activate_page;
-    License *m_license;
-    DBusUtils *m_dbusutil;
-    ErrorMessageBox *m_errorMessageBox;
-    KiranMessageBox *m_activate_page_box;
-    KiranMessageBox *m_dbusErrorBox;
-    QLabel *activate_label;
-//    QAction *actionLicense;
 };
 
 #endif  // LOGIN_DIALOG_H
