@@ -56,7 +56,6 @@ void LicenseActivation::initUI()
     setIcon(QIcon(":/images/logo"));
     setTitle(tr("Activation"));
     setButtonHints(TitlebarCloseButtonHint);
-    setFixedSize(469, 409);
     Kiran::WidgetPropertyHelper::setButtonType(m_ui->m_activate, Kiran::ButtonType::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(m_ui->m_cancel, Kiran::ButtonType::BUTTON_Normal);
 
@@ -68,27 +67,16 @@ void LicenseActivation::initUI()
     machineQRCodeBtn->setProperty(QRCODE_PROPERTY, MACHINE_CODE);
     machineQRCodeBtn->setFixedSize(16, 16);
     machineQRCodeBtn->setIcon(QIcon(":/images/qrcode"));
+    machineQRCodeBtn->setFocusPolicy(Qt::NoFocus);
+    machineQRCodeBtn->setStyleSheet("border:none;");
     machineLayout->addStretch();
     machineLayout->addWidget(machineQRCodeBtn);
     connect(machineQRCodeBtn, &QPushButton::clicked, this, &LicenseActivation::handleQrcode);
 
-    //创建激活码二维码按钮
-    auto activationLayout = new QHBoxLayout(m_ui->m_activation_code);
-    activationLayout->setMargin(0);
-    activationLayout->setContentsMargins(10, 0, 10, 0);
-    m_activateQRcodeBtn = new QPushButton(m_ui->m_activation_code);
-    m_activateQRcodeBtn->setCursor(Qt::ArrowCursor);
-    m_activateQRcodeBtn->setProperty(QRCODE_PROPERTY, ACTIVATION_CODE);
-    m_activateQRcodeBtn->setFixedSize(16, 16);
-    m_activateQRcodeBtn->setIcon(QIcon(":/images/qrcode"));
-    activationLayout->addStretch();
-    activationLayout->addWidget(m_activateQRcodeBtn);
-    connect(m_activateQRcodeBtn, &QPushButton::clicked, this, &LicenseActivation::handleQrcode);
-
     m_ui->m_machine_code->setReadOnly(true);
     m_ui->m_expired_time->setReadOnly(true);
     m_ui->m_machine_code->setTextMargins(10, 0, machineQRCodeBtn->width(), 0);
-    m_ui->m_activation_code->setTextMargins(10, 0, m_activateQRcodeBtn->width() + activationLayout->contentsMargins().right(), 0);
+    m_ui->m_activation_code->setTextMargins(10, 0, 10, 0);
     m_ui->m_expired_time->setTextMargins(10, 0, 10, 0);
 }
 
@@ -124,8 +112,8 @@ void LicenseActivation::popupQRcode(const QString &QRcode, const QString &title)
     m_qrcodeDialog->setText(QRcode);
     m_qrcodeDialog->setSummary(title);
 
-    auto x = this->x() + this->width() / 4 + m_qrcodeDialog->width() / 4;
-    auto y = this->y() + this->height() / 4 + m_qrcodeDialog->height() / 4;
+    int x = this->x() + this->width() / 2 - m_qrcodeDialog->width() / 2;
+    int y = this->y() + this->height() / 2 - m_qrcodeDialog->height() / 2;
     m_qrcodeDialog->move(x, y);
     m_qrcodeDialog->raise();
     m_qrcodeDialog->show();
@@ -137,5 +125,4 @@ void LicenseActivation::update()
     m_ui->m_activation_code->setText(m_licenseProxy->getActivationCode());
     m_ui->m_expired_time->setText(QDateTime::fromSecsSinceEpoch(m_licenseProxy->getExpiredTime()).toString("yyyy-MM-dd"));
     m_ui->m_timeWidget->setVisible(m_licenseProxy->isActivated());
-    m_activateQRcodeBtn->setVisible(m_licenseProxy->isActivated());
 }

@@ -284,8 +284,8 @@ void LoginDialog::onMenuTrigger(QAction *act)
 
 void LoginDialog::showActivatePage()
 {
-    int x = this->x() + this->width() / 2 - m_about->width() / 2;
-    int y = this->y() + this->height() / 2 - m_about->height() / 2;
+    int x = this->x() + this->width() / 2 - m_activateDialog->width() / 2;
+    int y = this->y() + this->height() / 2 - m_activateDialog->height() / 2;
     m_activateDialog->move(x, y);
     m_activateDialog->show();
 }
