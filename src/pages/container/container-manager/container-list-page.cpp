@@ -15,10 +15,7 @@
 #include "common/monitor-dialog.h"
 #include "container-list-page.h"
 #include "container/container-setting.h"
-
-// TODO read from config file.
-const QString TERMINAL_CMD = "mate-terminal -e";
-const QString BASHRC_FILE = "/etc/ks-scmc/graphic_rc";
+#include "load-configuration.h"
 
 ContainerListPage::ContainerListPage(QWidget *parent)
     : TablePage(parent),
@@ -261,8 +258,10 @@ void ContainerListPage::onTerminal(int row)
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     auto nodeAddr = infoMap.value(NODE_ADDRESS).toString();
     auto containerName = infoMap.value(CONTAINER_NAME).toString();
-    auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
-                   .arg(TERMINAL_CMD, nodeAddr, containerName, BASHRC_FILE);
+//    auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
+//                   .arg(TERMINAL_CMD, nodeAddr, containerName, BASHRC_FILE);
+
+    auto cmd = LoadConfiguration::getTerminalConfig(nodeAddr, containerName);
 
     KLOG_INFO() << cmd;
     QProcess proc;
