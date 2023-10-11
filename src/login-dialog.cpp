@@ -205,7 +205,7 @@ void LoginDialog::initMessageBox()
     activeButton->setFocusPolicy(Qt::NoFocus);
     m_activate_page_box->addButton(activeButton, QDialogButtonBox::AcceptRole);
     m_activate_page_box->setButtonSize(QSize(80, 30));
-    m_activate_page_box->setText(tr("The software is not activated and the reinforcement function cannot be used. Please activate it."));
+    m_activate_page_box->setText(tr("The software is not activated and Unable to login. Please activate it."));
     connect(activeButton, SIGNAL(clicked(bool)), this, SLOT(showActivatePage()));
 
     m_dbusErrorBox = new KiranMessageBox(this);
@@ -220,7 +220,7 @@ void LoginDialog::initMessageBox()
     okButton->setFocusPolicy(Qt::NoFocus);
     m_dbusErrorBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
-    m_dbusErrorBox->setText(tr("Failed to get data, please check the backend service status."));
+    m_dbusErrorBox->setText(tr("Failed to get data, please check the service status."));
     connect(okButton, SIGNAL(clicked(bool)), this, SLOT(close()));
 }
 
