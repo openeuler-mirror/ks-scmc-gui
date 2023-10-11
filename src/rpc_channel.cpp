@@ -1,4 +1,5 @@
 #include "rpc.h"
+#include "load-configuration.h"
 
 #include <chrono>
 #include <map>
@@ -79,6 +80,24 @@ static bool is_channel_connected(std::shared_ptr<grpc::Channel> &chan, int timeo
                                                gpr_time_from_millis(timeout, GPR_TIMESPAN)));
 }
 
+static std::shared_ptr<grpc::ChannelCredentials> SslCredentials()
+{
+    bool enable;
+    QString ca, cert, key;
+    LoadConfiguration::getSSLConfig(enable, ca, cert, key);
+    KLOG_INFO() << "enable ssl: " << enable;
+    if (!enable)
+    {
+        return grpc::InsecureChannelCredentials();
+    }
+
+    grpc::SslCredentialsOptions ssl_opts;
+    ssl_opts.pem_root_certs = ca.toStdString();
+    ssl_opts.pem_cert_chain = cert.toStdString();
+    ssl_opts.pem_private_key = key.toStdString();
+    return  grpc::SslCredentials(ssl_opts);
+}
+
 static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
 {
     grpc::ChannelArguments args;
@@ -88,7 +107,7 @@ static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
     for (int i = 0; i < 2; i++)
     {
         auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
-            addr, grpc::InsecureChannelCredentials(), args, std::move(creators));
+            addr, SslCredentials(), args, std::move(creators));
         // auto chan = grpc::CreateChannel(addr, grpc::InsecureChannelCredentials());
         if (chan == nullptr || !is_channel_connected(chan, RPC_CONNECT_TIMEOUT))
         {
