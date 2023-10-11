@@ -8,6 +8,7 @@
 #include <QWidget>
 #include "def.h"
 #include "page.h"
+#include "common/button-delegate.h"
 namespace Ui
 {
 class TablePage;
@@ -84,8 +85,8 @@ private slots:
     void onActRun(QModelIndex index);
     void onActStop(QModelIndex index);
     void onActRestart(QModelIndex index);
-    void onActImagePass(int row);
-    void onActImageRefuse(int row);
+//    void onActImagePass(int row);
+//    void onActImageRefuse(int row);
     void onRefreshTimeout();
     void search();
     void refresh();
@@ -101,6 +102,8 @@ private:
     HeaderView *m_headerView;
     QTimer *m_searchTimer;
     QTimer *m_refreshBtnTimer;
+    ButtonDelegate *m_btnDelegate;
+
     QList<QAbstractButton *> m_singleOpBtns;
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
