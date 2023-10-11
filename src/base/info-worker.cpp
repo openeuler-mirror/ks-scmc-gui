@@ -260,7 +260,7 @@ void InfoWorker::createBackup(int nodeId, std::string containerId, std::string b
     RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, req);
 }
 
-void InfoWorker::removeBackup(int id)
+void InfoWorker::removeBackup(int64_t id)
 {
     container::RemoveBackupRequest req;
     req.set_id(id);
