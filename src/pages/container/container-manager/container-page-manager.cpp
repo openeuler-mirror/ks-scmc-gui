@@ -1,7 +1,7 @@
 #include "container-page-manager.h"
 #include "container-info-page.h"
 #include "container-list-page.h"
-ContainerPageManager::ContainerPageManager(QWidget *parent) : StackedPage(parent)
+ContainerPageManager::ContainerPageManager(QWidget *parent) : StackedPage(parent), m_containerInfoPage(nullptr)
 {
     createStackedPage(CONTAINER_PAGE_TYPE_LIST, "Container List");
     createStackedPage(CONTAINER_PAGE_TYPE_INFO, "Container Info");
@@ -21,9 +21,8 @@ void ContainerPageManager::createStackedPage(ContainerPageType type, QString key
     }
     case CONTAINER_PAGE_TYPE_INFO:
     {
-        ContainerInfoPage *containerInfoPage = new ContainerInfoPage(this);
-        page = containerInfoPage;
-        ;
+        m_containerInfoPage = new ContainerInfoPage(this);
+        page = m_containerInfoPage;
     }
     default:
         break;
@@ -41,6 +40,7 @@ void ContainerPageManager::updateInfo(QString keyword)
 void ContainerPageManager::onNameClicked(QMap<QString, QVariant> infoMap)
 {
     setCurrentPage(CONTAINER_PAGE_TYPE_INFO);
-    //m_nodeInfoPage->setNodeId(nodeId);
+
+    m_containerInfoPage->setContainerInfo(infoMap);
     updateCurrentPage();
 }

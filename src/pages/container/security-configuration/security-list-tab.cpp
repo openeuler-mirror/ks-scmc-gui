@@ -13,6 +13,7 @@ SecurityListTab::SecurityListTab(ProtectionType type, QWidget *parent) : QWidget
                                                                          m_isEnable(true)
 {
     initUI();
+    m_btnClose->setChecked(true);
     createItem(0);
 }
 
@@ -33,19 +34,14 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     {
         auto fileProtect = securityCfg->file_protection();
         if (fileProtect.is_on())
-        {
             m_btnOpen->setChecked(true);
-            m_btnOpen->click();
-        }
         else
-        {
             m_btnClose->setChecked(true);
-            m_btnClose->click();
-        }
+
         int count = 0;
         for (auto file : fileProtect.file_list())
         {
-            if (count > 1)
+            if (count > 0)
                 createItem(count);
 
             auto listItem = m_listWidget->item(count);
@@ -59,19 +55,14 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     {
         auto processProtect = securityCfg->proc_protection();
         if (processProtect.is_on())
-        {
             m_btnOpen->setChecked(true);
-            m_btnOpen->click();
-        }
         else
-        {
             m_btnClose->setChecked(true);
-            m_btnClose->click();
-        }
+
         int count = 0;
         for (auto file : processProtect.exe_list())
         {
-            if (count > 1)
+            if (count > 0)
                 createItem(count);
 
             auto listItem = m_listWidget->item(count);
@@ -85,19 +76,14 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     {
         auto processProtect = securityCfg->nproc_protection();
         if (processProtect.is_on())
-        {
             m_btnOpen->setChecked(true);
-            m_btnOpen->click();
-        }
         else
-        {
             m_btnClose->setChecked(true);
-            m_btnClose->click();
-        }
+
         int count = 0;
         for (auto file : processProtect.exe_list())
         {
-            if (count > 1)
+            if (count > 0)
                 createItem(count);
 
             auto listItem = m_listWidget->item(count);
@@ -305,7 +291,6 @@ void SecurityListTab::initUI()
         labStatus->setText(tr("White list status"));
 
     m_btnOpen = new QRadioButton(tr("Open"), this);
-    m_btnOpen->setChecked(true);
     m_btnClose = new QRadioButton(tr("Close"), this);
 
     topLayout->addWidget(labStatus);
@@ -369,14 +354,20 @@ void SecurityListTab::initUI()
         funcDescBtn->hide();
     }
 
-    connect(m_btnClose, &QRadioButton::clicked,
-            [=] {
-                m_listWidget->setDisabled(true);
-                m_isEnable = false;
+    connect(m_btnClose, &QRadioButton::toggled,
+            [=](bool checked) {
+                if (checked == true)
+                {
+                    m_listWidget->setDisabled(true);
+                    m_isEnable = false;
+                }
             });
-    connect(m_btnOpen, &QRadioButton::clicked,
-            [=] {
-                m_listWidget->setDisabled(false);
-                m_isEnable = true;
+    connect(m_btnOpen, &QRadioButton::toggled,
+            [=](bool checked) {
+                if (checked == true)
+                {
+                    m_listWidget->setDisabled(false);
+                    m_isEnable = true;
+                }
             });
 }
