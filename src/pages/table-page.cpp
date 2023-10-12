@@ -194,6 +194,7 @@ void TablePage::setHeaderSections(QStringList names)
 
 void TablePage::setHeaderCheckable(bool checkable)
 {
+    KLOG_INFO() << "setHeaderCheckable : " << checkable;
     m_headerView->setCheckable(checkable);
 }
 
@@ -234,11 +235,14 @@ QList<QMap<QString, QVariant>> TablePage::getCheckedItemInfo(int col)
     for (int i = 0; i < m_model->rowCount(); i++)
     {
         auto item = m_model->item(i, 0);
-        if (item->checkState() == Qt::CheckState::Checked)
+        if (item)
         {
-            auto infoItem = m_model->item(i, col);
-            QMap<QString, QVariant> infoMap = infoItem->data().value<QMap<QString, QVariant>>();
-            checkedItemInfo.append(infoMap);
+            if (item->checkState() == Qt::CheckState::Checked)
+            {
+                auto infoItem = m_model->item(i, col);
+                QMap<QString, QVariant> infoMap = infoItem->data().value<QMap<QString, QVariant>>();
+                checkedItemInfo.append(infoMap);
+            }
         }
     }
     return checkedItemInfo;

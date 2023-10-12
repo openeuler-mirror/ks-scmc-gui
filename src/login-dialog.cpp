@@ -47,8 +47,8 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
 
     initUI();
     connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire);
-    m_activate_page->setText(m_license->machine_code,m_license->activation_code,m_license->activation_time,m_license->expired_time);
-    connect(m_activate_page,&ActivatePage::activate_app,this,&LoginDialog::activation);
+    m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
+    connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
     //loadConfig();
 }
 
@@ -66,12 +66,12 @@ LoginDialog::~LoginDialog()
         delete m_serverCfgDlg;
         m_serverCfgDlg = nullptr;
     }
-    if(m_activate_page)
+    if (m_activate_page)
     {
         delete m_activate_page;
         m_activate_page = nullptr;
     }
-    if(m_dbusutil)
+    if (m_dbusutil)
     {
         delete m_dbusutil;
         m_dbusutil = nullptr;
@@ -117,13 +117,13 @@ void LoginDialog::initUI()
     activate_label->setAlignment(Qt::AlignHCenter);
     activate_label->setFixedHeight(18);
     activate_label->setMinimumWidth(50);
-    if(m_license->activation_status != LicenseActivationStatus::LAS_ACTIVATED)
+    if (m_license->activation_status != LicenseActivationStatus::LAS_ACTIVATED)
     {
         activate_label->setStyleSheet("QLabel{"
-                                     "background:rgba(255, 61, 61,255);;"
-                                     "font-family: Noto Sans CJK SC regular;"
-                                     "font-size:12px;"
-                                     "border-radius: 8px}");
+                                      "background:rgba(255, 61, 61,255);;"
+                                      "font-family: Noto Sans CJK SC regular;"
+                                      "font-size:12px;"
+                                      "border-radius: 8px}");
         activate_label->setText(tr("Unactivated"));
     }
 
@@ -186,7 +186,7 @@ void LoginDialog::initUI()
     ui->lineEdit_passwd->setText("12345678");
 
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
-//    connect(m_activate_page,SIGNAL(activate(QString)),this,SLOT(activation(QSting)));
+    //    connect(m_activate_page,SIGNAL(activate(QString)),this,SLOT(activation(QSting)));
 }
 
 void LoginDialog::initMessageBox()
@@ -197,11 +197,11 @@ void LoginDialog::initMessageBox()
     m_activate_page_box = new KiranMessageBox(this);
     QPushButton *activeButton = new QPushButton(tr("Active"));
     activeButton->setStyleSheet("QPushButton{"
-                          "color:black;"
-                          "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;"
-                          "border-radius:4px;"
-                          "background:rgba(255,255,255,255);}");
+                                "color:black;"
+                                "font:NotoSansCJKsc-Regular;"
+                                "font-size:14px;"
+                                "border-radius:4px;"
+                                "background:rgba(255,255,255,255);}");
     activeButton->setFocusPolicy(Qt::NoFocus);
     m_activate_page_box->addButton(activeButton, QDialogButtonBox::AcceptRole);
     m_activate_page_box->setButtonSize(QSize(80, 30));
@@ -212,11 +212,11 @@ void LoginDialog::initMessageBox()
     m_dbusErrorBox->setWindowFlag(Qt::WindowStaysOnTopHint);
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setStyleSheet("QPushButton{"
-                          "color:black;"
-                          "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;"
-                          "border-radius:4px;"
-                          "background:rgba(255,255,255,255);}");
+                            "color:black;"
+                            "font:NotoSansCJKsc-Regular;"
+                            "font-size:14px;"
+                            "border-radius:4px;"
+                            "background:rgba(255,255,255,255);}");
     okButton->setFocusPolicy(Qt::NoFocus);
     m_dbusErrorBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
@@ -278,41 +278,41 @@ void LoginDialog::getLicense(QString license_str)
             {
                 switch (it.value().type())
                 {
-                    case QJsonValue::String:
+                case QJsonValue::String:
+                {
+                    QString jsonKey = it.key();
+                    QString jsonString = it.value().toString();
+                    if (jsonKey == "activation_code")
                     {
-                        QString jsonKey = it.key();
-                        QString jsonString = it.value().toString();
-                        if (jsonKey == "activation_code")
-                        {
-                            m_license->activation_code = jsonString;
-                        }
-                        else if (jsonKey == "machine_code")
-                        {
-                            m_license->machine_code = jsonString;
-                        }
-                        break;
+                        m_license->activation_code = jsonString;
                     }
-                    case QJsonValue::Double:
+                    else if (jsonKey == "machine_code")
                     {
-                        QString jsonKey = it.key();
-                        if (jsonKey == "activation_status")
-                        {
-                            m_license->activation_status = it.value().toDouble();
-                        }
-                        else if (jsonKey == "activation_time")
-                        {
-                            m_license->activation_time = it.value().toDouble();
-                        }
-                        else if (jsonKey == "expired_time")
-                        {
-                            m_license->expired_time = it.value().toDouble();
-                        }
-                        break;
+                        m_license->machine_code = jsonString;
                     }
-                    default:
+                    break;
+                }
+                case QJsonValue::Double:
+                {
+                    QString jsonKey = it.key();
+                    if (jsonKey == "activation_status")
                     {
-                        break;
+                        m_license->activation_status = it.value().toDouble();
                     }
+                    else if (jsonKey == "activation_time")
+                    {
+                        m_license->activation_time = it.value().toDouble();
+                    }
+                    else if (jsonKey == "expired_time")
+                    {
+                        m_license->expired_time = it.value().toDouble();
+                    }
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
                 }
                 it++;
             }
@@ -335,7 +335,7 @@ void LoginDialog::showActivatePage()
 {
     int x = this->x() / 2 + m_activate_page->width() / 2;
     int y = this->y() / 2 + m_activate_page->height() / 2;
-    m_activate_page->move(x,y);
+    m_activate_page->move(x, y);
     m_activate_page->show();
 }
 
@@ -350,14 +350,14 @@ void LoginDialog::showErrorBox()
 
 void LoginDialog::activation(QString activation_code)
 {
-    if(activation_code.isNull())
+    if (activation_code.isNull())
     {
         KLOG_DEBUG() << "Null activation_code";
         return;
     }
 
     m_license->activation_code = activation_code;
-    if(!m_dbusutil->callInterface(ACTIVATE_BYACTIVATIONCODE, m_license->activation_code))
+    if (!m_dbusutil->callInterface(ACTIVATE_BYACTIVATIONCODE, m_license->activation_code))
     {
         m_activate_page->showErrorBox();
     }
@@ -365,7 +365,7 @@ void LoginDialog::activation(QString activation_code)
 
 void LoginDialog::onLogin()
 {
-    if(m_license->activation_status != LicenseActivationStatus::LAS_ACTIVATED)
+    if (m_license->activation_status != LicenseActivationStatus::LAS_ACTIVATED)
     {
         //弹出提示
         //跳转激活界面
@@ -378,7 +378,6 @@ void LoginDialog::onLogin()
         return;
 
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
-    UserConfiguration::getInstance().setServerAddr(m_server.toStdString());
     InfoWorker::getInstance().login(ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
@@ -464,13 +463,13 @@ void LoginDialog::sessionExpire()
 
 void LoginDialog::updateLicense(bool ret)
 {
-    if(ret)
+    if (ret)
     {
         KLOG_DEBUG() << "license changed!";
         QString license_str = m_dbusutil->callInterface(GET_LICENSE);
         getLicense(license_str);
 
-        if(m_license->activation_status == LicenseActivationStatus::LAS_ACTIVATED)
+        if (m_license->activation_status == LicenseActivationStatus::LAS_ACTIVATED)
         {
             activate_label->hide();
         }
