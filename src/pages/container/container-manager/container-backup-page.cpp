@@ -127,23 +127,19 @@ void ContainerBackupPage::onResumeBackup(int row)
     QMap<QString, QVariant> infoMap = item->data().toMap();
     KLOG_INFO() << m_containerStatus;
 
-    int ret = -1;
-    if (m_containerStatus == "exited")
-    {
-        ret = MessageDialog::message(tr("Resume Backup"),
+    int ret = MessageDialog::message(tr("Resume Backup"),
                                      tr("Backup recovery confirmation"),
                                      tr("%1 backup is selected for recovery").arg(infoMap.value(BACKUP_NAME).toString()),
                                      ":/images/warning.svg",
                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
 
-        if (ret == MessageDialog::StandardButton::Yes)
-        {
-            auto backupId = infoMap.value(BACKUP_ID).toInt();
-            InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
-        }
-        else
-            KLOG_INFO() << "cancel";
+    if (ret == MessageDialog::StandardButton::Yes)
+    {
+        auto backupId = infoMap.value(BACKUP_ID).toInt();
+        InfoWorker::getInstance().resumeBackup(m_nodeId, m_containerId, backupId);
     }
+    else
+        KLOG_INFO() << "cancel";
 }
 
 void ContainerBackupPage::onUpdateBackup(int row)
@@ -271,6 +267,7 @@ void ContainerBackupPage::getResumeBackupFinished(const QPair<grpc::Status, cont
     KLOG_INFO() << "getResumeBackupFinished";
     if (reply.first.ok())
     {
+        m_containerId = reply.second.container_id().data();
         InfoWorker::getInstance().listBackup(m_nodeId, m_containerId);
     }
 }

@@ -137,4 +137,5 @@ void ServerConfigDialog::setServerInfo()
     m_ipLineEdit->setText(m_ip);
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
     m_portLineEdit->setText(m_port);
+    UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
 }
