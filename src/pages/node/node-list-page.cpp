@@ -2,11 +2,11 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QTimer>
 #include "common/message-dialog.h"
 #include "def.h"
 #include "node-addition-dialog.h"
 #include "rpc.h"
-#include <QTimer>
 
 #define ACTION_COL 1
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
@@ -21,11 +21,11 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     initNodeConnect();
 
     m_timer = new QTimer(this);
-    m_timer->start(10000);
-    connect(m_timer, &QTimer::timeout,
-            [this] {
-                InfoWorker::getInstance().listNode();
-            });
+    //    m_timer->start(10000);
+    //    connect(m_timer, &QTimer::timeout,
+    //            [this] {
+    //                InfoWorker::getInstance().listNode();
+    //            });
 }
 
 NodeListPage::~NodeListPage()
