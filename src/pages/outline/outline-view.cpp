@@ -72,15 +72,8 @@ void OutlineView::getlNodeList()
 void OutlineView::getContainerList()
 {
     KLOG_INFO() << "getContainerList";
-    if (!m_vecNodeId.empty())
-    {
-        InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-    }
-    else
-    {
-        KLOG_INFO() << "getContainerList : listNode";
-        InfoWorker::getInstance().listNode();
-    }
+    std::vector<int64_t> vecNodeId;
+    InfoWorker::getInstance().listContainer(vecNodeId, true);
 }
 
 void OutlineView::getImageList()
@@ -281,14 +274,11 @@ void OutlineView::getOutlineCellNodeNums(const QPair<grpc::Status, node::ListRep
     QString state = status.first;
     QString color = status.second;
 
-    m_vecNodeId.clear();
-
     int online = 0;
     int offline = 0;
 
     for (auto node : reply.second.nodes())
     {
-        m_vecNodeId.push_back(node.id());
         if (node.has_status())
         {
             auto tmp = m_mapStatus[node.status().state()];
@@ -299,11 +289,6 @@ void OutlineView::getOutlineCellNodeNums(const QPair<grpc::Status, node::ListRep
             if (tmp.second == "red")
                 offline++;
         }
-    }
-
-    if (!m_vecNodeId.empty())
-    {
-        InfoWorker::getInstance().listContainer(m_vecNodeId, true);
     }
 
     m_outlineCell_node->ui->online_counts->setText(QString::number(online, 10));
@@ -403,6 +388,7 @@ void OutlineView::getOutlineCellExamineNums(const QPair<grpc::Status, image::Lis
             row++;
         }
     }
+    emit sigApprovalNums(int(count));
     m_outlineCell_examine->ui->Name_counts->setText(QString::number(count, 10));
 }
 
@@ -421,6 +407,7 @@ void OutlineView::getOutlineCellWarningNums(const QPair<grpc::Status, node::List
             row++;
         }
     }
+    emit sigWarnSumNums(int(read_warn_count));
     m_outlineCell_warning->ui->Name_counts->setText(QString::number(read_warn_count, 10));
 }
 
