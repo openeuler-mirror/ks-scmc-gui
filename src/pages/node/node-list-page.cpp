@@ -6,9 +6,12 @@
 #include "def.h"
 #include "node-addition-dialog.h"
 #include "rpc.h"
+#include <QTimer>
+
 #define ACTION_COL 1
 NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
-                                              m_nodeAddition(nullptr)
+                                              m_nodeAddition(nullptr),
+                                              m_timer(nullptr)
 {
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
     m_mapStatus.insert(1, QPair<QString, QString>(tr("Unknown"), "black"));
@@ -16,6 +19,13 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     initButtons();
     initTable();
     initNodeConnect();
+
+    m_timer = new QTimer(this);
+    m_timer->start(10000);
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                InfoWorker::getInstance().listNode();
+            });
 }
 
 NodeListPage::~NodeListPage()
@@ -141,6 +151,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             std::string strCntrCnt = "-/-";
             std::string strCpuPct = "-";
             std::string strMemPct = "-";
+            std::string strDiskSize = "-";
             if (node.has_status())
             {
                 auto tmp = m_mapStatus[node.status().state()];
@@ -164,6 +175,13 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
                     sprintf(str, "%0.1f%%", status.mem_stat().used_percentage());
                     strMemPct = std::string(str);
                 }
+
+                if (status.has_disk_stat())
+                {
+                    char str[128]{};
+                    sprintf(str, "%0.1f%%", status.disk_stat().used_percentage());
+                    strDiskSize = std::string(str);
+                }
             }
 
             QStandardItem *itemStatus = new QStandardItem(state);
@@ -175,7 +193,7 @@ void NodeListPage::getListResult(const QPair<grpc::Status, node::ListReply> &rep
             itemCpu->setTextAlignment(Qt::AlignCenter);
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
             itemMem->setTextAlignment(Qt::AlignCenter);
-            QStandardItem *itemDisk = new QStandardItem("-");
+            QStandardItem *itemDisk = new QStandardItem(strDiskSize.data());
             itemDisk->setTextAlignment(Qt::AlignCenter);
 
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk);
