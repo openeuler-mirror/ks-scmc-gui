@@ -22,11 +22,10 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     initNodeConnect();
 
     m_timer = new QTimer(this);
-    //    m_timer->start(10000);
-    //    connect(m_timer, &QTimer::timeout,
-    //            [this] {
-    //                InfoWorker::getInstance().listNode();
-    //            });
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, [this] {
+        InfoWorker::getInstance().listNode();
+    });
 }
 
 NodeListPage::~NodeListPage()
@@ -45,7 +44,13 @@ NodeListPage::~NodeListPage()
 
 void NodeListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "NodeListPage updateInfo";
+    KLOG_INFO() << "NodeListPage updateInfo, keyword:" << keyword;
+    if (keyword == "exitTimedRefresh")
+    {
+        timedRefresh(false);
+        return;
+    }
+
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     if (keyword.isEmpty())
@@ -53,6 +58,7 @@ void NodeListPage::updateInfo(QString keyword)
         //initNodeConnect();
         connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeListPage::getListResult);
         getNodeList();
+        timedRefresh(true);
     }
 }
 
@@ -377,4 +383,14 @@ void NodeListPage::initNodeConnect()
 void NodeListPage::getNodeList()
 {
     InfoWorker::getInstance().listNode();
+}
+
+void NodeListPage::timedRefresh(bool start)
+{
+    KLOG_INFO() << start;
+    if (start)
+        m_timer->start(60000);
+    else {
+        m_timer->stop();
+    }
 }
