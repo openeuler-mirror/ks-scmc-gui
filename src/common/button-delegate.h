@@ -9,7 +9,7 @@ class ButtonDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    explicit ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QString> btnInfo, QObject* parent = nullptr);
+    explicit ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo, QObject* parent = nullptr);
     ~ButtonDelegate();
     void isSetDelegateDefault(bool key = false);
 
@@ -39,8 +39,7 @@ private slots:
 private:
     QPoint m_mousePoint;
     QModelIndex m_index;
-    QMap<ACTION_BUTTON_TYPE, QString> m_btnInfo;
-    QStringList m_btnIcons;
+    QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> m_btnInfo;
     int m_nType;  // 按钮状态：0-划过 1-按下
     QMenu* m_menu;
     bool m_isSetDelegateDefault;
