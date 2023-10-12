@@ -76,6 +76,8 @@ signals:
     void sigBackupResume(int row);
     void sigBackupUpdate(int row);
     void sigBackupRemove(int row);
+    void sigWarnRead(int row);
+    void sigWarnIgnore(int row);
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
     void sigItemEntered(const QModelIndex &index);  //鼠标进入item
