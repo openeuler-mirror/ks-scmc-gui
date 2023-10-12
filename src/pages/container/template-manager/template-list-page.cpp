@@ -229,9 +229,9 @@ void TemplateListPage::initTable()
         QString(tr("Advanced configuration")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{
-                                                     {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
-                                                     {ACTION_BUTTON_TYPE_DELETE, ":/images/btn-delete-normal.png"}});
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{
+                                                     {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}},
+                                                     {ACTION_BUTTON_TYPE_DELETE, QPair<QString, QString>{tr("Delete"), ":/images/btn-delete-normal.png"}}});
 
     setTableDefaultContent("-");
 

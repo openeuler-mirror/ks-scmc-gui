@@ -53,8 +53,8 @@ void ImageListPage::initTable()
     if (is_init_audit_btn)
     {
         tableHHeaderDate.append(tr("Operation"));
-        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_PASS, tr("Pass")},
-                                                                                       {ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")}});
+        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_IMAGE_PASS, QPair<QString, QString>{tr("Pass"), tr("Pass")}},
+                                                                                                       {ACTION_BUTTON_TYPE_IMAGE_REFUSE, QPair<QString, QString>{tr("Refuse"), tr("Refuse")}}});
     }
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
@@ -355,7 +355,7 @@ void ImageListPage::onBtnRefuse()
 void ImageListPage::onBtnPassLabel(int row)
 {
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    if(infoMap.isEmpty())
+    if (infoMap.isEmpty())
         return;
     auto image_id = infoMap.value(IMAGE_ID).toString();
     QMap<QString, QString> checkInfo;
@@ -368,7 +368,7 @@ void ImageListPage::onBtnPassLabel(int row)
 void ImageListPage::onBtnRefuseLabel(int row)
 {
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
-    if(infoMap.isEmpty())
+    if (infoMap.isEmpty())
         return;
     auto image_id = infoMap.value(IMAGE_ID).toString();
     QMap<QString, QString> checkInfo;

@@ -41,7 +41,7 @@ public:
     void setTableRowNum(int num);
     void setTableItem(int row, int col, QStandardItem *item);
     void setTableItems(int row, int col, QList<QStandardItem *> items);
-    void setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnInfo);
+    void setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo);
     void setTableSingleChoose(bool isSingleChoose);
     void setSortableCol(QList<int> cols);
     void setHeaderSections(QStringList names);

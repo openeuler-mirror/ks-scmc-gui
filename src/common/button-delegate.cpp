@@ -14,13 +14,13 @@
 #define TEXT_SPACE 10
 #define TEXT_TOP 22
 
-ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QString> btnInfo, QObject *parent)
+ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo, QObject *parent)
     : QStyledItemDelegate(parent),
       m_btnInfo(btnInfo),
       m_menu(nullptr)
 {
     m_isSetDelegateDefault = false;
-    if (!m_btnInfo.value(ACTION_BUTTON_TYPE_MENU).isNull())
+    if (m_btnInfo.contains(ACTION_BUTTON_TYPE_MENU))
     {
         m_menu = new QMenu();
         m_menu->setObjectName("moreInTableMenu");
@@ -51,7 +51,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     int count = 0;
     if (!m_isSetDelegateDefault)
     {
-        QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
+        QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>::const_iterator i = m_btnInfo.constBegin();
         while (i != m_btnInfo.constEnd())
         {
             // 绘制按钮
@@ -71,24 +71,29 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                     button.state |= QStyle::State_Sunken;
                 }
             }
-            if (i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove") || i.value() == tr("Readed"))
+            if (i.value().first == tr("Pass") ||
+                i.value().first == tr("Resume") ||
+                i.value().first == tr("Update") ||
+                i.value().first == tr("Remove") ||
+                i.value().first == tr("Readed"))
             {
                 painter->setPen(QColor(46, 179, 255));
                 QPalette *pal = new QPalette;
                 pal->setColor(QPalette::ButtonText, QColor(46, 179, 255));
-                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value().first);
             }
-            else if (i.value() == tr("Refuse") || i.value() == tr("Ignore"))
+            else if (i.value().first == tr("Refuse") ||
+                     i.value().first == tr("Ignore"))
             {
                 painter->setPen(QColor(211, 0, 0));
                 QPalette *pal = new QPalette;
                 pal->setColor(QPalette::ButtonText, QColor(211, 0, 0));
-                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value());
+                QApplication::style()->drawItemText(painter, btnTextRect, Qt::AlignHCenter | Qt::AlignVCenter, *pal, true, i.value().first);
             }
             else
             {
                 QPixmap pixBtn;
-                pixBtn.load(i.value());
+                pixBtn.load(i.value().second);
                 QApplication::style()->drawItemPixmap(painter, btnRect, Qt::AlignHCenter | Qt::AlignVCenter, pixBtn);
                 //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, pWidget);
             }
@@ -120,13 +125,19 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
     int count = 0;
     if (!m_isSetDelegateDefault)
     {
-        QMap<ACTION_BUTTON_TYPE, QString>::const_iterator i = m_btnInfo.constBegin();
+        QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>::const_iterator i = m_btnInfo.constBegin();
         while (i != m_btnInfo.constEnd())
         {
             // 绘制按钮
             QStyleOptionButton button;
             QRect btnRect = QRect(option.rect.x() + BUTTON_SPACE + count * BUTTON_WIDTH + count * BUTTON_SPACE, option.rect.y() + BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if (i.value() == tr("Refuse") || i.value() == tr("Pass") || i.value() == tr("Resume") || i.value() == tr("Update") || i.value() == tr("Remove") || i.value() == tr("Readed") || i.value() == tr("Ignore"))
+            if (i.value().first == tr("Refuse") ||
+                i.value().first == tr("Pass") ||
+                i.value().first == tr("Resume") ||
+                i.value().first == tr("Update") ||
+                i.value().first == tr("Remove") ||
+                i.value().first == tr("Readed") ||
+                i.value().first == tr("Ignore"))
                 btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
             // 鼠标位于按钮之上
             if (!btnRect.contains(m_mousePoint))
@@ -144,7 +155,11 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 // 设置鼠标样式为手型
                 QApplication::setOverrideCursor(Qt::PointingHandCursor);
 
-                //QToolTip::showText(pEvent->globalPos(), m_btnNames.at(i));
+                QToolTip::showText(pEvent->globalPos(), i.value().first);
+                QPalette palette;
+                palette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor("#ffffff"));
+                palette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor("#000000"));
+                QToolTip::setPalette(palette);
                 m_nType = 0;
                 break;
             }

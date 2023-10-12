@@ -364,8 +364,8 @@ void NodeListPage::initTable()
     setSortableCol(sortablCol);
     setTableDefaultContent("-");
 
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{
-                                                     {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"}});
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{
+                                                     {ACTION_BUTTON_TYPE_EDIT, QPair<QString, QString>{tr("Edit"), ":/images/edit.svg"}}});
 
     connect(this, &NodeListPage::sigEdit, this, &NodeListPage::onEdit);
     connect(this, &NodeListPage::sigItemClicked, this, &NodeListPage::onItemClicked);
@@ -390,7 +390,8 @@ void NodeListPage::timedRefresh(bool start)
     KLOG_INFO() << start;
     if (start)
         m_timer->start(60000);
-    else {
+    else
+    {
         m_timer->stop();
     }
 }

@@ -139,7 +139,7 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
     adjustTableSize();
 }
 
-void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnInfo)
+void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo)
 {
     //设置表中操作按钮代理
     m_btnDelegate = new ButtonDelegate(btnInfo, this);
