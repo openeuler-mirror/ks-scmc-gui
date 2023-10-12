@@ -294,9 +294,9 @@ void ContainerBackupPage::initTable()
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
 
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_BACKUP_RESUME, tr("Resume")},
-                                                                                   {ACTION_BUTTON_TYPE_BACKUP_UPDATE, tr("Update")},
-                                                                                   {ACTION_BUTTON_TYPE_BACKUP_REMOVE, tr("Remove")}});
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_BACKUP_RESUME, QPair<QString, QString>{tr("Resume"), tr("Resume")}},
+                                                                                                   {ACTION_BUTTON_TYPE_BACKUP_UPDATE, QPair<QString, QString>{tr("Update"), tr("Update")}},
+                                                                                                   {ACTION_BUTTON_TYPE_BACKUP_REMOVE, QPair<QString, QString>{tr("Remove"), tr("Remove")}}});
 
     setTableDefaultContent("-");
     setHeaderCheckable(false);
