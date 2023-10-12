@@ -122,7 +122,7 @@ public:
     // logging management
     void listRuntimeLogging(const logging::ListRuntimeRequest &);
     void listWarnLogging(const logging::ListWarnRequest &);
-    void readWarnLogging(int64_t ids);
+    void readWarnLogging();
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
