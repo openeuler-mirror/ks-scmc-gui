@@ -65,6 +65,7 @@ public:
     void createNode(const node::CreateRequest &);
     void removeNode(const std::vector<int64_t> &node_ids);
     void nodeStatus(const std::vector<int64_t> &node_ids);
+    void updateNode(const node::UpdateRequest &);
 
     // container management
     void listContainer(const std::vector<int64_t> &node_ids, const bool all);
@@ -120,8 +121,6 @@ public:
 
     // logging management
     void listRuntimeLogging(const logging::ListRuntimeRequest &);
-    void listWarnLogging(const logging::ListWarnRequest &);
-    void readWarnLogging();
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
@@ -135,6 +134,7 @@ private:
     static QPair<grpc::Status, node::CreateReply> _createNode(const node::CreateRequest &);
     static QPair<grpc::Status, node::RemoveReply> _removeNode(const node::RemoveRequest &);
     static QPair<grpc::Status, node::StatusReply> _nodeStatus(const node::StatusRequest &);
+    static QPair<grpc::Status, node::UpdateReply> _updateNode(const node::UpdateRequest &);
 
     // container management
     static QPair<grpc::Status, container::ListReply> _listContainer(const container::ListRequest &);
@@ -189,15 +189,14 @@ private:
 
     // logging management
     static QPair<grpc::Status, logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
-    static QPair<grpc::Status,logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
-    static QPair<grpc::Status,logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
 
 signals:
     // node management
     void listNodeFinished(const QPair<grpc::Status, node::ListReply> &);
     void createNodeFinished(const QPair<grpc::Status, node::CreateReply> &);
     void removeNodeFinished(const QPair<grpc::Status, node::RemoveReply> &);
-    void nodeStatusFinished(const QPair<grpc::Status, node::StatusReply> &);
+    void statusNodeFinished(const QPair<grpc::Status, node::StatusReply> &);
+    void updateNodeFinished(const QPair<grpc::Status, node::UpdateReply> &);
 
     // container management
     void listContainerFinished(const QPair<grpc::Status, container::ListReply> &);
@@ -255,8 +254,6 @@ signals:
 
     // logging management
     void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
-    void loggingListWarnFinished(const QPair<grpc::Status, logging::ListWarnReply> &);
-    void loggingReadWarnFinished(const QPair<grpc::Status, logging::ReadWarnReply> &);
 
 private:
     QMutex mutex;
