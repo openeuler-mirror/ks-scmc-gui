@@ -42,7 +42,6 @@ private slots:
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
 
-    void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
     void getContainerListResult(const QPair<grpc::Status, container::ListReply> &);
     void getContainerStartResult(const QPair<grpc::Status, container::StartReply> &);
     void getContainerStopResult(const QPair<grpc::Status, container::StopReply> &);
@@ -56,7 +55,6 @@ private:
     void initButtons();
     void initTable();
     void initConnect();
-    //void getContainerInspect(QMap<QString, QVariant> itemData);
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
 

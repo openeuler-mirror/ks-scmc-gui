@@ -16,7 +16,6 @@ ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_
     is_init_audit_btn = flag;
     initButtons();
     initTable();
-    initImageConnect();
 }
 
 ImageListPage::~ImageListPage()
@@ -156,10 +155,10 @@ void ImageListPage::initImageConnect()
 {
     //connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
     //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageListPage::getDownloadImageResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageListPage::getDownloadImageResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageListPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
 }
 
@@ -193,6 +192,7 @@ void ImageListPage::OperateImage(ImageOperateType type)
     if (!m_pImageOp)
     {
         m_pImageOp = new ImageOperateDialog(type);
+        initImageConnect();
         if (type == IMAGE_OPERATE_TYPE_UPDATE)
         {
             QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);  //只能选择一个
@@ -412,26 +412,35 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         return;
 
     const QString imageFile = Info["Image File"];
+    const QString signFile = Info["Sign File"];
+    const QString desc = Info["Image Description"];
     QString strSha256;
-    qint64 fileSize;
-    if (getImageFileInfo(imageFile, strSha256, fileSize))
-        return;
+    qint64 fileSize = 0;
 
     image::UpdateRequest request;
     request.set_image_id(Info["Image Id"].toInt());
     auto pInfo = request.mutable_info();
     pInfo->set_name(Info["Image Name"].toStdString());
     pInfo->set_version(Info["Image Version"].toStdString());
-    QString suffix = "." + QFileInfo(imageFile).suffix();
-    pInfo->set_type(suffix.toStdString());
-    pInfo->set_checksum(strSha256.toStdString());
-    pInfo->set_description(Info["Image Description"].toStdString());
+
+    if (!desc.isEmpty())
+        pInfo->set_description(Info["Image Description"].toStdString());
+
+    if (!imageFile.isEmpty())
+    {
+        if (getImageFileInfo(imageFile, strSha256, fileSize))
+            return;
+        QString suffix = "." + QFileInfo(imageFile).suffix();
+        pInfo->set_type(suffix.toStdString());
+        pInfo->set_checksum(strSha256.toStdString());
+
+        auto pSignInfo = request.mutable_sign();
+        QFileInfo fileInfo = QFileInfo(signFile);
+        KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
+        pSignInfo->set_size(fileInfo.size());
+        pSignInfo->mutable_chunk_data();
+    }
     pInfo->set_size(fileSize);
-    auto pSignInfo = request.mutable_sign();
-    QFileInfo fileInfo = QFileInfo(Info["Sign File"]);
-    KLOG_INFO() << Info["Sign File"] << fileInfo.fileName() << fileInfo.size();
-    pSignInfo->set_size(fileInfo.size());
-    pSignInfo->mutable_chunk_data();
 
     InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().updateImage(request, imageFile, Info["Sign File"]);
