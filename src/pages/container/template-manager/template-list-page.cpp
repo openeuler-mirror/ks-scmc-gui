@@ -231,7 +231,7 @@ void TemplateListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{
                                                      {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
-                                                     {ACTION_BUTTON_TYPE_DELETE, ":/images/delete_item.svg"}});
+                                                     {ACTION_BUTTON_TYPE_DELETE, ":/images/btn-delete-normal.png"}});
 
     setTableDefaultContent("-");
 
