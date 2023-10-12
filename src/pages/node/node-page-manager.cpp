@@ -1,4 +1,5 @@
 #include "node-page-manager.h"
+#include <kiran-log/qt5-log-i.h>
 #include "node-info-page.h"
 #include "node-list-page.h"
 #include "page.h"

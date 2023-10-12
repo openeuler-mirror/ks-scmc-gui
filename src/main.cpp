@@ -6,11 +6,11 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QStyle>
+#include <QStyleFactory>
 #include <QTranslator>
 #include <iostream>
 #include "config/config.h"
 #include "login-dialog.h"
-
 #define TRANSLATION_DIR TRANSLATIONS_FILE_DIR
 #define APP_NAME "ks-scmc-gui"
 int main(int argc, char *argv[])
@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     KLOG_INFO("******New Output*********\n");
 
     KiranSingleApplication a(argc, argv);
+    //a.setStyle(QStyleFactory::create("fusion"));
 
     ///加载qss样式表
     QFile file(":/style/theme.qss");

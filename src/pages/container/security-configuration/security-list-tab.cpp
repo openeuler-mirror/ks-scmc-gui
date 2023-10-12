@@ -190,8 +190,6 @@ SecurityListItem *SecurityListTab::createItem(int index)
     connect(customItem, &SecurityListItem::sigAdd, this, &SecurityListTab::addItem);
     connect(customItem, &SecurityListItem::sigDelete, this, &SecurityListTab::deleteItem);
 
-    KLOG_INFO() << "*********insertItem index: " << index;
-
     m_listWidget->insertItem(index, newItem);
     m_listWidget->setItemWidget(newItem, customItem);
 

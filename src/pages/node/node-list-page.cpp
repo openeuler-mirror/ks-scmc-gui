@@ -47,7 +47,6 @@ void NodeListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "NodeListPage updateInfo";
     clearText();
-    //InfoWorker::getInstance().disconnect();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     if (keyword.isEmpty())
     {
