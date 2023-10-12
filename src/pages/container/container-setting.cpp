@@ -558,6 +558,23 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         networkPage->getNetworkInfo(cntrCfg);
     }
 
+    QMap<QString, bool> netInterface;
+    for (auto network : cntrCfg->networks())
+    {
+        if (netInterface[network.interface().data()])
+        {
+            // 虚拟网卡重复绑定，请重新选择
+            MessageDialog::message(windowTitle(),
+                                   tr("Input error"),
+                                   tr("Virtual network card is bound repeatedly, please reselect"),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
+            return false;
+        }
+
+        netInterface[network.interface().data()] = true;
+    }
+
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     if (!envPage->getEnvInfo(cntrCfg, errMsg))
@@ -700,6 +717,22 @@ void ContainerSetting::updateContainer()
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->getNetworkInfo(&request);
+    }
+
+    QMap<QString, bool> netInterface;
+    for (auto network : request.networks())
+    {
+        if (netInterface[network.interface().data()])
+        {
+            MessageDialog::message(windowTitle(),
+                                   tr("Input error"),
+                                   tr("Virtual network card is bound repeatedly, please reselect"),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
+            return;
+        }
+
+        netInterface[network.interface().data()] = true;
     }
 
     //security
