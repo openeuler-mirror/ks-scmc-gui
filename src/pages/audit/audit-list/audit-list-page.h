@@ -25,9 +25,6 @@ private:
     void updatePageInfo(int index);
 
 private:
-    void updateAuditInfo();
-
-private:
     ImageListPage *m_imagelist_approve;
     ImageListPage *m_imagelist_passed;
     ImageListPage *m_imagelist_rejected;
