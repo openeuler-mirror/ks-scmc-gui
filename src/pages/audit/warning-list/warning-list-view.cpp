@@ -38,7 +38,6 @@ void WarningListView::initTable()
     QList<QString> tableHHeaderDate = {
         "",
         tr("Container Name"),
-        tr("Image"),
         tr("Current Node"),
         tr("Warning Status"),
         tr("Warning Content"),
@@ -163,7 +162,7 @@ void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarn
             QStandardItem *item_container = new QStandardItem(logging.container_name().data());
             item_container->setData(QVariant::fromValue(infoMap));
 
-            QStandardItem *item_image = new QStandardItem(logging.container_id().data());  // 镜像
+            //            QStandardItem *item_image = new QStandardItem(logging.container_id().data()); // 镜像
 
             QStandardItem *item_node = new QStandardItem(logging.node_info().data());
 
@@ -173,30 +172,30 @@ void WarningListView::getListWarning(const QPair<grpc::Status, logging::ListWarn
             else
                 item_status->setText(tr("Readed"));
 
-            QStandardItem *item_content = new QStandardItem("unknown");
-            switch (logging.event_type())
-            {
-            case 1001:  //资源忙碌
-                item_content->setText(tr("Resource usage"));
-                break;
-            case 1002:  //节点关闭
-                item_content->setText(tr("Node close"));
-                break;
-            case 1003:  //非法容器
-                item_content->setText(tr("illegal container"));
-                break;
-            case 1004:  //节点异常
-                item_content->setText(tr("Node abnormal"));
-                break;
-            default:
-                break;
-            }
+            QStandardItem *item_content = new QStandardItem(logging.detail().data());
+            //            switch (logging.event_type()) {
+            //            case 1001: //资源忙碌
+            //                item_content->setText(tr("Resource usage"));
+            //                break;
+            //            case 1002: //节点关闭
+            //                item_content->setText(tr("Node close"));
+            //                break;
+            //            case 1003: //非法容器
+            //                item_content->setText(tr("illegal container"));
+            //                break;
+            //            case 1004: //节点异常
+            //                item_content->setText(tr("Node abnormal"));
+            //                break;
+            //            default:
+            //                break;
+            //            }
 
             QDateTime time = QDateTime::fromSecsSinceEpoch(logging.updated_at());
             QString update = time.toString("yyyy/MM/dd hh:mm:ss");
             QStandardItem *item_update_time = new QStandardItem(update);
 
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << item_container << item_image << item_node << item_status << item_content << item_update_time);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << item_container << item_node << item_status << item_content << item_update_time);
+
             row++;
         }
         if (getTableRowCount() == 0)
