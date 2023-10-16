@@ -293,6 +293,10 @@ void LoginDialog::showAboutPage()
 void LoginDialog::updateActivation()
 {
     bool isActivate = m_licenseProxy->isActivated();
+    if (!isActivate && m_isLogin)
+    {
+        onLogout();
+    }
     //设置激活对话框和激活状态标签是否可见
     m_activateDialog->setVisible(!isActivate);
     m_activate_label->setVisible(!isActivate);
