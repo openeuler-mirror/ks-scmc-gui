@@ -248,6 +248,11 @@ QMenu#userMenu::item:selected
     color:#303133;
 }
 
+QMenu#btnCreateMenu::item:disabled
+{
+    color:#919191;
+}
+
 /************************HeaderView************************/
 TablePage HeaderView
 {
@@ -551,7 +556,10 @@ QCheckBox#graphic_checkBox::indicator:checked
 {
     image: url(:/images/open.svg);
 }
-
+QCheckBox#graphic_checkBox::indicator::disabled:checked
+{
+    image: url(:/images/open-disable.svg);
+}
 
 /******************************MessageDialog******************/
 MessageDialog
@@ -604,7 +612,8 @@ MessageDialog #label_body
     font-size:14px;
 }
 /***************************NodeListPage**********************/
-NodeListPage #btnCreate,NodeListPage #btnRemove
+NodeListPage #btnCreate,
+TemplateListPage #btnCreate
 {
     background-color:#2EB3FF;
     border:none;
@@ -612,15 +621,44 @@ NodeListPage #btnCreate,NodeListPage #btnRemove
     font-size:14px;
     color:#ffffff;
 }
-NodeListPage #btnCreate:hover,NodeListPage #btnRemove:hover
+
+NodeListPage #btnCreate:hover,
+TemplateListPage #btnCreate:hover
 {
    background-color:#77ceff;
 }
-NodeListPage #btnCreate:focus,NodeListPage #btnRemove:focus
+NodeListPage #btnCreate:focus,
+TemplateListPage #btnCreate:focus
 {
     outline: none;
 }
-NodeListPage #btnCreate:disabled,NodeListPage #btnRemove:disabled
+NodeListPage #btnCreate:disabled,
+TemplateListPage #btnCreate:disabled
+{
+    color:#919191;
+    background:#393939;
+}
+
+NodeListPage #btnRemove,
+TemplateListPage #btnRemove
+{
+    background-color:#ff4b4b;
+    border:none;
+    border-radius: 4px;
+    color:#ffffff;
+}
+NodeListPage #btnRemove:hover
+TemplateListPage #btnRemove:hover
+{
+    background-color:#ff6c6c;
+}
+NodeListPage #btnRemove:focus,
+TemplateListPage #btnRemove:focus
+{
+    outline:none;
+}
+NodeListPage #btnRemove:disabled,
+TemplateListPage #btnRemove:disabled
 {
     color:#919191;
     background:#393939;
@@ -921,29 +959,6 @@ PasswdUpdateDialog #lab_old_pw_tips,#lab_new_pw_tips, #lab_confirm_pw_tips
 {
     color:#d30000;
     font-size:14px;
-}
-
-/**************************************************TemplateListPage****************************************/
-TemplateListPage #btnCreate,TemplateListPage #btnRemove
-{
-    background-color:#2EB3FF;
-    border:none;
-    border-radius: 4px;
-    font-size:14px;
-    color:#ffffff;
-}
-TemplateListPage #btnCreate:hover,TemplateListPage #btnRemove:hover
-{
-   background-color:#77ceff;
-}
-TemplateListPage #btnCreate:focus,TemplateListPage #btnRemove:focus
-{
-    outline: none;
-}
-TemplateListPage #btnCreate:disabled,TemplateListPage #btnRemove:disabled
-{
-    color:#919191;
-    background:#393939;
 }
 
 /********************************************NetworkAccessCtlTab**********************************************/
