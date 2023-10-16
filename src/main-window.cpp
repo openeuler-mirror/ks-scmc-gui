@@ -152,6 +152,7 @@ void MainWindow::paintEvent(QPaintEvent* event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    KiranTitlebarWindow::paintEvent(event);
 }
 
 bool MainWindow::eventFilter(QObject* obj, QEvent* event)

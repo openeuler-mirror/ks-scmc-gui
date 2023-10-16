@@ -54,7 +54,6 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::sessionExpire, this, &LoginDialog::sessionExpire);
-    //loadConfig();
 }
 
 LoginDialog::~LoginDialog()
@@ -83,6 +82,7 @@ void LoginDialog::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    KiranTitlebarWindow::paintEvent(event);
 }
 
 void LoginDialog::keyPressEvent(QKeyEvent *event)
@@ -230,14 +230,6 @@ void LoginDialog::initActivation()
     connect(m_licenseProxy.data(), &LicenseProxy::licenseChanged, this, &LoginDialog::updateActivation, Qt::UniqueConnection);
 }
 
-void LoginDialog::loadConfig()
-{
-    //    readConfig("username", m_usernames);
-    //    readConfig("password", m_passwds);
-    //    readConfig("server", m_servers);
-    //    //readConfig("remember_passwd", m_isRemembera);
-}
-
 bool LoginDialog::inspectLoginParam()
 {
     if (ui->lineEdit_username->text().isEmpty())
@@ -279,7 +271,7 @@ void LoginDialog::onMenuTrigger(QAction *act)
     else if (act->text() == tr("Activate"))
         showActivatePage();
     else if (act->text() == tr("About"))
-        actionAboutClicked();
+        showAboutPage();
 }
 
 void LoginDialog::showActivatePage()
@@ -290,7 +282,7 @@ void LoginDialog::showActivatePage()
     m_activateDialog->show();
 }
 
-void LoginDialog::actionAboutClicked()
+void LoginDialog::showAboutPage()
 {
     int x = this->x() + this->width() / 2 - m_about->width() / 2;
     int y = this->y() + this->height() / 2 - m_about->height() / 2;

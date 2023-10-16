@@ -73,6 +73,7 @@ void ContainerSetting::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    QWidget::paintEvent(event);
 }
 
 void ContainerSetting::setItems(int row, int col, QWidget *item)

@@ -136,6 +136,7 @@ void GuideItem::paintEvent(QPaintEvent *event)
     {
         p.fillRect(rect, QColor(46, 179, 255));
     }
+    QWidget::paintEvent(event);
 }
 
 void GuideItem::enterEvent(QEvent *event)

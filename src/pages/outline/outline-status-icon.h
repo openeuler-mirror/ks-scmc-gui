@@ -18,12 +18,12 @@ public:
     explicit OutlineStatusIcon(QString color = "", int x = 0, int y = 0, QWidget *parent = nullptr);
     ~OutlineStatusIcon() override;
 
+protected:
+    void paintEvent(QPaintEvent *) override;
+
 private:
     QString m_color;
     int m_x, m_y;
-    void paintEvent(QPaintEvent *) override;
-
-public slots:
 };
 
 #endif  // OUTLINESTATUSICON_H
