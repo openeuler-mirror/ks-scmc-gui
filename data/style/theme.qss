@@ -337,18 +337,12 @@ ContainerSetting QComboBox QAbstractItemView
     outline:none;
     border: 1px solid #E4E7ED;
     border-radius: 6px;
-    /*selection-background-color: #EFEFEF;*/
 }
 ContainerSetting QComboBox QAbstractItemView::item
 {
     height:30px;
-}
 
-/*ContainerSetting QComboBox QAbstractItemView::item:hover
-{
-    background-color:red;
-    color:#303133;
-}*/
+}
 
 ContainerSetting QComboBox QAbstractItemView::item:selected
 {
