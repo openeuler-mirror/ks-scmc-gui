@@ -25,7 +25,8 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
 {
     auto cfg = cntrCfg->add_networks();
     QString str = ui->cb_virt_networkcard->currentText();
-    QString name = str.split(" ").first();  // 网卡名
+    const QString networkSplitStr = " (" + tr("Subnet");
+    QString name = str.split(networkSplitStr).first();  // 网卡名
 
     KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
@@ -37,7 +38,8 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
 {
     auto cfg = req->add_networks();
     QString str = ui->cb_virt_networkcard->currentText();
-    QString name = str.split(" ").first();  // 网卡名
+    const QString networkSplitStr = " (" + tr("Subnet");
+    QString name = str.split(networkSplitStr).first();  // 网卡名
 
     KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
@@ -63,10 +65,12 @@ void NetworkConfTab::setVirtNetwork(QString virtNetwork)
     if (!virtNetwork.isEmpty())
     {
         int count = ui->cb_virt_networkcard->count();
+        const QString networkSplitStr = " (" + tr("Subnet");
         for (int i = 0; i < count; ++i)
         {
             QString text = ui->cb_virt_networkcard->itemText(i);
-            if (text.startsWith(virtNetwork))
+            // 网卡名可以以" ("结尾
+            if (text.split(networkSplitStr).first() == QString(virtNetwork))
             {
                 ui->cb_virt_networkcard->setCurrentIndex(i);
                 KLOG_INFO() << "*********** found" << virtNetwork;
