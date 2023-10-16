@@ -283,7 +283,7 @@ void ContainerSetting::initSummaryUI()
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
     {
-        setWindowTitle(tr("Create template from template"));
+        setWindowTitle(tr("Create container from template"));
         ui->label_template_name->show();
         ui->cb_template->show();
         m_cbImage = new QComboBox(this);
@@ -311,7 +311,10 @@ GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, 
         customItem->setDeleteBtn();
         ++m_netWorkCount;
         if (m_netWorkCount == 1)
+        {
+            customItem->setName(QString("%1%2").arg(text).arg("1"));
             customItem->setDeleteBtnVisible(false);
+        }
         connect(customItem, &GuideItem::sigDeleteItem, this, &ContainerSetting::onDelItem);
     }
     customItem->setTipLinePosition(TIP_LINE_POSITION_RIGHT);
