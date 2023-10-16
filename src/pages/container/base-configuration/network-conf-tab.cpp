@@ -28,7 +28,7 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
     const QString networkSplitStr = " (" + tr("Subnet");
     QString name = str.split(networkSplitStr).first();  // 网卡名
 
-    KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
+    KLOG_DEBUG() << "Network interface ip:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
@@ -41,7 +41,7 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
     const QString networkSplitStr = " (" + tr("Subnet");
     QString name = str.split(networkSplitStr).first();  // 网卡名
 
-    KLOG_INFO() << "get Network interface:" << name << ui->lineEdit_ip->text();
+    KLOG_DEBUG() << "Network interface ip:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
@@ -49,8 +49,11 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
 //更新容器,更新模板 时设置界面初始值
 void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<QString> networkList)
 {
-    KLOG_INFO() << "setNetworkInfo: " << networkCfg->interface().data() << networkCfg->ip_address().data() << networkCfg->mac_address().data();
-    KLOG_INFO() << "all network list" << networkList;
+    KLOG_DEBUG() << "Set network info:"
+                 << "name:" << networkCfg->interface().data()
+                 << "ip:" << networkCfg->ip_address().data()
+                 << "mac:" << networkCfg->mac_address().data();
+    KLOG_DEBUG() << "All network list:" << networkList;
     auto name = networkCfg->interface().data();
 
     ui->cb_virt_networkcard->clear();
@@ -73,7 +76,7 @@ void NetworkConfTab::setVirtNetwork(QString virtNetwork)
             if (text.split(networkSplitStr).first() == QString(virtNetwork))
             {
                 ui->cb_virt_networkcard->setCurrentIndex(i);
-                KLOG_INFO() << "*********** found" << virtNetwork;
+                KLOG_DEBUG() << "Found virt network:" << virtNetwork;
                 break;
             }
         }

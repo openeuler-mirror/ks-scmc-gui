@@ -24,8 +24,8 @@ void HighAvailabilityTab::setRestartPolicy(container::RestartPolicy *cfg)
 {
     if (cfg)
     {
-        KLOG_INFO() << "policy name: " << cfg->name().data()
-                    << "policy max retry:" << cfg->max_retry();
+        KLOG_DEBUG() << "policy name: " << cfg->name().data()
+                     << "policy max retry:" << cfg->max_retry();
 
         auto index = ui->cb_high_avail_policy->findData(cfg->name().data());
         ui->cb_high_avail_policy->setCurrentIndex(index);
@@ -42,12 +42,11 @@ void HighAvailabilityTab::getRestartPolicy(container::RestartPolicy *cfg)
 {
     if (cfg)
     {
-        KLOG_INFO() << "Policy :" << ui->cb_high_avail_policy->currentText() << "times: " << ui->lineEdit_times->text();
+        KLOG_DEBUG() << "Policy :" << ui->cb_high_avail_policy->currentText() << "times: " << ui->lineEdit_times->text().toInt();
         QString policy = ui->cb_high_avail_policy->itemData(ui->cb_high_avail_policy->currentIndex()).toString();
         cfg->set_name(policy.toStdString());
         if (ui->lineEdit_times->isVisible())
         {
-            KLOG_INFO() << "set times:" << ui->lineEdit_times->text().toInt();
             cfg->set_max_retry(ui->lineEdit_times->text().toInt());
         }
     }

@@ -530,7 +530,7 @@ void ContainerSetting::updateRemovableItem(QString itemText)
 void ContainerSetting::setNodeNetworkList(int nodeId)
 {
     QList<QString> networks = m_networksMap.values(nodeId);
-    KLOG_INFO() << "set network list of node " << nodeId << ": " << networks;
+    KLOG_DEBUG() << "Set network list of node " << nodeId << ": " << networks;
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->initVirtNetworkInfo(networks);
@@ -792,8 +792,8 @@ void ContainerSetting::createTemplate()
 
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
-    KLOG_INFO() << "********** get template image:" << ui->cb_image->currentText();
     cntrCfg->set_image(ui->cb_image->currentText().toStdString());
+    KLOG_DEBUG() << "Get template image:" << ui->cb_image->currentText();
 
     if (writeContainerConfig(cntrCfg))
     {
@@ -811,8 +811,8 @@ void ContainerSetting::updateTemplate()
     auto cntrCfg = data->mutable_conf();
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
-    KLOG_INFO() << "********** get template image:" << ui->cb_image->currentText();
     cntrCfg->set_image(ui->cb_image->currentText().toStdString());
+    KLOG_DEBUG() << "Get template image:" << ui->cb_image->currentText();
 
     if (writeContainerConfig(cntrCfg))
     {
@@ -974,7 +974,7 @@ void ContainerSetting::getCreateContainerResult(QString objId, const QPair<grpc:
     }
     else
     {
-        KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
+        KLOG_WARNING() << "Create container failed!" << QString::fromStdString(reply.first.error_message());
         MessageDialog::message(tr("Create Container"),
                                tr("Create container failed!"),
                                tr("Error: ") + reply.first.error_message().data(),
@@ -990,7 +990,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get container inspect result faild:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get container inspect result faild:" << reply.first.error_message().data();
         ui->cb_image->setCurrentIndex(-1);
         ui->cb_node->setCurrentIndex(-1);
         MessageDialog::message(tr("Edit Container"),
@@ -1007,7 +1007,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     //名字
     showLongText(ui->lineEdit_name, info.name().data());
-    KLOG_INFO() << "container name:" << info.name().data() << "image:" << info.image().data();
+    KLOG_DEBUG() << "Container name:" << info.name().data();
     //描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
     {
@@ -1017,7 +1017,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         ui->lineEdit_describe->setText(tr("none"));
     //镜像
     auto image = info.image().data();
-    KLOG_INFO() << "!!!!!!! container image: " << image;
+    KLOG_DEBUG() << "Container image: " << image;
     //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
     if (0 > ui->cb_image->findText(image))
     {
@@ -1029,7 +1029,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     // network
     auto size = info.networks_size();
-    KLOG_INFO() << "network config size:" << size;
+    KLOG_DEBUG() << "Network config size:" << size;
     for (int i = 0; i < size - 1; ++i)
     {
         //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
@@ -1129,7 +1129,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get container template result faild:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get container template result faild:" << reply.first.error_message().data();
         ui->cb_image->setCurrentIndex(-1);
         ui->cb_node->setCurrentIndex(-1);
 
@@ -1144,7 +1144,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
 
     //init ui
     int nodeID = reply.second.data().node_id();
-    KLOG_INFO() << "template node id: " << nodeID;
+    KLOG_DEBUG() << "Template node id: " << nodeID;
 
     auto info = reply.second.data().conf();
 
@@ -1160,7 +1160,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     //节点
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeID));
     //镜像
-    KLOG_INFO() << "!!!!!!! template image: " << QString::fromStdString(info.image());
+    KLOG_DEBUG() << "Template image: " << QString::fromStdString(info.image());
     //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
     if (0 > ui->cb_image->findText(info.image().data()))
     {
@@ -1174,7 +1174,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
 
     // network
     auto size = info.networks_size();
-    KLOG_INFO() << "network config size:" << size;
+    KLOG_DEBUG() << "Network config size:" << size;
     if (size > m_netWorkPages.size())
     {
         for (int i = 0; i < (size - m_netWorkPages.size()); ++i)

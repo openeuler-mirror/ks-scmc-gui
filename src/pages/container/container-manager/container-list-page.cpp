@@ -182,9 +182,10 @@ void ContainerListPage::onApp(int row)
     std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
     auto nodeAddr = idMap.value(NODE_ADDRESS).toString();
     QString containerName = idMap.value(CONTAINER_NAME).toString();
-    KLOG_INFO() << "node id:" << nodeId
-                << "container id:" << containerId.data()
-                << "node address:" << nodeAddr;
+    KLOG_DEBUG() << "Get container app info of:"
+                 << "node id:" << nodeId
+                 << "container id:" << containerId.data()
+                 << "node address:" << nodeAddr;
 
     ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName);
     appPage->resize(QSize(1400, 832));
@@ -209,7 +210,8 @@ void ContainerListPage::onMonitor(int row)
 
     int nodeId = idMap.value(NODE_ID).toInt();
     std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
-    KLOG_INFO() << "node id:" << nodeId << "container id:" << containerId.data();
+    KLOG_DEBUG() << "Monitor of: "
+                 << "node id:" << nodeId << "container id:" << containerId.data();
 
     if (!m_monitor)
     {
@@ -245,7 +247,7 @@ void ContainerListPage::onTerminal(int row)
 
     auto cmd = LoadConfiguration::Instance().getTerminalConfig(nodeAddr, containerName);
 
-    KLOG_INFO() << cmd;
+    KLOG_DEBUG() << "Terminal command:" << cmd;
     QProcess proc;
     proc.startDetached(cmd);
 }
@@ -280,7 +282,7 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
     clearTable();
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     int size = reply.second.containers_size();
-    KLOG_INFO() << "container size:" << size;
+    KLOG_DEBUG() << "Container size:" << size;
     if (size <= 0)
     {
         setHeaderCheckable(false);
@@ -495,13 +497,14 @@ void ContainerListPage::getNetworkListResult(const QString objId, const QPair<gr
                               .arg(QString::fromStdString(name))
                               .arg(tr("Subnet"))
                               .arg(QString::fromStdString(subnet));
-            KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
+            KLOG_DEBUG() << "Get network info. "
+                         << "node id:" << nodeId << "network info:" << str;
             m_networksMap.insert(nodeId, str);
         }
     }
     else
     {
-        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get network list result failed: " << reply.first.error_message().data();
     }
 }
 
@@ -512,7 +515,7 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get node list result failed:" << reply.first.error_message().data();
         return;
     }
 
@@ -525,7 +528,11 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
         nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
         nodeInfo->totalCPU = n.status().cpu_stat().total();
         nodeInfo->totalMemory = n.status().mem_stat().total();
-        KLOG_INFO() << "get node info: " << nodeInfo->nodeID << nodeInfo->nodeAddr << nodeInfo->totalCPU << nodeInfo->totalMemory;
+        KLOG_DEBUG() << "Get node info:"
+                     << "id: " << nodeInfo->nodeID
+                     << "address:" << nodeInfo->nodeAddr
+                     << "tatol cpu:" << nodeInfo->totalCPU
+                     << "tatol memory:" << nodeInfo->totalMemory;
         m_nodeInfoMap.insert(nodeId, nodeInfo);
     }
 }
@@ -537,7 +544,7 @@ void ContainerListPage::getListImageFinishedResult(QString objId, const QPair<St
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get image list result failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get image list result failed:" << reply.first.error_message().data();
         return;
     }
 
@@ -595,7 +602,7 @@ void ContainerListPage::getContainerList()
     }
     else
     {
-        KLOG_INFO() << "get container list of node " << m_nodeId;
+        KLOG_DEBUG() << "Get container list of node " << m_nodeId;
         vecNodeId.push_back(m_nodeId);
         InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
     }

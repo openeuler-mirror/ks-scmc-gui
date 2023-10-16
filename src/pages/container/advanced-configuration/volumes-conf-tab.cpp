@@ -34,9 +34,10 @@ bool VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg, QString &er
             }
             else if (!item->m_firstColVal.isEmpty() && !item->m_secondColVal.isEmpty())
             {
-                KLOG_INFO() << "container path:" << item->m_firstColVal
-                            << "host path: " << item->m_secondColVal
-                            << "permission: " << item->m_thirdColVal;
+                KLOG_DEBUG() << "Volumes info:"
+                             << "container path:" << item->m_firstColVal
+                             << "host path: " << item->m_secondColVal
+                             << "permission: " << item->m_thirdColVal;
 
                 auto mount = cfg->add_mounts();
                 mount->set_type("bind");
@@ -64,7 +65,10 @@ void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)
     QList<QSharedPointer<ModelItem>> itemList;
     for (auto mounts : cfg->mounts())
     {
-        KLOG_INFO() << mounts.source().data() << mounts.target().data() << mounts.read_only();
+        KLOG_DEBUG() << "Volumes info:"
+                     << "host path: " << mounts.source().data()
+                     << "container path: " << mounts.target().data()
+                     << "permission: " << mounts.read_only();
         QSharedPointer<ModelItem> pItem(new ModelItem());
         pItem->m_firstColVal = mounts.target().data();
         pItem->m_secondColVal = mounts.source().data();

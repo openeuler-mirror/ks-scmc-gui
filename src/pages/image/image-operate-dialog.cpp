@@ -145,7 +145,13 @@ void ImageOperateDialog::updateParamDeal()
     QString imageId = m_imageId;
     QString signFile = ui->lineEditImageSign->text();
 
-    KLOG_INFO() << name << version << imageId << desc << imageFile;
+    KLOG_DEBUG() << "Update image."
+                 << "name: " << name
+                 << "version: " << version
+                 << "image id: " << imageId
+                 << "desc: " << desc
+                 << "sign file:" << signFile
+                 << "image file: " << imageFile;
 
     //逻辑没有问题，用户如果想把desc变空，只能将镜像和签名重新传一次
     if (m_securityOpen)
@@ -259,11 +265,11 @@ QString ImageOperateDialog::ChooseFile(QString nameFilter)
     pFile->setViewMode(QFileDialog::Detail);
     if (pFile->exec())
     {
-        KLOG_INFO() << "fileNames:" << pFile->selectedFiles()[0];
+        KLOG_DEBUG() << "Get selectd file names: " << pFile->selectedFiles()[0];
         file = pFile->selectedFiles()[0];
         delete pFile;
+        pFile = nullptr;
     }
-
     return file;
 }
 

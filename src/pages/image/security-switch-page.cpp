@@ -30,7 +30,7 @@ void SecuritySwitchPage::getSecuritySwitchResult(const QString objId, const QPai
     }
     else
     {
-        KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get security switch result failed!" << reply.first.error_message().data();
         NotificationManager::sendNotify(tr("Get security switch result failed!"),
                                         QString::fromStdString(reply.first.error_message()));
     }
@@ -48,7 +48,7 @@ void SecuritySwitchPage::setSecuritySwitchResult(const QString objId, const QPai
     }
     else
     {
-        KLOG_INFO() << "Set security switch failed!" << reply.first.error_message().data();
+        KLOG_WARNING() << "Set security switch failed!" << reply.first.error_message().data();
         NotificationManager::sendNotify(tr("Set security switch failed!"),
                                         QString::fromStdString(reply.first.error_message()));
         m_checkbox->setChecked(!m_checkbox->isChecked());

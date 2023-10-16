@@ -152,7 +152,7 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get warn list result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get warn list result failed: " << reply.first.error_message().data();
         setTableDefaultContent("-");
         if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
         {
@@ -242,7 +242,7 @@ void WarningListView::getReadWarningResult(const QString objId, const QPair<grpc
     else
     {
         NotificationManager::sendNotify(tr("Read warning faild"), reply.first.error_message().data());
-        KLOG_INFO() << "read warning failed:" << reply.first.error_message().data();
+        KLOG_DEBUG() << "Read warning failed:" << reply.first.error_message().data();
     }
 }
 

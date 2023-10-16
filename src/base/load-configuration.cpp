@@ -72,15 +72,15 @@ void LoadConfiguration::initConfig()
     QFileInfo fileinfo(m_settings->fileName());
     if (!fileinfo.isFile())
     {
-        KLOG_DEBUG() << "create config file";
+        KLOG_DEBUG() << "Create config file";
         setValue();
     }
     else
     {
-        KLOG_DEBUG() << "config version:" << QString(m_settings->value(VERSION_NAME).toString()) << VERSION_NUMBER;
+        KLOG_DEBUG() << "Config version:" << QString(m_settings->value(VERSION_NAME).toString()) << VERSION_NUMBER;
         if (QString(m_settings->value(VERSION_NAME).toString()) != VERSION_NUMBER)
         {
-            KLOG_DEBUG() << "update config file";
+            KLOG_DEBUG() << "Update config file";
             m_settings->clear();
             setValue();
         }
@@ -141,7 +141,6 @@ void LoadConfiguration::_getSslConfig()
     QString certVal = m_settings->value(SSL_CERT).toString();
     QString keyVal = m_settings->value(SSL_KEY).toString();
     m_settings->endGroup();
-    //    KLOG_DEBUG() << enableVal << caVal << certVal << keyVal;
 
     m_enable = enableVal == "true" ? true : false;
     if (!m_enable)
@@ -154,13 +153,13 @@ void LoadConfiguration::_getSslConfig()
         QFile file(caVal);
         if (file.open(QIODevice::ReadOnly))
         {
-            KLOG_INFO() << "ca file size:" << file.size();
+            KLOG_DEBUG() << "ca file size:" << file.size();
             m_ca = file.readAll();
             file.close();
         }
         else
         {
-            KLOG_ERROR() << "ca:" << caVal << file.errorString();
+            KLOG_WARNING() << "ca:" << caVal << file.errorString();
         }
     }
 
@@ -179,7 +178,7 @@ void LoadConfiguration::_getSslConfig()
         }
         else
         {
-            KLOG_ERROR() << "cert:" << certVal << file.errorString();
+            KLOG_WARNING() << "cert:" << certVal << file.errorString();
         }
     }
 
@@ -198,7 +197,7 @@ void LoadConfiguration::_getSslConfig()
         }
         else
         {
-            KLOG_ERROR() << "key:" << keyVal << file.errorString();
+            KLOG_WARNING() << "key:" << keyVal << file.errorString();
         }
     }
 }

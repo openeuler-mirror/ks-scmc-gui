@@ -98,7 +98,6 @@ void ContainerBackupPage::onCreateBackupBtn()
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " create backup dialog destroy";
                     m_backupAddDlg->deleteLater();
                     m_backupAddDlg = nullptr;
                 });
@@ -151,7 +150,7 @@ void ContainerBackupPage::onResumeBackup(int row)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> infoMap = item->data().toMap();
-    KLOG_INFO() << m_containerStatus;
+    KLOG_DEBUG() << "Container backup status:" << m_containerStatus;
 
     int ret = MessageDialog::message(tr("Resume Backup"),
                                      tr("Backup recovery confirmation"),
@@ -187,7 +186,6 @@ void ContainerBackupPage::onUpdateBackup(int row)
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " edit backup dialog destroy";
                     m_backupEditDlg->deleteLater();
                     m_backupEditDlg = nullptr;
                 });
@@ -208,7 +206,6 @@ void ContainerBackupPage::onExportBackup(int row)
         m_backupExportDlg->setTitle(tr("Backup Export"));
         connect(m_backupExportDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " export backup dialog destroy";
                     m_backupExportDlg->deleteLater();
                     m_backupExportDlg = nullptr;
                 });

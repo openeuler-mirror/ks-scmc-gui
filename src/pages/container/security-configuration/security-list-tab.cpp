@@ -137,7 +137,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
             }
 
             QString filePath = item->getInfo();
-            KLOG_INFO() << "filePath:" << filePath;
+            KLOG_DEBUG() << "FilePath:" << filePath;
             if (!filePath.isEmpty())
                 fileProtect->add_file_list(filePath.toStdString());
         }
@@ -155,7 +155,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
 
             QString filePath = item->getInfo();
-            KLOG_INFO() << "process path:" << filePath;
+            KLOG_DEBUG() << "Process path:" << filePath;
             //进程白名单做特殊处理：列表中的数据不能为空，当列表数据都为空时，报错
             if (filePath.isEmpty())
             {
@@ -195,7 +195,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
             }
 
             QString filePath = item->getInfo();
-            KLOG_INFO() << "net process path:" << filePath;
+            KLOG_DEBUG() << "Net process path:" << filePath;
             if (!filePath.isEmpty())
                 processProtect->add_exe_list(filePath.toStdString());
         }
@@ -242,7 +242,6 @@ SecurityListItem *SecurityListTab::createItem(int index)
 
 void SecurityListTab::addItem()
 {
-    KLOG_INFO() << "addItem";
     SecurityListItem *item = qobject_cast<SecurityListItem *>(sender());
 
     int row = 0;
@@ -251,7 +250,7 @@ void SecurityListTab::addItem()
         QListWidgetItem *listItem = m_listWidget->item(row);
         if (m_listWidget->itemWidget(listItem) == item)
         {
-            KLOG_INFO() << "NetworkAccessItem index:" << row;
+            KLOG_DEBUG() << "Insert network accessItem in index:" << row;
             createItem(row + 1);
             updateItemName();
             break;
@@ -262,7 +261,6 @@ void SecurityListTab::addItem()
 
 void SecurityListTab::deleteItem()
 {
-    KLOG_INFO() << "deleteItem";
     SecurityListItem *item = qobject_cast<SecurityListItem *>(sender());
 
     int row = 0;
@@ -271,7 +269,7 @@ void SecurityListTab::deleteItem()
         QListWidgetItem *listItem = m_listWidget->item(row);
         if (m_listWidget->itemWidget(listItem) == item)
         {
-            KLOG_INFO() << "NetworkAccessItem index:" << row;
+            KLOG_DEBUG() << "Delete network accessItem index:" << row;
             QListWidgetItem *delItem = m_listWidget->takeItem(row);
             delete delItem;
             delItem = nullptr;
@@ -314,7 +312,6 @@ void SecurityListTab::popuoFuncDesc()
 {
     QToolButton *btn = qobject_cast<QToolButton *>(sender());
     QPoint point = btn->mapToGlobal(QPoint(0, 0));
-    KLOG_INFO() << point;
 
     m_funcDesc->move(QPoint(point.x() - 600, point.y() - 200));
     m_funcDesc->show();

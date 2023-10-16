@@ -119,7 +119,7 @@ void ContainerBackupOperateDialog::save()
             }
             if (path.at(path.size() - 1) != "/")
                 path += "/";
-            KLOG_INFO() << "imagePath:" << path;
+            KLOG_DEBUG() << "Save backup path:" << path;
         }
 
         emit sigExport(isDownLoad, version, path);

@@ -94,7 +94,7 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
     if (!reply.first.ok())
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get network list result failed: " << reply.first.error_message().data();
         return;
     }
 
@@ -103,7 +103,7 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
     if (m_type == NETWORK_IFS_TYPE_REAL)
     {
         int size = reply.second.real_ifs().size();
-        KLOG_INFO() << "real ifs size: " << size;
+        KLOG_DEBUG() << "Real ifs size: " << size;
         if (size <= 0)
         {
             setTableDefaultContent("-");
@@ -126,7 +126,8 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
             QStandardItem *macItem = new QStandardItem(mac);
             QStandardItem *statusItem = new QStandardItem(status == true ? tr("Up") : tr("Down"));
 
-            KLOG_INFO() << "real ifs:" << name << ip;
+            KLOG_DEBUG() << "Get real ifs. "
+                         << "name: " << name << "ip: " << ip;
 
             setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << ipItem << maskItem << gatewayItem << macItem << statusItem);
             row++;
@@ -141,10 +142,10 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
             m_realIfs.append(QString::fromStdString(ifs.name()));
         }
         if (m_realIfs.isEmpty())
-            KLOG_INFO() << "there is no real interface!";
+            KLOG_DEBUG() << "There is no real interface!";
 
         int size = reply.second.virtual_ifs().size();
-        KLOG_INFO() << "virture ifs size: " << size;
+        KLOG_DEBUG() << "Virture ifs size: " << size;
 
         if (size <= 0)
         {
@@ -171,7 +172,8 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
             QStandardItem *subnetItem = new QStandardItem(subnet);
             QStandardItem *realNameItem = new QStandardItem(realName);
 
-            KLOG_INFO() << "virtual ifs:" << name << subnet;
+            KLOG_DEBUG() << "Get virtual ifs. "
+                         << "name: " << name << "subnet: " << subnet;
 
             setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << subnetItem << realNameItem);
             row++;
@@ -358,7 +360,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     req.set_name(lineEditName->text().toStdString());
                     if (QString(tr("None(bridge)")) != cbBindRealIfs->currentText())
                     {
-                        KLOG_INFO() << "macvlan net";
+                        KLOG_DEBUG() << "Bind type: macvlan net";
                         req.set_parent(cbBindRealIfs->currentText().toStdString());
                     }
                     req.set_subnet(lineEditSubnet->text().toStdString());
@@ -371,7 +373,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     req.set_name(lineEditName->text().toStdString());
                     if (QString(tr("None(bridge)")) != cbBindRealIfs->currentText())
                     {
-                        KLOG_INFO() << "macvlan net";
+                        KLOG_DEBUG() << "Bind type: macvlan net";
                         req.set_parent(cbBindRealIfs->currentText().toStdString());
                     }
 

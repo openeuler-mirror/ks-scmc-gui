@@ -197,22 +197,21 @@ int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, 
     QFile f(fileName);
     if (!f.open(QIODevice::ReadOnly))
     {
-        KLOG_INFO() << "Failed to open " << fileName;
+        KLOG_WARNING() << "Failed to open " << fileName;
         return -1;
     }
 
     QCryptographicHash hash(QCryptographicHash::Sha256);
     if (!hash.addData(&f))
     {
-        KLOG_INFO() << "Failed to read file " << fileName;
+        KLOG_WARNING() << "Failed to read file " << fileName;
         return -1;
     }
     f.close();
 
     strSha256 = hash.result().toHex();
     fileSize = f.size();
-
-    KLOG_INFO() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
+    KLOG_DEBUG() << "Get file hash:" << strSha256 << ", fileSize:" << fileSize;
     return 0;
 }
 
@@ -352,7 +351,7 @@ void ImageListPage::onBtnDownload()
         }
         if (imagePath.at(imagePath.size() - 1) != "/")
             imagePath += "/";
-        KLOG_INFO() << "imagePath:" << imagePath;
+        KLOG_DEBUG() << "Download image:" << imagePath;
 
         QMap<QString, QString> downloadInfo;
         downloadInfo.insert("Image Name", imageName);
@@ -374,7 +373,7 @@ void ImageListPage::onBtnRemove()
     std::vector<int64_t> ids;
     foreach (auto &idMap, info)
     {
-        KLOG_INFO() << "remove image: " << idMap.value(IMAGE_ID).toInt();
+        KLOG_DEBUG() << "Remove image: " << idMap.value(IMAGE_ID).toInt();
         ids.push_back(idMap.value(IMAGE_ID).toInt());
     }
 
@@ -461,9 +460,9 @@ void ImageListPage::onBtnRefuseLabel(int row)
 
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "upload:  ***********"
-                << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
-                << "Description" << Info["Image Description"] << "File" << Info["Image File"];
+    KLOG_DEBUG() << "Upload image."
+                 << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
+                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
     const QString imageFile = Info["Image File"];
     const QString signFile = Info["Sign File"];
@@ -501,7 +500,7 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
     {
         auto pSignInfo = request.mutable_sign();
         QFileInfo fileInfo = QFileInfo(signFile);
-        KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
+        KLOG_DEBUG() << "Get sign file info:" << signFile << fileInfo.fileName() << "file size: " << fileInfo.size();
         pSignInfo->set_size(fileInfo.size());
         pSignInfo->mutable_chunk_data();
     }
@@ -512,9 +511,9 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "update: ************"
-                << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
-                << "Description" << Info["Image Description"] << "File" << Info["Image File"];
+    KLOG_DEBUG() << "Update image."
+                 << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
+                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
     const QString imageFile = Info["Image File"];
     const QString signFile = Info["Sign File"];
@@ -541,7 +540,7 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
     //在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Update Image")))
     {
-        KLOG_INFO() << "append to transfering image";
+        KLOG_DEBUG() << "Append" << Info["Image Name"] << "-" << Info["Image Version"] << "to transfering image.";
         m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
     }
     else
@@ -566,7 +565,7 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         {
             auto pSignInfo = request.mutable_sign();
             QFileInfo fileInfo = QFileInfo(signFile);
-            KLOG_INFO() << signFile << fileInfo.fileName() << fileInfo.size();
+            KLOG_DEBUG() << "Get sign file info:" << signFile << fileInfo.fileName() << "file size: " << fileInfo.size();
             pSignInfo->set_size(fileInfo.size());
             pSignInfo->mutable_chunk_data();
         }
@@ -580,8 +579,8 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "download: ********"
-                << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
+    KLOG_DEBUG() << "Download image."
+                 << "Id" << Info["Image Id"] << "Path" << Info["Image Path"];
 
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Download Image")))
     {
@@ -596,9 +595,9 @@ void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
 
 void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "check: *********"
-                << "Id" << Info["Image Id"] << "Check" << Info["Image Check"]
-                << "Reason" << Info["Image Reason"];
+    KLOG_DEBUG() << "Check image."
+                 << "Id" << Info["Image Id"] << "Check" << Info["Image Check"]
+                 << "Reason" << Info["Image Reason"];
 
     bool checkStatus = Info["Image Check"] == "Pass" ? true : false;
 
@@ -616,7 +615,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get ListDB Result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get ListDB Result failed: " << reply.first.error_message().data();
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
         if (DEADLINE_EXCEEDED == reply.first.error_code())
@@ -776,7 +775,7 @@ void ImageListPage::getUploadResult(const QString objId, const QPair<grpc::Statu
 
     if (reply.first.ok())
     {
-        KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
+        KLOG_WARNING() << "Upload images success, return id:" << reply.second.image_id();
         NotificationManager::sendNotify(tr("Upload image success!"), "");
         getImageList();
     }
@@ -843,7 +842,7 @@ void ImageListPage::getSecuritySwitchResult(const QString objId, const QPair<grp
     }
     else
     {
-        KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get security switch result failed!" << reply.first.error_message().data();
     }
 }
 

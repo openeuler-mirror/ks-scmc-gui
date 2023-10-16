@@ -523,7 +523,6 @@ void TablePage::timerEvent(QTimerEvent *event)
 
 void TablePage::search()
 {
-    KLOG_INFO() << "search....";
     auto resultCount = 0;
     QString text = ui->lineEdit_search->text();
     if (text.isEmpty())

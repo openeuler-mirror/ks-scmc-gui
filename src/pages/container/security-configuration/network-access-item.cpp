@@ -37,7 +37,7 @@ void NetworkAccessItem::getInfo(QStringList &protocols, QString &addr, int &port
 
 void NetworkAccessItem::setInfo(QStringList protocols, QString addr, int port)
 {
-    KLOG_INFO() << protocols << addr << port;
+    KLOG_DEBUG() << "Set network access item info:" << protocols << addr << port;
     protocols.contains("tcp", Qt::CaseInsensitive) ? ui->btn_tcp->setChecked(true) : ui->btn_tcp->setChecked(false);
     protocols.contains("udp", Qt::CaseInsensitive) ? ui->btn_udp->setChecked(true) : ui->btn_udp->setChecked(false);
     protocols.contains("icmp", Qt::CaseInsensitive) ? ui->btn_icmp->setChecked(true) : ui->btn_icmp->setChecked(false);

@@ -53,7 +53,7 @@ void ConfigTable::initwindow()
     m_pModel.reset(new ConfigModel(head));
     ui->tableView->setModel(m_pModel.data());
 
-    KLOG_DEBUG() << __func__ << ",whichTable:" << m_ChooseTable;
+    KLOG_DEBUG() << "whichTable:" << m_ChooseTable;
     if (m_ChooseTable)
     {
         ui->tableView->setColumnWidth(0, 150);
@@ -98,7 +98,7 @@ QList<QSharedPointer<ModelItem> > ConfigTable::getAllData()
     auto i = m_pModel->getAllModel();
     for (auto pItem : i)
     {
-        KLOG_INFO() << __func__ << ",Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
+        KLOG_DEBUG() << "Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
     }
 
     return m_pModel->getAllModel();
@@ -134,13 +134,13 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
 void ConfigTable::saveRowSlot(int row)
 {
     auto pItem = m_pModel->getModelByRow(row);
-    KLOG_DEBUG() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
+    KLOG_DEBUG() << "Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
 }
 
 void ConfigTable::editRowSlot(int row)
 {
     auto pItem = m_pModel->getModelByRow(row);
-    KLOG_DEBUG() << __func__ << ", Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
+    KLOG_DEBUG() << "Var:" << pItem->m_firstColVal << ",Val:" << pItem->m_secondColVal << ",mode:" << pItem->m_thirdColVal;
 }
 
 void ConfigTable::addRowSlot(int row)

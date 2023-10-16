@@ -195,7 +195,7 @@ void ConfigDelegate::sendSaveSlot(ConfigOperateWidget *pCurWidget)
 void ConfigDelegate::sendEditSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
-    KLOG_DEBUG() << __func__ << __LINE__ << ", row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
+    KLOG_DEBUG() << "row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
 
     if (m_pEditFirst.size() > row)
         m_pEditFirst[row]->setDisabled(false);

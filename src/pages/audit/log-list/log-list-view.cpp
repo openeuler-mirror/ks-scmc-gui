@@ -131,9 +131,10 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     logging::ListRuntimeRequest request;
     request.set_start_time(m_xStart.toSecsSinceEpoch());
     request.set_end_time(m_xEnd.toSecsSinceEpoch());
-    KLOG_INFO() << "start:" << m_xStart.toString("yyyy/MM/dd hh:mm:ss")
-                << "end:" << m_xEnd.toString("yyyy/MM/dd hh:mm:ss")
-                << "curr page:" << page_on;
+    KLOG_DEBUG() << "Get log list of range:"
+                 << "start:" << m_xStart.toString("yyyy/MM/dd hh:mm:ss")
+                 << "end:" << m_xEnd.toString("yyyy/MM/dd hh:mm:ss")
+                 << "curr page:" << page_on;
 
     switch (type)
     {
@@ -157,7 +158,7 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     }
     if (m_searchKey != "")
     {
-        KLOG_INFO() << "search_key : " << m_searchKey;
+        KLOG_DEBUG() << "Log search key : " << m_searchKey;
         request.mutable_filter()->set_fuzzy(true);
 
         std::string query = m_searchKey.toStdString();
@@ -187,7 +188,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get list runtime result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get list runtime result failed: " << reply.first.error_message().data();
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
         if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
@@ -212,7 +213,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
     }
 
     int size = reply.second.logs_size();
-    KLOG_INFO() << "log size:" << size;
+    KLOG_DEBUG() << "Log size:" << size;
     if (size <= 0)
     {
         if (m_searchKey != "")

@@ -221,7 +221,6 @@ void MonitorContent::handleYValue(double &start, double &end, QString &unit)
 
 void MonitorContent::onCycleChanged(int index)
 {
-    KLOG_INFO() << "onCycleChanged: " << index;
     ui->widget_date_selete->hide();
     ui->btn_apply->hide();
     int cycle = ui->cb_select_cycle->currentIndex();
@@ -308,7 +307,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get monitor history result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get monitor history result failed: " << reply.first.error_message().data();
         return;
     }
 
@@ -330,7 +329,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
         {
             QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
             auto value = i.value() * 100;
-            KLOG_INFO() << "cpu:" << stempToPos.toMSecsSinceEpoch() << value;
+            KLOG_DEBUG() << "cpu:" << stempToPos.toMSecsSinceEpoch() << value;
             QPointF point(stempToPos.toMSecsSinceEpoch(), value);
             pointList.append(point);
         }
@@ -352,7 +351,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
         {
             QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
             auto value = i.value() / memoryLimit * 100;
-            KLOG_INFO() << "memory:" << stempToPos.toMSecsSinceEpoch() << value;
+            KLOG_DEBUG() << "memory:" << stempToPos.toMSecsSinceEpoch() << value;
             QPointF point(stempToPos.toMSecsSinceEpoch(), value);
             pointList.append(point);
         }
@@ -391,7 +390,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 value = value * K_BITE;
             else if (unit == "G")
                 value = value / K_BITE;
-            KLOG_INFO() << "disk:" << stempToPos.toMSecsSinceEpoch() << value;
+            KLOG_DEBUG() << "disk:" << stempToPos.toMSecsSinceEpoch() << value;
             QPointF point(stempToPos.toMSecsSinceEpoch(), value);
             pointList.append(point);
         }
@@ -440,7 +439,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 value = value * K_BITE;
             else if (unit == "G")
                 value = value / K_BITE;
-            KLOG_INFO() << "net rx:" << stempToPos.toMSecsSinceEpoch() << value;
+            KLOG_DEBUG() << "net rx:" << stempToPos.toMSecsSinceEpoch() << value;
             QPointF point(stempToPos.toMSecsSinceEpoch(), value);
             rxPointList.append(point);
         }
@@ -452,7 +451,7 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
                 value = value * K_BITE;
             else if (unit == "G")
                 value = value / K_BITE;
-            KLOG_INFO() << "net tx:" << stempToPos.toMSecsSinceEpoch() << value;
+            KLOG_DEBUG() << "net tx:" << stempToPos.toMSecsSinceEpoch() << value;
             QPointF point(stempToPos.toMSecsSinceEpoch(), value);
             txPointList.append(point);
         }
@@ -472,7 +471,6 @@ bool MonitorContent::eventFilter(QObject *watched, QEvent *event)
     QResizeEvent *e = static_cast<QResizeEvent *>(event);
     if (watched == ui->widget_forms && e->type() == QEvent::Resize)
     {
-        //KLOG_INFO() << e->size().width() << e->size().height();
         int height = m_flowLayout->heightForWidth(e->size().width());
         int w = e->size().width();
         if (height <= this->height())

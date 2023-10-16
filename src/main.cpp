@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        KLOG_INFO() << "Load Translator File failed :" << QLocale().name() << TRANSLATION_DIR;
+        KLOG_WARNING() << "Load Translator File failed :" << QLocale().name() << TRANSLATION_DIR;
     }
 
     LoginDialog w;
