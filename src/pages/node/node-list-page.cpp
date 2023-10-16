@@ -363,13 +363,13 @@ void NodeListPage::onItemClicked(const QModelIndex &index)
 
 void NodeListPage::onItemEntered(const QModelIndex &index)
 {
-    if (index.column() != 1 && this->cursor().shape() != Qt::ArrowCursor)
-    {
-        this->setCursor(Qt::ArrowCursor);
-    }
-    else
+    if (index.column() == 1)
     {
         this->setCursor(Qt::PointingHandCursor);
+    }
+    else if (this->cursor().shape() != Qt::ArrowCursor)
+    {
+        this->setCursor(Qt::ArrowCursor);
     }
 }
 
