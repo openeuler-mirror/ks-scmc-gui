@@ -19,6 +19,16 @@ GlobalApplication::GlobalApplication(int &argc, char **argv) : KiranSingleApplic
 
 GlobalApplication::~GlobalApplication()
 {
+    if (m_pthread)
+    {
+        m_pthread->quit();
+        m_pthread->wait();
+    }
+    if (m_timer)
+    {
+        delete m_timer;
+        m_timer = nullptr;
+    }
 }
 
 bool GlobalApplication::notify(QObject *receiver, QEvent *e)

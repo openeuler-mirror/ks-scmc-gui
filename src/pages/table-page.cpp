@@ -49,6 +49,7 @@ TablePage::~TablePage()
     delete ui;
     if (m_searchTimer)
     {
+        m_searchTimer->stop();
         delete m_searchTimer;
         m_searchTimer = nullptr;
     }
