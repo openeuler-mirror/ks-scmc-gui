@@ -48,6 +48,7 @@ void NodeListPage::updateInfo(QString keyword)
     if (keyword == "exitTimedRefresh")
     {
         timedRefresh(false);
+        clearCheckState();
         return;
     }
 
