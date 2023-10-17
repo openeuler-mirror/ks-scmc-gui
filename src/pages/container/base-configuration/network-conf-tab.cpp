@@ -35,40 +35,39 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
     QString name = str.split(" ").first();  // 网卡名
     container::NetworkConfig network;
 
+    KLOG_INFO() << "Network interface:" << name;
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
     cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
 }
 
-void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg)
+//更新容器,更新模板 时设置界面初始值
+void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<QString> networkList)
 {
     KLOG_INFO() << "setNetworkInfo: " << networkCfg->interface().data() << networkCfg->ip_address().data() << networkCfg->mac_address().data();
+    KLOG_INFO() << networkList;
     auto name = networkCfg->interface().data();
 
-    KLOG_INFO() << name;
-    m_virtNetwork = name;
+    ui->cb_virt_networkcard->clear();
+    ui->cb_virt_networkcard->addItems(QStringList(networkList));
+    setVirtNetwork(name);
+
     ui->lineEdit_ip->setText(QString::fromStdString(networkCfg->ip_address().data()));
     ui->lineEdit_mac->setText(QString::fromStdString(networkCfg->mac_address().data()));
 }
 
-void NetworkConfTab::setVirtNetworkData(QString virtNetwork)
+void NetworkConfTab::setVirtNetwork(QString virtNetwork)
 {
-    m_virtNetwork = virtNetwork;
-}
-
-void NetworkConfTab::setVirtNetwork()
-{
-    KLOG_INFO() << m_virtNetwork;
-    if (!m_virtNetwork.isEmpty())
+    if (!virtNetwork.isEmpty())
     {
         int count = ui->cb_virt_networkcard->count();
         for (int i = 0; i < count; ++i)
         {
             QString text = ui->cb_virt_networkcard->itemText(i);
-            if (text.startsWith(m_virtNetwork))
+            if (text.startsWith(virtNetwork))
             {
                 ui->cb_virt_networkcard->setCurrentIndex(i);
-                KLOG_INFO() << "*********** found" << m_virtNetwork;
+                KLOG_INFO() << "*********** found" << virtNetwork;
                 break;
             }
         }
@@ -77,67 +76,20 @@ void NetworkConfTab::setVirtNetwork()
         ui->cb_virt_networkcard->setCurrentIndex(0);
 }
 
-void NetworkConfTab::setVirtNetworkList(const QPair<grpc::Status, network::ListReply> &reply)
+//初始化网卡页面信息
+void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
 {
-    KLOG_INFO() << "setVirtNetworks";
+    KLOG_INFO() << "initVirtNetworkInfo";
 
     ui->cb_virt_networkcard->clear();
-    for (auto ifs : reply.second.virtual_ifs())
-    {
-        KLOG_INFO() << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
-        auto name = ifs.name();
-        auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-        QString str = QString("%1 (%2:%3)")
-                          .arg(QString::fromStdString(name))
-                          .arg(tr("Subnet"))
-                          .arg(QString::fromStdString(subnet));
-        KLOG_INFO() << str;
-        ui->cb_virt_networkcard->addItem(str);
-    }
-    //        QString gatewaykStr;
-    //        QString tips;
-    //        for (auto bridge : reply.second.bridge_if())
-    //        {
-    //            auto name = bridge.name();
-    //            auto gateway = bridge.gateway();
-    //            KLOG_INFO() << QString::fromStdString(name) << QString::fromStdString(gateway);
-
-    //            if (!gateway.empty())
-    //            {
-    //                gatewaykStr = QString("%1 (%2:%3)")
-    //                                  .arg(QString::fromStdString(name))
-    //                                  .arg(tr("Gateway"))
-    //                                  .arg(QString::fromStdString(gateway));
-    //                KLOG_INFO() << "gatewaykStr: " << gatewaykStr;
-    //                ui->cb_virt_networkcard->addItem(gatewaykStr);
-    //            }
-    //            else
-    //            {
-    //                gatewaykStr = QString("%1 (%2:/)")
-    //                                  .arg(QString::fromStdString(name))
-    //                                  .arg(tr("Gateway"));
-    //                ui->cb_virt_networkcard->addItem(gatewaykStr);
-    //            }
-
-    //            if (bridge.has_ip_range())
-    //            {  // ip_range优先
-    //                auto addr = bridge.ip_range().addr();
-    //                auto prefix_len = bridge.ip_range().prefix_len();
-    //                tips = QString("Available network segment: %1/%2").arg(QString::fromStdString(addr)).arg(prefix_len);
-    //                ui->lineEdit_ip->setToolTip(tips);
-    //            }
-    //            else if (bridge.has_subnet())
-    //            {  // 没有ip_range 使用subnet
-    //                auto addr = bridge.subnet().addr();
-    //                auto prefix_len = bridge.subnet().prefix_len();
-    //                tips = QString("Available network segment: %1/%2").arg(QString::fromStdString(addr)).arg(prefix_len);
-    //                ui->lineEdit_ip->setToolTip(tips);
-    //            }
-    //        }
+    ui->cb_virt_networkcard->addItems(QStringList(networks));
+    ui->lineEdit_ip->clear();
+    ui->lineEdit_mac->clear();
 }
 
 void NetworkConfTab::initUI()
 {
+    ui->lineEdit_ip->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_ip->setPlaceholderText(tr("Default auto-assignment when not config"));
     ui->lineEdit_ip->setStyleSheet("QToolTip{"
                                    "background-color: rgb(255,255,255);"
@@ -150,6 +102,7 @@ void NetworkConfTab::initUI()
     QRegExp rx("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
     ui->lineEdit_ip->setValidator(new QRegExpValidator(rx));
 
+    ui->lineEdit_mac->setTextMargins(10, 0, 0, 0);
     QRegExp rxMac("([0-9a-fA-F]{2})((:[0-9a-fA-F]{2}){5})");
     ui->lineEdit_mac->setValidator(new QRegExpValidator(rxMac));
     ui->lineEdit_mac->setPlaceholderText(tr("Default auto-assignment when not config"));
