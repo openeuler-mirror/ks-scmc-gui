@@ -221,6 +221,23 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>lineEditVersion</tabstop>
+  <tabstop>lineEditImageFile</tabstop>
+  <tabstop>lineEditImageSign</tabstop>
+  <tabstop>lineEditDesc</tabstop>
+  <tabstop>updateName</tabstop>
+  <tabstop>updateVersion</tabstop>
+  <tabstop>updateSelect</tabstop>
+  <tabstop>updateSign</tabstop>
+  <tabstop>updateDesc</tabstop>
+  <tabstop>downloadImage</tabstop>
+  <tabstop>downloadPath</tabstop>
+  <tabstop>downloadChoosePath</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
