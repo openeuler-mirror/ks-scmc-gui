@@ -978,7 +978,7 @@ void ContainerSetting::getCreateContainerResult(const QPair<grpc::Status, contai
         MessageDialog::message(tr("Create Container"),
                                tr("Create container failed!"),
                                tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/warning.svg",
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -1092,7 +1092,7 @@ void ContainerSetting::getUpdateContainerResult(const QPair<grpc::Status, contai
         MessageDialog::message(tr("Update Container"),
                                tr("Update container failed!"),
                                tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/warning.svg"),
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -1271,7 +1271,7 @@ void ContainerSetting::getListImageFinishedResult(const QPair<grpc::Status, imag
         MessageDialog::message(tr("List Image"),
                                tr("Get image List failed!"),
                                tr("Error: %1").arg(reply.first.error_message().data()),
-                               ":/images/warning.svg",
+                               ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
