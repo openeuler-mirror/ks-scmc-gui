@@ -32,7 +32,6 @@ ContainerBackupPage::~ContainerBackupPage()
 void ContainerBackupPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ContainerBackupPage updateInfo";
-    clearCheckState();
     clearText();
     if (keyword.isEmpty())
     {
