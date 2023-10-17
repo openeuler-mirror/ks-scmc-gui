@@ -459,6 +459,12 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
 void LoginDialog::sessionExpire()
 {
     KLOG_INFO() << "sessionExpire";
+    if (!m_sessionMutex.tryLock())
+    {
+        KLOG_INFO() << "get lock fail and return";
+        return;
+    }
+
     MessageDialog::message(tr("Login"),
                            tr("session expire!"),
                            tr("back to login page"),
@@ -473,6 +479,7 @@ void LoginDialog::sessionExpire()
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
     ui->lab_tips->hide();
+    m_sessionMutex.unlock();
 }
 
 void LoginDialog::updateLicense(bool ret)
