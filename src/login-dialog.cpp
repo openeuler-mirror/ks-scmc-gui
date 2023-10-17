@@ -89,6 +89,17 @@ void LoginDialog::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void LoginDialog::keyPressEvent(QKeyEvent *event)
+{
+    if (Qt::Key_Return == event->key())
+    {
+        if (ui->lineEdit_username->hasFocus())
+            ui->lineEdit_passwd->setFocus();
+        else if (ui->lineEdit_passwd->hasFocus())
+            ui->btn_login->click();
+    }
+}
+
 void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
