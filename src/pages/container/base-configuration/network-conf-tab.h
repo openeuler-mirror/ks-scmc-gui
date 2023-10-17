@@ -18,10 +18,11 @@ public:
     //void getNetworkInfo(container::CreateRequest *req);
     void getNetworkInfo(container::ContainerConfigs *cntrCfg);
     void getNetworkInfo(container::UpdateRequest *req);
-    void setNetworkInfo(container::NetworkConfig *networkCfg);
-    void setVirtNetworkData(QString virtNetwork);
-    void setVirtNetwork();
-    void setVirtNetworkList(const QPair<grpc::Status, network::ListReply> &reply);
+    void setNetworkInfo(container::NetworkConfig *networkCfg, QList<QString> networkList);
+    void initVirtNetworkInfo(QList<QString> networks);
+
+private:
+    void setVirtNetwork(QString virtNetwork);
 
 private:
     void initUI();

@@ -30,15 +30,17 @@ TemplateListPage::~TemplateListPage()
 void TemplateListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "TemplateListPage updateInfo";
-    clearCheckState();
     clearText();
     disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, 0, 0);
     if (keyword.isEmpty())
     {
         //initConnect();
         //gRPC->拿数据->填充内容
         connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
-        InfoWorker::getInstance().listTemplate();
+        connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
+        getTemplateInfo();
+        getNetworkInfo(-1);  //-1返回所有节点的网卡信息
     }
 }
 
@@ -50,7 +52,9 @@ void TemplateListPage::onEdit(int row)
     {
         if (!m_editTPSetting)
         {
-            m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT, item->data().value<QMap<QString, QVariant>>());
+            m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
+                                                   m_networksMap,
+                                                   item->data().value<QMap<QString, QVariant>>());
 
             int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
             QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -66,7 +70,7 @@ void TemplateListPage::onEdit(int row)
                     });
             connect(m_editTPSetting, &ContainerSetting::sigUpdateTemplate,
                     [=] {
-                        updateInfo();
+                        getTemplateInfo();
                     });
         }
     }
@@ -99,7 +103,7 @@ void TemplateListPage::onCreateTemplate()
     KLOG_INFO() << "onCreateTemplate";
     if (!m_createTPSetting)
     {
-        m_createTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_CREATE);
+        m_createTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_CREATE, m_networksMap);
 
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
@@ -115,7 +119,7 @@ void TemplateListPage::onCreateTemplate()
                 });
         connect(m_createTPSetting, &ContainerSetting::sigUpdateTemplate,
                 [=] {
-                    updateInfo();
+                    getTemplateInfo();
                 });
     }
 }
@@ -142,6 +146,32 @@ void TemplateListPage::onRemoveTemplate()
     }
 }
 
+void TemplateListPage::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
+{
+    KLOG_INFO() << "getNetworkListResult";
+    if (reply.first.ok())
+    {
+        m_networksMap.clear();
+        for (auto ifs : reply.second.virtual_ifs())
+        {
+            int nodeId = ifs.node_id();
+            KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
+            auto name = ifs.name();
+            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+            QString str = QString("%1 (%2:%3)")
+                              .arg(QString::fromStdString(name))
+                              .arg(tr("Subnet"))
+                              .arg(QString::fromStdString(subnet));
+            KLOG_INFO() << str;
+            m_networksMap.insert(nodeId, str);
+        }
+        KLOG_INFO() << m_networksMap.keys();
+        KLOG_INFO() << m_networksMap.values();
+    }
+    else
+        KLOG_INFO() << "getNetworkListResult failed";
+}
+
 void TemplateListPage::getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
     KLOG_INFO() << "getListTemplateFinishResult";
@@ -163,7 +193,9 @@ void TemplateListPage::getListTemplateFinishResult(const QPair<grpc::Status, con
         {
             auto cfg = data.conf();
             qint64 tempId = data.id();
+            qint64 nodeId = data.node_id();
             idMap.insert(TEMPLATE_ID, tempId);
+            idMap.insert(NODE_ID, nodeId);
 
             QStandardItem *itemCheck = new QStandardItem();
             itemCheck->setCheckable(true);
@@ -223,7 +255,7 @@ void TemplateListPage::getRemoveTemplateFinishResult(const QPair<grpc::Status, c
     KLOG_INFO() << "getRemoveTemplateFinishResult";
     if (reply.first.ok())
     {
-        updateInfo();
+        getTemplateInfo();
     }
     else
     {
@@ -294,4 +326,15 @@ void TemplateListPage::getItemId(int row, int64_t &id)
     auto item = getItem(row, 1);
     QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
     id = idMap.value(TEMPLATE_ID).toInt();
+}
+
+void TemplateListPage::getNetworkInfo(int64_t node_id)
+{
+    KLOG_INFO() << "getNetworkInfo" << node_id;
+    InfoWorker::getInstance().listNetwork(node_id);
+}
+
+void TemplateListPage::getTemplateInfo()
+{
+    InfoWorker::getInstance().listTemplate();
 }
