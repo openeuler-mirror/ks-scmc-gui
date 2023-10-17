@@ -288,6 +288,7 @@ ContainerSetting QComboBox
     padding-left:10px;
     color:#000000;
     combobox-popup:0;
+    font-size:14px;
 }
 ContainerSetting QComboBox:drop-down
 {
@@ -497,7 +498,6 @@ ContainerSetting QRadioButton::indicator:checked
 {
     image: url(:/images/frame_s.png);
 }
-
 ContainerSetting QToolButton#funcDescBtn
 {
     background-color:#2eb3ff;
