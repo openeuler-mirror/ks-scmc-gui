@@ -668,6 +668,7 @@ void ContainerListPage::updateInfo(QString keyword)
     if (keyword == "exitTimedRefresh")
     {
         timedRefresh(false);
+        clearCheckState();
         return;
     }
 
