@@ -35,7 +35,7 @@ private slots:
     void onDelete();
     void onDelete(int row);
     void onSaveApp(const QString name, const QString path, const bool isGui);
-    void guiAppStatus(QProcess::ProcessState state);
+    void guiAppStatus(int row, QProcess::ProcessState state);
     void getListAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &);
     void getAddAppEntryFinished(const QString objId, const QPair<grpc::Status, container::AddAppEntryReply> &);
     void getUpdateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
@@ -50,6 +50,7 @@ private:
     void showOperateDlg();
     void getCheckedItemsId(QList<qint64> &ids);
     void refresh(const QString keyword = "", bool clear = false);
+    bool isGuiAppRunning(int appID);
 
 private:
     QString m_objId;
@@ -59,9 +60,8 @@ private:
     QString m_containerName;
     QMap<int, QPushButton *> m_batchOpBtnMap;
     ContainerAppOperateDialog *m_appOp;
-    QProcess *m_proc;
-    int m_runningAppRow;
     QTimer *m_timer;
+    QMap<qint64, QProcess *> m_procs;
 };
 
 #endif  // CONTAINERAPPDIALOG_H
