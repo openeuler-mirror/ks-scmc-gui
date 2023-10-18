@@ -47,6 +47,7 @@ private:
 
 signals:
     void sigOpenPaging(int);
+    void sigUpdateWaringSums();//刷新告警总数
 };
 
 #endif  // LOGLISTVIEW_H
