@@ -125,10 +125,6 @@ void TrendChartForm::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
 
-    ///TODO:方便测试，后续去掉
-    //setFixedSize(800, 400);
-    //setStyleSheet("QWidget{background:red;}");
-
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(0);
     mainLayout->setMargin(0);
