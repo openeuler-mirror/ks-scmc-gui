@@ -4,8 +4,9 @@
 #include <QDateTime>
 #include <QHBoxLayout>
 
-LogListView::LogListView(QWidget *parent) : TablePage(parent), m_datePicker(nullptr), m_datePickStart(nullptr), m_datePickEnd(nullptr), m_BtnApply(nullptr)
+LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(parent, is_open_paging), m_datePicker(nullptr), m_datePickStart(nullptr), m_datePickEnd(nullptr), m_BtnApply(nullptr)
 {
+    is_openPaging = is_open_paging;
     m_objId = InfoWorker::generateId(this);
     initButtons();
     initTable();
@@ -23,7 +24,7 @@ void LogListView::updateInfo(QString keyword)
     if (keyword.isEmpty())
     {
         connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
-        getLogList(m_type);
+        getLogList(m_type, m_pageOn);
     }
 }
 
@@ -101,9 +102,11 @@ void LogListView::initButtons()
 void LogListView::initLogListConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
+    connect(this, &LogListView::sigUpdatePaging, this, &LogListView::updatePagingInfo);
+    connect(this, &LogListView::sigOpenPaging, this, &LogListView::setPaging);
 }
 
-void LogListView::getLogList(LogListPageType type)
+void LogListView::getLogList(LogListPageType type, int page_on)
 {
     logging::ListRuntimeRequest request;
 
@@ -138,12 +141,12 @@ void LogListView::getLogList(LogListPageType type)
         break;
     }
 
+    request.set_page_no(page_on);
     //    request.set_username("chendingjian");
     //    request.set_page_size(10);
     //    request.set_page_no(1);
     //    request.set_sort_by("aa");
     //    request.set_sort_desc(true);
-
     InfoWorker::getInstance().listRuntimeLogging(m_objId, request);
 }
 
@@ -161,6 +164,11 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             clearTable();
+
+            m_totalPages = int(reply.second.total_pages());
+            if (is_openPaging)
+                emit sigOpenPaging(m_totalPages);
+
             int size = reply.second.logs_size();
             if (size <= 0)
             {
@@ -304,6 +312,12 @@ void LogListView::applyDatePicker()
 {
     m_xStart = m_datePicker->getStartDate();
     m_xEnd = m_datePicker->getEndDate();
+    updateInfo();
+}
+
+void LogListView::updatePagingInfo(int page_on)
+{
+    m_pageOn = page_on;
     updateInfo();
 }
 
