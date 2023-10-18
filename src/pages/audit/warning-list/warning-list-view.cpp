@@ -262,6 +262,7 @@ void WarningListView::onBtnRead()
         }
         getReadWarn(ids);
         updateInfo();
+        emit sigUpdateWaringSums();
     }
 }
 
@@ -285,6 +286,7 @@ void WarningListView::onBtnReadLabel(int row)
         getReadWarn(QList<int64_t>() << ids);
     KLOG_INFO() << "ids = " << ids;
     updateInfo();
+    emit sigUpdateWaringSums();
 }
 
 void WarningListView::onBtnIgnoreLabel(int row)
