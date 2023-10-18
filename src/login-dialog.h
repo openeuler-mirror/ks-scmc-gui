@@ -70,7 +70,7 @@ private:
     KiranMessageBox *m_dbusErrorBox;
     QLabel *activate_label;
     AboutPage *m_about;
-    //    QAction *actionLicense;
+    QMutex m_sessionMutex;
 };
 
 #endif  // LOGIN_DIALOG_H
