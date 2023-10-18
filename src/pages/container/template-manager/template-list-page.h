@@ -18,9 +18,9 @@ private slots:
     void onCreateTemplate();
     void onRemoveTemplate();
 
-    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
-    void getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply);
-    void getRemoveTemplateFinishResult(const QPair<grpc::Status, container::RemoveTemplateReply> &reply);
+    void getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply);
+    void getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
+    void getRemoveTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &reply);
 
 private:
     void initTable();
@@ -32,6 +32,7 @@ private:
     void getTemplateInfo();
 
 private:
+    QString m_objId;
     ContainerSetting *m_createTPSetting;
     ContainerSetting *m_editTPSetting;
     QMultiMap<int, QString> m_networksMap;

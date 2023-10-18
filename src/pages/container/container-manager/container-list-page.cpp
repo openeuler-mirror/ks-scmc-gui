@@ -14,17 +14,20 @@
 #include "common/message-dialog.h"
 #include "common/monitor-dialog.h"
 #include "container-list-page.h"
-#include "container/container-setting.h"
 #include "load-configuration.h"
+
+using namespace grpc;
 
 ContainerListPage::ContainerListPage(QWidget *parent)
     : TablePage(parent),
       m_createFromTemplateAct(nullptr),
-      m_createCTSetting(nullptr),
-      m_editCTSetting(nullptr),
+      m_containerSetting(nullptr),
       m_monitor(nullptr),
       m_timer(nullptr)
 {
+    KLOG_INFO() << "new container List";
+
+    m_objId = InfoWorker::generateId(this);
     initButtons();
     //初始化表格
     initTable();
@@ -37,7 +40,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
         std::vector<int64_t> vecNodeId;
-        InfoWorker::getInstance().listContainer(vecNodeId, true);
+        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);
     });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
@@ -45,15 +48,11 @@ ContainerListPage::ContainerListPage(QWidget *parent)
 
 ContainerListPage::~ContainerListPage()
 {
-    if (m_createCTSetting)
+    KLOG_INFO() << "~ContainerListPage";
+    if (m_containerSetting)
     {
-        delete m_createCTSetting;
-        m_createCTSetting = nullptr;
-    }
-    if (m_editCTSetting)
-    {
-        delete m_editCTSetting;
-        m_editCTSetting = nullptr;
+        delete m_containerSetting;
+        m_containerSetting = nullptr;
     }
     if (m_monitor)
     {
@@ -70,7 +69,7 @@ void ContainerListPage::onBtnRun()
     if (!ids.empty())
     {
         setBusy(true);
-        InfoWorker::getInstance().startContainer(ids);
+        InfoWorker::getInstance().startContainer(m_objId, ids);
     }
 }
 
@@ -80,7 +79,7 @@ void ContainerListPage::onBtnRun(QModelIndex index)
     std::map<int64_t, std::vector<std::string>> ids;
     getItemId(index.row(), ids);
     setBusy(true);
-    InfoWorker::getInstance().startContainer(ids);
+    InfoWorker::getInstance().startContainer(m_objId, ids);
 }
 
 void ContainerListPage::onBtnStop()
@@ -91,7 +90,7 @@ void ContainerListPage::onBtnStop()
     if (!ids.empty())
     {
         setBusy(true);
-        InfoWorker::getInstance().stopContainer(ids);
+        InfoWorker::getInstance().stopContainer(m_objId, ids);
     }
 }
 
@@ -101,7 +100,7 @@ void ContainerListPage::onBtnStop(QModelIndex index)
     std::map<int64_t, std::vector<std::string>> ids;
     getItemId(index.row(), ids);
     setBusy(true);
-    InfoWorker::getInstance().stopContainer(ids);
+    InfoWorker::getInstance().stopContainer(m_objId, ids);
 }
 
 void ContainerListPage::onBtnRestart()
@@ -112,7 +111,7 @@ void ContainerListPage::onBtnRestart()
     if (!ids.empty())
     {
         setBusy(true);
-        InfoWorker::getInstance().restartContainer(ids);
+        InfoWorker::getInstance().restartContainer(m_objId, ids);
     }
 }
 
@@ -122,7 +121,7 @@ void ContainerListPage::onBtnRestart(QModelIndex index)
     std::map<int64_t, std::vector<std::string>> ids;
     getItemId(index.row(), ids);
     setBusy(true);
-    InfoWorker::getInstance().restartContainer(ids);
+    InfoWorker::getInstance().restartContainer(m_objId, ids);
 }
 
 void ContainerListPage::onBtnDelete()
@@ -140,7 +139,7 @@ void ContainerListPage::onBtnDelete()
         if (ret == MessageDialog::StandardButton::Yes)
         {
             setBusy(true);
-            InfoWorker::getInstance().removeContainer(ids);
+            InfoWorker::getInstance().removeContainer(m_objId, ids);
         }
         else
             KLOG_INFO() << "cancel";
@@ -150,55 +149,13 @@ void ContainerListPage::onBtnDelete()
 void ContainerListPage::onActCreate()
 {
     KLOG_INFO() << "onActCreate";
-    if (!m_createCTSetting)
-    {
-        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE, m_networksMap);
-
-        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_createCTSetting->width()) / 2,
-                                screenGeometry.y() + (screenGeometry.height() - m_createCTSetting->height()) / 2);
-
-        m_createCTSetting->show();
-        connect(m_createCTSetting, &ContainerSetting::destroyed,
-                [=] {
-                    KLOG_INFO() << "create container setting destroy";
-                    m_createCTSetting->deleteLater();
-                    m_createCTSetting = nullptr;
-                });
-        connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
-                    getContainerList();
-                });
-    }
+    operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_CREATE);
 }
 
 void ContainerListPage::onActCopyConfig()
 {
     KLOG_INFO() << "onCopyConfig";
-    if (!m_createCTSetting)
-    {
-        m_createCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE, m_networksMap);
-        if (!m_templateMap.isEmpty())
-            m_createCTSetting->setTemplateList(m_templateMap);
-
-        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_createCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_createCTSetting->width()) / 2,
-                                screenGeometry.y() + (screenGeometry.height() - m_createCTSetting->height()) / 2);
-
-        m_createCTSetting->show();
-        connect(m_createCTSetting, &ContainerSetting::destroyed,
-                [=] {
-                    KLOG_INFO() << "create container setting destroy";
-                    m_createCTSetting->deleteLater();
-                    m_createCTSetting = nullptr;
-                });
-        connect(m_createCTSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
-                    getContainerList();
-                });
-    }
+    operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE);
 }
 
 void ContainerListPage::onActBatchUpdate()
@@ -252,30 +209,7 @@ void ContainerListPage::onMonitor(int row)
 void ContainerListPage::onEdit(int row)
 {
     KLOG_INFO() << row;
-    if (!m_editCTSetting)
-    {
-        auto item = getItem(row, 1);
-
-        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
-                                               m_networksMap,
-                                               item->data().value<QMap<QString, QVariant>>());
-        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editCTSetting->width()) / 2,
-                              screenGeometry.y() + (screenGeometry.height() - m_editCTSetting->height()) / 2);
-        m_editCTSetting->show();
-
-        connect(m_editCTSetting, &ContainerSetting::destroyed,
-                [=] {
-                    KLOG_INFO() << " edit container setting destroy";
-                    m_editCTSetting->deleteLater();
-                    m_editCTSetting = nullptr;
-                });
-        connect(m_editCTSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
-                    getContainerList();
-                });
-    }
+    operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_EDIT, row);
 }
 
 void ContainerListPage::onTerminal(int row)
@@ -321,204 +255,257 @@ void ContainerListPage::onItemEntered(const QModelIndex &index)
     }
 }
 
-void ContainerListPage::getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply)
+void ContainerListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
 {
-    KLOG_INFO() << "getNetworkListResult";
-    if (reply.first.ok())
+    KLOG_INFO() << "getNetworkListResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        m_networksMap.clear();
-        for (auto ifs : reply.second.virtual_ifs())
+        if (reply.first.ok())
         {
-            int nodeId = ifs.node_id();
-            KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
-            auto name = ifs.name();
-            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-            QString str = QString("%1 (%2:%3)")
-                              .arg(QString::fromStdString(name))
-                              .arg(tr("Subnet"))
-                              .arg(QString::fromStdString(subnet));
-            KLOG_INFO() << str;
-            m_networksMap.insert(nodeId, str);
+            m_networksMap.clear();
+            for (auto ifs : reply.second.virtual_ifs())
+            {
+                int nodeId = ifs.node_id();
+                KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
+                auto name = ifs.name();
+                auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+                QString str = QString("%1 (%2:%3)")
+                                  .arg(QString::fromStdString(name))
+                                  .arg(tr("Subnet"))
+                                  .arg(QString::fromStdString(subnet));
+                KLOG_INFO() << str;
+                m_networksMap.insert(nodeId, str);
+            }
+            KLOG_INFO() << m_networksMap.keys();
+            KLOG_INFO() << m_networksMap.values();
         }
-        KLOG_INFO() << m_networksMap.keys();
-        KLOG_INFO() << m_networksMap.values();
+        else
+        {
+            KLOG_INFO() << "getNetworkListResult failed";
+        }
     }
-    else
-        KLOG_INFO() << "getNetworkListResult failed";
 }
 
-void ContainerListPage::getContainerListResult(const QPair<grpc::Status, container::ListReply> &reply)
+void ContainerListPage::getContainerListResult(const QString objId, const QPair<grpc::Status, container::ListReply> &reply)
 {
-    setBusy(false);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-    KLOG_INFO() << "getContainerListResult";
-    if (reply.first.ok())
+    KLOG_INFO() << "getContainerListResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-        int size = reply.second.containers_size();
-        KLOG_INFO() << "container size:" << size;
-        if (size <= 0)
+        setBusy(false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+        KLOG_INFO() << "getContainerListResult";
+        if (reply.first.ok())
         {
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            int size = reply.second.containers_size();
+            KLOG_INFO() << "container size:" << size;
+            if (size <= 0)
+            {
+                setHeaderCheckable(false);
+                return;
+            }
+
+            clearTable();
+            setHeaderCheckable(true);
+            int row = 0;
+            QMap<QString, QVariant> infoMap;
+            for (auto i : reply.second.containers())
+            {
+                qint64 nodeId = i.node_id();
+                infoMap.insert(NODE_ID, nodeId);
+                infoMap.insert(CONTAINER_ID, i.info().id().data());
+                infoMap.insert(CONTAINER_NAME, i.info().name().data());
+                infoMap.insert(CONTAINER_STATUS, i.info().state().data());
+                infoMap.insert(NODE_ADDRESS, i.node_address().data());
+
+                QStandardItem *itemCheck = new QStandardItem();
+                itemCheck->setCheckable(true);
+
+                QStandardItem *itemName = new QStandardItem(i.info().name().data());
+                itemName->setData(QVariant::fromValue(infoMap));
+                itemName->setForeground(QBrush(QColor(46, 179, 255)));
+
+                auto status = m_statusMap[i.info().state().data()];
+                QStandardItem *itemStatus = new QStandardItem(status.first);
+                itemStatus->setForeground(QBrush(QColor(status.second)));
+
+                QStandardItem *itemImage = new QStandardItem(i.info().image().data());
+
+                QStandardItem *itemNodeAddress = new QStandardItem(i.node_address().data());
+
+                std::string strCpuPct = "-";
+                std::string strMemPct = "-";
+                std::string strDiskPct = "-";
+                std::string strOnlineTime = "-";
+
+                if (i.info().has_resource_stat())
+                {
+                    if (i.info().resource_stat().has_cpu_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.1f%%", i.info().resource_stat().cpu_stat().core_used() * 100);
+                        strCpuPct = std::string(str);
+                    }
+
+                    if (i.info().resource_stat().has_mem_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.1fMB", i.info().resource_stat().mem_stat().used());
+                        strMemPct = std::string(str);
+                    }
+
+                    if (i.info().resource_stat().has_disk_stat())
+                    {
+                        char str[128]{};
+                        sprintf(str, "%0.0fMB", i.info().resource_stat().disk_stat().used());
+                        strDiskPct = std::string(str);
+                    }
+                }
+
+                auto dt = QDateTime::fromSecsSinceEpoch(i.info().created());
+
+                QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
+                QStandardItem *itemMem = new QStandardItem(strMemPct.data());
+                QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
+                QStandardItem *onlineTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
+
+                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
+
+                row++;
+            }
+        }
+        else
+        {
+            if (reply.first.error_code() == PERMISSION_DENIED)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            else
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             setHeaderCheckable(false);
+            setTableDefaultContent("-");
+        }
+    }
+}
+
+void ContainerListPage::getContainerStartResult(const QString objId, const QPair<grpc::Status, container::StartReply> &reply)
+{
+    KLOG_INFO() << "getContainerStartResult" << m_objId << objId;
+    if (m_objId == objId)
+    {
+        setBusy(false);
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getContainerList();
             return;
         }
-
-        clearTable();
-        setHeaderCheckable(true);
-        int row = 0;
-        QMap<QString, QVariant> infoMap;
-        for (auto i : reply.second.containers())
+        else
         {
-            qint64 nodeId = i.node_id();
-            infoMap.insert(NODE_ID, nodeId);
-            infoMap.insert(CONTAINER_ID, i.info().id().data());
-            infoMap.insert(CONTAINER_NAME, i.info().name().data());
-            infoMap.insert(CONTAINER_STATUS, i.info().state().data());
-            infoMap.insert(NODE_ADDRESS, i.node_address().data());
-
-            QStandardItem *itemCheck = new QStandardItem();
-            itemCheck->setCheckable(true);
-
-            QStandardItem *itemName = new QStandardItem(i.info().name().data());
-            itemName->setData(QVariant::fromValue(infoMap));
-            itemName->setForeground(QBrush(QColor(46, 179, 255)));
-
-            auto status = m_statusMap[i.info().state().data()];
-            QStandardItem *itemStatus = new QStandardItem(status.first);
-            itemStatus->setForeground(QBrush(QColor(status.second)));
-
-            QStandardItem *itemImage = new QStandardItem(i.info().image().data());
-
-            QStandardItem *itemNodeAddress = new QStandardItem(i.node_address().data());
-
-            std::string strCpuPct = "-";
-            std::string strMemPct = "-";
-            std::string strDiskPct = "-";
-            std::string strOnlineTime = "-";
-
-            if (i.info().has_resource_stat())
-            {
-                if (i.info().resource_stat().has_cpu_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.1f%%", i.info().resource_stat().cpu_stat().core_used() * 100);
-                    strCpuPct = std::string(str);
-                }
-
-                if (i.info().resource_stat().has_mem_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.1fMB", i.info().resource_stat().mem_stat().used());
-                    strMemPct = std::string(str);
-                }
-
-                if (i.info().resource_stat().has_disk_stat())
-                {
-                    char str[128]{};
-                    sprintf(str, "%0.0fMB", i.info().resource_stat().disk_stat().used());
-                    strDiskPct = std::string(str);
-                }
-            }
-
-
-            QString strOnline = "-";
-            if (i.info().started() != 0)
-            {
-                auto dt = QDateTime::fromSecsSinceEpoch(i.info().started());
-                strOnline = dt.toString("yyyy/MM/dd hh:mm:ss");
-            }
-
-            QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
-            QStandardItem *itemMem = new QStandardItem(strMemPct.data());
-            QStandardItem *itemDisk = new QStandardItem(strDiskPct.data());
-            QStandardItem *onlineTime = new QStandardItem(strOnline);
-
-            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
-
-            row++;
+            MessageDialog::message(tr("Start Container"),
+                                   tr("Start container failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
         }
     }
-    else
-    {
-        setTableDefaultContent("-");
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-        setHeaderCheckable(false);
-    }
 }
 
-void ContainerListPage::getContainerStartResult(const QPair<grpc::Status, container::StartReply> &reply)
+void ContainerListPage::getContainerStopResult(const QString objId, const QPair<grpc::Status, container::StopReply> &reply)
 {
-    setBusy(false);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
+    KLOG_INFO() << "getContainerStopResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        getContainerList();
-        return;
+        setBusy(false);
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            KLOG_INFO() << "stop surccessful";
+            getContainerList();
+            return;
+        }
+        else
+        {
+            MessageDialog::message(tr("Stop Container"),
+                                   tr("Stop container failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, container::StopReply> &reply)
+void ContainerListPage::getContainerRestartResult(const QString objId, const QPair<grpc::Status, container::RestartReply> &reply)
 {
-    setBusy(false);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
+    KLOG_INFO() << "getContainerRestartResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        KLOG_INFO() << "stop surccessful";
-        getContainerList();
-        return;
-    }
-    else
-    {
-        KLOG_INFO() << "stop failed";
+        setBusy(false);
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getContainerList();
+            return;
+        }
+        else
+        {
+            MessageDialog::message(tr("Restart Container"),
+                                   tr("Restart container failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void ContainerListPage::getContainerRestartResult(const QPair<grpc::Status, container::RestartReply> &reply)
+void ContainerListPage::getContainerRemoveResult(const QString objId, const QPair<grpc::Status, container::RemoveReply> &reply)
 {
-    setBusy(false);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
+    KLOG_INFO() << "getContainerRemoveResult" << m_objId << objId;
+    if (m_objId == objId)
     {
-        getContainerList();
-        return;
+        setBusy(false);
+        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
+        if (reply.first.ok())
+        {
+            getContainerList();
+            return;
+        }
+        else
+        {
+            MessageDialog::message(tr("Remove Container"),
+                                   tr("Remove container failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   tr(":/images/error.svg"),
+                                   MessageDialog::StandardButton::Ok);
+        }
     }
 }
 
-void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &reply)
-{
-    setBusy(false);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
-    {
-        getContainerList();
-        return;
-    }
-}
-
-void ContainerListPage::getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply)
+void ContainerListPage::getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
     KLOG_INFO() << "getListTemplateFinishResult";
-    if (reply.first.ok())
+    if (m_objId == objId)
     {
-        m_templateMap.clear();
-        int size = reply.second.data_size();
-        if (size <= 0)
+        if (reply.first.ok())
         {
+            m_templateMap.clear();
+            int size = reply.second.data_size();
+            if (size <= 0)
+            {
+                m_createFromTemplateAct->setDisabled(true);
+                return;
+            }
+            for (auto data : reply.second.data())
+            {
+                auto cfg = data.conf();
+                int tempId = data.id();
+                int nodeId = data.node_id();
+                QString name = QString::fromStdString(cfg.name().data());
+                m_templateMap.insert(tempId, QPair<int, QString>{nodeId, name});
+            }
+            m_createFromTemplateAct->setDisabled(false);
+        }
+        else
             m_createFromTemplateAct->setDisabled(true);
-            return;
-        }
-        for (auto data : reply.second.data())
-        {
-            auto cfg = data.conf();
-            int tempId = data.id();
-            int nodeId = data.node_id();
-            QString name = QString::fromStdString(cfg.name().data());
-            m_templateMap.insert(tempId, QPair<int, QString>{nodeId, name});
-        }
-        m_createFromTemplateAct->setDisabled(false);
     }
-    else
-        m_createFromTemplateAct->setDisabled(true);
 }
 
 void ContainerListPage::initButtons()
@@ -529,6 +516,18 @@ void ContainerListPage::initButtons()
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
     addSingleOperationButton(btnCreate);
+    btnCreate->setStyleSheet("#btnCreate{background-color:#2EB3FF;"
+                             "border:none;"
+                             "border-radius: 4px;"
+                             "font-size:14px;"
+                             "color:#ffffff;}"
+                             "#btnCreate:hover{background-color:#77ceff;}"
+                             "#btnCreate:disabled{color:#919191;background:#393939;}"
+                             "#btnCreate:focus{outline:none;}"
+                             "#btnCreate::menu-indicator{image: url(:/images/down-arrow.svg);"
+                             "subcontrol-position: right center;"
+                             "subcontrol-origin: padding;"
+                             " left: -5px;}");
 
     QMenu *btnCreateMenu = new QMenu(btnCreate);
     btnCreateMenu->setObjectName("btnCreateMenu");
@@ -623,15 +622,64 @@ void ContainerListPage::initTable()
 void ContainerListPage::initConnect()
 {
     connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
+}
+
+void ContainerListPage::operateContainer(ContainerSettingType type, int row)
+{
+    if (!m_containerSetting)
+    {
+        switch (type)
+        {
+        case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
+        {
+            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE, m_networksMap);
+            break;
+        }
+        case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
+        {
+            auto item = getItem(row, 1);
+            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
+                                                      m_networksMap,
+                                                      item->data().value<QMap<QString, QVariant>>());
+            break;
+        }
+        case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+        {
+            m_containerSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE, m_networksMap);
+            if (!m_templateMap.isEmpty())
+                m_containerSetting->setTemplateList(m_templateMap);
+            break;
+        }
+        default:
+            break;
+        }
+
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_containerSetting->move(screenGeometry.x() + (screenGeometry.width() - m_containerSetting->width()) / 2,
+                                 screenGeometry.y() + (screenGeometry.height() - m_containerSetting->height()) / 2);
+
+        m_containerSetting->show();
+        connect(m_containerSetting, &ContainerSetting::destroyed,
+                [=] {
+                    KLOG_INFO() << "container setting destroy";
+                    m_containerSetting->deleteLater();
+                    m_containerSetting = nullptr;
+                });
+        connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
+                [=] {
+                    getContainerList();
+                });
+    }
 }
 
 void ContainerListPage::getTemplateList()
 {
-    InfoWorker::getInstance().listTemplate();
+    InfoWorker::getInstance().listTemplate(m_objId);
 }
 
 void ContainerListPage::getContainerList(qint64 nodeId)
@@ -640,13 +688,13 @@ void ContainerListPage::getContainerList(qint64 nodeId)
     if (nodeId < 0)
     {
         setBusy(true);
-        InfoWorker::getInstance().listContainer(vecNodeId, true);  //获取所有容器
+        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取所有容器
     }
     else
     {
         KLOG_INFO() << "get container list of node " << nodeId;
         vecNodeId.push_back(nodeId);
-        InfoWorker::getInstance().listContainer(vecNodeId, true);  //获取某节点下的容器
+        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
     }
 }
 
@@ -700,7 +748,7 @@ void ContainerListPage::timedRefresh(bool start)
 void ContainerListPage::getNetworkInfo(int64_t node_id)
 {
     KLOG_INFO() << "getNetworkInfo" << node_id;
-    InfoWorker::getInstance().listNetwork(node_id);
+    InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 
 void ContainerListPage::updateInfo(QString keyword)
