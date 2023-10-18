@@ -57,7 +57,7 @@ void AboutPage::initUI()
                            "color:#ffffff;"
                            "font:NotoSansCJKsc-Regular;"
                            "font-size:14px;}");
-    version->setText(tr("KylinSec Security container magic cube") + VERSION);
+    version->setText(tr("KylinSec Container System V1(Security Version)") + VERSION);
     version->setAlignment(Qt::AlignCenter);
 
     QLabel *info = new QLabel(aboutWidget);
