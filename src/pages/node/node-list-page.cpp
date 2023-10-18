@@ -48,6 +48,7 @@ void NodeListPage::updateInfo(QString keyword)
     if (keyword == "exitTimedRefresh")
     {
         timedRefresh(false);
+        clearCheckState();
         return;
     }
 
@@ -278,9 +279,9 @@ void NodeListPage::getCreateResult(const QPair<grpc::Status, node::CreateReply> 
     {
         KLOG_DEBUG() << QString::fromStdString(reply.first.error_message());
         MessageDialog::message(tr("Create Node"),
-                               tr("Create node failed!"),
+                               tr("Create Node failed!"),
                                tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
@@ -292,14 +293,6 @@ void NodeListPage::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> 
     {
         getNodeList();
     }
-    else
-    {
-        MessageDialog::message(tr("Remove Node"),
-                               tr("Remove node failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-    }
 }
 
 void NodeListPage::getUpdateResult(const QPair<grpc::Status, node::UpdateReply> &reply)
@@ -308,14 +301,6 @@ void NodeListPage::getUpdateResult(const QPair<grpc::Status, node::UpdateReply> 
     if (reply.first.ok())
     {
         getNodeList();
-    }
-    else
-    {
-        MessageDialog::message(tr("Update Node"),
-                               tr("Update node failed!"),
-                               tr("Error: %1").arg(reply.first.error_message().data()),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
     }
 }
 
