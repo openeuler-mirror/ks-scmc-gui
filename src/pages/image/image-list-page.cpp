@@ -17,6 +17,7 @@ ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_
     m_objId = InfoWorker::generateId(this);
     initButtons();
     initTable();
+    initImageConnect();
 }
 
 ImageListPage::~ImageListPage()
@@ -34,10 +35,8 @@ void ImageListPage::updateInfo(QString keyword)
     KLOG_INFO() << "ImageList updateInfo";
     clearCheckState();
     clearText();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
     if (keyword.isEmpty())
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
         getImageList();
     }
 }
@@ -168,8 +167,8 @@ void ImageListPage::initButtons()
 
 void ImageListPage::initImageConnect()
 {
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult, Qt::UniqueConnection);
+    connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
@@ -207,7 +206,6 @@ void ImageListPage::OperateImage(ImageOperateType type)
     if (!m_pImageOp)
     {
         m_pImageOp = new ImageOperateDialog(type);
-        initImageConnect();
         if (type == IMAGE_OPERATE_TYPE_UPDATE)
         {
             QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);  //只能选择一个

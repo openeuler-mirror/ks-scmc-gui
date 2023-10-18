@@ -36,14 +36,10 @@ void TemplateListPage::updateInfo(QString keyword)
     KLOG_INFO() << "TemplateListPage updateInfo";
     clearCheckState();
     clearText();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, 0, 0);
     if (keyword.isEmpty())
     {
         //initConnect();
         //gRPC->拿数据->填充内容
-        connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
         getTemplateInfo();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
     }
@@ -326,6 +322,8 @@ void TemplateListPage::initButtons()
 
 void TemplateListPage::initTemplateConnect()
 {
+    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
 }
 
