@@ -89,11 +89,22 @@ void LoginDialog::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void LoginDialog::keyPressEvent(QKeyEvent *event)
+{
+    if (Qt::Key_Return == event->key())
+    {
+        if (ui->lineEdit_username->hasFocus())
+            ui->lineEdit_passwd->setFocus();
+        else if (ui->lineEdit_passwd->hasFocus())
+            ui->btn_login->click();
+    }
+}
+
 void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
     setResizeable(false);
-    setTitle(tr("KylinSec Container system V1 (Security)"));
+    setTitle(tr("KylinSec security Container magic Cube"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
@@ -451,7 +462,7 @@ void LoginDialog::getLogoutResult(const QPair<grpc::Status, user::LogoutReply> &
         MessageDialog::message(tr("Logout"),
                                tr("Logout failed!"),
                                tr("Error: ") + reply.first.error_message().data(),
-                               ":/images/error.svg",
+                               ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
     }
 }
