@@ -57,7 +57,7 @@ void AboutPage::initUI()
                            "color:#ffffff;"
                            "font:NotoSansCJKsc-Regular;"
                            "font-size:14px;}");
-    version->setText(tr("KylinSec Container System V1(Security Version)") + VERSION);
+    version->setText(tr("KylinSec Container System V1(Security Version)"));
     version->setAlignment(Qt::AlignCenter);
 
     QLabel *info = new QLabel(aboutWidget);
