@@ -51,7 +51,6 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMultiMap<int, QSt
 {
     ui->setupUi(this);
     initUI();
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerSetting::getNodeListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerSetting::getListImageFinishedResult);
 
