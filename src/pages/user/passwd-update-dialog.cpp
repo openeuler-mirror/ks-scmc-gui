@@ -188,7 +188,7 @@ void PasswdUpdateDialog::initUI()
     setTitle(tr("Change Password"));
     setWindowModality(Qt::ApplicationModal);
     setButtonHints(TitlebarCloseButtonHint);
-    setFixedSize(640, 420);
+    setFixedSize(620, 450);
     setResizeable(false);
 
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);

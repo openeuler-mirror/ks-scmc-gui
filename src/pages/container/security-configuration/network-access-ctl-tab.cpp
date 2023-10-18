@@ -130,7 +130,7 @@ void NetworkAccessCtlTab::initUI()
     topLayout->setMargin(0);
     topLayout->setSpacing(20);
     QLabel *labStatus = new QLabel(this);
-    labStatus->setText(tr(" Access status"));
+    labStatus->setText(tr("Access status"));
 
     m_btnOpen = new QRadioButton(tr("Open"), this);
     m_btnClose = new QRadioButton(tr("Close"), this);
