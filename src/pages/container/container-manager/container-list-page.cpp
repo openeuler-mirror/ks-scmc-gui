@@ -39,8 +39,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        std::vector<int64_t> vecNodeId;
-        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);
+        updateInfo();
     });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);

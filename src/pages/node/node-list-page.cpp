@@ -27,7 +27,7 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     m_timer = new QTimer(this);
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
-        InfoWorker::getInstance().listNode(m_objId);
+        updateInfo();
     });
 }
 
@@ -170,6 +170,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
     KLOG_INFO() << "getNodeListResult" << m_objId << objId;
     if (m_objId == objId)
     {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
