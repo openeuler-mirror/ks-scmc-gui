@@ -5,9 +5,7 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QToolButton>
-#include <QHBoxLayout>
 #include <QWidget>
-#include <QLabel>
 #include "common/button-delegate.h"
 #include "def.h"
 #include "page.h"
@@ -28,7 +26,7 @@ class TablePage : public Page
     Q_OBJECT
 
 public:
-    explicit TablePage(QWidget *parent = nullptr,bool is_open = false);
+    explicit TablePage(QWidget *parent = 0);
     virtual ~TablePage();
     virtual void updateInfo(QString keyword = "") = 0;
     void clearTable();
@@ -55,12 +53,9 @@ public:
     QList<QMap<QString, QVariant>> getCheckedItemInfo(int col);
     void sleep(int sec);
     void clearCheckState();
-    void setPaging(int totalPages = 0); // 设置分页
-    void updatePaging(int page_no = 1);
 
 private:
     void initUI();
-    void initPaging();
     void adjustTableSize();
     int getCheckedItemNum();
 
@@ -87,7 +82,6 @@ signals:
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
     void sigItemEntered(const QModelIndex &index);  //鼠标进入item
-    void sigUpdatePaging(int); //更新页面
 
 private slots:
     void onMonitor(int row);
@@ -109,9 +103,6 @@ private slots:
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
     void onHeaderCkbTog(bool toggled);
-    void lastBtnClick();
-    void nextBtnClick();
-    void pageEditChage();//输入框回车按下
 
 private:
     Ui::TablePage *ui;
@@ -126,11 +117,6 @@ private:
     QList<QAbstractButton *> m_batchOpBtns;
     bool m_singleChoose;
     bool m_isSetTableActions;
-    QLineEdit *m_pageEdit; // 分页编辑框
-    int m_totalPages = 1;
-    bool m_isOpenPaging;
-    QHBoxLayout *m_pagingHlayout;
-    QLabel *m_totalPageLabel;
 };
 
 #endif  // TABLEPAGE_H
