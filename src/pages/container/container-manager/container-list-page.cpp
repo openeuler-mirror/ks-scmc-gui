@@ -296,6 +296,7 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         KLOG_INFO() << "getContainerListResult";
         if (reply.first.ok())
         {
+            clearTable();
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             int size = reply.second.containers_size();
             KLOG_INFO() << "container size:" << size;
@@ -304,8 +305,6 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
                 setHeaderCheckable(false);
                 return;
             }
-
-            clearTable();
             setHeaderCheckable(true);
             int row = 0;
             QMap<QString, QVariant> infoMap;
