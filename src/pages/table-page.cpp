@@ -15,17 +15,16 @@ using namespace std;
 
 #define TIMEOUT 200
 
-TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
+TablePage::TablePage(QWidget *parent) : Page(parent),
                                         ui(new Ui::TablePage),
                                         m_searchTimer(nullptr),
                                         m_refreshBtnTimer(nullptr),
                                         m_singleChoose(false),
-                                        m_isSetTableActions(false),
-                                        m_pageEdit(nullptr)
+                                        m_isSetTableActions(false)
 {
     ui->setupUi(this);
     initUI();
-    m_isOpenPaging = is_open;
+
     m_searchTimer = new QTimer(this);
     connect(m_searchTimer, &QTimer::timeout,
             [this] {
@@ -34,9 +33,6 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
             });
     m_refreshBtnTimer = new QTimer(this);
     connect(m_refreshBtnTimer, &QTimer::timeout, this, &TablePage::onRefreshTimeout);
-    if(m_isOpenPaging)
-        initPaging();
-//    setPaging(1,is_open);
 }
 
 TablePage::~TablePage()
@@ -52,21 +48,6 @@ TablePage::~TablePage()
         delete m_refreshBtnTimer;
         m_refreshBtnTimer = nullptr;
     }
-//    if (m_pageEdit)
-//    {
-//        delete m_pageEdit;
-//        m_pageEdit = nullptr;
-//    }
-//    if (m_pagingHlayout)
-//    {
-//        delete m_pagingHlayout;
-//        m_pagingHlayout = nullptr;
-//    }
-//    if (m_totalPageLabel)
-//    {
-//        delete m_totalPageLabel;
-//        m_totalPageLabel = nullptr;
-//    }
 }
 
 void TablePage::clearTable()
@@ -281,39 +262,6 @@ void TablePage::clearCheckState()
     onHeaderCkbTog(false);
 }
 
-void TablePage::setPaging(int totalPages)
-{
-    if(m_isOpenPaging)
-    {
-//        initPaging(totalPages);
-        m_totalPages = totalPages;
-        m_totalPageLabel->setText(QString("/ ") + QString::number(m_totalPages));
-        if(m_totalPages <= 1)
-        {
-            for (int i = 0; i < m_pagingHlayout->count(); ++i) {
-                QWidget *w = m_pagingHlayout->itemAt(i)->widget();
-                if(w != nullptr)
-                    w->setVisible(false);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < m_pagingHlayout->count(); ++i) {
-                QWidget *w = m_pagingHlayout->itemAt(i)->widget();
-                if(w != nullptr)
-                    w->setVisible(true);
-            }
-        }
-//        updatePaging();
-    }
-}
-
-void TablePage::updatePaging(int page_no)
-{
-    emit sigUpdatePaging(page_no);
-    m_pageEdit->setText(QString::number(page_no));
-}
-
 void TablePage::initUI()
 {
     ui->lineEdit_search->setPlaceholderText(tr("Please enter the keyword"));
@@ -367,52 +315,7 @@ void TablePage::initUI()
     connect(ui->lineEdit_search, &QLineEdit::textChanged,
             [this](QString text) {
                 m_searchTimer->start(TIMEOUT);
-    });
-}
-
-void TablePage::initPaging()
-{
-    //上一页
-    QPushButton *last_btn = new QPushButton(tr("last page"),this);
-//    last_btn->setStyleSheet("QPushButton{ border-width:1px;border-radius:8px;font-size:14px;\
-//                            border:1px solid #393939;}"
-//                            "QPushButton:focus{border:1px solid #3EB3FF;}");
-    connect(last_btn,&QPushButton::clicked,this,&TablePage::lastBtnClick);
-    //编辑框
-    m_pageEdit = new QLineEdit(QString::number(1),this);
-    m_pageEdit->setFixedSize(40,30);
-    m_pageEdit->setAlignment(Qt::AlignCenter);
-//    m_pageEdit->setContentsMargins(10,0,0,0);
-    m_pageEdit->setStyleSheet("QLineEdit{ border-width:1px;border-radius:10px;font-size:14px;\
-                              border:1px solid #393939;}"
-                              "QLineEdit:focus{border:1px solid #3EB3FF;}");
-
-    connect(m_pageEdit,&QLineEdit::returnPressed,this,&TablePage::pageEditChage);
-
-    //总页数
-    m_totalPageLabel = new QLabel(QString("/ ") + QString::number(m_totalPages),this);
-    m_totalPageLabel->setFixedSize(50,30);
-    m_totalPageLabel->setContentsMargins(10,0,0,0);
-//    m_totalPageLabel->setStyleSheet("QLabel{ border-width:1px;border-radius:8px;font-size:14px;\
-//                                    border:1px solid #393939;}"
-//                                    "QLabel:focus{border:1px solid #3EB3FF;}");
-     //下一页
-    QPushButton *next_btn = new QPushButton(tr("next page"),this);
-//    next_btn->setStyleSheet("QPushButton{ border-width:1px;border-radius:8px;font-size:14px;\
-//                            border:1px solid #393939;}"
-//                            "QPushButton:focus{border:1px solid #3EB3FF;}");
-    connect(next_btn,&QPushButton::clicked,this,&TablePage::nextBtnClick);
-    m_pagingHlayout = new QHBoxLayout();
-    m_pagingHlayout->setSpacing(3);
-    m_pagingHlayout->addStretch(1);
-    m_pagingHlayout->addWidget(last_btn);
-    m_pagingHlayout->addWidget(m_pageEdit);
-    m_pagingHlayout->addWidget(m_totalPageLabel);
-    m_pagingHlayout->addWidget(next_btn);
-    m_pagingHlayout->addStretch(1);
-    m_pagingHlayout->setContentsMargins(0,0,0,0);
-
-    ui->verticalLayout->addLayout(m_pagingHlayout);
+            });
 }
 
 void TablePage::adjustTableSize()
@@ -673,34 +576,3 @@ void TablePage::onHeaderCkbTog(bool toggled)
         }
     }
 }
-
-void TablePage::lastBtnClick()
-{
-    int page = m_pageEdit->text().toInt();
-    if(page <= 1)
-        return;
-
-    m_pageEdit->setText(QString::number(page - 1));
-    emit sigUpdatePaging(page - 1);
-}
-
-void TablePage::nextBtnClick()
-{
-    int page = m_pageEdit->text().toInt();
-
-    if(page + 1 <= m_totalPages)
-    {
-        m_pageEdit->setText(QString::number(page + 1));
-        emit sigUpdatePaging(page + 1);
-    }
-}
-
-void TablePage::pageEditChage()
-{
-    int page = m_pageEdit->text().toInt();
-    if(page <= m_totalPages && page >= 1)
-        updatePaging(page);
-    else
-        clearTable();
-}
-
