@@ -6,6 +6,7 @@
 #include <QTableView>
 #include <QTime>
 #include <QTimer>
+#include <QToolTip>
 #include <iostream>
 #include "common/button-delegate.h"
 #include "common/header-view.h"
@@ -153,7 +154,6 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
     {
         m_model->setItem(row, i, items.at(i));
         items.at(i)->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-        //items.at(i)->setToolTip(items.at(i)->text());
     }
     //adjustTableSize();
 }
@@ -449,6 +449,46 @@ int TablePage::getCheckedItemNum()
     return count;
 }
 
+QString TablePage::tooptipWordWrap(const QString &org)
+{
+    QString result;
+    QFontMetrics fm(fontMetrics());
+    int textWidthInPxs = fm.width(org);
+    const int rear = org.length();
+    int pre = 0, vernier = 1;
+    unsigned int pickUpWidthPxs = 0;
+    QString pickUp;
+    unsigned int curLen = 0;
+    double maxLength = width() / 3;
+
+    if (textWidthInPxs <= maxLength)
+    {
+        result = org;
+        return result;
+    }
+
+    while (vernier <= rear)
+    {
+        curLen = vernier - pre;
+        pickUp = org.mid(pre, curLen);
+        pickUpWidthPxs = fm.width(pickUp);
+        if (pickUpWidthPxs >= maxLength)
+        {
+            result += pickUp + "\n";  // 插入换行符，或者使用<br/>标签
+            pre = vernier;
+            pickUpWidthPxs = 0;
+        }
+        ++vernier;
+    }
+
+    if (pickUpWidthPxs < maxLength && !pickUp.isEmpty())
+    {
+        result += pickUp;
+    }
+
+    return result;
+}
+
 bool TablePage::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == ui->btn_refresh && event->type() == QEvent::HoverEnter)
@@ -461,6 +501,7 @@ bool TablePage::eventFilter(QObject *watched, QEvent *event)
         ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
         return true;
     }
+
     return false;
 }
 
@@ -687,6 +728,20 @@ void TablePage::onItemClicked(const QModelIndex &index)
 
 void TablePage::onItemEntered(const QModelIndex &index)
 {
+    auto item = m_model->itemFromIndex(index);
+    if (item)
+    {
+        QFontMetrics fm(fontMetrics());
+        int textWidthInPxs = fm.width(item->text());
+        if (textWidthInPxs > ui->tableView->columnWidth(index.column()))
+        {
+            QPoint point = QCursor::pos();
+            QRect rect = QRect(point.x(), point.y(), 30, 10);
+            QToolTip::showText(point, tooptipWordWrap(item->text()), ui->tableView, rect);
+        }
+        else
+            QToolTip::hideText();
+    }
     emit sigItemEntered(index);
 }
 

@@ -63,6 +63,7 @@ private:
     void initPaging();
     void adjustTableSize();
     int getCheckedItemNum();
+    QString tooptipWordWrap(const QString &org);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
