@@ -383,26 +383,17 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
     KLOG_INFO() << "uploadSaveSlot:  ***********"
                 << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
-
-    QString imageFile = Info["Image File"];
-    QString strSha256;
-    qint64 fileSize;
-    if (0 > getImageFileInfo(imageFile, strSha256, fileSize))
-    {
-        MessageDialog::message(tr("Upload Image"),
-                               tr("Can't open \"%1\" file").arg(imageFile),
-                               tr("Please make sure the file exists!"),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Upload Image")))
     {
         m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
     }
     else
+        return;
+
+    QString imageFile = Info["Image File"];
+    QString strSha256;
+    qint64 fileSize;
+    if (getImageFileInfo(imageFile, strSha256, fileSize))
         return;
 
     image::UploadRequest request;
@@ -429,29 +420,6 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
     KLOG_INFO() << "Id" << Info["Image Id"] << "Name" << Info["Image Name"] << "Version" << Info["Image Version"]
                 << "Description" << Info["Image Description"] << "File" << Info["Image File"];
 
-    const QString imageFile = Info["Image File"];
-    const QString signFile = Info["Sign File"];
-    const QString desc = Info["Image Description"];
-    QString strSha256;
-    qint64 fileSize = 0;
-    bool check = false;
-
-    if (!imageFile.isEmpty())
-    {
-        if (0 > getImageFileInfo(imageFile, strSha256, fileSize))
-        {
-            MessageDialog::message(tr("Update Image"),
-                                   tr("Can't open \"%1\" file").arg(imageFile),
-                                   tr("Please make sure the file exists!"),
-                                   ":/images/warning.svg",
-                                   MessageDialog::StandardButton::Ok);
-            return;
-        }
-        else
-            check = true;
-    }
-
-    //在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Update Image")))
     {
         KLOG_INFO() << "append to transfering image";
@@ -459,6 +427,12 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
     }
     else
         return;
+
+    const QString imageFile = Info["Image File"];
+    const QString signFile = Info["Sign File"];
+    const QString desc = Info["Image Description"];
+    QString strSha256;
+    qint64 fileSize = 0;
 
     image::UpdateRequest request;
     request.set_image_id(Info["Image Id"].toInt());
@@ -469,8 +443,10 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
     if (!desc.isEmpty())
         pInfo->set_description(Info["Image Description"].toStdString());
 
-    if (check)
+    if (!imageFile.isEmpty())
     {
+        if (getImageFileInfo(imageFile, strSha256, fileSize))
+            return;
         QString suffix = "." + QFileInfo(imageFile).suffix();
         pInfo->set_type(suffix.toStdString());
         pInfo->set_checksum(strSha256.toStdString());
@@ -481,7 +457,6 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         pSignInfo->set_size(fileInfo.size());
         pSignInfo->mutable_chunk_data();
     }
-
     pInfo->set_size(fileSize);
 
     InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);

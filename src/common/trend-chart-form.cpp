@@ -5,11 +5,7 @@
 #include <QVBoxLayout>
 #include <iostream>
 
-TrendChartForm::TrendChartForm(QWidget *parent) : QWidget(parent),
-                                                  m_valueLabel(nullptr),
-                                                  m_chartView(nullptr),
-                                                  m_xAxis(nullptr),
-                                                  m_yAxis(nullptr)
+TrendChartForm::TrendChartForm(QWidget *parent) : QWidget(parent), m_valueLabel(nullptr), m_chartView(nullptr), m_xAxis(nullptr), m_yAxis(nullptr)
 {
     qRegisterMetaType<ChartInfo>("ChartInfo");
     initUI();
@@ -52,7 +48,6 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     m_xAxis->setFormat(chartInfo.xFormat);
     m_xAxis->setLabelsFont(font);
     m_xAxis->setLabelsColor(QColor("#919191"));
-    m_xAxis->setLabelsAngle(30);
 
     //Y轴
     m_yAxis = new QValueAxis(m_chartView);
@@ -80,16 +75,14 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     }
 }
 
-void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames)
+void TrendChartForm::updateChart(ChartInfo chartInfo)
 {
     KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
-
-    KLOG_INFO() << "setDate" << seriesNames;
-
     QChart *chart = m_chartView->chart();
     //x轴
     chart->axisX()->setRange(chartInfo.xStart, chartInfo.xEnd);
     chart->axisX()->setTitleText(chartInfo.xTitle);
+    qobject_cast<QDateTimeAxis *>(chart->axisX())->setTickCount(chartInfo.xTickCount);  //主分隔个数 //设置大刻度线的数目，默认是5，不能小于2
     qobject_cast<QDateTimeAxis *>(chart->axisX())->setFormat(chartInfo.xFormat);
 
     //Y轴
@@ -97,6 +90,12 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
     chart->axisY()->setTitleText(chartInfo.yTitle);
     qobject_cast<QValueAxis *>(chart->axisY())->setLabelFormat(chartInfo.yFormat);
 
+    update();
+}
+
+void TrendChartForm::setData(QList<QPointF> datas, QString seriesNames)
+{
+    KLOG_INFO() << "setDate" << /*datas <<*/ seriesNames;
     QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
     foreach (auto series, serieses)
     {
@@ -109,8 +108,6 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
             break;
         }
     }
-
-    chart->update();
 }
 
 void TrendChartForm::setLegendVisible(bool visible)
