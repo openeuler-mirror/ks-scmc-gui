@@ -16,7 +16,7 @@ void NodeInfoPage::setNodeId(qint64 nodeId)
 
 void NodeInfoPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "NodeInfoPage UpdateInfo" << m_nodeId;
+    KLOG_INFO() << "NodeInfoPage UpdateInfo";
     m_monitor->updateMonitorInfo(m_nodeId);
     m_containerListPage->getContainerList(m_nodeId);
 }
