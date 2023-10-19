@@ -546,9 +546,10 @@ MessageDialog #label_summary
 {
     font-size:20px;
 }
-MessageDialog #label_body
+MessageDialog #browser_body
 {
     font-size:14px;
+    border:none;
 }
 /***************************NodeListPage**********************/
 NodeListPage #btnCreate,
@@ -966,7 +967,14 @@ TabPage QTabBar::tab:selected {
 }
 
 /*************************************************PasswdUpdateDialog**********************************/
-PasswdUpdateDialog #lab_old_pw_tips,#lab_new_pw_tips, #lab_confirm_pw_tips
+PasswdUpdateDialog QLabel#lab_old_pw_tips,
+PasswdUpdateDialog QLabel#lab_new_pw_tips,
+PasswdUpdateDialog QLabel#lab_confirm_pw_tips,
+ImageOperateDialog QLabel#label_tip_image,
+ImageOperateDialog QLabel#label_tip_version,
+ImageOperateDialog QLabel#label_tip_desc,
+ImageOperateDialog QLabel#label_tip_name,
+ImageOperateDialog QLabel#label_tip_sign
 {
     color:#d30000;
     font-size:14px;
@@ -1076,6 +1084,18 @@ ImageOperateDialog QToolButton#btn_tip_version
     border:none;
 }
 
+ImageOperateDialog QTextEdit#textDesc
+{
+    color:#ffffff;
+    font-size:14px;
+    border:1px solid #393939 ;
+    border-radius:6px;
+    padding-right：10px;
+}
+ImageOperateDialog QTextEdit#textDesc:focus
+{
+    border:1px solid #2eb3ff ;
+}
 
 
 

@@ -20,12 +20,20 @@ TransmissionItem::~TransmissionItem()
 
 void TransmissionItem::setName(QString name)
 {
-    ui->lab_name->setText(name);
+    QString newStr = name;
+    QFontMetrics fontWidth(ui->lab_name->font());
+    QString elideNote = fontWidth.elidedText(newStr, Qt::ElideRight, ui->lab_name->width());
+    ui->lab_name->setText(elideNote);
+    ui->lab_name->setToolTip(name);
 }
 
 void TransmissionItem::setVersion(QString version)
 {
-    ui->lab_version->setText(version);
+    QString newStr = version;
+    QFontMetrics fontWidth(ui->lab_version->font());
+    QString elideNote = fontWidth.elidedText(newStr, Qt::ElideRight, ui->lab_version->width());
+    ui->lab_version->setText(elideNote);
+    ui->lab_version->setToolTip(version);
 }
 
 void TransmissionItem::setStatus(ImageTransmissionStatus status)
@@ -72,12 +80,12 @@ void TransmissionItem::setRate(int rate)
 
 QString TransmissionItem::name()
 {
-    return ui->lab_name->text();
+    return ui->lab_name->toolTip();
 }
 
 QString TransmissionItem::version()
 {
-    return ui->lab_version->text();
+    return ui->lab_version->toolTip();
 }
 
 ImageTransmissionStatus TransmissionItem::status()
@@ -99,7 +107,7 @@ void TransmissionItem::onItemClose()
     if (status() == IMAGE_TRANSMISSION_STATUS_DOWNLOADING || status() == IMAGE_TRANSMISSION_STATUS_UPLOADING)
     {
         auto ret = MessageDialog::message(tr("Cancel Transmission"),
-                                          tr("Are you sure to cancel the %1(%2) transmission?").arg(name()).arg(version()),
+                                          tr("Are you sure to cancel the transmission?"),
                                           tr("The image %1(%2) is being transferred,the transmission will be interrupted after close!").arg(name()).arg(version()),
                                           ":/images/warning.svg",
                                           MessageDialog::StandardButton::Cancel | MessageDialog::StandardButton::Yes);
