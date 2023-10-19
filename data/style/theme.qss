@@ -1069,7 +1069,13 @@ NetworkAccessCtlTab #btn_delete:pressed,SecurityListTab #btn_delete:pressed
     image:url(:/images/icon_Less_pre.png);
 }
 
-/************************************WhiteListTab******************************/
+/************************************ImageOperateDialog******************************/
+ImageOperateDialog QToolButton#btn_tip_name,
+ImageOperateDialog QToolButton#btn_tip_version
+{
+    border:none;
+}
+
 
 
 
