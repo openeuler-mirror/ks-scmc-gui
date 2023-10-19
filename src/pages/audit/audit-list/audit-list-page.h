@@ -31,6 +31,9 @@ private:
     ImageListPage *m_imagelist_approve;
     ImageListPage *m_imagelist_passed;
     ImageListPage *m_imagelist_rejected;
+
+signals:
+    void sigUpdateTipSums();
 };
 
 #endif // AUDITLISTPAGE_H
