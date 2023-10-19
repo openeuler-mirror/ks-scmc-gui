@@ -193,8 +193,8 @@ SecurityListItem *SecurityListTab::createItem(int index)
     m_listWidget->insertItem(index, newItem);
     m_listWidget->setItemWidget(newItem, customItem);
 
-    newItem->setSizeHint(QSize(340, 52));
-    m_listWidget->setGridSize(QSize(340, 62));
+    newItem->setSizeHint(QSize(340, 62));
+    m_listWidget->setGridSize(QSize(340, 68));
 
     return customItem;
 }
@@ -311,6 +311,7 @@ void SecurityListTab::initUI()
     m_listWidget = new QListWidget(this);
     m_listWidget->setFocusPolicy(Qt::NoFocus);
     m_listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    m_listWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout->addLayout(topLayout);
     layout->addWidget(m_listWidget);
