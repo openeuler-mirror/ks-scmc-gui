@@ -1,16 +1,16 @@
 #ifndef DBUSUTILS_H
 #define DBUSUTILS_H
 
+#include <kylin-license/license-i.h>
+#include <QObject>
 #include <QString>
 #include <QWidget>
-#include <QObject>
 #include <QtDBus/QDBusConnection>
 #include <QtDBus/QtDBus>
-#include <kylin-license/license-i.h>
 
 //#include "SCMCInterface.h"
 
-#define LICENSE_OBJECT_SCMC_NAME "KSSCMCGui"
+#define LICENSE_OBJECT_SCMC_NAME "KSSCMC"
 //#define LICENSE_OBJECT_OS_NAME "KylinSecOS"
 #define TIMEOUT_MS 5000
 #define KIRAN_LICENSE_INTERFACE "com.kylinsec.Kiran.LicenseHelper"
@@ -25,7 +25,6 @@ enum DbusInterface
     ACTIVATE_BYACTIVATIONCODE,
     GET_LICENSE
 };
-
 
 class DBusUtils : public QObject
 {
@@ -47,7 +46,7 @@ private slots:
 
 private:
     bool creatObjectScmcName();
-//    com::kylinsec::SCMC* SCMC;
+    //    com::kylinsec::SCMC* SCMC;
 };
 
 #endif  // DBUSUTILS_H
