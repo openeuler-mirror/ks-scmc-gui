@@ -37,7 +37,7 @@ void ImageOperateDialog::setImageInfo(QMap<QString, QVariant> imageInfoMap)
         ui->lineEditVersion->setDisabled(true);
         ui->lineEditImageFile->setText(imageInfoMap.value(IMAGE_FILE).toString());
         ui->lineEditImageSign->setText(imageInfoMap.value(IMAGE_SIGN).toString());
-        ui->lineEditDesc->setText(imageInfoMap.value(IMAGE_DESC).toString());
+        ui->textDesc->setText(imageInfoMap.value(IMAGE_DESC).toString());
         m_desc = imageInfoMap.value(IMAGE_DESC).toString();
     }
 }
@@ -62,14 +62,19 @@ void ImageOperateDialog::initUI()
     ui->lineEditName->setPlaceholderText(tr("Please input 1 to 50 characters"));
     ui->lineEditVersion->setMaxLength(20);
     ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 20 characters"));
+    ui->textDesc->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     QPushButton *imageFileBtn = new QPushButton(this);
+    imageFileBtn->setFocusPolicy(Qt::NoFocus);
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectImage);
     initLineEdit(ui->lineEditImageFile, imageFileBtn);
 
     QPushButton *imageSignBtn = new QPushButton(this);
+    imageSignBtn->setFocusPolicy(Qt::NoFocus);
     connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectSign);
     initLineEdit(ui->lineEditImageSign, imageSignBtn);
+
+    connect(ui->textDesc, &QTextEdit::textChanged, this, &ImageOperateDialog::limitLength);
 }
 
 void ImageOperateDialog::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
@@ -89,7 +94,7 @@ void ImageOperateDialog::UploadParamDeal()
 {
     QString name = ui->lineEditName->text();
     QString version = ui->lineEditVersion->text();
-    QString desc = ui->lineEditDesc->text();
+    QString desc = ui->textDesc->toPlainText();
     QString imageFile = ui->lineEditImageFile->text();
     QString signFile = ui->lineEditImageSign->text();
 
@@ -118,13 +123,16 @@ void ImageOperateDialog::updateParamDeal()
 {
     QString name = ui->lineEditName->text();
     QString version = ui->lineEditVersion->text();
-    QString desc = ui->lineEditDesc->text().isEmpty() ? m_desc : ui->lineEditDesc->text();
+    QString desc = ui->textDesc->toPlainText();
     QString imageFile = ui->lineEditImageFile->text();
     QString imageId = m_imageId;
     QString signFile = ui->lineEditImageSign->text();
 
-    KLOG_INFO() << name << version << imageId << ui->lineEditDesc->text() << imageFile;
+    KLOG_INFO() << name << version << imageId << desc << imageFile;
 
+    bool checkVal = false;
+
+    //逻辑没有问题，用户如果想把desc变空，只能将镜像和签名重新传一次
     if ((!imageFile.isEmpty() && !signFile.isEmpty()) ||
         (imageFile.isEmpty() && signFile.isEmpty() && !desc.isEmpty()))
     {
@@ -132,20 +140,28 @@ void ImageOperateDialog::updateParamDeal()
         {
             QFile fileImage(imageFile);
             QFile fileSign(signFile);
+            do
+            {
+                if (!fileImage.open(QIODevice::ReadOnly))
+                {
+                    ui->label_tip_image->setText(tr("Can't open image file!"));
+                    checkVal = false;
+                    break;
+                }
+                else if (!fileSign.open(QIODevice::ReadOnly))
+                {
+                    ui->label_tip_sign->setText(tr("Can't open signature file!"));
+                    checkVal = false;
+                    break;
+                }
+                checkVal = true;
 
-            if (!fileImage.open(QIODevice::ReadOnly))
-            {
-                ui->label_tip_image->setText(tr("Can't open image file!"));
-                return;
-            }
-            else if (!fileSign.open(QIODevice::ReadOnly))
-            {
-                ui->label_tip_sign->setText(tr("Can't open signature file!"));
-                return;
-            }
+            } while (0);
 
             fileImage.close();
             fileSign.close();
+            if (!checkVal)
+                return;
         }
 
         QMap<QString, QString> updateInfo;
@@ -160,18 +176,13 @@ void ImageOperateDialog::updateParamDeal()
     }
     else
     {
-        if (imageFile.isEmpty())
-            ui->label_tip_image->setText(tr("Please input correct image file!"));
-        else if (signFile.isEmpty())
-            ui->label_tip_sign->setText(tr("Please input correct signature file!"));
+        //修改判断顺序，当镜像/签名有一个存在时，判断另一个
+        if (imageFile.isEmpty() && !signFile.isEmpty())
+            ui->label_tip_image->setText(tr("Please input image file!"));
+        else if (signFile.isEmpty() && !imageFile.isEmpty())
+            ui->label_tip_sign->setText(tr("Please input signature file!"));
         else if (desc.isEmpty())
             ui->label_tip_desc->setText(tr("Please input the description of image!"));
-
-        //        MessageDialog::message(tr("Update Image"),
-        //                               tr("Update Image failed!"),
-        //                               tr("Please improve the content!"),
-        //                               ":/images/warning.svg",
-        //                               MessageDialog::StandardButton::Ok);
         return;
     }
 }
@@ -253,4 +264,20 @@ void ImageOperateDialog::onSave()
 void ImageOperateDialog::onCancel()
 {
     this->close();
+}
+
+void ImageOperateDialog::limitLength()
+{
+    QString textContent = ui->textDesc->toPlainText();
+    int length = textContent.count();
+    int maxLength = 200;  // 最大字符数
+    if (length > maxLength)
+    {
+        int position = ui->textDesc->textCursor().position();
+        QTextCursor textCursor = ui->textDesc->textCursor();
+        textContent.remove(position - (length - maxLength), length - maxLength);
+        ui->textDesc->setText(textContent);
+        textCursor.setPosition(position - (length - maxLength));
+        ui->textDesc->setTextCursor(textCursor);
+    }
 }
