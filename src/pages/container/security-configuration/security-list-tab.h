@@ -23,7 +23,7 @@ public:
     explicit SecurityListTab(ProtectionType type, QWidget *parent = nullptr);
     ~SecurityListTab();
     void setSecurityListInfo(container::SecurityConfig *securityCfg);
-    void getSecurityListInfo(container::SecurityConfig *securityCfg);
+    bool getSecurityListInfo(container::SecurityConfig *securityCfg);
 
 private:
     SecurityListItem *createItem(int index);
