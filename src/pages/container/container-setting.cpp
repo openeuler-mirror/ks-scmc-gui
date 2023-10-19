@@ -151,6 +151,13 @@ void ContainerSetting::initUI()
     setWindowFlags(Qt::WindowCloseButtonHint);
     setFixedSize(840, 700);
 
+    ui->lineEdit_name->setMaxLength(50);
+    ui->lineEdit_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
+    ui->btn_tip_name->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
+    ui->lineEdit_describe->setMaxLength(200);
+    ui->lineEdit_describe->setPlaceholderText(tr("Please input 0 to 200 characters"));
+
     ui->tabWidget->setFocusPolicy(Qt::NoFocus);
     ui->tabWidget->setAttribute(Qt::WA_StyledBackground);
     ui->btn_add->setIcon(QIcon(":/images/addition.svg"));
@@ -247,6 +254,8 @@ void ContainerSetting::initSummaryUI()
 {
     ui->label_template_name->hide();
     ui->cb_template->hide();
+    ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
     switch (m_type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
@@ -254,16 +263,15 @@ void ContainerSetting::initSummaryUI()
         setWindowTitle(tr("Create Container"));
         m_cbImage = new QComboBox(this);
         m_cbImage->setParent(this);
-        m_cbImage->setFixedSize(QSize(200, 30));
+        m_cbImage->setFixedSize(QSize(420, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 3, 1);
-        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
-        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
     {
         setWindowTitle(tr("Edit Container"));
+        ui->btn_tip_name->hide();
         m_labImage = new QLabel(this);
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_labImage, 3, 1);
@@ -273,26 +281,26 @@ void ContainerSetting::initSummaryUI()
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
         ui->lineEdit_name->setTextMargins(0, 0, 0, 0);
-        ui->lineEdit_describe->setStyleSheet("border:none;");
         ui->lineEdit_describe->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setReadOnly(true);
+        ui->lineEdit_describe->setStyleSheet("QLineEdit{border:none;}"
+                                             "QToolTip{"
+                                             "background-color: rgb(255,255,255);"
+                                             "color:#000000;"
+                                             "border-radius: 6px;"
+                                             "border:0px solid rgb(0,0,0);"
+                                             "outline:none; "
+                                             "min-height:30px;"
+                                             "}");
         break;
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         setWindowTitle(tr("Create template"));
         ui->label_image->hide();
-        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
-        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
         ui->label_image->hide();
-        ui->lineEdit_name->setReadOnly(true);
-        ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
-        ui->lineEdit_name->setTextMargins(0, 0, 0, 0);
-        ui->lineEdit_describe->setStyleSheet("border:none;");
-        ui->lineEdit_describe->setReadOnly(true);
-        ui->lineEdit_describe->setTextMargins(0, 0, 0, 0);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
     {
@@ -301,11 +309,9 @@ void ContainerSetting::initSummaryUI()
         ui->cb_template->show();
         m_cbImage = new QComboBox(this);
         m_cbImage->setParent(this);
-        m_cbImage->setFixedSize(QSize(200, 30));
+        m_cbImage->setFixedSize(QSize(420, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
         layout->addWidget(m_cbImage, 3, 1);
-        ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
-        ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
         break;
     }
     default:
@@ -384,6 +390,55 @@ void ContainerSetting::initSecurityConfPages()
 
     StartStopControlTab *startStopCtlTab = new StartStopControlTab(ui->tab_security_config);
     m_securityConfStack->addWidget(startStopCtlTab);
+}
+
+void ContainerSetting::showLongText(QLineEdit *lineEdit, QString orgText)
+{
+    QString newStr = orgText;
+    QFontMetrics fontWidth(lineEdit->font());
+    QString elideNote = fontWidth.elidedText(newStr, Qt::ElideRight, lineEdit->width());
+    lineEdit->setText(elideNote);
+    lineEdit->setToolTip(tooptipWordWrap(orgText));
+    lineEdit->setCursorPosition(0);
+}
+
+QString ContainerSetting::tooptipWordWrap(const QString &org)
+{
+    QString result;
+    QFontMetrics fm(fontMetrics());
+    int textWidthInPxs = fm.width(org);
+    const int rear = org.length();
+    int pre = 0, vernier = 1;
+    unsigned int pickUpWidthPxs = 0;
+    QString pickUp;
+    unsigned int curLen = 0;
+
+    if (textWidthInPxs <= width())
+    {
+        result = org;
+        return result;
+    }
+
+    while (vernier <= rear)
+    {
+        curLen = vernier - pre;
+        pickUp = org.mid(pre, curLen);
+        pickUpWidthPxs = fm.width(pickUp);
+        if (pickUpWidthPxs >= width())
+        {
+            result += pickUp + "\n";  // 插入换行符，或者使用<br/>标签
+            pre = vernier;
+            pickUpWidthPxs = 0;
+        }
+        ++vernier;
+    }
+
+    if (pickUpWidthPxs < width() && !pickUp.isEmpty())
+    {
+        result += pickUp;
+    }
+
+    return result;
 }
 
 void ContainerSetting::deleteItem(QString itemText, int row)
@@ -1112,14 +1167,17 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         {
             //init ui
             auto info = reply.second.configs();
-            ui->lineEdit_name->setText(info.name().data());
+
+            showLongText(ui->lineEdit_name, info.name().data());
             KLOG_INFO() << info.name().data() << info.image().data();
 
             if (m_labImage)
                 m_labImage->setText(info.image().data());
 
             if (!QString::fromStdString(info.desc().data()).isEmpty())
-                ui->lineEdit_describe->setText(info.desc().data());
+            {
+                showLongText(ui->lineEdit_describe, info.desc().data());
+            }
             else
                 ui->lineEdit_describe->setText(tr("none"));
 
@@ -1238,12 +1296,15 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
             if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
             {
                 ui->lineEdit_name->setText(info.name().data());
+                ui->lineEdit_name->setCursorPosition(0);
                 KLOG_INFO() << info.name().data();
 
                 if (!QString::fromStdString(info.desc().data()).isEmpty())
                     ui->lineEdit_describe->setText(info.desc().data());
                 else
                     ui->lineEdit_describe->setText(tr("none"));
+
+                ui->lineEdit_describe->setCursorPosition(0);
 
                 nodeId = m_containerIds.first;
             }
