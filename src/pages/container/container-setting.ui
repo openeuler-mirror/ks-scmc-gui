@@ -309,7 +309,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="btn_add">
+           <widget class="QToolButton" name="btn_tab_add">
             <property name="minimumSize">
              <size>
               <width>220</width>
@@ -487,7 +487,7 @@
   <tabstop>listwidget_base_config</tabstop>
   <tabstop>listWidget_advanced_config</tabstop>
   <tabstop>listWidget_security_config</tabstop>
-  <tabstop>btn_add</tabstop>
+  <tabstop>btn_tab_add</tabstop>
   <tabstop>btn_confirm</tabstop>
   <tabstop>btn_cancel</tabstop>
   <tabstop>tabWidget</tabstop>
