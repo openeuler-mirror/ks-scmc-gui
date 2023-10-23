@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
-    <height>553</height>
+    <width>676</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -360,6 +360,7 @@
   <tabstop>lineEditVersion</tabstop>
   <tabstop>lineEditImageFile</tabstop>
   <tabstop>lineEditImageSign</tabstop>
+  <tabstop>textDesc</tabstop>
   <tabstop>btnSave</tabstop>
   <tabstop>btnCancel</tabstop>
  </tabstops>

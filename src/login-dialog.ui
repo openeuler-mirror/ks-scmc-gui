@@ -145,6 +145,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_username</tabstop>
+  <tabstop>lineEdit_passwd</tabstop>
+  <tabstop>btn_login</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
