@@ -226,7 +226,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
                     {
                         char str[128]{};
                         sprintf(str, "%0.1f%%", status.cpu_stat().used() * 100);
-                        strCpuPct = QString("%1 (%2 %3)").arg(str).arg(node.rsc_limit().cpu_limit()).arg(tr("core"));
+                        strCpuPct = QString("%1 (%2 %3)").arg(str).arg(status.cpu_stat().total()).arg(tr("core"));
                     }
 
                     if (status.has_mem_stat())
