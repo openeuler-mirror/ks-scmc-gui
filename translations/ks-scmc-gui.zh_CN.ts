@@ -109,25 +109,21 @@
     <name>CPUConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="104"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="105"/>
         <source>Total CPU cores:</source>
         <translation>CPU总核数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="112"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="107"/>
         <source>error: more than the system total cores</source>
         <translation>错误：高于系统核心数</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="105"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_cpu-conf-tab.h" line="106"/>
         <source>Scheduling priority:</source>
         <translation>调度优先级：</translation>
     </message>
@@ -224,7 +220,6 @@
     <name>ConfigOperateWidget</name>
     <message>
         <location filename="../src/common/config-operate-widget.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-operate-widget.h" line="153"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -238,7 +233,6 @@
     <name>ConfigTable</name>
     <message>
         <location filename="../src/common/config-table.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-table.h" line="51"/>
         <source>ConfigTable</source>
         <translation>配置表</translation>
     </message>
@@ -278,7 +272,7 @@
 <context>
     <name>ContainerAppDialog</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="577"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="582"/>
         <source>Container app</source>
         <translation>容器应用</translation>
     </message>
@@ -287,37 +281,31 @@
     <name>ContainerAppOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="143"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="75"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="145"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App path:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;路径：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="82"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="146"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App Name:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;应用名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="118"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="147"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App type:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;类型：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="174"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="148"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="181"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-app-operate-dialog.h" line="149"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -356,42 +344,42 @@
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="97"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="242"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="241"/>
         <source>The app is running!</source>
         <translation>应用程序正在运行！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="194"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="207"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="229"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="193"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="206"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="228"/>
         <source>Delete Container App</source>
         <translation>删除容器程序</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="208"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="230"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="207"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="229"/>
         <source>Are you sure you want to delete the app?</source>
         <translation>确定删除该程序？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="209"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="231"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="208"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="230"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="359"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="364"/>
         <source>Gui</source>
         <translation>图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="359"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="364"/>
         <source>Non Gui</source>
         <translation>非图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="282"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="363"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="286"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="368"/>
         <source>Running</source>
         <translation>运行中</translation>
     </message>
@@ -401,135 +389,131 @@
         <translation>应用程序(%1)已经在运行中！</translation>
     </message>
     <message>
-        <source>There is a app running!</source>
-        <translation type="vanished">已存在正在运行的应用程序！</translation>
-    </message>
-    <message>
         <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="161"/>
         <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="172"/>
         <source>The app(%1) is not running!</source>
         <translation>应用程序(%1)暂未运行！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="195"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="194"/>
         <source>Can&apos;t delete container app!</source>
         <translation>无法删除容器应用程序！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="196"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="195"/>
         <source>There are some app is running. </source>
         <translation>存在正在运行的应用程序。 </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="241"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="240"/>
         <source>Can&apos;t delete the app %1</source>
         <translation>无法删除应用程序%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="313"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="318"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="385"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="390"/>
         <source>Add container app successful!</source>
         <translation>添加容器应用成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="388"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="393"/>
         <source>Add container app failed!</source>
         <translation>添加容器应用失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="401"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="406"/>
         <source>Update container app successful!</source>
         <translation>更新容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="404"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="409"/>
         <source>Update container app failed!</source>
         <translation>更新容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="416"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="421"/>
         <source>Remove container app successful!</source>
         <translation>移除容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="419"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="424"/>
         <source>Remove container app failed!</source>
         <translation>移除容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="431"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="436"/>
         <source>Run container app successful!</source>
         <translation>运行容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="434"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="439"/>
         <source>Run container app failed!</source>
         <translation>运行容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="446"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="451"/>
         <source>Stop container app successful!</source>
         <translation>停止容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="449"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="454"/>
         <source>Stop container app failed!</source>
         <translation>停止容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="457"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="462"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="503"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="508"/>
         <source>Exec Path</source>
         <translation>程序路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="504"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="509"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="507"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="512"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="289"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="363"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="508"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="293"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="368"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="513"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="477"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="510"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="482"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="515"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="501"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="506"/>
         <source>APP Name</source>
         <translation>应用名</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="502"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="507"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="505"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="510"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="509"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="514"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
@@ -538,49 +522,41 @@
     <name>ContainerBackupOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="244"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="134"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="247"/>
         <source>Version:  &lt;font color=red&gt;*&lt;/font&gt;</source>
         <translation>版本：&lt;font color=red&gt;*&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="154"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="248"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="250"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="251"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Version:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;版本：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="277"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="252"/>
         <source>Export to local</source>
         <translation>导出至本地</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="284"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="253"/>
         <source>Export to image management</source>
         <translation>导出至镜像仓库</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="347"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="254"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="366"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="255"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1050,74 +1026,62 @@ The first characters must be letter or digit</source>
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="299"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="94"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="300"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="150"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="304"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="101"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="301"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="157"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="305"/>
         <source>Describe:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="164"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="306"/>
         <source>Template name:</source>
         <translation>模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="254"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="309"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="342"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="308"/>
         <location filename="../src/pages/container/container-setting.cpp" line="182"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="353"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="310"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="394"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="311"/>
         <source>Security configuration</source>
         <translation>安全策略</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="471"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="312"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="490"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="313"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -1314,7 +1278,6 @@ The first characters must be letter or digit</source>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_envs-conf-tab.h" line="35"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -1330,23 +1293,9 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
-    <name>GraphicConfTab</name>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="76"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_graphic-conf-tab.h" line="77"/>
-        <source>Graphic:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>GuideItem</name>
     <message>
         <location filename="../src/common/guide-item.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_guide-item.h" line="78"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -1355,25 +1304,21 @@ The first characters must be letter or digit</source>
     <name>HighAvailabilityTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="104"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="69"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="105"/>
         <source>High availability policy: </source>
         <translation>高可用策略： </translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="106"/>
         <source>Auto pulling times:         </source>
         <translation>自动拉起次数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="115"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="107"/>
         <source>times</source>
         <translation>次</translation>
     </message>
@@ -1425,234 +1370,260 @@ The first characters must be letter or digit</source>
 <context>
     <name>ImageListPage</name>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="61"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="67"/>
         <source>Image Name</source>
         <translation>镜像名</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="62"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="68"/>
         <source>Version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="63"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="69"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="64"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="70"/>
         <source>Inspection Status</source>
         <translation>校验状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="65"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="71"/>
         <source>Approval Status</source>
         <translation>审批状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="66"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="72"/>
         <source>Last Update</source>
         <translation>最后更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="86"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="92"/>
         <source>Upload</source>
         <translation>上传</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="87"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="93"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="88"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="94"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="89"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="97"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="95"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="103"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="70"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="139"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="76"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="145"/>
         <source>Pass</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="69"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="75"/>
         <source>Operation</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="71"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="140"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="147"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="77"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="146"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="153"/>
         <source>Refuse</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="270"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="233"/>
+        <source>Image file is damaged</source>
+        <translation>镜像文件损坏</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="256"/>
+        <source>Image tar package without manifest.json</source>
+        <translation>镜像没有 manifest.json 文件</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="267"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="275"/>
+        <source>Failed to read image data</source>
+        <translation>读写镜像数据失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="283"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="293"/>
+        <source>Image tar package without</source>
+        <translation>镜像没有</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="354"/>
         <source>The image &quot;%1&quot; is being transferred.</source>
         <translation>镜像”%1“正在传输。</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="271"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="355"/>
         <source> Please operate after the transfer is completed!</source>
         <translation>请在镜像传输完成后再操作！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="286"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="370"/>
         <source>Please input refuse reason:</source>
         <translation>请输入拒绝理由：</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="320"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="404"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="321"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="405"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="347"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="431"/>
         <source>Please select the path to save</source>
         <translation>请选择保存路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="382"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="466"/>
         <source>Delete Image</source>
         <translation>删除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="383"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="467"/>
         <source>Are you sure you want to delete the image?</source>
         <translation>确定删除该镜像？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="384"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="468"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="473"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="482"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="784"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="557"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="567"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="576"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="889"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="474"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="530"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="558"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="624"/>
         <source>Can&apos;t open &quot;%1&quot; file</source>
         <translation>无法打开”%1“文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="475"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="531"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="559"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="625"/>
         <source>Please make sure the file exists!</source>
         <translation>请确认该文件是否存在！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="529"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="541"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="804"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="623"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="636"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="646"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="909"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="585"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="827"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="690"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="932"/>
         <source>Download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="667"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="772"/>
         <source>Failed</source>
         <translation>未通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="671"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="776"/>
         <source>Abnormal</source>
         <translation>不正确</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="675"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="692"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="780"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="797"/>
         <source>Passed</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="684"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="789"/>
         <source>Wait for Approve</source>
         <translation>等待审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="688"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="793"/>
         <source>Rejected</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="623"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="728"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="743"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="848"/>
         <source>Approve Image</source>
         <translation>审批镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="744"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="849"/>
         <source>Approve image failed!</source>
         <translation>审批镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="758"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="863"/>
         <source>Remove image success!</source>
         <translation>移除镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="764"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="869"/>
         <source>Remove image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="779"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="884"/>
         <source>Upload image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="785"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="568"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="890"/>
         <source>Upload image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="799"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="904"/>
         <source>Update image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="805"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="637"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="910"/>
         <source>Update image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="822"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="927"/>
         <source>Download image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="828"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="933"/>
         <source>Download image failed!</source>
         <translation>下载镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="763"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="868"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
@@ -1661,49 +1632,41 @@ The first characters must be letter or digit</source>
     <name>ImageOperateDialog</name>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="237"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="275"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="247"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Name</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;名字</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="301"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="249"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Version</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;版本</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="155"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="242"/>
         <source>Signature file </source>
         <translation>签名文件</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="243"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="245"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="229"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="244"/>
         <source>Image Select</source>
         <translation>镜像选择</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="356"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="250"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="363"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_image-operate-dialog.h" line="251"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
@@ -1842,37 +1805,31 @@ The first characters must be letter or digit</source>
     <name>LicenseActivation</name>
     <message>
         <location filename="../src/license/license-activation.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="165"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="83"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="166"/>
         <source>Expired time</source>
         <translation>质保期</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="114"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="167"/>
         <source>Machine code</source>
         <translation>机器码</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="144"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="168"/>
         <source>Activation code</source>
         <translation>激活码</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="215"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="169"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="234"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="170"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -2038,13 +1995,11 @@ The first characters must be letter or digit</source>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="32"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="103"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/login-dialog.ui" line="142"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="105"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
@@ -2166,13 +2121,11 @@ The first characters must be letter or digit</source>
     <name>MainWindow</name>
     <message>
         <location filename="../src/main-window.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="185"/>
         <source>MainWindow</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/main-window.ui" line="175"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="187"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
@@ -2221,19 +2174,16 @@ The first characters must be letter or digit</source>
     <name>MemoryConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="117"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="118"/>
         <source>Memory soft limit:</source>
         <translation>内存软限制：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="117"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_memory-conf-tab.h" line="119"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum limit:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;最大值：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -2269,19 +2219,16 @@ The first characters must be letter or digit</source>
     <name>MessageDialog</name>
     <message>
         <location filename="../src/common/message-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="102"/>
         <source>Dialog</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.ui" line="102"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="104"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/message-dialog.ui" line="109"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_message-dialog.h" line="105"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2294,31 +2241,26 @@ p, li { white-space: pre-wrap; }
     <name>MonitorContent</name>
     <message>
         <location filename="../src/common/monitor-content.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="164"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="65"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="165"/>
         <source>Cycle:</source>
         <translation>周期：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="106"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="166"/>
         <source>Period:</source>
         <translation>时间范围：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="132"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="168"/>
         <source>-</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="173"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_monitor-content.h" line="170"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
@@ -2435,43 +2377,36 @@ Instruction</source>
     <name>NetworkAccessItem</name>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="166"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="49"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="167"/>
         <source>Network protocol </source>
         <translation>网络协议</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="58"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="168"/>
         <source>TCP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="65"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="169"/>
         <source>UDP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="72"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="170"/>
         <source>ICMP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="101"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="171"/>
         <source>Network address  </source>
         <translation>网络地址</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="129"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="172"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
@@ -2485,19 +2420,16 @@ Instruction</source>
     <name>NetworkConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="96"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="105"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="98"/>
         <source>Virtual network card:</source>
         <translation>虚拟网卡：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="97"/>
         <source>IP:</source>
         <translation>IP:</translation>
     </message>
@@ -2703,44 +2635,37 @@ Instruction</source>
     <name>NodeConfigPage</name>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="157"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="35"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="158"/>
         <source>Warning threshold setting</source>
         <translation>告警阈值设置</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="47"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="159"/>
         <source>CPU (Number)</source>
         <translation>CPU （核数）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="77"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="160"/>
         <source>Memory Limit (MB)</source>
         <translation>内存配额（MB）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="107"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="161"/>
         <source>Disk Limit (MB)</source>
         <translation>磁盘配额（MB）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="175"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="162"/>
         <location filename="../src/pages/node/config/node-config-page.cpp" line="209"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="194"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="163"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -2942,37 +2867,31 @@ Instruction</source>
     <name>NodeOperateDialog</name>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="131"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="55"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="132"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt; Node Name:  </source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt; 节点名：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="81"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="134"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;  Node IP: </source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;  节点IP： </translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="104"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="135"/>
         <source> Comment:</source>
         <translation>备注：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="149"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="136"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="168"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="137"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -3016,7 +2935,6 @@ Instruction</source>
     <name>OutlineCell</name>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="239"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -3024,25 +2942,18 @@ Instruction</source>
         <location filename="../src/pages/outline/outline-cell.ui" line="131"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="238"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="245"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="241"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="243"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="244"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="284"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="315"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="246"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="249"/>
         <source>label</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="299"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="330"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="247"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="250"/>
         <source>Label</source>
         <translation></translation>
     </message>
@@ -3051,15 +2962,12 @@ Instruction</source>
     <name>OutlineIntroduction</name>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="105"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="101"/>
         <location filename="../src/pages/outline/outline-introduction.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="106"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="107"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
@@ -3082,92 +2990,92 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>OutlineView</name>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="149"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="153"/>
         <source>node</source>
         <translation>节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="150"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="154"/>
         <source>Number of nodes: </source>
         <translation>节点总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="153"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="167"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="157"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="171"/>
         <source>online: </source>
         <translation>在线：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="154"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="168"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="158"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="172"/>
         <source>offline: </source>
         <translation>离线：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="155"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="156"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="169"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="170"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="159"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="160"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="173"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="174"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="182"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="186"/>
         <source>0G</source>
         <translation>0G</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="196"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="200"/>
         <source>Template</source>
         <translation>模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="216"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="220"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="217"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="221"/>
         <source>Number of Approval: </source>
         <translation>待审批数： </translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="236"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="240"/>
         <source>Unread Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="237"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="241"/>
         <source>Number of Unread Warn: </source>
         <translation>未读告警数： </translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="163"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="167"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="164"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="168"/>
         <source>Number of Container: </source>
         <translation>容器总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="177"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="181"/>
         <source>Image</source>
         <translation>镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="178"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="182"/>
         <source>Number of Image: </source>
         <translation>镜像总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="181"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="185"/>
         <source>Image Capacity: </source>
         <translation>镜像总容量：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="197"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="201"/>
         <source>Number of Template: </source>
         <translation>容器模板总数：</translation>
     </message>
@@ -3176,13 +3084,11 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>PasswdUpdateDialog</name>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="177"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="178"/>
         <source>User Name:</source>
         <translation>用户名：</translation>
     </message>
@@ -3191,94 +3097,81 @@ of applications, isolated operation of applications, centralized monitoring of a
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="64"/>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="97"/>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="124"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="179"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="181"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="183"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="186"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="54"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="180"/>
         <source>Old Password:</source>
         <translation>原密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="104"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="184"/>
         <source>New Password:</source>
         <translation>新密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="114"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="185"/>
         <source>Confirm Password:</source>
         <translation>确认密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="179"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="187"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="198"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="188"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <source>old password input error</source>
-        <translation type="vanished">原密码输入错误</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="89"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="92"/>
         <source>Old password input error</source>
         <translation>原密码输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="103"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="106"/>
         <source>Please input at least 8 characters</source>
         <translation>请输入至少8位密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="105"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="108"/>
         <source>Can&apos;t input Chinese</source>
         <translation>不能输入中文</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="108"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="111"/>
         <source>Please input at least a combination of character and number</source>
         <translation>请输入至少数字和字母一种组合</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="135"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="138"/>
         <source>The confirmation password is not match with the new password</source>
         <translation>密码与新密码不匹配</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="174"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="177"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="175"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="178"/>
         <source>Update password failed!</source>
         <translation>修改密码失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="176"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="179"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="191"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="194"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="210"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="213"/>
         <source>The password should contain at least
  a combination of character and number,
  with a length range of 8-32 characters</source>
@@ -3575,7 +3468,6 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>QRCodeDialog</name>
     <message>
         <location filename="../src/license/qrcode-dialog.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_qrcode-dialog.h" line="80"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -3589,7 +3481,6 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>SecurityListItem</name>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-list-item.h" line="102"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -3760,22 +3651,21 @@ Instruction</source>
     <name>TablePage</name>
     <message>
         <location filename="../src/pages/table-page.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_table-page.h" line="132"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="396"/>
+        <location filename="../src/pages/table-page.cpp" line="397"/>
         <source>last page</source>
         <translation>上一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="414"/>
+        <location filename="../src/pages/table-page.cpp" line="415"/>
         <source>next page</source>
         <translation>下一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="325"/>
+        <location filename="../src/pages/table-page.cpp" line="326"/>
         <source>No search results were found!</source>
         <translation>未搜索到结果！</translation>
     </message>
@@ -3921,13 +3811,11 @@ Instruction</source>
     <name>TransmissionItem</name>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="162"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="82"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="163"/>
         <source>Image Name:</source>
         <translation>镜像名：</translation>
     </message>
@@ -3936,16 +3824,11 @@ Instruction</source>
         <location filename="../src/pages/image/transmission-item.ui" line="116"/>
         <location filename="../src/pages/image/transmission-item.ui" line="149"/>
         <location filename="../src/pages/image/transmission-item.ui" line="169"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="164"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="166"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="167"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="168"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="109"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="165"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
@@ -3992,7 +3875,6 @@ Instruction</source>
     <name>VolumesConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_volumes-conf-tab.h" line="35"/>
         <source>Form</source>
         <translation></translation>
     </message>
