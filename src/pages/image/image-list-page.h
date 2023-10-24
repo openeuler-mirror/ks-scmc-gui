@@ -30,6 +30,8 @@ private:
     void initButtons();
     void initImageConnect();
     int getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize);
+    QString checkImageLegality(const QString &fileName);
+    QString parseManifest(const QString &manifestContent, const QStringList &fileList);
     void getImageList();
     void OperateImage(ImageOperateType type);
     bool imageIsTransfering(QString imageName, QString version, QString title);
