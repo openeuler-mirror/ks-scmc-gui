@@ -26,14 +26,15 @@ void ActivatePage::init()
     KiranTitlebarWindow::setTitle(tr("Software Activation"));
     KiranTitlebarWindow::setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint | KiranTitlebarWindow::TitlebarMinimizeButtonHint);
     KiranTitlebarWindow::setIcon(QIcon(":/images/logo.png"));
-    //    KiranTitlebarWindow::setTitleBarHeight(30);
-    KiranTitlebarWindow::setFixedSize(500, 340);
+//        KiranTitlebarWindow::setTitleBarHeight(30);
+//    KiranTitlebarWindow::setFixedSize(500, 400);
+    KiranTitlebarWindow::setFixedSize(500, 500);
     KiranTitlebarWindow::setWindowModality(Qt::ApplicationModal);
 
     QWidget *windowContentWidget = getWindowContentWidget();
 
     QVBoxLayout *vlayout = new QVBoxLayout(windowContentWidget);
-    vlayout->setContentsMargins(6, 6, 0, 20);
+    vlayout->setContentsMargins(6, 6, 0, 12);
 
     date_code_label = new QLabel(windowContentWidget);
     date_code_edit = new QLineEdit(windowContentWidget);
@@ -76,7 +77,7 @@ void ActivatePage::init()
     Kiran::WidgetPropertyHelper::setButtonType(canCelButton, Kiran::ButtonType::BUTTON_Normal);
 
     activeButton->setFixedHeight(36);
-    canCelButton->setFixedHeight(40);
+    canCelButton->setFixedHeight(36);
 
     buttonLayout->addWidget(new QLabel(""));
     buttonLayout->addWidget(activeButton);
@@ -84,6 +85,10 @@ void ActivatePage::init()
     buttonLayout->addWidget(canCelButton);
     buttonLayout->addWidget(new QLabel(""));
     widget->setLayout(buttonLayout);
+
+    date_code_edit->setMinimumHeight(32);
+    machine_code_edit->setMinimumHeight(32);
+    license_code_edit->setMinimumHeight(32);
 
     vlayout->addWidget(date_code_label);
     vlayout->addWidget(date_code_edit);
@@ -163,11 +168,14 @@ void ActivatePage::initMessageBox()
     m_messageBox = new KiranMessageBox(this);
     QPushButton *button = new QPushButton(tr("OK"));
     button->setStyleSheet("QPushButton{"
-                          "color:black;"
+                          "color:#FFFFFF;"
                           "font:NotoSansCJKsc-Regular;"
                           "font-size:14px;"
-                          "border-radius:4px;"
-                          "background:rgba(255,255,255,255);}");
+                          "border-radius:8px;"
+                          "background:#43A3F2;}"
+                          "QPushButton:hover{"
+                          "background:#79C3FF;"
+                          "border:4px;}");
     button->setFocusPolicy(Qt::NoFocus);
     m_messageBox->addButton(button, QDialogButtonBox::AcceptRole);
     m_messageBox->setButtonSize(QSize(80, 30));
@@ -176,11 +184,14 @@ void ActivatePage::initMessageBox()
     m_errorBox = new KiranMessageBox(this);
     QPushButton *bt = new QPushButton(tr("OK"));
     bt->setStyleSheet("QPushButton{"
-                      "color:black;"
+                      "color:#FFFFFF;"
                       "font:NotoSansCJKsc-Regular;"
                       "font-size:14px;"
-                      "border-radius:4px;"
-                      "background:rgba(255,255,255,255);}");
+                      "border-radius:8px;"
+                      "background:#43A3F2;}"
+                      "QPushButton:hover{"
+                      "background:#79C3FF;"
+                      "border:4px;}");
     bt->setFocusPolicy(Qt::NoFocus);
     m_errorBox->addButton(bt, QDialogButtonBox::AcceptRole);
     m_errorBox->setButtonSize(QSize(80, 30));
@@ -189,11 +200,14 @@ void ActivatePage::initMessageBox()
     m_acitvedMessageBox = new KiranMessageBox(this);
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setStyleSheet("QPushButton{"
-                            "color:black;"
+                            "color:#FFFFFF;"
                             "font:NotoSansCJKsc-Regular;"
                             "font-size:14px;"
-                            "border-radius:4px;"
-                            "background:rgba(255,255,255,255);}");
+                            "border-radius:8px;"
+                            "background:#43A3F2;}"
+                            "QPushButton:hover{"
+                            "background:#79C3FF;"
+                            "border:4px;}");
     okButton->setFocusPolicy(Qt::NoFocus);
     m_acitvedMessageBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     m_acitvedMessageBox->setButtonSize(QSize(80, 30));
