@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/license.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef LICENSE_H
 #define LICENSE_H
 

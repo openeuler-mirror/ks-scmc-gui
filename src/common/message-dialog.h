@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/message-dialog.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef MESSAGEDIALOG_H
 #define MESSAGEDIALOG_H
 

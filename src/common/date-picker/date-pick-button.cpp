@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/date-picker/date-pick-button.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "date-pick-button.h"
 #include <QHBoxLayout>
 #include <QPainter>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/security-configuration/network-access-ctl-tab.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef NETWORKACCESSCTLTAB_H
 #define NETWORKACCESSCTLTAB_H
 

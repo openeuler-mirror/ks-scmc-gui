@@ -1,4 +1,10 @@
-﻿#ifndef INFOWorker_H
+﻿/**
+ * @file          /ks-scmc-gui/src/base/info-worker.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+#ifndef INFOWorker_H
 #define INFOWorker_H
 
 #include <QFuture>

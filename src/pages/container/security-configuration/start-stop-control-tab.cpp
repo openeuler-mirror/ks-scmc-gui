@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/security-configuration/start-stop-control-tab.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "start-stop-control-tab.h"
 #include <QVBoxLayout>
 StartStopControlTab::StartStopControlTab(QWidget *parent) : QWidget(parent), m_checkBox(nullptr)
