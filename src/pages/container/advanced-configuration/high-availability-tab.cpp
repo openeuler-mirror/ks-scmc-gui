@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/advanced-configuration/high-availability-tab.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "high-availability-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include "ui_high-availability-tab.h"

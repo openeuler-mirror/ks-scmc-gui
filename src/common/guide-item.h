@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/guide-item.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef GUIDEITEM_H
 #define GUIDEITEM_H
 #include <QListWidgetItem>

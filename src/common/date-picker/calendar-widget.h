@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/date-picker/calendar-widget.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CUSTOMCALENDARWIDGET_H
 #define CUSTOMCALENDARWIDGET_H
 

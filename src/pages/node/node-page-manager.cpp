@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/node/node-page-manager.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "node-page-manager.h"
 #include <kiran-log/qt5-log-i.h>
 #include "node-info-page.h"

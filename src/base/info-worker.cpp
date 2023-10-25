@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/base/info-worker.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "info-worker.h"
 
 #include <kiran-log/qt5-log-i.h>

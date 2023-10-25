@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/trend-chart-form.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "trend-chart-form.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QDateTimeAxis>

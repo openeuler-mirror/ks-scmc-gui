@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/node/node-operate-dialog.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "node-operate-dialog.h"
 #include <widget-property-helper.h>
 #include <QRegExpValidator>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/monitor-dialog.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "monitor-dialog.h"
 #include <QVBoxLayout>
 #include "monitor-content.h"
