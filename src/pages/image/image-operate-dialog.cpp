@@ -60,8 +60,10 @@ void ImageOperateDialog::initUI()
 
     ui->lineEditName->setMaxLength(50);
     ui->lineEditName->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->lineEditName->setTextMargins(10, 0, 10, 0);
     ui->lineEditVersion->setMaxLength(20);
     ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 20 characters"));
+    ui->lineEditVersion->setTextMargins(10, 0, 10, 0);
     ui->textDesc->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     QPushButton *imageFileBtn = new QPushButton(this);
@@ -85,7 +87,7 @@ void ImageOperateDialog::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
     addBtn->setText(tr("Add"));
     addBtn->setFixedSize(56, 30);
     addBtn->setCursor(Qt::PointingHandCursor);
-    lineEdit->setTextMargins(0, 0, addBtn->width(), 0);
+    lineEdit->setTextMargins(10, 0, addBtn->width() + 10, 0);
     hLayout->addStretch();
     hLayout->addWidget(addBtn);
 }
