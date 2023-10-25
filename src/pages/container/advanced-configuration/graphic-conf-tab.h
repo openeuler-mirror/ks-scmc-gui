@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/advanced-configuration/graphic-conf-tab.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef GRAPHICCONFTAB_H
 #define GRAPHICCONFTAB_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/tool-tip-button.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "tool-tip-button.h"
 #include <QProxyStyle>
 

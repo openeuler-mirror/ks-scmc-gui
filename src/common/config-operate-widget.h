@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-operate-widget.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONFIGOPERATEWIDGET_H
 #define CONFIGOPERATEWIDGET_H
 

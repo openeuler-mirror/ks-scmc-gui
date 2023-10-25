@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/template-manager/template-list-page.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef TEMPLATELISTPAGE_H
 #define TEMPLATELISTPAGE_H
 #include <table-page.h>

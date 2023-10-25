@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/rpc_channel.cpp
+ * @brief         
+ * @author        chenhaotian <chenhaotian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "load-configuration.h"
 #include "rpc.h"
 

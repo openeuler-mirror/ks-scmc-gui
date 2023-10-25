@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/base-configuration/cpu-conf-tab.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "cpu-conf-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QValidator>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/config-group.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONFIG_H
 #define CONFIG_H
 
