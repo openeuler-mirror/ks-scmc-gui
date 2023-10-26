@@ -276,7 +276,7 @@ void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPa
     {
         if (reply.first.ok())
         {
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            updateInfo();
             if (m_backupEditDlg)
                 m_backupEditDlg->close();
         }
@@ -298,7 +298,7 @@ void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPa
     {
         if (reply.first.ok())
         {
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            updateInfo();
             if (m_backupAddDlg)
                 m_backupAddDlg->close();
         }
@@ -321,7 +321,7 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
         if (reply.first.ok())
         {
             m_containerId = reply.second.container_id().data();
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            updateInfo();
             MessageDialog::message(tr("Resume Container Backup"),
                                    tr("Resume container backup seccessful!"),
                                    "",
@@ -346,7 +346,7 @@ void ContainerBackupPage::getRemoveBackupFinished(const QString objId, const QPa
     {
         if (reply.first.ok())
         {
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            updateInfo();
         }
         else
         {
