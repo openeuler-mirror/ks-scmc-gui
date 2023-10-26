@@ -54,7 +54,7 @@ ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
     return CONFIG_ARG_ERROR;
 }
 
-void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs* cfg)
+void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)
 {
     KLOG_INFO() << "setVolumeInfo";
     QList<QSharedPointer<ModelItem>> itemList;
@@ -62,8 +62,8 @@ void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs* cfg)
     {
         KLOG_INFO() << mounts.source().data() << mounts.target().data() << mounts.read_only();
         QSharedPointer<ModelItem> pItem(new ModelItem());
-        pItem->m_firstColVal = mounts.source().data();
-        pItem->m_secondColVal = mounts.target().data();
+        pItem->m_firstColVal = mounts.target().data();
+        pItem->m_secondColVal = mounts.source().data();
         pItem->m_thirdColVal = mounts.read_only();
         itemList.push_back(pItem);
     }
