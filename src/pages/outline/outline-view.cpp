@@ -178,6 +178,8 @@ void OutlineView::initUI()
     m_layout->setSpacing(0);
     this->setLayout(m_layout);
 #endif
+
+    this->setStyleSheet("border:none;");
 }
 
 void OutlineView::initConnect()

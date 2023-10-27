@@ -486,8 +486,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
             ///m_thread->start();
             if (!m_mainWindow)
             {
-                m_mainWindow = new MainWindow();
-                m_mainWindow->setUserName(ui->lineEdit_username->text());
+                m_mainWindow = new MainWindow(ui->lineEdit_username->text());
                 m_mainWindow->showMaximized();
                 m_mainWindow->installEventFilter(this);
                 connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
