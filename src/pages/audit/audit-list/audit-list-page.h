@@ -39,7 +39,7 @@ private:
     ImageListPage *m_imagelist_rejected;
 
 signals:
-    void sigUpdateTipSums();
+    void sigUpdateTipSumsProxy();
 };
 
 #endif // AUDITLISTPAGE_H
