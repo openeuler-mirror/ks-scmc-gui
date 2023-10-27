@@ -133,11 +133,13 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
         if (QThreadPool::globalInstance()->activeThreadCount())
         {
             MessageDialog::message(tr("Quit Application"),
-                                   tr("There are threads that have not finished!"),
-                                   tr("Please wait for the thread to end before closing!"),
+                                   tr("There are tasks that have not finished!"),
+                                   tr("Please wait for the tasks to end before closing!"),
                                    ":/images/warning.svg",
                                    MessageDialog::StandardButton::Ok);
             event->ignore();
+            //qApp->quit();
+            //event->accept();
             return true;
         }
         event->accept();
@@ -480,9 +482,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
         if (reply.first.ok())
         {
-            KLOG_INFO() << "before" << m_thread->isRunning();
             m_thread->start();
-            KLOG_INFO() << "after" << m_thread->isRunning();
             if (!m_mainWindow)
             {
                 m_mainWindow = new MainWindow();
