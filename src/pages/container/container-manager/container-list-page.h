@@ -25,7 +25,6 @@ public:
     ~ContainerListPage();
     void updateInfo(QString keyword = "");  //刷新表格
     void getContainerList(qint64 nodeId = -1);
-    void operateAreaVisible(bool visible);
 
 private slots:
     void onBtnRun();

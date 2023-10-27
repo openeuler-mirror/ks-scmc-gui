@@ -58,6 +58,7 @@ void ContainerBackupPage::updateInfo(QString keyword)
     {
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
+            setBusy(true);
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
             m_timer->start(TIMEOUT);
         }
@@ -196,6 +197,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
     KLOG_INFO() << "getListBackupFinished" << m_objId << objId;
     if (m_objId == objId)
     {
+        setBusy(false);
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
@@ -263,7 +265,13 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
             if (reply.first.error_code() == PERMISSION_DENIED)
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             else
+            {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+                if (DEADLINE_EXCEEDED == reply.first.error_code())
+                {
+                    setTips(tr("Response timeout!"));
+                }
+            }
             setTableDefaultContent("-");
         }
     }
