@@ -152,7 +152,7 @@ TablePage #lineEdit_search:focus
 {
     border:1px solid #409EFF ;
 }
-TablePage #label_search_tips
+TablePage #label_tips
 {
     color:#F57900;
 }
