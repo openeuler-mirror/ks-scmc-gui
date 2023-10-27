@@ -135,6 +135,10 @@ public:
     void listWarnLogging(const QString objId, const logging::ListWarnRequest &);
     void readWarnLogging(const QString objId, QList<int64_t> ids);
 
+    //system management
+    void setSecuritySwitch(const QString objId, const bool &isOn);
+    void getSecuritySwitch(const QString objId);
+
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
 
@@ -205,6 +209,10 @@ private:
     static QPair<grpc::Status, logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
     static QPair<grpc::Status, logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
 
+    //system management
+    static QPair<grpc::Status, sys::SetSecuritySwitchReply> _setSecuritySwitch(const sys::SetSecuritySwitchRequest &);
+    static QPair<grpc::Status, sys::GetSecuritySwitchReply> _getSecuritySwitch(const sys::GetSecuritySwitchRequest &);
+
 signals:
     // node management
     void listNodeFinished(QString objId, const QPair<grpc::Status, node::ListReply> &);
@@ -271,6 +279,10 @@ signals:
     void loggingRuntimeFinished(const QString objId, const QPair<grpc::Status, logging::ListRuntimeReply> &);
     void loggingListWarnFinished(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
     void loggingReadWarnFinished(const QString objId, const QPair<grpc::Status, logging::ReadWarnReply> &);
+
+    //system management
+    void setSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::SetSecuritySwitchReply> &);
+    void getSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &);
 
 private:
     QMutex mutex;
