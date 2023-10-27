@@ -37,6 +37,7 @@ signals:
     void sigBackupResume(int row);
     void sigBackupUpdate(int row);
     void sigBackupRemove(int row);
+    void sigBackupExport(int row);
     void sigWarnRead(int row);
     void sigWarnIgnore(int row);
 
