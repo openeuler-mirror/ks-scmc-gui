@@ -130,7 +130,7 @@ public:
     // logging management
     void listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &);
     void listWarnLogging(const QString objId, const logging::ListWarnRequest &);
-    void readWarnLogging(const QString objId,QList<int64_t> ids);
+    void readWarnLogging(const QString objId, QList<int64_t> ids);
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
