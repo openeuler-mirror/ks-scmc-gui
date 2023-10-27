@@ -1,37 +1,37 @@
 /**
- * @file          /ks-scmc-gui/src/pages/audit/audit-list/audit-list-page.h
+ * @file          /ks-scmc-gui/src/pages/image/image-approval-page.h
  * @brief         
  * @author        chendingjian <chendingjian@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
-#ifndef AUDITLISTPAGE_H
-#define AUDITLISTPAGE_H
+#ifndef IMAGE_APPROVE_PAGE_H
+#define IMAGE_APPROVE_PAGE_H
 
-#include "tab-page.h"
 #include "image/image-list-page.h"
+#include "tab-page.h"
 
-enum AuditListPageType
+enum ImageApprovalType
 {
     WAIT_FOR_APPROVE,
-    AUDIT_PASSED,
-    AUDIT_REFUSED
+    APPROVE_PASSED,
+    APPROVE_REFUSED
 };
 
-class AuditListPage : public TabPage
+class ImageApprovalPage : public TabPage
 {
     Q_OBJECT
 public:
-    explicit AuditListPage(QWidget *parent = nullptr);
+    explicit ImageApprovalPage(QWidget *parent = nullptr);
     void setNodeId(qint64 nodeId);
     void updateInfo(QString keyword = "");  //刷新表格
 
 private:
     void initUI();
-    void createSubPage(AuditListPageType type);
+    void createSubPage(ImageApprovalType type);
     void updatePageInfo(int index);
 
 private:
-    void updateAuditInfo();
+    void updateApprovalInfo();
 
 private:
     ImageListPage *m_imagelist_approve;
@@ -42,4 +42,4 @@ signals:
     void sigUpdateTipSumsProxy(int tips);
 };
 
-#endif // AUDITLISTPAGE_H
+#endif  // IMAGE_APPROVE_PAGE_H
