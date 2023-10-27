@@ -21,6 +21,7 @@
 #include "common/guide-item.h"
 #include "common/message-dialog.h"
 #include "def.h"
+#include "notification-manager.h"
 #include "security-configuration/network-access-ctl-tab.h"
 #include "security-configuration/security-list-tab.h"
 #include "security-configuration/start-stop-control-tab.h"
@@ -92,6 +93,13 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMultiMap<int, QSt
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:  //这里不需要获取节点数据,设置模板列表时获取节点数据
         connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+        if (!ids.isEmpty())
+            getContainerInspect();
+        getNodeInfo();
+        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
         break;
     default:
         break;
@@ -320,6 +328,12 @@ void ContainerSetting::initSummaryUI()
         layout->addWidget(m_cbImage, 3, 1);
         break;
     }
+    case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+    {
+        setWindowTitle(tr("Generate template"));
+        ui->label_image->hide();
+        break;
+    }
     default:
         break;
     }
@@ -525,19 +539,9 @@ void ContainerSetting::setNodeNetworkList(int nodeId)
     }
 }
 
-void ContainerSetting::createContainer()
+void ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg)
 {
-    container::CreateRequest request;
     ErrorCode ret;
-    request.set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
-    auto cntrCfg = request.mutable_configs();
-    //cntrCfg->set_container_id("");
-    cntrCfg->set_uuid("");
-    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
-    //cntrCfg->set_status("");
-    cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
-    if (m_cbImage)
-        cntrCfg->set_image(m_cbImage->currentText().toStdString());
     //Graph
     auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
     cntrCfg->set_enable_graphic(graphicPage->isGraphic());
@@ -555,6 +559,7 @@ void ContainerSetting::createContainer()
         return;
     }
 
+    //network
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->getNetworkInfo(cntrCfg);
@@ -592,12 +597,10 @@ void ContainerSetting::createContainer()
         MessageDialog::message(tr("Memory Data"),
                                tr("Input error"),
                                tr("Memory soft limit can't be greater than the maximum limit !"),
-                               ":/images/error.svg",
+                               tr(":/images/error.svg"),
                                MessageDialog::StandardButton::Ok);
         return;
     }
-
-    //limit->set_disk_limit();
 
     //security
     auto securityCfg = cntrCfg->mutable_security_config();
@@ -612,7 +615,6 @@ void ContainerSetting::createContainer()
                                MessageDialog::StandardButton::Ok);
         return;
     }
-
     auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
     if (!processProtectPage->getSecurityListInfo(securityCfg))
     {
@@ -640,6 +642,22 @@ void ContainerSetting::createContainer()
 
     auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
     securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+}
+
+void ContainerSetting::createContainer()
+{
+    container::CreateRequest request;
+    request.set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
+    auto cntrCfg = request.mutable_configs();
+    //cntrCfg->set_container_id("");
+    cntrCfg->set_uuid("");
+    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
+    //cntrCfg->set_status("");
+    cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
+    if (m_cbImage)
+        cntrCfg->set_image(m_cbImage->currentText().toStdString());
+
+    writeContainerConfig(cntrCfg);
 
     InfoWorker::getInstance().createContainer(m_objId, request);
 }
@@ -724,115 +742,16 @@ void ContainerSetting::updateContainer()
 void ContainerSetting::createTemplate()
 {
     container::CreateTemplateRequest request;
-    ErrorCode ret;
 
     auto data = request.mutable_data();
     data->set_node_id(m_nodeInfo.key(ui->cb_node->currentText()));
 
     auto cntrCfg = data->mutable_conf();
+
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
 
-    //Graph
-    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    cntrCfg->set_enable_graphic(graphicPage->isGraphic());
-
-    //volume mounts
-    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-    ret = volumePage->getVolumeInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
-    {
-        MessageDialog::message(tr("Volumes Data"),
-                               tr("Input error"),
-                               tr("Please improve the contents in Volumes table!"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //network
-    foreach (auto networkPage, m_netWorkPages)
-    {
-        networkPage->getNetworkInfo(cntrCfg);
-    }
-
-    //env
-    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-    ret = envPage->getEnvInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
-    {
-        MessageDialog::message(tr("Env Data"),
-                               tr("Input error"),
-                               tr("Please improve the contents in Env table!"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //High
-    auto policy = cntrCfg->mutable_restart_policy();
-    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-    highAvailabilityPage->getRestartPolicy(policy);
-
-    auto limit = cntrCfg->mutable_resouce_limit();
-
-    //cpu
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(limit);
-
-    //memory
-    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    ret = memoryPage->getMemoryInfo(limit);
-    if (ret == INPUT_ARG_ERROR)
-    {
-        MessageDialog::message(tr("Memory Data"),
-                               tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit !"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //security
-    auto securityCfg = cntrCfg->mutable_security_config();
-
-    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    if (!fileProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    if (!processProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
-    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
-
-    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
-    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+    writeContainerConfig(cntrCfg);
 
     InfoWorker::getInstance().createTemplate(m_objId, request);
 }
@@ -849,107 +768,7 @@ void ContainerSetting::updateTemplate()
     cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
 
-    //Graph
-    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-    cntrCfg->set_enable_graphic(graphicPage->isGraphic());
-
-    //volume mounts
-    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-    ret = volumePage->getVolumeInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
-    {
-        MessageDialog::message(tr("Volumes Data"),
-                               tr("Input error"),
-                               tr("Please improve the contents in Volumes table!"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //network
-    foreach (auto networkPage, m_netWorkPages)
-    {
-        networkPage->getNetworkInfo(cntrCfg);
-    }
-
-    //env
-    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
-    ret = envPage->getEnvInfo(cntrCfg);
-    if (ret == INPUT_NULL_ERROR)
-    {
-        MessageDialog::message(tr("Env Data"),
-                               tr("Input error"),
-                               tr("Please improve the contents in Env table!"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //High
-    auto policy = cntrCfg->mutable_restart_policy();
-    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
-    highAvailabilityPage->getRestartPolicy(policy);
-
-    auto limit = cntrCfg->mutable_resouce_limit();
-
-    //cpu
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(limit);
-
-    //memory
-    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    ret = memoryPage->getMemoryInfo(limit);
-    if (ret == INPUT_ARG_ERROR)
-    {
-        MessageDialog::message(tr("Memory Data"),
-                               tr("Input error"),
-                               tr("Memory soft limit can't be greater than the maximum limit !"),
-                               tr(":/images/error.svg"),
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    //security
-    auto securityCfg = cntrCfg->mutable_security_config();
-
-    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
-    if (!fileProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in file protection.\nPlease re-enter your path !"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    if (!processProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in process protection.\nPlease re-enter your path!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
-    if (!netProcessProtectPage->getSecurityListInfo(securityCfg))
-    {
-        MessageDialog::message(windowTitle(),
-                               tr("Input error"),
-                               tr("An invalid path was detected in network process protection.\nPlease re-enter your path!"),
-                               ":/images/error.svg",
-                               MessageDialog::StandardButton::Ok);
-        return;
-    }
-
-    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
-    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
-
-    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
-    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+    writeContainerConfig(cntrCfg);
 
     InfoWorker::getInstance().updateTemplate(m_objId, request);
 }
@@ -1065,6 +884,9 @@ void ContainerSetting::onConfirm()
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         updateTemplate();
         break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
+        createTemplate();
+        break;
     default:
         break;
     }
@@ -1116,7 +938,7 @@ void ContainerSetting::getNodeListResult(QString objId, const QPair<grpc::Status
             }
 
             //  由于获取节点和获取容器inspect接口返回时间不确定，这3个类型下不能调用setNodeNetworkList，否则会覆盖
-            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
+            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT || m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT || m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
                 ui->cb_node->setCurrentText(m_nodeInfo.value(m_containerIds.first));
             else if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE)
             {
@@ -1419,6 +1241,8 @@ void ContainerSetting::getCreateTemplateFinishResult(QString objId, const QPair<
     {
         if (reply.first.ok())
         {
+            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
+                NotificationManager::sendNotify(tr("Create template successful!"), tr("You can see it in container template page."));
             emit sigUpdateTemplate();
             close();
         }

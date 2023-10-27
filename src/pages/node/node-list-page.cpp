@@ -359,7 +359,6 @@ void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status
 
 void NodeListPage::onItemClicked(const QModelIndex &index)
 {
-    KLOG_INFO() << "onItemClicked: " << index.column();
     if (index.column() == 1)
     {
         auto item = getItem(index.row(), index.column());

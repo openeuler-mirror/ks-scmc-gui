@@ -32,6 +32,7 @@ pkg_search_module(CRYPTOPP REQUIRED cryptopp)
 pkg_search_module(KYLIN_LICENSE REQUIRED kylin-license)
 pkg_search_module(GRPCXX REQUIRED grpc++)
 pkg_search_module(PROTOBUF REQUIRED protobuf)
+pkg_search_module(LIBNOTIFY REQUIRED libnotify)
 
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)

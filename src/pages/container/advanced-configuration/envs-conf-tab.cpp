@@ -32,7 +32,8 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
         {
             auto key = item->m_firstColVal;
             auto value = item->m_secondColVal;
-            printf("%s,%d,%d,%d\n", __func__, __LINE__, key.isEmpty(), value.isEmpty());
+            KLOG_INFO() << key.isEmpty() << value.isEmpty();
+
             if (key.isEmpty())
             {
                 if (!value.isEmpty())
