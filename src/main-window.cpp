@@ -8,18 +8,16 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QDesktopWidget>
 #include <QIcon>
 #include <QMutexLocker>
 #include <QPainter>
-#include <QTimer>
 #include <QToolTip>
-#include <iostream>
 #include "./ui_main-window.h"
 #include "common/about-page.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
+#include "message-dialog.h"
 #include "page.h"
 #include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/audit/log-list/log-list-page.h"
@@ -28,7 +26,6 @@
 #include "pages/container/template-manager/template-list-page.h"
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
-#include "pages/node/node-list-page.h"
 #include "pages/node/node-page-manager.h"
 #include "pages/user/passwd-update-dialog.h"
 #include "table-page.h"
@@ -51,14 +48,11 @@ MainWindow::MainWindow(QWidget* parent)
     : KiranTitlebarWindow(parent),
       ui(new Ui::MainWindow),
       m_transmissionList(nullptr),
-      m_timer(nullptr),
       m_pwUpdateDlg(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
     initUI();
-    m_timer = new QTimer(this);
-    //connect(m_timer, &QTimer::timeout, this, &MainWindow::)
     connect(m_stackedWidget, SIGNAL(currentChanged(int)), this, SLOT(changePage(int)));
 }
 
@@ -161,13 +155,80 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 
             m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
             m_transmissionList->show();
+            return true;
         }
     }
+    //    else if (m_filterInput && obj == this && event->type() == QEvent::MouseButtonPress)
+    //    {
+    //        KLOG_INFO() << "filter input";
+    //        return true;
+    //    }
     else
-        m_transmissionList->hide();
+    {
+        if (m_transmissionList)
+            m_transmissionList->hide();
+    }
 
     return false;
 }
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    if (QThreadPool::globalInstance()->activeThreadCount())
+    {
+        MessageDialog::message(tr("Quit Application"),
+                               tr("There are threads that have not finished!"),
+                               tr("Please wait for the thread to end before closing!"),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        event->ignore();
+        return;
+        //        if (ret == MessageDialog::StandardButton::Cancel)
+        //        {
+        //            event->ignore();
+        //        }
+        //        else
+        //        {
+        //            m_timerId = this->startTimer(500);
+
+        //            KLOG_INFO() << "start timer" << m_timerId;
+        //            QEventLoop loop;
+        //            //QThread::msleep(10000);
+        //            while (true)
+        //            {
+        //                loop.processEvents(QEventLoop::ExcludeUserInputEvents, 500);
+        //                //                if (!QThreadPool::globalInstance()->activeThreadCount())
+        //                //                {
+        //                //                    break;
+        //                //                }
+        //                //if (!m_filterInput)
+        //                if (m_isClose)
+        //                    break;
+        //            }
+        //            event->accept();
+        //        }
+        //        return;
+    }
+    event->accept();
+}
+
+//void MainWindow::timerEvent(QTimerEvent* event)
+//{
+//    KLOG_INFO() << "timerEvent " << event->timerId();
+//    if (event->timerId() == m_timerId)
+//    {
+//        KLOG_INFO() << m_timerId;
+//        if (0 == QThreadPool::globalInstance()->activeThreadCount())
+//        {
+//            m_filterInput = false;
+//            killTimer(m_timerId);
+//            m_isClose = true;
+//        }
+//        else
+//            m_filterInput = true;
+//        KLOG_INFO() << "m_filterInput=" << m_filterInput << "m_isClose = " << m_isClose;
+//    }
+//}
 
 void MainWindow::initUI()
 {
