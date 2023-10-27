@@ -151,7 +151,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
         if (event->type() == QEvent::MouseButtonPress)
         {
             QPoint point = m_btnTransmission->mapToGlobal(QPoint(0, 0));
-            KLOG_INFO() << point;
 
             m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
             m_transmissionList->show();
@@ -351,6 +350,7 @@ void MainWindow::initUI()
     m_outline->updateInfo();
     //    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
+    connect(m_outline, &OutlineView::sigApproveSumNums, this, &MainWindow::setApprovalTipNums);
     connect(m_outline, &OutlineView::sigWarnSumNums, this, &MainWindow::setWarningTipNums);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
