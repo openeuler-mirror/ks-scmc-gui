@@ -151,6 +151,8 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
         if (event->type() == QEvent::MouseButtonPress)
         {
             QPoint point = m_btnTransmission->mapToGlobal(QPoint(0, 0));
+            KLOG_INFO() << point;
+
             m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
             m_transmissionList->show();
             return true;
@@ -349,7 +351,6 @@ void MainWindow::initUI()
     m_outline->updateInfo();
     //    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
-    connect(m_outline, &OutlineView::sigApprovalNums, this, &MainWindow::setApprovalTipNums);
     connect(m_outline, &OutlineView::sigWarnSumNums, this, &MainWindow::setWarningTipNums);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
@@ -437,12 +438,9 @@ void MainWindow::changePage(int)
     }
 }
 
-void MainWindow::onUpdateTipsSums()
+void MainWindow::onUpdateWarnTipsSums()
 {
-    m_outline->updateInfo();
-    //    QThread::sleep(5);
-    //    int a = m_outline->getWarningSums().toInt();
-    //    setWarningTipNums(m_outline->getWarningSums().toInt());
+    m_outline->updateWarningSums();
 }
 
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
@@ -470,14 +468,14 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_IMAGE_LIST:
     {
         ImageListPage* imagePage = new ImageListPage(this);
-        connect(imagePage, &ImageListPage::sigUpdateTipSums, this, &MainWindow::onUpdateTipsSums);
+        connect(imagePage, &ImageListPage::sigUpdateAPproveTipSums, this, &MainWindow::setApprovalTipNums);
         page = imagePage;
         break;
     }
     case GUIDE_ITEM_AUDIT_APPLY_LIST:
     {
         AuditListPage* auditPage = new AuditListPage(this);
-        connect(auditPage, &AuditListPage::sigUpdateTipSumsProxy, this, &MainWindow::onUpdateTipsSums);
+        connect(auditPage, &AuditListPage::sigUpdateTipSumsProxy, this, &MainWindow::setApprovalTipNums);
         page = auditPage;
         break;
     }
@@ -489,7 +487,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_AUDIT_WARNING_LIST:
     {
         WarningListPage* warnPage = new WarningListPage(this);
-        connect(warnPage, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onUpdateTipsSums);
+        connect(warnPage, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onUpdateWarnTipsSums);
         page = warnPage;
         break;
     }
