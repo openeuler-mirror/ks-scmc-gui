@@ -16,7 +16,6 @@ MaskWidget::MaskWidget(QWidget *parent) : QWidget(parent), m_labLoading(nullptr)
 
 void MaskWidget::setMaskVisible(bool visible)
 {
-    KLOG_INFO() << "setMaskVisible";
     this->setVisible(visible);
 }
 
