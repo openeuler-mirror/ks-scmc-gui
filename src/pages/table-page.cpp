@@ -184,6 +184,7 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     connect(m_btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::onDelete);
     connect(m_btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
     connect(m_btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
+    connect(m_btnDelegate, &ButtonDelegate::sigActGenerateTemp, this, &TablePage::sigGenerateTemp);
     connect(m_btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
     connect(m_btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::sigImagePass);
     connect(m_btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::sigImageRefuse);

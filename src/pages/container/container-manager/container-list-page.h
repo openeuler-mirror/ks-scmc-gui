@@ -39,6 +39,7 @@ private slots:
     void onActBatchUpdate();
     void onActBatchEdit();
     void onActBackup();
+    void onActGenerateTemp(QModelIndex index);
 
     void onMonitor(int row);
     void onEdit(int row);
