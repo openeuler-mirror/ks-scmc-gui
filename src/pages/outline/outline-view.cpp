@@ -732,41 +732,6 @@ void OutlineView::setOutlineCellWarning()
     m_outlineCell_warning->ui->horizontalLayout_2->deleteLater();
     m_outlineCell_warning->ui->verticalLayout->setContentsMargins(0, 0, 0, 21);
 
-    //    m_outlineCell_warning->ui->label_online_txt->setStyleSheet("QLabel {"
-    //                                                               "background: transparent;"
-    //                                                               "border:none;"
-    //                                                               "font: NotoSansCJKsc-Regular;"
-    //                                                               "font-size: 14px;"
-    //                                                               "border-radius:0px;"
-    //                                                               "color: #ffffff;}");
-    //    m_outlineCell_warning->ui->label_online_txt->setText(tr("online: "));
-
-    //    m_outlineCell_warning->ui->label_offline_txt->setStyleSheet("QLabel {"
-    //                                                                "background: transparent;"
-    //                                                                "border:none;"
-    //                                                                "font: NotoSansCJKsc-Regular;"
-    //                                                                "font-size: 14px;"
-    //                                                                "border-radius:0px;"
-    //                                                                "color: #ffffff;}");
-    //    m_outlineCell_warning->ui->label_offline_txt->setText(tr("offline: "));
-
-    //    m_outlineCell_warning->ui->online_counts->setStyleSheet("QLabel {"
-    //                                                            "background: transparent;"
-    //                                                            "border:none;"
-    //                                                            "font: NotoSansCJKsc-Regular;"
-    //                                                            "font-size: 36px;"
-    //                                                            "border-radius:0px;"
-    //                                                            "color: #ffffff;}");
-    //    m_outlineCell_warning->ui->online_counts->setText(tr("1"));
-    //    m_outlineCell_warning->ui->offline_counts->setStyleSheet("QLabel {"
-    //                                                             "background: transparent;"
-    //                                                             "border:none;"
-    //                                                             "font: NotoSansCJKsc-Regular;"
-    //                                                             "font-size: 36px;"
-    //                                                             "border-radius:0px;"
-    //                                                             "color: #ffffff;}");
-    //    m_outlineCell_warning->ui->offline_counts->setText(tr("1"));
-
     m_outlineCell_warning->ui->outline_pix->setStyleSheet("QLabel{"
                                                           "background-image:url(:/images/warning-number.png);"
                                                           "background-position:center;"
