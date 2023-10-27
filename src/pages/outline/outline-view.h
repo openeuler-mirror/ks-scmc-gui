@@ -26,6 +26,7 @@ public:
     explicit OutlineView(QWidget *parent = nullptr);
     ~OutlineView() override;
     void updateInfo(QString keyword = "");
+    void updateWarningSums();
     QString getApproveSums();
     QString getWarningSums();
 
@@ -62,7 +63,6 @@ private slots:
 
 signals:
     void outlineCellStepPages(OutlineCellType type);
-    void sigApprovalNums(int size);  // 传出待审核总数
     void sigWarnSumNums(int size);   // 传出告警总数
 
 private:
