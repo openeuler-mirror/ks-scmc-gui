@@ -34,8 +34,8 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
                                                       m_searchCol(1)
 {
     ui->setupUi(this);
-    initUI();
     m_isOpenPaging = is_open;
+    initUI();
     m_searchTimer = new QTimer(this);
     connect(m_searchTimer, &QTimer::timeout,
             [this] {
@@ -339,6 +339,25 @@ void TablePage::updatePaging(int page_no)
     m_pageEdit->setText(QString::number(page_no));
 }
 
+//QString TablePage::getSearchKey()
+//{
+//    return ui->lineEdit_search->text();
+//}
+
+void TablePage::setSeachPageNone()
+{
+    ui->label_tips->setText(tr("No search results were found!"));
+    //ui->tableView->setFixedHeight(120);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+    if (m_isHeadCheckable)
+        m_headerView->setCheckable(false);
+}
+
+void TablePage::hideSearchLine()
+{
+    ui->lineEdit_search->setVisible(false);
+}
+
 void TablePage::initUI()
 {
     setMaskParent(this);
@@ -389,10 +408,11 @@ void TablePage::initUI()
     connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &TablePage::refresh);
-    connect(ui->lineEdit_search, &QLineEdit::textChanged,
-            [this](QString text) {
-                m_searchTimer->start(TIMEOUT);
-            });
+    if (!m_isOpenPaging)
+        connect(ui->lineEdit_search, &QLineEdit::textChanged,
+                [this](QString text) {
+                    m_searchTimer->start(TIMEOUT);
+                });
 }
 
 void TablePage::initPaging()
@@ -664,41 +684,49 @@ void TablePage::search()
     }
     else
     {
-        //show keyword row
-        int rowCounts = m_model->rowCount();
-        for (int i = 0; i < rowCounts; i++)
+        if(!m_isOpenPaging)
         {
-            QStandardItem *item = m_model->item(i, m_searchCol);
-            if (!item->text().contains(text))
+            //show keyword row
+            int rowCounts = m_model->rowCount();
+            for (int i = 0; i < rowCounts; i++)
             {
-                ui->tableView->setRowHidden(i, true);
+                QStandardItem *item = m_model->item(i, m_searchCol);
+                if (!item->text().contains(text))
+                {
+                    ui->tableView->setRowHidden(i, true);
+                }
+                else
+                {
+                    ui->tableView->showRow(i);
+                    resultCount++;
+                }
             }
-            else
+
+            if (resultCount == 0)
             {
-                ui->tableView->showRow(i);
-                resultCount++;
+                setSeachPageNone();
+                return;
             }
-        }
-        if (resultCount == 0)
-        {
-            ui->label_tips->setText(tr("No search results were found!"));
-            //ui->tableView->setFixedHeight(120);
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+            //sort
+            ui->label_tips->clear();
             if (m_isHeadCheckable)
-                m_headerView->setCheckable(false);
-            return;
+                m_headerView->setCheckable(true);
+            //adjustTableSize();
         }
-        //sort
-        ui->label_tips->clear();
-        if (m_isHeadCheckable)
-            m_headerView->setCheckable(true);
-        //adjustTableSize();
+        else
+        {
+            // 分页搜索
+            emit sigPagingSearch(text);
+        }
     }
 }
 
 void TablePage::refresh()
 {
     m_refreshBtnTimer->start(100);
+    //刷新搜索结果
+    if (m_isOpenPaging)
+        emit sigRefreshSearchResult();
     //更新列表信息
     updateInfo();
 }
