@@ -30,7 +30,6 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
 
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
-    cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
 }
 
 //更新容器使用
@@ -44,7 +43,6 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
     KLOG_INFO() << "Network interface:" << name;
     cfg->set_interface(name.toStdString());
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
-    cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
 }
 
 //更新容器,更新模板 时设置界面初始值
@@ -59,7 +57,6 @@ void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<
     setVirtNetwork(name);
 
     ui->lineEdit_ip->setText(QString::fromStdString(networkCfg->ip_address().data()));
-    ui->lineEdit_mac->setText(QString::fromStdString(networkCfg->mac_address().data()));
 }
 
 void NetworkConfTab::setVirtNetwork(QString virtNetwork)
@@ -90,7 +87,6 @@ void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
     ui->cb_virt_networkcard->clear();
     ui->cb_virt_networkcard->addItems(QStringList(networks));
     ui->lineEdit_ip->clear();
-    ui->lineEdit_mac->clear();
 }
 
 void NetworkConfTab::initUI()
@@ -107,9 +103,4 @@ void NetworkConfTab::initUI()
                                    "}");
     QRegExp rx("\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
     ui->lineEdit_ip->setValidator(new QRegExpValidator(rx));
-
-    ui->lineEdit_mac->setTextMargins(10, 0, 0, 0);
-    QRegExp rxMac("([0-9a-fA-F]{2})((:[0-9a-fA-F]{2}){5})");
-    ui->lineEdit_mac->setValidator(new QRegExpValidator(rxMac));
-    ui->lineEdit_mac->setPlaceholderText(tr("Default auto-assignment when not config"));
 }
