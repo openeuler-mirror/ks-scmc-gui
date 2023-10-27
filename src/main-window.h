@@ -42,6 +42,8 @@ protected:
     void onItemClicked(QListWidgetItem *currItem);
     void paintEvent(QPaintEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event);
+    void closeEvent(QCloseEvent *event);
+    //void timerEvent(QTimerEvent *event);
 
 private:
     void initUI();
@@ -81,10 +83,12 @@ private:
     BubbleTipButton *m_btnTransmission;
     BubbleTipButton *m_btnApproval;
     BubbleTipButton *m_btnWarning;
-    QTimer *m_timer;
     QMutex m_mutex;
     OutlineView *m_outline;
     QString m_userName;
     PasswdUpdateDialog *m_pwUpdateDlg;
+    //    bool m_filterInput;
+    //    bool m_isClose;
+    //    int m_timerId;
 };
 #endif  // MAINWINDOW_H

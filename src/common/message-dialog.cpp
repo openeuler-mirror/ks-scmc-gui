@@ -7,7 +7,6 @@
 #include "message-dialog.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QAbstractButton>
-#include <QDebug>
 #include <QMetaEnum>
 #include <QPushButton>
 #include "ui_message-dialog.h"
