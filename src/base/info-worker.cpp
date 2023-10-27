@@ -272,9 +272,10 @@ void InfoWorker::listBackup(const QString objId, int nodeId, std::string contain
     RPC_ASYNC(container::ListBackupReply, _listBackup, listBackupFinished, objId, req);
 }
 
-void InfoWorker::updateBackup(const QString objId, int id, std::string backupDesc)
+void InfoWorker::updateBackup(const QString objId, int nodeId, int id, std::string backupDesc)
 {
     container::UpdateBackupRequest req;
+    req.set_node_id(nodeId);
     req.set_id(id);
     req.set_backup_desc(backupDesc);
     RPC_ASYNC(container::UpdateBackupReply, _updateBackup, updateBackupFinished, objId, req);
@@ -289,9 +290,10 @@ void InfoWorker::createBackup(const QString objId, int nodeId, std::string conta
     RPC_ASYNC(container::CreateBackupReply, _createBackup, createBackupFinished, objId, req);
 }
 
-void InfoWorker::removeBackup(const QString objId, int64_t id)
+void InfoWorker::removeBackup(const QString objId, int nodeId, int64_t id)
 {
     container::RemoveBackupRequest req;
+    req.set_node_id(nodeId);
     req.set_id(id);
     RPC_ASYNC(container::RemoveBackupReply, _removeBackup, removeBackupFinished, objId, req);
 }

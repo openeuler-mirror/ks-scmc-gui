@@ -43,7 +43,7 @@ message UploadRequest {
 }
 
 message UploadReply {
-    int64 image_id = 1;  //in db
+    int64 image_id = 1;  // in db
 }
 
 message UpdateRequest {

@@ -6,9 +6,12 @@
  */
 #include "container-backup-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include <widget-property-helper.h>
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QLineEdit>
+#include <QRadioButton>
 #include <QTimer>
 #include "message-dialog.h"
 #include "notification-manager.h"
@@ -18,6 +21,7 @@ using namespace grpc;
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
                                                             m_backupAddDlg(nullptr),
                                                             m_backupEditDlg(nullptr),
+                                                            m_exportWindow(nullptr),
                                                             m_nodeId(-1),
                                                             m_containerId("")
 {
@@ -112,7 +116,7 @@ void ContainerBackupPage::onRemoveBackupBtn()
         if (ret == MessageDialog::StandardButton::Yes)
         {
             auto backupId = infoMap.at(0).value(BACKUP_ID).toInt();
-            InfoWorker::getInstance().removeBackup(m_objId, backupId);
+            InfoWorker::getInstance().removeBackup(m_objId, m_nodeId, backupId);
         }
         else
             KLOG_INFO() << "cancel";
@@ -124,7 +128,7 @@ void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc)
     if (type == BACKUP_OPERATE_TYPE_CREATE)
         InfoWorker::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString());
     else if (type == BACKUP_OPERATE_TYPE_EDIT)
-        InfoWorker::getInstance().updateBackup(m_objId, m_updateBackupId, desc.toStdString());
+        InfoWorker::getInstance().updateBackup(m_objId, m_nodeId, m_updateBackupId, desc.toStdString());
 }
 
 void ContainerBackupPage::onRemoveBackup(int row)
@@ -139,7 +143,7 @@ void ContainerBackupPage::onRemoveBackup(int row)
     if (ret == MessageDialog::StandardButton::Yes)
     {
         auto backupId = infoMap.value(BACKUP_ID).toInt();
-        InfoWorker::getInstance().removeBackup(m_objId, backupId);
+        InfoWorker::getInstance().removeBackup(m_objId, m_nodeId, backupId);
     }
     else
         KLOG_INFO() << "cancel";
@@ -191,6 +195,27 @@ void ContainerBackupPage::onUpdateBackup(int row)
                     m_backupEditDlg = nullptr;
                 });
     }
+}
+
+void ContainerBackupPage::onExportBackup(int row)
+{
+    KLOG_INFO() << "export backup " << row;
+    if (m_exportWindow == nullptr)
+    {
+        m_exportWindow = createExportWindow();
+        connect(m_exportWindow, &KiranTitlebarWindow::destroyed,
+                [=] {
+                    KLOG_INFO() << " export backup window destroy";
+                    m_exportWindow->deleteLater();
+                    m_exportWindow = nullptr;
+                });
+    }
+    int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+    QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+    m_exportWindow->move(screenGeometry.x() + (screenGeometry.width() - m_exportWindow->width()) / 2,
+                         screenGeometry.y() + (screenGeometry.height() - m_exportWindow->height()) / 2);
+    m_exportWindow->raise();
+    m_exportWindow->show();
 }
 
 void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
@@ -382,6 +407,7 @@ void ContainerBackupPage::initTable()
 
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_BACKUP_RESUME, QPair<QString, QString>{tr("Resume"), tr("Resume")}},
                                                                                                    {ACTION_BUTTON_TYPE_BACKUP_UPDATE, QPair<QString, QString>{tr("Update"), tr("Update")}},
+                                                                                                   {ACTION_BUTTON_TYPE_BACKUP_EXPORT, QPair<QString, QString>{tr("Export"), tr("Export")}},
                                                                                                    {ACTION_BUTTON_TYPE_BACKUP_REMOVE, QPair<QString, QString>{tr("Remove"), tr("Remove")}}});
 
     setTableDefaultContent("-");
@@ -390,6 +416,7 @@ void ContainerBackupPage::initTable()
     connect(this, &ContainerBackupPage::sigBackupResume, this, &ContainerBackupPage::onResumeBackup);
     connect(this, &ContainerBackupPage::sigBackupUpdate, this, &ContainerBackupPage::onUpdateBackup);
     connect(this, &ContainerBackupPage::sigBackupRemove, this, &ContainerBackupPage::onRemoveBackup);
+    connect(this, &ContainerBackupPage::sigBackupExport, this, &ContainerBackupPage::onExportBackup);
 }
 
 void ContainerBackupPage::initButtons()
@@ -427,4 +454,69 @@ void ContainerBackupPage::initConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::listBackupFinished, this, &ContainerBackupPage::getListBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::updateBackupFinished, this, &ContainerBackupPage::getUpdateBackupFinished);
     connect(&InfoWorker::getInstance(), &InfoWorker::resumeBackupFinished, this, &ContainerBackupPage::getResumeBackupFinished);
+}
+
+KiranTitlebarWindow *ContainerBackupPage::createExportWindow()
+{
+    KiranTitlebarWindow *window = new KiranTitlebarWindow(this);
+    window->setAttribute(Qt::WA_DeleteOnClose, true);
+    window->setTitle("Export");
+    window->setIcon(QIcon(":/images/logo.png"));
+    window->setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
+    window->setResizeable(false);
+
+    //创建内容窗口
+    QWidget *content = new QWidget(window);
+    QVBoxLayout *mainLayout = new QVBoxLayout(content);
+    mainLayout->setSpacing(20);
+    mainLayout->setContentsMargins(20, 20, 20, 20);
+
+    QHBoxLayout *versionLayout = new QHBoxLayout;
+    versionLayout->setMargin(0);
+    versionLayout->setSpacing(10);
+    QLabel *label = new QLabel(tr("Version"), content);
+    QLineEdit *line = new QLineEdit(content);
+    versionLayout->addWidget(label);
+    versionLayout->addWidget(line);
+
+    QHBoxLayout *radioBtnLayout = new QHBoxLayout;
+    radioBtnLayout->setMargin(0);
+    radioBtnLayout->setSpacing(10);
+    QRadioButton *btnToLocal = new QRadioButton(tr("Export to local"), content);
+    btnToLocal->setChecked(true);
+    QRadioButton *btnToImage = new QRadioButton(tr("Export to image manager"), content);
+    radioBtnLayout->addStretch();
+    radioBtnLayout->addWidget(btnToLocal);
+    radioBtnLayout->addWidget(btnToImage);
+    radioBtnLayout->addStretch();
+
+    QHBoxLayout *btnLayout = new QHBoxLayout;
+    btnLayout->setMargin(0);
+    btnLayout->setSpacing(20);
+
+    QPushButton *btnConfirm = new QPushButton(tr("Confirm"), content);
+    btnConfirm->setFixedSize(100, 40);
+    Kiran::WidgetPropertyHelper::setButtonType(btnConfirm, Kiran::BUTTON_Default);
+    connect(btnConfirm, &QPushButton::clicked,
+            [=] {
+
+            });
+
+    QPushButton *btnCancel = new QPushButton(tr("Cancel"), content);
+    btnCancel->setFixedSize(100, 40);
+    connect(btnCancel, &QPushButton::clicked, window, &KiranTitlebarWindow::close);
+
+    btnLayout->addStretch();
+    btnLayout->addWidget(btnConfirm);
+    btnLayout->addWidget(btnCancel);
+
+    mainLayout->addLayout(versionLayout);
+    mainLayout->addLayout(radioBtnLayout);
+    mainLayout->addStretch();
+    mainLayout->addLayout(btnLayout);
+
+    window->setWindowContentWidget(content);
+    window->resize(500, 400);
+
+    return window;
 }
