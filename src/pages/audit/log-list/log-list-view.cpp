@@ -46,6 +46,7 @@ void LogListView::initTable()
         tr("Operation Details")};
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
+    setSearchableCol(2);  //设置"对象"列可供搜索
     setTableDefaultContent("-");
     //    setTableSingleChoose(true);
 }
