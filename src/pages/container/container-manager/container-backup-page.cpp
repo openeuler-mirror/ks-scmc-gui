@@ -21,7 +21,7 @@ using namespace grpc;
 ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
                                                             m_backupAddDlg(nullptr),
                                                             m_backupEditDlg(nullptr),
-                                                            m_exportWindow(nullptr),
+                                                            m_backupExportDlg(nullptr),
                                                             m_nodeId(-1),
                                                             m_containerId("")
 {
@@ -123,10 +123,10 @@ void ContainerBackupPage::onRemoveBackupBtn()
     }
 }
 
-void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc)
+void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc, QString name)
 {
     if (type == BACKUP_OPERATE_TYPE_CREATE)
-        InfoWorker::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString());
+        InfoWorker::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString(), name.toStdString());
     else if (type == BACKUP_OPERATE_TYPE_EDIT)
         InfoWorker::getInstance().updateBackup(m_objId, m_nodeId, m_updateBackupId, desc.toStdString());
 }
@@ -199,23 +199,43 @@ void ContainerBackupPage::onUpdateBackup(int row)
 
 void ContainerBackupPage::onExportBackup(int row)
 {
-    KLOG_INFO() << "export backup " << row;
-    if (m_exportWindow == nullptr)
+    auto item = getItem(row, 1);
+    QMap<QString, QVariant> infoMap = item->data().toMap();
+    int64_t backupId = infoMap.value(BACKUP_ID).toInt();
+    m_exportBackupId = backupId;
+
+    if (m_backupExportDlg == nullptr)
     {
-        m_exportWindow = createExportWindow();
-        connect(m_exportWindow, &KiranTitlebarWindow::destroyed,
+        m_backupExportDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EXPORT);
+        connect(m_backupExportDlg, &ContainerBackupOperateDialog::destroyed,
                 [=] {
-                    KLOG_INFO() << " export backup window destroy";
-                    m_exportWindow->deleteLater();
-                    m_exportWindow = nullptr;
+                    KLOG_INFO() << " export backup dialog destroy";
+                    m_backupExportDlg->deleteLater();
+                    m_backupExportDlg = nullptr;
                 });
+        connect(m_backupExportDlg, &ContainerBackupOperateDialog::sigExport, this, &ContainerBackupPage::exportBackup);
     }
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-    m_exportWindow->move(screenGeometry.x() + (screenGeometry.width() - m_exportWindow->width()) / 2,
-                         screenGeometry.y() + (screenGeometry.height() - m_exportWindow->height()) / 2);
-    m_exportWindow->raise();
-    m_exportWindow->show();
+    m_backupExportDlg->move(screenGeometry.x() + (screenGeometry.width() - m_backupExportDlg->width()) / 2,
+                            screenGeometry.y() + (screenGeometry.height() - m_backupExportDlg->height()) / 2);
+    m_backupExportDlg->raise();
+    m_backupExportDlg->show();
+}
+
+void ContainerBackupPage::exportBackup(bool isDownload, QString name, QString version, QString desc, QString path)
+{
+    if (!isDownload)  //to image manager
+    {
+        container::ExportBackupRequest req;
+        req.set_node_id(m_nodeId);
+        req.set_backup_id(m_exportBackupId);
+        req.set_is_download(isDownload);
+        req.set_img_name(name);
+        req.set_img_version(version);
+        req.set_description(desc);
+        InfoWorker::exportBackup(m_objId, req);
+    }
 }
 
 void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
@@ -354,21 +374,11 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
             m_containerId = reply.second.container_id().data();
             updateInfo();
             NotificationManager::sendNotify(tr("Resume container backup seccessful!"), "");
-            //            MessageDialog::message(tr("Resume Container Backup"),
-            //                                   tr("Resume container backup seccessful!"),
-            //                                   "",
-            //                                   ":/images/success.svg",
-            //                                   MessageDialog::StandardButton::Ok);
         }
         else
         {
             NotificationManager::sendNotify(tr("Resume container backup failed!"),
                                             tr("Error: %1").arg(reply.first.error_message().data()));
-            //            MessageDialog::message(tr("Resume Container Backup"),
-            //                                   tr("Resume container backup failed!"),
-            //                                   tr("Error: %1").arg(reply.first.error_message().data()),
-            //                                   ":/images/error.svg",
-            //                                   MessageDialog::StandardButton::Ok);
         }
     }
 }
