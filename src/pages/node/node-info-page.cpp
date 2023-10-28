@@ -8,10 +8,12 @@
 #include <kiran-log/qt5-log-i.h>
 #include "container/container-manager/container-list-page.h"
 #include "monitor-content.h"
+#include "network/network-page-manager.h"
 NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPage(nullptr), m_monitor(nullptr)
 {
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_MONITOR);
+    createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK);
     connect(this, &NodeInfoPage::sigTabBarClicked, this, &NodeInfoPage::updatePageInfo);
 }
 
@@ -23,8 +25,9 @@ void NodeInfoPage::setNodeId(qint64 nodeId)
 void NodeInfoPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "NodeInfoPage UpdateInfo" << m_nodeId;
-    m_monitor->updateMonitorInfo(m_nodeId);
+    setCurrentPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     m_containerListPage->getContainerList(m_nodeId);
+    //    m_monitor->updateMonitorInfo(m_nodeId);
 }
 
 void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
@@ -44,6 +47,11 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
         addTabPage(m_monitor, tr("Monitor"));
         break;
     }
+    case NODE_INFO_SUB_PAGE_TYPE_NETWORK:
+    {
+        m_networkPage = new NetworkPageManager(this);
+        addTabPage(m_networkPage, tr("Network"));
+    }
     default:
         break;
     }
@@ -57,4 +65,9 @@ void NodeInfoPage::updatePageInfo(int index)
     }
     else if (index == NODE_INFO_SUB_PAGE_TYPE_MONITOR)
         m_monitor->updateMonitorInfo(m_nodeId);
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_NETWORK)
+    {
+        m_networkPage->setNodeId(m_nodeId);
+        m_networkPage->updateInfo();
+    }
 }
