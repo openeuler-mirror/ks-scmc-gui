@@ -67,7 +67,10 @@ message ExportBackupRequest {
 }
 
 message ExportBackupReply {
-    bytes data = 1;
+    bytes  data        = 1;
+    int64  img_size    = 2;
+    string img_name    = 3;
+    string img_version = 4;
 }
 
 message InspectBackupRequest {
@@ -93,19 +96,19 @@ message ListAppEntryRequest {
 }
 
 message ListAppEntryReply {
-    repeated AppEntry app_entry = 1;
+    repeated AppEntry apps = 1;
 }
 
 message AddAppEntryRequest {
-    int64    node_id   = 1;
-    AppEntry app_entry = 3;
+    int64    node_id = 1;
+    AppEntry app     = 2;
 }
 
 message AddAppEntryReply {}
 
 message UpdateAppEntryRequest {
-    int64    node_id   = 1;
-    AppEntry app_entry = 2;
+    int64    node_id = 1;
+    AppEntry app     = 2;
 }
 
 message UpdateAppEntryReply {}
