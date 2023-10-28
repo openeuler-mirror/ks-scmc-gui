@@ -40,6 +40,8 @@ message UploadRequest {
     UploadInfo info       = 1;
     SignInfo   sign       = 2;
     bytes      chunk_data = 3;
+    bool       is_approve = 4;
+    bool       is_verify  = 5;
 }
 
 message UploadReply {
@@ -51,6 +53,7 @@ message UpdateRequest {
     UploadInfo info       = 2;
     SignInfo   sign       = 3;
     bytes      chunk_data = 4;
+    bool       is_verify  = 5;
 }
 
 message UpdateReply {}
@@ -90,11 +93,12 @@ message AgentSyncReply {}
 /***** DATA TYPES *****/
 
 message ImageInfo {
-    string name   = 1;  // repo + tag
-    string repo   = 2;
-    string tag    = 3;
-    string digest = 4;
-    int64  size   = 5;  // unit: bytes
+    string name     = 1;  // repo + tag
+    string repo     = 2;
+    string tag      = 3;
+    string digest   = 4;
+    int64  size     = 5;  // unit: bytes
+    string image_id = 6;
 }
 
 message ImageDBInfo {
