@@ -4,7 +4,6 @@ option go_package = "scmc/rpc/pb/container";
 
 import "common.proto";
 import "security.proto";
-import "image.proto";
 
 package container;
 
@@ -27,13 +26,14 @@ service Container {
     rpc Update(UpdateRequest) returns (UpdateReply) {}
 
     // 容器备份客户端接口
-    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}           // 创建备份
-    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}           // 更新备份描述
-    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}           // 恢复备份
-    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}           // 删除备份
-    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}                 // 备份列表
-    rpc ExportBackupJob(ExportBackupJobRequest) returns (ExportBackupJobReply) {}  // 导出备份
+    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}         // 创建备份
+    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}         // 更新备份描述
+    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}         // 恢复备份
+    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}         // 删除备份
+    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}               // 备份列表
+    rpc ExportBackup(ExportBackupRequest) returns (stream ExportBackupReply) {}  // 导出备份镜像
     rpc ListBackupImage(ListBackupImageRequest) returns (ListBackupImageReply) {}
+    rpc InspectBackup(InspectBackupRequest) returns (InspectBackupReply) {}
 
     // 查询容器模板列表
     rpc ListTemplate(ListTemplateRequest) returns (ListTemplateReply) {}
@@ -46,31 +46,89 @@ service Container {
     // 删除容器模板
     rpc RemoveTemplate(RemoveTemplateRequest) returns (RemoveTemplateReply) {}
 
+    // 容器多应用入口功能
+    rpc ListAppEntry(ListAppEntryRequest) returns (ListAppEntryReply) {}
+    rpc AddAppEntry(AddAppEntryRequest) returns (AddAppEntryReply) {}
+    rpc UpdateAppEntry(UpdateAppEntryRequest) returns (UpdateAppEntryReply) {}
+    rpc RemoveAppEntry(RemoveAppEntryRequest) returns (RemoveAppEntryReply) {}
+    rpc RunAppEntry(RunAppEntryRequest) returns (RunAppEntryReply) {}
+
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
 }
 
-message ExportBackupJobRequest {
+message ExportBackupRequest {
+    int64  node_id     = 1;
+    int64  backup_id   = 2;
+    bool   is_download = 3;  // 是否下载到本地
+    string img_name    = 4;
+    string img_version = 5;  // 镜像版本
+    string description = 6;  // 新镜像描述信息
+}
+
+message ExportBackupReply {
+    bytes data = 1;
+}
+
+message InspectBackupRequest {
     int64 node_id   = 1;
     int64 backup_id = 2;
-
-    // 指定新的image信息
-    string description = 4;
-    string image_name  = 5;
-    string image_tag   = 6;
-
-    // for agent service
-    string registry = 21;
 }
 
-message ExportBackupJobReply {
-    image.ImageInfo info = 1;
+message InspectBackupReply {
+    ContainerBackup backup = 1;
 }
+
+message AppEntry {
+    int64  id           = 1;
+    string container_id = 2;
+    string name         = 3;
+    string exe_path     = 4;  // 应用程序路径
+    bool   is_gui       = 5;  // 是否是图形程序
+}
+
+message ListAppEntryRequest {
+    int64  node_id      = 1;
+    string container_id = 2;
+}
+
+message ListAppEntryReply {
+    repeated AppEntry app_entry = 1;
+}
+
+message AddAppEntryRequest {
+    int64    node_id   = 1;
+    AppEntry app_entry = 3;
+}
+
+message AddAppEntryReply {}
+
+message UpdateAppEntryRequest {
+    int64    node_id   = 1;
+    AppEntry app_entry = 2;
+}
+
+message UpdateAppEntryReply {}
+
+message RemoveAppEntryRequest {
+    int64          node_id = 1;
+    repeated int64 app_ids = 2;
+}
+
+message RemoveAppEntryReply {}
+
+message RunAppEntryRequest {
+    int64 node_id = 1;
+    int64 app_id  = 2;
+}
+
+message RunAppEntryReply {}
 
 message CreateBackupRequest {
     int64  node_id      = 1;
     string container_id = 2;
     string backup_desc  = 3;
+    string backup_name  = 4;
 }
 
 message CreateBackupReply {}
