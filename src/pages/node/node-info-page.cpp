@@ -6,6 +6,7 @@
  */
 #include "node-info-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include "config/node-config-page.h"
 #include "container/container-manager/container-list-page.h"
 #include "monitor-content.h"
 #include "network/network-page-manager.h"
@@ -14,6 +15,7 @@ NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPa
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_MONITOR);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK);
+    createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONFIG);
     connect(this, &NodeInfoPage::sigTabBarClicked, this, &NodeInfoPage::updatePageInfo);
 }
 
@@ -51,6 +53,13 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
     {
         m_networkPage = new NetworkPageManager(this);
         addTabPage(m_networkPage, tr("Network"));
+        break;
+    }
+    case NODE_INFO_SUB_PAGE_TYPE_CONFIG:
+    {
+        m_configPage = new NodeConfigPage(this);
+        addTabPage(m_configPage, tr("Config"));
+        break;
     }
     default:
         break;
@@ -69,5 +78,10 @@ void NodeInfoPage::updatePageInfo(int index)
     {
         m_networkPage->setNodeId(m_nodeId);
         m_networkPage->updateInfo();
+    }
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_CONFIG)
+    {
+        m_configPage->setNodeId(m_nodeId);
+        m_configPage->updateInfo();
     }
 }
