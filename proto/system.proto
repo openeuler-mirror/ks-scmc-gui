@@ -30,7 +30,6 @@ message SubscribeReply {
     string msg_content = 2;
 }
 
-
 message SetSecuritySwitchRequest {
     bool is_on = 1;
 }
