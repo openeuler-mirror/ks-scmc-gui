@@ -107,6 +107,13 @@ public:
     void removeBackup(const QString objId, int nodeId, int64_t ids);
     void exportBackup(const QString objId, const container::ExportBackupRequest &req, const QString path);
 
+    //container app
+    void listAppEntry(const QString objId, const int nodeId, const std::string containerId);
+    void addAppEntry(const QString objId, const container::AddAppEntryRequest &);
+    void updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &);
+    void removeAppEntry(const QString objId, const int nodeId, const QList<int> appIds);
+    void runAppEntry(const QString objId, const int nodeId, const int appId);
+
     // network management
     void listNetwork(const QString objId, const int64_t);
     void connectNetwork(const QString objId, const network::ConnectRequest &);
@@ -185,6 +192,13 @@ private:
     static QPair<grpc::Status, container::RemoveBackupReply> _removeBackup(const container::RemoveBackupRequest &);
     static QPair<grpc::Status, QString> _exportBackup(const container::ExportBackupRequest &, const QString path);
 
+    //container app
+    static QPair<grpc::Status, container::ListAppEntryReply> _listAppEntry(const container::ListAppEntryRequest &);
+    static QPair<grpc::Status, container::AddAppEntryReply> _addAppEntry(const container::AddAppEntryRequest &);
+    static QPair<grpc::Status, container::UpdateAppEntryReply> _updateAppEntry(const container::UpdateAppEntryRequest &);
+    static QPair<grpc::Status, container::RemoveAppEntryReply> _removeAppEntry(const container::RemoveAppEntryRequest &);
+    static QPair<grpc::Status, container::RunAppEntryReply> _runAppEntry(const container::RunAppEntryRequest &);
+
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
     static QPair<grpc::Status, network::ConnectReply> _connectNetwork(const network::ConnectRequest &);
@@ -256,6 +270,13 @@ signals:
     void resumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &);
     void removeBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
     void exportBackupFinished(const QString objId, const QPair<grpc::Status, QString> &);
+
+    //container app
+    void listAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &);
+    void addAppEntryFinished(const QString objId, const QPair<grpc::Status, container::AddAppEntryReply> &);
+    void updateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
+    void removeAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RemoveAppEntryReply> &);
+    void runAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RunAppEntryReply> &);
 
     // network management
     void listNetworkFinished(const QString objId, const QPair<grpc::Status, network::ListReply> &);
