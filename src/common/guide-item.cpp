@@ -63,7 +63,6 @@ QString GuideItem::getItemText()
 
 void GuideItem::setDeleteBtn()
 {
-    KLOG_INFO() << "setDeleteBtn";
     if (ui->label_right_icon)
     {
         delete ui->label_right_icon;

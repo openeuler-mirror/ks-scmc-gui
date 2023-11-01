@@ -72,32 +72,27 @@ OutlineView::~OutlineView()
 
 void OutlineView::getlNodeList()
 {
-    KLOG_INFO() << "getlNodeList";
     InfoWorker::getInstance().listNode(m_objId);
 }
 
 void OutlineView::getContainerList()
 {
-    KLOG_INFO() << "getContainerList";
     std::vector<int64_t> vecNodeId;
     InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);
 }
 
 void OutlineView::getImageList()
 {
-    KLOG_INFO() << "getImageList";
     InfoWorker::getInstance().listDBImage(m_objId);
 }
 
 void OutlineView::getlTemplateContainer()
 {
-    KLOG_INFO() << "getlTemplateContainer";
     InfoWorker::getInstance().listTemplate(m_objId);
 }
 
 void OutlineView::getWarnNums()
 {
-    KLOG_INFO() << "getWarnNums";
     InfoWorker::getInstance().listNode(m_objId);
 }
 
@@ -281,34 +276,25 @@ void OutlineView::getOutlineCellNodeNums(const QString objId, const QPair<grpc::
     KLOG_INFO() << "getOutlineCellNodeNums" << m_objId << objId;
     if (m_objId == objId)
     {
-        int size = reply.second.nodes_size();
-        m_outlineCell_node->ui->Name_counts->setText(QString::number(size, 10));
-
-        QMap<int64_t, QPair<QString, QString>> m_mapStatus;
-        m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
-        m_mapStatus.insert(1, QPair<QString, QString>(tr("Unknown"), "black"));
-        m_mapStatus.insert(10, QPair<QString, QString>(tr("Online"), "green"));
-        QPair<QString, QString> status = m_mapStatus[1];
-        QString state = status.first;
-        QString color = status.second;
-
         int online = 0;
         int offline = 0;
-
-        for (auto node : reply.second.nodes())
+        int size = 0;
+        if (reply.first.ok())
         {
-            if (node.has_status())
+            size = reply.second.nodes_size();
+
+            for (auto node : reply.second.nodes())
             {
-                auto tmp = m_mapStatus[node.status().state()];
-                state = tmp.first;
-                color = tmp.second;
-                if (tmp.second == "green")
-                    online++;
-                if (tmp.second == "red")
-                    offline++;
+                if (node.has_status())
+                {
+                    if (node.status().state() == 10)
+                        online++;
+                    if (node.status().state() == 0)
+                        offline++;
+                }
             }
         }
-
+        m_outlineCell_node->ui->Name_counts->setText(QString::number(size, 10));
         m_outlineCell_node->ui->online_counts->setText(QString::number(online, 10));
         m_outlineCell_node->ui->offline_counts->setText(QString::number(offline, 10));
     }
@@ -319,30 +305,22 @@ void OutlineView::getOutlineCellContainerNums(const QString objId, const QPair<g
     KLOG_INFO() << "getOutlineCellContainerNums" << m_objId << objId;
     if (m_objId == objId)
     {
-        int size = reply.second.containers_size();
-        m_outlineCell_container->ui->Name_counts->setText(QString::number(size, 10));
-
-        QMap<QString, QPair<QString, QString>> m_statusMap;
-        m_statusMap.insert("running", QPair<QString, QString>(tr("Running"), "#00921b"));
-        m_statusMap.insert("exited", QPair<QString, QString>(tr("Exited"), "#d30000"));
-        m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
-        QPair<QString, QString> status = m_statusMap["Running"];
-        QString state = status.first;
-        QString color = status.second;
-
+        int size = 0;
         int online = 0;
         int offline = 0;
-
-        for (auto container : reply.second.containers())
+        if (reply.first.ok())
         {
-            auto tmp = m_statusMap[container.info().state().data()];
-            state = tmp.first;
-            color = tmp.second;
-            if (tmp.first == tr("Running"))
-                online++;
-            else
-                offline++;
+            size = reply.second.containers_size();
+
+            for (auto container : reply.second.containers())
+            {
+                if (container.info().state() == "running")
+                    online++;
+                else
+                    offline++;
+            }
         }
+        m_outlineCell_container->ui->Name_counts->setText(QString::number(size, 10));
         m_outlineCell_container->ui->online_counts->setText(QString::number(online, 10));
         m_outlineCell_container->ui->offline_counts->setText(QString::number(offline, 10));
     }
@@ -395,11 +373,12 @@ void OutlineView::getOutlineCellTemplateContainerNums(const QString objId, const
     KLOG_INFO() << "getOutlineCellTemplateContainerNums" << m_objId << objId;
     if (m_objId == objId)
     {
+        int size = 0;
         if (reply.first.ok())
         {
-            int size = reply.second.data_size();
-            m_outlineCell_template_container->ui->Name_counts->setText(QString::number(size, 10));
+            size = reply.second.data_size();
         }
+        m_outlineCell_template_container->ui->Name_counts->setText(QString::number(size, 10));
     }
 }
 
