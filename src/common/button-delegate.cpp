@@ -86,6 +86,7 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
                 i.value().second == tr("Readed") ||
                 i.value().second == tr("Export") ||
                 i.value().second == tr("Run") ||
+                i.value().second == tr("Stop") ||
                 i.value().second == tr("Edit") ||
                 i.value().second == tr("Delete"))
             {
@@ -152,6 +153,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 i.value().second == tr("Ignore") ||
                 i.value().second == tr("Export") ||
                 i.value().second == tr("Run") ||
+                i.value().second == tr("Stop") ||
                 i.value().second == tr("Edit") ||
                 i.value().second == tr("Delete"))
                 btnRect = QRect(option.rect.x() + TEXT_SPACE + TEXT_SPACE * count + count * TEXT_WIDTH, option.rect.y() + TEXT_TOP, TEXT_WIDTH, TEXT_HEIGHT);
@@ -198,6 +200,11 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 case ACTION_BUTTON_TYPE_APP_RUN:
                 {
                     emit sigAppRun(index.row());
+                    break;
+                }
+                case ACTION_BUTTON_TYPE_APP_STOP:
+                {
+                    emit sigAppStop(index.row());
                     break;
                 }
                 case ACTION_BUTTON_TYPE_MONITOR:
