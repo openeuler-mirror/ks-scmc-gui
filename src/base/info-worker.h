@@ -111,8 +111,9 @@ public:
     void listAppEntry(const QString objId, const int nodeId, const std::string containerId);
     void addAppEntry(const QString objId, const container::AddAppEntryRequest &);
     void updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &);
-    void removeAppEntry(const QString objId, const int nodeId, const QList<int> appIds);
-    void runAppEntry(const QString objId, const int nodeId, const int appId);
+    void removeAppEntry(const QString objId, const int nodeId, const std::string containerId, const QList<int> appIds);
+    void runAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId);
+    void killAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId);
 
     // network management
     void listNetwork(const QString objId, const int64_t);
@@ -198,6 +199,7 @@ private:
     static QPair<grpc::Status, container::UpdateAppEntryReply> _updateAppEntry(const container::UpdateAppEntryRequest &);
     static QPair<grpc::Status, container::RemoveAppEntryReply> _removeAppEntry(const container::RemoveAppEntryRequest &);
     static QPair<grpc::Status, container::RunAppEntryReply> _runAppEntry(const container::RunAppEntryRequest &);
+    static QPair<grpc::Status, container::KillAppEntryReply> _killAppEntry(const container::KillAppEntryRequest &);
 
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
@@ -277,6 +279,7 @@ signals:
     void updateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
     void removeAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RemoveAppEntryReply> &);
     void runAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RunAppEntryReply> &);
+    void killAppEntryFinished(const QString objId, const QPair<grpc::Status, container::KillAppEntryReply> &);
 
     // network management
     void listNetworkFinished(const QString objId, const QPair<grpc::Status, network::ListReply> &);

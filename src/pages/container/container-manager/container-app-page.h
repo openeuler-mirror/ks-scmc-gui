@@ -24,9 +24,8 @@ public:
 private slots:
     void onCreate();
     void onEdit(int row);
-    void onRun();
     void onRun(int row);
-    void onStop();
+    void onStop(int row);
     void onDelete();
     void onDelete(int row);
     void onSaveApp(const QString name, const QString path, const bool isGui);
@@ -35,6 +34,7 @@ private slots:
     void getUpdateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
     void getRemoveAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RemoveAppEntryReply> &);
     void getRunAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RunAppEntryReply> &);
+    void getKillAppEntryFinished(const QString objId, const QPair<grpc::Status, container::KillAppEntryReply> &);
 
 private:
     void initButtons();
