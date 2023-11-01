@@ -373,7 +373,7 @@ void SecurityListTab::initUI()
                          "<p style='font-size:14px;'><span style='font-weight:650;color:#555555;'>进程白名单-功能说明</span></p>"
                          "<p style='font-size:12px;'><span style='font-weight:400;'>[规则]</span></p>"
                          "<p style='font-size:12px;'><span style='font-weight:400;'>1、白名单状态：开启与关闭；</span></p>"
-                         "<p style='font-size:12px;'><span style='font-weight:400;'>组件为单选项，默认为开启状态；</span></p>"
+                         "<p style='font-size:12px;'><span style='font-weight:400;'>组件为单选项，默认为关闭状态；</span></p>"
                          "<p style='font-size:12px;'><span style='font-weight:400;'>当白名单状态为开启时，才可对进程白名单进行编辑、修改、删除；</span></p>"
                          "<p style='font-size:12px;'><span style='font-weight:400;'>当白名单为关闭状态时，进程白名称组件都为禁用状态。</span></p>"
                          "<p style='font-size:12px;'><span style='font-weight:400;'>2、进程白名单：非必须项；</span></p>"
