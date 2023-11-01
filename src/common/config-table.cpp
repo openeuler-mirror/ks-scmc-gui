@@ -50,7 +50,7 @@ void ConfigTable::initwindow()
     else
         head << tr("Variable name") << tr("Value") << tr("Permission") << tr("Quick Actions");
 
-    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:#F0F0F0;color:Black;}");
+    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:#F0F0F0;color:Black;font-size:12px;}");
     m_pModel.reset(new ConfigModel(head));
     ui->tableView->setModel(m_pModel.get());
 
