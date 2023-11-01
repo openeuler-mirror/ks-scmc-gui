@@ -482,8 +482,8 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
         if (reply.first.ok())
         {
-            ///TODO:暂时去掉订阅功能，1.1版本加上
-            ///m_thread->start();
+            //订阅功能，1.1版本加上
+            m_thread->start();
             if (!m_mainWindow)
             {
                 m_mainWindow = new MainWindow(ui->lineEdit_username->text());
