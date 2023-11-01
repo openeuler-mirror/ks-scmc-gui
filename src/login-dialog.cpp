@@ -58,7 +58,7 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire);
+    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     //loadConfig();
@@ -124,8 +124,10 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == m_mainWindow && event->type() == QEvent::Close)
     {
+        KLOG_INFO() << "mainwindow close event!";
         if (m_thread->isRunning())
         {
+            KLOG_INFO() << "quit m_thread";
             m_subscribeThread->cancel();
             m_thread->quit();
             m_thread->wait();
@@ -550,8 +552,12 @@ void LoginDialog::sessionExpire()
         m_mainWindow = nullptr;
     }
     show();
-    m_thread->quit();
-    m_thread->wait();
+    if (m_thread->isRunning())
+    {
+        m_subscribeThread->cancel();
+        m_thread->quit();
+        m_thread->wait();
+    }
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
     ui->lab_tips->setText(tr("Session Expired,Please login again!"));

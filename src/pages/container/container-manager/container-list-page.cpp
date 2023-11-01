@@ -60,7 +60,6 @@ ContainerListPage::ContainerListPage(QWidget *parent)
 
 ContainerListPage::~ContainerListPage()
 {
-    KLOG_INFO() << "~ContainerListPage";
     if (m_containerSetting)
     {
         delete m_containerSetting;
@@ -201,14 +200,15 @@ void ContainerListPage::onApp(int row)
     std::string containerId = idMap.value(CONTAINER_ID).toString().toStdString();
     auto nodeAddr = idMap.value(NODE_ADDRESS).toString();
     QString containerName = idMap.value(CONTAINER_NAME).toString();
-    KLOG_INFO() << nodeId << containerId.data() << nodeAddr;
+    KLOG_INFO() << "node id:" << nodeId
+                << "container id:" << containerId.data()
+                << "node address:" << nodeAddr;
 
     ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName);
-    appPage->resize(QSize(1650, 832));
+    appPage->resize(QSize(1400, 832));
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-    KLOG_INFO() << appPage->width() << appPage->height();
     appPage->move(screenGeometry.x() + (screenGeometry.width() - appPage->width()) / 2,
                   screenGeometry.y() + (screenGeometry.height() - appPage->height()) / 2);
 
@@ -314,14 +314,13 @@ void ContainerListPage::getNetworkListResult(const QString objId, const QPair<gr
             for (auto ifs : reply.second.virtual_ifs())
             {
                 int nodeId = ifs.node_id();
-                KLOG_INFO() << nodeId << ifs.name().data() << ifs.ip_address().data() << ifs.ip_mask_len();
                 auto name = ifs.name();
                 auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
                 QString str = QString("%1 (%2:%3)")
                                   .arg(QString::fromStdString(name))
                                   .arg(tr("Subnet"))
                                   .arg(QString::fromStdString(subnet));
-                KLOG_INFO() << nodeId << str;
+                KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
                 m_networksMap.insert(nodeId, str);
             }
         }
@@ -812,7 +811,7 @@ void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::st
 
 void ContainerListPage::timedRefresh(bool start)
 {
-    KLOG_INFO() << start;
+    KLOG_INFO() << "container list time refresh:" << start;
     if (start)
         m_timer->start(60000);
     else
