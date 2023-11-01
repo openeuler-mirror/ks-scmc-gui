@@ -61,16 +61,14 @@ void AboutPage::initUI()
     QLabel *version = new QLabel(aboutWidget);
     version->setStyleSheet("QLabel{"
                            "color:#ffffff;"
-                           "font:NotoSansCJKsc-Regular;"
-                           "font-size:14px;}");
+                           "font-size:12px;}");
     version->setText(tr("KylinSec Container System V1(Security Version)"));
     version->setAlignment(Qt::AlignCenter);
 
     QLabel *info = new QLabel(aboutWidget);
     info->setStyleSheet("QLabel{"
                         "color:#ffffff;"
-                        "font:NotoSansCJKsc-Regular;"
-                        "font-size:14px;}");
+                        "font-size:12px;}");
     QString ksScmcGuiVersion = getVersion(SCMC_GUI_VERSION_FILE_PATH);
     QString ksScmcVersion = getVersion(SCMC_VERSION_FILE_PATH);
 
@@ -83,7 +81,6 @@ void AboutPage::initUI()
     QLabel *license = new QLabel(aboutWidget);
     license->setStyleSheet("QLabel{"
                            "color:#919191;"
-                           "font:NotoSansCJKsc-Regular;"
                            "font-size:12px;}");
     license->setText("Copyright (c) 2022 ~ 2023 KylinSec Co. Ltd. All Rights Reserved.");
     license->setAlignment(Qt::AlignCenter);

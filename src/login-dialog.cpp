@@ -197,6 +197,10 @@ void LoginDialog::initUI()
 
     //创建标题栏中菜单
     QMenu *menu = new QMenu(this);
+    QFont font = menu->font();
+    font.setPixelSize(12);
+    menu->setFont(font);
+
     menu->addActions(QList<QAction *>() << new QAction(tr("Config server"), menu) << new QAction(tr("Activate"), menu) << new QAction(tr("About"), menu));
     btnMenu->setMenu(menu);
     connect(menu, &QMenu::triggered, this, &LoginDialog::onMenuTrigger);
@@ -257,8 +261,7 @@ void LoginDialog::initMessageBox()
     QPushButton *activeButton = new QPushButton(tr("Active"));
     activeButton->setStyleSheet("QPushButton{"
                                 "color:#FFFFFF;"
-                                "font:NotoSansCJKsc-Regular;"
-                                "font-size:14px;"
+                                "font-size:12px;"
                                 "border-radius:8px;"
                                 "background:#43A3F2;}"
                                 "QPushButton:hover{"
@@ -275,8 +278,7 @@ void LoginDialog::initMessageBox()
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setStyleSheet("QPushButton{"
                             "color:#FFFFFF;"
-                            "font:NotoSansCJKsc-Regular;"
-                            "font-size:14px;"
+                            "font-size:12px;"
                             "border-radius:8px;"
                             "background:#43A3F2;}"
                             "QPushButton:hover{"
