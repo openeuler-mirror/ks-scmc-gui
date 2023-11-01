@@ -2,6 +2,7 @@
 #define CONTAINERAPPDIALOG_H
 
 #include <kiran-titlebar-window.h>
+#include <QProcess>
 #include "container-app-operate-dialog.h"
 #include "info-worker.h"
 #include "table-page.h"
@@ -10,7 +11,7 @@ class ContainerAppDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
 public:
-    explicit ContainerAppDialog(int64_t nodeId, std::string containerId, QWidget *parent = nullptr);
+    explicit ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent = nullptr);
     ~ContainerAppDialog() = default;
 };
 
@@ -18,7 +19,8 @@ class ContainerAppPage : public TablePage
 {
     Q_OBJECT
 public:
-    explicit ContainerAppPage(int nodeId, std::string containerId, QWidget *parent = nullptr);
+    explicit ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent = nullptr);
+    ~ContainerAppPage();
     void updateInfo(QString keyword = "");
 
 private slots:
@@ -29,6 +31,7 @@ private slots:
     void onDelete();
     void onDelete(int row);
     void onSaveApp(const QString name, const QString path, const bool isGui);
+    void guiAppStatus(QProcess::ProcessState state);
     void getListAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &);
     void getAddAppEntryFinished(const QString objId, const QPair<grpc::Status, container::AddAppEntryReply> &);
     void getUpdateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
@@ -46,8 +49,12 @@ private:
     QString m_objId;
     int m_nodeId;
     std::string m_containerId;
+    QString m_nodeAddr;
+    QString m_containerName;
     QMap<int, QPushButton *> m_batchOpBtnMap;
     ContainerAppOperateDialog *m_appOp;
+    QProcess *m_proc;
+    int m_runningAppRow;
 };
 
 #endif  // CONTAINERAPPDIALOG_H
