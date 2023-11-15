@@ -60,6 +60,45 @@ bool VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg, QString &er
     }
 }
 
+bool VolumesConfTab::getVolumeInfo(container::UpdateRequest *req, QString &errMSg)
+{
+    if (req)
+    {
+        auto itemList = m_configTable->getAllData();
+        for (auto item : itemList)
+        {
+            if (item->m_firstColVal.isEmpty() && item->m_secondColVal.isEmpty())
+            {
+                continue;
+            }
+            else if (!item->m_firstColVal.isEmpty() && !item->m_secondColVal.isEmpty())
+            {
+                KLOG_DEBUG() << "Volumes info:"
+                             << "container path:" << item->m_firstColVal
+                             << "host path: " << item->m_secondColVal
+                             << "permission: " << item->m_thirdColVal;
+
+                auto mount = req->add_mounts();
+                mount->set_type("bind");
+                mount->set_target(item->m_firstColVal.toStdString());
+                mount->set_source(item->m_secondColVal.toStdString());
+                mount->set_read_only(item->m_thirdColVal);
+            }
+            else
+            {
+                errMSg = tr("Please improve the contents in volumes table!");
+                return false;
+            }
+        }
+        return true;
+    }
+    else
+    {
+        errMSg = tr("The container config arg is error.");
+        return false;
+    }
+}
+
 void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)
 {
     QList<QSharedPointer<ModelItem>> itemList;

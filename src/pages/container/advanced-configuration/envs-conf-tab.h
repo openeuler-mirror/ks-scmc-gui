@@ -24,6 +24,7 @@ public:
     explicit EnvsConfTab(QWidget *parent = nullptr);
     ~EnvsConfTab();
     bool getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errMsg);
+    bool getEnvInfo(container::UpdateRequest *req, QString &errMsg);
     void setEnvInfo(const container::ContainerConfigs *cfg);
 
 private:

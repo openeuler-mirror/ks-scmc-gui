@@ -14,14 +14,19 @@ ConfigView::ConfigView(Qt::Orientation orientation, QWidget *parent) : QHeaderVi
 {
 }
 
-ConfigDelegate::ConfigDelegate(ConfigTableType whichTable, QWidget *parent) : QStyledItemDelegate(parent),
-                                                                              m_nWidth(25),
-                                                                              m_nHeight(25),
-                                                                              m_ChooseTable(whichTable)
+ConfigDelegate::ConfigDelegate(ConfigTableType whichTable, bool editContainer, QWidget *parent) : QStyledItemDelegate(parent),
+                                                                                                  m_nWidth(25),
+                                                                                                  m_nHeight(25),
+                                                                                                  m_ChooseTable(whichTable),
+                                                                                                  m_editContainer(editContainer)
 {
     m_listPage.reserve(10);
     m_listMode << tr("ReadWrite")
                << tr("ReadOnly");
+    m_buildIn << "KS_SCMC_UUID"
+              << "XAUTHORITY"
+              << "/tmp/.X11-unix"
+              << "/tmp/.xauth";
 }
 
 ConfigDelegate::~ConfigDelegate()
@@ -34,6 +39,16 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     Q_UNUSED(option);
     const int &row = index.row();
     int curPage = 0;
+    if (m_editContainer)
+    {
+        // 刚点开编辑容器时会填新数据进去，但m_listPage没有更新，在此处更新
+        if (m_listPage.size() <= row)
+        {
+            m_listPage.insert(row, 1);
+            KLOG_DEBUG() << "edit container init page, pages:" << m_listPage.size() << "row:" << row;
+        }
+    }
+
     if (m_listPage.size() > row)
         curPage = m_listPage[row];
 
@@ -197,11 +212,23 @@ void ConfigDelegate::sendEditSlot(ConfigOperateWidget *pCurWidget)
     int row = pCurWidget->getCurRow();
     KLOG_DEBUG() << "row:" << row << ", var:" << m_pEditFirst.size() << ", val:" << m_pEditSecond.size();
 
-    if (m_pEditFirst.size() > row)
-        m_pEditFirst[row]->setDisabled(false);
-
-    if (m_pEditSecond.size() > row)
-        m_pEditSecond[row]->setDisabled(false);
+    if (m_buildIn.indexOf(m_pEditFirst[row]->text()) != -1)
+    {
+        // "修改容器" "确认继续?" "容器内置配置项，请谨慎修改！"
+        auto ret = MessageDialog::message(tr("Modify Container"),
+                                          tr("Confirm Continue?"),
+                                          tr("Container built-in configuration items, please modify with caution"),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Confirm | MessageDialog::StandardButton::Cancel);
+        if (ret != MessageDialog::StandardButton::Confirm)
+        {
+            KLOG_INFO() << pCurWidget->getCurPage();
+            return;
+        }
+    }
+    pCurWidget->setPage(0);
+    m_pEditFirst[row]->setDisabled(false);
+    m_pEditSecond[row]->setDisabled(false);
 
     if (m_pComboBoxMode.size() > row)
         m_pComboBoxMode[row]->setDisabled(false);

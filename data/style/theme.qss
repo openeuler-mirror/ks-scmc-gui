@@ -559,7 +559,7 @@ MessageDialog QLabel
     font-size:12px;
 }
 
-MessageDialog #btn_Ok,MessageDialog #btn_Yes
+MessageDialog #btn_Ok,MessageDialog #btn_Yes,MessageDialog #btn_Confirm
 {
     background-color:#409EFF;
     border: 1px solid #409EFF;
@@ -567,7 +567,7 @@ MessageDialog #btn_Ok,MessageDialog #btn_Yes
     color:#ffffff;
     font-size:12px;
 }
-MessageDialog #btn_Ok:hover,MessageDialog #btn_Yes:hover
+MessageDialog #btn_Ok:hover,MessageDialog #btn_Yes:hover,MessageDialog #btn_Confirm:hover
 {
     background-color:#66B1FF;
 }
@@ -585,7 +585,7 @@ MessageDialog #btn_Cancel:hover
     background-color:#EBEEF5
 }
 
-MessageDialog #btn_Ok:focus,MessageDialog #btn_Yes:focus,MessageDialog #btn_Cancel:focus
+MessageDialog #btn_Ok:focus,MessageDialog #btn_Yes:focus,MessageDialog #btn_Cancel:focus,MessageDialog #btn_Confirm:focus
 {
     outline: none;
 }

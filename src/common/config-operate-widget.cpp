@@ -67,7 +67,8 @@ void ConfigOperateWidget::sendSave()
 
 void ConfigOperateWidget::sendEdit()
 {
-    ui->stackedWidget->setCurrentWidget(ui->page);
+    // 编辑前需要判断是否为后端内置变量，确认前不需要换页面
+    // ui->stackedWidget->setCurrentWidget(ui->page);
     emit sendEditSig(this);
 }
 

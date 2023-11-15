@@ -24,6 +24,7 @@ public:
     explicit VolumesConfTab(QWidget *parent = nullptr);
     ~VolumesConfTab();
     bool getVolumeInfo(container::ContainerConfigs *cfg, QString &errMSg);
+    bool getVolumeInfo(container::UpdateRequest *req, QString &errMSg);
     void setVolumeInfo(const container::ContainerConfigs *cfg);
 
 private:
