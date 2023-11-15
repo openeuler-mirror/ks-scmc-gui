@@ -179,41 +179,56 @@
 <context>
     <name>ConfigDelegate</name>
     <message>
-        <location filename="../src/common/config-view.cpp" line="23"/>
+        <location filename="../src/common/config-view.cpp" line="24"/>
         <source>ReadWrite</source>
         <translation>读写</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="24"/>
+        <location filename="../src/common/config-view.cpp" line="25"/>
         <source>ReadOnly</source>
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="158"/>
+        <location filename="../src/common/config-view.cpp" line="173"/>
         <source>Please enter variable name</source>
         <translation>请输入变量名</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="160"/>
+        <location filename="../src/common/config-view.cpp" line="175"/>
         <source>Please enter container path</source>
         <translation>请输入容器路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="161"/>
-        <location filename="../src/common/config-view.cpp" line="171"/>
+        <location filename="../src/common/config-view.cpp" line="176"/>
+        <location filename="../src/common/config-view.cpp" line="186"/>
         <source>Save Data</source>
         <translation>保存数据</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="162"/>
-        <location filename="../src/common/config-view.cpp" line="172"/>
+        <location filename="../src/common/config-view.cpp" line="177"/>
+        <location filename="../src/common/config-view.cpp" line="187"/>
         <source>Data is empty!</source>
         <translation>数据为空！</translation>
     </message>
     <message>
-        <location filename="../src/common/config-view.cpp" line="170"/>
+        <location filename="../src/common/config-view.cpp" line="185"/>
         <source>Please enter host path</source>
         <translation>请输入宿主机路径</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="218"/>
+        <source>Modify Container</source>
+        <translation>修改容器</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="219"/>
+        <source>Confirm Continue?</source>
+        <translation>确认继续?</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="220"/>
+        <source>Container built-in configuration items, please modify with caution</source>
+        <translation>容器内置配置项，请谨慎修改！</translation>
     </message>
 </context>
 <context>
@@ -237,34 +252,34 @@
         <translation>配置表</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="48"/>
+        <location filename="../src/common/config-table.cpp" line="44"/>
         <source>Container path</source>
         <translation>容器路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="48"/>
+        <location filename="../src/common/config-table.cpp" line="44"/>
         <source>Host path</source>
         <translation>主机路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="48"/>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="44"/>
+        <location filename="../src/common/config-table.cpp" line="46"/>
         <source>Permission</source>
         <translation>允许</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="48"/>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="44"/>
+        <location filename="../src/common/config-table.cpp" line="46"/>
         <source>Quick Actions</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="46"/>
         <source>Variable name</source>
         <translation>变量名</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="50"/>
+        <location filename="../src/common/config-table.cpp" line="46"/>
         <source>Value</source>
         <translation>值</translation>
     </message>
@@ -1092,14 +1107,14 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="280"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="978"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1002"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="285"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="996"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1136"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1020"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1154"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
@@ -1124,16 +1139,20 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/container-setting.cpp" line="746"/>
         <location filename="../src/pages/container/container-setting.cpp" line="757"/>
         <location filename="../src/pages/container/container-setting.cpp" line="768"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="786"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="798"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="583"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="797"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="548"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="785"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
@@ -1155,7 +1174,7 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="310"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1272"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1290"/>
         <source>Create template</source>
         <translation>创建模板</translation>
     </message>
@@ -1187,89 +1206,89 @@ The first characters must be letter or digit</source>
         <translation>CPU数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="892"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="916"/>
         <source>Delete Network card</source>
         <translation>删除网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="893"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="917"/>
         <source>Are you sure you want to delete the network card?</source>
         <translation>确定要删除此网卡？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="894"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="918"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="979"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1003"/>
         <source>Create container failed!</source>
         <translation>创建容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="980"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1004"/>
         <source>Error: </source>
         <translation>错误: </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="997"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1021"/>
         <source>Get container infomation failed!</source>
         <translation>获取容器信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1017"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1158"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1041"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1176"/>
         <source>none</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1117"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1135"/>
         <source>Update Container</source>
         <translation>更新容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1118"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1136"/>
         <source>Update container failed!</source>
         <translation>更新容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1119"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1137"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1137"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1155"/>
         <source>Get template infomation failed!</source>
         <translation>获取模板信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1266"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1284"/>
         <source>Create template successful!</source>
         <translation>创建容器模板成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1266"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1284"/>
         <source>You can see it in container template page.</source>
         <translation>点击容器模板页面即可查看。</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1273"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1291"/>
         <source>Create template failed!</source>
         <translation>创建模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1274"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1294"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1292"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1312"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1292"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1310"/>
         <source>Update template</source>
         <translation>更新模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1293"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1311"/>
         <source>Update template failed!</source>
         <translation>更新模板失败！</translation>
     </message>
@@ -1283,11 +1302,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.cpp" line="42"/>
+        <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.cpp" line="76"/>
         <source>Please improve the contents in Env table!</source>
         <translation>请完善环境变量表格中的内容！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.cpp" line="54"/>
+        <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.cpp" line="88"/>
         <source>The container config arg is error.</source>
         <translation>容器配置参数错误。</translation>
     </message>
@@ -3319,6 +3340,11 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>重置</translation>
     </message>
     <message>
+        <location filename="../src/common/message-dialog.cpp" line="139"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
         <location filename="../src/main-window.cpp" line="35"/>
         <source>General Outline</source>
         <translation>概要</translation>
@@ -3880,11 +3906,13 @@ Instruction</source>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.cpp" line="50"/>
+        <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.cpp" line="89"/>
         <source>Please improve the contents in volumes table!</source>
         <translation>请完善共享目录表格中的内容！</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.cpp" line="58"/>
+        <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.cpp" line="97"/>
         <source>The container config arg is error.</source>
         <translation>容器配置参数错误。</translation>
     </message>
