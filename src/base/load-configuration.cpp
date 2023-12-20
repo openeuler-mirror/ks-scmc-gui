@@ -106,7 +106,7 @@ void LoadConfiguration::setValue()
 
 void LoadConfiguration::getTerminalCmd()
 {
-    const QString sshCmd = "ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
+    const QString sshCmd = "ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ks-scmc@${nodeAddr} sudo /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
     if (0 == QProcess::execute("which mate-terminal"))
     {
         m_cmd = "mate-terminal --disable-factory -e";
