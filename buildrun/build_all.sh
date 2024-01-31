@@ -66,6 +66,7 @@ kspkgs=\$(ls | grep -E "^$g_software_name")
 if [[ ! \$deppgs == "" ]];then
     yumoption="--nogpgcheck --disablerepo=*"
     if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
+        rpm -qa | grep kiranwidgets-qt5 > /dev/null || deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiranwidgets-qt5-devel-2.1.1')
         yumoption="\$yumoption --allowerasing"
     fi
     yum localinstall \$deppgs -y \$yumoption
