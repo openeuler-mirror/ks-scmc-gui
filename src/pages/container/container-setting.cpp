@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/container/container-setting.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPair>
+#include "advanced-configuration/cmd-conf-tab.h"
 #include "advanced-configuration/envs-conf-tab.h"
 #include "advanced-configuration/high-availability-tab.h"
 #include "advanced-configuration/volumes-conf-tab.h"
@@ -29,6 +30,7 @@
 #define CPU "CPU"
 #define MEMORY QObject::tr("Memory")
 #define NETWORK_CARD QObject::tr("Network card")
+#define CMD QObject::tr("Startup paramenters")
 #define ENVS QObject::tr("ENVS")
 #define VOLUMES QObject::tr("Volumes")
 #define HIGH_AVAILABILITY QObject::tr("High availability")
@@ -215,7 +217,8 @@ void ContainerSetting::initUI()
     m_baseItems.first()->setSelected(true);
     ui->listwidget_base_config->setCurrentRow(0);
 
-    QList<QPair<QString, QString>> advancedConfItemInfo = {{ENVS, ":/images/container-env.png"},
+    QList<QPair<QString, QString>> advancedConfItemInfo = {{CMD, ":/images/container-cmd.png"},
+                                                           {ENVS, ":/images/container-env.png"},
                                                            {VOLUMES, ":/images/container-volumes.png"},
                                                            {HIGH_AVAILABILITY, ":/images/container-high-avail.png"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
@@ -405,6 +408,9 @@ void ContainerSetting::initBaseConfPages()
 
 void ContainerSetting::initAdvancedConfPages()
 {
+    CmdConfTab *cmdConfTab = new CmdConfTab(m_type,ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(cmdConfTab);
+
     EnvsConfTab *envsConfTab = new EnvsConfTab(ui->tab_advanced_config);
     m_advancedConfStack->addWidget(envsConfTab);
 
@@ -576,6 +582,9 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         netInterface[network.interface().data()] = true;
     }
 
+    //cmd
+    auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
+    cmdPage->getCMDInfo(cntrCfg);
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     if (!envPage->getEnvInfo(cntrCfg, errMsg))
@@ -790,7 +799,11 @@ void ContainerSetting::updateContainer()
         return;
     }
 
-    // env
+    //cmd
+    auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
+    cmdPage->getCMDInfo(&request);
+
+    //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     if (!envPage->getEnvInfo(&request, errMsg))
     {
@@ -1078,7 +1091,10 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
             networkConfig.set_ip_address("");
         networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
     }
-
+    //cmd 
+    auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
+    cmdPage->setCMDInfo(&info);
+    
     //volume
     auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     volumesPage->setVolumeInfo(&info);
@@ -1239,7 +1255,9 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
-
+    //cmd
+    auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
+    cmdPage->setCMDInfo(&info);
     //high-availability
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     auto policy = info.restart_policy();
