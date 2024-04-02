@@ -26,17 +26,21 @@ BuildRequires:  qt5-qtcharts
 BuildRequires:  qt5-qtcharts-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(kiranwidgets-qt5) >= 2.1.1
-BuildRequires:  pkgconfig(klog-qt5)
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  xsd
 BuildRequires:  grpc-devel
-BuildRequires:  ks-license-devel
+BuildRequires:  ks-license-devel >= 2.7
 BuildRequires:  qrencode-devel
 BuildRequires:  c-ares-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  libarchive-devel
+BuildRequires:  pkgconfig(klog-qt5)
+%if "%{kylin_version}" == "3.3"
+BuildRequires:  pkgconfig(kiranwidgets-qt5) >= 2.1.1
+%else
+BuildRequires:  kiranwidgets-qt5-devel == 2.1.1
+%endif
 
 %if 0%{?enable_set_palette}
 BuildRequires:  kiran-qt5-integration-devel
@@ -50,9 +54,8 @@ BuildRequires:  cryptopp-devel
 
 %if "%{kylin_version}" == "3.3"
 Requires:       kiran-widgets-qt5 >= 2.1.1
-%else
-Requires:       pkgconfig(kiranwidgets-qt5) >= 2.1.1
 %endif
+Requires:       pkgconfig(kiranwidgets-qt5)
 Requires:       kiran-log-qt5
 Requires:       qt5-qtbase
 Requires:       qt5-qtsvg
