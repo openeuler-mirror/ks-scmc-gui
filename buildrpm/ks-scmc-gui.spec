@@ -1,6 +1,6 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.1.1
-%global pkg_rel 5
+%global pkg_rel 6
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
@@ -54,8 +54,9 @@ BuildRequires:  cryptopp-devel
 
 %if "%{kylin_version}" == "3.3"
 Requires:       kiran-widgets-qt5 >= 2.1.1
+%else
+Requires:       pkgconfig(kiranwidgets-qt5) >= 2.1.1
 %endif
-Requires:       pkgconfig(kiranwidgets-qt5)
 Requires:       kiran-log-qt5
 Requires:       qt5-qtbase
 Requires:       qt5-qtsvg
