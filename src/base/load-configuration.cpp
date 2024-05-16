@@ -26,6 +26,7 @@ LoadConfiguration::LoadConfiguration(QObject *parent) : m_settings(nullptr)
 {
     m_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "kylinsec", "ks-scmc-config");
     initConfig();
+    _getSslConfig();
 }
 
 LoadConfiguration::~LoadConfiguration()
