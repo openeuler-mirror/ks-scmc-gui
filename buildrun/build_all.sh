@@ -69,6 +69,10 @@ if [[ ! \$deppgs == "" ]];then
         deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiran-log')
         rpm -qa | grep kiranwidgets-qt5 > /dev/null || deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiranwidgets-qt5-devel-2.1.1')
         yumoption="\$yumoption --allowerasing"
+
+        # task 38047
+        rpm -ql kiran-log-gtk3 > /dev/null && deppgs=$(echo $deppgs | sed 's/kiran-log-gtk3-2.2.4-1.x86_64.rpm//g')
+        rpm -ql kiran-log-qt5 > /dev/null && deppgs=$(echo $deppgs | sed 's/kiran-log-qt5-2.2.4-1.x86_64.rpm//g')
     fi
     yum localinstall \$deppgs -y \$yumoption
     if [[ \$? -ne 0 ]];then
@@ -79,7 +83,8 @@ fi
 
 sudo rpm -Uvh \$kspkgs --nodeps --force
 if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
-    sudo rpm -ivh kiran-log-qt5-2.2.4-1.x86_64.rpm
+    # task 38047, install kiran-log-qt5 when the package is not installed in the system
+    rpm -ql kiran-log-qt5 > /dev/null || sudo rpm -ivh kiran-log-qt5-2.2.4-1.x86_64.rpm
 fi
 
 cd -
