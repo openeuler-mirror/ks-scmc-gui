@@ -10,6 +10,6 @@ buildrpm/_buildres
 
 buildrun/*.run
 buildrun/*.readme
-buildrun/*.md5
+buildrun/*.md5.txt
 buildrun/ks-run/ks-scmc-gui/1.1/*.sh
 buildrun/ks-run/ks-scmc-gui/1.1/**/*.rpm
