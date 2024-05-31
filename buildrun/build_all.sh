@@ -37,15 +37,12 @@ fi
 
 if [[ "\${OS_VERSION}" && "\${ARCH_TYPE}" ]]; then
     echo "Current os is \${OS_VERSION}, arch is \${ARCH_TYPE}"
-    KS_ALLOW_OS=(\$(cd \${CURR_PATH}; find . -maxdepth 1 -mindepth 1 -type d -not -empty -printf '%f\n'))
-    echo "Support os: \${KS_ALLOW_OS[@]}"
-    for KS_OS_NAME in \${KS_ALLOW_OS[@]}
-    do
-        if [[ "\$OS_VERSION" == "\$KS_OS_NAME"* ]];then
-            RPM_PATH=\${CURR_PATH}/\${KS_OS_NAME}/\${ARCH_TYPE}
-            break
-        fi
-    done
+    if [[ "\${OS_VERSION}" == "3.3-6" || "\${OS_VERSION}" > "3.3-6" ]] && [[ "\${ARCH_TYPE}" == "x86_64" ]]; then
+        RPM_PATH=\${CURR_PATH}/"3.3-6"/\${ARCH_TYPE}
+    else
+        echo "Cannot find os or arch"
+        exit 1
+    fi
 else
     echo "Cannot find os or arch"
     exit 1
@@ -64,28 +61,14 @@ cd \$RPM_PATH
 deppgs=\$(ls | grep -v '^$g_software_name')
 kspkgs=\$(ls | grep -E "^$g_software_name")
 if [[ ! \$deppgs == "" ]];then
-    yumoption="--nogpgcheck --disablerepo=*"
-    if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
-        deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiran-log')
-        rpm -qa | grep kiranwidgets-qt5 > /dev/null || deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiranwidgets-qt5-devel-2.1.1')
-        yumoption="\$yumoption --allowerasing"
-
-        # task 38047
-        rpm -ql kiran-log-gtk3 > /dev/null && deppgs=$(echo $deppgs | sed 's/kiran-log-gtk3-2.2.4-1.x86_64.rpm//g')
-        rpm -ql kiran-log-qt5 > /dev/null && deppgs=$(echo $deppgs | sed 's/kiran-log-qt5-2.2.4-1.x86_64.rpm//g')
-    fi
-    yum localinstall \$deppgs -y \$yumoption
+    yum localinstall \$deppgs -y --nogpgcheck --disablerepo=*
     if [[ \$? -ne 0 ]];then
-        echo "please make sure the repo is valid or remove all invalid repo, yumoption: \$yumoption"
+        echo "please make sure the repo is valid or remove all invalid repo"
         exit 1
     fi 
 fi
 
 sudo rpm -Uvh \$kspkgs --nodeps --force
-if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
-    # task 38047, install kiran-log-qt5 when the package is not installed in the system
-    rpm -ql kiran-log-qt5 > /dev/null || sudo rpm -ivh kiran-log-qt5-2.2.4-1.x86_64.rpm
-fi
 
 cd -
 

@@ -2,6 +2,7 @@
 export KS_PROJECK_NAME=$1
 export KS_PROJECK_VERSION=$2
 export KS_ALLOW_ARCH=("x86_64")
+export KS_ALLOW_OS=("3.3-6" "3.4-4")
 
 CURR_PATH=$(cd $(dirname $0); pwd -P)
 
@@ -19,24 +20,16 @@ fi
 
 SRC_PATH=$CURR_PATH/ks-run/$KS_PROJECK_NAME/$KS_PROJECK_VERSION
 ls -l $SRC_PATH > /dev/null 2>&1 || { echo "$SRC_PATH not exist"; exit 1; }
-export KS_ALLOW_OS=($(cd ${SRC_PATH}; find . -maxdepth 1 -mindepth 1 -type d -not -empty -printf '%f\n'))
-if [ ${#KS_ALLOW_OS[@]} -eq 0 ]; then
-        echo "$SRC_PATH is empty!"
-        exit 1
-fi
 
-echo "allow os: ${KS_ALLOW_OS[@]}"
-for KS_OS_NAME in ${KS_ALLOW_OS[@]}
+echo "allowed os version: ${KS_ALLOW_OS[@]}"
+for KS_ARCH_NAME in ${KS_ALLOW_ARCH[@]}
 do
-    for KS_ARCH_NAME in ${KS_ALLOW_ARCH[@]}
-    do
-        RPM_PATH=$SRC_PATH/${KS_OS_NAME}/${KS_ARCH_NAME}
-        echo ${RPM_PATH}
-        if [ ! -e ${RPM_PATH} ];then
-            echo "${RPM_PATH} donot exist"
-            exit 1
-        fi
-    done
+    RPM_PATH=$SRC_PATH/3.3-6/${KS_ARCH_NAME}
+    echo ${RPM_PATH}
+    if [ ! -e ${RPM_PATH} ];then
+        echo "${RPM_PATH} donot exist"
+        exit 1
+    fi
 done
 
 RUN_PATH=$CURR_PATH/$KS_PROJECK_NAME-$KS_PROJECK_VERSION-$(date "+%Y%m%d")
@@ -62,16 +55,13 @@ cat > $readmefile <<EOF
 
 EOF
 
-for KS_OS_NAME in ${KS_ALLOW_OS[@]}
+for KS_ARCH_NAME in ${KS_ALLOW_ARCH[@]}
 do
-    for KS_ARCH_NAME in ${KS_ALLOW_ARCH[@]}
-    do
-        echo "${KS_OS_NAME}.${KS_ARCH_NAME} 依赖包：" >> $readmefile
-        find $TMP_PATH/${KS_OS_NAME}/${KS_ARCH_NAME} -name *.rpm | while read line;do
-            echo $(basename $line) >> $readmefile
-        done
-        echo "" >> $readmefile
+    echo "${KS_ARCH_NAME} 依赖包：" >> $readmefile
+    find $TMP_PATH/3.3-6/${KS_ARCH_NAME} -name *.rpm | while read line;do
+        echo $(basename $line) >> $readmefile
     done
+    echo "" >> $readmefile
 done
 
 sed -i "s/KS_PROJECK_NAME/$KS_PROJECK_NAME/g" $CURR_PATH/ks-run.sh

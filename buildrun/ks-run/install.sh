@@ -26,14 +26,7 @@ fi
 OS_VERSION=`cat /etc/.kyinfo |  sed 's/ //g'| grep ^milestone | awk -F= '{ print $2 }'`
 echo "OS version:${OS_VERSION}, Allowed os version: ${ALLOWED_OS_VERSION[@]}"
 
-for KS_OS_NAME in ${ALLOWED_OS_VERSION[@]}
-do
-    if [[ "$OS_VERSION" == "$KS_OS_NAME"* ]];then
-        break
-    fi
-done
-# not find
-if [[ "$OS_VERSION" != "$KS_OS_NAME"* ]];then
+if [[ "$OS_ARCH" == "x86_64" && "$OS_VERSION" < "3.3-6" ]]; then
     echo "OS version mismatched, exit"
     exit 1
 fi
