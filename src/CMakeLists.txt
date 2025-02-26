@@ -61,9 +61,6 @@ add_executable(${PROJECT_NAME}
 	${LICENSE_MANAGER_GENERATED_CPP_FILES}
 	${LICENSE_OBJECT_GENERATED_CPP_FILES})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH
-				"${SCMCGUI_DEPS_LIBDIR}")
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${include_dir_list})
 
 target_link_libraries(${PROJECT_NAME} ${link_lib_list})
