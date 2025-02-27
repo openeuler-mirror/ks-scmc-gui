@@ -5,24 +5,10 @@
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
 
-%global enable_set_palette 0
-
-# %if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 4 && 0%{?kylin_sub_minor_version} >= 4) || \
-#     (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} >= 5) ||  \
-#     (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 3 && 0%{?kylin_sub_minor_version} == 6)
-# %global enable_set_palette 1
-# %endif
-
-%if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 4 && 0%{?kylin_sub_minor_version} >= 4)
-%global enable_set_palette 1
-%endif
-
-%if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} >= 5)
-%global enable_set_palette 1
-%endif
-
-%if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 3 && 0%{?kylin_sub_minor_version} == 6)
-%global enable_set_palette 1
+%if (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} == 4 && 0%{kylin_sub_minor_version} >= 4) || 
+    (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} >= 5) || 
+    (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} == 3 && 0%{kylin_sub_minor_version} == 6)
+	%global enable_set_palette 1
 %endif
 
 Name:           %{pkg_name}

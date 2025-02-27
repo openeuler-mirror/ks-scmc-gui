@@ -160,7 +160,7 @@ TablePage QTableView{
     padding: 0px;		/*内边距*/
     margin: 0px;			/*外边距*/
     color: #ffffff;		/*表格文本的颜色*/
-    /*background: #2d2d2d;	表格背景色*/
+    background: transparent;	/*表格背景色*/
     gridline-color:	#2d2d2d;		/*网格边框*/
     font-size: 14px;					/*表格文本大小*/
     font-weight:200;

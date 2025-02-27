@@ -121,24 +121,6 @@
 /usr/lib64/libXxf86vm.so.1
 /usr/lib64/libzlog.so.1.2
 /usr/lib64/libz.so.1
-/usr/lib64/libicuuc.so.57
-/usr/lib64/libkiranwidgets-qt5.so.2
-/usr/lib64/libpng12.so.0.50.0
-/usr/lib64/libpng15.so.15.13.0
-/usr/lib64/libpng.so.3.50.0
-/usr/lib64/libicudata.so.57
-/usr/lib64/libkiran-style-helper.so.2
-/usr/lib64/libkiranwidgets-qt5.so.2.1.1
-/usr/lib64/libpng15.so
-/usr/lib64/libpng.so
-/usr/lib64/libwebkit2gtk-4.0.so.37
-/usr/lib64/libicui18n.so.57
-/usr/lib64/libkiranwidgets-qt5.so
-/usr/lib64/libpng12.so.0
-/usr/lib64/libpng15.so.15
-/usr/lib64/libpng.so.3
-/usr/lib64/libwebp.so.4
-
 
 [lib64/gio/modules]
 /usr/lib64/gio/modules/libgiognomeproxy.so
