@@ -344,7 +344,6 @@ ContainerSetting QComboBox QAbstractItemView::item:selected
 
 ContainerSetting QLineEdit
 {
-    background: #ffffff;
     border:1px solid #E4E7ED;
     border-radius:6px;
     color:#000000;
@@ -364,13 +363,6 @@ ContainerSetting #widget_base_sider
     border-right:1px solid #E4E7ED;
 }
 
-ContainerSetting QListWidget
-{
-    background: #ffffff;
-    border:none;
-    outline:none;
-}
-
 ContainerSetting #listWidget_advanced_config,
 ContainerSetting #listWidget_security_config
 {
@@ -378,6 +370,11 @@ ContainerSetting #listWidget_security_config
     border-top:none;
     border-left:none;
     border-bottom:none;
+    outline:none;
+}
+ContainerSetting #listwidget_base_config
+{
+    outline:none;
 }
 
 ContainerSetting GuideItem
@@ -600,7 +597,6 @@ MessageDialog #label_summary
 }
 MessageDialog #browser_body
 {
-    background: #ffffff;
     font-size:12px;
     border:none;
 }
