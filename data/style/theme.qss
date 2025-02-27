@@ -600,6 +600,7 @@ MessageDialog #label_summary
 }
 MessageDialog #browser_body
 {
+    background: #ffffff;
     font-size:12px;
     border:none;
 }
