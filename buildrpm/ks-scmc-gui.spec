@@ -145,6 +145,7 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
     /usr/local/ks-scmc-gui/*
 %endif
 %{_datadir}/icons/hicolor/*/apps/*.*
+/etc/kiran-qt5-integration/kiran-qt5-integration.ini
 
 %changelog
 * Mon May 06 2024 zhenggongping <zhenggongping@kylinos.com.cn> -1.1.1-7
