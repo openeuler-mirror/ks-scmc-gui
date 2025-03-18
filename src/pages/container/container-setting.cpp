@@ -679,7 +679,11 @@ void ContainerSetting::createContainer()
     auto cntrCfg = request.mutable_configs();
     //cntrCfg->set_container_id("");
     cntrCfg->set_uuid("");
-    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
+
+    /* 去掉名称的前后空格 */
+    QString contName = ui->lineEdit_name->text().trimmed();
+    cntrCfg->set_name(contName.toStdString());
+    //cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     //cntrCfg->set_status("");
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
     cntrCfg->set_image(ui->cb_image->currentText().toStdString());
