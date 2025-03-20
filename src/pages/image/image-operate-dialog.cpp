@@ -81,6 +81,13 @@ void ImageOperateDialog::initUI()
     connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectSign);
     initLineEdit(ui->lineEditImageSign, imageSignBtn);
 
+    if (m_type == IMAGE_OPERATE_TYPE_UPLOAD)
+    {
+        ui->labFile->setText(QString("<font color=red>*</font>%1").arg(tr("Image Select")));
+        m_securityOpen ? ui->labSign->setText(QString("<font color=red>*</font>%1").arg(tr("Signature file")))
+                       : ui->labSign->setText(tr("Signature file"));
+    }
+
     connect(ui->textDesc, &QTextEdit::textChanged, this, &ImageOperateDialog::limitLength);
 }
 
