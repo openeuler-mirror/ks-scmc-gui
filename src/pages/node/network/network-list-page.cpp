@@ -91,6 +91,8 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
     if (m_objId != objId)
         return;
 
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+
     if (!reply.first.ok())
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
