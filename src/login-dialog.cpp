@@ -186,7 +186,8 @@ void LoginDialog::initUI()
     closeBtn->hide();
     closeBtn->setStyleSheet("border:none;outline:none;");
     connect(closeBtn, &QPushButton::clicked,
-            [this] {
+            [this]
+            {
                 ui->lineEdit_username->clear();
             });
 
