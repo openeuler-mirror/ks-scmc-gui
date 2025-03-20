@@ -1394,21 +1394,25 @@ The first characters must be letter or digit</source>
     <name>HighAvailabilityTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="14"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="107"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="69"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="108"/>
         <source>High availability policy: </source>
         <translation>高可用策略： </translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="108"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="109"/>
         <source>Auto pulling times:         </source>
         <translation>自动拉起次数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="115"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="110"/>
         <source>times</source>
         <translation>次</translation>
     </message>
