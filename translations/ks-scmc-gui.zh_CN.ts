@@ -3664,6 +3664,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>SecurityListItem</name>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="26"/>
+        <location filename="../build/src/ui_security-list-item.h" line="105"/>
         <source>Form</source>
         <translation></translation>
     </message>
