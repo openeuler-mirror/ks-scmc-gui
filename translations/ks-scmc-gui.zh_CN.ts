@@ -2362,26 +2362,31 @@ p, li { white-space: pre-wrap; }
     <name>MonitorContent</name>
     <message>
         <location filename="../src/common/monitor-content.ui" line="14"/>
+        <location filename="../build/src/ui_monitor-content.h" line="167"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="65"/>
+        <location filename="../build/src/ui_monitor-content.h" line="168"/>
         <source>Cycle:</source>
         <translation>周期：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="106"/>
+        <location filename="../build/src/ui_monitor-content.h" line="169"/>
         <source>Period:</source>
         <translation>时间范围：</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="132"/>
+        <location filename="../build/src/ui_monitor-content.h" line="171"/>
         <source>-</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.ui" line="173"/>
+        <location filename="../build/src/ui_monitor-content.h" line="173"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
