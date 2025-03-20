@@ -81,6 +81,7 @@ void ServerConfigDialog::initUI()
     m_portLineEdit->setFixedSize(370, 36);
     m_portLineEdit->setPlaceholderText(tr("Please input port"));
     m_portLineEdit->setTextMargins(10, 0, 0, 0);
+    m_portLineEdit->setMaxLength(5);
     portLayout->addWidget(portLab);
     portLayout->addWidget(m_portLineEdit);
 
