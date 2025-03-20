@@ -85,7 +85,7 @@ void NetworkConfTab::setVirtNetwork(QString virtNetwork)
         ui->cb_virt_networkcard->setCurrentIndex(0);
 }
 
-//初始化网卡页面信息
+// 初始化网卡页面信息
 void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
 {
     ui->cb_virt_networkcard->clear();
