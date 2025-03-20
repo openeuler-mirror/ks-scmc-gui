@@ -2585,47 +2585,47 @@ Instruction</source>
 <context>
     <name>NetworkListPage</name>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="127"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="129"/>
         <source>Up</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="127"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="129"/>
         <source>Down</source>
         <translation>停用</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="195"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="199"/>
         <source>Create virt interface failed!</source>
         <translation>创建虚拟网卡失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="232"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="236"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="239"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="243"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="280"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="284"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="290"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="294"/>
         <source>Subnet:</source>
         <translation>网段：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="301"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="306"/>
         <source>Bind real interface:</source>
         <translation>绑定的物理网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="330"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="335"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
