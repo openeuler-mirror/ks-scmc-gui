@@ -271,7 +271,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     window->setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
     window->setResizeable(false);
 
-    //创建内容窗口
+    // 创建内容窗口
     QWidget *content = new QWidget(window);
     QVBoxLayout *mainLayout = new QVBoxLayout(content);
     mainLayout->setSpacing(20);
