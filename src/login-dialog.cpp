@@ -216,13 +216,14 @@ void LoginDialog::initUI()
     ui->lineEdit_passwd->setEchoMode(QLineEdit::Password);
     ui->lineEdit_passwd->setPlaceholderText(tr("Please input password"));
     ui->lineEdit_passwd->setTextMargins(30, 0, 10, 0);
+    ui->lineEdit_passwd->setMaxLength(32);
 
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
 }
 
 void LoginDialog::initActivation()
 {
-    //创建激活界面
+    // 创建激活界面
     m_activateDialog = new LicenseActivation(this);
     m_activateDialog->hide();
 
