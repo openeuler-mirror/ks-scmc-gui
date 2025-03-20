@@ -46,7 +46,7 @@ void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
 
-//更新容器,更新模板 时设置界面初始值
+// 更新容器,更新模板 时设置界面初始值
 void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<QString> networkList)
 {
     KLOG_DEBUG() << "Set network info:"
