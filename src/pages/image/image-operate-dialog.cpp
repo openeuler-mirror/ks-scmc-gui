@@ -230,11 +230,11 @@ void ImageOperateDialog::updateParamDeal()
     close();
 }
 
-//void ImageOperateDialog::checkParamDeal()
+// void ImageOperateDialog::checkParamDeal()
 //{
-//    QString imageId = QString::number(m_IdNameMap[ui->checkImage->currentText()]);
-//    QString status = ui->checkStatus->currentText();
-//    QString reason = ui->checkReason->text();
+//     QString imageId = QString::number(m_IdNameMap[ui->checkImage->currentText()]);
+//     QString status = ui->checkStatus->currentText();
+//     QString reason = ui->checkReason->text();
 
 //    KLOG_INFO() << status << reason << imageId << ui->checkImage->currentText();
 
