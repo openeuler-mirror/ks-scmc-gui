@@ -62,6 +62,8 @@ void ContainerAppOperateDialog::initUI()
     ui->cb_type->addItem(tr("GUI app"), true);
     ui->cb_type->addItem(tr("Non-GUI"), false);
 
+    ui->lineEdit_name->setMaxLength(50);
+
     connect(ui->btn_cancel, &QPushButton::clicked, this, &ContainerAppOperateDialog::close);
     connect(ui->btn_save, &QPushButton::clicked, this, &ContainerAppOperateDialog::onSave);
 }
