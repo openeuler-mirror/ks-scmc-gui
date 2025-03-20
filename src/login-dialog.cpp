@@ -172,7 +172,7 @@ void LoginDialog::initUI()
     btnMenu->setMenu(menu);
     connect(menu, &QMenu::triggered, this, &LoginDialog::onMenuTrigger);
 
-    //添加输入框布局，设置图标
+    // 添加输入框布局，设置图标
     QHBoxLayout *userLayout = new QHBoxLayout(ui->lineEdit_username);
     userLayout->setContentsMargins(10, 0, 10, 0);
     userLayout->setSpacing(10);
