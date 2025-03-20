@@ -108,8 +108,8 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
                                    ":/images/warning.svg",
                                    MessageDialog::StandardButton::Ok);
             event->ignore();
-            //qApp->quit();
-            //event->accept();
+            // qApp->quit();
+            // event->accept();
             return true;
         }
         event->accept();
