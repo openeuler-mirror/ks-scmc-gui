@@ -314,12 +314,12 @@ void LoginDialog::onLogin()
     if (!m_licenseProxy->isActivated())
     {
         KLOG_DEBUG() << "The application is not activated.";
-        //弹出提示
+        // 弹出提示
         KiranMessageBox::message(nullptr,
                                  tr("Activation"),
                                  tr("The application is not activated and unable to login. Please activate it."),
                                  KiranMessageBox::Ok);
-        //跳转激活界面
+        // 跳转激活界面
         showActivatePage();
         return;
     }
