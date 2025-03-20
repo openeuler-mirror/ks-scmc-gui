@@ -2289,16 +2289,19 @@ The first characters must be letter or digit</source>
     <name>MemoryConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ui_memory-conf-tab.h" line="120"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ui_memory-conf-tab.h" line="121"/>
         <source>Memory soft limit:</source>
         <translation>内存软限制：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/memory-conf-tab.ui" line="117"/>
+        <location filename="../build/src/ui_memory-conf-tab.h" line="122"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum limit:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;最大值：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
