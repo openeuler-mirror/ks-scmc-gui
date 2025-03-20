@@ -644,6 +644,11 @@ The first characters must be letter or digit</source>
         <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
     </message>
     <message>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="32"/>
+        <source>Please input 1 to 50 characters</source>
+        <translation>请输入1 - 50个字符</translation>
+    </message>
+    <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="92"/>
         <source>Please input backup version!</source>
         <translation>请输入备份版本！</translation>
