@@ -126,7 +126,8 @@ void ServerConfigDialog::initUI()
                 close();
             });
     connect(cancleBtn, &QPushButton::clicked,
-            [this] {
+            [this]
+            {
                 close();
             });
 }
