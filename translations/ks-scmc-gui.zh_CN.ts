@@ -333,31 +333,37 @@
     <name>ContainerAppOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="14"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="146"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="75"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="148"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App path:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;路径：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="82"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="149"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App Name:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;应用名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="118"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="150"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App type:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;类型：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="174"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="151"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="181"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="152"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
