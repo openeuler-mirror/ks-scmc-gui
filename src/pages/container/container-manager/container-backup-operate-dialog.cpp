@@ -28,8 +28,8 @@ ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType typ
     {
         ui->stackedWidget->setCurrentWidget(ui->page_operate);
 
-        ui->lineEdit_version->setMaxLength(20);
-        ui->lineEdit_version->setPlaceholderText(tr("Please input 1 to 20 characters"));
+        ui->lineEdit_version->setMaxLength(50);
+        ui->lineEdit_version->setPlaceholderText(tr("Please input 1 to 50 characters"));
         if (m_type == BACKUP_OPERATE_TYPE_EDIT)
         {
             ui->lineEdit_version->setText(backup);
