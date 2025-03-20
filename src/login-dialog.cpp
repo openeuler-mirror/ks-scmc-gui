@@ -197,7 +197,8 @@ void LoginDialog::initUI()
     ui->lineEdit_username->setPlaceholderText(tr("Please input user name"));
     ui->lineEdit_username->setTextMargins(30, 0, 30, 0);
     connect(ui->lineEdit_username, &QLineEdit::textEdited,
-            [=](QString str) {
+            [=](QString str)
+            {
                 if (str.isEmpty())
                     closeBtn->hide();
                 else
