@@ -3055,27 +3055,27 @@ Instruction</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="29"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="30"/>
         <source>Please input 0 to 200 characters</source>
         <translation>请输入0 - 200个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="35"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="36"/>
         <source>Update Node</source>
         <translation>更新节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="81"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="82"/>
         <source>Add node</source>
         <translation>添加节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="82"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="83"/>
         <source>Add node failed!</source>
         <translation>添加节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="83"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="84"/>
         <source>Please improve the content!</source>
         <translation>请完善内容！</translation>
     </message>
