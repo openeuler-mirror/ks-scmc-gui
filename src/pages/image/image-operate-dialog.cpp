@@ -153,7 +153,7 @@ void ImageOperateDialog::updateParamDeal()
                  << "sign file:" << signFile
                  << "image file: " << imageFile;
 
-    //逻辑没有问题，用户如果想把desc变空，只能将镜像和签名重新传一次
+    // 逻辑没有问题，用户如果想把desc变空，只能将镜像和签名重新传一次
     if (m_securityOpen)
     {
         if (imageFile.isEmpty() && signFile.isEmpty() && desc.isEmpty())
