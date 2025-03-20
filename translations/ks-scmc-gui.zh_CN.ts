@@ -3092,18 +3092,25 @@ Instruction</source>
         <location filename="../src/pages/outline/outline-cell.ui" line="131"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="238"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="245"/>
+        <location filename="../build/src/ui_outline-cell.h" line="244"/>
+        <location filename="../build/src/ui_outline-cell.h" line="246"/>
+        <location filename="../build/src/ui_outline-cell.h" line="247"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="284"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="315"/>
+        <location filename="../build/src/ui_outline-cell.h" line="249"/>
+        <location filename="../build/src/ui_outline-cell.h" line="252"/>
         <source>label</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="299"/>
         <location filename="../src/pages/outline/outline-cell.ui" line="330"/>
+        <location filename="../build/src/ui_outline-cell.h" line="250"/>
+        <location filename="../build/src/ui_outline-cell.h" line="253"/>
         <source>Label</source>
         <translation></translation>
     </message>
