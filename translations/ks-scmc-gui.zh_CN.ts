@@ -1241,7 +1241,7 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="313"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1308"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1312"/>
         <source>Create template</source>
         <translation>创建模板</translation>
     </message>
