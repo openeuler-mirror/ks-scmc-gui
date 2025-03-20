@@ -29,13 +29,15 @@ CPUConfTab::CPUConfTab(QWidget* parent) : QWidget(parent),
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 double num = ui->lineEdit_cpu_core->text().toDouble();
                 ui->label_tips->setVisible(num > m_totalCPU ? true : false);
                 m_timer->stop();
             });
     connect(ui->lineEdit_cpu_core, &QLineEdit::textEdited,
-            [this](QString str) {
+            [this](QString str)
+            {
                 if (!str.isEmpty())
                     m_timer->start(TIMEOUT);
                 else
