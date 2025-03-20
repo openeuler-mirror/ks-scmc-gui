@@ -1802,64 +1802,70 @@ The first characters must be letter or digit</source>
         <translation>请输入0 - 200个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="92"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="87"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="88"/>
+        <source>Signature file</source>
+        <translation>签名文件</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="99"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="110"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="117"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="111"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="118"/>
         <source>Upload Image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="112"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="163"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="205"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="119"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="170"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="212"/>
         <source>Please improve the content!</source>
         <translation>请完善内容！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="120"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="186"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="215"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="127"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="193"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="222"/>
         <source>Can&apos;t open image file!</source>
         <translation>无法打开镜像文件！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="125"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="193"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="132"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="200"/>
         <source>Can&apos;t open signature file!</source>
         <translation>无法打开签名文件！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="171"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="178"/>
         <source>Please input image file!</source>
         <translation>请输入镜像文件！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="176"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="183"/>
         <source>Please input signature file!</source>
         <translation>请输入签名文件！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="161"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="203"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="168"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="210"/>
         <source>Update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="162"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="204"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="169"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="211"/>
         <source>Update Image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="262"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="269"/>
         <source>Please select an image file</source>
         <translation>请选择镜像文件</translation>
     </message>
