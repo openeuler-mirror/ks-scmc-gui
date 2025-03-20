@@ -293,6 +293,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 
     QLabel *labSubnet = new QLabel(QString("%1<font color=red>*</font>").arg(tr("Subnet:")), content);
     QLineEdit *lineEditSubnet = new QLineEdit(content);
+    lineEditSubnet->setMaxLength(50);
     lineEditSubnet->setFixedHeight(36);
     lineEditSubnet->setPlaceholderText("xxx.xxx.xxx.xxx/xx");
     if (!subnet.isEmpty())
