@@ -328,13 +328,13 @@ void LoginDialog::onLogin()
         return;
 
     InfoWorker::getInstance().login(m_objID, ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  // 等待旋转
 }
 
 void LoginDialog::onLogout()
 {
     InfoWorker::getInstance().logout(m_objID);
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  // 等待旋转
 }
 
 void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, user::LoginReply> &reply)
