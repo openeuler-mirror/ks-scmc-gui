@@ -83,7 +83,7 @@ bool CPUConfTab::getCPUInfo(container::ResourceLimit* cfg, QString& errMsg)
         }
         cfg->set_cpu_limit(ui->lineEdit_cpu_core->text().toDouble());
 
-        //调度优先级
+        // 调度优先级
         cfg->set_cpu_prio(ui->cb_sche_pri->itemData(ui->cb_sche_pri->currentIndex()).toInt());
         return true;
     }
