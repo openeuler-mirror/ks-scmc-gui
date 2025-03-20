@@ -108,7 +108,8 @@ void ServerConfigDialog::initUI()
                screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
 
     connect(confirmBtn, &QPushButton::clicked,
-            [this] {
+            [this]
+            {
                 if (m_ipLineEdit->text().isEmpty() || m_portLineEdit->text().isEmpty())
                 {
                     KiranMessageBox::message(nullptr,
