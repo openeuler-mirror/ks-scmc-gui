@@ -284,6 +284,7 @@
     <name>ConfigTable</name>
     <message>
         <location filename="../src/common/config-table.ui" line="14"/>
+        <location filename="../build/src/ui_config-table.h" line="53"/>
         <source>ConfigTable</source>
         <translation>配置表</translation>
     </message>
