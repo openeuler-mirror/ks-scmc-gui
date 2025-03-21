@@ -1224,7 +1224,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     {
         for (int i = 0; i < (size - m_netWorkPages.size()); ++i)
         {
-            //创建网卡tab页，由于初始页面已经创建过一次，创建个数 - m_netWorkPages.size()
+            // 创建网卡tab页，由于初始页面已经创建过一次，创建个数 - m_netWorkPages.size()
             GuideItem *item = createGuideItem(ui->listwidget_base_config,
                                               NETWORK_CARD,
                                               GUIDE_ITEM_TYPE_NORMAL,
