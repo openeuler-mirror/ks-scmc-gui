@@ -597,14 +597,14 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         return false;
     }
 
-    //High
+    // High
     auto policy = cntrCfg->mutable_restart_policy();
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
     auto limit = cntrCfg->mutable_resouce_limit();
 
-    //cpu
+    // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     if (!cpuPage->getCPUInfo(limit, errMsg))
     {
