@@ -616,7 +616,7 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         return false;
     }
 
-    //memory
+    // memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     if (!memoryPage->getMemoryInfo(limit, errMsg))
     {
