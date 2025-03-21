@@ -979,14 +979,14 @@ void ContainerSetting::onConfirm()
 
 void ContainerSetting::onNodeSelectedChanged(const QString &newStr)
 {
-    //更新网络列表
+    // 更新网络列表
     setNodeNetworkList(ui->cb_node->currentData().toInt());
 
-    //更新cpu最大值
+    // 更新cpu最大值
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
 
-    //设置节点内存总数
+    // 设置节点内存总数
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->setTotalMemory(m_nodeTotalMemory.value(ui->cb_node->currentData().toInt()));
 }
