@@ -1073,7 +1073,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     KLOG_DEBUG() << "Network config size:" << size;
     for (int i = 0; i < size - 1; ++i)
     {
-        //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
+        // 创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
         GuideItem *item = createGuideItem(ui->listwidget_base_config,
                                           NETWORK_CARD,
                                           GUIDE_ITEM_TYPE_NORMAL,
