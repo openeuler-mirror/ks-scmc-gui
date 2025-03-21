@@ -749,7 +749,7 @@ void ContainerSetting::updateContainer()
         netInterface[network.interface().data()] = true;
     }
 
-    //security
+    // security
     auto securityCfg = request.mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
