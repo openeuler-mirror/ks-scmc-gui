@@ -1085,7 +1085,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     }
     updateRemovableItem(NETWORK_CARD);
 
-    //更新网络页面信息
+    // 更新网络页面信息
     QList<QString> networkList = m_networksMap.values(m_nodeID);
     for (int i = 0; i < size; i++)
     {
