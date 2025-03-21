@@ -1093,35 +1093,42 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         NetworkConfTab *networkPage = m_netWorkPages.at(i);
         if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE)
             networkConfig.set_ip_address("");
-        networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
+        networkPage->setNetworkInfo(&networkConfig, networkList);  // 设置网卡列表和网卡信息
     }
-    //cmd 
+    // cmd
     auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
     cmdPage->setCMDInfo(&info);
-    
-    //volume
+
+    // volume
     auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     volumesPage->setVolumeInfo(&info);
 
-    //env
+    // env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
+    
+    // 过检需要，在编辑容器时，无法修改环境变量和共享目录的值
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+    {
+        volumesPage->setDisabled(true);
+        envPage->setDisabled(true);
+    }
 
-    //high-availability
+    // high-availability
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     auto policy = info.restart_policy();
     highAvailabilityPage->setRestartPolicy(&policy);
 
     auto limit = info.resouce_limit();
-    //cpu
+    // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setCPUInfo(&limit);
 
-    //memory
+    // memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->setMemoryInfo(&limit);
 
-    //security
+    // security
     auto securityCfg = info.security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
