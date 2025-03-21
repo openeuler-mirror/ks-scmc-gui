@@ -136,7 +136,7 @@ void ContainerSetting::getContainerInspect(int nodeID, const QString containerID
 
 void ContainerSetting::getTemplateInspect()
 {
-    //获取模板下拉框中的当前模板绑定的模板id
+    // 获取模板下拉框中的当前模板绑定的模板id
     auto templateId = ui->cb_template->currentData().toInt();
     m_templateId = templateId;
 
