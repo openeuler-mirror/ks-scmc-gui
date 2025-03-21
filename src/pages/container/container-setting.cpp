@@ -201,7 +201,7 @@ void ContainerSetting::initUI()
     QLayout *securityLayout = ui->tab_security_config->layout();
     securityLayout->addWidget(m_securityConfStack);
 
-    //创建tabwidget中侧边栏
+    // 创建tabwidget中侧边栏
     QList<QPair<QString, QString>> baseConfItemInfo = {{CPU, ":/images/container-cpu.svg"},
                                                        {MEMORY, ":/images/container-memory.svg"},
                                                        {NETWORK_CARD, ":/images/container-net-card.svg"}};
