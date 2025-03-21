@@ -1237,7 +1237,7 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     }
     else if (size < m_netWorkPages.size())
     {
-        //删除页面上多余的网卡tab页
+        // 删除页面上多余的网卡tab页
         int row = 0;
         int count = m_netWorkPages.size() - size;
         while (row < ui->listwidget_base_config->count() && m_netWorkCount > 1 && count > 0)
@@ -1254,36 +1254,36 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     }
 
     updateRemovableItem(NETWORK_CARD);
-    //更新网络页面信息
+    // 更新网络页面信息
     QList<QString> networkList = m_networksMap.values(nodeID);
     for (int i = 0; i < size; i++)
     {
         auto networkConfig = info.networks(i);
         NetworkConfTab *networkPage = m_netWorkPages.at(i);
-        networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
+        networkPage->setNetworkInfo(&networkConfig, networkList);  // 设置网卡列表和网卡信息
     }
 
-    //env
+    // env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
-    //cmd
+    // cmd
     auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
     cmdPage->setCMDInfo(&info);
-    //high-availability
+    // high-availability
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     auto policy = info.restart_policy();
     highAvailabilityPage->setRestartPolicy(&policy);
 
     auto limit = info.resouce_limit();
-    //cpu
+    // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setCPUInfo(&limit);
 
-    //memory
+    // memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->setMemoryInfo(&limit);
 
-    //security
+    // security
     auto securityCfg = info.security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
