@@ -547,7 +547,7 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
 {
     QString errMsg = "";
 
-    //volume mounts
+    // volume mounts
     auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     if (!volumePage->getVolumeInfo(cntrCfg, errMsg))
     {
