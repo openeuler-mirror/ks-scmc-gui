@@ -1187,33 +1187,33 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
         return;
     }
 
-    //init ui
+    // init ui
     int nodeID = reply.second.data().node_id();
     KLOG_DEBUG() << "Template node id: " << nodeID;
 
     auto info = reply.second.data().conf();
 
-    //名字
+    // 名字
     ui->lineEdit_name->setText(info.name().data());
     ui->lineEdit_name->setCursorPosition(0);
-    //描述
+    // 描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
         ui->lineEdit_describe->setText(info.desc().data());
     else
         ui->lineEdit_describe->setText(tr("none"));
     ui->lineEdit_describe->setCursorPosition(0);
-    //节点
+    // 节点
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeID));
-    //镜像
+    // 镜像
     KLOG_DEBUG() << "Template image: " << QString::fromStdString(info.image());
-    //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
+    // 处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
     if (0 > ui->cb_image->findText(info.image().data()))
     {
         ui->cb_image->addItem(info.image().data());
     }
     ui->cb_image->setCurrentText(QString::fromStdString(info.image()));
 
-    //volume
+    // volume
     auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     volumesPage->setVolumeInfo(&info);
 
