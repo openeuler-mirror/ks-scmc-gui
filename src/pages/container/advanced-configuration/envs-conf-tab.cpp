@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/container/advanced-configuration/envs-conf-tab.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
