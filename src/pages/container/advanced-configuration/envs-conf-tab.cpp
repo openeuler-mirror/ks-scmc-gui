@@ -92,6 +92,14 @@ bool EnvsConfTab::getEnvInfo(container::UpdateRequest *req, QString &errMsg)
 
 void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
 {
+    if (m_configTable)
+    {
+        delete m_configTable;
+        m_configTable = nullptr;
+    }
+    m_configTable = new ConfigTable(CONFIG_TABLE_TYPE_ENV, this);
+    this->layout()->addWidget(m_configTable);
+
     auto envMap = cfg->envs();
 
     QList<QSharedPointer<ModelItem>> itemList;
