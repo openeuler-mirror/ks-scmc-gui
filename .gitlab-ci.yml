@@ -5,7 +5,8 @@ variables:
                    gpgcheck=0
                    priority=99
                    exclude=libarchive-devel
-                   baseurl=http://192.168.120.17/kojifiles/repos/ks-license-2.7-nodeps-next-build/latest/x86_64/
+                   #baseurl=http://192.168.120.17/kojifiles/repos/ks-license-2.7-nodeps-next-build/latest/x86_64/
+                   baseurl=http://192.168.120.71/kojifiles/repos/ks-license-2.7-next-build/latest/x86_64/
                    [351]
                    name=KylinSec OS-$releasever - 351
                    gpgcheck=0
