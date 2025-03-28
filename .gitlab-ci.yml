@@ -17,7 +17,7 @@ variables:
                    gpgcheck=0
                    exclude=libarchive-devel
                    baseurl=http://192.168.120.71/kojifiles/repos/KiranUI-2.4-next-build/latest/x86_64/
-  RPM_BUILD_REQUIRES: 'cmake gcc-c++ protobuf-devel qt5-linguist qt5-qtcharts qt5-qtcharts-devel qt5-qtbase-devel xsd grpc-devel ks-license-devel qrencode-devel c-ares-devel libnotify-devel kiranwidgets-qt5-devel kiran-qt5-integration-devel grpc-plugins cryptopp-devel kiran-log-qt5 kiran-log-qt5-devel libarchive-devel'
+  RPM_BUILD_REQUIRES: 'cmake gcc-c++ protobuf-devel qt5-linguist qt5-qtcharts qt5-qtcharts-devel qt5-qtbase-devel xsd grpc-devel ks-license-devel qrencode-devel c-ares-devel libnotify-devel kiran-widgets-qt5-devel kiran-qt5-integration-devel grpc-plugins cryptopp-devel kiran-log-qt5 kiran-log-qt5-devel libarchive-devel qt5-qtbase-private-devel'
   DISABLE_SYNC: 'true'
 
 include:
