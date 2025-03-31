@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/container/container-manager/container-app-operate-dialog.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "container-app-operate-dialog.h"
 #include <widget-property-helper.h>
 #include "ui_container-app-operate-dialog.h"
