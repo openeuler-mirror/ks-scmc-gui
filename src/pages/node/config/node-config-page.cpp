@@ -56,7 +56,7 @@ void NodeConfigPage::setNodeId(int64_t nodeId)
 
 void NodeConfigPage::updateInfo(QString keyword)
 {
-    //interface getinfo
+    // interface getinfo
     InfoWorker::getInstance().listNode(m_objId);
 }
 
