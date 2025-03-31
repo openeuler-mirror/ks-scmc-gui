@@ -417,15 +417,16 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name, QString subnet, QString realIfs)
 {
     auto window = createOperateDialog(type, name, subnet, realIfs);
-    if (window)
+    if (!window)
     {
-        connect(window, &KiranTitlebarWindow::destroyed,
-                [=]
-                {
-                    window->deleteLater();
-                    // window = nullptr;
-                });
+        return;
     }
+    connect(window, &KiranTitlebarWindow::destroyed,
+            [=]
+            {
+                window->deleteLater();
+                // window = nullptr;
+            });
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
