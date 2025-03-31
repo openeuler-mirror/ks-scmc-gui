@@ -551,7 +551,8 @@ void ContainerAppPage::showOperateDlg()
 
     m_appOp->show();
     connect(m_appOp, &ContainerAppOperateDialog::destroyed,
-            [=] {
+            [=]
+            {
                 m_appOp->deleteLater();
                 m_appOp = nullptr;
             });
