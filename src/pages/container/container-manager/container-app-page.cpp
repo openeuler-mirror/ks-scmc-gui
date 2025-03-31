@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/container/container-manager/container-app-page.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "container-app-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
