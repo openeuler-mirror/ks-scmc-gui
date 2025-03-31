@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/image/security-switch-page.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #ifndef SECURITYSWITCHPAGE_H
 #define SECURITYSWITCHPAGE_H
 
