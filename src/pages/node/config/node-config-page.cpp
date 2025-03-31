@@ -197,7 +197,7 @@ void NodeConfigPage::getUpdateResult(const QString objId, const QPair<grpc::Stat
     else
     {
         NotificationManager::sendNotify(tr("Update node config failed!"), reply.first.error_message().data());
-        //还原为修改前的数据
+        // 还原为修改前的数据
         ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
         ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
         ui->lineEdit_disk->setText(QString::number(m_diskLimit));
