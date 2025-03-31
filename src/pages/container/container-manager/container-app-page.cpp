@@ -160,10 +160,10 @@ void ContainerAppPage::onStop(int row)
     auto isGUI = appInfo.value(CONTAINER_APP_IS_GUI).toBool();
     auto appName = appInfo.value(CONTAINER_APP_NAME).toString();
 
-    //判断app类型
+    // 判断app类型
     if (isGUI)
     {
-        //图形app则关闭终端
+        // 图形app则关闭终端
         auto process = m_procs.value(appID);
         if (!process)
         {
