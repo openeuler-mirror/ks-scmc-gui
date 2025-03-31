@@ -185,7 +185,7 @@ void ContainerAppPage::onStop(int row)
     }
     else
     {
-        //非图形app直接运行
+        // 非图形app直接运行
         InfoWorker::getInstance().killAppEntry(m_objId, m_nodeId, m_containerId, appID);
     }
 }
