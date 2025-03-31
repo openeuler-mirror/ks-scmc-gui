@@ -35,25 +35,26 @@ void CmdConfTab::getCMDInfo(container::ContainerConfigs *cfg)
 
 void CmdConfTab::getCMDInfo(container::UpdateRequest *req)
 {
-    if (req) {
+    if (req)
+    {
         std::string cmd = ui->lineEdit_cmd->text().toStdString();
         KLOG_DEBUG() << "cmd: %s" << cmd.c_str();
         req->set_cmd(cmd);
     }
 }
 
-
 void CmdConfTab::setCMDInfo(container::ContainerConfigs *cfg)
 {
-    if (cfg) {
+    if (cfg)
+    {
         ui->lineEdit_cmd->setText(QString::fromStdString(cfg->cmd().data()));
     }
 }
 
-
 void CmdConfTab::initUI()
 {
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT) {
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+    {
         ui->lineEdit_cmd->setEnabled(false);
     }
     ui->lineEdit_cmd->setPlaceholderText(tr("example: /bin/bash"));
