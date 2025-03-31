@@ -22,7 +22,7 @@ class CmdConfTab : public QWidget
     Q_OBJECT
 
 public:
-    explicit CmdConfTab(ContainerSettingType type,QWidget *parent = nullptr);
+    explicit CmdConfTab(ContainerSettingType type, QWidget *parent = nullptr);
     ~CmdConfTab();
     void getCMDInfo(container::ContainerConfigs *cfg);
     void getCMDInfo(container::UpdateRequest *req);
