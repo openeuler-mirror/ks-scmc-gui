@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/container/container-manager/container-app-page.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #ifndef CONTAINERAPPDIALOG_H
 #define CONTAINERAPPDIALOG_H
 
