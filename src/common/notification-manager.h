@@ -1,3 +1,10 @@
+/**
+ * @file          src/common/notification-manager.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+
 #ifndef NOTIFICATIONMANAGER_H
 #define NOTIFICATIONMANAGER_H
 
