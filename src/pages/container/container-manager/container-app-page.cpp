@@ -112,18 +112,19 @@ void ContainerAppPage::onRun(int row)
     QMap<QString, QVariant> appInfo = item->data().toMap();
     auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
 
-    //判断app类型
+    // 判断app类型
     if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
     {
-        //图形app则弹出终端
-        //判断该应用程序是否已经在运行
+        // 图形app则弹出终端
+        // 判断该应用程序是否已经在运行
         auto process = m_procs.value(appID, nullptr);
         if (!process)
         {
             process = new QProcess(this);
             m_procs.insert(appID, process);
             connect(process, &QProcess::stateChanged,
-                    [=](QProcess::ProcessState state) {
+                    [=](QProcess::ProcessState state)
+                    {
                         guiAppStatus(row, state);
                     });
         }
