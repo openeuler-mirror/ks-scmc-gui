@@ -49,6 +49,12 @@ ContainerAppPage::~ContainerAppPage()
 {
     qDeleteAll(m_procs);
     m_procs.clear();
+
+    if (m_timer)
+    {
+        delete m_timer;
+        m_timer = nullptr;
+    }
 }
 
 void ContainerAppPage::updateInfo(QString keyword)
