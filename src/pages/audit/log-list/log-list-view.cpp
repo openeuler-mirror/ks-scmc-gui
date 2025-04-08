@@ -104,11 +104,13 @@ void LogListView::initButtons()
 
     m_datePicker = new DatePicker;
     connect(m_datePicker, &DatePicker::sigStartdateChange,
-            [this](QString date) {
+            [this](QString date)
+            {
                 m_datePickStart->setText(date);
             });
     connect(m_datePicker, &DatePicker::sigEndDateChange,
-            [this](QString date) {
+            [this](QString date)
+            {
                 m_datePickEnd->setText(date);
             });
 
