@@ -143,7 +143,6 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
     }
 
     request.set_page_no(page_on);
-    setBusy(true);
     InfoWorker::getInstance().listWarnLogging(m_ObjId, request);
 }
 
