@@ -273,6 +273,18 @@ void WarningListView::setLogListPageType(WarningListPageType type)
     m_type = type;
 }
 
+void WarningListView::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void WarningListView::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
+}
+
 void WarningListView::onBtnRead()
 {
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
