@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/audit/warning-list/warning-list-view.cpp
- * @brief         
+ * @brief
  * @author        chendingjian <chendingjian@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
