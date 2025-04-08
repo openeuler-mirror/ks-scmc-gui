@@ -61,8 +61,9 @@ private:
     LogListPageType m_type;
     bool is_openPaging;
     int m_totalPages;
-    int m_pageOn = 1;  //当前页
+    int m_pageOn = 1;  // 当前页
     QString m_searchKey;
+    QTimer *m_timer;
 };
 
 #endif  // LOGLISTVIEW_H
