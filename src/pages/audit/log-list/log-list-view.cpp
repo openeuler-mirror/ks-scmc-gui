@@ -369,13 +369,26 @@ void LogListView::updatePagingInfo(int page_on)
 
 void LogListView::searchClicked(QString key)
 {
-    //    clearText();
+    // 有搜素关键字时不需要定时刷新，无关键字则需要开启定时刷新
+    key.isEmpty() ? m_timer->start(TIMEOUT) : m_timer->stop();
+
     m_searchKey = key;
     getLogList(m_type, m_pageOn);
-    //    updateInfo();
 }
 
 void LogListView::setLogListPageType(LogListPageType type)
 {
     m_type = type;
+}
+
+void LogListView::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void LogListView::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
 }
