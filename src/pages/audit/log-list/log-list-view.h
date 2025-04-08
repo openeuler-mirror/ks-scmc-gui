@@ -1,12 +1,13 @@
 /**
  * @file          /ks-scmc-gui/src/pages/audit/log-list/log-list-view.h
- * @brief         
+ * @brief
  * @author        chendingjian <chendingjian@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #ifndef LOGLISTVIEW_H
 #define LOGLISTVIEW_H
 
+#include <QTimer>
 #include "common/date-picker/date-pick-button.h"
 #include "common/date-picker/date-picker.h"
 #include "common/monitor-content.h"
