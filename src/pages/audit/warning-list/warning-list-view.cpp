@@ -16,10 +16,13 @@
 #define WARN_CONTAINER_ID "warn container id"
 #define WARN_CONTAINER_NAME "warn container name"
 
+#define TIMEOUT 3000
 WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool is_open_paging) : TablePage(parent, is_open_paging),
                                                                                                    m_totalPages(0),
                                                                                                    m_totalWarnning(0)
 {
+    m_timer = new QTimer(this);
+
     m_ObjId = InfoWorker::generateId(this);
     is_showContainerName = isShowContainerName;
     is_openPaging = is_open_paging;
