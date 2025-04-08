@@ -18,6 +18,7 @@ LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(paren
                                                                  m_BtnApply(nullptr),
                                                                  m_searchKey("")
 {
+    m_timer = new QTimer(this);
     is_openPaging = is_open_paging;
     m_objId = InfoWorker::generateId(this);
     initButtons();
