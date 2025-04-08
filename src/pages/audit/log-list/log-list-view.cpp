@@ -194,7 +194,6 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
     if (m_objId != objId)
         return;
 
-    setBusy(false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 
     if (!reply.first.ok())
