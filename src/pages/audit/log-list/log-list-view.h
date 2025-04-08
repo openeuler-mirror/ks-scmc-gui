@@ -48,7 +48,7 @@ private slots:
     void popupEndDatePicker();
     void applyDatePicker();
     void updatePagingInfo(int page_on);
-    void searchClicked(QString key);  //搜索响应
+    void searchClicked(QString key);  // 搜索响应
 
 private:
     QString m_objId;
