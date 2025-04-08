@@ -151,12 +151,17 @@ void WarningListView::readWarn(QList<int64_t> ids)
     InfoWorker::getInstance().readWarnLogging(m_ObjId, ids);
 }
 
+void WarningListView::refresh()
+{
+    clearText();
+    getWarningList(m_type, m_pageOn);
+}
+
 void WarningListView::getListWarningResult(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &reply)
 {
     if (m_ObjId != objId)
         return;
 
-    setBusy(false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 
     if (!reply.first.ok())
