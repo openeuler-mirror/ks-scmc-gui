@@ -53,6 +53,13 @@ void ContainerAppOperateDialog::onSave()
         ui->label_tip->setText(tr("Please complate the information! "));
         return;
     }
+
+    if (!checkFirstCharacter(ui->lineEdit_name->text()))
+    {
+        ui->label_tip->setText(tr("The characters can only be letter or digit!"));
+        return;
+    }
+
     ui->label_tip->clear();
 
     emit sigSave(ui->lineEdit_name->text(),
