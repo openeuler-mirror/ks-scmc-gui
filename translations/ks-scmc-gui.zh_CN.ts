@@ -1773,7 +1773,7 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="229"/>
         <location filename="../build/src/ui_image-operate-dialog.h" line="247"/>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="86"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="90"/>
         <source>Image Select</source>
         <translation>镜像选择</translation>
     </message>
