@@ -93,6 +93,20 @@ void ContainerAppOperateDialog::initUI()
     ui->cb_type->addItem(tr("Non-GUI"), false);
 
     ui->lineEdit_name->setMaxLength(50);
+    ui->lineEdit_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
+    ui->lineEdit_path->setMaxLength(4096);
+    ui->lineEdit_path->setPlaceholderText(tr("Please input 1 to 4096 characters"));
+
+    ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
+    ui->btn_tip_name->setStyleSheet("QToolTip{"
+                                    "background-color: rgb(255,255,255);"
+                                    "color:#000000;"
+                                    "border:0px solid rgb(0,0,0);"
+                                    "border-radius: 6px;"
+                                    "outline:none; "
+                                    "}"
+                                    "QToolButton{border:none;}");
+    ui->btn_tip_name->setToolTip(tr("The characters can only be letter or digit."));
 
     connect(ui->btn_cancel, &QPushButton::clicked, this, &ContainerAppOperateDialog::close);
     connect(ui->btn_save, &QPushButton::clicked, this, &ContainerAppOperateDialog::onSave);
