@@ -34,6 +34,7 @@ public:
 
 private:
     void onSave();
+    bool checkFirstCharacter(const QString &text);
 
 signals:
     void sigSave(const QString name, const QString path, const bool isGui);
