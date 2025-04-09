@@ -2008,122 +2008,122 @@ The first characters must be letter or digit</source>
 <context>
     <name>LogListView</name>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="56"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="66"/>
         <source>Operation Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="57"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="67"/>
         <source>Object</source>
         <translation>对象</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="58"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="68"/>
         <source>Operation</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="59"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="69"/>
         <source>Operation User</source>
         <translation>操作者</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="60"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="70"/>
         <source>Operation Result</source>
         <translation>操作结果</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="61"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="71"/>
         <source>Operation Details</source>
         <translation>操作详情</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="107"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="119"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="239"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="248"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="284"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="293"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="251"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="260"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="296"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="305"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="242"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="272"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="287"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="296"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="254"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="284"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="299"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="308"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="245"/>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="257"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="275"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="290"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="299"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="269"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="287"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="302"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="311"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="251"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="263"/>
         <source>Start</source>
         <translation>开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="263"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="275"/>
         <source>Upload</source>
         <translation>上传</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="266"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="278"/>
         <source>Download</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="269"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="281"/>
         <source>Approve</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="278"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="290"/>
         <source>Login</source>
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="281"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="293"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="302"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="314"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="311"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="323"/>
         <source>failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="313"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="325"/>
         <source>success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="196"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="206"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="254"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="266"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="260"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="272"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
