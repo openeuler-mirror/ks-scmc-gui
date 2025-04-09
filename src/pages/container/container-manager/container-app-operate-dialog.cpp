@@ -6,7 +6,10 @@
  */
 
 #include "container-app-operate-dialog.h"
+#include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
+#include <QRegularExpression>
+#include <QToolTip>
 #include "ui_container-app-operate-dialog.h"
 ContainerAppOperateDialog::ContainerAppOperateDialog(AppOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
                                                                                              ui(new Ui::ContainerAppOperateDialog),
