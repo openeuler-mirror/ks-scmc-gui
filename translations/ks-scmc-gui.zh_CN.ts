@@ -3776,32 +3776,32 @@ Instruction</source>
 <context>
     <name>SecuritySwitchPage</name>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="34"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="41"/>
         <source>Get security switch result failed!</source>
         <translation>获取镜像审核安全开关数据失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="46"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="53"/>
         <source>Set security switch %1</source>
         <translation>%1镜像审核安全开关</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="46"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="53"/>
         <source>on</source>
         <translation>开启</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="46"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="53"/>
         <source>off</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="52"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="59"/>
         <source>Set security switch failed!</source>
         <translation>设置镜像审核安全开关失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/security-switch-page.cpp" line="68"/>
+        <location filename="../src/pages/image/security-switch-page.cpp" line="75"/>
         <source>Enable image approval,and verity signature files</source>
         <translation>开启镜像审核、签名文件校验</translation>
     </message>
