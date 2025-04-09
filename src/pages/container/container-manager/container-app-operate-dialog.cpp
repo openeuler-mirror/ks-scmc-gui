@@ -67,6 +67,19 @@ void ContainerAppOperateDialog::onSave()
                  ui->cb_type->currentData().toInt());
 }
 
+bool ContainerAppOperateDialog::checkFirstCharacter(const QString &text)
+{
+    // 检测是否为数字、字母
+    QRegularExpression regex("^[a-zA-Z0-9]+$");
+
+    if (regex.match(text).hasMatch())
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void ContainerAppOperateDialog::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
