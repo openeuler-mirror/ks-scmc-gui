@@ -1324,58 +1324,58 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="1058"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1196"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1203"/>
         <source>none</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1155"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1162"/>
         <source>Update Container</source>
         <translation>更新容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1156"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1163"/>
         <source>Update container failed!</source>
         <translation>更新容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1157"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1164"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1175"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1182"/>
         <source>Get template infomation failed!</source>
         <translation>获取模板信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1306"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1313"/>
         <source>Create template successful!</source>
         <translation>创建容器模板成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1306"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1313"/>
         <source>You can see it in container template page.</source>
         <translation>点击容器模板页面即可查看。</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1313"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1320"/>
         <source>Create template failed!</source>
         <translation>创建模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1314"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1334"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1321"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1341"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1332"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1339"/>
         <source>Update template</source>
         <translation>更新模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1333"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1340"/>
         <source>Update template failed!</source>
         <translation>更新模板失败！</translation>
     </message>
