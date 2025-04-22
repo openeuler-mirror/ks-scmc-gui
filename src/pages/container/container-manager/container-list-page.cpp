@@ -229,7 +229,8 @@ void ContainerListPage::onMonitor(int row)
         m_monitor->show();
 
         connect(m_monitor, &MonitorDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_monitor->deleteLater();
                     m_monitor = nullptr;
                 });
