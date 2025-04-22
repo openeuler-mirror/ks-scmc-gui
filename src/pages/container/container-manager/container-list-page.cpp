@@ -726,12 +726,14 @@ void ContainerListPage::operateContainer(ContainerSettingType type, int row)
 
         m_containerSetting->show();
         connect(m_containerSetting, &ContainerSetting::destroyed,
-                [=] {
+                [=]
+                {
                     m_containerSetting->deleteLater();
                     m_containerSetting = nullptr;
                 });
         connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
-                [=] {
+                [=]
+                {
                     getContainerList();
                 });
     }
