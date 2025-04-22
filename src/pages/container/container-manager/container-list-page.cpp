@@ -772,7 +772,7 @@ void ContainerListPage::initButtons()
     connect(create, &QAction::triggered, this, &ContainerListPage::onActCreate);
     connect(m_createFromTemplateAct, &QAction::triggered, this, &ContainerListPage::onActCopyConfig);
 
-    //其他按钮及菜单
+    // 其他按钮及菜单
     const QMap<int, QString> btnNameMap = {
         {OPERATION_BUTTOM_CONTAINER_LIST_RUN, tr("Run")},
         {OPERATION_BUTTOM_CONTAINER_LIST_STOP, tr("Stop")},
