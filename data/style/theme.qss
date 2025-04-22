@@ -1164,6 +1164,62 @@ NetworkAccessCtlTab #btn_delete:pressed,SecurityListTab #btn_delete:pressed
     image:url(:/images/icon_Less_pre.png);
 }
 
+/***********************************AuthorizationDialog****************************/
+AuthorizationDialog
+{
+    background-color:#ffffff;
+}
+
+AuthorizationDialog QLineEdit
+{
+    background: #ffffff;
+    border:1px solid #E4E7ED;
+    border-radius:6px;
+    color:#000000;
+    font-size:12px;
+}
+AuthorizationDialog QLineEdit:focus
+{
+    border:1px solid #409EFF;
+}
+
+AuthorizationDialog QLineEdit:disabled
+{
+    background-color:#F0F0F0;
+}
+
+AuthorizationDialog QLabel
+{
+    color:#000000;
+    font-size:12px;
+}
+
+AuthorizationDialog #btn_confirm
+{
+    background-color:#409EFF;
+    border: 1px solid #409EFF;
+    border-radius: 6px;
+    color:#ffffff;
+    font-size:12px;
+}
+AuthorizationDialog #btn_confirm:hover
+{
+    background-color:#66B1FF;
+}
+
+AuthorizationDialog #btn_cancel
+{
+    background-color:#ffffff;
+    border: 1px solid #E4E7ED;
+    border-radius: 6px;
+    color:#000000;
+    font-size:12px;
+}
+AuthorizationDialog #btn_cancel:hover
+{
+    background-color:#EBEEF5;
+}
+
 /************************************ImageOperateDialog******************************/
 ImageOperateDialog QToolButton#btn_tip_name,
 ImageOperateDialog QToolButton#btn_tip_version,
