@@ -417,37 +417,37 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="54"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="53"/>
         <source>Please complate the information! </source>
         <translation>请输入完整的信息！ </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="60"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="59"/>
         <source>The characters can only be letter or digit!</source>
         <translation>应用名只能为英文或数字！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="93"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="92"/>
         <source>GUI app</source>
         <translation>图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="94"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="93"/>
         <source>Non-GUI</source>
         <translation>非图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="97"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="96"/>
         <source>Please input 1 to 50 characters</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="99"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="98"/>
         <source>Please input 1 to 4096 characters</source>
         <translation>请输入1 - 4096个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="102"/>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.cpp" line="109"/>
         <source>The characters can only be letter or digit.</source>
         <translation>只允许英文或数字。</translation>
     </message>
