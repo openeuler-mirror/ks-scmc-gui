@@ -952,17 +952,17 @@ The first characters must be letter or digit</source>
 <context>
     <name>ContainerListPage</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="54"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="55"/>
         <source>Online</source>
         <translation>在线</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="56"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="57"/>
         <source>Offline</source>
         <translation>离线</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="55"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="56"/>
         <source>Created</source>
         <translation>新建</translation>
     </message>
