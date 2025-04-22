@@ -23,7 +23,7 @@ class ContainerListPage : public TablePage
 public:
     explicit ContainerListPage(QWidget *parent = nullptr);
     ~ContainerListPage();
-    void updateInfo(QString keyword = "");  //刷新表格
+    void updateInfo(QString keyword = "");  // 刷新表格
     void setNodeID(qint64 nodeID);
 
 protected:
