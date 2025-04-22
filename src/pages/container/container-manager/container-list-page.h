@@ -91,7 +91,7 @@ private:
     MonitorDialog *m_monitor;
     QTimer *m_timer;
     QMap<QString, QPair<QString, QString>> m_statusMap;
-    QMultiMap<int, QPair<int, QString>> m_templateMap;  //templateId nodeId,template name
+    QMultiMap<int, QPair<int, QString>> m_templateMap;  // templateId nodeId,template name
     QMultiMap<int, QString> m_networksMap;
     QMap<int, NodeInfo *> m_nodeInfoMap;
     QStringList m_imageInfos;
