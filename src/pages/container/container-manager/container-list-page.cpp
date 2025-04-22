@@ -152,8 +152,11 @@ void ContainerListPage::onBtnDelete()
                                           MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            setBusy(true);
-            InfoWorker::getInstance().removeContainer(m_objId, ids);
+            if (popupAuthDialog() == QDialog::Accepted)
+            {
+                setBusy(true);
+                InfoWorker::getInstance().removeContainer(m_objId, ids);
+            }
         }
     }
 }
