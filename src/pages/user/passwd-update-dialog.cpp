@@ -25,19 +25,22 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
     m_objId = InfoWorker::generateId(this);
     m_oldTimer = new QTimer(this);
     connect(m_oldTimer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 checkPassword(PASSWORF_TYPE_OLD, ui->lineEdit_old_pw->text());
                 m_oldTimer->stop();
             });
     m_newTimer = new QTimer(this);
     connect(m_newTimer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 checkPassword(PASSWORF_TYPE_NEW, ui->lineEdit_new_pw->text());
                 m_newTimer->stop();
             });
     m_confirmTimer = new QTimer(this);
     connect(m_confirmTimer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 checkPassword(PASSWORF_TYPE_CONFIRM, ui->lineEdit_confirm_pw->text());
                 m_confirmTimer->stop();
             });
