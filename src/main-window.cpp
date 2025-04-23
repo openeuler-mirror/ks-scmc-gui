@@ -51,8 +51,8 @@
 
 #define NODE_MANAGER QObject::tr("Node Manager")
 
-//#define SYSTEM_MANAGER QObject::tr("System Manager")
-//#define OUTLINE_PAGES QObject::tr("Outline")
+// #define SYSTEM_MANAGER QObject::tr("System Manager")
+// #define OUTLINE_PAGES QObject::tr("Outline")
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QString name, QString userRole, QWidget* parent)
