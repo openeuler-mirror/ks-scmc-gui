@@ -39,6 +39,7 @@
 #define PROCESS_SECURITY QObject::tr("Process security")
 #define NETWORK_ACCESS_CONTROL QObject::tr("Network access control")
 #define NETWORK_PROCESS_WHITE_LIST QObject::tr("Network process white list")
+#define SECURITY_LEVEL_CONFIGURATION QObject ::tr("Security Level Configuration")
 #define START_STOP_CONTROL QObject::tr("Start stop control")
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
