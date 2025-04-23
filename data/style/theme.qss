@@ -1220,6 +1220,15 @@ AuthorizationDialog #btn_cancel:hover
     background-color:#EBEEF5;
 }
 
+/************************************SecurityLevelTab********************************/
+SecurityLevelTab QTextEdit
+{
+    background-color:#ffffff;
+    color:#000000;
+    border: 1px solid #E4E7ED;
+    border-radius: 6px;
+}
+
 /************************************ImageOperateDialog******************************/
 ImageOperateDialog QToolButton#btn_tip_name,
 ImageOperateDialog QToolButton#btn_tip_version,
