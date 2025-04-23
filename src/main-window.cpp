@@ -680,7 +680,8 @@ void MainWindow::onChangePwAction(bool checked)
         m_pwUpdateDlg->show();
 
         connect(m_pwUpdateDlg, &PasswdUpdateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_pwUpdateDlg->deleteLater();
                     m_pwUpdateDlg = nullptr;
                 });
