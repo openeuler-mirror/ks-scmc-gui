@@ -21,6 +21,7 @@
 #include "message-dialog.h"
 #include "page.h"
 #include "pages/audit/log-list/log-list-page.h"
+#include "pages/audit/log-setting/log-setting-view.h"
 #include "pages/audit/warning-list/warning-list-page.h"
 #include "pages/container/container-manager/container-page-manager.h"
 #include "pages/container/template-manager/template-list-page.h"
