@@ -440,6 +440,9 @@ void ContainerSetting::initSecurityConfPages()
 
     StartStopControlTab *startStopCtlTab = new StartStopControlTab(ui->tab_security_config);
     m_securityConfStack->addWidget(startStopCtlTab);
+
+    SecurityLevelTab *securityLevelTab = new SecurityLevelTab(ui->tab_security_config);
+    m_securityConfStack->addWidget(securityLevelTab);
 }
 
 void ContainerSetting::showLongText(QLineEdit *lineEdit, QString orgText)
