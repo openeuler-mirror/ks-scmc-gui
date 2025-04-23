@@ -83,7 +83,7 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, oldPw);
         if (!oldPw.isEmpty())
         {
-            if (0 == QString::compare(inputPw, oldPw, Qt::CaseSensitive))  //same
+            if (0 == QString::compare(inputPw, oldPw, Qt::CaseSensitive))  // same
             {
                 KLOG_DEBUG() << "Old password input ok!";
                 ui->lab_old_pw_tips->clear();
