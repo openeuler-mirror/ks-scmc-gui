@@ -3792,6 +3792,27 @@ of applications, isolated operation of applications, centralized monitoring of a
     </message>
 </context>
 <context>
+    <name>SecurityLevelTab</name>
+    <message>
+        <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="14"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="99"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="49"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="100"/>
+        <source>Security Level Configuration</source>
+        <translation>安全等级配置</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="78"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="101"/>
+        <source>External Access Control</source>
+        <translation>对外访问控制</translation>
+    </message>
+</context>
+<context>
     <name>SecurityListItem</name>
     <message>
         <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="26"/>
