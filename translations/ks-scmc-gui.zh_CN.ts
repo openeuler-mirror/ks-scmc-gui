@@ -2174,6 +2174,29 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
+    <name>LogSettingView</name>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="54"/>
+        <source>Log Retention Period (Month)</source>
+        <translation>日志保存周期（月）</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="57"/>
+        <source>Please enter a number greater than or equal to 6</source>
+        <translation>请输入大于等于6的数字</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="70"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="74"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="32"/>
