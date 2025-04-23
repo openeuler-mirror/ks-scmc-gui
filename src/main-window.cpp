@@ -491,6 +491,11 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         page = warnPage;
         break;
     }
+    case GUIDE_ITEM_LOG_SETTING:
+    {
+        page = new LogSettingView(this);
+        break;
+    }
     default:
 
         break;
