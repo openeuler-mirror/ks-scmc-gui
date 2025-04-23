@@ -110,10 +110,10 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
         m_pageMap[currenItemData]->updateInfo();
         m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
     }
-    //点击的是组项
+    // 点击的是组项
     else
     {
-        //同步右侧页面对应的侧边项
+        // 同步右侧页面对应的侧边项
         auto currPage = qobject_cast<Page*>(m_stackedWidget->currentWidget());
         auto currPageData = m_pageMap.key(currPage);
         for (int i = 0; i < ui->listWidget->count(); i++)
