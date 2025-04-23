@@ -88,9 +88,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
 {
-    //侧边栏展开与收缩
+    // 侧边栏展开与收缩
     GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
-    //点击的不是组项
+    // 点击的不是组项
     if (!m_groupMap.contains(currItem))
     {
         guideItem->setSelected(true);
