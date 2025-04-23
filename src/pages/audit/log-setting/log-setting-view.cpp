@@ -1,0 +1,106 @@
+/**
+ * @file          src/pages/audit/log-setting/log-setting-view.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
+#include "log-setting-view.h"
+#include <QIntValidator>
+#include <QLabel>
+#include <QVBoxLayout>
+LogSettingView::LogSettingView(QWidget *parent) : Page(parent),
+                                                  m_edit(nullptr),
+                                                  m_btn_cancel(nullptr),
+                                                  m_btn_confirm(nullptr)
+{
+    initUI();
+}
+
+LogSettingView::~LogSettingView()
+{
+}
+
+void LogSettingView::updateInfo(QString keyword)
+{
+}
+
+void LogSettingView::setPeriod(int mouth)
+{
+    m_edit->setText(QString::number(mouth));
+    m_period = mouth;
+}
+
+int LogSettingView::getPeriod()
+{
+    return m_edit->text().toInt();
+}
+
+void LogSettingView::initUI()
+{
+    // 设置默认值是6个月
+    m_period = 6;
+
+    auto mainLayout = new QVBoxLayout(this);
+    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(24, 16, 0, 24);
+    mainLayout->setSpacing(16);
+
+    // 添加日期设置输入框
+    auto layout = new QVBoxLayout();
+    layout->setMargin(0);
+    layout->setSpacing(10);
+    auto label = new QLabel(this);
+    label->setText(tr("Log Retention Period (Month)"));
+
+    m_edit = new QLineEdit(this);
+    m_edit->setPlaceholderText(tr("Please enter a number greater than or equal to 6"));
+    m_edit->setMaxLength(2);
+    m_edit->setValidator(new QIntValidator(6, 99, this));
+    m_edit->setFixedSize(598, 40);
+
+    layout->addWidget(label);
+    layout->addWidget(m_edit);
+
+    // 添加按钮
+    auto buttonLayout = new QHBoxLayout();
+    buttonLayout->setSpacing(24);
+    m_btn_confirm = new QPushButton(this);
+    m_btn_confirm->setObjectName("btn_confirm");
+    m_btn_confirm->setText(tr("Confirm"));
+    m_btn_confirm->setFixedSize(78, 32);
+
+    m_btn_cancel = new QPushButton(this);
+    m_btn_cancel->setText(tr("Cancel"));
+    m_btn_cancel->setObjectName("btn_cancel");
+    m_btn_cancel->setFixedSize(78, 32);
+
+    m_btn_confirm->setStyleSheet("#btn_confirm{background-color:#2eb3ff;"
+                                 "border:none;"
+                                 "border-radius: 4px;"
+                                 "color:#ffffff;}"
+                                 "#btn_confirm:hover{ background-color:#77ceff;}"
+                                 "#btn_confirm:focus{outline:none;}");
+    m_btn_cancel->setStyleSheet("#btn_cancel{background-color:#393939;"
+                                "border:none;"
+                                "border-radius: 4px;"
+                                "color:#ffffff;}"
+                                "#btn_cancel:hover{ background-color:#454545;}"
+                                "#btn_cancel:focus{outline:none;}");
+
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(m_btn_confirm);
+    buttonLayout->addWidget(m_btn_cancel);
+    buttonLayout->addStretch();
+
+    mainLayout->addLayout(layout);
+    mainLayout->addStretch();
+    mainLayout->addLayout(buttonLayout);
+
+    connect(m_btn_cancel, &QPushButton::clicked, this, &LogSettingView::updateUI);
+}
+
+void LogSettingView::updateUI()
+{
+    m_edit->setText(QString::number(m_period));
+}
