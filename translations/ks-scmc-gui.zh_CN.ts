@@ -3595,62 +3595,67 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="35"/>
+        <location filename="../src/main-window.cpp" line="36"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="37"/>
+        <location filename="../src/main-window.cpp" line="38"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="38"/>
+        <location filename="../src/main-window.cpp" line="39"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="39"/>
+        <location filename="../src/main-window.cpp" line="40"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="41"/>
+        <location filename="../src/main-window.cpp" line="42"/>
         <source>Warning Log</source>
         <translation>告警日志</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="42"/>
+        <location filename="../src/main-window.cpp" line="43"/>
         <source>Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="43"/>
+        <location filename="../src/main-window.cpp" line="44"/>
         <source>Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="45"/>
+        <source>Log Setting</source>
+        <translation>日志设置</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="47"/>
         <source>Image Storehouse</source>
         <translation>镜像仓库</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="46"/>
+        <location filename="../src/main-window.cpp" line="48"/>
         <source>Image Approval</source>
         <translation>镜像审核</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="47"/>
+        <location filename="../src/main-window.cpp" line="49"/>
         <source>Image Approval List</source>
         <translation>审核列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="48"/>
+        <location filename="../src/main-window.cpp" line="50"/>
         <source>Approvable Controller</source>
         <translation>审核开关</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="50"/>
+        <location filename="../src/main-window.cpp" line="52"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
