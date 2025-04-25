@@ -81,100 +81,12 @@ PasswdUpdateDialog::~PasswdUpdateDialog()
     }
 }
 
-bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
-{
-    QString errorMsg;
-    switch (type)
-    {
-    case PASSWORF_TYPE_OLD:
-    {
-        QString oldPw;
-        UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, oldPw);
-        if (!oldPw.isEmpty())
-        {
-            if (0 == QString::compare(inputPw, oldPw, Qt::CaseSensitive))  // same
-            {
-                KLOG_DEBUG() << "Old password input ok!";
-                ui->lab_old_pw_tips->clear();
-                ui->lab_old_pw_tips->hide();
-                return true;
-            }
-            else
-            {
-                errorMsg = tr("Old password input error");
-                KLOG_WARNING() << errorMsg;
-                ui->lab_old_pw_tips->show();
-                ui->lab_old_pw_tips->setText(errorMsg);
-            }
-        }
-        else
-            KLOG_WARNING() << "There is no password in ks-scmc-user.ini";
-        break;
-    }
-    case PASSWORF_TYPE_NEW:
-    {
-        if (inputPw.length() < 8)
-            errorMsg = tr("Please input at least 8 characters");
-        else if (inputPw.contains(QRegExp("[\\x4e00-\\x9fa5]+")))
-            errorMsg = tr("Can't input Chinese");
-        else
-        {
-            QStringList list;
-            list << "[A-Z]"
-                 << "[a-z]"
-                 << "[0-9]"
-                 << "[^0-9A-Za-z]";
-            int complex = 0;
-            for (auto rx : list)
-            {
-                complex = inputPw.contains(QRegExp(rx)) ? complex + 1 : complex;
-                if (complex >= 3)
-                {
-                    KLOG_DEBUG() << "New password input ok!";
-                    ui->lab_new_pw_tips->clear();
-                    ui->lab_new_pw_tips->hide();
-                    return true;
-                }
-            }
-            // 请输入包含大写字母、小写字母、数字和特殊字符中至少三种组合
-            errorMsg = tr("Please input at least three combinations of\n uppercase letter, lowercase letter, number and special character");
-        }
-        ui->lab_new_pw_tips->show();
-        ui->lab_new_pw_tips->setText(errorMsg);
-        KLOG_WARNING() << errorMsg;
-        break;
-    }
-
-    case PASSWORF_TYPE_CONFIRM:
-    {
-        QString newPw = ui->lineEdit_new_pw->text();
-        if (0 == QString::compare(newPw, inputPw))
-        {
-            KLOG_DEBUG() << "Confirm password input ok!";
-            ui->lab_confirm_pw_tips->clear();
-            ui->lab_confirm_pw_tips->hide();
-            return true;
-        }
-        else
-        {
-            errorMsg = tr("The confirmation password is not match with the new password");
-            KLOG_WARNING() << errorMsg;
-            ui->lab_confirm_pw_tips->show();
-            ui->lab_confirm_pw_tips->setText(errorMsg);
-        }
-        break;
-    }
-    default:
-        break;
-    }
-    return false;
-}
-
 void PasswdUpdateDialog::onConfirm()
 {
-    if (checkPassword(PASSWORF_TYPE_OLD, ui->lineEdit_old_pw->text()) &&
-        checkPassword(PASSWORF_TYPE_NEW, ui->lineEdit_new_pw->text()) &&
-        checkPassword(PASSWORF_TYPE_CONFIRM, ui->lineEdit_confirm_pw->text()))
+    QString errorMsg;
+    if (PasswordChecker::checkOldPassword(m_userName, ui->lineEdit_old_pw->text(), errorMsg) &&
+        PasswordChecker::checkNewPassword(ui->lineEdit_new_pw->text(), errorMsg) &&
+        PasswordChecker::checkConfirmPassword(ui->lineEdit_new_pw->text(), ui->lineEdit_confirm_pw->text(), errorMsg))
     {
         updatePassword(ui->lineEdit_old_pw->text(), ui->lineEdit_new_pw->text());
     }
