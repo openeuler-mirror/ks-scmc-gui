@@ -1048,7 +1048,7 @@ TabPage QTabBar::tab:selected {
     outline:none;
 }
 
-/*************************************************Tips**********************************/
+/*************************************************Tips Label**********************************/
 PasswdUpdateDialog QLabel#lab_old_pw_tips,
 PasswdUpdateDialog QLabel#lab_new_pw_tips,
 PasswdUpdateDialog QLabel#lab_confirm_pw_tips,
