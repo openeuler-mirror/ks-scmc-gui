@@ -134,9 +134,15 @@ void LogSettingView::initUI()
     mainLayout->addLayout(buttonLayout);
 
     connect(m_btn_cancel, &QPushButton::clicked, this, &LogSettingView::updateUI);
-}
-
-void LogSettingView::updateUI()
-{
-    m_edit->setText(QString::number(m_period));
+    connect(m_btn_confirm, &QPushButton::clicked, [this]()
+            { 
+                auto month = m_edit->text().toInt();
+                if (month < 6)
+                {
+                    m_edit->clear();
+                }
+                else
+                {
+                    InfoWorker::getInstance().setLog(m_ObjId, month * 30);
+                } });
 }
