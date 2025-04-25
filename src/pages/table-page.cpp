@@ -431,7 +431,7 @@ void TablePage::initPaging()
     ui->verticalLayout->addLayout(m_pagingHlayout);
 }
 
-///FIXME:暂时注销，后续需要再修改
+/// FIXME:暂时注销，后续需要再修改
 void TablePage::adjustTableSize()
 {
     //    int tableHeight = m_model->rowCount() * 60 + 40;
