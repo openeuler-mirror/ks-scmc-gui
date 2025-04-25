@@ -81,7 +81,7 @@ public:
     // container management
     void listContainer(const QString objId, const std::vector<int64_t> &node_ids, const bool all);
     void createContainer(const QString objId, const container::CreateRequest &);
-    //void containerStatus(const QString objId, const int64_t node_id);
+    // void containerStatus(const QString objId, const int64_t node_id);
     void containerInspect(const QString objId, const int64_t node_id, const std::string &container_id);
     void startContainer(const QString objId, QMap<int64_t, QStringList> &ids);
     void stopContainer(const QString objId, QMap<int64_t, QStringList> &ids);
