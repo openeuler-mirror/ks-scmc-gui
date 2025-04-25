@@ -603,10 +603,10 @@ QPair<grpc::Status, container::CreateReply> InfoWorker::_createContainer(const c
     RPC_IMPL(container::CreateReply, container::Container::NewStub, Create);
 }
 
-//QPair<grpc::Status, container::StatusReply> InfoWorker::_containerStatus(const container::StatusRequest &req)
+// QPair<grpc::Status, container::StatusReply> InfoWorker::_containerStatus(const container::StatusRequest &req)
 //{
-//    RPC_IMPL(container::StatusReply, container::Container::NewStub, Status);
-//}
+//     RPC_IMPL(container::StatusReply, container::Container::NewStub, Status);
+// }
 
 QPair<grpc::Status, node::RemoveReply> InfoWorker::_removeNode(const node::RemoveRequest &req)
 {
