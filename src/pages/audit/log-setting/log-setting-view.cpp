@@ -15,7 +15,9 @@ LogSettingView::LogSettingView(QWidget *parent) : Page(parent),
                                                   m_btn_cancel(nullptr),
                                                   m_btn_confirm(nullptr)
 {
+    m_ObjId = InfoWorker::generateId(this);
     initUI();
+    initConnect();
 }
 
 LogSettingView::~LogSettingView()
