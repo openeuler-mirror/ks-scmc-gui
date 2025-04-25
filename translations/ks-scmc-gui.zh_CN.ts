@@ -77,19 +77,19 @@
         <location filename="../src/common/button-delegate.cpp" line="37"/>
         <location filename="../src/common/button-delegate.cpp" line="78"/>
         <location filename="../src/common/button-delegate.cpp" line="126"/>
-        <location filename="../src/common/button-delegate.cpp" line="268"/>
+        <location filename="../src/common/button-delegate.cpp" line="278"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="38"/>
-        <location filename="../src/common/button-delegate.cpp" line="270"/>
+        <location filename="../src/common/button-delegate.cpp" line="280"/>
         <source>Restart</source>
         <translation>重启</translation>
     </message>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="39"/>
-        <location filename="../src/common/button-delegate.cpp" line="272"/>
+        <location filename="../src/common/button-delegate.cpp" line="282"/>
         <source>Generate template</source>
         <translation>生成容器模板</translation>
     </message>
