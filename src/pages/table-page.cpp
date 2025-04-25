@@ -319,15 +319,15 @@ void TablePage::updatePaging(int page_no)
     m_pageEdit->setText(QString::number(page_no));
 }
 
-//QString TablePage::getSearchKey()
+// QString TablePage::getSearchKey()
 //{
-//    return ui->lineEdit_search->text();
-//}
+//     return ui->lineEdit_search->text();
+// }
 
 void TablePage::setSeachPageNone()
 {
     ui->label_tips->setText(tr("No search results were found!"));
-    //ui->tableView->setFixedHeight(120);
+    // ui->tableView->setFixedHeight(120);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     if (m_isHeadCheckable)
         m_headerView->setCheckable(false);
