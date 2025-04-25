@@ -247,7 +247,7 @@ QStandardItem *TablePage::getItem(int row, int col)
 
 QList<QMap<QString, QVariant>> TablePage::getCheckedItemInfo(int col)
 {
-    QList<QMap<QString, QVariant>> checkedItemInfo;  //containerId,nodeId
+    QList<QMap<QString, QVariant>> checkedItemInfo;  // containerId,nodeId
     for (int i = 0; i < m_model->rowCount(); i++)
     {
         auto item = m_model->item(i, 0);
