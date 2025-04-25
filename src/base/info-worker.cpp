@@ -957,7 +957,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UploadReply> r;
 
-    //检测rpc连接
+    // 检测rpc连接
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
