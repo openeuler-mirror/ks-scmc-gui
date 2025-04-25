@@ -544,7 +544,7 @@ void TablePage::search()
     {
         if (!m_isOpenPaging)
         {
-            //show keyword row
+            // show keyword row
             int rowCounts = m_model->rowCount();
             for (int i = 0; i < rowCounts; i++)
             {
