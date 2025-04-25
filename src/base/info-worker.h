@@ -146,9 +146,12 @@ public:
     void listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &);
     void listWarnLogging(const QString objId, const logging::ListWarnRequest &);
     void readWarnLogging(const QString objId, QList<int64_t> ids);
+    void setLog(const QString objId, int days);
+    void getLog(const QString objId);
 
-    //system management
-    void setSecuritySwitch(const QString objId, const bool &isOn);
+    // system management
+    void
+    setSecuritySwitch(const QString objId, const bool &isOn);
     void getSecuritySwitch(const QString objId);
     void dashboard(const QString objId);
     void stopTransfer(const QString &name, const QString &version, bool isStop);
