@@ -171,24 +171,24 @@ private:
     // container management
     static QPair<grpc::Status, container::ListReply> _listContainer(const container::ListRequest &);
     static QPair<grpc::Status, container::CreateReply> _createContainer(const container::CreateRequest &);
-    //static QPair<grpc::Status, container::StatusReply> _containerStatus(const container::StatusRequest &);
+    // static QPair<grpc::Status, container::StatusReply> _containerStatus(const container::StatusRequest &);
     static QPair<grpc::Status, container::InspectReply> _containerInspect(const container::InspectRequest &);
     static QPair<grpc::Status, container::StartReply> _startContainer(const container::StartRequest &);
     static QPair<grpc::Status, container::StopReply> _stopContainer(const container::StopRequest &);
-    //static QPair<grpc::Status, container::KillReply> _killContainer(const container::KillRequest &);
+    // static QPair<grpc::Status, container::KillReply> _killContainer(const container::KillRequest &);
     static QPair<grpc::Status, container::RestartReply> _restartContainer(const container::RestartRequest &);
     static QPair<grpc::Status, container::UpdateReply> _updateContainer(const container::UpdateRequest &);
     static QPair<grpc::Status, container::RemoveReply> _removeContainer(const container::RemoveRequest &);
     static QPair<grpc::Status, container::MonitorHistoryReply> _monitorHistory(const container::MonitorHistoryRequest &);
 
-    //container template
+    // container template
     static QPair<grpc::Status, container::ListTemplateReply> _listTemplate(const container::ListTemplateRequest &);
     static QPair<grpc::Status, container::InspectTemplateReply> _inspectTemplate(const container::InspectTemplateRequest &);
     static QPair<grpc::Status, container::CreateTemplateReply> _createTemplate(const container::CreateTemplateRequest &);
     static QPair<grpc::Status, container::UpdateTemplateReply> _updateTemplate(const container::UpdateTemplateRequest &);
     static QPair<grpc::Status, container::RemoveTemplateReply> _removeTemplate(const container::RemoveTemplateRequest &);
 
-    //container backup
+    // container backup
     static QPair<grpc::Status, container::ListBackupReply> _listBackup(const container::ListBackupRequest &);
     static QPair<grpc::Status, container::UpdateBackupReply> _updateBackup(const container::UpdateBackupRequest &);
     static QPair<grpc::Status, container::CreateBackupReply> _createBackup(const container::CreateBackupRequest &);
