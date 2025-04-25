@@ -2176,22 +2176,22 @@ The first characters must be letter or digit</source>
 <context>
     <name>LogSettingView</name>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="54"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="90"/>
         <source>Log Retention Period (Month)</source>
         <translation>日志保存周期（月）</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="57"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="93"/>
         <source>Please enter a number greater than or equal to 6</source>
         <translation>请输入大于等于6的数字</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="70"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="106"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="74"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="110"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
