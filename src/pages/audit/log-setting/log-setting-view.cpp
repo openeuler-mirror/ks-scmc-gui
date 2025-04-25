@@ -26,12 +26,12 @@ LogSettingView::~LogSettingView()
 
 void LogSettingView::updateInfo(QString keyword)
 {
+    InfoWorker::getInstance().getLog(m_ObjId);
 }
 
-void LogSettingView::setPeriod(int mouth)
+void LogSettingView::setPeriod(int month)
 {
-    m_edit->setText(QString::number(mouth));
-    m_period = mouth;
+    m_edit->setText(QString::number(month));
 }
 
 int LogSettingView::getPeriod()
