@@ -271,7 +271,7 @@ signals:
     void updateTemplateFinished(const QString objId, const QPair<grpc::Status, container::UpdateTemplateReply> &);
     void removeTemplateFinished(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &);
 
-    //container backup
+    // container backup
     void listBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
     void updateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
     void createBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &);
