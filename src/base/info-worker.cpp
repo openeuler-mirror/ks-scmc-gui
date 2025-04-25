@@ -861,6 +861,16 @@ QPair<grpc::Status, logging::ReadWarnReply> InfoWorker::_listReadWarnLogging(con
     RPC_IMPL(logging::ReadWarnReply, logging::Logging::NewStub, ReadWarn);
 }
 
+QPair<grpc::Status, logging::GetLogReply> InfoWorker::_getLog(const logging::GetLogRequest &req)
+{
+    RPC_IMPL(logging::GetLogReply, logging::Logging::NewStub, GetLog);
+}
+
+QPair<grpc::Status, logging::SetLogReply> InfoWorker::_setLog(const logging::SetLogRequest &req)
+{
+    RPC_IMPL(logging::SetLogReply, logging::Logging::NewStub, SetLog);
+}
+
 QPair<grpc::Status, sys::SetSecuritySwitchReply> InfoWorker::_setSecuritySwitch(const sys::SetSecuritySwitchRequest &req)
 {
     RPC_IMPL(sys::SetSecuritySwitchReply, sys::System::NewStub, SetSecuritySwitch);
