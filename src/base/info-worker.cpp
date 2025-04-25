@@ -98,12 +98,12 @@ void InfoWorker::createContainer(const QString objId, const container::CreateReq
     RPC_ASYNC(container::CreateReply, _createContainer, createContainerFinished, objId, req);
 }
 
-//void InfoWorker::containerStatus(const QString objId, const int64_t node_id)
+// void InfoWorker::containerStatus(const QString objId, const int64_t node_id)
 //{
-//    container::StatusRequest req;
-//    req.set_node_id(node_id);
-//    RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, objId, req);
-//}
+//     container::StatusRequest req;
+//     req.set_node_id(node_id);
+//     RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, objId, req);
+// }
 
 void InfoWorker::removeNode(const QString objId, const std::vector<int64_t> &node_ids)
 {
