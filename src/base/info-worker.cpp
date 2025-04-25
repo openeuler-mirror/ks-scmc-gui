@@ -638,10 +638,10 @@ QPair<grpc::Status, container::StopReply> InfoWorker::_stopContainer(const conta
     RPC_IMPL(container::StopReply, container::Container::NewStub, Stop);
 }
 
-//QPair<grpc::Status, container::KillReply> InfoWorker::_killContainer(const container::KillRequest &req)
+// QPair<grpc::Status, container::KillReply> InfoWorker::_killContainer(const container::KillRequest &req)
 //{
-//    RPC_IMPL(container::KillReply, container::Container::NewStub, Kill);
-//}
+//     RPC_IMPL(container::KillReply, container::Container::NewStub, Kill);
+// }
 
 QPair<grpc::Status, container::RestartReply> InfoWorker::_restartContainer(const container::RestartRequest &req)
 {
