@@ -98,7 +98,7 @@ public:
     void updateTemplate(const QString objId, const container::UpdateTemplateRequest &);
     void removeTemplate(const QString objId, QList<int64_t> ids);
 
-    //container backup
+    // container backup
     void listBackup(const QString objId, int nodeId, std::string containerId);
     void updateBackup(const QString objId, int nodeId, int id, std::string backupDesc);
     void createBackup(const QString objId, int nodeId, std::string containerId, std::string backupDesc, std::string backupName);
