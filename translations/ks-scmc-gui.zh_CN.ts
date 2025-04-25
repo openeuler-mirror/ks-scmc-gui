@@ -3366,87 +3366,95 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="54"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="54"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="182"/>
         <source>Old Password:</source>
         <translation>原密码：</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="104"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="104"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="186"/>
         <source>New Password:</source>
         <translation>新密码：</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="114"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="114"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="187"/>
         <source>Confirm Password:</source>
         <translation>确认密码：</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="179"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="179"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="189"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="198"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="198"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="190"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="95"/>
-        <source>Old password input error</source>
-        <translation>原密码输入错误</translation>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="111"/>
+        <source>Update Password</source>
+        <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="108"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="112"/>
+        <source>Update password failed!</source>
+        <translation>修改密码失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="113"/>
+        <source>error: %1</source>
+        <translation>错误：%1</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="128"/>
+        <source>Change Password</source>
+        <translation>修改密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="149"/>
+        <source>The password length 8-32 bits, should contain
+ at least three combinations of uppercase letter,
+ lowercase letter, number and special character</source>
+        <translation>密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少三种组合</translation>
+    </message>
+</context>
+<context>
+    <name>PasswordChecker</name>
+    <message>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="25"/>
+        <source>Old password input error!</source>
+        <translation>原密码输入错误!</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="29"/>
+        <source>There is no password in ks-scmc-user.ini</source>
+        <translation>ks-scmc-user.ini中没有该用户密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="36"/>
         <source>Please input at least 8 characters</source>
         <translation>请输入至少8位密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="110"/>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="38"/>
         <source>Can&apos;t input Chinese</source>
         <translation>不能输入中文</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="131"/>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="57"/>
         <source>Please input at least three combinations of
  uppercase letter, lowercase letter, number and special character</source>
         <translation>请输入包含大写字母、小写字母、数字和特殊字符中至少三种组合</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="151"/>
+        <location filename="../src/pages/system/user-manager/utils/password-checker.cpp" line="71"/>
         <source>The confirmation password is not match with the new password</source>
         <translation>密码与新密码不匹配</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="190"/>
-        <source>Update Password</source>
-        <translation>修改密码</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="191"/>
-        <source>Update password failed!</source>
-        <translation>修改密码失败！</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="192"/>
-        <source>error: %1</source>
-        <translation>错误：%1</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="207"/>
-        <source>Change Password</source>
-        <translation>修改密码</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="228"/>
-        <source>The password length 8-32 bits, should contain
- at least three combinations of uppercase letter,
- lowercase letter, number and special character</source>
-        <translation>密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少三种组合</translation>
     </message>
 </context>
 <context>
