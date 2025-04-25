@@ -42,6 +42,8 @@ signals:
     void sigBackupExport(int row);
     void sigWarnRead(int row);
     void sigWarnIgnore(int row);
+    void sigUserEdit(int row);
+    void sigUserDelete(int row);
 
 private slots:
     void onActTriggered(QAction* act);
