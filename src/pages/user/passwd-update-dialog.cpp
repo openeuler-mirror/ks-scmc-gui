@@ -27,21 +27,30 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
     connect(m_oldTimer, &QTimer::timeout,
             [this]
             {
-                checkPassword(PASSWORF_TYPE_OLD, ui->lineEdit_old_pw->text());
+                QString errorMsg = "";
+                auto isValid = PasswordChecker::checkOldPassword(m_userName, ui->lineEdit_old_pw->text(), errorMsg);
+                ui->lab_old_pw_tips->setVisible(!isValid);
+                ui->lab_old_pw_tips->setText(errorMsg);
                 m_oldTimer->stop();
             });
     m_newTimer = new QTimer(this);
     connect(m_newTimer, &QTimer::timeout,
             [this]
             {
-                checkPassword(PASSWORF_TYPE_NEW, ui->lineEdit_new_pw->text());
+                QString errorMsg = "";
+                auto isValid = PasswordChecker::checkNewPassword(ui->lineEdit_new_pw->text(), errorMsg);
+                ui->lab_new_pw_tips->setVisible(!isValid);
+                ui->lab_new_pw_tips->setText(errorMsg);
                 m_newTimer->stop();
             });
     m_confirmTimer = new QTimer(this);
     connect(m_confirmTimer, &QTimer::timeout,
             [this]
             {
-                checkPassword(PASSWORF_TYPE_CONFIRM, ui->lineEdit_confirm_pw->text());
+                QString errorMsg = "";
+                auto isValid = PasswordChecker::checkConfirmPassword(ui->lineEdit_new_pw->text(), ui->lineEdit_confirm_pw->text(), errorMsg);
+                ui->lab_confirm_pw_tips->setVisible(!isValid);
+                ui->lab_confirm_pw_tips->setText(errorMsg);
                 m_confirmTimer->stop();
             });
     ui->lab_user_name->setText(userName);
