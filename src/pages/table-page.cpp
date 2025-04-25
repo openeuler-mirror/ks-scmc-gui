@@ -599,7 +599,7 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
     bool hasRunningCtn = false;
     for (int i = 0; i < m_model->rowCount(); i++)
     {
-        //针对容器列表：获取列表中是否有正在运行的容器
+        // 针对容器列表：获取列表中是否有正在运行的容器
         auto item = m_model->item(i, 0);
         auto nameItem = m_model->item(i, 1);
         if (nameItem)
