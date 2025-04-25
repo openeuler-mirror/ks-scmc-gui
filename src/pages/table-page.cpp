@@ -389,17 +389,18 @@ void TablePage::initUI()
     connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &TablePage::search);
     if (!m_isOpenPaging)
         connect(ui->lineEdit_search, &QLineEdit::textChanged,
-                [this](QString text) {
+                [this](QString text)
+                {
                     m_searchTimer->start(TIMEOUT);
                 });
 }
 
 void TablePage::initPaging()
 {
-    //上一页
+    // 上一页
     QPushButton *last_btn = new QPushButton(tr("last page"), this);
     connect(last_btn, &QPushButton::clicked, this, &TablePage::lastBtnClick);
-    //编辑框
+    // 编辑框
     m_pageEdit = new QLineEdit(QString::number(1), this);
     m_pageEdit->setFixedSize(40, 30);
     m_pageEdit->setAlignment(Qt::AlignCenter);
