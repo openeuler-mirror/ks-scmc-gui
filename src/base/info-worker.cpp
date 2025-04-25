@@ -387,6 +387,19 @@ void InfoWorker::readWarnLogging(const QString objId, QList<int64_t> ids)
     RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId, req);
 }
 
+void InfoWorker::setLog(const QString objId, int days)
+{
+    logging::SetLogRequest req;
+    req.set_save_log_days(days);
+    RPC_ASYNC(logging::SetLogReply, _setLog, loggingSetLogFinished, objId, req);
+}
+
+void InfoWorker::getLog(const QString objId)
+{
+    logging::GetLogRequest req;
+    RPC_ASYNC(logging::GetLogReply, _getLog, loggingGetLogFinished, objId, req);
+}
+
 void InfoWorker::setSecuritySwitch(const QString objId, const bool &isOn)
 {
     sys::SetSecuritySwitchRequest req;
