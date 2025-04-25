@@ -1169,7 +1169,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         }
         if (req.has_sign())
         {
-            //第一次Write后就会将签名文件写入至Stream，这里释放是为了防止后面将签名文件重复写入，节约时间
+            // 第一次Write后就会将签名文件写入至Stream，这里释放是为了防止后面将签名文件重复写入，节约时间
             req.release_sign();
         }
 
