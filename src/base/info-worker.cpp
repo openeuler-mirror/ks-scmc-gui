@@ -742,7 +742,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
         return r;
     }
 
-    //导出到镜像仓库，不处理data 流数据
+    // 导出到镜像仓库，不处理data 流数据
     if (!isDownload)
     {
         r.first = stream->Finish();
