@@ -610,7 +610,7 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
                 hasRunningCtn = true;
             }
         }
-        //若为单选，将其他选中复选框置为未选中
+        // 若为单选，将其他选中复选框置为未选中
         if (m_singleChoose)
         {
             if (changeItem->checkState() == Qt::Checked)
