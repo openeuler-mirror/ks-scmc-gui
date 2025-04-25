@@ -565,11 +565,11 @@ void TablePage::search()
                 setSeachPageNone();
                 return;
             }
-            //sort
+            // sort
             ui->label_tips->clear();
             if (m_isHeadCheckable)
                 m_headerView->setCheckable(true);
-            //adjustTableSize();
+            // adjustTableSize();
         }
         else
         {
