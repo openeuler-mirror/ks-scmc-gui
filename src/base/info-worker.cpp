@@ -1285,11 +1285,11 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     QString message;
     ImageTransmissionStatus status;
     grpc::StatusCode statusCode;
-    //检测数据库中文件是否损坏
+    // 检测数据库中文件是否损坏
     do
     {
         QFile file(filePath);
-        //QByteArray fileArray;
+        // QByteArray fileArray;
         if (!file.open(QIODevice::ReadOnly))
         {
             KLOG_WARNING() << "Failed to open " << filePath;
