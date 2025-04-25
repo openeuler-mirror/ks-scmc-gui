@@ -103,10 +103,12 @@ signals:
     void sigBackupExport(int row);
     void sigWarnRead(int row);
     void sigWarnIgnore(int row);
+    void sigUserDelete(int row);
+    void sigUserEdit(int row);
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
-    void sigItemEntered(const QModelIndex &index);  //鼠标进入item
-    void sigUpdatePaging(int);                      //更新页面
+    void sigItemEntered(const QModelIndex &index);  // 鼠标进入item
+    void sigUpdatePaging(int);                      // 更新页面
     void sigHasRunningCtn(bool);
     void sigPagingSearch(QString);
     void sigRefreshSearchResult();  // 刷新搜索结果
