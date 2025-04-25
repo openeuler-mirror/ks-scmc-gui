@@ -321,9 +321,12 @@ signals:
     void loggingRuntimeFinished(const QString objId, const QPair<grpc::Status, logging::ListRuntimeReply> &);
     void loggingListWarnFinished(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
     void loggingReadWarnFinished(const QString objId, const QPair<grpc::Status, logging::ReadWarnReply> &);
+    void loggingSetLogFinished(const QString objId, const QPair<grpc::Status, logging::SetLogReply> &);
+    void loggingGetLogFinished(const QString objId, const QPair<grpc::Status, logging::GetLogReply> &);
 
-    //system management
-    void setSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::SetSecuritySwitchReply> &);
+    // system management
+    void
+    setSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::SetSecuritySwitchReply> &);
     void getSecuritySwitchFinished(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &);
     void dashboardFinished(const QString objId, const QPair<grpc::Status, sys::DashboardReply> &);
 
