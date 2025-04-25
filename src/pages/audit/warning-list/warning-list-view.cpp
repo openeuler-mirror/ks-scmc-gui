@@ -191,7 +191,7 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
     }
 
     // 更新告警总数
-    auto totalWarnning = reply.second.total_warnning();
+    auto totalWarnning = reply.second.total_warnnings();
     if (totalWarnning != m_totalWarnning)
     {
         m_totalWarnning = totalWarnning;
