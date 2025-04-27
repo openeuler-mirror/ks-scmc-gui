@@ -177,6 +177,17 @@ void ContainerListPage::onActGenerateTemp(QModelIndex index)
     operateContainer(CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE, index.row());
 }
 
+void ContainerListPage::onActUpdateImage(QModelIndex index)
+{
+    auto dialog = new ContainerUpdateImage(this);
+    dialog->setTitle(tr("Update Image Version"));
+    int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+    QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+    dialog->move(screenGeometry.x() + (screenGeometry.width() - dialog->width()) / 2,
+                 screenGeometry.y() + (screenGeometry.height() - dialog->height()) / 2);
+    dialog->show();
+}
+
 void ContainerListPage::onApp(int row)
 {
     auto item = getItem(row, 1);
