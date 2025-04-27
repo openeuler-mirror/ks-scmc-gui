@@ -91,12 +91,12 @@ void LogSettingView::initUI()
     layout->setMargin(0);
     layout->setSpacing(10);
     auto label = new QLabel(this);
-    label->setText(tr("Log Retention Period (Month)"));
+    label->setText(tr("Log Retention Period (Day)"));
 
     m_edit = new QLineEdit(this);
-    m_edit->setPlaceholderText(tr("Please enter a number greater than or equal to 6"));
-    m_edit->setMaxLength(2);
-    m_edit->setValidator(new QIntValidator(6, 99, this));
+    m_edit->setPlaceholderText(tr("Please enter a number greater than or equal to 180 days"));
+    m_edit->setMaxLength(3);
+    m_edit->setValidator(new QIntValidator(1, 999, this));
     m_edit->setFixedSize(598, 40);
 
     layout->addWidget(label);
