@@ -3854,6 +3854,31 @@ of applications, isolated operation of applications, centralized monitoring of a
         <source>&lt;h3&gt;&lt;b&gt;Level 5 Template:&lt;/b&gt;&lt;/h3&gt;&lt;ol style=&apos;font-size: 12px; line-height: 1.5;&apos;&gt;&lt;li&gt;Containers can access the platform&apos;s external network, platform, and other containers on the same node.&lt;/li&gt;&lt;li&gt;Support whitelist configuration for container network processes. If the container network process whitelist is closed, the network access permissions of all processes in the container will be executed according to the network whitelist and default rules. If the network process whitelist is enabled, but the whitelist is empty, then processes in the container cannot access the external network of the container. Add network processes to the whitelist, and the network access permissions of processes in the whitelist will be executed according to the network whitelist and default rules.&lt;/li&gt;&lt;/ol&gt;</source>
         <translation>&lt;h3&gt;&lt;b&gt;五级模板：&lt;/b&gt;&lt;/h3&gt;&lt;ol style=&apos;font-size: 12px; line-height: 1.5;&apos;&gt;&lt;li&gt;容器能访问平台的外部网络、平台、同一节点的其他容器。&lt;/li&gt;&lt;li&gt;支持容器网络进程白名单配置。如果关闭了容器网络进程白名单,则容器中所有进程的网络访问权限均按网络白名单和默认规则执行。如果开启了网络进程白名单，但白名单列表为空，则此时该容器中的进程均无法访问容器外部网络。添加网络进程到白名单，在白名单列表中进程的网络访问权限按网络白名单和默认规则执行。&lt;/li&gt;&lt;/ol&gt;</translation>
     </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="24"/>
+        <source>Run</source>
+        <translation>运行</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="25"/>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="26"/>
+        <source>Restart</source>
+        <translation>重启</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="27"/>
+        <source>Generate template</source>
+        <translation>生成容器模板</translation>
+    </message>
+    <message>
+        <location filename="../src/common/button-delegate.cpp" line="28"/>
+        <source>Update Image Version</source>
+        <translation>更新镜像版本</translation>
+    </message>
 </context>
 <context>
     <name>QRCodeDialog</name>
