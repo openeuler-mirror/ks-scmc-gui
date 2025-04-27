@@ -39,10 +39,11 @@ ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>
         font.setPixelSize(12);
         m_menu->setFont(font);
         m_menu->setObjectName("moreInTableMenu");
-        m_menu->addAction(tr("Run"));
-        m_menu->addAction(tr("Stop"));
-        m_menu->addAction(tr("Restart"));
-        m_menu->addAction(tr("Generate template"));
+        m_menu->addAction(MENU_CONTAINER_RUN);
+        m_menu->addAction(MENU_CONTAINER_STOP);
+        m_menu->addAction(MENU_CONTAINER_RESTART);
+        m_menu->addAction(MENU_CONTAINER_GENERATE_TEMPLATE);
+        m_menu->addAction(MENU_CONTAINER_UPDATE_IMAGE_VERSION);
         connect(m_menu, &QMenu::triggered, this, &ButtonDelegate::onActTriggered);
     }
 }
