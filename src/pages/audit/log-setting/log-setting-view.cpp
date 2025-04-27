@@ -30,9 +30,9 @@ void LogSettingView::updateInfo(QString keyword)
     InfoWorker::getInstance().getLog(m_ObjId);
 }
 
-void LogSettingView::setPeriod(int month)
+void LogSettingView::setPeriod(int days)
 {
-    m_edit->setText(QString::number(month));
+    m_edit->setText(QString::number(days));
 }
 
 int LogSettingView::getPeriod()
