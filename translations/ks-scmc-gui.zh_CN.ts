@@ -1419,6 +1419,49 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
+    <name>ContainerUpdateImage</name>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="14"/>
+        <location filename="../build/src/ui_container-update-image.h" line="139"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="43"/>
+        <location filename="../build/src/ui_container-update-image.h" line="140"/>
+        <source>Container Name</source>
+        <translation>容器名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="66"/>
+        <location filename="../build/src/ui_container-update-image.h" line="141"/>
+        <source>Image Name</source>
+        <translation>镜像名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="89"/>
+        <source>Image Version</source>
+        <translation>镜像版本</translation>
+    </message>
+    <message>
+        <location filename="../build/src/ui_container-update-image.h" line="142"/>
+        <source>IImage Version</source>
+        <translation>镜像版本</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="157"/>
+        <location filename="../build/src/ui_container-update-image.h" line="143"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-update-image.ui" line="176"/>
+        <location filename="../build/src/ui_container-update-image.h" line="144"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
