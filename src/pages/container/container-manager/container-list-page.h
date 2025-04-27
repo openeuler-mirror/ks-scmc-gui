@@ -41,6 +41,7 @@ private slots:
     void onActCreate();
     void onActCopyConfig();
     void onActGenerateTemp(QModelIndex index);
+    void onActUpdateImage(QModelIndex index);
 
     void onApp(int row);
     void onMonitor(int row);
