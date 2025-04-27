@@ -23,6 +23,7 @@
 #include "common/monitor-dialog.h"
 #include "container-app-page.h"
 #include "container-list-page.h"
+#include "container-update-image.h"
 #include "load-configuration.h"
 
 #define CONTAINER_STATUS_RUNNING "running"
