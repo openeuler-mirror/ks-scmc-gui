@@ -66,90 +66,74 @@
 <context>
     <name>ButtonDelegate</name>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="36"/>
-        <location filename="../src/common/button-delegate.cpp" line="77"/>
-        <location filename="../src/common/button-delegate.cpp" line="125"/>
-        <location filename="../src/common/button-delegate.cpp" line="276"/>
+        <location filename="../src/common/button-delegate.cpp" line="84"/>
+        <location filename="../src/common/button-delegate.cpp" line="132"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="37"/>
-        <location filename="../src/common/button-delegate.cpp" line="78"/>
-        <location filename="../src/common/button-delegate.cpp" line="126"/>
-        <location filename="../src/common/button-delegate.cpp" line="278"/>
+        <location filename="../src/common/button-delegate.cpp" line="85"/>
+        <location filename="../src/common/button-delegate.cpp" line="133"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="38"/>
-        <location filename="../src/common/button-delegate.cpp" line="280"/>
-        <source>Restart</source>
-        <translation>重启</translation>
-    </message>
-    <message>
-        <location filename="../src/common/button-delegate.cpp" line="39"/>
-        <location filename="../src/common/button-delegate.cpp" line="282"/>
-        <source>Generate template</source>
-        <translation>生成容器模板</translation>
-    </message>
-    <message>
-        <location filename="../src/common/button-delegate.cpp" line="71"/>
-        <location filename="../src/common/button-delegate.cpp" line="118"/>
+        <location filename="../src/common/button-delegate.cpp" line="78"/>
+        <location filename="../src/common/button-delegate.cpp" line="125"/>
         <source>Pass</source>
         <translation>通过</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="72"/>
-        <location filename="../src/common/button-delegate.cpp" line="119"/>
+        <location filename="../src/common/button-delegate.cpp" line="79"/>
+        <location filename="../src/common/button-delegate.cpp" line="126"/>
         <source>Resume</source>
         <translation>恢复</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="73"/>
-        <location filename="../src/common/button-delegate.cpp" line="120"/>
+        <location filename="../src/common/button-delegate.cpp" line="80"/>
+        <location filename="../src/common/button-delegate.cpp" line="127"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="74"/>
-        <location filename="../src/common/button-delegate.cpp" line="121"/>
+        <location filename="../src/common/button-delegate.cpp" line="81"/>
+        <location filename="../src/common/button-delegate.cpp" line="128"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="75"/>
-        <location filename="../src/common/button-delegate.cpp" line="122"/>
+        <location filename="../src/common/button-delegate.cpp" line="82"/>
+        <location filename="../src/common/button-delegate.cpp" line="129"/>
         <source>Readed</source>
         <translation>已读</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="76"/>
-        <location filename="../src/common/button-delegate.cpp" line="124"/>
+        <location filename="../src/common/button-delegate.cpp" line="83"/>
+        <location filename="../src/common/button-delegate.cpp" line="131"/>
         <source>Export</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="79"/>
-        <location filename="../src/common/button-delegate.cpp" line="127"/>
+        <location filename="../src/common/button-delegate.cpp" line="86"/>
+        <location filename="../src/common/button-delegate.cpp" line="134"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="80"/>
-        <location filename="../src/common/button-delegate.cpp" line="128"/>
+        <location filename="../src/common/button-delegate.cpp" line="87"/>
+        <location filename="../src/common/button-delegate.cpp" line="135"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="85"/>
-        <location filename="../src/common/button-delegate.cpp" line="117"/>
+        <location filename="../src/common/button-delegate.cpp" line="92"/>
+        <location filename="../src/common/button-delegate.cpp" line="124"/>
         <source>Refuse</source>
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/common/button-delegate.cpp" line="86"/>
-        <location filename="../src/common/button-delegate.cpp" line="123"/>
+        <location filename="../src/common/button-delegate.cpp" line="93"/>
+        <location filename="../src/common/button-delegate.cpp" line="130"/>
         <source>Ignore</source>
         <translation>忽略</translation>
     </message>
