@@ -44,6 +44,8 @@ private:
     MonitorContent *m_monitor;
     NetworkPageManager *m_networkPage;
     NodeConfigPage *m_configPage;
+    NetworkConfigPage *m_networkConfigPage;
+    FileProtectionPage *m_fileProtectionPage;
 };
 
 #endif  // NODEINFOPAGE_H
