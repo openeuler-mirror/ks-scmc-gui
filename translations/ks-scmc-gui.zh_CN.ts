@@ -2273,13 +2273,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="268"/>
+        <location filename="../src/login-dialog.cpp" line="271"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="275"/>
+        <location filename="../src/login-dialog.cpp" line="278"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
