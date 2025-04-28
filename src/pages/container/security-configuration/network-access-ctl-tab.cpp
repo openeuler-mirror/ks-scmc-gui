@@ -201,7 +201,8 @@ void NetworkAccessCtlTab::initUI()
 
     connect(funcDescBtn, &QToolButton::clicked, this, &NetworkAccessCtlTab::popuoFuncDesc);
     connect(m_btnClose, &QRadioButton::toggled,
-            [=](bool checked) {
+            [=](bool checked)
+            {
                 if (checked == true)
                 {
                     m_listWidget->setDisabled(true);
