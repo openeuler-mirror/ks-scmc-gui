@@ -101,4 +101,12 @@ void NodeInfoPage::updatePageInfo(int index)
     {
         m_configPage->updateInfo();
     }
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG)
+    {
+        m_networkConfigPage->updateInfo();
+    }
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT)
+    {
+        m_fileProtectionPage->updateInfo();
+    }
 }
