@@ -168,7 +168,7 @@ void NetworkAccessCtlTab::initUI()
     mainLayout->addLayout(layout);
     mainLayout->addLayout(btnLayout);
 
-    //创建功能描述弹出控件
+    // 创建功能描述弹出控件
     m_funcDesc = new QWidget();
     m_funcDesc->setWindowFlags(Qt::Widget | Qt::Popup | Qt::FramelessWindowHint);
     m_funcDesc->setAttribute(Qt::WA_TranslucentBackground, true);
