@@ -6,6 +6,7 @@
  */
 #include "node-info-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include "IPC/ipc-page.h"
 #include "config/node-config-page.h"
 #include "container/container-manager/container-list-page.h"
 #include "monitor-content.h"
