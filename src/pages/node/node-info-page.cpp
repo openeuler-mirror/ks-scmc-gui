@@ -10,12 +10,16 @@
 #include "container/container-manager/container-list-page.h"
 #include "monitor-content.h"
 #include "network/network-page-manager.h"
+#include "security-configuration/file-protection-page.h"
+#include "security-configuration/network-config-page.h"
 NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPage(nullptr), m_monitor(nullptr)
 {
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_MONITOR);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONFIG);
+    createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG);
+    createSubPage(NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT);
     connect(this, &NodeInfoPage::sigTabBarClicked, this, &NodeInfoPage::updatePageInfo);
 }
 
