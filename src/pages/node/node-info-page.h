@@ -14,20 +14,25 @@ enum NodeInfoSubPageType
     NODE_INFO_SUB_PAGE_TYPE_CONTAINER,
     NODE_INFO_SUB_PAGE_TYPE_MONITOR,
     NODE_INFO_SUB_PAGE_TYPE_NETWORK,
-    NODE_INFO_SUB_PAGE_TYPE_CONFIG
+    NODE_INFO_SUB_PAGE_TYPE_CONFIG,
+    NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG,
+    NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT,
+    NODE_INFO_SUB_PAGE_TYPE_IPC
 };
 
 class MonitorContent;
 class ContainerListPage;
 class NetworkPageManager;
 class NodeConfigPage;
+class NetworkConfigPage;
+class FileProtectionPage;
 class NodeInfoPage : public TabPage
 {
     Q_OBJECT
 public:
     explicit NodeInfoPage(QWidget *parent = nullptr);
     void setNodeId(qint64 nodeId);
-    void updateInfo(QString keyword = "");  //刷新表格
+    void updateInfo(QString keyword = "");  // 刷新表格
 
 private:
     void createSubPage(NodeInfoSubPageType type);
