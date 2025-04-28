@@ -21,6 +21,7 @@ NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPa
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONFIG);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT);
+    createSubPage(NODE_INFO_SUB_PAGE_TYPE_IPC);
     connect(this, &NodeInfoPage::sigTabBarClicked, this, &NodeInfoPage::updatePageInfo);
 }
 
