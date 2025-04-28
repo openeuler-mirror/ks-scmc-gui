@@ -66,6 +66,18 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
         addTabPage(m_configPage, tr("Config"));
         break;
     }
+    case NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG:
+    {
+        m_networkConfigPage = new NetworkConfigPage(this);
+        addTabPage(m_networkConfigPage, tr("Network Config"));
+        break;
+    }
+    case NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT:
+    {
+        m_fileProtectionPage = new FileProtectionPage(this);
+        addTabPage(m_fileProtectionPage, tr("File Protection"));
+        break;
+    }
     default:
         break;
     }
