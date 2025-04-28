@@ -224,7 +224,8 @@ void ContainerSetting::initUI()
     QList<QPair<QString, QString>> advancedConfItemInfo = {{CMD, ":/images/container-cmd.png"},
                                                            {ENVS, ":/images/container-env.png"},
                                                            {VOLUMES, ":/images/container-volumes.png"},
-                                                           {HIGH_AVAILABILITY, ":/images/container-high-avail.png"}};
+                                                           {HIGH_AVAILABILITY, ":/images/container-high-avail.png"},
+                                                           {IPC, ":/images/container-high-avail.png"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
     {
         QString name = advancedConfItemInfo.at(i).first;
