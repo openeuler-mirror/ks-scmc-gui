@@ -11,7 +11,7 @@
 #include <QListWidgetItem>
 #include <QScrollArea>
 #include <QToolButton>
-#include "network-access-item.h"
+#include "common/security-widgets/network-access-item.h"
 NetworkAccessCtlTab::NetworkAccessCtlTab(QWidget *parent) : QWidget(parent),
                                                             m_listWidget(nullptr),
                                                             m_funcDesc(nullptr),
