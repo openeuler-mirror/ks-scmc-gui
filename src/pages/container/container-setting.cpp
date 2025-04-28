@@ -425,6 +425,9 @@ void ContainerSetting::initAdvancedConfPages()
 
     HighAvailabilityTab *highAvailabilityTab = new HighAvailabilityTab(ui->tab_advanced_config);
     m_advancedConfStack->addWidget(highAvailabilityTab);
+
+    IPCTab *ipcTab = new IPCTab(ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(ipcTab);
 }
 
 void ContainerSetting::initSecurityConfPages()
