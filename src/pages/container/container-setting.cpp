@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPair>
+#include "advanced-configuration/IPC-tab.h"
 #include "advanced-configuration/cmd-conf-tab.h"
 #include "advanced-configuration/envs-conf-tab.h"
 #include "advanced-configuration/high-availability-tab.h"
