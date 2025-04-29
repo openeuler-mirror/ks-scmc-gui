@@ -141,8 +141,8 @@ private:
     int m_netWorkCount;
 
     ContainerSettingType m_type;
-    QMap<int, double> m_nodeTotalCPU;     //node total cpu
-    QMap<int, double> m_nodeTotalMemory;  //node total memory
+    QMap<int, double> m_nodeTotalCPU;     // node total cpu
+    QMap<int, double> m_nodeTotalMemory;  // node total memory
     QList<NetworkConfTab *> m_netWorkPages;
     QMultiMap<int, QString> m_networksMap;
     QMultiMap<int, QPair<int, QString>> m_templateMap;
