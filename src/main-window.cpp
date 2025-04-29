@@ -780,7 +780,7 @@ void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString 
 
     QMutexLocker locker(&m_mutex);
     if (!m_transferImages.contains(transferImage, Qt::CaseInsensitive) &&
-        !InfoWorker::getInstance().isTransferStoped(name, version))
+        !Common::getInstance().isTransferStoped(name, version))
     {
         m_transmissionList->addItem(name, version, status, rate);
         m_transferImages.append(transferImage);
