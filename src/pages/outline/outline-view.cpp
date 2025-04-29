@@ -19,14 +19,13 @@
 
 OutlineView::OutlineView(QWidget *parent) : Page(parent)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = System::generateId(this);
     initUI();
     initConnect();
 
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [this] {
-        updateInfo();
-    });
+    connect(m_timer, &QTimer::timeout, [this]
+            { updateInfo(); });
 }
 
 OutlineView::~OutlineView()
