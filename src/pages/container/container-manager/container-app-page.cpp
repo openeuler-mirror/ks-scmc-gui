@@ -540,12 +540,12 @@ void ContainerAppPage::initTable()
 
 void ContainerAppPage::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listAppEntryFinished, this, &ContainerAppPage::getListAppEntryFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::addAppEntryFinished, this, &ContainerAppPage::getAddAppEntryFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateAppEntryFinished, this, &ContainerAppPage::getUpdateAppEntryFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeAppEntryFinished, this, &ContainerAppPage::getRemoveAppEntryFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::runAppEntryFinished, this, &ContainerAppPage::getRunAppEntryFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::killAppEntryFinished, this, &ContainerAppPage::getKillAppEntryFinished);
+    connect(&Container::getInstance(), &Container::listAppEntryFinished, this, &ContainerAppPage::getListAppEntryFinished);
+    connect(&Container::getInstance(), &Container::addAppEntryFinished, this, &ContainerAppPage::getAddAppEntryFinished);
+    connect(&Container::getInstance(), &Container::updateAppEntryFinished, this, &ContainerAppPage::getUpdateAppEntryFinished);
+    connect(&Container::getInstance(), &Container::removeAppEntryFinished, this, &ContainerAppPage::getRemoveAppEntryFinished);
+    connect(&Container::getInstance(), &Container::runAppEntryFinished, this, &ContainerAppPage::getRunAppEntryFinished);
+    connect(&Container::getInstance(), &Container::killAppEntryFinished, this, &ContainerAppPage::getKillAppEntryFinished);
 }
 
 void ContainerAppPage::showOperateDlg()
