@@ -8,7 +8,7 @@
 #define NODELISTPAGE_H
 
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/node.h"
 #include "table-page.h"
 
 struct nodeInfo_s
