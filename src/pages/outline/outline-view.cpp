@@ -304,12 +304,12 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
         m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
     }
 
-    //audit status
+    // audit status
     int approveCount = reply.second.audit().image_to_approve_count();
     m_outlineCell_examine->ui->Name_counts->setText(QString::number(approveCount, 10));
     emit sigApproveSumNums(approveCount);
 
-    //warnning status
+    // warnning status
     auto unreadWarnCount = reply.second.log().unread_warn_count();
     m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
     emit sigWarnSumNums(unreadWarnCount);
