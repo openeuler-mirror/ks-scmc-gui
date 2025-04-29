@@ -55,7 +55,7 @@ private:
     ContainerBackupOperateDialog *m_backupAddDlg;
     ContainerBackupOperateDialog *m_backupEditDlg;
     ContainerBackupOperateDialog *m_backupExportDlg;
-    //KiranTitlebarWindow *m_exportWindow;
+    // KiranTitlebarWindow *m_exportWindow;
     int m_nodeId;
     std::string m_containerId;
     QString m_containerStatus;
