@@ -504,7 +504,7 @@ void ContainerBackupPage::refresh(const QString keyword, bool clear)
     {
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
-            InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            Container::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
         }
     }
 }
