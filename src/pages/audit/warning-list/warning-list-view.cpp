@@ -143,12 +143,12 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
     }
 
     request.set_page_no(page_on);
-    InfoWorker::getInstance().listWarnLogging(m_ObjId, request);
+    Logging::getInstance().listWarnLogging(m_ObjId, request);
 }
 
 void WarningListView::readWarn(QList<int64_t> ids)
 {
-    InfoWorker::getInstance().readWarnLogging(m_ObjId, ids);
+    Logging::getInstance().readWarnLogging(m_ObjId, ids);
 }
 
 void WarningListView::refresh()
