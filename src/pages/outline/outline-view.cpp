@@ -123,7 +123,7 @@ void OutlineView::initConnect()
 
 void OutlineView::updateInfo(QString keyword)
 {
-    InfoWorker::getInstance().dashboard(m_objId);
+    System::getInstance().dashboard(m_objId);
 }
 
 void OutlineView::paintEvent(QPaintEvent *event)
