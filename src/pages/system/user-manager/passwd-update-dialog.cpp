@@ -118,7 +118,7 @@ void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPai
 
 void PasswdUpdateDialog::updatePassword(QString oldPw, QString newPw)
 {
-    InfoWorker::getInstance().updatePassword(m_objId, oldPw.toStdString(), newPw.toStdString());
+    User::getInstance().updatePassword(m_objId, oldPw.toStdString(), newPw.toStdString());
 }
 
 void PasswdUpdateDialog::initUI()
