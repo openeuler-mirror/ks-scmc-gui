@@ -580,18 +580,18 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
                                MessageDialog::StandardButton::Ok);
         return;
     }
-//    QString checkRet = checkImageLegality(imageFile);
-//    if (!checkRet.isEmpty())
-//    {
-//        MessageDialog::message(tr("Upload Image"),
-//                               tr("Upload image failed!"),
-//                               checkRet,
-//                               ":/images/error.svg",
-//                               MessageDialog::StandardButton::Ok);
-//        return;
-//    }
+    //    QString checkRet = checkImageLegality(imageFile);
+    //    if (!checkRet.isEmpty())
+    //    {
+    //        MessageDialog::message(tr("Upload Image"),
+    //                               tr("Upload image failed!"),
+    //                               checkRet,
+    //                               ":/images/error.svg",
+    //                               MessageDialog::StandardButton::Ok);
+    //        return;
+    //    }
 
-    //在检查文件成功后再将其加入传输任务列表
+    // 在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Upload Image")))
     {
         m_transferImages.append(Info["Image Name"] + "-" + Info["Image Version"]);
