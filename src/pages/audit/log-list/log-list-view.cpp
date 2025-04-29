@@ -182,7 +182,7 @@ void LogListView::getLogList(LogListPageType type, int page_on)
 
     request.set_page_no(page_on);
 
-    InfoWorker::getInstance().listRuntimeLogging(m_objId, request);
+    Logging::getInstance().listRuntimeLogging(m_objId, request);
 }
 
 void LogListView::onDateSelection()
