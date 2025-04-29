@@ -625,13 +625,13 @@ void ContainerListPage::getContainerList()
     std::vector<int64_t> vecNodeId;
     if (m_nodeId < 0)
     {
-        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  // 获取所有容器
+        Container::getInstance().listContainer(m_objId, vecNodeId, true);  // 获取所有容器
     }
     else
     {
         KLOG_DEBUG() << "Get container list of node " << m_nodeId;
         vecNodeId.push_back(m_nodeId);
-        InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  // 获取某节点下的容器
+        Container::getInstance().listContainer(m_objId, vecNodeId, true);  // 获取某节点下的容器
     }
 }
 
