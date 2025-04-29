@@ -188,14 +188,14 @@ void ImageListPage::initButtons()
 
 void ImageListPage::initImageConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::downloadImageFinished, this, &ImageListPage::getDownloadImageResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::getSecuritySwitchFinished, this, &ImageListPage::getSecuritySwitchResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageFinished, this, &ImageListPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
+    connect(&Image::getInstance(), &Image::listDBImageFinished, this, &ImageListPage::getListDBResult, Qt::UniqueConnection);
+    connect(&Image::getInstance(), &Image::checkImageFinished, this, &ImageListPage::getCheckResult, Qt::UniqueConnection);
+    connect(&Image::getInstance(), &Image::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
+    connect(&Image::getInstance(), &Image::uploadFinished, this, &ImageListPage::getUploadResult, Qt::UniqueConnection);
+    connect(&Image::getInstance(), &Image::updateFinished, this, &ImageListPage::getUpdateResult, Qt::UniqueConnection);
+    connect(&Image::getInstance(), &Image::downloadImageFinished, this, &ImageListPage::getDownloadImageResult, Qt::UniqueConnection);
+    connect(&System::getInstance(), &System::getSecuritySwitchFinished, this, &ImageListPage::getSecuritySwitchResult, Qt::UniqueConnection);
+    connect(&Common::getInstance(), &Common::transferImageFinished, this, &ImageListPage::getTransferImageFinishedResult, Qt::BlockingQueuedConnection);
 }
 
 int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
