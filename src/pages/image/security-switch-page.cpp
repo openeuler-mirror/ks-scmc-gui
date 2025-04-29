@@ -91,5 +91,5 @@ void SecuritySwitchPage::initUI()
 
 void SecuritySwitchPage::setStatus(bool isEnable)
 {
-    InfoWorker::getInstance().setSecuritySwitch(m_objId, isEnable);
+    System::getInstance().setSecuritySwitch(m_objId, isEnable);
 }
