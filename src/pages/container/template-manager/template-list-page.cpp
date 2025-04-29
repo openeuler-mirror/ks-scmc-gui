@@ -16,7 +16,7 @@ using namespace grpc;
 
 TemplateListPage::TemplateListPage(QWidget *parent) : TablePage(parent), m_createTPSetting(nullptr), m_editTPSetting(nullptr)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Container::generateId(this);
     initTable();
     initButtons();
     initTemplateConnect();
