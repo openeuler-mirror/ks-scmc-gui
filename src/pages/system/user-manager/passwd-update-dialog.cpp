@@ -22,7 +22,7 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
                                                                             m_confirmTimer(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
-    m_objId = InfoWorker::generateId(this);
+    m_objId = User::generateId(this);
     m_oldTimer = new QTimer(this);
     connect(m_oldTimer, &QTimer::timeout,
             [this]
