@@ -115,8 +115,8 @@ void WarningListView::initButtons()
 
 void WarningListView::initLogListConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarningResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarningResult);
+    connect(&Logging::getInstance(), &Logging::loggingListWarnFinished, this, &WarningListView::getListWarningResult);
+    connect(&Logging::getInstance(), &Logging::loggingReadWarnFinished, this, &WarningListView::getReadWarningResult);
     connect(this, &WarningListView::sigUpdatePaging, this, &WarningListView::updatePagingInfo);
     connect(m_timer, &QTimer::timeout, this, [this]()
             { refresh(); });
