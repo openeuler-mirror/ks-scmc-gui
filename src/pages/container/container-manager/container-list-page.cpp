@@ -43,7 +43,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
       m_monitor(nullptr),
       m_timer(nullptr)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Container::generateId(this);
     m_nodeId = -1;
     initButtons();
     // 初始化表格
