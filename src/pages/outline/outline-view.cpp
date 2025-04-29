@@ -265,7 +265,7 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
         return;
     }
 
-    //node status
+    // node status
     int nodeTotal = reply.second.node().total_count();
     int nodeOnline = reply.second.node().online_count();
     int nodeOffline = reply.second.node().offline_count();
