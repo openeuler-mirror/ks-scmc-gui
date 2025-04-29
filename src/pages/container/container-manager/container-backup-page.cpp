@@ -228,7 +228,7 @@ void ContainerBackupPage::exportBackup(bool isDownload, QString version, QString
     req.set_backup_id(m_exportBackupId);
     req.set_is_download(isDownload);
     req.set_img_version(version.toStdString());
-    InfoWorker::getInstance().exportBackup(m_objId, req, path);
+    Container::getInstance().exportBackup(m_objId, req, path);
 }
 
 void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
