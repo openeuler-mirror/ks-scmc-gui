@@ -869,7 +869,7 @@ void ContainerSetting::updateTemplate()
 
     if (writeContainerConfig(cntrCfg))
     {
-        InfoWorker::getInstance().updateTemplate(m_objId, request);
+        Container::getInstance().updateTemplate(m_objId, request);
     }
 }
 
