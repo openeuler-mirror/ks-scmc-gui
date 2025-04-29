@@ -807,7 +807,7 @@ void MainWindow::onTransferItemDeleted(QString name, QString version, ImageTrans
             QMutexLocker locker(&m_mutex);
             if (status == IMAGE_TRANSMISSION_STATUS_DOWNLOADING || status == IMAGE_TRANSMISSION_STATUS_UPLOADING)
             {
-                InfoWorker::getInstance().stopTransfer(name, version, true);
+                Common::getInstance().stopTransfer(name, version, true);
             }
             m_transferImages.removeOne(transferImage);
             m_btnTransmission->setTipMsg(m_transferImages.size());
