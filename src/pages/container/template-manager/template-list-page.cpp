@@ -166,8 +166,8 @@ void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grp
             int nodeId = ifs.node_id();
             auto name = ifs.name();
             auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-            //后面加空格，是为了防止在3.3-6Nari系统中下拉列表项显示不全
-            //TODO:QListView item计算中文长度有误，后续完善
+            // 后面加空格，是为了防止在3.3-6Nari系统中下拉列表项显示不全
+            // TODO:QListView item计算中文长度有误，后续完善
             QString str = QString("%1 (%2:%3)    ")
                               .arg(QString::fromStdString(name))
                               .arg(tr("Subnet"))
