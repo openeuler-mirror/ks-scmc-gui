@@ -29,7 +29,7 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
                                                                                                                                                m_appOp(nullptr),
                                                                                                                                                m_timer(nullptr)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Container::generateId(this);
     m_timer = new QTimer(this);
 
     initButtons();
