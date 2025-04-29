@@ -128,7 +128,7 @@ void ContainerListPage::onBtnRestart()
     if (!ids.empty())
     {
         setBusy(true);
-        InfoWorker::getInstance().restartContainer(m_objId, ids);
+        Container::getInstance().restartContainer(m_objId, ids);
     }
 }
 
