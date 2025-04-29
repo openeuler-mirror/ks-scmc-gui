@@ -206,7 +206,8 @@ void ContainerBackupPage::onExportBackup(int row)
         m_backupExportDlg = new ContainerBackupOperateDialog(BACKUP_OPERATE_TYPE_EXPORT, backupName);
         m_backupExportDlg->setTitle(tr("Backup Export"));
         connect(m_backupExportDlg, &ContainerBackupOperateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_backupExportDlg->deleteLater();
                     m_backupExportDlg = nullptr;
                 });
