@@ -850,7 +850,7 @@ void ContainerSetting::createTemplate()
 
     if (writeContainerConfig(cntrCfg))
     {
-        InfoWorker::getInstance().createTemplate(m_objId, request);
+        Container::getInstance().createTemplate(m_objId, request);
     }
 }
 
