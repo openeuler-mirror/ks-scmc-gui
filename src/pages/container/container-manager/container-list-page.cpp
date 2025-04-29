@@ -118,7 +118,7 @@ void ContainerListPage::onBtnStop(QModelIndex index)
     QMap<int64_t, QStringList> ids;
     getItemId(index.row(), ids);
     setBusy(true);
-    InfoWorker::getInstance().stopContainer(m_objId, ids);
+    Container::getInstance().stopContainer(m_objId, ids);
 }
 
 void ContainerListPage::onBtnRestart()
