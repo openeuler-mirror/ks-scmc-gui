@@ -40,8 +40,8 @@ NodeConfigPage::NodeConfigPage(QWidget *parent) : Page(parent),
 
     connect(ui->btn_save, &QPushButton::clicked, this, &NodeConfigPage::onSave);
     connect(ui->btn_cancel, &QPushButton::clicked, this, &NodeConfigPage::onCancel);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeConfigPage::getListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateNodeFinished, this, &NodeConfigPage::getUpdateResult);
+    connect(&Node::getInstance(), &Node::listNodeFinished, this, &NodeConfigPage::getListResult);
+    connect(&Node::getInstance(), &Node::updateNodeFinished, this, &NodeConfigPage::getUpdateResult);
 }
 
 NodeConfigPage::~NodeConfigPage()
