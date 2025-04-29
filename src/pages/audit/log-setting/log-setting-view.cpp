@@ -27,7 +27,7 @@ LogSettingView::~LogSettingView()
 
 void LogSettingView::updateInfo(QString keyword)
 {
-    InfoWorker::getInstance().getLog(m_ObjId);
+    Logging::getInstance().getLog(m_ObjId);
 }
 
 void LogSettingView::setPeriod(int days)
