@@ -78,7 +78,7 @@ void NetworkListPage::removeVirtIfs(int row)
         auto item = getItem(row, 1);
         auto infoMap = item->data().toMap();
         QString name = infoMap[NAME].toString();
-        InfoWorker::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
+        Network::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
     }
 }
 
