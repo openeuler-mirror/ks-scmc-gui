@@ -23,7 +23,7 @@ class ImageListPage : public TablePage
 public:
     explicit ImageListPage(QWidget *parent = nullptr, bool flag = false);
     ~ImageListPage();
-    void updateInfo(QString keyword = "");                               //刷新表格
+    void updateInfo(QString keyword = "");                               // 刷新表格
     void setDelRow(const QString type1 = "", const QString type2 = "");  //"Wait for Approve","Rejected","Passed"
     void setCheckBox(bool);
 
