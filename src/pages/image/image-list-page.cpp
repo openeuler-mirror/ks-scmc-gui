@@ -319,7 +319,7 @@ QString ImageListPage::parseManifest(const QString &manifestContent, const QStri
 void ImageListPage::getImageList()
 {
     setBusy(true);
-    InfoWorker::getInstance().listDBImage(m_objId);
+    Image::getInstance().listDBImage(m_objId);
 }
 
 void ImageListPage::OperateImage(ImageOperateType type)
