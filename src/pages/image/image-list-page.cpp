@@ -697,8 +697,8 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
 
     pInfo->set_size(fileSize);
 
-    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().updateImage(m_objId, request, imageFile, Info["Sign File"]);
+    Common::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    Image::getInstance().updateImage(m_objId, request, imageFile, Info["Sign File"]);
 }
 
 void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
