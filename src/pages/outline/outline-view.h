@@ -59,9 +59,9 @@ private:
     OutlineCell *m_outlineCell_examine;
     OutlineCell *m_outlineCell_warning;
     OutlineIntroduction *m_outlineIntroduction;
-    QScrollArea *m_scrollArea;  //滚动区域
-    QWidget *m_scrollWidget;    //滚动区域的窗口
-    QHBoxLayout *m_layout;      //水平布局滚动区域
+    QScrollArea *m_scrollArea;  // 滚动区域
+    QWidget *m_scrollWidget;    // 滚动区域的窗口
+    QHBoxLayout *m_layout;      // 水平布局滚动区域
     QTimer *m_timer;
 };
 
