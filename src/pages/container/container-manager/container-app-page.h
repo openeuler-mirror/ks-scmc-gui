@@ -10,8 +10,8 @@
 
 #include <kiran-titlebar-window.h>
 #include <QProcess>
+#include "base/interface/container.h"
 #include "container-app-operate-dialog.h"
-#include "info-worker.h"
 #include "table-page.h"
 
 class ContainerAppDialog : public KiranTitlebarWindow
