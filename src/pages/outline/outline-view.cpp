@@ -98,7 +98,7 @@ void OutlineView::initUI()
 #if 1
     m_scrollArea->setWidget(m_scrollWidget);
 
-    //窗口变大的时候滚动区域的大小也可以跟随调整
+    // 窗口变大的时候滚动区域的大小也可以跟随调整
     m_layout = new QHBoxLayout;
     m_layout->addWidget(m_scrollArea);
     m_layout->setContentsMargins(0, 0, 0, 0);
