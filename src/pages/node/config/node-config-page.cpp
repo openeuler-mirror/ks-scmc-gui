@@ -57,7 +57,7 @@ void NodeConfigPage::setNodeId(int64_t nodeId)
 void NodeConfigPage::updateInfo(QString keyword)
 {
     // interface getinfo
-    InfoWorker::getInstance().listNode(m_objId);
+    Node::getInstance().listNode(m_objId);
 }
 
 bool NodeConfigPage::eventFilter(QObject *watched, QEvent *event)
