@@ -880,16 +880,16 @@ void ContainerListPage::initTable()
 
 void ContainerListPage::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerListPage::getNodeListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &ContainerListPage::getListImageFinishedResult);
+    connect(&Container::getInstance(), &Container::listTemplateFinished, this, &ContainerListPage::getListTemplateFinishResult);
+    connect(&Network::getInstance(), &Network::listNetworkFinished, this, &ContainerListPage::getNetworkListResult);
+    connect(&Node::getInstance(), &Node::listNodeFinished, this, &ContainerListPage::getNodeListResult);
+    connect(&Image::getInstance(), &Image::listImageFinished, this, &ContainerListPage::getListImageFinishedResult);
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::startContainerFinished, this, &ContainerListPage::getContainerStartResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult, Qt::UniqueConnection);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::listContainerFinished, this, &ContainerListPage::getContainerListResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::startContainerFinished, this, &ContainerListPage::getContainerStartResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
 }
 
 void ContainerListPage::updateInfo(QString keyword)
