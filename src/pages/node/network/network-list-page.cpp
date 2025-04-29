@@ -261,11 +261,11 @@ void NetworkListPage::initConnect()
 {
     if (m_type == NETWORK_IFS_TYPE_VIRT)
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::createNicFinished, this, &NetworkListPage::getCreateResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::removeNicFinished, this, &NetworkListPage::getRemoveResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::updateNicFinished, this, &NetworkListPage::getUpdateResult);
+        connect(&Network::getInstance(), &Network::createNicFinished, this, &NetworkListPage::getCreateResult);
+        connect(&Network::getInstance(), &Network::removeNicFinished, this, &NetworkListPage::getRemoveResult);
+        connect(&Network::getInstance(), &Network::updateNicFinished, this, &NetworkListPage::getUpdateResult);
     }
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &NetworkListPage::getListResult);
+    connect(&Network::getInstance(), &Network::listNetworkFinished, this, &NetworkListPage::getListResult);
 }
 
 KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType type, QString name, QString subnet, QString realIfs)
