@@ -713,8 +713,8 @@ void ImageListPage::downloadSaveSlot(QMap<QString, QString> Info)
     else
         return;
 
-    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().downloadImage(m_objId, Info["Image Id"].toInt(), Info["Image Name"], Info["Image Version"], Info["Image Path"]);
+    Common::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    Image::getInstance().downloadImage(m_objId, Info["Image Id"].toInt(), Info["Image Name"], Info["Image Version"], Info["Image Path"]);
 }
 
 void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
