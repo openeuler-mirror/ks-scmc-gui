@@ -10,8 +10,10 @@
 #include <QMutex>
 #include <QVector>
 #include <QWidget>
+#include "base/interface/common.h"
+#include "base/interface/image.h"
+#include "base/interface/system.h"
 #include "image-operate-dialog.h"
-#include "info-worker.h"
 #include "table-page.h"
 
 class ImageOperate;
