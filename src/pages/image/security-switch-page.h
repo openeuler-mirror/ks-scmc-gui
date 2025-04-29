@@ -9,7 +9,7 @@
 #define SECURITYSWITCHPAGE_H
 
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/system.h"
 #include "page.h"
 class KiranSwitchButton;
 class SecuritySwitchPage : public Page
