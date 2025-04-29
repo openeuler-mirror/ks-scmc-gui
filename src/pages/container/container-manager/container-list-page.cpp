@@ -156,7 +156,7 @@ void ContainerListPage::onBtnDelete()
             if (popupAuthDialog() == QDialog::Accepted)
             {
                 setBusy(true);
-                InfoWorker::getInstance().removeContainer(m_objId, ids);
+                Container::getInstance().removeContainer(m_objId, ids);
             }
         }
     }
