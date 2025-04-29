@@ -423,15 +423,15 @@ void NodeListPage::initTable()
 
 void NodeListPage::initNodeConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeListPage::getListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::createNodeFinished, this, &NodeListPage::getCreateResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeNodeFinished, this, &NodeListPage::getRemoveResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateNodeFinished, this, &NodeListPage::getUpdateResult);
+    connect(&Node::getInstance(), &Node::listNodeFinished, this, &NodeListPage::getListResult);
+    connect(&Node::getInstance(), &Node::createNodeFinished, this, &NodeListPage::getCreateResult);
+    connect(&Node::getInstance(), &Node::removeNodeFinished, this, &NodeListPage::getRemoveResult);
+    connect(&Node::getInstance(), &Node::updateNodeFinished, this, &NodeListPage::getUpdateResult);
 }
 
 void NodeListPage::getNodeList()
 {
-    InfoWorker::getInstance().listNode(m_objId);
+    Node::getInstance().listNode(m_objId);
 }
 
 void NodeListPage::getCheckedItemsId(QList<qint64> &ids)
