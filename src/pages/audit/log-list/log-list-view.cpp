@@ -20,7 +20,7 @@ LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(paren
 {
     m_timer = new QTimer(this);
     is_openPaging = is_open_paging;
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Logging::generateId(this);
     initButtons();
     initTable();
     initLogListConnect();
