@@ -272,7 +272,7 @@ void MonitorContent::onCycleChanged(int index)
         default:
             break;
         }
-        InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
+        Container::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
     }
 }
 
