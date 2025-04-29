@@ -62,7 +62,7 @@ private slots:
     void getTransferImageFinishedResult(QString name, QString version);
 
 signals:
-    //void sigTransferImageInfo(ImageTransmissionStatus status, std::string name, std::string version, int rate);
+    // void sigTransferImageInfo(ImageTransmissionStatus status, std::string name, std::string version, int rate);
     void sigUpdateAPproveTipSums(int tips = 0);
 
 private:
