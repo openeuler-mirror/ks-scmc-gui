@@ -45,7 +45,7 @@ void NetworkListPage::updateInfo(QString keyword)
     clearText();
     if (keyword.isEmpty())
     {
-        InfoWorker::getInstance().listNetwork(m_objId, m_nodeId);
+        Network::getInstance().listNetwork(m_objId, m_nodeId);
     }
 }
 
