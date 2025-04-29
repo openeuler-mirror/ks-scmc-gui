@@ -299,7 +299,7 @@ void MonitorContent::applyDatePicker()
     m_xEnd = m_datePicker->getEndDate();
     m_xInterval = 1 * 60;
     m_xTitle = tr("Time particle density(%1 hour)").arg(m_xInterval / 60);
-    InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
+    Container::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
 }
 
 void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<grpc::Status, container::MonitorHistoryReply> &reply)
