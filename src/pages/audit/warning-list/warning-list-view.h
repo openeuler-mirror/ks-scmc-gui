@@ -8,7 +8,7 @@
 #define WARNING_LIST_VIEW_H
 
 #include <QTimer>
-#include "info-worker.h"
+#include "base/interface/logging.h"
 #include "pages/container/container-manager/container-list-page.h"
 #include "pages/table-page.h"
 
