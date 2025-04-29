@@ -25,7 +25,7 @@
 NetworkListPage::NetworkListPage(NetworkIfsType type, QWidget *parent) : TablePage(parent),
                                                                          m_type(type)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Network::generateId(this);
 
     if (m_type == NETWORK_IFS_TYPE_VIRT)
     {
