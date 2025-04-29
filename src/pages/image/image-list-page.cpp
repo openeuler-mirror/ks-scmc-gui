@@ -356,7 +356,8 @@ void ImageListPage::OperateImage(ImageOperateType type)
             break;
         }
         connect(m_pImageOp, &ImageOperateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_pImageOp->deleteLater();
                     m_pImageOp = nullptr;
                 });
