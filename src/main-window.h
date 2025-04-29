@@ -41,8 +41,8 @@ protected:
     void onItemClicked(QListWidgetItem *currItem);
     void paintEvent(QPaintEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event);
-    //void closeEvent(QCloseEvent *event);
-    //void timerEvent(QTimerEvent *event);
+    // void closeEvent(QCloseEvent *event);
+    // void timerEvent(QTimerEvent *event);
 
 private:
     void initUI();
