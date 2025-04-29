@@ -9,7 +9,7 @@
 
 #include <kiran-titlebar-window.h>
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/user.h"
 
 enum PasswordType
 {
