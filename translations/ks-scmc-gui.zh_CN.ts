@@ -2619,77 +2619,77 @@ p, li { white-space: pre-wrap; }
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="120"/>
+        <location filename="../src/common/monitor-content.cpp" line="122"/>
         <source>10 minutes</source>
         <translation>10分钟</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="121"/>
+        <location filename="../src/common/monitor-content.cpp" line="123"/>
         <source>1 hour</source>
         <translation>1小时</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="122"/>
+        <location filename="../src/common/monitor-content.cpp" line="124"/>
         <source>1 day</source>
         <translation>1天</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="123"/>
+        <location filename="../src/common/monitor-content.cpp" line="125"/>
         <source>1 week</source>
         <translation>1周</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="124"/>
+        <location filename="../src/common/monitor-content.cpp" line="126"/>
         <source>Custom</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="145"/>
+        <location filename="../src/common/monitor-content.cpp" line="147"/>
         <source>Network throughput (unit M)</source>
         <translation>网络吞吐量(单位 M)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="384"/>
+        <location filename="../src/common/monitor-content.cpp" line="386"/>
         <source>Disk usage(unit %1)</source>
         <translation>磁盘使用量(单位 %1)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="433"/>
+        <location filename="../src/common/monitor-content.cpp" line="435"/>
         <source>Network throughput (unit %1)</source>
         <translation>网络吞吐量(单位 %1)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="136"/>
-        <location filename="../src/common/monitor-content.cpp" line="339"/>
+        <location filename="../src/common/monitor-content.cpp" line="138"/>
+        <location filename="../src/common/monitor-content.cpp" line="341"/>
         <source>CPU usage (%)</source>
         <translation>CPU使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="139"/>
-        <location filename="../src/common/monitor-content.cpp" line="361"/>
+        <location filename="../src/common/monitor-content.cpp" line="141"/>
+        <location filename="../src/common/monitor-content.cpp" line="363"/>
         <source>Memory usage (%)</source>
         <translation>内存使用量（%）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="142"/>
+        <location filename="../src/common/monitor-content.cpp" line="144"/>
         <source>Disk usage (unit M)</source>
         <translation>磁盘使用量（单位 M）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="167"/>
+        <location filename="../src/common/monitor-content.cpp" line="169"/>
         <source>Time particle density(1 minute)</source>
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="244"/>
-        <location filename="../src/common/monitor-content.cpp" line="252"/>
+        <location filename="../src/common/monitor-content.cpp" line="246"/>
+        <location filename="../src/common/monitor-content.cpp" line="254"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="260"/>
-        <location filename="../src/common/monitor-content.cpp" line="268"/>
-        <location filename="../src/common/monitor-content.cpp" line="299"/>
+        <location filename="../src/common/monitor-content.cpp" line="262"/>
+        <location filename="../src/common/monitor-content.cpp" line="270"/>
+        <location filename="../src/common/monitor-content.cpp" line="301"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>
