@@ -579,7 +579,7 @@ void ContainerAppPage::refresh(const QString keyword, bool clear)
     if (clear)
         clearCheckState();
     clearText();
-    InfoWorker::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
+    Container::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
 }
 
 bool ContainerAppPage::isGuiAppRunning(int appID)
