@@ -23,7 +23,7 @@ WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool
 {
     m_timer = new QTimer(this);
 
-    m_ObjId = InfoWorker::generateId(this);
+    m_ObjId = Logging::generateId(this);
     is_showContainerName = isShowContainerName;
     is_openPaging = is_open_paging;
     initButtons();
