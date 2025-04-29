@@ -9,7 +9,7 @@
 #define NODECONFIGPAGE_H
 
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/node.h"
 #include "page.h"
 namespace Ui
 {
