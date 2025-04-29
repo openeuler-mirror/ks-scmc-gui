@@ -161,7 +161,7 @@ void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
         request.set_node_id(nodeId);
         request.set_name(Info[NODE_NAME].toStdString());
         request.set_comment(Info[NODE_COMMENT].toStdString());
-        InfoWorker::getInstance().updateNode(m_objId, request);
+        Node::getInstance().updateNode(m_objId, request);
     }
 }
 
