@@ -2102,42 +2102,6 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
-    <name>InfoWorker</name>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="766"/>
-        <source>The %1 backup is exporting,please wait a minute.</source>
-        <translation>%1 容器备份已经在导出中，请等待。</translation>
-    </message>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="805"/>
-        <source>Export interruption!</source>
-        <translation>导出中断！</translation>
-    </message>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="1073"/>
-        <location filename="../src/base/info-worker.cpp" line="1212"/>
-        <source>The transmission was cancelled.</source>
-        <translation>传输已取消。</translation>
-    </message>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="1296"/>
-        <source>Failed to open %1!</source>
-        <translation>打开 %1 文件失败！</translation>
-    </message>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="1308"/>
-        <location filename="../src/base/info-worker.cpp" line="1323"/>
-        <source>file was broken!</source>
-        <translation>文件已损坏！</translation>
-    </message>
-    <message>
-        <location filename="../src/base/info-worker.cpp" line="810"/>
-        <location filename="../src/base/info-worker.cpp" line="1330"/>
-        <source>Ok</source>
-        <translation>是</translation>
-    </message>
-</context>
-<context>
     <name>LicenseActivation</name>
     <message>
         <location filename="../src/license/license-activation.ui" line="26"/>
