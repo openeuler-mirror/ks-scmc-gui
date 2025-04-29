@@ -94,11 +94,13 @@ void MonitorContent::initUI()
 
     m_datePicker = new DatePicker;
     connect(m_datePicker, &DatePicker::sigStartdateChange,
-            [this](QString date) {
+            [this](QString date)
+            {
                 ui->btn_start->setText(date);
             });
     connect(m_datePicker, &DatePicker::sigEndDateChange,
-            [this](QString date) {
+            [this](QString date)
+            {
                 ui->btn_end->setText(date);
             });
 
