@@ -76,7 +76,7 @@ private:
     QString m_userRole;
     QStackedWidget *m_stackedWidget;
     QMap<QString, Page *> m_pageMap;
-    QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
+    QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  // key group ,value subs
     QMap<QListWidgetItem *, bool> m_isShowMap;
     QList<GuideItem *> m_pageItems;
     TransmissionList *m_transmissionList;
