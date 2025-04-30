@@ -105,6 +105,8 @@ void UserUpdateDialog::confirm()
             KLOG_DEBUG() << "Invalid password of" << ui->lineEdit_name->text();
             return;
         }
+
+        m_password = ui->lineEdit_pw->text();
         emit checkPassed();
         break;
     }
