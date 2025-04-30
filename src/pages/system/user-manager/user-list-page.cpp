@@ -6,13 +6,27 @@
  */
 
 #include "user-list-page.h"
+#include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
 #include <QApplication>
+#include <QDateTime>
 #include <QDesktopWidget>
 #include <QPushButton>
+#include <QStandardItem>
 
-UserListPage::UserListPage(QWidget *parent) : TablePage(parent)
+#include "message-dialog.h"
+
+#define USER_ID "user id"
+#define USER_ROLE_ID "role id"
+#define USER_LOGIN_NAME "user login name"
+#define USER_ROLE_NAME "user role name"
+
+#define STDADM_ROLE_ID 4
+UserListPage::UserListPage(QWidget *parent) : TablePage(parent),
+                                              m_createDialog(nullptr),
+                                              m_editDialog(nullptr)
 {
+    m_objID = User::generateId(this);
     initButtons();
     initTable();
     initConnect();
