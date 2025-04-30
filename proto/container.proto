@@ -113,15 +113,15 @@ message ListAppEntryReply {
 }
 
 message AddAppEntryRequest {
-    int64    node_id      = 1;
-    AppEntry app          = 2;
+    int64    node_id = 1;
+    AppEntry app     = 2;
 }
 
 message AddAppEntryReply {}
 
 message UpdateAppEntryRequest {
-    int64    node_id      = 1;
-    AppEntry app          = 2;
+    int64    node_id = 1;
+    AppEntry app     = 2;
 }
 
 message UpdateAppEntryReply {}
