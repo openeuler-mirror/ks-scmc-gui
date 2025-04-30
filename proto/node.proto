@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package = "scmc/rpc/pb/node";
 
 import "common.proto";
+import "security.proto";
 
 package node;
 
