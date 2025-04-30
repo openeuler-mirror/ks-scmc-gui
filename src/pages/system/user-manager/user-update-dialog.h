@@ -63,6 +63,9 @@ private:
     Ui::UserUpdateDialog *ui;
     DialogType m_type = DIALOG_TYPE_CREATE;
     int m_userID = -1;
+    int m_roleID = -1;
+    QString m_userName;
+    QString m_password;
 };
 
 #endif  // USERUPDATEDIALOG_H
