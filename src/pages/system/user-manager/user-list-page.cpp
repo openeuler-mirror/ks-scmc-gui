@@ -38,6 +38,8 @@ UserListPage::~UserListPage()
 
 void UserListPage::updateInfo(QString keyword)
 {
+    clearText();
+    User::getInstance().listUser(m_objID);
 }
 
 UserUpdateDialog *UserListPage::popupDialog(DialogType type, const QString &title)
