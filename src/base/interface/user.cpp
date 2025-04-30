@@ -49,6 +49,32 @@ void User::updatePassword(const QString objId, const std::string &oldPassword, c
     RPC_ASYNC(user::UpdatePasswordReply, _updatePassword, updatePasswordFinished, objId, req);
 }
 
+void User::listUser(const QString objId)
+{
+    user::ListUserRequest req;
+    RPC_ASYNC(user::ListUserReply, _listUser, listUserFinished, objId, req);
+}
+
+void User::createUser(const QString objId, const user::CreateUserRequest &req)
+{
+    RPC_ASYNC(user::CreateUserReply, _createUser, createUserFinished, objId, req);
+}
+
+void User::updateUser(const QString objId, const user::UpdateUserRequest &req)
+{
+    RPC_ASYNC(user::UpdateUserReply, _updateUser, updateUserFinished, objId, req);
+}
+
+void User::removeUser(const QString objId, const std::vector<int64_t> &userIds)
+{
+    user::RemoveUserRequest req;
+    foreach (int64_t id, userIds)
+    {
+        req.add_user_ids(id);
+    }
+    RPC_ASYNC(user::RemoveUserReply, _removeUser, removeUserFinished, objId, req);
+}
+
 QPair<grpc::Status, user::LoginReply> User::_login(const user::LoginRequest &req)
 {
     QPair<grpc::Status, user::LoginReply> r;
