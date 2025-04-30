@@ -31,10 +31,25 @@ void UserUpdateDialog::setDialogType(DialogType type)
     ui->stackedWidget->setCurrentIndex(m_type);
 }
 
-void UserUpdateDialog::setUserInfo(int userID, const QString &userName)
+void UserUpdateDialog::setUserInfo(UserUpdateDialog::UserInfo info)
 {
-    m_userID = userID;
-    ui->lineEdit_new_name->setText(userName);
+    m_userID = info.userID;
+    m_roleID = info.roleID;
+    m_userName = info.userName;
+    m_password = info.password;
+    ui->lineEdit_new_name->setText(info.userName);
+}
+
+UserUpdateDialog::UserInfo UserUpdateDialog::getUserInfo()
+{
+    UserUpdateDialog::UserInfo info;
+
+    info.userID = m_userID;
+    info.roleID = m_roleID;
+    info.userName = m_userName;
+    info.password = m_password;
+
+    return info;
 }
 
 void UserUpdateDialog::checkPw()
