@@ -18,6 +18,8 @@ service Node {
     rpc Update(UpdateRequest) returns (UpdateReply) {}
     // 获取节点状态
     rpc Status(StatusRequest) returns (StatusReply) {}
+    // 获取CPU MEM DISK使用情况
+    rpc Usage(UsageRequest) returns (UsageReply) {}
 
     // 安全配置
     rpc UpdateFileProtect(UpdateFileProtectRequest) returns (UpdateFileProtectReply) {}  // 文件保护
