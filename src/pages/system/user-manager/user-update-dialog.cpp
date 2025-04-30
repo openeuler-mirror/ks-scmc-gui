@@ -97,6 +97,7 @@ void UserUpdateDialog::confirm()
             return;
         }
         ui->tip_name->clear();
+        m_userName = ui->lineEdit_name->text();
 
         if (!PasswordChecker::checkNewPassword(ui->lineEdit_pw->text(), errMsg) ||
             !PasswordChecker::checkConfirmPassword(ui->lineEdit_pw->text(), ui->lineEdit_confirm_pw->text(), errMsg))
