@@ -25,12 +25,28 @@ enum DialogType
 class UserUpdateDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
+public:
+    struct UserInfo
+    {
+        UserInfo()
+        {
+            userID = -1;
+            roleID = -1;
+        }
+        int userID;
+        int roleID;
+        QString userName;
+        QString password;
+    };
 
 public:
     explicit UserUpdateDialog(QWidget *parent = nullptr);
     ~UserUpdateDialog();
+
     void setDialogType(DialogType type);
-    void setUserInfo(int userID, const QString &userName);
+
+    void setUserInfo(UserUpdateDialog::UserInfo info);
+    UserUpdateDialog::UserInfo getUserInfo();
 
 private slots:
     void confirm();
