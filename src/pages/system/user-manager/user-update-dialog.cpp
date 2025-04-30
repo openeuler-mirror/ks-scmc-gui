@@ -171,9 +171,3 @@ void UserUpdateDialog::initUI()
     connect(ui->lineEdit_new_pw, &QLineEdit::editingFinished, this, &UserUpdateDialog::checkPw);
     connect(ui->lineEdit_confirm_new_pw, &QLineEdit::editingFinished, this, &UserUpdateDialog::checkPw);
 }
-
-bool UserUpdateDialog::checkUserName(const QString &userName)
-{
-    QRegularExpression regex("^[A-Za-z0-9]{2,18}$");
-    return regex.match(userName).hasMatch();
-}
