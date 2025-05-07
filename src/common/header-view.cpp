@@ -69,11 +69,11 @@ void HeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalI
 }
 void HeaderView::mousePressEvent(QMouseEvent *event)
 {
-    //表头可控制，鼠标第一个列，鼠标在矩形范围内
+    // 表头可控制，鼠标第一个列，鼠标在矩形范围内
     if (isEnabled() && m_isCheckable && logicalIndexAt(event->pos()) == CHECKABLE_COL && m_rectHeaderCheckBox.contains(event->pos()))
     {
         m_ckbIsToggled = !m_ckbIsToggled;
-        updateSection(logicalIndexAt(event->pos()));  //刷新表头第一列
+        updateSection(logicalIndexAt(event->pos()));  // 刷新表头第一列
         emit ckbToggled(m_ckbIsToggled);
     }
     else if (!m_sortableCol.isEmpty() && m_sortableCol.contains(logicalIndexAt(event->pos())))
