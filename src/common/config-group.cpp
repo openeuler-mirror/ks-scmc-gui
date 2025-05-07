@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/common/config-group.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
