@@ -1499,22 +1499,22 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="44"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="48"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="45"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="49"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="46"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="50"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="63"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="67"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
