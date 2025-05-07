@@ -95,7 +95,7 @@ void UserUpdateDialog::confirm()
     {
         if (!checkUserName(ui->lineEdit_name->text()))
         {
-            ui->tip_name->setText(tr("The username supports combinations of letters and numbers."));
+            ui->tip_name->setText(tr("The username length 4-18 bits, supports combinations of letters and numbers."));
             return;
         }
         ui->tip_name->clear();
