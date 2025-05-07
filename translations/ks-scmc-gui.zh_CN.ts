@@ -3666,47 +3666,47 @@ of applications, isolated operation of applications, centralized monitoring of a
     <message>
         <location filename="../src/base/interface/common.h" line="43"/>
         <location filename="../src/base/interface/container.cpp" line="404"/>
-        <location filename="../src/base/interface/image.cpp" line="108"/>
-        <location filename="../src/base/interface/image.cpp" line="233"/>
-        <location filename="../src/base/interface/image.cpp" line="368"/>
-        <location filename="../src/base/interface/user.cpp" line="59"/>
-        <location filename="../src/base/interface/user.cpp" line="85"/>
+        <location filename="../src/base/interface/image.cpp" line="109"/>
+        <location filename="../src/base/interface/image.cpp" line="234"/>
+        <location filename="../src/base/interface/image.cpp" line="369"/>
+        <location filename="../src/base/interface/user.cpp" line="92"/>
+        <location filename="../src/base/interface/user.cpp" line="118"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../src/base/interface/common.h" line="57"/>
         <location filename="../src/base/interface/container.cpp" line="432"/>
-        <location filename="../src/base/interface/user.cpp" line="72"/>
-        <location filename="../src/base/interface/user.cpp" line="100"/>
+        <location filename="../src/base/interface/user.cpp" line="105"/>
+        <location filename="../src/base/interface/user.cpp" line="133"/>
         <source>Response timeout</source>
         <translation>响应超时</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="169"/>
-        <location filename="../src/base/interface/image.cpp" line="251"/>
-        <location filename="../src/base/interface/image.cpp" line="307"/>
+        <location filename="../src/base/interface/image.cpp" line="170"/>
+        <location filename="../src/base/interface/image.cpp" line="252"/>
+        <location filename="../src/base/interface/image.cpp" line="308"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="411"/>
+        <location filename="../src/base/interface/image.cpp" line="412"/>
         <source>The transmission was cancelled.</source>
         <translation>传输已取消。</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="124"/>
-        <location filename="../src/base/interface/image.cpp" line="143"/>
-        <location filename="../src/base/interface/image.cpp" line="154"/>
-        <location filename="../src/base/interface/image.cpp" line="263"/>
-        <location filename="../src/base/interface/image.cpp" line="275"/>
-        <location filename="../src/base/interface/image.cpp" line="287"/>
+        <location filename="../src/base/interface/image.cpp" line="125"/>
+        <location filename="../src/base/interface/image.cpp" line="144"/>
+        <location filename="../src/base/interface/image.cpp" line="155"/>
+        <location filename="../src/base/interface/image.cpp" line="264"/>
+        <location filename="../src/base/interface/image.cpp" line="276"/>
+        <location filename="../src/base/interface/image.cpp" line="288"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
         <location filename="../src/base/interface/container.cpp" line="456"/>
-        <location filename="../src/base/interface/image.cpp" line="400"/>
+        <location filename="../src/base/interface/image.cpp" line="401"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
