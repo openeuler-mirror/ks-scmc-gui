@@ -35,15 +35,15 @@ void HeaderView::setCheckable(bool checkable)
 }
 
 void HeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
-{  //保存第一列的位置
+{  // 保存第一列的位置
     painter->save();
     QStyleOption opt;
-    //opt.init(this);
+    // opt.init(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, painter, this);
 
     QHeaderView::paintSection(painter, rect, logicalIndex);
     painter->restore();
-    if (logicalIndex == 0 && m_isCheckable)  //第一列
+    if (logicalIndex == 0 && m_isCheckable)  // 第一列
     {
         m_rectHeaderCheckBox.setX(rect.x() + 13);
         m_rectHeaderCheckBox.setY(rect.y() + 12);
