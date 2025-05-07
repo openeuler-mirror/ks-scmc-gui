@@ -26,6 +26,7 @@
 #define USER_ROLE_SYSADM "sysadm_r"
 #define USER_ROLE_SECADM "secadm_r"
 #define USER_ROLE_AUDADM "audadm_r"
+#define USER_ROLE_STDADM "stdadm_r"
 
 enum GUIDE_ITEM_TYPE
 {
