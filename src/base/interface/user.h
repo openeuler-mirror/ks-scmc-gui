@@ -32,10 +32,15 @@ public:
     void login(const QString objId, const std::string &username, const std::string &password);
     void logout(const QString objId);
     void updatePassword(const QString objId, const std::string &oldPassword, const std::string &newPassword);
+
+    // 用户
     void listUser(const QString objId);
     void createUser(const QString objId, const user::CreateUserRequest &);
     void updateUser(const QString objId, const user::UpdateUserRequest &);
     void removeUser(const QString objId, const std::vector<int64_t> &userIds);
+
+    // 角色
+    void listRole(const QString objId);
 
 private:
     User(QObject *parent = nullptr);
