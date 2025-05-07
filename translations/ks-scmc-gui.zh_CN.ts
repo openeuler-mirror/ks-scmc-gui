@@ -302,13 +302,13 @@
 <context>
     <name>ConfigOperateWidget</name>
     <message>
-        <location filename="../src/common/config-operate-widget.ui" line="20"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-operate-widget.ui" line="20"/>
         <location filename="../build/src/ui_config-operate-widget.h" line="156"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/common/config-operate-widget.cpp" line="43"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-operate-widget.cpp" line="43"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
