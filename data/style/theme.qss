@@ -272,7 +272,8 @@ CheckableHeader
     height:40px;
 }
 
-TablePage HeaderView::section
+TablePage HeaderView::section,
+CheckableHeader::section
 {
     padding-left:10px;
     background:#2d2d2d;
