@@ -349,7 +349,8 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
         auto userRole = reply.second.user_role().name().data();
         if (0 != QString::compare(userRole, USER_ROLE_SYSADM) &&
             0 != QString::compare(userRole, USER_ROLE_SECADM) &&
-            0 != QString::compare(userRole, USER_ROLE_AUDADM))
+            0 != QString::compare(userRole, USER_ROLE_AUDADM) &&
+            0 != QString::compare(userRole, USER_ROLE_STDADM))
         {
             auto msg = tr("Login failed: there is no %1 user role").arg(userRole);
             KLOG_WARNING() << msg;
