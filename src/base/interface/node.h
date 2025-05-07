@@ -45,6 +45,7 @@ private:
     static QPair<grpc::Status, node::RemoveReply> _removeNode(const node::RemoveRequest &);
     static QPair<grpc::Status, node::StatusReply> _nodeStatus(const node::StatusRequest &);
     static QPair<grpc::Status, node::UpdateReply> _updateNode(const node::UpdateRequest &);
+    static QPair<grpc::Status, node::UpdateFileProtectReply> _updateFileProtect(const node::UpdateFileProtectRequest &);
 
 signals:
     // node management
