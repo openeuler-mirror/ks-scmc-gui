@@ -4496,57 +4496,143 @@ Instruction</source>
     </message>
 </context>
 <context>
+    <name>UserDelegate</name>
+    <message>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="81"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="82"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+</context>
+<context>
     <name>UserListPage</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="43"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="114"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="265"/>
         <source>Create User</source>
         <translation>创建用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="58"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="152"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="304"/>
+        <source>Remove User</source>
+        <translation>删除用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="153"/>
+        <source>Are you sure you want to remove the users?</source>
+        <translation>确定移除这些用户？</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="154"/>
+        <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="179"/>
         <source>Edit User</source>
         <translation>编辑用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="66"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="208"/>
+        <source>Response timeout!</source>
+        <translation>响应超时！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="266"/>
+        <source>Create user failed!</source>
+        <translation>创建用户失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="267"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="287"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="306"/>
+        <source>Error: </source>
+        <translation>错误: </translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="285"/>
+        <source>Update User</source>
+        <translation>更新用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="286"/>
+        <source>Update user failed!</source>
+        <translation>更新用户失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="305"/>
+        <source>Remove user failed!</source>
+        <translation>移除用户失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.ui" line="14"/>
+        <location filename="../build/src/ui_user-list-page.h" line="116"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.ui" line="58"/>
+        <location filename="../build/src/ui_user-list-page.h" line="117"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="73"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="104"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.ui" line="77"/>
+        <location filename="../build/src/ui_user-list-page.h" line="118"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
+</context>
+<context>
+    <name>UserModel</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="96"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="268"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="97"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="270"/>
         <source>User ID</source>
         <translation>用户ID</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="98"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="272"/>
         <source>Role</source>
         <translation>角色</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="99"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="274"/>
         <source>Create Time</source>
         <translation>创建时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="100"/>
-        <source>Quick Actions</source>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="276"/>
+        <source>Quick Operate</source>
         <translation>快捷操作</translation>
     </message>
+</context>
+<context>
+    <name>UserTable</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="103"/>
-        <source>Edit</source>
-        <translation>编辑</translation>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="565"/>
+        <source>Remove User</source>
+        <translation>删除用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="566"/>
+        <source>Are you sure you want to remove 
+%1 ?</source>
+        <translation>确定删除用户%1？</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="567"/>
+        <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
+        <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
 </context>
 <context>
