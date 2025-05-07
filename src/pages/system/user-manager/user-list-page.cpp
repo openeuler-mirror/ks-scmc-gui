@@ -67,15 +67,7 @@ UserUpdateDialog *UserListPage::popupDialog(DialogType type, const QString &titl
     dialog->show();
     return dialog;
 }
-void UserListPage::getCheckedItemsId(QList<qint64> &ids)
-{
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
 
-    foreach (auto idMap, info)
-    {
-        ids.append(idMap.value(USER_ID).toInt());
-    }
-}
 bool UserListPage::isSystemUser(const QString &userRole)
 {
     if (0 == QString::compare(userRole, USER_ROLE_SYSADM) ||
