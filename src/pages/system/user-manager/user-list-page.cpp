@@ -78,6 +78,37 @@ bool UserListPage::isSystemUser(const QString &userRole)
     }
     return false;
 }
+
+void UserListPage::updateDeleteBtnState(Qt::CheckState checkState)
+{
+    if (Qt::Unchecked == checkState)
+    {
+        ui->btn_delete->setEnabled(false);
+    }
+    else
+    {
+        ui->btn_delete->setEnabled(true);
+    }
+}
+
+void UserListPage::search()
+{
+    auto text = ui->lineEdit_search->text();
+    if (text.isEmpty())
+    {
+        updateInfo();
+    }
+    else
+    {
+        ui->tableView->searchTextChanged(text);
+    }
+}
+
+void UserListPage::refresh()
+{
+    updateInfo();
+}
+
 void UserListPage::createUser()
 {
     m_createDialog = popupDialog(DialogType::DIALOG_TYPE_CREATE, tr("Create User"));
