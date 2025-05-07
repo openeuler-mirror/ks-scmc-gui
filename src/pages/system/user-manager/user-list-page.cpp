@@ -197,43 +197,32 @@ void UserListPage::getListUserFinished(const QString objId, const QPair<grpc::St
     if (m_objID != objId)
         return;
 
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-    setHeaderCheckable(false);
+    // TODO:看后续是否需要添加在没有数据情况下无法点击标题栏接口
+    // setHeaderCheckable(false);
+    ui->tableView->clearTable();
 
     if (!reply.first.ok())
     {
-        if (reply.first.error_code() == grpc::StatusCode::PERMISSION_DENIED)
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-        else
+        if (reply.first.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED)
         {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            if (reply.first.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED)
-            {
-                setTips(tr("Response timeout!"));
-            }
+            setTips(tr("Response timeout!"));
         }
-        setTableDefaultContent("-");
         return;
     }
 
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    // 返回成功后使能创建按钮
+    ui->btn_create->setEnabled(true);
 
-    // 保存选中状态
-    QList<qint64> ids;
-    getCheckedItemsId(ids);
-
-    clearTable();
     int size = reply.second.users_size();
     if (size <= 0)
     {
-        setTableDefaultContent("-");
         return;
     }
 
-    // 添加表格值
-    setHeaderCheckable(true);
-    int row = 0;
-    QMap<QString, QVariant> idMap;
+    // TODO:看后续是否需要添加在没有数据情况下无法点击标题栏接口
+    // setHeaderCheckable(true);
+
+    QList<UserInfo> userInfos;
     for (auto user : reply.second.users())
     {
         KLOG_DEBUG() << "Get user list. "
