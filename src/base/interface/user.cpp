@@ -159,3 +159,8 @@ QPair<grpc::Status, user::RemoveUserReply> User::_removeUser(const user::RemoveU
 {
     RPC_IMPL(user::RemoveUserReply, user::User::NewStub, RemoveUser);
 }
+
+QPair<grpc::Status, user::ListRoleReply> User::_listRole(const user::ListRoleRequest &req)
+{
+    RPC_IMPL(user::ListRoleReply, user::User::NewStub, ListRole);
+}
