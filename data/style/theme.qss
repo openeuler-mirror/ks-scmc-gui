@@ -207,6 +207,26 @@ TablePage
     background:transparent;
 }
 
+/***********************QTableView**********************/
+UserTable
+{
+    border:none;
+    border-top:1px solid #393939;
+    padding: 0px;		/*内边距*/
+    margin: 0px;			/*外边距*/
+    color: #ffffff;		/*表格文本的颜色*/
+    background: transparent;	/*表格背景色*/
+    gridline-color:	#2d2d2d;		/*网格边框*/
+    font-size: 14px;					/*表格文本大小*/
+    font-weight:200;
+}
+UserTable::item
+{
+    padding-left:10px;
+    border-bottom : 1px solid #393939;
+    height:60px;
+}
+
 /*************************QMenu**********************/
 
 QMenu#btnCreateMenu::item:disabled
