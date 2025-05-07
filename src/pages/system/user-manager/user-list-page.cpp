@@ -309,52 +309,67 @@ void UserListPage::getRemoveUserFinished(const QString objId, const QPair<grpc::
     }
 }
 
-void UserListPage::initButtons()
+void UserListPage::getListRoleFinished(const QString objId, const QPair<grpc::Status, user::ListRoleReply> &reply)
 {
-    auto btnCreate = new QPushButton(this);
-    btnCreate->setText(tr("Create"));
-    btnCreate->setObjectName("btnCreate");
-    btnCreate->setFixedSize(QSize(78, 32));
-    Kiran::WidgetPropertyHelper::setButtonType(btnCreate, Kiran::BUTTON_Default);
-    connect(btnCreate, &QPushButton::clicked, this, &UserListPage::createUser);
+    if (m_objID != objId)
+        return;
 
-    auto btnDelete = new QPushButton(this);
-    btnDelete->setText(tr("Delete"));
-    btnDelete->setObjectName("btnDelete");
-    btnDelete->setStyleSheet("#btnDelete{background-color:#ff4b4b;"
-                             "border:none;"
-                             "border-radius: 4px;"
-                             "color:#ffffff;}"
-                             "#btnDelete:hover{ background-color:#ff6c6c;}"
-                             "#btnDelete:focus{outline:none;}"
-                             "#btnDelete:disabled{color:#919191;background:#393939;}");
-    btnDelete->setFixedSize(QSize(78, 32));
-    connect(btnDelete, &QPushButton::clicked, this, &UserListPage::deleteUsers);
-
-    addSingleOperationButton(btnCreate);
-    addBatchOperationButtons(QList<QPushButton *>() << btnDelete);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+    if (reply.first.ok())
+    {
+        for (auto role : reply.second.roles())
+        {
+            KLOG_DEBUG() << "Get role list. "
+                         << "role id:" << role.id() << "user login name:" << role.name().data();
+            m_roles.insert(role.name().data(), role.id());
+        }
+    }
+    else
+    {
+        KLOG_DEBUG() << "Failed to get role list!";
+    }
 }
 
-void UserListPage::initTable()
+void UserListPage::initUI()
 {
-    QStringList tableHHeaderDate = {
-        "",
-        QString(tr("User Name")),
-        QString(tr("User ID")),
-        QString(tr("Role")),
-        QString(tr("Create Time")),
-        QString(tr("Quick Actions"))};
-    setHeaderSections(tableHHeaderDate);
+    // 在搜索框右侧添加搜索按钮
+    QHBoxLayout *layout = new QHBoxLayout(ui->lineEdit_search);
+    layout->setMargin(0);
+    layout->setContentsMargins(10, 0, 10, 0);
 
-    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_USER_EDIT, QPair<QString, QString>{tr("Edit"), tr("Edit")}},
-                                                                                                   {ACTION_BUTTON_TYPE_USER_DELETE, QPair<QString, QString>{tr("Delete"), tr("Delete")}}});
+    QPushButton *btn_search = new QPushButton(ui->lineEdit_search);
+    btn_search->setObjectName("btn_search");
+    btn_search->setFixedSize(QSize(16, 16));
+    btn_search->setIcon(QIcon(":/images/search.svg"));
+    btn_search->setStyleSheet("#btn_search{background:transparent;border:none;}"
+                              "#btn_search:focus{outline:none;}");
+    btn_search->setCursor(Qt::PointingHandCursor);
+    layout->addStretch();
+    layout->addWidget(btn_search);
+    ui->lineEdit_search->setTextMargins(0, 0, btn_search->width() + 10, 0);
 
-    setTableDefaultContent("-");
-    setHeaderCheckable(true);
-    connect(this, &UserListPage::sigUserEdit, this, &UserListPage::editUser);
-    connect(this, &UserListPage::sigUserDelete, this, &UserListPage::deleteUser);
+    // 设置“创建”、“删除”按钮样式
+    ui->btn_create->setDisabled(true);
+    Kiran::WidgetPropertyHelper::setButtonType(ui->btn_create, Kiran::BUTTON_Default);
+
+    ui->btn_delete->setDisabled(true);
+    ui->btn_delete->setObjectName("btnDelete");
+    ui->btn_delete->setStyleSheet("#btnDelete{background-color:#ff4b4b;"
+                                  "border:none;"
+                                  "border-radius: 4px;"
+                                  "color:#ffffff;}"
+                                  "#btnDelete:hover{ background-color:#ff6c6c;}"
+                                  "#btnDelete:focus{outline:none;}"
+                                  "#btnDelete:disabled{color:#919191;background:#393939;}");
+
+    connect(ui->btn_delete, &QPushButton::clicked, this, &UserListPage::deleteUsers);
+    connect(ui->btn_create, &QPushButton::clicked, this, &UserListPage::createUser);
+    connect(btn_search, &QPushButton::clicked, this, &UserListPage::search);
+    connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &UserListPage::search);
+    connect(ui->btn_refresh, &QToolButton::clicked, this, &UserListPage::refresh);
+
+    connect(ui->tableView, &UserTable::userEdited, this, &UserListPage::editUser);
+    connect(ui->tableView, &UserTable::userDeleted, this, &UserListPage::deleteUser);
+    connect(ui->tableView, &UserTable::checkStateChanged, this, &UserListPage::updateDeleteBtnState);
 }
 
 void UserListPage::initConnect()
