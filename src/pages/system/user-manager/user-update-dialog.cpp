@@ -141,8 +141,8 @@ void UserUpdateDialog::initUI()
 
     // 创建界面
     ui->lineEdit_name->setMaxLength(18);
-    ui->lineEdit_name->setPlaceholderText(tr("Please input 2 to 18 characters"));
-    ui->btn_tip_name->setToolTip(tr("The username supports combinations of letters and numbers."));
+    ui->lineEdit_name->setPlaceholderText(tr("Please input 4 to 18 characters"));
+    ui->btn_tip_name->setToolTip(tr("The username length 4-18 bits, supports combinations of letters and numbers."));
     ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
 
     ui->lineEdit_confirm_pw->setMaxLength(32);
