@@ -23,6 +23,7 @@ public:
 private slots:
     void save();
     void setProtectEnabled(bool checked);
+    void getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &);
 
 private:
     void initUI();
