@@ -684,8 +684,13 @@ void TablePage::updateCheckStatus(bool toggled)
                 if (item->checkState() == Qt::Checked)
                     emit sigHasRunningCtn(true);
             }
+
+            checkableNum++;
         }
     }
+
+    // 可选中列大于0个时，使能批量操作按钮
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled == false ? toggled : checkableNum > 0);
 }
 
 void TablePage::lastBtnClick()
