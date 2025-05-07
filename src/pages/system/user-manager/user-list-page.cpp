@@ -24,13 +24,15 @@
 #define USER_ROLE_NAME "user role name"
 
 #define STDADM_ROLE_ID 4
-UserListPage::UserListPage(QWidget *parent) : TablePage(parent),
+UserListPage::UserListPage(QWidget *parent) : Page(parent),
+                                              ui(new Ui::UserListPage),
                                               m_createDialog(nullptr),
                                               m_editDialog(nullptr)
 {
+    ui->setupUi(this);
     m_objID = User::generateId(this);
-    initButtons();
-    initTable();
+    getRoleList();
+    initUI();
     initConnect();
 }
 
