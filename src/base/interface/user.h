@@ -50,20 +50,30 @@ private:
     static QPair<grpc::Status, user::LoginReply> _login(const user::LoginRequest &);
     static QPair<grpc::Status, user::LogoutReply> _logout(const user::LogoutRequest &);
     static QPair<grpc::Status, user::UpdatePasswordReply> _updatePassword(const user::UpdatePasswordRequest &);
+
+    // 用户
     static QPair<grpc::Status, user::ListUserReply> _listUser(const user::ListUserRequest &);
     static QPair<grpc::Status, user::CreateUserReply> _createUser(const user::CreateUserRequest &);
     static QPair<grpc::Status, user::UpdateUserReply> _updateUser(const user::UpdateUserRequest &);
     static QPair<grpc::Status, user::RemoveUserReply> _removeUser(const user::RemoveUserRequest &);
+
+    // 角色
+    static QPair<grpc::Status, user::ListRoleReply> _listRole(const user::ListRoleRequest &);
 
 signals:
     // user management
     void loginFinished(const QString objId, const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QString objId, const QPair<grpc::Status, user::LogoutReply> &);
     void updatePasswordFinished(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> &);
+
+    // 用户
     void listUserFinished(const QString objId, const QPair<grpc::Status, user::ListUserReply> &);
     void createUserFinished(const QString objId, const QPair<grpc::Status, user::CreateUserReply> &);
     void updateUserFinished(const QString objId, const QPair<grpc::Status, user::UpdateUserReply> &);
     void removeUserFinished(const QString objId, const QPair<grpc::Status, user::RemoveUserReply> &);
+
+    // 角色
+    void listRoleFinished(const QString objId, const QPair<grpc::Status, user::ListRoleReply> &);
 
 private:
     QMutex mutex;
