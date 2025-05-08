@@ -115,13 +115,14 @@ private:
     void mouseEnter(const QModelIndex &index);
 
 signals:
-    void checkStateChanged(Qt::CheckState checkState);
+    void headerCheckStateChanged(Qt::CheckState checkState);
     void usersUpdate(int total);
     void userDeleted(qint64 userID);
     void userEdited(qint64 userID, QString userName, qint64 roleID);
 
 private slots:
     void checkedAllItem(Qt::CheckState checkState);
+    void updateHeaderState();
     void onEditClicked(const QModelIndex &index);
     void onDeleteClicke(const QModelIndex &index);
 
