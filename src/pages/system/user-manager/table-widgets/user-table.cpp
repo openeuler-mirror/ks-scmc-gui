@@ -455,7 +455,7 @@ UserTable::UserTable(QWidget *parent)
 
 void UserTable::searchTextChanged(const QString &text)
 {
-    qDebug() << "The search text is change to " << text;
+    KLOG_DEBUG() << "The search text is change to " << text;
 
     m_filterProxy->setFilterFixedString(text);
 }
