@@ -184,6 +184,8 @@ void UserListPage::editUser(qint64 userID, QString userName, qint64 roleID)
         info->set_login_name(userInfo.userName.toStdString());
         info->set_password(userInfo.password.toStdString());
         info->set_role_id(userInfo.roleID);
+
+        KLOG_DEBUG() << "Edit user:" << userInfo.userName << "ID:" << userInfo.userID;
         User::getInstance().updateUser(m_objID, req);
     });
 }
