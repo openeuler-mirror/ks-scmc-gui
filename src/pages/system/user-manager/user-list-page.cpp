@@ -42,7 +42,10 @@ UserListPage::~UserListPage()
 
 void UserListPage::updateInfo(QString keyword)
 {
+    // 清除搜索框内字符串
     clearText();
+    ui->tableView->searchTextChanged("");
+
     User::getInstance().listUser(m_objID);
 }
 
