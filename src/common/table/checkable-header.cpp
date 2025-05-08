@@ -64,5 +64,7 @@ void CheckableHeader::setCheckState(Qt::CheckState checkState)
 {
     m_stateChanged = true;
     m_checkState = checkState;
+
+    emit checkStateChanged(checkState);
     viewport()->update();
 }
