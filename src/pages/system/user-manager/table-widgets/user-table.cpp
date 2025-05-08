@@ -473,31 +473,17 @@ QList<UserInfo> UserTable::getUserInfos()
 QList<UserInfo> UserTable::getSelectedUserInfos()
 {
     QList<UserInfo> selectedUserInfos;
-    for (int i = 0; i < m_model->rowCount(); i++)
+    for (int i = 0; i < m_filterProxy->rowCount(); i++)
     {
-        auto isSelected = m_model->data(m_model->index(i, UserTableField::USER_TABLE_FIELD_CHECKBOX)).toBool();
+        auto proxyIndex = m_filterProxy->index(i, UserTableField::USER_TABLE_FIELD_CHECKBOX);
+        auto isSelected = m_filterProxy->data(proxyIndex, Qt::EditRole).toBool();
         if (isSelected)
         {
-            selectedUserInfos.append(m_model->getUserInfos().at(i));
+            auto sourceIndex = m_filterProxy->mapToSource(proxyIndex);
+            selectedUserInfos.append(m_model->getUserInfos().at(sourceIndex.row()));
         }
     }
     return selectedUserInfos;
-}
-
-void UserTable::removeUsers(QList<UserInfo> userInfos)
-{
-    for (auto userInfo : userInfos)
-    {
-        for (int i = 0; i < m_model->rowCount(); i++)
-        {
-            auto index = m_model->index(i, UserTableField::USER_TABLE_FIELD_USER_ID);
-            if (m_model->data(index).toLongLong() == userInfo.userID)
-            {
-                m_model->removeUser(index);
-                break;
-            }
-        }
-    }
 }
 
 void UserTable::clearTable()
