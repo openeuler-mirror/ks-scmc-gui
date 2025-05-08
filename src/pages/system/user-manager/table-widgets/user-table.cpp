@@ -584,6 +584,7 @@ void UserTable::onDeleteClicke(const QModelIndex &index)
                                                                MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
     if (ret == MessageDialog::StandardButton::Yes)
     {
+        KLOG_DEBUG() << "Remove user:" << username << "ID:" << userID;
         emit userDeleted(userID);
     }
 }
