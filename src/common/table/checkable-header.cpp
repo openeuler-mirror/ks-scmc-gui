@@ -7,7 +7,7 @@ CheckableHeader::CheckableHeader(QWidget *parent) : QHeaderView(Qt::Horizontal, 
                                                     m_stateChanged(false),
                                                     m_checkState(Qt::Unchecked)
 {
-    m_rect = new QRect(13, 12, 16, 16);
+    m_rect = new QRect(16, 12, 16, 16);
     // 做下拉筛选功能时可能会用到这个属性，暂设置为false
     setSectionsClickable(false);
     setMouseTracking(true);
