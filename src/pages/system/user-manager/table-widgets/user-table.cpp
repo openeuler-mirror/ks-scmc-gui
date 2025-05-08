@@ -312,10 +312,6 @@ bool UserModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     emit dataChanged(index, index);
 
-    if (role == Qt::UserRole || role == Qt::EditRole)
-    {
-        checkSelectStatus();
-    }
     return true;
 }
 
