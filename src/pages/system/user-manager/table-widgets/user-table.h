@@ -85,16 +85,13 @@ public:
     void updateRecord(QList<UserInfo> userInfos);
 
 signals:
-    void stateChanged(Qt::CheckState checkState);
     void usersUpdate(int total);
 
 private:
-    void checkSelectStatus();
     bool isSystemUser(const QString &role) const;
 
 private:
     QList<UserInfo> m_usersInfo;
-    int m_checkableRowNum = 0;
 };
 
 class UserTable : public QTableView
