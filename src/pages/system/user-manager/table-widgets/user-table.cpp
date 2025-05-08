@@ -111,8 +111,9 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
         // 保存按钮位置，用于点击检测
         const_cast<UserDelegate *>(this)->m_buttonRects[index] = qMakePair(editButton.rect, deleteButton.rect);
 
-        QApplication::style()->drawControl(QStyle::CE_PushButton, &editButton, painter);
-        QApplication::style()->drawControl(QStyle::CE_PushButton, &deleteButton, painter);
+        style->drawControl(QStyle::CE_PushButton, &editButton, painter);
+        style->drawControl(QStyle::CE_PushButton, &deleteButton, painter);
+        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, widget);
     }
     else
     {
