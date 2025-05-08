@@ -53,6 +53,7 @@ void CheckableHeader::mousePressEvent(QMouseEvent *e)
         {
             m_checkState = m_checkState == Qt::Unchecked ? Qt::Checked : Qt::Unchecked;
             emit toggled(m_checkState);
+            emit checkStateChanged(m_checkState);
             viewport()->update();
         }
     }
