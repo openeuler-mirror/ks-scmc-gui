@@ -393,13 +393,29 @@ UserTable::UserTable(QWidget *parent)
     m_headerViewProxy = new CheckableHeader(this);
     setHorizontalHeader(m_headerViewProxy);
 
-    connect(m_model, &UserModel::stateChanged, m_headerViewProxy, &CheckableHeader::setCheckState);
     connect(m_model, &UserModel::usersUpdate, this, &UserTable::usersUpdate);
-    connect(m_model, &UserModel::stateChanged, this, &UserTable::checkStateChanged);
 
     m_filterProxy = new UserFilterModel(this);
     m_filterProxy->setSourceModel(qobject_cast<QAbstractItemModel *>(m_model));
     setModel(m_filterProxy);
+
+    // 在代理模型更新时，更新表头选中状态
+    connect(m_filterProxy, &UserFilterModel::dataChanged, [this](const QModelIndex &topLeft, const QModelIndex &bottomRight)
+            {
+                if (topLeft.column() > UserTableField::USER_TABLE_FIELD_CHECKBOX ||
+                    bottomRight.column() < UserTableField::USER_TABLE_FIELD_CHECKBOX)
+                    return;
+
+                updateHeaderState(); });
+
+    connect(m_filterProxy, &UserFilterModel::modelReset, [this]()
+            { m_headerViewProxy->setCheckState(Qt::Unchecked); });
+
+    connect(m_filterProxy, &QSortFilterProxyModel::rowsInserted, [this]()
+            { updateHeaderState(); });
+
+    connect(m_filterProxy, &QSortFilterProxyModel::rowsRemoved, [this]()
+            { updateHeaderState(); });
 
     // 设置Delegate
     auto userDelegate = new UserDelegate(this);
