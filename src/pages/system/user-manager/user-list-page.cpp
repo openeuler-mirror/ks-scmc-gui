@@ -139,7 +139,7 @@ void UserListPage::deleteUsers()
 
     foreach (auto info, selectedUsersInfo)
     {
-        KLOG_INFO() << "Remove user:" << info.userName << "ID:" << info.userID;
+        KLOG_DEBUG() << "Remove user:" << info.userName << "ID:" << info.userID;
         userIDs.push_back(info.userID);
     }
 
