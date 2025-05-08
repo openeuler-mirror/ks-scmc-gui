@@ -19,6 +19,7 @@ protected:
 
 signals:
     void toggled(Qt::CheckState checkState);
+    void checkStateChanged(Qt::CheckState checkState);
 
 public slots:
     void setCheckState(Qt::CheckState checkState);
