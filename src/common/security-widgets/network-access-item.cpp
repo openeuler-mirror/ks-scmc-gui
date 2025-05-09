@@ -59,6 +59,8 @@ void NetworkAccessItem::onAdd()
 
 void NetworkAccessItem::initUI()
 {
+    ui->btn_add->setIcon(QIcon(":/images/icon-add.svg"));
+    ui->btn_delete->setIcon(QIcon(":/images/icon-delete.svg"));
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit_address->setPlaceholderText(tr("eg: 192.168.1.10 or 10.0.0.0/8"));
