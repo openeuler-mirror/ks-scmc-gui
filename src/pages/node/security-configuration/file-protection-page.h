@@ -10,9 +10,12 @@
 
 #include <QListWidget>
 #include <QObject>
+#include <QRadioButton>
 #include "base/interface/node.h"
 #include "page.h"
 
+class SecurityListItem;
+class SecurityList;
 class FileProtectionPage : public Page
 {
     Q_OBJECT
