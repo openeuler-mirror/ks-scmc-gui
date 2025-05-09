@@ -1095,9 +1095,15 @@ UserUpdateDialog QLabel#tip_new_pw
     font-size:12px;
 }
 
-/********************************************NetworkAccessCtlTab**********************************************/
+/********************************************Security widgets**********************************************/
+FileProtectionPage QListWidget
+{
+    background-color: #2d2d2d;
+}
+
 NetworkAccessCtlTab QListWidget::item,
-SecurityListTab QListWidget::item
+SecurityListTab QListWidget::item,
+FileProtectionPage QListWidget::item
 {
     background-color:transparent;
     border:none;
