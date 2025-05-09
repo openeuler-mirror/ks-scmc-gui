@@ -64,7 +64,12 @@ signals:
     void removeNodeFinished(const QString objId, const QPair<grpc::Status, node::RemoveReply> &);
     void statusNodeFinished(const QString objId, const QPair<grpc::Status, node::StatusReply> &);
     void updateNodeFinished(const QString objId, const QPair<grpc::Status, node::UpdateReply> &);
+
+    // 文件保护
+    void getFileProtectFinished(const QString objId, const QPair<grpc::Status, node::GetFileProtectReply> &);
     void updateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &);
+
+    // 网络安全配置
 
 private:
     QMutex mutex;
