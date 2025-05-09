@@ -50,7 +50,12 @@ private:
     static QPair<grpc::Status, node::RemoveReply> _removeNode(const node::RemoveRequest &);
     static QPair<grpc::Status, node::StatusReply> _nodeStatus(const node::StatusRequest &);
     static QPair<grpc::Status, node::UpdateReply> _updateNode(const node::UpdateRequest &);
+
+    // 文件保护
+    static QPair<grpc::Status, node::GetFileProtectReply> _getFileProtect(const node::GetFileProtectRequest &);
     static QPair<grpc::Status, node::UpdateFileProtectReply> _updateFileProtect(const node::UpdateFileProtectRequest &);
+
+    // 网络安全配置
 
 signals:
     // node management
