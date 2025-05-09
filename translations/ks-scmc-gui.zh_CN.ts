@@ -1499,22 +1499,27 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="48"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="92"/>
+        <source>Successful to update node protected files!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="135"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="49"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="136"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="50"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="137"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="67"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
