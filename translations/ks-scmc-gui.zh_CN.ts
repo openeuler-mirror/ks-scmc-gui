@@ -2777,7 +2777,7 @@ Instruction</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/network-access-item.cpp" line="64"/>
+        <location filename="../src/common/security-widgets/network-access-item.cpp" line="66"/>
         <source>eg: 192.168.1.10 or 10.0.0.0/8</source>
         <translation>例：192.168.1.10 或 10.0.0.0/8</translation>
     </message>
