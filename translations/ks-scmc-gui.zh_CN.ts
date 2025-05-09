@@ -4605,27 +4605,27 @@ Instruction</source>
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="268"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="271"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="270"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="273"/>
         <source>User ID</source>
         <translation>用户ID</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="272"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="275"/>
         <source>Role</source>
         <translation>角色</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="274"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="277"/>
         <source>Create Time</source>
         <translation>创建时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="276"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="279"/>
         <source>Quick Operate</source>
         <translation>快捷操作</translation>
     </message>
