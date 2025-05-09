@@ -4525,61 +4525,61 @@ Instruction</source>
 <context>
     <name>UserListPage</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="114"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="265"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="110"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="263"/>
         <source>Create User</source>
         <translation>创建用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="152"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="304"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="148"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="302"/>
         <source>Remove User</source>
         <translation>删除用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="153"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="149"/>
         <source>Are you sure you want to remove the users?</source>
         <translation>确定移除这些用户？</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="154"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="150"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="179"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="175"/>
         <source>Edit User</source>
         <translation>编辑用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="208"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="206"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="266"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="264"/>
         <source>Create user failed!</source>
         <translation>创建用户失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="267"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="287"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="306"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="265"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="285"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="304"/>
         <source>Error: </source>
         <translation>错误: </translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="285"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="283"/>
         <source>Update User</source>
         <translation>更新用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="286"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="284"/>
         <source>Update user failed!</source>
         <translation>更新用户失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="305"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="303"/>
         <source>Remove user failed!</source>
         <translation>移除用户失败！</translation>
     </message>
