@@ -69,10 +69,8 @@
         <file>images/process-security.png</file>
         <file>images/net-process-white-list.png</file>
         <file>images/net-access-control.png</file>
-        <file>images/icon_plus_pre.png</file>
-        <file>images/icon_plus_n.png</file>
-        <file>images/icon_Less_pre.png</file>
-        <file>images/icon_Less_n.png</file>
+        <file>images/icon-add.svg</file>
+        <file>images/icon-delete.svg</file>
         <file>images/frame_s.png</file>
         <file>images/frame_n.png</file>
         <file>images/container-file-protect.png</file>
