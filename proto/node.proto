@@ -183,3 +183,28 @@ message Log {
     int64  create_at      = 11;
     int64  update_at      = 12;
 }
+
+message GetFileProtectRequest {
+    int64 node_id      = 1;
+}
+
+message GetFileProtectReply {
+    security.FileProtection  file_protection  = 13;  // 文件防篡改保护
+    
+}
+
+message GetNetworkRuleRequest {
+     int64 node_id      = 1;
+}
+
+message GetNetworkRuleReply {
+    security.NetworkRuleList network_rule     = 1;  // 网络访问规则
+}
+
+message GetNodeSecurityConfigRequest {
+     int64 node_id      = 1;
+}
+
+message GetNodeSecurityConfigReply {
+    SecurityConfig    security_config = 1;   //节点安全配置
+}
