@@ -4098,10 +4098,19 @@ of applications, isolated operation of applications, centralized monitoring of a
     </message>
 </context>
 <context>
+    <name>SecurityList</name>
+    <message>
+        <location filename="../src/common/security-widgets/security-list.cpp" line="80"/>
+        <location filename="../src/common/security-widgets/security-list.cpp" line="167"/>
+        <source>%1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SecurityListItem</name>
     <message>
         <location filename="../src/common/security-widgets/security-list-item.ui" line="26"/>
-        <location filename="../build/src/ui_security-list-item.h" line="105"/>
+        <location filename="../build/src/ui_security-list-item.h" line="107"/>
         <source>Form</source>
         <translation></translation>
     </message>
