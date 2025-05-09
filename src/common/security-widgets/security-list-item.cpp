@@ -20,20 +20,25 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
     ui->lab_error_tips->setText(tr("the path format is wrong"));
     ui->lab_error_tips->setStyleSheet("color:#F56C6C;font-size:12px;");
     ui->lab_error_tips->setVisible(false);
+    ui->btn_add->setIcon(QIcon(":/images/icon-add.svg"));
+    ui->btn_delete->setIcon(QIcon(":/images/icon-delete.svg"));
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit->setTextMargins(10, 0, 0, 0);
 
     connect(ui->btn_add, &QToolButton::clicked,
-            [this] {
+            [this]
+            {
                 emit sigAdd();
             });
     connect(ui->btn_delete, &QToolButton::clicked,
-            [this] {
+            [this]
+            {
                 emit sigDelete();
             });
     connect(ui->lineEdit, &QLineEdit::textChanged,
-            [this](QString text) {
+            [this](QString text)
+            {
                 ui->lineEdit->setToolTip(tooptipWordWrap(text));
                 checkPath();
             });
