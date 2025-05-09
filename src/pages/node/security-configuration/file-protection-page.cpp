@@ -6,24 +6,70 @@
  */
 
 #include "file-protection-page.h"
+#include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
 #include <QLabel>
 #include <QPushButton>
-#include <QRadioButton>
 #include <QVBoxLayout>
-FileProtectionPage::FileProtectionPage(QWidget* parent) : Page(parent),
+
+#include "common/notification-manager.h"
+#include "common/security-widgets/security-list-item.h"
+#include "common/security-widgets/security-list.h"
+
+FileProtectionPage::FileProtectionPage(QWidget *parent) : Page(parent),
+                                                          m_nodeID(-1),
+                                                          m_btnOpen(nullptr),
+                                                          m_btnClose(nullptr),
                                                           m_fileList(nullptr),
                                                           m_protectEnabled(false)
 {
+    m_objId = Node::generateId(this);
     initUI();
+
+    connect(&Node::getInstance(), &Node::getFileProtectFinished, this, &FileProtectionPage::getFileProtectFinished);
+    connect(&Node::getInstance(), &Node::updateFileProtectFinished, this, &FileProtectionPage::getUpdateFileProtectFinished);
 }
 
 void FileProtectionPage::updateInfo(QString keyword)
 {
+    Node::getInstance().getFileProtect(m_objId, m_nodeID);
+}
+
+void FileProtectionPage::setNodeId(qint64 nodeID)
+{
+    m_nodeID = nodeID;
 }
 
 void FileProtectionPage::save()
 {
+    bool flag = false;
+
+    node::UpdateFileProtectRequest req;
+    req.set_node_id(m_nodeID);
+
+    auto securityCfg = req.mutable_security_config();
+
+    auto fileProtect = securityCfg->mutable_file_protection();
+    fileProtect->set_is_on(m_protectEnabled);
+    // for (int i = 0; i < m_fileList->count(); ++i)
+    // {
+    //     auto listItem = m_fileList->item(i);
+    //     auto item = qobject_cast<SecurityListItem *>(m_fileList->itemWidget(listItem));
+    //     if (!item->getPathCorrect())
+    //     {
+    //         KLOG_INFO() << "There is error in path of file protection!";
+    //         break;
+    //     }
+
+    //     QString filePath = item->getInfo();
+    //     KLOG_DEBUG() << "FilePath:" << filePath;
+    //     if (!filePath.isEmpty())
+    //         fileProtect->add_file_list(filePath.toStdString());
+
+    //     flag = true;
+    // }
+    // if (flag)
+    //     Node::getInstance().updateFileProtect(m_objId, req);
 }
 
 void FileProtectionPage::setProtectEnabled(bool enabled)
