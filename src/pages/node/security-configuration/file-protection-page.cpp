@@ -32,6 +32,7 @@ FileProtectionPage::FileProtectionPage(QWidget *parent) : Page(parent),
 
 void FileProtectionPage::updateInfo(QString keyword)
 {
+    m_fileList->clearItems();
     Node::getInstance().getFileProtect(m_objId, m_nodeID);
 }
 
