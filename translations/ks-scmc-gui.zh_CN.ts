@@ -1501,7 +1501,7 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="92"/>
         <source>Successful to update node protected files!</source>
-        <translation type="unfinished"></translation>
+        <translation>更新节点文件保护成功！</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="135"/>
