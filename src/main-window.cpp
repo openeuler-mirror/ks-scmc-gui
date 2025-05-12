@@ -247,7 +247,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
-    setTitle(tr("KylinSec Container System V1(Security Version)"));
+    setTitle(tr("KylinSec Security Container System V1"));
     // 创建消息提示按钮
     m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
     m_btnTransmission->setObjectName("btn_transmission");
