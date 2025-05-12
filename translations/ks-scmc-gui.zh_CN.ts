@@ -2487,9 +2487,13 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="250"/>
         <source>KylinSec Container System V1(Security Version)</source>
-        <translation>麒麟信安容器系统V1（安全版）</translation>
+        <translation type="vanished">麒麟信安容器系统V1（安全版）</translation>
+    </message>
+    <message>
+        <location filename="../src/main-window.cpp" line="250"/>
+        <source>KylinSec Security Container System V1</source>
+        <translation>麒麟信安安全容器系统V1</translation>
     </message>
     <message>
         <location filename="../src/main-window.cpp" line="256"/>
