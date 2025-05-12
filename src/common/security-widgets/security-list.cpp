@@ -83,11 +83,10 @@ void SecurityList::initUI()
     m_listWidget->setFocusPolicy(Qt::NoFocus);
     m_listWidget->setFrameShape(QFrame::NoFrame);
     m_listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    m_listWidget->setEnabled(false);
     layout->addWidget(m_listWidget);
 }
 
-SecurityListItem *SecurityList::createItem(int index)
+void SecurityList::createItem(int index)
 {
     QListWidgetItem *newItem = nullptr;
     SecurityListItem *customItem = nullptr;
