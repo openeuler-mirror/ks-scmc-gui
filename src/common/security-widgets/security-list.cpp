@@ -49,10 +49,19 @@ QStringList SecurityList::getSecurityInfos()
     {
         auto listItem = m_listWidget->item(row);
         auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+        if (item)
+        {
+            if (!item->getPathCorrect())
+            {
+                KLOG_INFO() << "There is error in path of file protection!";
+                row++;
+                continue;
+            }
 
-        auto path = item->getInfo();
-        if (!path.isEmpty())
-            infos.append(path);
+            auto path = item->getInfo();
+            if (!path.isEmpty())
+                infos.append(path);
+        }
 
         row++;
     }
