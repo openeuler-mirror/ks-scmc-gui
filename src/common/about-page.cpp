@@ -41,7 +41,7 @@ void AboutPage::initUI()
     this->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
     this->setIcon(QIcon(":/images/logo.png"));
     this->getTitlebarCustomLayout()->setContentsMargins(0, 0, 0, 0);
-    this->setFixedSize(430, 270);
+    this->setFixedSize(500, 400);
     setResizeable(false);
     this->setWindowModality(Qt::ApplicationModal);
 
