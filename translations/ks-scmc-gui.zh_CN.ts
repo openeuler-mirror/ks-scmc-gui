@@ -4,12 +4,12 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="../src/common/about-page.cpp" line="64"/>
-        <source>KylinSec Container System V1(Security Version)</source>
-        <translation>麒麟信安容器系统V1（安全版）</translation>
+        <location filename="../src/common/about-page.cpp" line="65"/>
+        <source>KylinSec Security Container System V1</source>
+        <translation>麒麟信安安全容器系统V1</translation>
     </message>
     <message>
-        <location filename="../src/common/about-page.cpp" line="94"/>
+        <location filename="../src/common/about-page.cpp" line="95"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
