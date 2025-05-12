@@ -100,17 +100,13 @@ void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair
     else
         m_btnClose->setChecked(true);
 
-    // int count = 0;
-    // for (auto file : fileProtect.file_list())
-    // {
-    //     if (count > 0)
-    //         createItem(count);
-
-    //     auto listItem = m_fileList->item(count);
-    //     SecurityListItem *item = qobject_cast<SecurityListItem *>(m_fileList->itemWidget(listItem));
-    //     item->setInfo(QString::fromStdString(file));
-    //     count++;
-    // }
+    QStringList fileList;
+    for (auto file : fileProtect.file_list())
+    {
+        KLOG_DEBUG() << "Get node protect file " << file.data() << "from backend.";
+        fileList << file.data();
+    }
+    m_fileList->setSecurityInfos(fileList);
 }
 
 void FileProtectionPage::initUI()
