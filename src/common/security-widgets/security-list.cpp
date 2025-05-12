@@ -139,6 +139,8 @@ void SecurityList::deleteItem()
         return;
 
     auto item = qobject_cast<SecurityListItem *>(sender());
+    if (!item)
+        return;
 
     int row = 0;
     while (row < m_listWidget->count() && m_listWidget->count() > 1)
