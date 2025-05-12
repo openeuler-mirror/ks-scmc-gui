@@ -52,25 +52,14 @@ void FileProtectionPage::save()
 
     auto fileProtect = securityCfg->mutable_file_protection();
     fileProtect->set_is_on(m_protectEnabled);
-    // for (int i = 0; i < m_fileList->count(); ++i)
-    // {
-    //     auto listItem = m_fileList->item(i);
-    //     auto item = qobject_cast<SecurityListItem *>(m_fileList->itemWidget(listItem));
-    //     if (!item->getPathCorrect())
-    //     {
-    //         KLOG_INFO() << "There is error in path of file protection!";
-    //         break;
-    //     }
 
-    //     QString filePath = item->getInfo();
-    //     KLOG_DEBUG() << "FilePath:" << filePath;
-    //     if (!filePath.isEmpty())
-    //         fileProtect->add_file_list(filePath.toStdString());
-
-    //     flag = true;
-    // }
-    // if (flag)
-    //     Node::getInstance().updateFileProtect(m_objId, req);
+    auto fileList = m_fileList->getSecurityInfos();
+    for (auto file : fileList)
+    {
+        KLOG_DEBUG() << "Set node protect file " << file << "to backend.";
+        fileProtect->add_file_list(file.toStdString());
+    }
+    Node::getInstance().updateFileProtect(m_objId, req);
 }
 
 void FileProtectionPage::setProtectEnabled(bool enabled)
