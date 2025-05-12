@@ -1519,6 +1519,11 @@ The first characters must be letter or digit</source>
         <translation>关闭</translation>
     </message>
     <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="145"/>
+        <source>Key file</source>
+        <translation>关键文件</translation>
+    </message>
+    <message>
         <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
         <source>Save</source>
         <translation>保存</translation>
