@@ -203,7 +203,11 @@ void SecurityList::clearItems()
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            item->setInfo("");
+            if (item)
+            {
+                item->updateItemName(tr("%1 %2").arg(m_itemTitle).arg(i + 1));
+                item->setInfo("");
+            }
             continue;
         }
 
