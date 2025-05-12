@@ -82,7 +82,7 @@ void AboutPage::initUI()
     license->setStyleSheet("QLabel{"
                            "color:#919191;"
                            "font-size:12px;}");
-    license->setText("Copyright (c) 2022 ~ 2024 KylinSec Co. Ltd. All Rights Reserved.");
+    license->setText(QString("Copyright (c) 2022 ~ %1 KylinSec Co. Ltd. All Rights Reserved.").arg(QDate::currentDate().year()));
     license->setAlignment(Qt::AlignCenter);
     vlayout->addSpacerItem(spacer);
     vlayout->addWidget(logo);
