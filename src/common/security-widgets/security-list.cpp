@@ -109,13 +109,13 @@ void SecurityList::createItem(int index)
 
     newItem->setSizeHint(QSize(340, 62));
     m_listWidget->setGridSize(QSize(340, 68));
-
-    return customItem;
 }
 
 void SecurityList::addItem()
 {
     auto item = qobject_cast<SecurityListItem *>(sender());
+    if (!item)
+        return;
 
     int row = 0;
     while (row < m_listWidget->count())
