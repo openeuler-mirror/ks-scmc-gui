@@ -582,7 +582,7 @@ void ContainerAppPage::refresh(const QString keyword, bool clear)
 
 bool ContainerAppPage::isGuiAppRunning(int appID)
 {
-    auto process = m_procs.value(appID);
+    auto process = m_procs.value(appID, nullptr);
     if (!process)
         return false;
     else
