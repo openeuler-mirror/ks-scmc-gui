@@ -6,39 +6,41 @@
  */
 
 #include "network-config-page.h"
+#include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
 #include <QButtonGroup>
+#include "common/message-dialog.h"
+#include "common/notification-manager.h"
+#include "common/security-widgets/network-access-list.h"
+#include "common/security-widgets/security-list.h"
 #include "ui_network-config-page.h"
 NetworkConfigPage::NetworkConfigPage(QWidget* parent) : Page(parent),
                                                         ui(new Ui::NetworkConfigPage),
+                                                        m_nodeID(-1),
                                                         m_accessCtrlEnabled(false),
                                                         m_whiteListEnabled(false),
                                                         m_accessList(nullptr),
                                                         m_processList(nullptr)
 {
     ui->setupUi(this);
+    m_objId = Node::generateId(this);
     initUI();
+    initConnect();
 }
 
 void NetworkConfigPage::updateInfo(QString keyword)
 {
+    m_accessList->clearItems();
+    m_processList->clearItems();
+    Node::getInstance().getNetworkRule(m_objId, m_nodeID);
 }
 
-void NetworkConfigPage::setAccessCtrlInfo()
+void NetworkConfigPage::setNodeId(qint64 nodeID)
 {
+    m_nodeID = nodeID;
+    getDefaultPorts();
 }
 
-void NetworkConfigPage::getAccessCtrlInfo()
-{
-}
-
-void NetworkConfigPage::setWhiteListInfo()
-{
-}
-
-void NetworkConfigPage::getWhiteListInfo()
-{
-}
 void NetworkConfigPage::setConfigEnabled(QAbstractButton* btn)
 {
     auto radioBtn = qobject_cast<QRadioButton*>(btn);
