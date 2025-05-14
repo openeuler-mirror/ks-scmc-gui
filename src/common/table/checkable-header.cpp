@@ -1,3 +1,10 @@
+/**
+ * @file          src/common/table/checkable-header.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "checkable-header.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QMouseEvent>
