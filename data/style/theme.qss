@@ -1096,14 +1096,16 @@ UserUpdateDialog QLabel#tip_new_pw
 }
 
 /********************************************Security widgets**********************************************/
-FileProtectionPage QListWidget
+FileProtectionPage QListWidget,
+NetworkConfigPage QListWidget
 {
     background-color: #2d2d2d;
 }
 
 NetworkAccessCtlTab QListWidget::item,
 SecurityListTab QListWidget::item,
-FileProtectionPage QListWidget::item
+FileProtectionPage QListWidget::item,
+NetworkConfigPage QListWidget::item
 {
     background-color:transparent;
     border:none;
