@@ -59,6 +59,8 @@ private:
     static QPair<grpc::Status, node::UpdateFileProtectReply> _updateFileProtect(const node::UpdateFileProtectRequest &);
 
     // 网络安全配置
+    static QPair<grpc::Status, node::GetNetworkRuleReply> _getNetworkRule(const node::GetNetworkRuleRequest &);
+    static QPair<grpc::Status, node::UpdateNetworkRuleReply> _updateNetworkRule(const node::UpdateNetworkRuleRequest &);
 
 signals:
     // node management
