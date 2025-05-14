@@ -28,6 +28,7 @@ service Node {
     rpc GetFileProtect(GetFileProtectRequest) returns (GetFileProtectReply) {}  // 获取文件保护规则
     rpc GetNetworkRule(GetNetworkRuleRequest) returns (GetNetworkRuleReply) {}  // 获取网络访问规则
     rpc GetNodeSecurityConfig(GetNodeSecurityConfigRequest) returns (GetNodeSecurityConfigReply) {}  // 获取节点全部配置
+    rpc GetNodeDefaultPort(GetNodeDefaultPortRequest) returns (GetNodeDefaultPortReply) {}    
 }
 
 message ListRequest {}
