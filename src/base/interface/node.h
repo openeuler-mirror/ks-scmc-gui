@@ -39,6 +39,9 @@ public:
     void updateFileProtect(const QString objId, const node::UpdateFileProtectRequest &);
 
     // 网络安全配置
+    QPair<grpc::Status, node::GetNodeDefaultPortReply> getNodeDefaultPort(qint64 nodeID);
+    void getNetworkRule(const QString objId, qint64 nodeID);
+    void updateNetworkRule(const QString objId, const node::UpdateNetworkRuleRequest &);
 
 private:
     Node(QObject *parent = nullptr);
