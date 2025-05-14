@@ -26,6 +26,16 @@ void NetworkAccessItem::setDeleteBtnVisible(bool visible)
     ui->btn_delete->setVisible(visible);
 }
 
+void NetworkAccessItem::setDefaultPort(bool defaultPort)
+{
+    m_defaultPort = defaultPort;
+}
+
+bool NetworkAccessItem::isDefaultPort()
+{
+    return m_defaultPort;
+}
+
 void NetworkAccessItem::getInfo(QStringList &protocols, QString &addr, int &port)
 {
     ui->btn_tcp->isChecked() ? protocols.append("tcp") : protocols.append("");
