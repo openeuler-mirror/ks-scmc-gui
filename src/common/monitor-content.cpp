@@ -196,14 +196,14 @@ void MonitorContent::handleYValue(double &start, double &end, QString &unit)
         unit = "KB";
     }
     else if (end <= 1024)  //<1G
-        unit = "M";
+        unit = "MB";
     else if (end < 1024 * 1024)  // <1t
     {
         end = end / K_BITE;
-        unit = "G";
+        unit = "GB";
     }
     else
-        unit = "G";
+        unit = "GB";
 
     if (end > 0)
     {
