@@ -9,6 +9,7 @@
 
 #include <QAbstractButton>
 #include <QListWidget>
+#include "base/interface/node.h"
 #include "page.h"
 
 namespace Ui
