@@ -40,6 +40,7 @@ private:
 
 private:
     Ui::NetworkAccessItem *ui;
+    bool m_defaultPort;
 };
 
 #endif  // NETWORKACCESSITEM_H
