@@ -31,7 +31,7 @@ private slots:
 
 private:
     QStackedWidget *m_stackedWidget;
-    //QMap<QString, QWidget *> m_pageMap;
+    // QMap<QString, QWidget *> m_pageMap;
 };
 
 #endif  // STACKEDPAGE_H
