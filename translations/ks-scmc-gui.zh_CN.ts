@@ -2741,48 +2741,48 @@ Instruction</source>
     <name>NetworkAccessItem</name>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="20"/>
-        <location filename="../build/src/ui_network-access-item.h" line="169"/>
+        <location filename="../build/src/ui_network-access-item.h" line="155"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="49"/>
-        <location filename="../build/src/ui_network-access-item.h" line="170"/>
+        <location filename="../build/src/ui_network-access-item.h" line="156"/>
         <source>Network protocol </source>
         <translation>网络协议</translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="58"/>
-        <location filename="../build/src/ui_network-access-item.h" line="171"/>
+        <location filename="../build/src/ui_network-access-item.h" line="157"/>
         <source>TCP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="65"/>
-        <location filename="../build/src/ui_network-access-item.h" line="172"/>
+        <location filename="../build/src/ui_network-access-item.h" line="158"/>
         <source>UDP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="72"/>
-        <location filename="../build/src/ui_network-access-item.h" line="173"/>
+        <location filename="../build/src/ui_network-access-item.h" line="159"/>
         <source>ICMP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="101"/>
-        <location filename="../build/src/ui_network-access-item.h" line="174"/>
+        <location filename="../build/src/ui_network-access-item.h" line="160"/>
         <source>Network address  </source>
         <translation>网络地址</translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/network-access-item.ui" line="129"/>
-        <location filename="../build/src/ui_network-access-item.h" line="175"/>
+        <location filename="../src/common/security-widgets/network-access-item.ui" line="124"/>
+        <location filename="../build/src/ui_network-access-item.h" line="161"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/network-access-item.cpp" line="66"/>
+        <location filename="../src/common/security-widgets/network-access-item.cpp" line="77"/>
         <source>eg: 192.168.1.10 or 10.0.0.0/8</source>
         <translation>例：192.168.1.10 或 10.0.0.0/8</translation>
     </message>
