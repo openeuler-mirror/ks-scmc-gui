@@ -209,3 +209,16 @@ message GetNodeSecurityConfigRequest {
 message GetNodeSecurityConfigReply {
     SecurityConfig    security_config = 1;   //节点安全配置
 }
+
+message PortStatus {
+    uint32 port = 1;
+    bool blocked = 2;
+}
+
+message GetNodeDefaultPortRequest{
+    int64 node_id       = 1;
+}
+
+message GetNodeDefaultPortReply{
+    repeated PortStatus blocked_ports = 1;
+}
