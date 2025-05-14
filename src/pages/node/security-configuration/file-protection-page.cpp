@@ -43,8 +43,6 @@ void FileProtectionPage::setNodeId(qint64 nodeID)
 
 void FileProtectionPage::save()
 {
-    bool flag = false;
-
     node::UpdateFileProtectRequest req;
     req.set_node_id(m_nodeID);
 
