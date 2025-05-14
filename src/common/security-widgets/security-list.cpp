@@ -216,3 +216,18 @@ void SecurityList::clearItems()
         deleteOneItem(deleteItem);
     }
 }
+
+void SecurityList::setItemsEnable(bool enable)
+{
+    int row = 0;
+    while (row < m_listWidget->count())
+    {
+        auto listItem = m_listWidget->item(row);
+        auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+        if (item)
+        {
+            item->setEnabled(enable);
+        }
+        row++;
+    }
+}
