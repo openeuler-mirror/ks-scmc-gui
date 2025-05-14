@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/system/user-manager/table-widgets/user-table.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #ifndef USERTABLE_H
 #define USERTABLE_H
 
