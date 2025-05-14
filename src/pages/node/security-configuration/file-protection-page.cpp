@@ -93,6 +93,13 @@ void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair
         return;
     }
 
+    if (!reply.second.has_file_protection())
+    {
+        KLOG_WARNING() << "Failed to get node:" << m_nodeID << "file protect list:"
+                       << "file_protection not found";
+        return;
+    }
+
     auto fileProtect = reply.second.file_protection();
 
     if (fileProtect.is_on())
