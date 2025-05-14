@@ -156,12 +156,11 @@ void FileProtectionPage::initUI()
     mainLayout->addWidget(m_fileList);
     mainLayout->addLayout(btnLayout);
 
-    connect(btnSave, &QPushButton::clicked, this, &FileProtectionPage::save);
-    connect(m_btnOpen, &QRadioButton::toggled, this, [this]()
-            { setProtectEnabled(true); });
-    connect(m_btnClose, &QRadioButton::toggled, this, [this]()
-            { setProtectEnabled(false); });
+    setProtectEnabled(false);
 
-    // 默认关闭
-    m_btnClose->setChecked(true);
+    connect(btnSave, &QPushButton::clicked, this, &FileProtectionPage::save);
+    connect(m_btnOpen, &QRadioButton::clicked, this, [this]()
+            { setProtectEnabled(true); });
+    connect(m_btnClose, &QRadioButton::clicked, this, [this]()
+            { setProtectEnabled(false); });
 }
