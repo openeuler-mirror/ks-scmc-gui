@@ -119,82 +119,68 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <property name="spacing">
-        <number>10</number>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Port</string>
        </property>
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Port</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_port">
-         <property name="minimumSize">
-          <size>
-           <width>78</width>
-           <height>36</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>78</width>
-           <height>36</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="spacing">
-        <number>10</number>
+      <widget class="QLineEdit" name="lineEdit_port">
+       <property name="minimumSize">
+        <size>
+         <width>78</width>
+         <height>36</height>
+        </size>
        </property>
-       <item>
-        <widget class="QToolButton" name="btn_add">
-         <property name="minimumSize">
-          <size>
-           <width>36</width>
-           <height>36</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>36</width>
-           <height>36</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="btn_delete">
-         <property name="minimumSize">
-          <size>
-           <width>36</width>
-           <height>36</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>36</width>
-           <height>36</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <property name="maximumSize">
+        <size>
+         <width>78</width>
+         <height>36</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btn_add">
+       <property name="minimumSize">
+        <size>
+         <width>36</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>36</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btn_delete">
+       <property name="minimumSize">
+        <size>
+         <width>36</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>36</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer_2">
