@@ -75,6 +75,8 @@ signals:
     void updateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &);
 
     // 网络安全配置
+    void getNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::GetNetworkRuleReply> &);
+    void updateNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkRuleReply> &);
 
 private:
     QMutex mutex;
