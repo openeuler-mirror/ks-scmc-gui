@@ -60,6 +60,10 @@ private:
     void BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle, QString yformate);
     int getbit(double num);
     void handleYValue(double &start, double &end, QString &unit);
+    void processCPUUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, double cpuLimit);
+    void processMemoryUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, double memoryLimit);
+    void processDiskUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo);
+    void processNetworkUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, const QString &unit, const QString &title);
 
 private slots:
     void onCycleChanged(int index);
