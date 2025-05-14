@@ -85,8 +85,8 @@ void NetworkAccessList::clearItems()
             continue;
         }
 
-        auto deleteItem = m_listWidget->takeItem(i);
-        deleteOneItem(deleteItem);
+        auto itemToDelete = m_listWidget->takeItem(i);
+        deleteOneItem(itemToDelete);
     }
 }
 
