@@ -118,7 +118,7 @@ void LicenseProxy::updateLicense()
     m_machineCode = data.value(LICENSE_JK_MACHINE_CODE).toString();
     m_expiredTime = time_t(data.value(LICENSE_JK_EXPIRED_TIME).toVariant().toUInt());
 
-    //获取激活状态
+    // 获取激活状态
     auto activationStatus = (LicenseActivationStatus)data.value(LICENSE_JK_ACTIVATION_STATUS).toInt();
     m_isActivated = activationStatus == LAS_ACTIVATED;
 }
