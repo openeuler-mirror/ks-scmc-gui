@@ -104,7 +104,7 @@ void LicenseProxy::updateLicense()
 
     QVariant firstArg = args.takeFirst();
     auto licenseInfoJson = firstArg.toString();
-    //解析授权信息Json字符串
+    // 解析授权信息Json字符串
     QJsonParseError jsonError;
     auto jsonDoc = QJsonDocument::fromJson(licenseInfoJson.toUtf8(), &jsonError);
     if (jsonDoc.isNull())
