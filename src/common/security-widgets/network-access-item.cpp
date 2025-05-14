@@ -76,7 +76,7 @@ void NetworkAccessItem::initUI()
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit_address->setPlaceholderText(tr("eg: 192.168.1.10 or 10.0.0.0/8"));
     ui->lineEdit_address->setTextMargins(10, 0, 0, 0);
-    QRegExp rx("^[0-9.]+$");
+    QRegExp rx("^[0-9./]+$");
     ui->lineEdit_address->setValidator(new QRegExpValidator(rx, this));
     ui->lineEdit_address->setMaxLength(20);
 
