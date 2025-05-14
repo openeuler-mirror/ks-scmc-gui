@@ -33,6 +33,7 @@ void SecurityList::setSecurityInfos(QStringList infos)
         if (!item)
         {
             KLOG_ERROR() << "Failed to cast item widget at index: " << count;
+            count++;
             continue;
         }
 
