@@ -255,3 +255,73 @@ void NetworkConfigPage::getDefaultPorts()
     }
     KLOG_DEBUG() << "Get node:" << m_nodeID << "default port from backend: " << m_defaultPorts;
 }
+
+void NetworkConfigPage::saveNetworkRules()
+{
+    // 保存网络访问控制信息
+    node::UpdateNetworkRuleRequest req;
+    req.set_node_id(m_nodeID);
+
+    auto securityCfg = req.mutable_security_config();
+
+    auto networkRule = securityCfg->mutable_network_rule();
+    networkRule->set_is_on(m_accessCtrlEnabled);
+
+    auto infos = m_accessList->getNeteworkInfos();
+    for (auto info : infos)
+    {
+        auto rules = networkRule->add_rules();
+        foreach (auto protocol, info.protocols)
+        {
+            rules->add_protocols(protocol.toStdString());
+        }
+        rules->set_addr(info.addr.toStdString());
+
+        if (m_defaultPorts.contains(info.port))
+        {
+            MessageDialog::message(tr("Update Node Network Rules"),
+                                   tr("Failed to update node network rules"),
+                                   tr("The port %1 is in use, please input again!").arg(info.port),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Yes);
+            return;
+        }
+        else
+        {
+            rules->set_port(info.port);
+        }
+
+        KLOG_DEBUG() << "Set node:" << m_nodeID << "network rule to backend: "
+                     << "enable:" << m_accessCtrlEnabled << "rule:" << info.protocols << info.addr << info.port;
+    }
+
+    Node::getInstance().updateNetworkRule(m_objId, req);
+}
+
+void NetworkConfigPage::saveNetworkProcessWhiteList()
+{
+    // 保存网络进程白名单信息
+    node::UpdateNetworkProcessWhiteListRequest req;
+    req.set_node_id(m_nodeID);
+
+    auto securityCfg = req.mutable_security_config();
+
+    auto nprocProtection = securityCfg->mutable_nproc_protection();
+    nprocProtection->set_is_on(m_whiteListEnabled);
+
+    QStringList procList;
+    if (!m_processList->getSecurityInfos(procList))
+    {
+        NotificationManager::sendNotify(tr("Failed to save the configuration"), tr("Please check the input parameters."));
+        return;
+    }
+
+    for (auto proc : procList)
+    {
+        nprocProtection->add_exe_list(proc.toStdString());
+    }
+
+    KLOG_DEBUG() << "Set node:" << m_nodeID << "network process white list to backend: "
+                 << "enable:" << m_whiteListEnabled << "procs:" << procList;
+    Node::getInstance().updateNetworkProcessWhiteList(m_objId, req);
+}
