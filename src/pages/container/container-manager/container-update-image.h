@@ -37,8 +37,7 @@ signals:
 
 private:
     Ui::ContainerUpdateImage *ui;
-    int m_containerID;
-    int m_imageID;
+    QString m_containerID;
 };
 
 #endif  // CONTAINERUPDATEIMAGE_H
