@@ -534,3 +534,8 @@ QPair<grpc::Status, container::KillAppEntryReply> Container::_killAppEntry(const
 {
     RPC_IMPL(container::KillAppEntryReply, container::Container::NewStub, KillAppEntry);
 }
+
+QPair<grpc::Status, container::UpdateContainerVersionReply> Container::_updateContainerVersion(const container::UpdateContainerVersionRequest &req)
+{
+    RPC_IMPL(container::UpdateContainerVersionReply, container::Container::NewStub, UpdateContainerVersion);
+}
