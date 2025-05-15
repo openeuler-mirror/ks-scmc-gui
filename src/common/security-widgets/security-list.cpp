@@ -42,9 +42,8 @@ void SecurityList::setSecurityInfos(QStringList infos)
     }
 }
 
-QStringList SecurityList::getSecurityInfos()
+bool SecurityList::getSecurityInfos(QStringList &list)
 {
-    QStringList infos;
     int row = 0;
     while (row < m_listWidget->count())
     {
