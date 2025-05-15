@@ -136,6 +136,16 @@ void SecurityLevelTab::initUI()
                 ui->label_access_ctl->setVisible(isLevel1);
                 ui->checkbox_access_ctl->setVisible(isLevel1);
 
-                ui->textEdit_level->setHtml(m_securityLevelMap.value(text));
+                QString description;
+                for (const auto &pair : m_securityLevelMap)
+                {
+                    if (pair.first == text)
+                    {
+                        description = pair.second;
+                        break;
+                    }
+                }
+
+                ui->textEdit_level->setHtml(description);
             });
 }
