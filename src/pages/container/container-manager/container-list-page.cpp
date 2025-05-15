@@ -342,6 +342,7 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         infoMap.insert(CONTAINER_NAME, i.info().name().data());
         infoMap.insert(CONTAINER_STATUS, i.info().state().data());
         infoMap.insert(NODE_ADDRESS, i.node_address().data());
+        infoMap.insert(CONTAINER_IMAGE, i.info().image().data());
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
