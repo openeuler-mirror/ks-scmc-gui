@@ -930,6 +930,8 @@ void ContainerListPage::initConnect()
     connect(&Container::getInstance(), &Container::stopContainerFinished, this, &ContainerListPage::getContainerStopResult, Qt::UniqueConnection);
     connect(&Container::getInstance(), &Container::restartContainerFinished, this, &ContainerListPage::getContainerRestartResult, Qt::UniqueConnection);
     connect(&Container::getInstance(), &Container::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
+
+    connect(&Container::getInstance(), &Container::updateContainerVersionFinished, this, &ContainerListPage::updateContainerVersionFinished, Qt::UniqueConnection);
 }
 
 void ContainerListPage::updateInfo(QString keyword)
