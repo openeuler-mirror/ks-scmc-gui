@@ -65,6 +65,9 @@ public:
     void runAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
     void killAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
 
+    // container version
+    void updateContainerVersion(const QString objId, const int nodeId, const std::string &containerId, const std::string &imageName, const std::string &imageVersion);
+
 private:
     Container(QObject *parent = nullptr);
     ~Container();
