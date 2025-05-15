@@ -521,6 +521,20 @@ void ContainerListPage::getListTemplateFinishResult(const QString objId, const Q
         m_createFromTemplateAct->setDisabled(true);
 }
 
+void ContainerListPage::updateContainerVersionFinished(const QString objId, const QPair<grpc::Status, container::UpdateContainerVersionReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Failed to update container version:" << reply.first.error_message().data();
+        return;
+    }
+
+    getContainerList();
+}
+
 void ContainerListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
 {
     if (m_objId != objId)
