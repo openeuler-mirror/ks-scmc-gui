@@ -179,13 +179,38 @@ void ContainerListPage::onActGenerateTemp(QModelIndex index)
 
 void ContainerListPage::onActUpdateImage(QModelIndex index)
 {
+    auto item = getItem(index.row(), 1);
+    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+
+    auto nodeId = idMap.value(NODE_ID).toInt();
+    auto containerID = idMap.value(CONTAINER_ID).toString();
+    auto containerName = idMap.value(CONTAINER_NAME).toString();
+    auto image = idMap.value(CONTAINER_IMAGE).toString();
+
     auto dialog = new ContainerUpdateImage(this);
     dialog->setTitle(tr("Update Image Version"));
+    dialog->setContainerInfo(containerID, containerName);
+    dialog->setImageInfo(image, m_imageInfos);
+
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
     dialog->move(screenGeometry.x() + (screenGeometry.width() - dialog->width()) / 2,
                  screenGeometry.y() + (screenGeometry.height() - dialog->height()) / 2);
     dialog->show();
+
+    connect(dialog, &ContainerUpdateImage::updateImage, [=]()
+            {
+                QString imageName, imageVersion;
+                dialog->getImageInfo(imageName, imageVersion);
+                auto containerID = dialog->getContainerID();
+
+                // 若用户修改镜像版本，则调用后台更新接口
+                if (imageVersion.compare(image.split(":")[1]) != 0)
+                {
+                    KLOG_DEBUG() << "Update container:" << containerID <<"image version to " << imageVersion;
+                    Container::getInstance().updateContainerVersion(m_objId, nodeId, containerID.toStdString(), imageName.toStdString(), imageVersion.toStdString());
+                } 
+                dialog->close(); });
 }
 
 void ContainerListPage::onApp(int row)
