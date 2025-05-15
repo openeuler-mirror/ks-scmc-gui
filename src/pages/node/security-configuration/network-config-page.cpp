@@ -33,6 +33,7 @@ void NetworkConfigPage::updateInfo(QString keyword)
     m_accessList->clearItems();
     m_processList->clearItems();
     Node::getInstance().getNetworkRule(m_objId, m_nodeID);
+    Node::getInstance().getNetworkProcessWhiteList(m_objId, m_nodeID);
 }
 
 void NetworkConfigPage::setNodeId(qint64 nodeID)
