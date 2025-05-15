@@ -16,6 +16,7 @@
 #define CONTAINER_NAME "container name"
 #define CONTAINER_STATUS "container status"
 #define CONTAINER_APP_IS_RUNNING "container app is_running"
+#define CONTAINER_IMAGE "container image"
 #define TEMPLATE_ID "template id"
 #define TEMPLATE_NAME "template name"
 #define BACKUP_ID "backup id"
