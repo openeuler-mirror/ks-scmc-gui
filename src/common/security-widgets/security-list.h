@@ -20,7 +20,7 @@ public:
     ~SecurityList();
 
     void setSecurityInfos(QStringList list);
-    QStringList getSecurityInfos();
+    bool getSecurityInfos(QStringList &list);
 
     void setItemTitle(QString title);
     void clearItems();
