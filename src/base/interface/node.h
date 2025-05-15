@@ -65,6 +65,9 @@ private:
     static QPair<grpc::Status, node::GetNetworkRuleReply> _getNetworkRule(const node::GetNetworkRuleRequest &);
     static QPair<grpc::Status, node::UpdateNetworkRuleReply> _updateNetworkRule(const node::UpdateNetworkRuleRequest &);
 
+    static QPair<grpc::Status, node::GetNetworkProcessWhiteListReply> _getNetworkProcessWhiteList(const node::GetNetworkProcessWhiteListRequest &);
+    static QPair<grpc::Status, node::UpdateNetworkProcessWhiteListReply> _updateNetworkProcessWhiteList(const node::UpdateNetworkProcessWhiteListRequest &);
+
 signals:
     // node management
     void listNodeFinished(QString objId, const QPair<grpc::Status, node::ListReply> &);
