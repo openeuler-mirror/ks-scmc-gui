@@ -111,18 +111,23 @@ void SecurityLevelTab::getSecurityInfo()
 
 void SecurityLevelTab::initUI()
 {
-    m_securityLevelMap = {{LEVEL_1, LEVEL_1_DESC},
-                          {LEVEL_2, LEVEL_2_DESC},
-                          {LEVEL_3, LEVEL_3_DESC},
-                          {LEVEL_4, LEVEL_4_DESC},
-                          {LEVEL_5, LEVEL_5_DESC}};
+    m_securityLevelMap = {qMakePair(LEVEL_1, LEVEL_1_DESC),
+                          qMakePair(LEVEL_2, LEVEL_2_DESC),
+                          qMakePair(LEVEL_3, LEVEL_3_DESC),
+                          qMakePair(LEVEL_4, LEVEL_4_DESC),
+                          qMakePair(LEVEL_5, LEVEL_5_DESC)};
 
     ui->label_access_ctl->hide();
     ui->checkbox_access_ctl->hide();
 
-    ui->cb_level->addItems(QStringList(m_securityLevelMap.keys()));
+    QStringList keys;
+    for (const auto &pair : m_securityLevelMap)
+    {
+        keys << pair.first;
+    }
+    ui->cb_level->addItems(keys);
     ui->cb_level->setCurrentText(LEVEL_4);  // 默认四级模板
-    ui->textEdit_level->setHtml(m_securityLevelMap.value(LEVEL_4));
+    ui->textEdit_level->setHtml(LEVEL_4_DESC);
 
     connect(ui->cb_level, QOverload<const QString &>::of(&QComboBox::currentIndexChanged),
             [=](const QString &text)
