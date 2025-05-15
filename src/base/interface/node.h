@@ -43,6 +43,9 @@ public:
     void getNetworkRule(const QString objId, qint64 nodeID);
     void updateNetworkRule(const QString objId, const node::UpdateNetworkRuleRequest &);
 
+    void getNetworkProcessWhiteList(const QString objId, qint64 nodeID);
+    void updateNetworkProcessWhiteList(const QString objId, const node::UpdateNetworkProcessWhiteListRequest &);
+
 private:
     Node(QObject *parent = nullptr);
     ~Node();
