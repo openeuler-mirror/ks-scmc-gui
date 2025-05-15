@@ -277,6 +277,17 @@ void Container::killAppEntry(const QString objId, const int nodeId, const std::s
     RPC_ASYNC(container::KillAppEntryReply, _killAppEntry, killAppEntryFinished, objId, req);
 }
 
+void Container::updateContainerVersion(const QString objId, const int nodeId, const std::string &containerId, const std::string &imageName, const std::string &imageVersion)
+{
+    container::UpdateContainerVersionRequest req;
+    req.set_node_id(nodeId);
+    req.set_container_id(containerId);
+    req.set_img_name(imageName);
+    req.set_img_version(imageVersion);
+
+    RPC_ASYNC(container::UpdateContainerVersionReply, _updateContainerVersion, updateContainerVersionFinished, objId, req);
+}
+
 void Container::resumeBackup(const QString objId, int nodeId, std::string containerId, int backupId)
 {
     container::ResumeBackupRequest req;
