@@ -108,6 +108,9 @@ private:
     static QPair<grpc::Status, container::RunAppEntryReply> _runAppEntry(const container::RunAppEntryRequest &);
     static QPair<grpc::Status, container::KillAppEntryReply> _killAppEntry(const container::KillAppEntryRequest &);
 
+    // container version
+    static QPair<grpc::Status, container::UpdateContainerVersionReply> _updateContainerVersion(const container::UpdateContainerVersionRequest &);
+
 signals:
     // container management
     void listContainerFinished(const QString objId, const QPair<grpc::Status, container::ListReply> &);
