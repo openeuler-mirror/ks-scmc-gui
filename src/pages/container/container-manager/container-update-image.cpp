@@ -21,17 +21,47 @@ ContainerUpdateImage::~ContainerUpdateImage()
     delete ui;
 }
 
-void ContainerUpdateImage::setContainerInfo(int containerID, const QString &containerName)
+void ContainerUpdateImage::setContainerInfo(const QString &containerID, const QString &containerName)
 {
     m_containerID = containerID;
     ui->lineEdit_container_name->setText(containerName);
 }
 
-void ContainerUpdateImage::setImageInfo(int imageID, const QString &imageName, const QStringList &imageVersions)
+QString ContainerUpdateImage::getContainerID()
 {
-    m_imageID = imageID;
-    ui->lineEdit_image_name->setText(imageName);
-    ui->comboBox_image_version->addItems(imageVersions);
+    return m_containerID;
+}
+
+void ContainerUpdateImage::setImageInfo(const QString &imageName, const QStringList &imageInfo)
+{
+    QStringList versions;
+    auto currentName = imageName.split(":").first();
+    auto currentVersion = imageName.split(":").last();
+
+    for (auto image : imageInfo)
+    {
+        auto info = image.split(":");
+        if (info.size() != 2)
+            continue;
+
+        auto name = image.split(":")[0];
+        auto version = image.split(":")[1];
+
+        if (!name.compare(currentName) && !versions.contains(version))
+        {
+            versions.append(version);
+        }
+    }
+
+    ui->lineEdit_image_name->setText(currentName);
+    ui->comboBox_image_version->addItems(versions);
+    ui->comboBox_image_version->setCurrentText(currentVersion);
+}
+
+void ContainerUpdateImage::getImageInfo(QString &imageName, QString &imageVersion)
+{
+    imageName = ui->lineEdit_image_name->text();
+    imageVersion = ui->comboBox_image_version->currentText();
 }
 
 void ContainerUpdateImage::initUI()
