@@ -32,7 +32,7 @@ private:
 
 private:
     Ui::SecurityLevelTab *ui;
-    QMap<QString, QString> m_securityLevelMap;
+    QList<QPair<QString, QString>> m_securityLevelMap;
 };
 
 #endif  // SECURITYLEVELTAB_H
