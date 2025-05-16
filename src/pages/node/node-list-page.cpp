@@ -94,7 +94,7 @@ void NodeListPage::onRemoveNode()
     std::vector<int64_t> node_ids;
     foreach (auto &idMap, info)
     {
-        KLOG_INFO() << "Remove node:" << idMap.value(NODE_ID).toInt();
+        KLOG_DEBUG() << "Remove node:" << idMap.value(NODE_ID).toInt();
         node_ids.push_back(idMap.value(NODE_ID).toInt());
     }
 
