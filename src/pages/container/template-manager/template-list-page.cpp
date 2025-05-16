@@ -372,6 +372,7 @@ void TemplateListPage::initTable()
         QString(tr("description")),
         QString(tr("Basic configuration")),
         QString(tr("Advanced configuration")),
+        QString(tr("Security Level")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{
