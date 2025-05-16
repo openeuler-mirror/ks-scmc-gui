@@ -509,42 +509,51 @@ ContainerSetting QCheckBox
     outline:none;
 }
 
-ContainerSetting QCheckBox::indicator:disabled:unchecked
-{
-    color:#919191;
-    font-size:12px;
-    image: url(:/images/marquee_disable-default.png);
-}
-ContainerSetting QCheckBox::indicator:disabled:checked
-{
-    color:#919191;
-    image: url(:/images/marquee_disable-checked.png);
-}
-
 ContainerSetting QCheckBox::indicator
 {
     width: 16px;
     height: 16px;
 }
+
+ContainerSetting QCheckBox::indicator:disabled:unchecked
+{
+    color:#919191;
+    font-size:12px;
+    image: url(:/images/check-default-disabled.svg);
+}
+ContainerSetting QCheckBox::indicator:disabled:checked
+{
+    color:#919191;
+    image: url(:/images/check-disabled.svg);
+}
 ContainerSetting QCheckBox::indicator:unchecked
 {
-    image: url(:/images/marquee_default.png);
+    image: url(:/images/check-default.svg);
 }
-
 ContainerSetting QCheckBox::indicator:checked
 {
-    image: url(:/images/marquee_checked.png);
+    image: url(:/images/checked.svg);
 }
 
+ContainerSetting QRadioButton::indicator:disabled:unchecked
+{
+    color:#919191;
+    image: url(:/images/radio-button-disable-off.svg);
+}
+ContainerSetting QRadioButton::indicator:disabled:checked
+{
+    color:#919191;
+    image: url(:/images/radio-button-disable-on.svg);
+}
 ContainerSetting QRadioButton::indicator:unchecked
 {
-    image: url(:/images/frame_n.png);
+    image: url(:/images/radio-button-off.svg);
 }
-
 ContainerSetting QRadioButton::indicator:checked
 {
-    image: url(:/images/frame_s.png);
+    image: url(:/images/radio-button-on.svg);
 }
+
 ContainerSetting QToolButton#funcDescBtn
 {
     background-color:#2eb3ff;
