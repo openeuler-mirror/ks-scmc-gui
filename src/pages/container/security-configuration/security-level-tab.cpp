@@ -96,21 +96,33 @@ SecurityLevelTab::~SecurityLevelTab()
     delete ui;
 }
 
-void SecurityLevelTab::setSecurityInfo()
+void SecurityLevelTab::setSecurityInfo(int level, bool networkAccessCtl)
 {
+    ui->cb_level->setCurrentText(m_securityLevelMap[level].first);
+    ui->checkbox_access_ctl->setChecked(networkAccessCtl);
+
+    KLOG_DEBUG() << "Set container security level info to UI:"
+                 << "level:" << m_securityLevelMap[level].first
+                 << "networkAccessCtl:" << networkAccessCtl;
 }
 
-void SecurityLevelTab::getSecurityInfo()
+void SecurityLevelTab::getSecurityInfo(int &level, bool &networkAccessCtl)
 {
+    level = ui->cb_level->currentIndex() + 1;
+    networkAccessCtl = ui->checkbox_access_ctl->isChecked();
+
+    KLOG_DEBUG() << "Get container security level info from UI:"
+                 << "level:" << m_securityLevelMap[level].first
+                 << "networkAccessCtl:" << networkAccessCtl;
 }
 
 void SecurityLevelTab::initUI()
 {
-    m_securityLevelMap = {qMakePair(LEVEL_1, LEVEL_1_DESC),
-                          qMakePair(LEVEL_2, LEVEL_2_DESC),
-                          qMakePair(LEVEL_3, LEVEL_3_DESC),
-                          qMakePair(LEVEL_4, LEVEL_4_DESC),
-                          qMakePair(LEVEL_5, LEVEL_5_DESC)};
+    m_securityLevelMap = {{LEVEL_NUM_1, qMakePair(LEVEL_1, LEVEL_1_DESC)},
+                          {LEVEL_NUM_2, qMakePair(LEVEL_2, LEVEL_2_DESC)},
+                          {LEVEL_NUM_3, qMakePair(LEVEL_3, LEVEL_3_DESC)},
+                          {LEVEL_NUM_4, qMakePair(LEVEL_4, LEVEL_4_DESC)},
+                          {LEVEL_NUM_5, qMakePair(LEVEL_5, LEVEL_5_DESC)}};
 
     ui->label_access_ctl->hide();
     ui->checkbox_access_ctl->hide();
