@@ -1,6 +1,6 @@
 /**
  * @file          /ks-scmc-gui/src/pages/container/security-configuration/start-stop-control-tab.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
