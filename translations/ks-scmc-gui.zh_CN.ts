@@ -1328,7 +1328,7 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="319"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1384"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1385"/>
         <source>Create template</source>
         <translation>创建模板</translation>
     </message>
