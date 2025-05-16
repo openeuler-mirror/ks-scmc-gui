@@ -12,6 +12,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+#include "common/message-dialog.h"
 #include "common/notification-manager.h"
 #include "common/security-widgets/security-list-item.h"
 #include "common/security-widgets/security-list.h"
