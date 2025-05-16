@@ -4329,7 +4329,7 @@ Instruction</source>
 <context>
     <name>StartStopControlTab</name>
     <message>
-        <location filename="../src/pages/container/security-configuration/start-stop-control-tab.cpp" line="34"/>
+        <location filename="../src/pages/container/security-configuration/start-stop-control-tab.cpp" line="42"/>
         <source>Forbid operating this container from command line</source>
         <translation>限制无法从命令行运行/停止该容器</translation>
     </message>
