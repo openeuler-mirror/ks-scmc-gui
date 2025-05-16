@@ -1634,52 +1634,67 @@ The first characters must be letter or digit</source>
 <context>
     <name>IPCPage</name>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="41"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="88"/>
         <source>Create IPC</source>
         <translation>创建IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="55"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="102"/>
         <source>IPC Name</source>
         <translation>IPC基准名称</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="57"/>
         <source>Please input 1 to 50 characters</source>
-        <translation>请输入1 - 50个字符</translation>
+        <translation type="vanished">请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="66"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="52"/>
+        <source>Response timeout!</source>
+        <translation>响应超时！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="104"/>
+        <source>Please input 2 to 40 characters</source>
+        <translation>请输入2 - 40个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="110"/>
+        <source>Only letter, digit or ._- three special characters;
+The first characters must be letter or digit</source>
+        <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="120"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="68"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="122"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="106"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="160"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="114"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="168"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="129"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="183"/>
         <source>IPC</source>
         <translation>IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="130"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="184"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="131"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="185"/>
         <source>Create Time</source>
         <translation>创建时间</translation>
     </message>
