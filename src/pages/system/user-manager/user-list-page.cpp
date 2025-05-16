@@ -323,7 +323,7 @@ void UserListPage::getListRoleFinished(const QString objId, const QPair<grpc::St
     }
     else
     {
-        KLOG_DEBUG() << "Failed to get role list!";
+        KLOG_WARNING() << "Failed to get role list!";
     }
 }
 
