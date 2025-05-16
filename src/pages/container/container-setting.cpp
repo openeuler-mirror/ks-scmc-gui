@@ -1044,6 +1044,7 @@ void ContainerSetting::updateSecurityPages(int level)
     KLOG_DEBUG() << "update container security page, new level:" << level;
     switch (level)
     {
+    case LEVEL_NUM_1:
     case LEVEL_NUM_2:
         startStopCtlPage->setStartStopEnabled(true);
         networkAccessCtlPage->enforceNetworkAccessOpen(true);
