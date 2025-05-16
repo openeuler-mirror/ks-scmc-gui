@@ -17,6 +17,8 @@ public:
     void setStartStopInfo(bool isRestrict);
     bool getStartStopInfo();
 
+    void setStartStopEnabled(bool enable);
+
 private:
     void initUI();
 
