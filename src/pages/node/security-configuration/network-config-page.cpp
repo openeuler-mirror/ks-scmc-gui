@@ -144,6 +144,11 @@ void NetworkConfigPage::updateNetworkRuleFinished(const QString objId, const QPa
 
     if (!reply.first.ok())
     {
+        MessageDialog::message(tr("Node network rules"),
+                               tr("Failed to update node network rules"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
         KLOG_WARNING() << "Failed to update node:" << m_nodeID << "network rule:" << reply.first.error_message().data();
         return;
     }
