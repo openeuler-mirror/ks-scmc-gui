@@ -2404,6 +2404,7 @@ The first characters must be letter or digit</source>
     <name>LogSettingView</name>
     <message>
         <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="62"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="76"/>
         <source>Failed to set log save days!</source>
         <translation>设置日志保存周期失败！</translation>
     </message>
