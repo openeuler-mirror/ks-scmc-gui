@@ -86,12 +86,14 @@ void NetworkConfigPage::getNetworkRuleFinished(const QString objId, const QPair<
 
     if (!reply.first.ok())
     {
+        NotificationManager::sendNotify(tr("Failed to get node network rules"), reply.first.error_message().data());
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network rule list:" << reply.first.error_message().data();
         return;
     }
 
     if (!reply.second.has_network_rule())
     {
+        NotificationManager::sendNotify(tr("Failed to get node network rules!"), tr("There is no network rules."));
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network rule list:"
                        << "network_rule not found";
         return;
