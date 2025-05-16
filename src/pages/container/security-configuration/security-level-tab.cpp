@@ -10,12 +10,6 @@
 #include <QObject>
 #include "ui_security-level-tab.h"
 
-#define LEVEL_1 QObject::tr("Level 1")
-#define LEVEL_2 QObject::tr("Level 2")
-#define LEVEL_3 QObject::tr("Level 3")
-#define LEVEL_4 QObject::tr("Level 4")
-#define LEVEL_5 QObject::tr("Level 5")
-
 #define LEVEL_1_DESC QObject::tr(                                                                                                                                   \
     "<h3><b>Level 1 Template:</b></h3>"                                                                                                                             \
     "<ol style='font-size: 12px; line-height: 1.5;'>"                                                                                                               \
