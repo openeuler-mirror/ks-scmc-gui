@@ -357,17 +357,17 @@
 <context>
     <name>Container</name>
     <message>
-        <location filename="../src/base/interface/container.cpp" line="444"/>
+        <location filename="../src/base/interface/container.cpp" line="455"/>
         <source>The %1 backup is exporting,please wait a minute.</source>
         <translation>%1 容器备份已经在导出中，请等待。</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/container.cpp" line="483"/>
+        <location filename="../src/base/interface/container.cpp" line="494"/>
         <source>Export interruption!</source>
         <translation>导出中断！</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/container.cpp" line="488"/>
+        <location filename="../src/base/interface/container.cpp" line="499"/>
         <source>Ok</source>
         <translation>是</translation>
     </message>
