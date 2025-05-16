@@ -24,6 +24,8 @@ public:
     void setNetworkAccessInfo(container::SecurityConfig *securityCfg);
     void getNetworkAccessInfo(container::SecurityConfig *securityCfg);
 
+    void enforceNetworkAccessOpen(bool mustOpen);
+
 private slots:
     NetworkAccessItem *createItem(int index = -1);
     void addItem();
