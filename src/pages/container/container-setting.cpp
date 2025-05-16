@@ -1204,6 +1204,9 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
     startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
+
+    auto securityLevelTab = qobject_cast<SecurityLevelTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_SECURITY_LEVEL));
+    securityLevelTab->setSecurityInfo(securityCfg.security_level_template(), securityCfg.network_access_controll());
 }
 
 void ContainerSetting::getUpdateContainerResult(QString objId, const QPair<grpc::Status, container::UpdateReply> &reply)
