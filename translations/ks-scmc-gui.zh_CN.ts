@@ -1033,6 +1033,7 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="449"/>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="470"/>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="490"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="533"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
