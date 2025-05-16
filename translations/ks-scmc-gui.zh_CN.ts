@@ -2970,42 +2970,88 @@ Instruction</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="149"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="156"/>
         <source>Successful to update node network rule!</source>
         <translation>更新节点网络访问控制成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="198"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="213"/>
         <source>Successful to update node network process white list!</source>
-        <translation>更新网络进程进程白名单成功！</translation>
+        <translation>更新节点网络进程白名单成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="282"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="297"/>
         <source>Update Node Network Rules</source>
         <translation>更新节点网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="283"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="148"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="298"/>
         <source>Failed to update node network rules</source>
         <translation>更新节点网络访问控制失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="284"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="89"/>
+        <source>Failed to get node network rules</source>
+        <translation>获取节点网络访问控制失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="96"/>
+        <source>Failed to get node network rules!</source>
+        <translation>获取节点网络访问控制失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="96"/>
+        <source>There is no network rules.</source>
+        <translation>无节点网络访问控制。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="147"/>
+        <source>Node network rules</source>
+        <translation>节点网络访问控制</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="166"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="173"/>
+        <source>Failed to get node network process white list</source>
+        <translation>获取节点网络进程白名单失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="173"/>
+        <source>There is no network process white list.</source>
+        <translation>无节点网络进程白名单。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="203"/>
+        <source>Node network process white list</source>
+        <translation>节点网络进程白名单</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="204"/>
+        <source>Failed to update node network process white list</source>
+        <translation>更新节点网络进程白名单失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="299"/>
         <source>The port %1 is in use, please input again!</source>
         <translation>端口%1为默认端口，已被占用，请重新输入！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="315"/>
-        <source>Failed to save the configuration</source>
-        <translation>保存网络配置失败</translation>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="330"/>
+        <source>Failed to save the network process configuration</source>
+        <translation>保存节点网络进程配置失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="315"/>
+        <source>Failed to save the configuration</source>
+        <translation type="vanished">保存网络配置失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="330"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="214"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="229"/>
         <source>Network process</source>
         <translation>网络进程</translation>
     </message>
