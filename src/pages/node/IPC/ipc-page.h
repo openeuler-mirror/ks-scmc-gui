@@ -10,28 +10,50 @@
 
 #include <QLineEdit>
 #include <QObject>
-#include "table-page.h"
+#include "base/interface/ipc.h"
+#include "page.h"
+
+namespace Ui
+{
+class IPCPage;
+}
 
 class KiranTitlebarWindow;
-class IPCPage : public TablePage
+class IPCPage : public Page
 {
     Q_OBJECT
 public:
     explicit IPCPage(QWidget *parent = nullptr);
     void updateInfo(QString keyword = "") override;
 
+    void setNodeID(qint64 nodeID);
+
+protected:
+    virtual void timerEvent(QTimerEvent *event);
+
 private slots:
+    void search();
+    void refresh();
     void popupCreateDialog();
     void createIPC();
     void deleteIPC();
 
+    void listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::IpcListReply> &);
+    void createIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcCreateReply> &);
+    void removeIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcRemoveReply> &);
+
 private:
+    void initUI();
     void initCreateDialog();
-    void initButtons();
-    void initTable();
+    void clearText();
+    void setTips(const QString &tips);
     void initConnect();
 
 private:
+    Ui::IPCPage *ui;
+    QString m_objId;
+    int m_timerID;
+    qint64 m_nodeID;
     KiranTitlebarWindow *m_createDialog;
     QLineEdit *m_edit;
 };
