@@ -98,6 +98,15 @@ void NetworkAccessCtlTab::getNetworkAccessInfo(container::SecurityConfig *securi
     }
 }
 
+void NetworkAccessCtlTab::enforceNetworkAccessOpen(bool mustOpen)
+{
+    // 若允许网络访问控制，则m_btnOpen设置为选中,且无法关闭
+    if (mustOpen)
+        m_btnOpen->setChecked(true);
+
+    m_btnClose->setEnabled(!mustOpen);
+}
+
 NetworkAccessItem *NetworkAccessCtlTab::createItem(int index)
 {
     QListWidgetItem *newItem = nullptr;
