@@ -11,6 +11,8 @@
 #include <QMap>
 #include <QWidget>
 
+#include "def.h"
+
 namespace Ui
 {
 class SecurityLevelTab;
