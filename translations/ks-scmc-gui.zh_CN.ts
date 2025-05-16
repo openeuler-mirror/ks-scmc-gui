@@ -1261,14 +1261,14 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="289"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1078"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1079"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="294"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1096"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1243"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1097"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1244"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
