@@ -265,7 +265,7 @@ void ConfigDelegate::sendDeleteSlot(ConfigOperateWidget *pCurWidget)
                                           MessageDialog::StandardButton::Confirm | MessageDialog::StandardButton::Cancel);
         if (ret != MessageDialog::StandardButton::Confirm)
         {
-            KLOG_INFO() << pCurWidget->getCurPage();
+            KLOG_DEBUG() << pCurWidget->getCurPage();
             return;
         }
     }
