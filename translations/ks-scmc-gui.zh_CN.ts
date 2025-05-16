@@ -2180,33 +2180,46 @@ The first characters must be letter or digit</source>
 <context>
     <name>IpcDelegate</name>
     <message>
-        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="90"/>
         <source>Edit</source>
-        <translation>编辑</translation>
+        <translation type="vanished">编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="91"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation type="vanished">删除</translation>
+    </message>
+</context>
+<context>
+    <name>IpcModel</name>
+    <message>
+        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="184"/>
+        <source>IPC Name</source>
+        <translation>IPC基准名称</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="186"/>
+        <source>Usage Containers</source>
+        <translation>使用容器</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="188"/>
+        <source>Create Time</source>
+        <translation>创建时间</translation>
     </message>
 </context>
 <context>
     <name>IpcTable</name>
     <message>
-        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="564"/>
         <source>Remove User</source>
-        <translation>删除用户</translation>
+        <translation type="vanished">删除用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="565"/>
         <source>Are you sure you want to remove 
 %1 ?</source>
-        <translation type="unfinished">确定删除用户%1？</translation>
+        <translation type="obsolete">确定删除用户%1？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="566"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="unfinished">该操作不可恢复，确定要继续操作？</translation>
+        <translation type="obsolete">该操作不可恢复，确定要继续操作？</translation>
     </message>
 </context>
 <context>
