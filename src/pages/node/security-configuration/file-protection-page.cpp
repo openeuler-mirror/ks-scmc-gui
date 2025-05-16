@@ -82,6 +82,12 @@ void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const
 
     if (!reply.first.ok())
     {
+        MessageDialog::message(tr("Node file protection"),
+                               tr("Failed to update node file protect list"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+
         KLOG_WARNING() << "Failed to update node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
         return;
     }
