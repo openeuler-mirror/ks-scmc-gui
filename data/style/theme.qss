@@ -221,7 +221,8 @@ IpcTable
     font-size: 14px;					/*表格文本大小*/
     font-weight:200;
 }
-UserTable::item
+UserTable::item,
+IpcTable::item
 {
     padding-left:10px;
     border-bottom : 1px solid #393939;
