@@ -813,6 +813,14 @@ void ContainerSetting::updateContainer()
     auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
     securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
 
+    auto securityLevelTab = qobject_cast<SecurityLevelTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_SECURITY_LEVEL));
+    int level = LEVEL_NUM_4;
+    bool networkAccessCtl = false;
+    securityLevelTab->getSecurityInfo(level, networkAccessCtl);
+
+    securityCfg->set_security_level_template(level);
+    securityCfg->set_network_access_controll(networkAccessCtl);
+
     // volume mounts
     auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     if (!volumePage->getVolumeInfo(&request, errMsg))
