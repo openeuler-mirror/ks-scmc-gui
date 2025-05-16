@@ -83,6 +83,7 @@
     "Add network processes to the whitelist, "                                                                                                     \
     "and the network access permissions of processes in the whitelist will be executed according to the network whitelist and default rules.</li>" \
     "</ol>")
+
 SecurityLevelTab::SecurityLevelTab(QWidget *parent) : QWidget(parent),
                                                       ui(new Ui::SecurityLevelTab)
 {
