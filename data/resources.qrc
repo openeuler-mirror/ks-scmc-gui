@@ -71,17 +71,15 @@
         <file>images/net-access-control.png</file>
         <file>images/icon-add.svg</file>
         <file>images/icon-delete.svg</file>
-        <file>images/frame_s.png</file>
-        <file>images/frame_n.png</file>
+        <file>images/radio-button-disable-off.svg</file>
+        <file>images/radio-button-disable-on.svg</file>
+        <file>images/radio-button-off.svg</file>
+        <file>images/radio-button-on.svg</file>
         <file>images/container-file-protect.png</file>
         <file>images/arrow_s.png</file>
-        <file>images/marquee_checked.png</file>
-        <file>images/marquee_default.png</file>
         <file>images/cmd_operation.png</file>
         <file>images/container-graphic.png</file>
         <file>images/qrcode.png</file>
-        <file>images/marquee_disable-default.png</file>
-        <file>images/marquee_disable-checked.png</file>
         <file>images/btn-delete-normal.png</file>
         <file>images/kylin-logo.svg</file>
         <file>images/success.svg</file>
