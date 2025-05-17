@@ -133,6 +133,10 @@ void IPCPage::createIPCFinished(const QString objId, const QPair<grpc::Status, i
     {
         KLOG_WARNING() << "Failed to create node:" << m_nodeID << "ipc:" << reply.first.error_message().data();
         return;
+    }else{
+        KLOG_DEBUG() << "Succeed to create node:" << m_nodeID << "ipc:" << reply.first.error_message().data();
+        m_createDialog->close();
+        m_createDialog = nullptr;
     }
 
     updateInfo();
