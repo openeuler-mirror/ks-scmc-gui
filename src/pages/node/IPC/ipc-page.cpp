@@ -17,6 +17,7 @@
 #include <QPushButton>
 
 #include "ui_ipc-page.h"
+#include "message-dialog.h"
 
 IPCPage::IPCPage(QWidget *parent) : Page(parent),
                                     ui(new Ui::IPCPage),
