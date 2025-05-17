@@ -144,6 +144,7 @@ void IPCPage::createIPCFinished(const QString objId, const QPair<grpc::Status, i
 
 void IPCPage::removeIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcRemoveReply> &reply)
 {
+    KLOG_DEBUG() << "removeIPCFinished objId:"<<objId<<" m_objId:"<<m_objId;
     if (m_objId != objId)
         return;
 
