@@ -9,6 +9,7 @@
 
 #include <QComboBox>
 #include <QWidget>
+#include "base/interface/ipc.h"
 
 class IPCTab : public QWidget
 {
