@@ -170,8 +170,15 @@ void IPCPage::createIPCFinished(const QString objId, const QPair<grpc::Status, i
     if (!reply.first.ok())
     {
         KLOG_WARNING() << "Failed to create node:" << m_nodeID << "ipc:" << reply.first.error_message().data();
+        MessageDialog::message(tr("Create IPC"),
+                               tr("Failed to create IPC"),
+                               reply.first.error_message().data(),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
         return;
-    }else{
+    }
+    else
+    {
         KLOG_DEBUG() << "Succeed to create node:" << m_nodeID << "ipc:" << reply.first.error_message().data();
         m_createDialog->close();
         m_createDialog = nullptr;
