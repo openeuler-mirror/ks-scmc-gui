@@ -1510,10 +1510,6 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <source>Failed to save the configuration</source>
-        <translation type="vanished">保存网络配置失败</translation>
-    </message>
-    <message>
         <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="58"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
