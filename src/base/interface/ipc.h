@@ -28,6 +28,7 @@ public:
     static QString generateId(QObject *callObj);
 
     void listIPC(const QString objId, qint64 nodeID);
+    QPair<grpc::Status, ipcbase::IpcListReply> syncListIPC(qint64 nodeID);
     void createIPC(const QString objId, qint64 nodeID, const std::string &ipcName);
     void removeIPC(const QString objId, qint64 nodeID, const std::vector<std::string> &ipcNames);
 
