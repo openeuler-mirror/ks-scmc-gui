@@ -2194,17 +2194,6 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
-    <name>IpcDelegate</name>
-    <message>
-        <source>Edit</source>
-        <translation type="vanished">编辑</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="vanished">删除</translation>
-    </message>
-</context>
-<context>
     <name>IpcModel</name>
     <message>
         <location filename="../src/pages/node/IPC/table-widgets/ipc-table.cpp" line="184"/>
