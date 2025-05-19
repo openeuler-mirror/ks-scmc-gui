@@ -17,12 +17,17 @@ class IPCTab : public QWidget
 public:
     explicit IPCTab(QWidget *parent = nullptr);
 
-    void setIPC();
-    int getIPC();
+    void update(qint64 nodeID);
+
+    QString getIPC();
+    void setIPC(qint64 nodeID, QString ipc);
 
 private:
     void initUI();
+    void handleIPCList(const QPair<grpc::Status, ipcbase::IpcListReply> &);
 
 private:
     QComboBox *m_combobox;
+    qint64 m_nodeID;
+    QString m_currentIPC;
 };
