@@ -2212,22 +2212,6 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
-    <name>IpcTable</name>
-    <message>
-        <source>Remove User</source>
-        <translation type="vanished">删除用户</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove 
-%1 ?</source>
-        <translation type="obsolete">确定删除用户%1？</translation>
-    </message>
-    <message>
-        <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
-        <translation type="obsolete">该操作不可恢复，确定要继续操作？</translation>
-    </message>
-</context>
-<context>
     <name>LicenseActivation</name>
     <message>
         <location filename="../src/license/license-activation.ui" line="26"/>
