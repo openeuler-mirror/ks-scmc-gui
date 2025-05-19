@@ -15,9 +15,10 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "common/message-dialog.h"
 
-#include "ui_ipc-page.h"
 #include "message-dialog.h"
+#include "ui_ipc-page.h"
 
 IPCPage::IPCPage(QWidget *parent) : Page(parent),
                                     ui(new Ui::IPCPage),
