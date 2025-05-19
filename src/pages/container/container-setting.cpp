@@ -617,6 +617,10 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
+    // ipc
+    auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
+    cntrCfg->set_ipcname(ipcPage->getIPC().toStdString());
+
     auto limit = cntrCfg->mutable_resouce_limit();
 
     // cpu
