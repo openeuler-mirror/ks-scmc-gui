@@ -391,7 +391,7 @@ bool UserModel::isSystemUser(const QString &role) const
 
 UserTable::UserTable(QWidget *parent)
 {
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setMouseTracking(true);
 
     // 设置Model
