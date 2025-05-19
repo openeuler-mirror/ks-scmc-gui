@@ -33,16 +33,13 @@ IPCPage::IPCPage(QWidget *parent) : Page(parent),
 
 void IPCPage::updateInfo(QString keyword)
 {
-    // TODO:待后台代码完善即可调用
     KLOG_DEBUG() << "updateInfo : m_nodeID" << m_nodeID;
-    if(m_nodeID != -1)
-        IPC::getInstance().listIPC(m_objId,m_nodeID);
-
+    if (m_nodeID != -1)
+        IPC::getInstance().listIPC(m_objId, m_nodeID);
 }
 
 void IPCPage::setNodeID(qint64 nodeID)
 {
-   
     m_nodeID = nodeID;
     KLOG_DEBUG() << "setNodeID: m_nodeID" << m_nodeID;
 }
