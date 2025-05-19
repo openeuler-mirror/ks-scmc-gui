@@ -1716,28 +1716,19 @@ The first characters must be letter or digit</source>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
-    <message>
-        <source>IPC</source>
-        <translation type="vanished">IPC基准</translation>
-    </message>
-    <message>
-        <source>Container</source>
-        <translation type="vanished">容器</translation>
-    </message>
-    <message>
-        <source>Create Time</source>
-        <translation type="vanished">创建时间</translation>
-    </message>
 </context>
 <context>
     <name>IPCTab</name>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="36"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="89"/>
         <source>IPC</source>
         <translation>IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="39"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="35"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="41"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="65"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="92"/>
         <source>None</source>
         <translation>无</translation>
     </message>
