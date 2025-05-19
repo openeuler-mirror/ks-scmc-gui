@@ -246,7 +246,7 @@ void IpcModel::updateRecord(QList<IpcInfo> icpInfos)
 
 IpcTable::IpcTable(QWidget *parent)
 {
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setMouseTracking(true);
 
     // 设置Model
