@@ -4426,19 +4426,19 @@ Instruction</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="64"/>
-        <source>Ip Address</source>
-        <translation>IP地址</translation>
-    </message>
-    <message>
         <location filename="../src/pages/system/server-config-dialog.cpp" line="67"/>
         <source>Please input server ip address</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="64"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Ip Address</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;IP 地址</translation>
+    </message>
+    <message>
         <location filename="../src/pages/system/server-config-dialog.cpp" line="79"/>
-        <source>Port</source>
-        <translation>端口</translation>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Port</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;端口</translation>
     </message>
     <message>
         <location filename="../src/pages/system/server-config-dialog.cpp" line="82"/>
