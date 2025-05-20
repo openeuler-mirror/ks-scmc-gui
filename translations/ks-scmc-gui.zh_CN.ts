@@ -1188,12 +1188,6 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="94"/>
-        <location filename="../build/src/ui_container-setting.h" line="303"/>
-        <source>Name:</source>
-        <translation>名称：</translation>
-    </message>
-    <message>
         <location filename="../src/pages/container/container-setting.ui" line="150"/>
         <location filename="../build/src/ui_container-setting.h" line="307"/>
         <source>Node:</source>
