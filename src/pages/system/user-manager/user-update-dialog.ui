@@ -287,7 +287,7 @@
           <number>5</number>
          </property>
          <item row="3" column="1">
-          <widget class="QLabel" name="tip_confirm_new_pw">
+          <widget class="QLabel" name="tip_new_pw">
            <property name="text">
             <string/>
            </property>
