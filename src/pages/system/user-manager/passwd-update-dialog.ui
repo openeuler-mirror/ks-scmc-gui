@@ -101,7 +101,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>New Password:</string>
+        <string>&lt;font color=red&gt;*&lt;/font&gt;New Password:</string>
        </property>
       </widget>
      </item>
