@@ -61,9 +61,17 @@ void NetworkListPage::onCreateVirtIfs()
 
 void NetworkListPage::onRemoveVirtIfs()
 {
-    auto itemInfo = getCheckedItemInfo(1).at(0);
-    QString name = itemInfo[NAME].toString();
-    Network::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
+    auto ret = MessageDialog::message(tr("Delete virt interface"),
+                                      tr("Are you sure to delete the virt interface?"),
+                                      tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                      ":/images/warning.svg",
+                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+    if (ret == MessageDialog::StandardButton::Yes)
+    {
+        auto itemInfo = getCheckedItemInfo(1).at(0);
+        QString name = itemInfo[NAME].toString();
+        Network::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
+    }
 }
 
 void NetworkListPage::removeVirtIfs(int row)
