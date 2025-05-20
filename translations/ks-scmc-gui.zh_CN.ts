@@ -4893,14 +4893,8 @@ Instruction</source>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="363"/>
         <location filename="../build/src/ui_user-update-dialog.h" line="345"/>
-        <source>New Password</source>
-        <translation>新密码</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="438"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="347"/>
-        <source>Confirm Password</source>
-        <translation>确认密码</translation>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;New Password</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;新密码</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="520"/>
