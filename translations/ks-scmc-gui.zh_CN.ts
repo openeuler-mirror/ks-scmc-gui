@@ -1200,6 +1200,12 @@ The first characters must be letter or digit</source>
         <translation>镜像：</translation>
     </message>
     <message>
+        <location filename="../src/pages/container/container-setting.ui" line="94"/>
+        <location filename="../build/src/ui_container-setting.h" line="303"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Name:</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;名字：</translation>
+    </message>
+    <message>
         <location filename="../src/pages/container/container-setting.ui" line="157"/>
         <location filename="../build/src/ui_container-setting.h" line="308"/>
         <source>Describe:</source>
