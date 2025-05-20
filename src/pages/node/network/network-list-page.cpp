@@ -296,7 +296,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     gridLayout->setMargin(0);
     gridLayout->setSpacing(10);
 
-    QLabel *labName = new QLabel(QString("%1<font color=red>*</font>").arg(tr("Name:")), content);
+    QLabel *labName = new QLabel(QString("<font color=red>*</font>%1").arg(tr("Name:")), content);
     QLineEdit *lineEditName = new QLineEdit(content);
     lineEditName->setMaxLength(50);
     lineEditName->setFixedHeight(36);
