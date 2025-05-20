@@ -2233,6 +2233,10 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="144"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Activation code</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;激活码</translation>
+    </message>
+    <message>
         <location filename="../build/src/ui_license-activation.h" line="171"/>
         <source>Activation code</source>
         <translation>激活码</translation>
