@@ -61,19 +61,20 @@ void IPCPage::deleteIPC()
 
     for (auto item : list)
     {
+        if (!item.selected)
+            continue;
+
         if (!item.containers.isEmpty())
         {
             KLOG_WARNING() << "The ipc:" << item.ipcName << "has containers, can't delete";
             hasContainer = true;
             break;
         }
-        if (item.selected)
-        {
-            ipcNames.push_back(item.ipcName.toStdString());
-            KLOG_DEBUG() << "deleteIPC:"
-                            "ipc name:"
-                         << item.ipcName << "m_nodeID" << m_nodeID;
-        }
+
+        ipcNames.push_back(item.ipcName.toStdString());
+        KLOG_DEBUG() << "deleteIPC:"
+                        "ipc name:"
+                     << item.ipcName << "m_nodeID" << m_nodeID;
     }
 
     // ipc已存在容器，无法删除
