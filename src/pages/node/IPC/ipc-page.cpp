@@ -357,3 +357,15 @@ void IPCPage::initConnect()
     connect(&IPC::getInstance(), &IPC::createIPCFinished, this, &IPCPage::createIPCFinished);
     connect(&IPC::getInstance(), &IPC::removeIPCFinished, this, &IPCPage::removeIPCFinished);
 }
+
+void IPCPage::updateDeleteBtnState(Qt::CheckState checkState)
+{
+    if (Qt::Unchecked == checkState)
+    {
+        ui->btn_delete->setEnabled(false);
+    }
+    else
+    {
+        ui->btn_delete->setEnabled(true);
+    }
+}
