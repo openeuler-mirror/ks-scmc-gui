@@ -1630,71 +1630,71 @@ The first characters must be letter or digit</source>
 <context>
     <name>IPCPage</name>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="173"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="252"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="174"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="254"/>
         <source>Create IPC</source>
         <translation>创建IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="266"/>
-        <source>IPC Name</source>
-        <translation>IPC基准名称</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="82"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="97"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="198"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="83"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="98"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="199"/>
         <source>Delete IPC</source>
         <translation>删除IPC</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="83"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="84"/>
         <source>The ipc has containers, can&apos;t delete</source>
         <translation>IPC已被容器使用，无法删除。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="98"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="99"/>
         <source>Are you sure you want to delete these IPC?</source>
         <translation>确定删除这些IPC？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="99"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="100"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="117"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="118"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="174"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="175"/>
         <source>Failed to create IPC</source>
         <translation>创建IPC失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="199"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="200"/>
         <source>Failed to delete IPC</source>
         <translation>删除IPC失败</translation>
     </message>
     <message>
         <location filename="../src/pages/node/IPC/ipc-page.cpp" line="268"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;IPC Name</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;IPC 名称</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="270"/>
         <source>Please input 2 to 40 characters</source>
         <translation>请输入2 - 40个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="274"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="276"/>
         <source>Only letter, digit or ._- three special characters;
 The first characters must be letter or digit</source>
         <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="284"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="286"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="286"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="288"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
