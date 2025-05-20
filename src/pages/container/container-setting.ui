@@ -91,7 +91,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Name:</string>
+            <string>&lt;font color=red&gt;*&lt;/font&gt;Name:</string>
            </property>
           </widget>
          </item>
