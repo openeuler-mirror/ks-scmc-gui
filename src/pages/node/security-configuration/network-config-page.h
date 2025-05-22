@@ -63,4 +63,5 @@ private:
     bool m_accessCtrlEnabled;
     bool m_whiteListEnabled;
     QList<int> m_defaultPorts;
+    QMap<int, bool> m_btnMap;
 };
