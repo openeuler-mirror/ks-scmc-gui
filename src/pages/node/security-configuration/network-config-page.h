@@ -38,7 +38,7 @@ public:
 
 private slots:
     void save();
-    void setConfigEnabled(QAbstractButton *btn);
+    void setConfigEnabled(int id);
 
     // 网络安全配置
     void getNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::GetNetworkRuleReply> &);
