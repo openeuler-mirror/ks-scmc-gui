@@ -164,7 +164,6 @@ void NetworkConfigPage::getNetworkProcessWhiteListFinished(const QString objId, 
     auto nprocProtection = reply.second.nproc_protection();
     auto isOn = nprocProtection.is_on();
     auto btn = isOn ? ui->btn_whitelist_open : ui->btn_whitelist_close;
-    btn->setChecked(true);
 
     QStringList infos;
     for (auto rule : nprocProtection.exe_list())
