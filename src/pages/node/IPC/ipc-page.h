@@ -24,6 +24,7 @@ class IPCPage : public Page
     Q_OBJECT
 public:
     explicit IPCPage(QWidget *parent = nullptr);
+    ~IPCPage();
     void updateInfo(QString keyword = "") override;
 
     void setNodeID(qint64 nodeID);
