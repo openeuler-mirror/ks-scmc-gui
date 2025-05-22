@@ -116,8 +116,10 @@ void NetworkConfigPage::getNetworkRuleFinished(const QString objId, const QPair<
         KLOG_DEBUG() << "Get node:" << m_nodeID << "network rule from backend: "
                      << "enable:" << isOn << "rule:" << protocols << addr << port;
     }
+
+    // 更新界面
     m_accessList->setNeteworkInfos(infos);
-    setConfigEnabled(btn);
+    btn->click();
 }
 
 void NetworkConfigPage::updateNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkRuleReply>& reply)
