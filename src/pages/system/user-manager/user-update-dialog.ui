@@ -147,13 +147,13 @@
           <widget class="QLineEdit" name="lineEdit_pw">
            <property name="minimumSize">
             <size>
-             <width>400</width>
+             <width>500</width>
              <height>36</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>400</width>
+             <width>500</width>
              <height>36</height>
             </size>
            </property>
