@@ -215,16 +215,23 @@ void NetworkConfigPage::initUI()
     ui->layout_process->addWidget(m_processList);
 
     auto accessBtnGroup = new QButtonGroup(this);
-    accessBtnGroup->addButton(ui->btn_access_close);
-    accessBtnGroup->addButton(ui->btn_access_open);
+    accessBtnGroup->addButton(ui->btn_access_close, BUTTON_TYPE_ACCESS_CLOSE);
+    accessBtnGroup->addButton(ui->btn_access_open, BUTTON_TYPE_ACCESS_OPEN);
 
     auto whiteListBtnGroup = new QButtonGroup(this);
-    whiteListBtnGroup->addButton(ui->btn_whitelist_open);
-    whiteListBtnGroup->addButton(ui->btn_whitelist_close);
+    whiteListBtnGroup->addButton(ui->btn_whitelist_open, BUTTON_TYPE_WHITE_LIST_OPEN);
+    whiteListBtnGroup->addButton(ui->btn_whitelist_close, BUTTON_TYPE_WHITE_LIST_CLOSE);
+
+    m_btnMap = {
+        {BUTTON_TYPE_ACCESS_OPEN, true},
+        {BUTTON_TYPE_ACCESS_CLOSE, false},
+        {BUTTON_TYPE_WHITE_LIST_OPEN, true},
+        {BUTTON_TYPE_WHITE_LIST_CLOSE, false},
+    };
 
     connect(ui->btn_save, &QPushButton::clicked, this, &NetworkConfigPage::save);
-    connect(accessBtnGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &NetworkConfigPage::setConfigEnabled);
-    connect(whiteListBtnGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &NetworkConfigPage::setConfigEnabled);
+    connect(accessBtnGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), this, &NetworkConfigPage::setConfigEnabled);
+    connect(whiteListBtnGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), this, &NetworkConfigPage::setConfigEnabled);
 
     ui->btn_access_close->click();
     ui->btn_whitelist_close->click();
