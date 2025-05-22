@@ -28,6 +28,11 @@ NetworkConfigPage::NetworkConfigPage(QWidget* parent) : Page(parent),
     initConnect();
 }
 
+NetworkConfigPage::~NetworkConfigPage()
+{
+    delete ui;
+}
+
 void NetworkConfigPage::updateInfo(QString keyword)
 {
     m_accessList->clearItems();
