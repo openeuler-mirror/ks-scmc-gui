@@ -274,12 +274,18 @@
          <property name="verticalSpacing">
           <number>5</number>
          </property>
-         <item row="3" column="1">
-          <widget class="QLabel" name="tip_new_pw">
-           <property name="text">
-            <string/>
+         <item row="4" column="4">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-          </widget>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_2">
