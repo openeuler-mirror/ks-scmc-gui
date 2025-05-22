@@ -33,6 +33,7 @@ class NetworkConfigPage : public Page
 
 public:
     explicit NetworkConfigPage(QWidget *parent = nullptr);
+    ~NetworkConfigPage();
     void updateInfo(QString keyword = "") override;
     void setNodeId(qint64 nodeID);
 
