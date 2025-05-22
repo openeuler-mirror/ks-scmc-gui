@@ -31,6 +31,11 @@ IPCPage::IPCPage(QWidget *parent) : Page(parent),
     initConnect();
 }
 
+IPCPage::~IPCPage()
+{
+    delete ui;
+}
+
 void IPCPage::updateInfo(QString keyword)
 {
     KLOG_DEBUG() << "updateInfo : m_nodeID" << m_nodeID;
