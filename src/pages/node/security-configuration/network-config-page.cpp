@@ -42,39 +42,23 @@ void NetworkConfigPage::setNodeId(qint64 nodeID)
     getDefaultPorts();
 }
 
-void NetworkConfigPage::setConfigEnabled(QAbstractButton* btn)
+void NetworkConfigPage::setConfigEnabled(int id)
 {
-    auto radioBtn = qobject_cast<QRadioButton*>(btn);
-    if (!radioBtn)
-        return;
+    auto isEnable = m_btnMap[id];
 
-    struct ButtonAction
+    switch (id)
     {
-        QRadioButton* button;
-        bool& enabledFlag;
-        bool isEnabled;
-    };
-
-    static const std::vector<ButtonAction> actions = {
-        {ui->btn_access_close, m_accessCtrlEnabled, false},
-        {ui->btn_access_open, m_accessCtrlEnabled, true},
-        {ui->btn_whitelist_close, m_whiteListEnabled, false},
-        {ui->btn_whitelist_open, m_whiteListEnabled, true}};
-
-    for (const auto& action : actions)
-    {
-        if (radioBtn != action.button)
-            continue;
-
-        if (radioBtn == ui->btn_access_close || radioBtn == ui->btn_access_open)
-        {
-            m_accessList->setItemsEnable(action.isEnabled);
-        }
-        else if (radioBtn == ui->btn_whitelist_close || radioBtn == ui->btn_whitelist_open)
-        {
-            m_processList->setItemsEnable(action.isEnabled);
-        }
-        action.enabledFlag = action.isEnabled;
+    case BUTTON_TYPE_ACCESS_OPEN:
+    case BUTTON_TYPE_ACCESS_CLOSE:
+        m_accessList->setItemsEnable(isEnable);
+        m_accessCtrlEnabled = isEnable;
+        break;
+    case BUTTON_TYPE_WHITE_LIST_OPEN:
+    case BUTTON_TYPE_WHITE_LIST_CLOSE:
+        m_processList->setItemsEnable(isEnable);
+        m_whiteListEnabled = isEnable;
+        break;
+    default:
         break;
     }
 }
