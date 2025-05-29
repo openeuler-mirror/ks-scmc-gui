@@ -72,8 +72,9 @@ void IPCPage::deleteIPC()
 
         if (!item.containers.isEmpty())
         {
-            KLOG_WARNING() << "The ipc:" << item.ipcName << "has containers, can't delete";
+            KLOG_WARNING() << "The ipc:" << item.ipcName << "is being used by the container.";
             hasContainer = true;
+            ipcHasContainer = item.ipcName;
             break;
         }
 
