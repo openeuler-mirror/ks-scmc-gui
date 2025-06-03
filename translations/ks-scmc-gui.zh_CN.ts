@@ -3174,63 +3174,63 @@ Instruction</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="359"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="363"/>
         <source>Please input complete infomation!</source>
         <translation>请输入完整信息！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="372"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="375"/>
         <source>Please input correct subnet!</source>
         <translation>请输入正确的网段！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="408"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="411"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="452"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="467"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="455"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="470"/>
         <source>Network interface</source>
         <translation>网卡名</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="454"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="457"/>
         <source>Mask</source>
         <translation>掩码</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="455"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="458"/>
         <source>Gateway</source>
         <translation>网关</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="457"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="460"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="468"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="471"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="469"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="472"/>
         <source>Real network interface</source>
         <translation>绑定物理网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="470"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="473"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="476"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="479"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="477"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="480"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
