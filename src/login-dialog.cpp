@@ -376,8 +376,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
     }
     else
     {
-        KLOG_WARNING() << "Login failed:" << reply.first.error_message().data();
-        ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
+        ui->lab_tips->setText(tr("Login failed: user name or password error."));
         ui->lab_tips->show();
         ui->lineEdit_passwd->clear();
     }

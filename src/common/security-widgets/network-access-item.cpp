@@ -76,8 +76,14 @@ void NetworkAccessItem::initUI()
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit_address->setPlaceholderText(tr("eg: 192.168.1.10 or 10.0.0.0/8"));
     ui->lineEdit_address->setTextMargins(10, 0, 0, 0);
-    QRegExp rx("^[0-9./]+$");
-    ui->lineEdit_address->setValidator(new QRegExpValidator(rx, this));
+    //  匹配 IP 地址和可选的子网掩码
+    QRegExp ipMaskRegex(
+        "^"
+        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
+        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+        "(?:(?:/(?:3[0-2]|[12][0-9]|[0-9]))?)"
+        "$");
+    ui->lineEdit_address->setValidator(new QRegExpValidator(ipMaskRegex, this));
     ui->lineEdit_address->setMaxLength(20);
 
     ui->lineEdit_port->setText(QString::number(0));
