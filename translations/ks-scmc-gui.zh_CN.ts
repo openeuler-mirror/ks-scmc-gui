@@ -3566,17 +3566,17 @@ Instruction</source>
         <translation>更新节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="82"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="87"/>
         <source>Add node</source>
         <translation>添加节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="83"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="88"/>
         <source>Add node failed!</source>
         <translation>添加节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="84"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="89"/>
         <source>Please improve the content!</source>
         <translation>请完善内容！</translation>
     </message>
