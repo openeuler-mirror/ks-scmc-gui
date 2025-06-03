@@ -246,55 +246,55 @@
         <translation>只读</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="173"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="174"/>
         <source>Please enter variable name</source>
         <translation>请输入变量名</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="175"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="176"/>
         <source>Please enter container path</source>
         <translation>请输入容器路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="176"/>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="186"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="177"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="187"/>
         <source>Save Data</source>
         <translation>保存数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="177"/>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="187"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="178"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="188"/>
         <source>Data is empty!</source>
         <translation>数据为空！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="185"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="186"/>
         <source>Please enter host path</source>
         <translation>请输入宿主机路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="218"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="219"/>
         <source>Modify Container</source>
         <translation>修改容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="219"/>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="262"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="220"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="263"/>
         <source>Confirm Continue?</source>
         <translation>确认继续?</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="220"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="221"/>
         <source>Container built-in configuration items, please modify with caution!</source>
         <translation>容器内置配置项，请谨慎修改！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="261"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="262"/>
         <source>Delete Container</source>
         <translation>删除容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="263"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="264"/>
         <source>Container built-in configuration items, please delete with caution!</source>
         <translation>容器内置配置项，请谨慎删除！</translation>
     </message>
