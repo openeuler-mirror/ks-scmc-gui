@@ -147,5 +147,5 @@ void SecurityLevelTab::initUI()
                 emit levelChanged(level);
             });
 
-    ui->cb_level->setCurrentText(m_securityLevelMap.value(LEVEL_NUM_4).first);  // 默认四级模板
+    ui->cb_level->setCurrentText(m_securityLevelMap.value(LEVEL_NUM_5).first);  // 默认五级模板
 }
