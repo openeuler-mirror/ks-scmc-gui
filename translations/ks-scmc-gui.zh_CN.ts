@@ -4433,32 +4433,32 @@ Instruction</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;IP 地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="79"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="84"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Port</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="82"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="87"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="91"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="96"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="94"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="99"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="116"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="121"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="117"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="122"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
