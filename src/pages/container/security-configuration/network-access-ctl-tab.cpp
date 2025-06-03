@@ -107,6 +107,11 @@ void NetworkAccessCtlTab::enforceNetworkAccessOpen(bool mustOpen)
     m_btnClose->setEnabled(!mustOpen);
 }
 
+void NetworkAccessCtlTab::closeNetworkAccess(bool isClose)
+{
+    m_btnClose->setChecked(isClose);
+}
+
 NetworkAccessItem *NetworkAccessCtlTab::createItem(int index)
 {
     QListWidgetItem *newItem = nullptr;
