@@ -36,6 +36,11 @@ static std::string s_authKey = "";
         delete watcher; });
 
 #define RPC_IMPL(REPLY_TYPE, STUB, RPC_NAME)                                                \
+    /*注册任务*/                                                                        \
+    const QString rpcId = __func__ + QUuid::createUuid().toString();                        \
+    QSharedPointer<grpc::ClientContext> context(new grpc::ClientContext());                 \
+    TaskManager::instance().registerTask(rpcId, context);                                   \
+                                                                                            \
     QPair<grpc::Status, REPLY_TYPE> r;                                                      \
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());                        \
     if (!chan)                                                                              \
