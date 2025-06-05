@@ -715,6 +715,10 @@ void ContainerSetting::createContainer()
     /* 去掉名称的前后空格 */
     QString contName = ui->lineEdit_name->text().trimmed();
     cntrCfg->set_name(contName.toStdString());
+
+    QString hostName = ui->lineEdit_host_name->text().trimmed();
+    cntrCfg->set_hostname(hostName.toStdString());
+
     // cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
     // cntrCfg->set_status("");
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
