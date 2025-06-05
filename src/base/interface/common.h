@@ -64,6 +64,9 @@ static std::string s_authKey = "";
         r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,                         \
                                QObject::tr("Response timeout").toStdString());              \
     }                                                                                       \
+                                                                                            \
+    /*注销任务*/                                                                        \
+    TaskManager::instance().unregisterTask(rpcId);                                          \
     return r;
 
 enum ErrCode
