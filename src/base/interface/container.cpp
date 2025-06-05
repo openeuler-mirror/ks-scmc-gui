@@ -418,21 +418,22 @@ QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBac
         KLOG_WARNING() << "Export backup failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
     container::ExportBackupReply reply;
-    grpc::ClientContext context;
     if (Common::getInstance().getAuthKey().size() > 0)
-        context.AddMetadata("authorization", Common::getInstance().getAuthKey());
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());
 
-    auto stream = container::Container::NewStub(chan)->ExportBackup(&context, req);
+    auto stream = container::Container::NewStub(chan)->ExportBackup(context.data(), req);
     // Read流数据会耗时一会
     bool ret = stream->Read(&reply);
     if (!ret)
     {
         KLOG_WARNING() << "Recv backup param err";
         r.first = stream->Finish();
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
