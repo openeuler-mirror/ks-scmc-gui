@@ -2469,13 +2469,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="150"/>
-        <location filename="../src/login-dialog.cpp" line="250"/>
+        <location filename="../src/login-dialog.cpp" line="247"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="150"/>
-        <location filename="../src/login-dialog.cpp" line="257"/>
+        <location filename="../src/login-dialog.cpp" line="254"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
