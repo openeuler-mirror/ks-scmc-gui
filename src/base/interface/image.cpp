@@ -10,6 +10,7 @@
 #include "common.h"
 
 #include <QMutexLocker>
+#include <QSharedPointer>
 #include <QUuid>
 
 const int CHUNK_SIZE = 16 * 1024;
