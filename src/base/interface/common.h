@@ -48,14 +48,15 @@ static std::string s_authKey = "";
         KLOG_WARNING("%s %s failed to get connection", #STUB, #RPC_NAME);                   \
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,                                   \
                                QObject::tr("Network Error").toStdString());                 \
+        /*注销任务*/                                                                    \
+        TaskManager::instance().unregisterTask(rpcId);                                      \
         return r;                                                                           \
     }                                                                                       \
-    grpc::ClientContext ctx;                                                                \
     auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE); \
-    ctx.set_deadline(deadline);                                                             \
+    context->set_deadline(deadline);                                                        \
     if (Common::getInstance().getAuthKey().size() > 0)                                      \
-        ctx.AddMetadata("authorization", Common::getInstance().getAuthKey());               \
-    r.first = STUB(chan)->RPC_NAME(&ctx, req, &r.second);                                   \
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());          \
+    r.first = STUB(chan)->RPC_NAME(context.data(), req, &r.second);                         \
     if (grpc::StatusCode(ErrUnauthenticated) == r.first.error_code())                       \
         emit Common::getInstance().sessionExpire();                                         \
     else if (grpc::StatusCode::DEADLINE_EXCEEDED == r.first.error_code())                   \
