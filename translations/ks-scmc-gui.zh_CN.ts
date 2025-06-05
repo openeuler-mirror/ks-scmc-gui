@@ -2490,18 +2490,6 @@ The first characters must be letter or digit</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <source>Quit Application</source>
-        <translation type="vanished">退出程序</translation>
-    </message>
-    <message>
-        <source>There are tasks that have not finished!</source>
-        <translation type="vanished">存在正在运行的任务！</translation>
-    </message>
-    <message>
-        <source>Please wait for the tasks to end before closing!</source>
-        <translation type="vanished">请等待任务执行完成后退出！</translation>
-    </message>
-    <message>
         <location filename="../src/login-dialog.cpp" line="129"/>
         <source>Unactivated</source>
         <translation>未激活</translation>
