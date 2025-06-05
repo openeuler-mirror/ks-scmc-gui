@@ -284,6 +284,7 @@ void ContainerSetting::initSummaryUI()
     ui->cb_template->hide();
     ui->lineEdit_describe->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_name->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_host_name->setTextMargins(10, 0, 0, 0);
     switch (m_type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
