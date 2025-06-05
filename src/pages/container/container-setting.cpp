@@ -177,6 +177,8 @@ void ContainerSetting::initUI()
 
     ui->lineEdit_name->setMaxLength(50);
     ui->lineEdit_name->setPlaceholderText(tr("Please input 2 to 50 characters"));
+    ui->lineEdit_host_name->setMaxLength(50);
+    ui->lineEdit_host_name->setPlaceholderText(tr("Please input 0 to 50 characters"));
     ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
     ui->btn_tip_name->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
     ui->lineEdit_describe->setMaxLength(200);
