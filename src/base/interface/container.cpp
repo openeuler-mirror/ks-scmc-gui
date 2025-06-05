@@ -474,6 +474,7 @@ QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBac
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Failed to open %1").arg(filePath).toStdString());
         Container::getInstance().m_exportList.removeAll(exportName);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
