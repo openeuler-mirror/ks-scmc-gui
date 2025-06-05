@@ -404,6 +404,11 @@ QPair<grpc::Status, container::RemoveBackupReply> Container::_removeBackup(const
 
 QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBackupRequest &req, const QString path)
 {
+    /*注册任务*/
+    const QString rpcId = __func__ + QUuid::createUuid().toString();
+    QSharedPointer<grpc::ClientContext> context(new grpc::ClientContext());
+    TaskManager::instance().registerTask(rpcId, context);
+
     QPair<grpc::Status, QString> r;
     bool isDownload = req.is_download();
 
