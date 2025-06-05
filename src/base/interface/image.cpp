@@ -438,6 +438,7 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
             imgFile.close();
             r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("The transmission was cancelled.").toStdString());
             emit Common::getInstance().transferImageFinished(name, version);
+            TaskManager::instance().unregisterTask(rpcId);
             return r;
         }
 
