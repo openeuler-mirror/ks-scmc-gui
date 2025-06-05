@@ -1137,6 +1137,11 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     // 名字
     showLongText(ui->lineEdit_name, info.name().data());
     KLOG_DEBUG() << "Container name:" << info.name().data();
+
+    // 主机名
+    showLongText(ui->lineEdit_host_name, info.hostname().data());
+    KLOG_DEBUG() << "Container hostname:" << info.hostname().data();
+
     // 描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
     {
