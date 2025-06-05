@@ -145,6 +145,7 @@ QPair<grpc::Status, user::LogoutReply> User::_logout(const user::LogoutRequest &
         r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
                                QObject::tr("Response timeout").toStdString());
     }
+    TaskManager::instance().unregisterTask(rpcId);
     return r;
 }
 
