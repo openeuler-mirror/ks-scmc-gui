@@ -114,13 +114,13 @@ QPair<grpc::Status, image::UploadReply> Image::_uploadImage(image::UploadRequest
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit Common::getInstance().transferImageFinished(name, version);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
     // 检测用户认证
-    grpc::ClientContext context;
     if (Common::getInstance().getAuthKey().size() > 0)
-        context.AddMetadata("authorization", Common::getInstance().getAuthKey());
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());
 
     // 检测镜像文件
     QFile imgFile(imageFile);
