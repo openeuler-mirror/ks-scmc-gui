@@ -509,6 +509,7 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
 
     emit Common::getInstance().transferImageStatus(status, name, version, progress);
     emit Common::getInstance().transferImageFinished(name, version);
+    TaskManager::instance().unregisterTask(rpcId);
     return r;
 }
 
