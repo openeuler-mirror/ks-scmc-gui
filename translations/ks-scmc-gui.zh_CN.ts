@@ -2457,115 +2457,112 @@ The first characters must be letter or digit</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="271"/>
+        <location filename="../src/login-dialog.cpp" line="150"/>
+        <location filename="../src/login-dialog.cpp" line="250"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="278"/>
+        <location filename="../src/login-dialog.cpp" line="150"/>
+        <location filename="../src/login-dialog.cpp" line="257"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="217"/>
+        <location filename="../src/login-dialog.cpp" line="196"/>
         <source>Please input password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="197"/>
+        <location filename="../src/login-dialog.cpp" line="176"/>
         <source>Please input user name</source>
         <translation>请输入用户名</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="105"/>
         <source>Quit Application</source>
-        <translation>退出程序</translation>
+        <translation type="vanished">退出程序</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="106"/>
         <source>There are tasks that have not finished!</source>
-        <translation>存在正在运行的任务！</translation>
+        <translation type="vanished">存在正在运行的任务！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="107"/>
         <source>Please wait for the tasks to end before closing!</source>
-        <translation>请等待任务执行完成后退出！</translation>
+        <translation type="vanished">请等待任务执行完成后退出！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="150"/>
+        <location filename="../src/login-dialog.cpp" line="129"/>
         <source>Unactivated</source>
         <translation>未激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="276"/>
+        <location filename="../src/login-dialog.cpp" line="150"/>
+        <location filename="../src/login-dialog.cpp" line="255"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="382"/>
+        <location filename="../src/login-dialog.cpp" line="361"/>
         <source>Login failed: user name or password error.</source>
         <translation>登录失败：用户名或密码错误。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="407"/>
+        <location filename="../src/login-dialog.cpp" line="386"/>
         <source>Session Expired,Please login again!</source>
         <translation>会话过期，请重新登录！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="242"/>
+        <location filename="../src/login-dialog.cpp" line="221"/>
         <source>Please input user name!</source>
         <translation>请输入用户名！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="124"/>
+        <location filename="../src/login-dialog.cpp" line="103"/>
         <source>KylinSec Security Container System V1</source>
         <translation>麒麟信安安全容器系统V1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="248"/>
+        <location filename="../src/login-dialog.cpp" line="227"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="254"/>
+        <location filename="../src/login-dialog.cpp" line="233"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="261"/>
+        <location filename="../src/login-dialog.cpp" line="240"/>
         <source>Please config a server address!</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="322"/>
+        <location filename="../src/login-dialog.cpp" line="301"/>
         <source>Activation</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="323"/>
+        <location filename="../src/login-dialog.cpp" line="302"/>
         <source>The application is not activated and unable to login. Please activate it.</source>
         <translation>应用暂未激活，无法登录！请先激活。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="358"/>
+        <location filename="../src/login-dialog.cpp" line="337"/>
         <source>Login failed: there is no %1 user role</source>
         <translation>登录失败：没有%1用户角色</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="418"/>
+        <location filename="../src/login-dialog.cpp" line="397"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="419"/>
+        <location filename="../src/login-dialog.cpp" line="398"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="420"/>
+        <location filename="../src/login-dialog.cpp" line="399"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
