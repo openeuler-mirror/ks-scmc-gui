@@ -164,13 +164,14 @@ QPair<grpc::Status, image::UploadReply> Image::_uploadImage(image::UploadRequest
             emit Common::getInstance().transferImageFinished(name, version);
             sigFile.close();
             imgFile.close();
+            TaskManager::instance().unregisterTask(rpcId);
             return r;
         }
         sigFile.close();
         req.mutable_sign()->set_chunk_data(signContent.data(), signContent.size());
     }
 
-    auto stream = image::Image::NewStub(chan)->Upload(&context, &r.second);
+    auto stream = image::Image::NewStub(chan)->Upload(context.data(), &r.second);
     if (!stream->Write(req))
     {
         KLOG_WARNING() << "Send image param err";
