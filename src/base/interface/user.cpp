@@ -128,14 +128,15 @@ QPair<grpc::Status, user::LogoutReply> User::_logout(const user::LogoutRequest &
         KLOG_WARNING("user::User::NewStub Logout failed to get connection");
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
-    grpc::ClientContext ctx;
+
     auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE);
-    ctx.set_deadline(deadline);
+    context->set_deadline(deadline);
     if (Common::getInstance().getAuthKey().size() > 0)
-        ctx.AddMetadata("authorization", Common::getInstance().getAuthKey());
-    r.first = user::User::NewStub(chan)->Logout(&ctx, req, &r.second);
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());
+    r.first = user::User::NewStub(chan)->Logout(context.data(), req, &r.second);
     if (r.first.ok())
         // s_authKey = "";
         Common::getInstance().setAuthKey("");
