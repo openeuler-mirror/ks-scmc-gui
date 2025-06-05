@@ -460,6 +460,7 @@ QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBac
     if (Container::getInstance().m_exportList.contains(exportName))
     {
         r.first = grpc::Status(grpc::StatusCode::ALREADY_EXISTS, tr("The %1 backup is exporting,please wait a minute.").arg(exportName).toStdString());
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
     else
