@@ -1183,130 +1183,136 @@ The first characters must be letter or digit</source>
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
-        <location filename="../build/src/ui_container-setting.h" line="302"/>
+        <location filename="../build/src/ui_container-setting.h" line="316"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="150"/>
-        <location filename="../build/src/ui_container-setting.h" line="307"/>
+        <location filename="../src/pages/container/container-setting.ui" line="215"/>
+        <location filename="../build/src/ui_container-setting.h" line="324"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="101"/>
-        <location filename="../build/src/ui_container-setting.h" line="304"/>
+        <location filename="../src/pages/container/container-setting.ui" line="166"/>
+        <location filename="../build/src/ui_container-setting.h" line="321"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="94"/>
-        <location filename="../build/src/ui_container-setting.h" line="303"/>
+        <location filename="../src/pages/container/container-setting.ui" line="62"/>
+        <location filename="../build/src/ui_container-setting.h" line="317"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Name:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;名字：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="157"/>
-        <location filename="../build/src/ui_container-setting.h" line="308"/>
+        <location filename="../src/pages/container/container-setting.ui" line="85"/>
+        <location filename="../build/src/ui_container-setting.h" line="318"/>
         <source>Describe:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="164"/>
-        <location filename="../build/src/ui_container-setting.h" line="309"/>
+        <location filename="../src/pages/container/container-setting.ui" line="208"/>
+        <location filename="../build/src/ui_container-setting.h" line="323"/>
         <source>Template name:</source>
         <translation>模板名：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="254"/>
-        <location filename="../build/src/ui_container-setting.h" line="312"/>
+        <location filename="../src/pages/container/container-setting.ui" line="222"/>
+        <location filename="../build/src/ui_container-setting.h" line="325"/>
+        <source>Host name:</source>
+        <translation>主机名：</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.ui" line="277"/>
+        <location filename="../build/src/ui_container-setting.h" line="327"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="342"/>
-        <location filename="../build/src/ui_container-setting.h" line="311"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="188"/>
+        <location filename="../src/pages/container/container-setting.ui" line="365"/>
+        <location filename="../build/src/ui_container-setting.h" line="326"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="190"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="353"/>
-        <location filename="../build/src/ui_container-setting.h" line="313"/>
+        <location filename="../src/pages/container/container-setting.ui" line="376"/>
+        <location filename="../build/src/ui_container-setting.h" line="328"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="394"/>
-        <location filename="../build/src/ui_container-setting.h" line="314"/>
+        <location filename="../src/pages/container/container-setting.ui" line="417"/>
+        <location filename="../build/src/ui_container-setting.h" line="329"/>
         <source>Security configuration</source>
         <translation>安全策略</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="471"/>
-        <location filename="../build/src/ui_container-setting.h" line="315"/>
+        <location filename="../src/pages/container/container-setting.ui" line="494"/>
+        <location filename="../build/src/ui_container-setting.h" line="330"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.ui" line="490"/>
-        <location filename="../build/src/ui_container-setting.h" line="316"/>
+        <location filename="../src/pages/container/container-setting.ui" line="513"/>
+        <location filename="../build/src/ui_container-setting.h" line="331"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="191"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="193"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="289"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1095"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="292"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1107"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="294"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1113"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1265"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="297"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1125"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1282"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="642"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="745"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="648"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="755"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="570"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="590"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="608"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="631"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="643"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="657"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="667"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="678"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="735"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="746"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="768"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="785"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="796"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="807"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="833"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="849"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="576"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="596"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="614"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="637"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="649"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="663"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="673"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="684"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="745"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="756"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="778"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="795"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="806"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="817"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="843"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="859"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="607"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="848"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="613"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="858"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="569"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="832"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="575"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="842"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
