@@ -96,27 +96,6 @@ void LoginDialog::keyPressEvent(QKeyEvent *event)
     }
 }
 
-bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
-{
-    if (obj == m_mainWindow && event->type() == QEvent::Close)
-    {
-        if (QThreadPool::globalInstance()->activeThreadCount())
-        {
-            MessageDialog::message(tr("Quit Application"),
-                                   tr("There are tasks that have not finished!"),
-                                   tr("Please wait for the tasks to end before closing!"),
-                                   ":/images/warning.svg",
-                                   MessageDialog::StandardButton::Ok);
-            event->ignore();
-            // qApp->quit();
-            // event->accept();
-            return true;
-        }
-        event->accept();
-    }
-    return false;
-}
-
 void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
