@@ -2581,57 +2581,57 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="199"/>
+        <location filename="../src/main-window.cpp" line="193"/>
         <source>Quit Application</source>
         <translation>退出程序</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="200"/>
+        <location filename="../src/main-window.cpp" line="194"/>
         <source>There are threads that have not finished!</source>
         <translation>存在正在运行的任务！</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="201"/>
+        <location filename="../src/main-window.cpp" line="195"/>
         <source>Do you want to close the application force?</source>
         <translation>是否要强制关闭应用程序？</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="227"/>
+        <location filename="../src/main-window.cpp" line="220"/>
         <source>KylinSec Security Container System V1</source>
         <translation>麒麟信安安全容器系统V1</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="233"/>
+        <location filename="../src/main-window.cpp" line="226"/>
         <source>Transmission</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="242"/>
+        <location filename="../src/main-window.cpp" line="235"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="251"/>
+        <location filename="../src/main-window.cpp" line="244"/>
         <source>Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="276"/>
+        <location filename="../src/main-window.cpp" line="269"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="277"/>
+        <location filename="../src/main-window.cpp" line="270"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="279"/>
+        <location filename="../src/main-window.cpp" line="272"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="280"/>
+        <location filename="../src/main-window.cpp" line="273"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
