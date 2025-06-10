@@ -112,6 +112,18 @@ void UserListPage::createUser()
     connect(m_createDialog, &UserUpdateDialog::checkPassed, this, [=]()
             {  
         // 调用后台接口创建用户
+        // 判断是否存在普通用户角色
+        if (!m_roles.contains(USER_ROLE_STDADM))
+        {
+            KLOG_WARNING() << "Failed to create user, can not find role:" << USER_ROLE_STDADM;
+            MessageDialog::message(tr("Create User"),
+                                   tr("Failed to create user"),
+                                   tr("There is no user role: %1").arg(USER_ROLE_STDADM),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Yes);
+            return;
+        }
+
         auto info = m_createDialog->getUserInfo();
 
         user::CreateUserRequest req;
