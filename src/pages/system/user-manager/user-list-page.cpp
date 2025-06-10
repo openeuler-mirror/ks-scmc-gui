@@ -176,6 +176,8 @@ void UserListPage::deleteUser(qint64 userID)
     std::vector<int64_t> ids;
     ids.push_back(userID);
 
+    KLOG_INFO() << "Remove user:"
+                << "ID:" << userID;
     User::getInstance().removeUser(m_objID, ids);
 }
 
