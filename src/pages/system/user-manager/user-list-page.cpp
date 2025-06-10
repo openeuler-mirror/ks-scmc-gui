@@ -334,8 +334,8 @@ void UserListPage::getListRoleFinished(const QString objId, const QPair<grpc::St
     {
         for (auto role : reply.second.roles())
         {
-            KLOG_DEBUG() << "Get role list. "
-                         << "role id:" << role.id() << "user login name:" << role.name().data();
+            KLOG_INFO() << "Get role list. "
+                        << "role id:" << role.id() << "role name:" << role.name().data();
             m_roles.insert(role.name().data(), role.id());
         }
     }
