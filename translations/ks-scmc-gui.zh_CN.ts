@@ -4259,44 +4259,45 @@ Instruction</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="67"/>
-        <source>Please input server ip address</source>
-        <translation>请输入服务器地址</translation>
-    </message>
-    <message>
         <location filename="../src/pages/system/server-config-dialog.cpp" line="64"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Ip Address</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;IP 地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="84"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="75"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Port</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="87"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="78"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="96"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="87"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="99"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="90"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="113"/>
         <location filename="../src/pages/system/server-config-dialog.cpp" line="121"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="122"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="114"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="122"/>
+        <source>Please input correct IP address!</source>
+        <translation>请输入正确的ip地址！</translation>
     </message>
 </context>
 <context>
