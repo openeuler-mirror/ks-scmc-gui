@@ -2799,14 +2799,14 @@ Instruction</source>
         <translation>网络地址</translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/network-access-item.ui" line="124"/>
+        <location filename="../src/common/security-widgets/network-access-item.ui" line="111"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/network-access-item.cpp" line="77"/>
-        <source>eg: 192.168.1.10 or 10.0.0.0/8</source>
-        <translation>例：192.168.1.10 或 10.0.0.0/8</translation>
+        <location filename="../src/common/security-widgets/network-access-item.cpp" line="102"/>
+        <source>Optional</source>
+        <translation>选填</translation>
     </message>
 </context>
 <context>
