@@ -394,7 +394,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                         req.set_parent(cbBindRealIfs->currentText().toStdString());
                     }
 
-                    req.set_subnet(lineEditSubnet->text().toStdString());
+                    req.set_subnet(ipMask.toStdString());
                     Network::getInstance().updateNic(m_objId, req);
                 }
                 window->close();
