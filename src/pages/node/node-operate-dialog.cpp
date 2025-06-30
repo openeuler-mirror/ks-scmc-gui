@@ -70,9 +70,9 @@ int64_t NodeOperateDialog::getNodeId()
 void NodeOperateDialog::onSave()
 {
     QString name = ui->lineEdit_node_name->text();
-    QString ip = ui->lineEdit_node_ip->text();
+    QString ip = ui->lineEdit_node_ip->getIpAddress();
     QString comment = ui->text_comment->toPlainText();
-    if (name.isEmpty() || ip.isEmpty())
+    if (name.isEmpty() || !ui->lineEdit_node_ip->isValidIp(ip))
     {
         MessageDialog::message(tr("Add node"),
                                tr("Add node failed!"),
