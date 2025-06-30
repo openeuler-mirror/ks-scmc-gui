@@ -4051,31 +4051,6 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>激活码</translation>
     </message>
     <message>
-        <location filename="../include/def.h" line="32"/>
-        <source>Level 1</source>
-        <translation>一级模板</translation>
-    </message>
-    <message>
-        <location filename="../include/def.h" line="33"/>
-        <source>Level 2</source>
-        <translation>二级模板</translation>
-    </message>
-    <message>
-        <location filename="../include/def.h" line="34"/>
-        <source>Level 3</source>
-        <translation>三级模板</translation>
-    </message>
-    <message>
-        <location filename="../include/def.h" line="35"/>
-        <source>Level 4</source>
-        <translation>四级模板</translation>
-    </message>
-    <message>
-        <location filename="../include/def.h" line="36"/>
-        <source>Level 5</source>
-        <translation>五级模板</translation>
-    </message>
-    <message>
         <location filename="../src/pages/container/security-configuration/security-level-tab.cpp" line="13"/>
         <source>&lt;h3&gt;&lt;b&gt;Level 1 Template:&lt;/b&gt;&lt;/h3&gt;&lt;ol style=&apos;font-size: 12px; line-height: 1.5;&apos;&gt;&lt;li&gt;Containers can access the external network of the platform, but cannot access other containers on the platform or the same node.&lt;/li&gt;&lt;li&gt;Support network whitelist configuration. The network whitelist can be configured to access platforms and other containers on the same node.&lt;/li&gt;&lt;li&gt;Support whitelist configuration for container network processes.If the container network process whitelist is closed, the network access permissions of all processes in the container will be executed according to the network whitelist and default rules. If the network process whitelist is enabled, but the whitelist is empty, then processes in the container cannot access the external network of the container.Add network processes to the whitelist,and the network access permissions of processes in the whitelist will be executed according to the network whitelist and default rules.&lt;/li&gt;&lt;li&gt;When a container applies a first level template, by default, the container can access the external network of the platform. At this point, external access control can be enabled to prohibit the current container from accessing the external network. This control switch is only available when the container successfully applies the first level template.&lt;/li&gt;&lt;/ol&gt;</source>
         <translation>&lt;h3&gt;&lt;b&gt;一级模板：&lt;/b&gt;&lt;/h3&gt;&lt;ol style=&apos;font-size: 12px; line-height: 1.5;&apos;&gt;&lt;li&gt;容器能访问平台的外部网络，不能访问平台、同一节点的其他容器。&lt;/li&gt;&lt;li&gt;持网络白名单配置。网络白名单可以配置访问平台、同一节点的其他容器。&lt;/li&gt;&lt;li&gt;支持容器网络进程白名单配置。如果关闭了容器网络进程白名单,则容器中所有进程的网络访问权限均按网络白名单和默认规则执行。如果开启了网络进程白名单，但白名单列表为空，则此时该容器中的进程均无法访问容器外部网络。添加网络进程到白名单，在白名单列表中进程的网络访问权限按网络白名单和默认规则执行。&lt;/li&gt;&lt;li&gt;当容器应用一级模板时，默认情况下容器是可以访问平台外部网络的。此时可启用对外访问控制，禁止当前容器访问外部网络，该控制开关仅在容器成功应用一级模板时可用。&lt;/li&gt;&lt;/ol&gt;</translation>
