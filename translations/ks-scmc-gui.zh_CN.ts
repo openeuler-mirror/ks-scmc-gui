@@ -370,37 +370,31 @@
     <name>ContainerAppOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="14"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="156"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="117"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="160"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App path:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;路径：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="156"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="161"/>
         <source>App type:</source>
         <translation>应用类型：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="81"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="159"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App Name:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;应用名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="196"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="162"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="203"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="163"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
