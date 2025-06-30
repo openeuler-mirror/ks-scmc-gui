@@ -14,12 +14,13 @@
 #include <QDesktopWidget>
 #include <QLineEdit>
 #include <QStandardItem>
+#include "common/ip-mask-lineedit.h"
 #include "message-dialog.h"
 #include "notification-manager.h"
 
 #define NAME "name"
 #define REAL_IFS "parent"  // 物理网卡
-#define SUBNET "subnet"    // 网段
+#define IP_MASK "ip_mask"  // ip/掩码
 #define GATEWAY "gateway"  // 网关
 
 NetworkListPage::NetworkListPage(NetworkIfsType type, QWidget *parent) : TablePage(parent),
