@@ -2964,174 +2964,174 @@ Instruction</source>
 <context>
     <name>NetworkListPage</name>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="144"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="145"/>
         <source>Up</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="144"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="145"/>
         <source>Down</source>
         <translation>停用</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="214"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="215"/>
         <source>Create virt interface failed!</source>
         <translation>创建虚拟网卡失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="251"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="252"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="258"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="259"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="299"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="300"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="310"/>
-        <source>Subnet:</source>
-        <translation>网段：</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="326"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="321"/>
         <source>Bind real interface:</source>
         <translation>绑定的物理网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="355"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="350"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="64"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="79"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="65"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="80"/>
         <source>Delete virt interface</source>
         <translation>删除虚拟网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="65"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="80"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="66"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="81"/>
         <source>Are you sure to delete the virt interface?</source>
         <translation>确定删除该虚拟网卡？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="66"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="81"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="67"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="82"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="210"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="211"/>
         <source>Create virt interface successful!</source>
         <translation>创建虚拟网卡成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="225"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="226"/>
         <source>Remove virt interface successful!</source>
         <translation>移除虚拟网卡成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="229"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="230"/>
         <source>Remove virt interface failed!</source>
         <translation>移除虚拟网卡失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="240"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="241"/>
         <source>Update virt interface successful!</source>
         <translation>更新虚拟网卡成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="244"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="245"/>
         <source>Update virt interface failed!</source>
         <translation>更新虚拟网卡失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="284"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="285"/>
         <source>Add virt interface</source>
         <translation>添加虚拟网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="284"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="285"/>
         <source>Edit virt interface</source>
         <translation>编辑虚拟网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="99"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="332"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="386"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="399"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="366"/>
+        <source>Please input correct ip/mask!</source>
+        <translation>请输入正确的ip/mask！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="463"/>
+        <source>IP/Mask</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="100"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="327"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="378"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="391"/>
         <source>None(bridge)</source>
         <translation>不绑定(桥接)</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="303"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="304"/>
         <source>Please input 1 to 50 characters</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="363"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="311"/>
+        <source>Ip/Mask:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="359"/>
         <source>Please input complete infomation!</source>
         <translation>请输入完整信息！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="375"/>
-        <source>Please input correct subnet!</source>
-        <translation>请输入正确的网段！</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="411"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="403"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="455"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="470"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="447"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="462"/>
         <source>Network interface</source>
         <translation>网卡名</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="457"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="449"/>
         <source>Mask</source>
         <translation>掩码</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="458"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="450"/>
         <source>Gateway</source>
         <translation>网关</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="460"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="452"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="471"/>
-        <source>Subnet</source>
-        <translation>网段</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="472"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="464"/>
         <source>Real network interface</source>
         <translation>绑定物理网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="473"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="465"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="479"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="471"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="480"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="472"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
