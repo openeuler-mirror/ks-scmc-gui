@@ -112,6 +112,18 @@ void UserListPage::createUser()
     connect(m_createDialog, &UserUpdateDialog::checkPassed, this, [=]()
             {  
         // 调用后台接口创建用户
+        // 判断是否存在普通用户角色
+        if (!m_roles.contains(USER_ROLE_STDADM))
+        {
+            KLOG_WARNING() << "Failed to create user, can not find role:" << USER_ROLE_STDADM;
+            MessageDialog::message(tr("Create User"),
+                                   tr("Failed to create user"),
+                                   tr("There is no user role: %1").arg(USER_ROLE_STDADM),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Yes);
+            return;
+        }
+
         auto info = m_createDialog->getUserInfo();
 
         user::CreateUserRequest req;
@@ -120,11 +132,12 @@ void UserListPage::createUser()
         userinfo->set_password(info.password.toStdString());
         userinfo->set_is_active(true);
         userinfo->set_is_editable(true);
+        userinfo->set_role_id(m_roles[USER_ROLE_STDADM]);
 
-        if (m_roles.contains(USER_ROLE_STDADM))
-        {
-            userinfo->set_role_id(m_roles[USER_ROLE_STDADM]);
-        }
+        KLOG_INFO() << "Create user, Login name:" << info.userName 
+                    << "Role ID:" << m_roles[USER_ROLE_STDADM]
+                    << "Is active:" << "true"
+                    << "Is editable:" << "true";
 
         User::getInstance().createUser(m_objID, req); });
 }
@@ -140,7 +153,7 @@ void UserListPage::deleteUsers()
 
     foreach (auto info, selectedUsersInfo)
     {
-        KLOG_DEBUG() << "Remove user:" << info.userName << "ID:" << info.userID;
+        KLOG_INFO() << "Remove user:" << info.userName << "ID:" << info.userID;
         userIDs.push_back(info.userID);
     }
 
@@ -163,6 +176,8 @@ void UserListPage::deleteUser(qint64 userID)
     std::vector<int64_t> ids;
     ids.push_back(userID);
 
+    KLOG_INFO() << "Remove user:"
+                << "ID:" << userID;
     User::getInstance().removeUser(m_objID, ids);
 }
 
@@ -186,7 +201,7 @@ void UserListPage::editUser(qint64 userID, QString userName, qint64 roleID)
         info->set_password(userInfo.password.toStdString());
         info->set_role_id(userInfo.roleID);
 
-        KLOG_DEBUG() << "Edit user:" << userInfo.userName << "ID:" << userInfo.userID;
+        KLOG_INFO() << "Edit user:" << userInfo.userName << "ID:" << userInfo.userID << "Role ID:" << userInfo.roleID;
         User::getInstance().updateUser(m_objID, req);
     });
 }
@@ -224,8 +239,10 @@ void UserListPage::getListUserFinished(const QString objId, const QPair<grpc::St
     QList<UserInfo> userInfos;
     for (auto user : reply.second.users())
     {
-        KLOG_DEBUG() << "Get user list. "
-                     << "user id:" << user.id() << "user login name:" << user.login_name().data();
+        KLOG_INFO() << "Get user list. "
+                    << "user id:" << user.id() << "user login name:" << user.login_name().data()
+                    << "role id:" << user.role_id() << "role name:" << user.role_info().name().data()
+                    << "create time" << user.created_at();
 
         qint64 id = user.id();
         qint64 roleID = user.role_id();
@@ -317,8 +334,8 @@ void UserListPage::getListRoleFinished(const QString objId, const QPair<grpc::St
     {
         for (auto role : reply.second.roles())
         {
-            KLOG_DEBUG() << "Get role list. "
-                         << "role id:" << role.id() << "user login name:" << role.name().data();
+            KLOG_INFO() << "Get role list. "
+                        << "role id:" << role.id() << "role name:" << role.name().data();
             m_roles.insert(role.name().data(), role.id());
         }
     }
