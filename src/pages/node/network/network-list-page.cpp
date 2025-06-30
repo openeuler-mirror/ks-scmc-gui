@@ -353,25 +353,22 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     connect(btnConfirm, &QPushButton::clicked,
             [=]
             {
-                if (lineEditName->text().isEmpty() || lineEditSubnet->text().isEmpty())
+                auto ipMask = lineEditIpMask->getIpMask();
+                if (lineEditName->text().isEmpty() || ipMask.isEmpty())
                 {
                     labTip->setText(tr("Please input complete infomation!"));
                     labTip->show();
                     return;
                 }
-                else
+                else if (!lineEditIpMask->isValidIpMask(ipMask))
                 {
-                    auto inputSubnet = lineEditSubnet->text();
-                    auto validator = new QRegExpValidator(ipMaskRegex, this);
-                    int pos = 0;
-                    auto status = validator->validate(inputSubnet, pos);
-                    if (status != QValidator::Acceptable)
-                    {
-                        labTip->setText(tr("Please input correct subnet!"));
-                        labTip->show();
-                        return;
-                    }
+                    KLOG_INFO() << "The input ip mask:" << ipMask << "is invalid.";
+                    labTip->setText(tr("Please input correct ip/mask!"));
+                    labTip->show();
+                    return;
                 }
+                KLOG_INFO() << "Get ip mask from ui:" << ipMask;
+
                 labTip->hide();
                 if (type == OPERATE_TYPE_CREATE)
                 {
