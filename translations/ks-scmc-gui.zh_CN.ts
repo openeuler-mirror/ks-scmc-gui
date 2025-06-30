@@ -2828,15 +2828,10 @@ Instruction</source>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="28"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="41"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="71"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="45"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="80"/>
         <source>Subnet</source>
         <translation>网段</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="99"/>
-        <source>Default auto-assignment when not config</source>
-        <translation>不配置时，默认自动分配</translation>
     </message>
 </context>
 <context>
