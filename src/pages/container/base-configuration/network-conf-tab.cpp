@@ -68,7 +68,8 @@ void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<
     ui->cb_virt_networkcard->addItems(QStringList(networkList));
     setVirtNetwork(name);
 
-    ui->lineEdit_ip->setText(QString::fromStdString(networkCfg->ip_address().data()));
+    KLOG_INFO() << "Set ip to ui:" << QString::fromStdString(networkCfg->ip_address().data());
+    ui->lineEdit_ip->setIp(QString::fromStdString(networkCfg->ip_address().data()));
 }
 
 void NetworkConfTab::setVirtNetwork(QString virtNetwork)
