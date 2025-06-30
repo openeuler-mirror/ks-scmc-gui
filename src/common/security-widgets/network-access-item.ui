@@ -90,7 +90,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
       <number>10</number>
