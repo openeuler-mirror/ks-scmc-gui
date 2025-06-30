@@ -308,21 +308,15 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     if (type == OPERATE_TYPE_EDIT)
         lineEditName->setDisabled(true);
 
-    QLabel *labSubnet = new QLabel(QString("<font color=red>*</font>%1").arg(tr("Subnet:")), content);
-    QLineEdit *lineEditSubnet = new QLineEdit(content);
-    lineEditSubnet->setMaxLength(50);
-    lineEditSubnet->setFixedHeight(36);
-    lineEditSubnet->setPlaceholderText("xxx.xxx.xxx.xxx/xx");
-    //  匹配 IP 地址和子网掩码
-    QRegExp ipMaskRegex(
-        "^"
-        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-        "/(?:3[0-2]|[12][0-9]|[0-9])"
-        "$");
-    lineEditSubnet->setValidator(new QRegExpValidator(ipMaskRegex, this));
-    if (!subnet.isEmpty())
-        lineEditSubnet->setText(subnet);
+    auto labIpMask = new QLabel(QString("<font color=red>*</font>%1").arg(tr("Ip/Mask:")), content);
+    auto lineEditIpMask = new IpMaskLineEdit(content, true);
+    lineEditIpMask->setFixedHeight(36);
+
+    if (!ipMask.isEmpty())
+    {
+        KLOG_INFO() << "Set ip mask to ui:" << ipMask;
+        lineEditIpMask->setIpMask(ipMask);
+    }
 
     QLabel *labBindRealIfs = new QLabel(tr("Bind real interface:"), content);
     QComboBox *cbBindRealIfs = new QComboBox(content);
