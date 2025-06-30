@@ -104,8 +104,6 @@ void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
 
 void NetworkConfTab::initUI()
 {
-    ui->lineEdit_ip->setTextMargins(10, 0, 0, 0);
-    ui->lineEdit_ip->setPlaceholderText(tr("Default auto-assignment when not config"));
     ui->lineEdit_ip->setStyleSheet("QToolTip{"
                                    "background-color: rgb(255,255,255);"
                                    "color:#000000;"
