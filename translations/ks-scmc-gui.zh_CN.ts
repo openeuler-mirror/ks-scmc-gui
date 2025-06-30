@@ -2429,11 +2429,6 @@ The first characters must be letter or digit</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="357"/>
-        <source>Login failed: user name or password error.</source>
-        <translation>登录失败：用户名或密码错误。</translation>
-    </message>
-    <message>
         <location filename="../src/login-dialog.cpp" line="382"/>
         <source>Session Expired,Please login again!</source>
         <translation>会话过期，请重新登录！</translation>
