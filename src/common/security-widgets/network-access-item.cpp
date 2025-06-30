@@ -96,17 +96,11 @@ void NetworkAccessItem::initUI()
     ui->btn_delete->setIcon(QIcon(":/images/icon-delete.svg"));
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
-    ui->lineEdit_address->setPlaceholderText(tr("eg: 192.168.1.10 or 10.0.0.0/8"));
-    ui->lineEdit_address->setTextMargins(10, 0, 0, 0);
-    //  匹配 IP 地址和可选的子网掩码
-    QRegExp ipMaskRegex(
-        "^"
-        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-        "(?:(?:/(?:3[0-2]|[12][0-9]|[0-9]))?)"
-        "$");
-    ui->lineEdit_address->setValidator(new QRegExpValidator(ipMaskRegex, this));
-    ui->lineEdit_address->setMaxLength(20);
+
+    m_ipEditor = new IpMaskLineEdit(this, true);
+    m_ipEditor->setFixedSize(250, 36);
+    m_ipEditor->setMaksPlaceholderText(tr("Optional"));
+    ui->layout_ip_editor->addWidget(m_ipEditor);
 
     ui->lineEdit_port->setText(QString::number(0));
     ui->lineEdit_port->setTextMargins(10, 0, 0, 0);
