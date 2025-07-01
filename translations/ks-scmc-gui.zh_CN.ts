@@ -1501,6 +1501,7 @@ The first characters must be letter or digit</source>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_envs-conf-tab.h" line="35"/>
         <source>Form</source>
         <translation></translation>
     </message>
