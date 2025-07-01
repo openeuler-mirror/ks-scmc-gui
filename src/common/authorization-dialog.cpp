@@ -10,7 +10,6 @@
 #include <QPainter>
 #include "ui_authorization-dialog.h"
 #include "user-configuration.h"
-
 AuthorizationDialog::AuthorizationDialog(QWidget *parent) : QDialog(parent),
                                                             ui(new Ui::AuthorizationDialog)
 {
