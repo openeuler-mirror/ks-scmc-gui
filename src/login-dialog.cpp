@@ -356,9 +356,6 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
             hide();
         }
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
-        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_USER, CURRENT_USER, ui->lineEdit_username->text());
     }
     else
     {
