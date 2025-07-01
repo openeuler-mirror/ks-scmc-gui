@@ -18,41 +18,47 @@
     <name>AuthorizationDialog</name>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="32"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="130"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="53"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="131"/>
         <source>Please authenticate your identity first.</source>
         <translation>请先进行身份验证</translation>
     </message>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="81"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="132"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="88"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="133"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Password</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;密码</translation>
     </message>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="165"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="135"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/common/authorization-dialog.ui" line="184"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_authorization-dialog.h" line="136"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/common/authorization-dialog.cpp" line="49"/>
+        <location filename="../src/common/authorization-dialog.cpp" line="48"/>
         <source>Authorization</source>
         <translation>认证</translation>
     </message>
     <message>
-        <location filename="../src/common/authorization-dialog.cpp" line="76"/>
+        <location filename="../src/common/authorization-dialog.cpp" line="75"/>
         <source>Password error!</source>
         <translation>密码错误！</translation>
     </message>
