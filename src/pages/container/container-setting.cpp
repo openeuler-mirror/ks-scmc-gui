@@ -19,6 +19,7 @@
 #include "base-configuration/cpu-conf-tab.h"
 #include "base-configuration/memory-conf-tab.h"
 #include "base-configuration/network-conf-tab.h"
+#include "common/authorization-dialog.h"
 #include "common/guide-item.h"
 #include "common/message-dialog.h"
 #include "def.h"
