@@ -18,6 +18,7 @@ TabPage::TabPage(QWidget *parent) : Page(parent), m_tabWidget(nullptr)
 void TabPage::addTabPage(QWidget *tabPage, QString key)
 {
     m_tabWidget->addTab(tabPage, key);
+    m_pages.append(tabPage);
 }
 
 void TabPage::updateCurrentPage()
