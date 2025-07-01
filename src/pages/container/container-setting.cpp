@@ -772,6 +772,10 @@ void ContainerSetting::updateContainer()
         return;
     }
 
+    // disk
+    auto diskPage = qobject_cast<DiskConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_DISK));
+    diskPage->getSpeed(rsrcCfg);
+
     auto policy = request.mutable_restart_policy();
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
