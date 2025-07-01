@@ -418,6 +418,9 @@ void ContainerSetting::initBaseConfPages()
     MemoryConfTab *memoryConfTab = new MemoryConfTab(ui->tab_base_config);
     m_baseConfStack->addWidget(memoryConfTab);
 
+    DiskConfTab *diskConfTab = new DiskConfTab(ui->tab_base_config);
+    m_baseConfStack->addWidget(diskConfTab);
+
     NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
     m_baseConfStack->addWidget(networkConfTab);
     m_netWorkPages.append(networkConfTab);
