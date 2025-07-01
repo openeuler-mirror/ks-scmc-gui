@@ -287,14 +287,17 @@ void MainWindow::initUI()
     loadUserItem();
 
     // set current widget to home
-    m_stackedWidget->setCurrentWidget(m_pageMap[GENERAL_OUTLINE]);
-    ui->listWidget->setCurrentRow(0);
+    if (m_pageMap[GENERAL_OUTLINE])
+    {
+        m_stackedWidget->setCurrentWidget(m_pageMap[GENERAL_OUTLINE]);
+        ui->listWidget->setCurrentRow(0);
 
-    GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(ui->listWidget->item(0)));
-    item->setSelected(true);
-    setPageName(item->getItemText());
+        GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(ui->listWidget->item(0)));
+        item->setSelected(true);
+        setPageName(item->getItemText());
 
-    m_pageMap[GENERAL_OUTLINE]->updateInfo();
+        m_pageMap[GENERAL_OUTLINE]->updateInfo();
+    }
 
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
