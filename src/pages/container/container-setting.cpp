@@ -34,6 +34,7 @@
 #define CPU "CPU"
 #define MEMORY QObject::tr("Memory")
 #define NETWORK_CARD QObject::tr("Network card")
+#define DISK QObject::tr("Disk")
 #define CMD QObject::tr("Startup paramenters")
 #define ENVS QObject::tr("ENVS")
 #define VOLUMES QObject::tr("Volumes")
