@@ -37,7 +37,7 @@ public:
 
 private:
     void createSubPage(NodeInfoSubPageType type);
-    void updatePageInfo(int index);
+    void updatePageInfo(int index = 0);
 
 private:
     qint64 m_nodeId = -1;
