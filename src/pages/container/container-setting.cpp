@@ -271,7 +271,7 @@ void ContainerSetting::initUI()
     }
 
     connect(ui->listwidget_base_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
-    connect(ui->listWidget_advanced_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
+    connect(ui->listWidget_advanced_config, &QListWidget::currentItemChanged, this, &ContainerSetting::onAdvancedItemChanged);
     connect(ui->listWidget_security_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
