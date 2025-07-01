@@ -4280,11 +4280,37 @@ of applications, isolated operation of applications, centralized monitoring of a
         <source>Update Image Version</source>
         <translation>更新镜像版本</translation>
     </message>
+    <message>
+        <location filename="../include/def.h" line="32"/>
+        <source>Level 1</source>
+        <translation>一级模板</translation>
+    </message>
+    <message>
+        <location filename="../include/def.h" line="33"/>
+        <source>Level 2</source>
+        <translation>二级模板</translation>
+    </message>
+    <message>
+        <location filename="../include/def.h" line="34"/>
+        <source>Level 3</source>
+        <translation>三级模板</translation>
+    </message>
+    <message>
+        <location filename="../include/def.h" line="35"/>
+        <source>Level 4</source>
+        <translation>四级模板</translation>
+    </message>
+    <message>
+        <location filename="../include/def.h" line="36"/>
+        <source>Level 5</source>
+        <translation>五级模板</translation>
+    </message>
 </context>
 <context>
     <name>QRCodeDialog</name>
     <message>
         <location filename="../src/license/qrcode-dialog.ui" line="20"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_qrcode-dialog.h" line="80"/>
         <source>Form</source>
         <translation></translation>
     </message>
