@@ -651,41 +651,49 @@
     <name>ContainerBackupOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="20"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="244"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="134"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="247"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Version:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;版本：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="154"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="248"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="250"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="251"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Version:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;版本：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="277"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="252"/>
         <source>Export to local</source>
         <translation>导出至本地</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="284"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="253"/>
         <source>Export to image management</source>
         <translation>导出至镜像仓库</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="347"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="254"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="366"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="255"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
