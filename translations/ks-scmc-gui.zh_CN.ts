@@ -1498,6 +1498,36 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
+    <name>DiskConfTab</name>
+    <message>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="14"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="40"/>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="93"/>
+        <source>MB/s</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="63"/>
+        <source>Disk Write Speed</source>
+        <translation>磁盘写速度</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="86"/>
+        <source>Disk Read Speed</source>
+        <translation>磁盘读速度</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.cpp" line="21"/>
+        <location filename="../src/pages/container/base-configuration/disk-conf-tab.cpp" line="22"/>
+        <source>0-4096, default 0</source>
+        <translation>0-4096, 默认 0</translation>
+    </message>
+</context>
+<context>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
