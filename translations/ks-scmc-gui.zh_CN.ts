@@ -2900,36 +2900,43 @@ Instruction</source>
     <name>NetworkAccessItem</name>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="20"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="150"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="49"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="151"/>
         <source>Network protocol </source>
         <translation>网络协议</translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="58"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="152"/>
         <source>TCP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="65"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="153"/>
         <source>UDP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="72"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="154"/>
         <source>ICMP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="101"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="155"/>
         <source>Network address  </source>
         <translation>网络地址</translation>
     </message>
     <message>
         <location filename="../src/common/security-widgets/network-access-item.ui" line="111"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-access-item.h" line="156"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
