@@ -62,7 +62,7 @@ void AuthorizationDialog::authenticate()
 {
     QString realPassword;
     QString currentUser;
-    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_USER, CURRENT_USER, currentUser);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, currentUser);
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, currentUser, PASSWORD, realPassword);
 
     auto pw = ui->lineEdit_password->text();
