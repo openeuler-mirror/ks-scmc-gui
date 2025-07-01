@@ -3308,37 +3308,44 @@ Instruction</source>
     <name>NodeConfigPage</name>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="157"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="35"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="158"/>
         <source>Warning threshold setting</source>
         <translation>告警阈值设置</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="47"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="159"/>
         <source>CPU (Number)</source>
         <translation>CPU （核数）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="77"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="160"/>
         <source>Memory Limit (MB)</source>
         <translation>内存配额（MB）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="107"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="161"/>
         <source>Disk Limit (MB)</source>
         <translation>磁盘配额（MB）</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="175"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="162"/>
         <location filename="../src/pages/node/config/node-config-page.cpp" line="216"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="194"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-config-page.h" line="163"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
