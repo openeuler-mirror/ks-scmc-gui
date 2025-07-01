@@ -211,9 +211,11 @@ void ContainerSetting::initUI()
     securityLayout->addWidget(m_securityConfStack);
 
     // 创建tabwidget中侧边栏
-    QList<QPair<QString, QString>> baseConfItemInfo = {{CPU, ":/images/container-cpu.svg"},
-                                                       {MEMORY, ":/images/container-memory.svg"},
-                                                       {NETWORK_CARD, ":/images/container-net-card.svg"}};
+    QList<QPair<QString, QString>> baseConfItemInfo = {
+        {CPU, ":/images/container-cpu.svg"},
+        {MEMORY, ":/images/container-memory.svg"},
+        {DISK, ":/images/container-disk.svg"},
+        {NETWORK_CARD, ":/images/container-net-card.svg"}};
     for (int i = 0; i < baseConfItemInfo.count(); i++)
     {
         QString name = baseConfItemInfo.at(i).first;
