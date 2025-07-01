@@ -106,11 +106,14 @@ private:
     void createTemplate();
     void updateTemplate();
 
+    int popupAuthDialog();
+
 signals:
     void sigUpdateContainer();
     void sigUpdateTemplate();
 
 private slots:
+    void onAdvancedItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void onItemClicked(QListWidgetItem *item);
     void onAddItem(QAction *action);
     void onDelItem();
