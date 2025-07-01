@@ -561,22 +561,9 @@ void MainWindow::loadUserItem()
     {
         QList<QListWidgetItem*> containerSubItems;
 
+        // 创建节点侧边栏
         createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
                         ":/images/node-manager.svg");
-        createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
-                        ":/images/image-manager.svg");
-
-        // 创建容器侧边栏
-        QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,
-                                                            ":/images/container-manager.svg");
-        containerManager->setFlags(containerManager->flags() & ~Qt::ItemIsSelectable);
-
-        QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
-        QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
-
-        containerSubItems = {containerList, containerTemplate};
-        m_groupMap.insert(containerManager, containerSubItems);
-        m_isShowMap.insert(containerManager, true);
 
         // 创建系统管理侧边栏
         auto systemManager = createGuideItem(SYSTEM_MANAGER, GUIDE_ITEM_TYPE_GROUP,
