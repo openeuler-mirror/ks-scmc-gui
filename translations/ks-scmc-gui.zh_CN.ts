@@ -2463,16 +2463,6 @@ The first characters must be letter or digit</source>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
-    <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="266"/>
-        <source>Stop</source>
-        <translation>停止</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="272"/>
-        <source>Restart</source>
-        <translation>重启</translation>
-    </message>
 </context>
 <context>
     <name>LogSettingView</name>
