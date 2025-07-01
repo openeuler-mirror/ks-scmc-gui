@@ -2615,11 +2615,13 @@ The first characters must be letter or digit</source>
     <name>MainWindow</name>
     <message>
         <location filename="../src/main-window.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="185"/>
         <source>MainWindow</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/main-window.ui" line="175"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_main-window.h" line="187"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
