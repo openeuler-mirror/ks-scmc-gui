@@ -32,6 +32,21 @@ void TabPage::setCurrentPage(int index)
     m_tabWidget->setCurrentIndex(index);
 }
 
+void TabPage::setCurrentPage(QWidget *widget)
+{
+    m_tabWidget->setCurrentWidget(widget);
+}
+
+QWidget *TabPage::currentPage()
+{
+    return m_tabWidget->currentWidget();
+}
+
+QWidget *TabPage::firstPage()
+{
+    return m_pages.first();
+}
+
 void TabPage::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;
