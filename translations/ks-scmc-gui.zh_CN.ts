@@ -2335,71 +2335,126 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="251"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="260"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="296"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="305"/>
-        <source>Create</source>
-        <translation>创建</translation>
+        <source>Create Node</source>
+        <translation>创建节点</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="254"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="284"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="299"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="308"/>
-        <source>Update</source>
-        <translation>更新</translation>
+        <source>Update Node</source>
+        <translation>更新节点</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="257"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="269"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="287"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="302"/>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="311"/>
-        <source>Remove</source>
-        <translation>移除</translation>
+        <source>Remove Node</source>
+        <translation>移除节点</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="260"/>
+        <source>Create Container</source>
+        <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="263"/>
-        <source>Start</source>
-        <translation>开启</translation>
+        <source>Start Container</source>
+        <translation>运行容器</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="266"/>
+        <source>Stop Container</source>
+        <translation>停止容器</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="269"/>
+        <source>Remove Container</source>
+        <translation>移除容器</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="272"/>
+        <source>Restart Container</source>
+        <translation>重启容器</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="275"/>
-        <source>Upload</source>
-        <translation>上传</translation>
+        <source>Update Container</source>
+        <translation>更新容器</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="278"/>
-        <source>Download</source>
-        <translation>下载</translation>
+        <source>Upload Image</source>
+        <translation>上传镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="281"/>
-        <source>Approve</source>
-        <translation>审批</translation>
+        <source>Download Image</source>
+        <translation>下载镜像</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="284"/>
+        <source>Approve Image</source>
+        <translation>审批镜像</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="287"/>
+        <source>Update Image</source>
+        <translation>更新镜像</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="290"/>
+        <source>Remove Image</source>
+        <translation>移除镜像</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="293"/>
         <source>Login</source>
         <translation>登入</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="293"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="296"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="299"/>
+        <source>Create User</source>
+        <translation>创建用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="302"/>
+        <source>Update User</source>
+        <translation>更新用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="305"/>
+        <source>Remove User</source>
+        <translation>删除用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="308"/>
+        <source>Create Role</source>
+        <translation>创建角色</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="311"/>
+        <source>Update Role</source>
+        <translation>更新角色</translation>
+    </message>
+    <message>
         <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="314"/>
+        <source>Remove Role</source>
+        <translation>移除角色</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="317"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="323"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="326"/>
         <source>failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="325"/>
+        <location filename="../src/pages/audit/log-list/log-list-view.cpp" line="328"/>
         <source>success</source>
         <translation>成功</translation>
     </message>
