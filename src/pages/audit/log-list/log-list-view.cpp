@@ -248,43 +248,46 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
         switch (logging.event_type())
         {
         case 101:
-            itemOpt->setText(tr("Create"));
+            itemOpt->setText(tr("Create Node"));
             break;
         case 102:
-            itemOpt->setText(tr("Update"));
+            itemOpt->setText(tr("Update Node"));
             break;
         case 103:
-            itemOpt->setText(tr("Remove"));
+            itemOpt->setText(tr("Remove Node"));
             break;
         case 201:
-            itemOpt->setText(tr("Create"));
+            itemOpt->setText(tr("Create Container"));
             break;
         case 202:
-            itemOpt->setText(tr("Start"));
+            itemOpt->setText(tr("Start Container"));
             break;
         case 203:
-            itemOpt->setText(tr("Stop"));
+            itemOpt->setText(tr("Stop Container"));
             break;
         case 204:
-            itemOpt->setText(tr("Remove"));
+            itemOpt->setText(tr("Remove Container"));
             break;
         case 205:
-            itemOpt->setText(tr("Restart"));
+            itemOpt->setText(tr("Restart Container"));
+            break;
+        case 206:
+            itemOpt->setText(tr("Update Container"));
             break;
         case 301:
-            itemOpt->setText(tr("Upload"));
+            itemOpt->setText(tr("Upload Image"));
             break;
         case 302:
-            itemOpt->setText(tr("Download"));
+            itemOpt->setText(tr("Download Image"));
             break;
         case 303:
-            itemOpt->setText(tr("Approve"));
+            itemOpt->setText(tr("Approve Image"));
             break;
         case 304:
-            itemOpt->setText(tr("Update"));
+            itemOpt->setText(tr("Update Image"));
             break;
         case 305:
-            itemOpt->setText(tr("Remove"));
+            itemOpt->setText(tr("Remove Image"));
             break;
         case 401:
             itemOpt->setText(tr("Login"));
