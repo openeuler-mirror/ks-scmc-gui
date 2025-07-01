@@ -659,9 +659,10 @@ int ContainerListPage::popupAuthDialog()
 {
     auto authDialog = new AuthorizationDialog(this);
     QString user;
-    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_USER, CURRENT_USER, user);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, user);
     authDialog->setUserName(user);
     auto ret = authDialog->exec();
+
     return ret;
 }
 
