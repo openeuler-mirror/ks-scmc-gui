@@ -296,22 +296,22 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
             itemOpt->setText(tr("Logout"));
             break;
         case 403:
-            itemOpt->setText(tr("Create"));
+            itemOpt->setText(tr("Create User"));
             break;
         case 404:
-            itemOpt->setText(tr("Update"));
+            itemOpt->setText(tr("Update User"));
             break;
         case 405:
-            itemOpt->setText(tr("Remove"));
+            itemOpt->setText(tr("Remove User"));
             break;
         case 406:
-            itemOpt->setText(tr("Create"));
+            itemOpt->setText(tr("Create Role"));
             break;
         case 407:
-            itemOpt->setText(tr("Update"));
+            itemOpt->setText(tr("Update Role"));
             break;
         case 408:
-            itemOpt->setText(tr("Remove"));
+            itemOpt->setText(tr("Remove Role"));
             break;
         case 409:
             itemOpt->setText(tr("Update Password"));
