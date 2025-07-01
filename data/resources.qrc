@@ -22,6 +22,7 @@
         <file>images/container-volumes.png</file>
         <file>images/container-net-card.svg</file>
         <file>images/container-memory.svg</file>
+        <file>images/container-disk.svg</file>
         <file>images/container-high-avail.png</file>
         <file>images/container-env.png</file>
         <file>images/container-cpu.svg</file>
