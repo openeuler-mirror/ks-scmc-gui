@@ -1,11 +1,13 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.1.1
-%global pkg_rel 8
+%global pkg_rel 9
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
 
 %global enable_set_palette 0
+
+%global hide_container_in_node 1
 
 # %if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 4 && 0%{?kylin_sub_minor_version} >= 4) || \
 #     (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} >= 5) ||  \
