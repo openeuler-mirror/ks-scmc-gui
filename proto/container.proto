@@ -560,20 +560,20 @@ message ResourceLimit {
   double memory_soft_limit = 12;  // 内存软限制 单位MB 数值低于memory_limit
   double disk_limit = 21;  // 磁盘使用限制 单位MB
   int64  disk_prio = 22;   // 磁盘优先级(0-5)
-  int64  disk_rbw = 23;    // 磁盘读速率 单位 MB 为 0 的时候表示不限制
-  int64  disk_wbw = 24;    // 磁盘写速率 单位 MB 为 0 的时候表示不限制
+  int64 disk_rbw = 23; // 磁盘读速率 单位 MB, 为 0 的时候表示不限制
+  int64 disk_wbw = 24; // 磁盘写速率 单位 MB, 为 0 的时候表示不限制
 }
 
 message SecurityConfig {
-        bool disable_external_network = 1;  // 禁止访问外部网络
-        bool disable_cmd_operation    = 2;  // 禁止命令行控制容器(启停控制)
-        int64 security_level_template = 3;  // 安全等级模板
-        bool network_access_controll  = 4;  // 一级模板的对外访问控制
+	bool disable_external_network = 1;  // 禁止访问外部网络
+	bool disable_cmd_operation    = 2;  // 禁止命令行控制容器(启停控制)
+	int64 security_level_template = 3;  // 安全等级模板
+	bool network_access_controll  = 4;  // 一级模板的对外访问控制
 
-        security.ProcProtection  proc_protection = 11;  // 进程保护
-        security.ProcProtection  nproc_protection = 12;  // 网络进程保护
-        security.FileProtection  file_protection = 13;  // 文件防篡改保护
-        security.NetworkRuleList network_rule = 14;  // 网络访问规则
+	security.ProcProtection  proc_protection = 11;  // 进程保护
+	security.ProcProtection  nproc_protection = 12;  // 网络进程保护
+	security.FileProtection  file_protection = 13;  // 文件防篡改保护
+	security.NetworkRuleList network_rule = 14;  // 网络访问规则
 }
 
 message ContainerConfigs {
