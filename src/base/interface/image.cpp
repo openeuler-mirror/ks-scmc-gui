@@ -418,6 +418,20 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
     const auto checksum = reply.info().checksum();
     const auto size = reply.info().size();
 
+    // 下载签名文件
+    if (!reply.chunk_data().empty())
+    {
+        KLOG_DEBUG() << "download image sig file....";
+        QString sigFilePath = QString("%1%2_%3%4%5").arg(savePath).arg(name).arg(version).arg(type.data()).arg(".sig");
+        QFile sigFile(sigFilePath);
+        if (sigFile.open(QIODevice::ReadWrite | QIODevice::Text))
+        {
+            sigFile.write(reply.chunk_data().data(), qint64(reply.chunk_data().size()));
+            sigFile.close();
+        }
+    }
+
+    // 下载镜像文件
     QString filePath = QString("%1%2_%3%4").arg(savePath).arg(name).arg(version).arg(type.data());
     QFile imgFile(filePath);
     if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
