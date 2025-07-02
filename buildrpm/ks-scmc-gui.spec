@@ -174,6 +174,9 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_datadir}/icons/hicolor/*/apps/*.*
 
 %changelog
+* Wed Jul 02 2025 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-9
+- KYOS-F: add hide_container_in_node build option and fix some bugs
+
 * Mon May 06 2024 zhenggongping <zhenggongping@kylinos.com.cn> -1.1.1-7
 - KYOS-F: Remove sudo from the spec file. (#36753)
 
