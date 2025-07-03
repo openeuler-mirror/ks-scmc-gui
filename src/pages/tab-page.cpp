@@ -64,7 +64,10 @@ void TabPage::initUI()
 
     m_tabWidget = new QTabWidget(this);
     mainLayout->addWidget(m_tabWidget);
-    connect(m_tabWidget, &QTabWidget::tabBarClicked, this, &TabPage::onCurrentPageChanged);
+
+    // 连接currentChanged，获取最新的当前页面索引。
+    // 若连接tabBarClicked信号，传入的index是点击用户点击的tab索引，但是currentPage没有改变，仍是上一个页面。不适用于调用currentPage()来更新tab页的情况。
+    connect(m_tabWidget, &QTabWidget::currentChanged, this, &TabPage::onCurrentPageChanged);
 }
 
 void TabPage::onCurrentPageChanged(int index)
