@@ -97,6 +97,13 @@ void NodeConfigPage::onSave()
         limit->set_disk_limit(ui->lineEdit_disk->text().toInt());
         limit->set_memory_limit(ui->lineEdit_memory->text().toInt());
 
+        KLOG_INFO() << "Set node config to backend:"
+                    << "node id:" << m_nodeId
+                    << "node name:" << m_nodeName.data()
+                    << "cpu limit:" << ui->lineEdit_cpu->text().toInt()
+                    << "disk limit:" << ui->lineEdit_disk->text().toInt()
+                    << "memory limit:" << ui->lineEdit_memory->text().toInt();
+
         Node::getInstance().updateNode(m_objId, req);
     }
 
