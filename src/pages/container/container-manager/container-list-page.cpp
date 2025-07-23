@@ -917,6 +917,7 @@ void ContainerListPage::initTable()
         "",
         QString(tr("Container Name")),
         QString(tr("Status")),
+        QString(tr("Application status")),
         QString(tr("Image")),
         QString(tr("Node")),
         "CPU",
