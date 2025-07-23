@@ -2567,13 +2567,13 @@ The first characters must be letter or digit</source>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="32"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="103"/>
+        <location filename="../build/src/ui_login-dialog.h" line="106"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/login-dialog.ui" line="142"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_login-dialog.h" line="105"/>
+        <location filename="../build/src/ui_login-dialog.h" line="108"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
