@@ -33,6 +33,10 @@
 #define CONTAINRT_STATUS_PAUSED "paused"
 #define CONTAINRT_STATUS_REMOVING "removing"
 #define CONTAINRT_STATUS_RESTARTING "restarting"
+#define CONTAINER_APP_STATUS_DUTY tr("duty")
+#define CONTAINER_APP_STATUS_STANDBY tr("standby")
+#define CONTAINER_APP_STATUS_OFFLINE tr("offline")
+
 #define TIMEOUT 5000
 using namespace grpc;
 
