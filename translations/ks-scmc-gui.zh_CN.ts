@@ -1203,80 +1203,80 @@ The first characters must be letter or digit</source>
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="313"/>
+        <location filename="../build/src/ui_container-setting.h" line="316"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="215"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="321"/>
+        <location filename="../build/src/ui_container-setting.h" line="324"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="166"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="318"/>
+        <location filename="../build/src/ui_container-setting.h" line="321"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="62"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="314"/>
+        <location filename="../build/src/ui_container-setting.h" line="317"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Name:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;名字：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="315"/>
+        <location filename="../build/src/ui_container-setting.h" line="318"/>
         <source>Describe:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="208"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="320"/>
+        <location filename="../build/src/ui_container-setting.h" line="323"/>
         <source>Template name:</source>
         <translation>模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="222"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="322"/>
+        <location filename="../build/src/ui_container-setting.h" line="325"/>
         <source>Host name:</source>
         <translation>主机名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="277"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="324"/>
+        <location filename="../build/src/ui_container-setting.h" line="327"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="365"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="323"/>
+        <location filename="../build/src/ui_container-setting.h" line="326"/>
         <location filename="../src/pages/container/container-setting.cpp" line="193"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="376"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="325"/>
+        <location filename="../build/src/ui_container-setting.h" line="328"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="417"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="326"/>
+        <location filename="../build/src/ui_container-setting.h" line="329"/>
         <source>Security configuration</source>
         <translation>安全策略</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="494"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="327"/>
+        <location filename="../build/src/ui_container-setting.h" line="330"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="513"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="328"/>
+        <location filename="../build/src/ui_container-setting.h" line="331"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
