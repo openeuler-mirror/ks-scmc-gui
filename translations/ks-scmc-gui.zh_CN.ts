@@ -4004,7 +4004,7 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="439"/>
+        <location filename="../src/base/interface/image.cpp" line="453"/>
         <source>The transmission was cancelled.</source>
         <translation>传输已取消。</translation>
     </message>
