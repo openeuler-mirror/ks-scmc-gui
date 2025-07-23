@@ -116,5 +116,9 @@ void HighAvailabilityTab::initUI()
     ui->lineEdit_times->setValidator(new QIntValidator(0, 65535, this));
     ui->lineEdit_times->setPlaceholderText("0-65535");
 
+    ui->cb_app_avail_policy->addItem(APP_HIGH_AVAILABILITY_ON);
+    ui->cb_app_avail_policy->addItem(APP_HIGH_AVAILABILITY_OFF);
+    ui->cb_app_avail_policy->setCurrentText(APP_HIGH_AVAILABILITY_OFF);
+
     connect(ui->cb_high_avail_policy, QOverload<const QString &>::of(&QComboBox::activated), this, &HighAvailabilityTab::onCbActivated);
 }
