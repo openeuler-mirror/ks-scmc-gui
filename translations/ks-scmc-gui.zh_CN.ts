@@ -3736,15 +3736,15 @@ Instruction</source>
     <name>OutlineIntroduction</name>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="105"/>
+        <location filename="../build/src/ui_outline-introduction.h" line="108"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/outline/outline-introduction.ui" line="101"/>
         <location filename="../src/pages/outline/outline-introduction.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="106"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="107"/>
+        <location filename="../build/src/ui_outline-introduction.h" line="109"/>
+        <location filename="../build/src/ui_outline-introduction.h" line="110"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
