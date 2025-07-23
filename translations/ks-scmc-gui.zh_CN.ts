@@ -4020,7 +4020,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     </message>
     <message>
         <location filename="../src/base/interface/container.cpp" line="475"/>
-        <location filename="../src/base/interface/image.cpp" line="427"/>
+        <location filename="../src/base/interface/image.cpp" line="441"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
