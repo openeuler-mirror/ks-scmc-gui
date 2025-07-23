@@ -106,8 +106,8 @@ void HighAvailabilityTab::initUI()
 {
     setLineEditVisible(false);
 
-    //后面加空格，是为了防止在3.3-6Nari系统中下拉列表项显示不全
-    //TODO:QListView item计算中文长度有误，后续完善
+    // 后面加空格，是为了防止在3.3-6Nari系统中下拉列表项显示不全
+    // TODO:QListView item计算中文长度有误，后续完善
     ui->cb_high_avail_policy->addItem(tr("no    "), "no");
     ui->cb_high_avail_policy->addItem(tr("always    "), "always");
     ui->cb_high_avail_policy->addItem(tr("on-failure    "), "on-failure");
