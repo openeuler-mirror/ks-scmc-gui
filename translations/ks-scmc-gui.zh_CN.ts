@@ -1640,10 +1640,6 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <source>High availability policy: </source>
-        <translation type="vanished">高可用策略： </translation>
-    </message>
-    <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="75"/>
         <location filename="../build/src/ui_high-availability-tab.h" line="117"/>
         <source>Auto pulling times:         </source>
