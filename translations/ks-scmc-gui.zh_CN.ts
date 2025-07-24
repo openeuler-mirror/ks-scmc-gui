@@ -4356,6 +4356,31 @@ of applications, isolated operation of applications, centralized monitoring of a
         <source>Level 5</source>
         <translation>五级模板</translation>
     </message>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="11"/>
+        <source>On</source>
+        <translation>开启</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="12"/>
+        <source>Off</source>
+        <translation>不启用</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="36"/>
+        <source>duty</source>
+        <translation>值班</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="37"/>
+        <source>standby</source>
+        <translation>备用</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="38"/>
+        <source>offline</source>
+        <translation>离线</translation>
+    </message>
 </context>
 <context>
     <name>QRCodeDialog</name>
