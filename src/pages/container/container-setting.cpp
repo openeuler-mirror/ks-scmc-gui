@@ -49,22 +49,35 @@
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
+#define SETTINGS_FORMAT_CONFIG_DIR "/etc/ks-scmc-gui/"
+#define SETTINGS_FORMAT_CONFIG_FILENAME "container-setting.conf"
+#define SETTINGS_FORMAT_GROUP_ENV "environment"
+#define SETTINGS_FORMAT_GROUP_VOLUMES "volumes"
+#define SETTINGS_FORMAT_KEY_AVAILABLE "Editable"
+
 ContainerSetting::ContainerSetting(ContainerSettingType type, QWidget *parent) : QWidget(parent),
                                                                                  ui(new Ui::ContainerSetting),
+                                                                                 m_settings(nullptr),
                                                                                  m_baseConfStack(nullptr),
                                                                                  m_advancedConfStack(nullptr),
                                                                                  m_securityConfStack(nullptr),
                                                                                  m_addMenu(nullptr),
                                                                                  m_templateId(-1),
                                                                                  m_netWorkCount(0),
-                                                                                 m_type(type)
+                                                                                 m_type(type),
+                                                                                 m_envEditable(true),
+                                                                                 m_volumesEditable(true)
 
 {
     ui->setupUi(this);
     m_objId = Container::generateId(this);
 
+    auto fileName = QString("%1%2").arg(SETTINGS_FORMAT_CONFIG_DIR).arg(SETTINGS_FORMAT_CONFIG_FILENAME);
+    m_settings = new QSettings(fileName, QSettings::IniFormat, this);
+
     initUI();
     initConnection();
+    loadSettings();
 }
 
 ContainerSetting::~ContainerSetting()
