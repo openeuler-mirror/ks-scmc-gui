@@ -1271,11 +1271,11 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
 
-    // 过检需要，在编辑容器时，无法修改环境变量和共享目录的值
+    // 过检需要，在编辑容器时，通过获取配置文件值来决定是否可以修改环境变量和共享目录的值
     if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
     {
-        volumesPage->setDisabled(true);
-        envPage->setDisabled(true);
+        volumesPage->setDisabled(!m_volumesEditable);
+        envPage->setDisabled(!m_envEditable);
     }
 
     // high-availability
