@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidgetItem>
+#include <QSettings>
 #include <QStackedWidget>
 #include <QWidget>
 #include "base/interface/container.h"
