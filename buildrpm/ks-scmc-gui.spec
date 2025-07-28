@@ -172,8 +172,12 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
     /usr/local/ks-scmc-gui/*
 %endif
 %{_datadir}/icons/hicolor/*/apps/*.*
+%{_sysconfdir}/ks-scmc-gui/*
 
 %changelog
+* Mon Jul 28 2025 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-10
+- KYOS-F: add config file to enable envs and volumes of container setting(#89345)
+
 * Wed Jul 02 2025 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-9
 - KYOS-F: add hide_container_in_node build option and fix some bugs
 
