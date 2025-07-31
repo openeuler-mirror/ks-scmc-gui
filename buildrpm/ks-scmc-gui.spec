@@ -175,6 +175,9 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_sysconfdir}/ks-scmc-gui/*
 
 %changelog
+* Thu Jul 31 2025 yuanxing <yuanxing@kylinos.com.cn> - 1.2.1-10
+- KYOS-F: Upgrade from 1.1.1 to 1.2.1. (#82292)
+
 * Mon Jul 28 2025 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-10
 - KYOS-F: add config file to enable envs and volumes of container setting(#89345)
 
