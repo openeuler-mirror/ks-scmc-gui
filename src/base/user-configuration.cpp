@@ -78,7 +78,7 @@ void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QStri
     {
     case CONFIG_SETTING_TYPE_LOGIN:
         settings = m_loginSettings;
-        if (key == PASSWORD)  //加密
+        if (key == PASSWORD)  // 加密
             desValue = QString::fromStdString(desEncrypt(value.toStdString()));
         break;
     case CONFIG_SETTING_TYPE_SERVER:
