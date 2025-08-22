@@ -24,15 +24,21 @@ public:
     QString getServerInfo();
     void setServerInfo();
 
+private slots:
+    void confirm();
+    void switchPage();
+
 private:
     void initUI();
     void readConfig(QString key, QString &value);
     void writeConfig(QString key, QString value);
+    bool handleIpConfig();
+    bool handleDomainConfig();
 
 private:
-    IpMaskLineEdit *m_ipLineEdit;
-    QLineEdit *m_portLineEdit;
+    Ui::ServerConfigDialog *ui;
     QString m_ip;
+    QString m_domain;
     QString m_port;
 };
 
