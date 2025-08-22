@@ -65,114 +65,151 @@ void ServerConfigDialog::initUI()
     setTitle(tr("Config Server"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarButtonHint::TitlebarCloseButtonHint);
-    this->setFixedSize(460, 340);
+    this->setFixedSize(520, 340);
     setResizeable(false);
 
-    QWidget *windowContentWidget = getWindowContentWidget();
-    QVBoxLayout *mainVLayout = new QVBoxLayout(windowContentWidget);
-    mainVLayout->setSpacing(10);
-    mainVLayout->setMargin(0);
-    mainVLayout->setContentsMargins(24, 16, 24, 40);
+    ui->rbtn_ip->setChecked(true);
 
-    QWidget *ipWidget = new QWidget(windowContentWidget);
-    QVBoxLayout *ipLayout = new QVBoxLayout(ipWidget);
-    ipLayout->setMargin(0);
-    ipLayout->setSpacing(10);
-    QLabel *ipLab = new QLabel(tr("<font color=red>*</font>Ip Address"), ipWidget);
-    m_ipLineEdit = new IpMaskLineEdit(ipWidget);
-    m_ipLineEdit->setFixedSize(370, 36);
+    ui->lineEdit_dn->setPlaceholderText(tr("Please input domain name"));
+    ui->lineEdit_dn->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_dn->setMaxLength(255);
 
-    ipLayout->addWidget(ipLab);
-    ipLayout->addWidget(m_ipLineEdit);
+    ui->lineEdit_port->setPlaceholderText(tr("Please input port"));
+    ui->lineEdit_port->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_port->setMaxLength(5);
+    ui->lineEdit_port->setValidator(new QIntValidator(0, 65535, this));
 
-    QWidget *portWidget = new QWidget(windowContentWidget);
-    QVBoxLayout *portLayout = new QVBoxLayout(portWidget);
-    portLayout->setContentsMargins(0, 0, 0, 10);
-    portLayout->setSpacing(10);
-    QLabel *portLab = new QLabel(tr("<font color=red>*</font>Port"), portWidget);
-    m_portLineEdit = new QLineEdit(portWidget);
-    m_portLineEdit->setFixedSize(370, 36);
-    m_portLineEdit->setPlaceholderText(tr("Please input port"));
-    m_portLineEdit->setTextMargins(10, 0, 0, 0);
-    m_portLineEdit->setMaxLength(5);
-    portLayout->addWidget(portLab);
-    portLayout->addWidget(m_portLineEdit);
-
-    QHBoxLayout *btnLayout = new QHBoxLayout();
-    btnLayout->setSpacing(36);
-    btnLayout->setMargin(0);
-    QPushButton *confirmBtn = new QPushButton(tr("Confirm"));
-    confirmBtn->setFixedSize(110, 36);
-    Kiran::WidgetPropertyHelper::setButtonType(confirmBtn, Kiran::BUTTON_Default);
-    QPushButton *cancleBtn = new QPushButton(tr("Cancle"));
-    Kiran::WidgetPropertyHelper::setButtonType(cancleBtn, Kiran::BUTTON_Normal);
-    cancleBtn->setFixedSize(110, 36);
-    btnLayout->addWidget(confirmBtn);
-    btnLayout->addWidget(cancleBtn);
-
-    mainVLayout->addWidget(ipWidget);
-    mainVLayout->addWidget(portWidget);
-    mainVLayout->addStretch();
-    mainVLayout->addLayout(btnLayout);
+    Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);
+    Kiran::WidgetPropertyHelper::setButtonType(ui->btn_cancle, Kiran::BUTTON_Normal);
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
     this->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
                screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
 
-    connect(confirmBtn, &QPushButton::clicked,
-            [this]
-            {
-                auto inputIp = m_ipLineEdit->getIpAddress();
-                if (inputIp.isEmpty() || m_portLineEdit->text().isEmpty())
-                {
-                    KiranMessageBox::message(nullptr,
-                                             tr("Failed"),
-                                             tr("Please input complete server information!"),
-                                             KiranMessageBox::Ok);
-                    return;
-                }
-                else if (!m_ipLineEdit->isValidIp(inputIp))
-                {
-                    KiranMessageBox::message(nullptr,
-                                             tr("Failed"),
-                                             tr("Please input correct IP address!"),
-                                             KiranMessageBox::Ok);
-                    return;
-                }
-                KLOG_INFO() << "Get ip from ui:" << inputIp;
+    connect(ui->rbtn_ip, &QRadioButton::toggled, this, &ServerConfigDialog::switchPage);
+    connect(ui->rbtn_dn, &QRadioButton::toggled, this, &ServerConfigDialog::switchPage);
+    connect(ui->btn_confirm, &QPushButton::clicked, this, &ServerConfigDialog::confirm);
+    connect(ui->btn_cancle, &QPushButton::clicked, this, &ServerConfigDialog::close);
+}
 
-                m_ip = inputIp;
-                m_port = m_portLineEdit->text();
-                UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-                UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
-                UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
-                close();
-            });
-    connect(cancleBtn, &QPushButton::clicked,
-            [this]
-            {
-                close();
-            });
+bool ServerConfigDialog::handleIpConfig()
+{
+    auto inputIp = ui->lineEdit_ip->getIpAddress();
+    if (inputIp.isEmpty() || ui->lineEdit_port->text().isEmpty())
+    {
+        KiranMessageBox::message(nullptr,
+                                 tr("Failed"),
+                                 tr("Please input complete server information!"),
+                                 KiranMessageBox::Ok);
+        return false;
+    }
+    else if (!ui->lineEdit_ip->isValidIp(inputIp))
+    {
+        KiranMessageBox::message(nullptr,
+                                 tr("Failed"),
+                                 tr("Please input correct IP address!"),
+                                 KiranMessageBox::Ok);
+        return false;
+    }
+    KLOG_INFO() << "Get ip and port from ui:" << inputIp << ui->lineEdit_port->text();
+
+    m_ip = inputIp;
+    m_port = ui->lineEdit_port->text();
+    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
+    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+    UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
+    return true;
+}
+
+bool ServerConfigDialog::handleDomainConfig()
+{
+    m_domain = ui->lineEdit_dn->text();
+    m_port = ui->lineEdit_port->text();
+    if (m_domain.isEmpty() || m_port.isEmpty())
+    {
+        KiranMessageBox::message(nullptr,
+                                 tr("Failed"),
+                                 tr("Please input complete server information!"),
+                                 KiranMessageBox::Ok);
+        return false;
+    }
+    KLOG_INFO() << "Get domain name and port from ui:" << m_domain << ui->lineEdit_port->text();
+
+    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_DOMAIN_NAME, m_domain);
+    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+    UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_domain).arg(m_port).toStdString());
+    return true;
+}
+
+void ServerConfigDialog::confirm()
+{
+    bool isValid = false;
+    switch (ui->stackedWidget->currentIndex())
+    {
+    case SERVER_CONFIG_TYPE_IP:
+    {
+        isValid = handleIpConfig();
+        break;
+    }
+    case SERVER_CONFIG_TYPE_DOMAIN_NAME:
+    {
+        isValid = handleDomainConfig();
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+    if (isValid)
+    {
+        close();
+    }
 }
 
 void ServerConfigDialog::setServerInfo()
 {
     m_ip.clear();
     m_port.clear();
+    m_domain.clear();
 
+    // 设置ip/域名
     QString server = QString::fromStdString(UserConfiguration::getInstance().getServerAddr());
     if (!server.isEmpty() && server.contains(":"))
     {
-        m_ip = server.split(":").first();
+        auto addr = server.split(":").first();
+        // 设置ip/域名
+        QRegExp ipRegex("^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+        if (ipRegex.exactMatch(addr))
+        {
+            m_ip = addr;
+            ui->lineEdit_ip->setIp(m_ip);
+            ui->rbtn_ip->setChecked(true);
+        }
+        else
+        {
+            m_domain = addr;
+            ui->lineEdit_dn->setText(m_domain);
+            ui->rbtn_dn->setChecked(true);
+        }
+
+        // 设置端口号
         m_port = server.split(":").last();
-        m_ipLineEdit->setIp(m_ip);
-        m_portLineEdit->setText(m_port);
+        ui->lineEdit_port->setText(m_port);
         return;
     }
+
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-    m_ipLineEdit->setIp(m_ip);
+    ui->lineEdit_ip->setIp(m_ip);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_DOMAIN_NAME, m_domain);
+    ui->lineEdit_dn->setText(m_domain);
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
-    m_portLineEdit->setText(m_port);
-    UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
+    ui->lineEdit_port->setText(m_port);
+
+    auto addr = m_ip.isEmpty() ? m_domain : m_ip;
+    if (!addr.isEmpty())
+    {
+        UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(addr).arg(m_port).toStdString());
+    }
 }
