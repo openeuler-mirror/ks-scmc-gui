@@ -1237,7 +1237,7 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="365"/>
         <location filename="../build/src/ui_container-setting.h" line="326"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="193"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="206"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
