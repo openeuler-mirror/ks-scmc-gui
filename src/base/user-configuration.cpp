@@ -89,7 +89,7 @@ void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QStri
     }
 
     variant.setValue(desValue);
-    //将信息写入配置文件
+    // 将信息写入配置文件
     settings->beginGroup(group);
     settings->setValue(key, variant);
     settings->endGroup();
