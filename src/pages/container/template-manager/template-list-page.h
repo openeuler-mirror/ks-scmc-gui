@@ -68,6 +68,10 @@ private:
     void initTemplateConnect();
     void getCheckedItemsId(QList<int64_t> &ids);
     void getItemId(int row, int64_t &id);
+    void exportTemplate(const QList<int64_t> &ids, const QString &exportPath);
+
+    QString convertTemplateToJson(const container::ContainerTemplate &data);
+    void parseJsonToTemplate(const QByteArray &jsonData, const QString &templateName);
 
     void getNetworkInfo(int64_t node_id);
     void getTemplateInfo();
