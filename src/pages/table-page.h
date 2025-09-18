@@ -72,12 +72,13 @@ public:
     void setSeachPageNone();  // 搜索结果为空
     void hideSearchLine();    // 隐藏搜索框
 
+    QString tooptipWordWrap(const QString &org);
+
 private:
     void initUI();
     void initPaging();
     void adjustTableSize();
     int getCheckedItemNum();
-    QString tooptipWordWrap(const QString &org);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
