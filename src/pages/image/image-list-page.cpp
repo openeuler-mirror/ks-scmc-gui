@@ -565,6 +565,24 @@ void ImageListPage::onBtnRefuseLabel(int row)
     }
 }
 
+void ImageListPage::setItemToolTip(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    if (index.column() != IMAGE_APPROVE_STATUS_COL)
+        return;
+
+    auto infoMap = getItem(index.row(), 1)->data().value<QMap<QString, QVariant>>();
+    if (infoMap.isEmpty())
+        return;
+
+    auto refuseReason = infoMap.value(IMAGE_REFUSE_REASON).toString();
+    QPoint point = QCursor::pos();
+    QRect rect = QRect(point.x(), point.y(), 30, 10);
+    QToolTip::showText(point, tooptipWordWrap(refuseReason), this, rect);
+}
+
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_DEBUG() << "Upload image."
