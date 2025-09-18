@@ -262,6 +262,109 @@ void TemplateListPage::onRemoveTemplate()
     }
 }
 
+void TemplateListPage::onImportTemplate()
+{
+    if (!m_importDialog)
+    {
+        m_importDialog = new TemplateImportDialog();
+        connect(m_importDialog, &TemplateImportDialog::destroyed, [=]
+                { m_importDialog = nullptr; });
+        connect(m_importDialog, &TemplateImportDialog::fileSelected, this, [this]
+                {
+                auto templateFile = m_importDialog->getTemplateFile();
+                auto templateName = m_importDialog->getTemplateName();
+                // 检查输入
+                if (templateName.isEmpty())
+                {
+                    MessageDialog::message(tr("Import Template"),
+                                           tr("Import template failed"),
+                                           tr("Please enter template name!"),
+                                           ":/images/warning.svg",
+                                           MessageDialog::StandardButton::Ok);
+                    return;
+                }
+
+                if (templateFile.isEmpty())
+                {
+                    MessageDialog::message(tr("Import Template"),
+                                           tr("Import template failed"),
+                                           tr("Please select template config file!"),
+                                           ":/images/warning.svg",
+                                           MessageDialog::StandardButton::Ok);
+                    return;
+                }
+
+                // 读取并解析配置文件
+                QFile file(templateFile);
+                if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+                {
+                    MessageDialog::message(tr("Import Template"),
+                                           tr("Failed to open config file!"),
+                                           tr("Cannot read file %1.").arg(templateFile),
+                                           ":/images/error.svg",
+                                           MessageDialog::StandardButton::Ok);
+                    return;
+                }
+                QByteArray jsonData = file.readAll();
+                file.close();
+                parseJsonToTemplate(jsonData, templateName); });
+    }
+
+    m_importDialog->clear();
+    m_importDialog->show();
+}
+
+void TemplateListPage::onExportTemplate()
+{
+    // 用户认证
+    auto authDialog = new AuthorizationDialog(this);
+    QString user;
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, user);
+    authDialog->setUserName(user);
+    if (authDialog->exec() != QDialog::Accepted)
+    {
+        return;
+    }
+
+    QList<int64_t> ids;
+    getCheckedItemsId(ids);
+
+    if (ids.empty())
+    {
+        MessageDialog::message(tr("Export Template"),
+                               tr("Export template failed"),
+                               tr("Please select the template to export."),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    // 弹出文件对话框，让用户选择保存路径
+    QFileDialog fileDialog(this);
+    fileDialog.setFileMode(QFileDialog::Directory);
+    fileDialog.setOption(QFileDialog::ShowDirsOnly, true);
+    fileDialog.setWindowTitle(tr("Select Export Directory"));
+
+    if (fileDialog.exec() != QDialog::Accepted)
+    {
+        return;  // 用户取消操作
+    }
+
+    QStringList selectedPaths = fileDialog.selectedFiles();
+    if (selectedPaths.isEmpty())
+    {
+        return;
+    }
+
+    QString exportPath = selectedPaths.first();
+    if (!exportPath.endsWith("/"))
+    {
+        exportPath += "/";
+    }
+
+    exportTemplate(ids, exportPath);
+}
+
 void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
 {
     if (m_objId != objId)
