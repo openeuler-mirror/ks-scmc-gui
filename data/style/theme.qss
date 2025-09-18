@@ -651,21 +651,18 @@ NetworkListPage #btnCreate
 }
 
 NodeListPage #btnCreate:hover,
-TemplateListPage #btnCreate:hover,
 ContainerBackupPage #btnCreate:hover,
 NetworkListPage #btnCreate:hover
 {
    background-color:#77ceff;
 }
 NodeListPage #btnCreate:focus,
-TemplateListPage #btnCreate:focus,
 ContainerBackupPage #btnCreate:focus,
 NetworkListPage #btnCreate:focus
 {
     outline: none;
 }
 NodeListPage #btnCreate:disabled,
-TemplateListPage #btnCreate:disabled,
 ContainerBackupPage #btnCreate:disabled,
 NetworkListPage #btnCreate:disabled
 {
