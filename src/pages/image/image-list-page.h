@@ -48,10 +48,14 @@ private slots:
     void onBtnRefuse();
     void onBtnPassLabel(int row);
     void onBtnRefuseLabel(int row);
+
+    void setItemToolTip(const QModelIndex &index);
+
     void uploadSaveSlot(QMap<QString, QString> Info);
     void updateSaveSlot(QMap<QString, QString> Info);
     void downloadSaveSlot(QMap<QString, QString> Info);
     void checkSaveSlot(QMap<QString, QString> Info);
+
     void getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &);
     void getCheckResult(const QString objId, const QPair<grpc::Status, image::ApproveReply> &);
     void getRemoveResult(const QString objId, const QPair<grpc::Status, image::RemoveReply> &);
