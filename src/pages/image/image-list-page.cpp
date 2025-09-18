@@ -190,6 +190,8 @@ void ImageListPage::initButtons()
 
 void ImageListPage::initImageConnect()
 {
+    connect(this, &ImageListPage::sigItemEntered, this, &ImageListPage::setItemToolTip);
+
     connect(&Image::getInstance(), &Image::listDBImageFinished, this, &ImageListPage::getListDBResult, Qt::UniqueConnection);
     connect(&Image::getInstance(), &Image::checkImageFinished, this, &ImageListPage::getCheckResult, Qt::UniqueConnection);
     connect(&Image::getInstance(), &Image::removeImageFinished, this, &ImageListPage::getRemoveResult, Qt::UniqueConnection);
