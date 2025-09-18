@@ -19,6 +19,7 @@
 #define IMAGE_DESC "image description"
 #define IMAGE_FILE "image file"
 #define IMAGE_SIGN "image sign"
+#define IMAGE_REFUSE_REASON "image refuse reason"
 
 namespace Ui
 {
