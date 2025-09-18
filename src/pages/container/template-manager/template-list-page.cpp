@@ -690,6 +690,412 @@ void TemplateListPage::getItemId(int row, int64_t &id)
     id = idMap.value(TEMPLATE_ID).toInt();
 }
 
+QString TemplateListPage::convertTemplateToJson(const container::ContainerTemplate &data)
+{
+    QJsonObject templateJson;
+    templateJson["id"] = static_cast<qint64>(data.id());
+    templateJson["node_id"] = static_cast<qint64>(data.node_id());
+
+    // 转换ContainerConfigs
+    auto cfg = data.conf();
+    QJsonObject configJson;
+    configJson["container_id"] = QString::fromStdString(cfg.container_id());
+    configJson["uuid"] = QString::fromStdString(cfg.uuid());
+    configJson["name"] = QString::fromStdString(cfg.name());
+    configJson["status"] = QString::fromStdString(cfg.status());
+    configJson["desc"] = QString::fromStdString(cfg.desc());
+    configJson["image"] = QString::fromStdString(cfg.image());
+    configJson["enable_graphic"] = cfg.enable_graphic();
+    configJson["cmd"] = QString::fromStdString(cfg.cmd());
+    configJson["ipcname"] = QString::fromStdString(cfg.ipcname());
+    configJson["hostname"] = QString::fromStdString(cfg.hostname());
+
+    // 转换Mounts
+    QJsonArray mountsArray;
+    for (int i = 0; i < cfg.mounts_size(); ++i)
+    {
+        auto mount = cfg.mounts(i);
+        QJsonObject mountJson;
+        mountJson["type"] = QString::fromStdString(mount.type());
+        mountJson["source"] = QString::fromStdString(mount.source());
+        mountJson["target"] = QString::fromStdString(mount.target());
+        mountJson["read_only"] = mount.read_only();
+        mountJson["consistency"] = QString::fromStdString(mount.consistency());
+        mountsArray.append(mountJson);
+    }
+    configJson["mounts"] = mountsArray;
+
+    // 转换Networks
+    QJsonArray networksArray;
+    for (int i = 0; i < cfg.networks_size(); ++i)
+    {
+        auto network = cfg.networks(i);
+        QJsonObject networkJson;
+        networkJson["interface"] = QString::fromStdString(network.interface());
+        networkJson["container_id"] = QString::fromStdString(network.container_id());
+        networkJson["ip_address"] = QString::fromStdString(network.ip_address());
+        networkJson["ip_prefix_len"] = network.ip_prefix_len();
+        networkJson["mac_address"] = QString::fromStdString(network.mac_address());
+        networkJson["gateway"] = QString::fromStdString(network.gateway());
+        networksArray.append(networkJson);
+    }
+    configJson["networks"] = networksArray;
+
+    // 转换Envs
+    QJsonObject envsObject;
+    auto envs = cfg.envs();
+    for (auto it = envs.begin(); it != envs.end(); ++it)
+    {
+        envsObject[QString::fromStdString(it->first)] = QString::fromStdString(it->second);
+    }
+    configJson["envs"] = envsObject;
+
+    // 转换RestartPolicy
+    QJsonObject restartPolicyJson;
+    restartPolicyJson["name"] = QString::fromStdString(cfg.restart_policy().name());
+    restartPolicyJson["max_retry"] = cfg.restart_policy().max_retry();
+    configJson["restart_policy"] = restartPolicyJson;
+
+    // 转换ResourceLimit
+    QJsonObject resourceLimitJson;
+    resourceLimitJson["cpu_limit"] = cfg.resouce_limit().cpu_limit();
+    resourceLimitJson["cpu_prio"] = static_cast<qint64>(cfg.resouce_limit().cpu_prio());
+    resourceLimitJson["memory_limit"] = cfg.resouce_limit().memory_limit();
+    resourceLimitJson["memory_soft_limit"] = cfg.resouce_limit().memory_soft_limit();
+    resourceLimitJson["disk_limit"] = cfg.resouce_limit().disk_limit();
+    resourceLimitJson["disk_prio"] = static_cast<qint64>(cfg.resouce_limit().disk_prio());
+    resourceLimitJson["disk_rbw"] = static_cast<qint64>(cfg.resouce_limit().disk_rbw());
+    resourceLimitJson["disk_wbw"] = static_cast<qint64>(cfg.resouce_limit().disk_wbw());
+    configJson["resouce_limit"] = resourceLimitJson;
+
+    // 转换ContainerMiscConfig
+    QJsonObject miscConfigJson;
+    miscConfigJson["app_run"] = cfg.misc_config().app_run();
+    configJson["misc_config"] = miscConfigJson;
+
+    // 转换SecurityConfig
+    QJsonObject securityConfigJson;
+    securityConfigJson["disable_external_network"] = cfg.security_config().disable_external_network();
+    securityConfigJson["disable_cmd_operation"] = cfg.security_config().disable_cmd_operation();
+    securityConfigJson["security_level_template"] = static_cast<qint64>(cfg.security_config().security_level_template());
+    securityConfigJson["network_access_controll"] = cfg.security_config().network_access_controll();
+
+    // 转换ProcProtection - proc_protection
+    auto procProtection = cfg.security_config().proc_protection();
+    QJsonObject procProtectionJson;
+    procProtectionJson["protection_type"] = static_cast<qint64>(procProtection.protection_type());
+    procProtectionJson["is_on"] = procProtection.is_on();
+    QJsonArray exeListArray;
+    for (int i = 0; i < procProtection.exe_list_size(); ++i)
+    {
+        exeListArray.append(QString::fromStdString(procProtection.exe_list(i)));
+    }
+    procProtectionJson["exe_list"] = exeListArray;
+    securityConfigJson["proc_protection"] = procProtectionJson;
+
+    // 转换ProcProtection - nproc_protection
+    auto nprocProtection = cfg.security_config().nproc_protection();
+    QJsonObject nprocProtectionJson;
+    nprocProtectionJson["protection_type"] = static_cast<qint64>(nprocProtection.protection_type());
+    nprocProtectionJson["is_on"] = nprocProtection.is_on();
+    QJsonArray nprocExeListArray;
+    for (int i = 0; i < nprocProtection.exe_list_size(); ++i)
+    {
+        nprocExeListArray.append(QString::fromStdString(nprocProtection.exe_list(i)));
+    }
+    nprocProtectionJson["exe_list"] = nprocExeListArray;
+    securityConfigJson["nproc_protection"] = nprocProtectionJson;
+
+    // 转换FileProtection
+    auto fileProtection = cfg.security_config().file_protection();
+    QJsonObject fileProtectionJson;
+    fileProtectionJson["is_on"] = fileProtection.is_on();
+    QJsonArray fileListArray;
+    for (int i = 0; i < fileProtection.file_list_size(); ++i)
+    {
+        fileListArray.append(QString::fromStdString(fileProtection.file_list(i)));
+    }
+    fileProtectionJson["file_list"] = fileListArray;
+    securityConfigJson["file_protection"] = fileProtectionJson;
+
+    // 转换NetworkRuleList
+    auto networkRuleList = cfg.security_config().network_rule();
+    QJsonObject networkRuleListJson;
+    networkRuleListJson["is_on"] = networkRuleList.is_on();
+    QJsonArray rulesArray;
+    for (int i = 0; i < networkRuleList.rules_size(); ++i)
+    {
+        auto rule = networkRuleList.rules(i);
+        QJsonObject ruleJson;
+        QJsonArray protocolsArray;
+        for (int j = 0; j < rule.protocols_size(); ++j)
+        {
+            protocolsArray.append(QString::fromStdString(rule.protocols(j)));
+        }
+        ruleJson["protocols"] = protocolsArray;
+        ruleJson["addr"] = QString::fromStdString(rule.addr());
+        ruleJson["port"] = static_cast<qint64>(rule.port());
+        ruleJson["drop"] = rule.drop();
+        rulesArray.append(ruleJson);
+    }
+    networkRuleListJson["rules"] = rulesArray;
+    securityConfigJson["network_rule"] = networkRuleListJson;
+
+    configJson["security_config"] = securityConfigJson;
+
+    templateJson["conf"] = configJson;
+
+    // 将JSON转换为字符串并返回
+    QJsonDocument doc(templateJson);
+    return doc.toJson(QJsonDocument::Indented);
+}
+
+void TemplateListPage::parseJsonToTemplate(const QByteArray &jsonData, const QString &templateName)
+{
+    QJsonParseError jsonError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &jsonError);
+    if (jsonError.error != QJsonParseError::NoError)
+    {
+        MessageDialog::message(tr("Import Template"),
+                               tr("Invalid config file format!"),
+                               tr("JSON parse error"),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    if (!jsonDoc.isObject())
+    {
+        MessageDialog::message(tr("Import Template"),
+                               tr("Invalid config file format!"),
+                               tr("Root element is not a JSON object."),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    QJsonObject rootObj = jsonDoc.object();
+    QJsonObject confObj = rootObj["conf"].toObject();
+
+    // 创建模板请求
+    container::CreateTemplateRequest request;
+    auto data = request.mutable_data();
+    data->set_node_id(rootObj["node_id"].toInt());
+
+    auto configs = data->mutable_conf();
+
+    // 填充基本配置
+    configs->set_name(templateName.toStdString());
+    configs->set_desc(confObj["desc"].toString().toStdString());
+    configs->set_image(confObj["image"].toString().toStdString());
+    configs->set_enable_graphic(confObj["enable_graphic"].toBool());
+    configs->set_cmd(confObj["cmd"].toString().toStdString());
+    configs->set_ipcname(confObj["ipcname"].toString().toStdString());
+    configs->set_hostname(confObj["hostname"].toString().toStdString());
+
+    // 填充资源限制
+    QJsonObject resourceLimitObj = confObj["resouce_limit"].toObject();
+    auto resourceLimit = configs->mutable_resouce_limit();
+    resourceLimit->set_cpu_limit(resourceLimitObj["cpu_limit"].toDouble());
+    resourceLimit->set_cpu_prio(resourceLimitObj["cpu_prio"].toInt());
+    resourceLimit->set_memory_limit(resourceLimitObj["memory_limit"].toDouble());
+    resourceLimit->set_memory_soft_limit(resourceLimitObj["memory_soft_limit"].toDouble());
+    resourceLimit->set_disk_limit(resourceLimitObj["disk_limit"].toDouble());
+    resourceLimit->set_disk_prio(resourceLimitObj["disk_prio"].toInt());
+    resourceLimit->set_disk_rbw(resourceLimitObj["disk_rbw"].toInt());
+    resourceLimit->set_disk_wbw(resourceLimitObj["disk_wbw"].toInt());
+
+    // 填充重启策略
+    QJsonObject restartPolicyObj = confObj["restart_policy"].toObject();
+    auto restartPolicy = configs->mutable_restart_policy();
+    restartPolicy->set_name(restartPolicyObj["name"].toString().toStdString());
+    restartPolicy->set_max_retry(restartPolicyObj["max_retry"].toInt());
+
+    // 填充环境变量
+    QJsonObject envsObj = confObj["envs"].toObject();
+    for (auto it = envsObj.begin(); it != envsObj.end(); ++it)
+    {
+        (*configs->mutable_envs())[it.key().toStdString()] = it.value().toString().toStdString();
+    }
+
+    // 填充挂载点
+    QJsonArray mountsArray = confObj["mounts"].toArray();
+    for (const auto &mountValue : mountsArray)
+    {
+        QJsonObject mountObj = mountValue.toObject();
+        auto mount = configs->add_mounts();
+        mount->set_type(mountObj["type"].toString().toStdString());
+        mount->set_source(mountObj["source"].toString().toStdString());
+        mount->set_target(mountObj["target"].toString().toStdString());
+        mount->set_read_only(mountObj["read_only"].toBool());
+        mount->set_consistency(mountObj["consistency"].toString().toStdString());
+    }
+
+    // 填充网络配置
+    QJsonArray networksArray = confObj["networks"].toArray();
+    for (const auto &networkValue : networksArray)
+    {
+        QJsonObject networkObj = networkValue.toObject();
+        auto network = configs->add_networks();
+        network->set_interface(networkObj["interface"].toString().toStdString());
+        network->set_container_id(networkObj["container_id"].toString().toStdString());
+        network->set_ip_address(networkObj["ip_address"].toString().toStdString());
+        network->set_ip_prefix_len(networkObj["ip_prefix_len"].toInt());
+        network->set_mac_address(networkObj["mac_address"].toString().toStdString());
+        network->set_gateway(networkObj["gateway"].toString().toStdString());
+    }
+
+    // 填充Misc配置
+    QJsonObject miscConfigObj = confObj["misc_config"].toObject();
+    auto miscConfig = configs->mutable_misc_config();
+    miscConfig->set_app_run(miscConfigObj["app_run"].toBool());
+
+    // 填充安全配置
+    QJsonObject securityConfigObj = confObj["security_config"].toObject();
+    auto securityConfig = configs->mutable_security_config();
+    securityConfig->set_disable_external_network(securityConfigObj["disable_external_network"].toBool());
+    securityConfig->set_disable_cmd_operation(securityConfigObj["disable_cmd_operation"].toBool());
+    securityConfig->set_security_level_template(securityConfigObj["security_level_template"].toInt());
+    securityConfig->set_network_access_controll(securityConfigObj["network_access_controll"].toBool());
+
+    // 填充进程保护配置
+    QJsonObject procProtectionObj = securityConfigObj["proc_protection"].toObject();
+    auto procProtection = securityConfig->mutable_proc_protection();
+    procProtection->set_protection_type(procProtectionObj["protection_type"].toInt());
+    procProtection->set_is_on(procProtectionObj["is_on"].toBool());
+    QJsonArray exeListArray = procProtectionObj["exe_list"].toArray();
+    for (const auto &exeValue : exeListArray)
+    {
+        procProtection->add_exe_list(exeValue.toString().toStdString());
+    }
+
+    // 填充网络进程保护配置
+    QJsonObject nprocProtectionObj = securityConfigObj["nproc_protection"].toObject();
+    auto nprocProtection = securityConfig->mutable_nproc_protection();
+    nprocProtection->set_protection_type(nprocProtectionObj["protection_type"].toInt());
+    nprocProtection->set_is_on(nprocProtectionObj["is_on"].toBool());
+    QJsonArray nprocExeListArray = nprocProtectionObj["exe_list"].toArray();
+    for (const auto &exeValue : nprocExeListArray)
+    {
+        nprocProtection->add_exe_list(exeValue.toString().toStdString());
+    }
+
+    // 填充文件保护配置
+    QJsonObject fileProtectionObj = securityConfigObj["file_protection"].toObject();
+    auto fileProtection = securityConfig->mutable_file_protection();
+    fileProtection->set_is_on(fileProtectionObj["is_on"].toBool());
+    QJsonArray fileListArray = fileProtectionObj["file_list"].toArray();
+    for (const auto &fileValue : fileListArray)
+    {
+        fileProtection->add_file_list(fileValue.toString().toStdString());
+    }
+
+    // 填充网络规则配置
+    QJsonObject networkRuleListObj = securityConfigObj["network_rule"].toObject();
+    auto networkRuleList = securityConfig->mutable_network_rule();
+    networkRuleList->set_is_on(networkRuleListObj["is_on"].toBool());
+    QJsonArray rulesArray = networkRuleListObj["rules"].toArray();
+    for (const auto &ruleValue : rulesArray)
+    {
+        QJsonObject ruleObj = ruleValue.toObject();
+        security::NetworkRule *rule = networkRuleList->add_rules();
+        QJsonArray protocolsArray = ruleObj["protocols"].toArray();
+        for (const auto &protocolValue : protocolsArray)
+        {
+            rule->add_protocols(protocolValue.toString().toStdString());
+        }
+        rule->set_addr(ruleObj["addr"].toString().toStdString());
+        rule->set_port(ruleObj["port"].toInt());
+        rule->set_drop(ruleObj["drop"].toBool());
+    }
+
+    Container::getInstance().createTemplate(m_objId, request);
+}
+
+void TemplateListPage::exportTemplate(const QList<int64_t> &ids, const QString &exportPath)
+{
+    // 保存每个选中的模板
+    int successCount = 0;
+    QStringList failedTemplates;
+
+    for (auto id : ids)
+    {
+        // 获取模板名称用于文件名
+        auto templateName = "template_" + QString::number(id);
+
+        auto templateJson = m_templateJsonMap[id];
+        if (templateJson.isEmpty())
+        {
+            KLOG_WARNING() << "Template JSON data is empty for ID:" << id;
+            failedTemplates.append(templateName);
+            continue;
+        }
+
+        // 从表格中查找对应的模板名称
+        for (int row = 0; row < getRowCount(); ++row)
+        {
+            auto item = getItem(row, 1);  // 模板名称列
+            if (item)
+            {
+                auto idMap = item->data().value<QMap<QString, QVariant>>();
+                if (idMap.value(TEMPLATE_ID).toInt() == id)
+                {
+                    templateName = item->text();
+                    break;
+                }
+            }
+        }
+
+        // 确保文件名合法
+        QString fileName = exportPath + templateName + ".conf";
+
+        // 保存文件
+        QFile file(fileName);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&file);
+            out << templateJson;
+            file.close();
+            successCount++;
+            KLOG_INFO() << "Successfully exported template to:" << fileName;
+        }
+        else
+        {
+            KLOG_WARNING() << "Failed to export template to:" << fileName;
+            failedTemplates.append(templateName);
+        }
+    }
+
+    // 显示操作结果
+    if (successCount > 0 && failedTemplates.isEmpty())
+    {
+        // 全部成功
+        MessageDialog::message(tr("Export Template"),
+                               tr("Successfully exported %1 template(s)!").arg(successCount),
+                               tr("Templates exported to: %1").arg(exportPath),
+                               ":/images/success.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+    else if (successCount > 0 && !failedTemplates.isEmpty())
+    {
+        // 部分成功
+        MessageDialog::message(tr("Export Template"),
+                               tr("Successfully exported %1 template(s)!").arg(successCount),
+                               tr("Failed to export: %1").arg(failedTemplates.join(", ")),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+    else
+    {
+        // 全部失败
+        MessageDialog::message(tr("Export Template"),
+                               tr("Failed to export templates!"),
+                               tr("Please check the selected directory permissions."),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
+
 void TemplateListPage::getNetworkInfo(int64_t node_id)
 {
     KLOG_DEBUG() << "Get network info of node:" << node_id;
