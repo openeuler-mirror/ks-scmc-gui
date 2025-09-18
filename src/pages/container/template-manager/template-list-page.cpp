@@ -483,6 +483,9 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
 
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     clearTable();
+    // 清空之前的JSON数据
+    m_templateJsonMap.clear();
+
     int size = reply.second.data_size();
     KLOG_DEBUG() << "Template size:" << size;
     if (size <= 0)
