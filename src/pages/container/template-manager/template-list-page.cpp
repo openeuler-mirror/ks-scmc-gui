@@ -6,15 +6,124 @@
  */
 #include "template-list-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include <widget-property-helper.h>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QFileDialog>
+#include <QFormLayout>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QPushButton>
+#include "authorization-dialog.h"
 #include "def.h"
 #include "message-dialog.h"
 
 using namespace grpc;
 
-TemplateListPage::TemplateListPage(QWidget *parent) : TablePage(parent), m_createTPSetting(nullptr), m_editTPSetting(nullptr)
+TemplateImportDialog::TemplateImportDialog(QWidget *parent) : KiranTitlebarWindow(parent, Qt::Dialog)
+{
+    setTitle(tr("Import Template"));
+    setFixedSize(500, 250);
+    setAttribute(Qt::WA_DeleteOnClose, true);
+    setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
+
+    // 创建控件
+    auto nameLabel = new QLabel(tr("Template Name:"));
+    m_templateNameEdit = new QLineEdit();
+    m_templateNameEdit->setPlaceholderText(tr("Please enter template name"));
+    m_templateNameEdit->setFixedHeight(32);
+    m_templateNameEdit->setMaxLength(50);
+
+    auto nameTipBtn = new QToolButton();
+    nameTipBtn->setFixedSize(16, 16);
+    nameTipBtn->setIcon(QIcon(":/images/tips.svg"));
+    nameTipBtn->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
+
+    auto fileLabel = new QLabel(tr("Template Config File:"));
+    m_templateFileEdit = new QLineEdit();
+    m_templateFileEdit->setPlaceholderText(tr("Please select template config file"));
+    m_templateFileEdit->setFixedHeight(32);
+
+    m_selectFileBtn = new QPushButton();
+    m_selectFileBtn->setIcon(QIcon(":/images/folder-open.svg"));
+    m_selectFileBtn->setFixedSize(32, 32);
+
+    // 连接信号槽
+    connect(m_selectFileBtn, &QPushButton::clicked, this, &TemplateImportDialog::onSelectFile);
+
+    // 输入布局
+    auto gridLayout = new QGridLayout();
+    gridLayout->setHorizontalSpacing(10);
+    gridLayout->setVerticalSpacing(10);
+    gridLayout->addWidget(nameLabel, 0, 0);
+    gridLayout->addWidget(m_templateNameEdit, 0, 1);
+    gridLayout->addWidget(nameTipBtn, 0, 2);
+    gridLayout->addWidget(fileLabel, 1, 0);
+    gridLayout->addWidget(m_templateFileEdit, 1, 1);
+    gridLayout->addWidget(m_selectFileBtn, 1, 2);
+
+    // 按钮布局
+    auto btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(10);
+
+    auto confirmBtn = new QPushButton(tr("Confirm"));
+    confirmBtn->setFixedSize(100, 40);
+    Kiran::WidgetPropertyHelper::setButtonType(confirmBtn, Kiran::BUTTON_Default);
+    auto cancelBtn = new QPushButton(tr("Cancel"));
+    cancelBtn->setFixedSize(100, 40);
+
+    btnLayout->addStretch();
+    btnLayout->addWidget(confirmBtn);
+    btnLayout->addWidget(cancelBtn);
+    btnLayout->addStretch();
+
+    connect(confirmBtn, &QPushButton::clicked, this, &TemplateImportDialog::fileSelected);
+    connect(cancelBtn, &QPushButton::clicked, this, &TemplateImportDialog::close);
+
+    auto mainLayout = new QVBoxLayout();
+    mainLayout->setContentsMargins(24, 24, 24, 24);
+    mainLayout->addLayout(gridLayout);
+    mainLayout->addStretch();
+    mainLayout->addLayout(btnLayout);
+
+    this->getWindowContentWidget()->setLayout(mainLayout);
+}
+
+QString TemplateImportDialog::getTemplateName() const
+{
+    return m_templateNameEdit->text();
+}
+
+QString TemplateImportDialog::getTemplateFile() const
+{
+    return m_templateFileEdit->text();
+}
+
+void TemplateImportDialog::clear()
+{
+    m_templateNameEdit->clear();
+    m_templateFileEdit->clear();
+}
+
+void TemplateImportDialog::onSelectFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(
+        this,
+        tr("Select Template Config File"),
+        "",
+        tr("Config Files (*.conf)"));
+
+    if (!fileName.isEmpty())
+    {
+        m_templateFileEdit->setText(fileName);
+    }
+}
+
+TemplateListPage::TemplateListPage(QWidget *parent) : TablePage(parent),
+                                                      m_createTPSetting(nullptr),
+                                                      m_editTPSetting(nullptr),
+                                                      m_importDialog(nullptr)
 {
     m_objId = Container::generateId(this);
     initTable();
