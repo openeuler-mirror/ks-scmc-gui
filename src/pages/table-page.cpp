@@ -83,6 +83,15 @@ void TablePage::addSingleOperationButton(QAbstractButton *btn)
     m_singleOpBtns.append(btn);
 }
 
+void TablePage::addSingleOperationButtons(QList<QPushButton *> opBtns)
+{
+    foreach (QPushButton *btn, opBtns)
+    {
+        ui->operate_btns->layout()->addWidget(btn);
+        m_singleOpBtns.append(btn);
+    }
+}
+
 void TablePage::addSingleOperationWidget(QWidget *btnwidget)
 {
     ui->operate_btns->layout()->addWidget(btnwidget);
