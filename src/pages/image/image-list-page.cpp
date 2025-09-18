@@ -831,14 +831,20 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
             itemApprovalStatus->setForeground(QBrush(QColor("#EEA43C")));
             break;
         case 1:
+        {
+            QFont font = itemApprovalStatus->font();
+            font.setUnderline(true);
+            itemApprovalStatus->setFont(font);
             itemApprovalStatus->setText(tr("Rejected"));
             itemApprovalStatus->setForeground(QBrush(QColor("#d30000")));
             break;
+        }
         case 2:
             itemApprovalStatus->setText(tr("Passed"));
             itemApprovalStatus->setForeground(QBrush(QColor("#00921b")));
             break;
         }
+        infoMap.insert(IMAGE_REFUSE_REASON, image.reject_reason().data());
 
         // TODO parse unix timestamp
         QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
