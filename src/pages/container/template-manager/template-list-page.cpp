@@ -505,6 +505,10 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         idMap.insert(TEMPLATE_ID, tempId);
         idMap.insert(NODE_ID, nodeId);
 
+        // 将ContainerTemplate转换为JSON格式并存储
+        QString templateJson = convertTemplateToJson(data);
+        m_templateJsonMap[tempId] = templateJson;
+
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
 
