@@ -85,6 +85,8 @@ private:
     QMultiMap<int, QString> m_networksMap;
     QMap<int, NodeInfo *> m_nodeInfoMap;
     QStringList m_imageInfos;
+    QMap<int64_t, QString> m_templateJsonMap;  // 存储模板ID和对应的JSON数据
+    TemplateImportDialog *m_importDialog;
 };
 
 #endif  // TEMPLATELISTPAGE_H
