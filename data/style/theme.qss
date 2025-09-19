@@ -653,19 +653,22 @@ TemplateListPage #btnExport
 
 NodeListPage #btnCreate:hover,
 ContainerBackupPage #btnCreate:hover,
-NetworkListPage #btnCreate:hover
+NetworkListPage #btnCreate:hover,
+TemplateListPage #btnExport:hover
 {
    background-color:#77ceff;
 }
 NodeListPage #btnCreate:focus,
 ContainerBackupPage #btnCreate:focus,
-NetworkListPage #btnCreate:focus
+NetworkListPage #btnCreate:focus,
+TemplateListPage #btnExport:focus
 {
     outline: none;
 }
 NodeListPage #btnCreate:disabled,
 ContainerBackupPage #btnCreate:disabled,
-NetworkListPage #btnCreate:disabled
+NetworkListPage #btnCreate:disabled,
+TemplateListPage #btnExport:disabled
 {
     color:#919191;
     background:#393939;
