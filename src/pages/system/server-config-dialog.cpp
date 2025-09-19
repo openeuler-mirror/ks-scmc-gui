@@ -191,19 +191,5 @@ void ServerConfigDialog::setServerInfo()
         // 设置端口号
         m_port = server.split(":").last();
         ui->lineEdit_port->setText(m_port);
-        return;
-    }
-
-    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-    ui->lineEdit_ip->setIp(m_ip);
-    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_DOMAIN_NAME, m_domain);
-    ui->lineEdit_dn->setText(m_domain);
-    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
-    ui->lineEdit_port->setText(m_port);
-
-    auto addr = m_ip.isEmpty() ? m_domain : m_ip;
-    if (!addr.isEmpty())
-    {
-        UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(addr).arg(m_port).toStdString());
     }
 }
