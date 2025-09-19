@@ -641,7 +641,8 @@ MessageDialog #browser_body
 /***************************NodeListPage**********************/
 NodeListPage #btnCreate,
 ContainerBackupPage #btnCreate,
-NetworkListPage #btnCreate
+NetworkListPage #btnCreate,
+TemplateListPage #btnExport
 {
     background-color:#2EB3FF;
     border:none;
