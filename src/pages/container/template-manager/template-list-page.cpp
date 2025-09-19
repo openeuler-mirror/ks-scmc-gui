@@ -645,7 +645,6 @@ void TemplateListPage::initButtons()
     btnExport->setText(tr("Export"));
     btnExport->setObjectName("btnExport");
     btnExport->setFixedSize(QSize(78, 32));
-    Kiran::WidgetPropertyHelper::setButtonType(btnExport, Kiran::BUTTON_Default);
     connect(btnExport, &QPushButton::clicked, this, &TemplateListPage::onExportTemplate);
 
     addSingleOperationButtons(QList<QPushButton *>() << btnCreate << btnImport);
