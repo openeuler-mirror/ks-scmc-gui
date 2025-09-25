@@ -147,21 +147,15 @@ void ContainerAppPage::onRun(int row)
                         guiAppStatus(row, state);
                     });
         }
-        else
+
+        if (process->state() == QProcess::ProcessState::Running)
         {
-            if (process->state() == QProcess::ProcessState::Running)
-            {
-                NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
-                return;
-            }
-            else
-            {
-                auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
-                KLOG_DEBUG() << "Container app command:" << cmd;
-                process->start(cmd);
-                KLOG_DEBUG() << "pid: " << process->processId();
-            }
+            NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+            return;
         }
+
+        process->start(cmd);
+        KLOG_DEBUG() << "pid: " << process->processId();
     }
     else
     {
