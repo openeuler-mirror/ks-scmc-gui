@@ -45,7 +45,8 @@ ContainerListPage::ContainerListPage(QWidget *parent)
       m_createFromTemplateAct(nullptr),
       m_containerSetting(nullptr),
       m_monitor(nullptr),
-      m_timer(nullptr)
+      m_timer(nullptr),
+      m_appDialog(nullptr)
 {
     m_objId = Container::generateId(this);
     m_nodeId = -1;
