@@ -4815,9 +4815,9 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="334"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1073"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1082"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1091"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1069"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1078"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1087"/>
         <source>Export Template</source>
         <translation>导出模板</translation>
     </message>
