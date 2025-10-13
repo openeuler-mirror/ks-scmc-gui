@@ -3895,27 +3895,34 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="111"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="95"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="117"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="112"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="96"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="118"/>
         <source>Update password failed!</source>
         <translation>修改密码失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="113"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="97"/>
+        <source>Please improve password!</source>
+        <translation>请完善密码！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="119"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="128"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="134"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="149"/>
+        <location filename="../src/pages/system/user-manager/passwd-update-dialog.cpp" line="155"/>
         <source>The password length 8-32 bits, should contain
  at least three combinations of uppercase letter,
  lowercase letter, number and special character</source>
