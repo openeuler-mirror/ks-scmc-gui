@@ -4782,8 +4782,8 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="289"/>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="301"/>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="451"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="859"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="869"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="855"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="865"/>
         <source>Import Template</source>
         <translation>导入模板</translation>
     </message>
