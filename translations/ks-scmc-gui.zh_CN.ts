@@ -5251,27 +5251,53 @@ RestartPolicy: %2</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="98"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="146"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="99"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="155"/>
         <source>The username length 4-18 bits, supports combinations of letters and numbers.</source>
         <translation>用户名长度4-18位，支持字母和数字组合。</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="145"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="108"/>
+        <source>Create User</source>
+        <translation>创建用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="109"/>
+        <source>Create user failed!</source>
+        <translation>创建用户失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="110"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="127"/>
+        <source>Please improve information!</source>
+        <translation>请完善内容！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="125"/>
+        <source>Edit User</source>
+        <translation>编辑用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="126"/>
+        <source>Edit user failed!</source>
+        <translation>编辑用户失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="154"/>
         <source>Please input 4 to 18 characters</source>
         <translation>请输入4-18个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="151"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="154"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="162"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="165"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="160"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="163"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="171"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="174"/>
         <source>Please input 8 to 32 characters</source>
         <translation>请输入8-32个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="156"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="167"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="165"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="176"/>
         <source>The password length 8-32 bits, should contain
  at least three combinations of uppercase letter,
  lowercase letter, number and special character</source>
