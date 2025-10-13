@@ -4748,37 +4748,27 @@ The first characters must be letter or digit</source>
 内存：%2 G  网卡：%3 块</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="538"/>
-        <source>Open</source>
-        <translation>打开</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="538"/>
-        <source>Close</source>
-        <translation>关闭</translation>
-    </message>
-    <message>
         <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="385"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="540"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="538"/>
         <source>no</source>
         <translation>不启用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="541"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="539"/>
         <source>always</source>
         <translation>自动拉起</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="542"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="540"/>
         <source>on-failure</source>
         <translation>失败后自动拉起</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="543"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="541"/>
         <source>unless-stopped</source>
         <translation>手动停止</translation>
     </message>
