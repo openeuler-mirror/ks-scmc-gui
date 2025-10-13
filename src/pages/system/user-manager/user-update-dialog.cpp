@@ -10,6 +10,7 @@
 #include <widget-property-helper.h>
 #include <QLineEdit>
 #include <QRegularExpression>
+#include "message-dialog.h"
 #include "ui_user-update-dialog.h"
 #include "utils/password-checker.h"
 
