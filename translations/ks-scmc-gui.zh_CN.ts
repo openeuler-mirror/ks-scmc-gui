@@ -4615,20 +4615,20 @@ Instruction</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="102"/>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="110"/>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="132"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="97"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="105"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="127"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="103"/>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="133"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="98"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="128"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="111"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="106"/>
         <source>Please input correct IP address!</source>
         <translation>请输入正确的ip地址！</translation>
     </message>
