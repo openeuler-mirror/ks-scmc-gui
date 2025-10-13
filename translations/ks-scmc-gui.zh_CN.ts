@@ -4598,7 +4598,7 @@ Instruction</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="77"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="72"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
