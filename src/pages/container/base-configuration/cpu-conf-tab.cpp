@@ -24,8 +24,8 @@ CPUConfTab::CPUConfTab(QWidget* parent) : QWidget(parent),
     ui->lineEdit_cpu_core->setMaxLength(7);
 
     ui->cb_sche_pri->addItem(tr("Low"), QVariant(1));
-    ui->cb_sche_pri->addItem(tr("Medium"), QVariant(5));
-    ui->cb_sche_pri->addItem(tr("High"), QVariant(10));
+    ui->cb_sche_pri->addItem(tr("Medium"), QVariant(3));
+    ui->cb_sche_pri->addItem(tr("High"), QVariant(5));
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout,
