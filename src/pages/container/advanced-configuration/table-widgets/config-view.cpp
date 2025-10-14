@@ -253,8 +253,6 @@ void ConfigDelegate::sendAddSlot(ConfigOperateWidget *pCurWidget)
 void ConfigDelegate::sendDeleteSlot(ConfigOperateWidget *pCurWidget)
 {
     int row = pCurWidget->getCurRow();
-    if (m_listPage.size() == 1 || m_pEditFirst.size() == 1 || m_pComboBoxMode.size() == 1)
-        return;
 
     if (m_buildIn.indexOf(m_pEditFirst[row]->text()) != -1)
     {
