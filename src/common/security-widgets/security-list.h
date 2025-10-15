@@ -16,7 +16,7 @@ class SecurityList : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SecurityList(QString itemTitle, QWidget *parent = nullptr);
+    explicit SecurityList(QString itemTitle, QString tooltip, QWidget *parent = nullptr);
     ~SecurityList();
 
     void setSecurityInfos(QStringList list);
