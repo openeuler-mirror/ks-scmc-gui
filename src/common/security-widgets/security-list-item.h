@@ -26,6 +26,7 @@ public:
     void setInfo(QString text);
     QString getInfo();
     bool getPathCorrect();
+    void setTooltip(const QString &text);
 
 protected:
     void changeEvent(QEvent *event);
