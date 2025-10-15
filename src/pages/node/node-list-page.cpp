@@ -33,7 +33,9 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this]
-            { refresh(); });
+            { 
+                // 仅节点列表，保留搜索状态
+                getNodeList(); });
 }
 
 NodeListPage::~NodeListPage()
