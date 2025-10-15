@@ -41,7 +41,8 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
     connect(m_timer, &QTimer::timeout,
             [this]
             {
-                refresh();
+                // 仅获取app列表，保留搜索状态
+                Container::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
             });
 }
 
