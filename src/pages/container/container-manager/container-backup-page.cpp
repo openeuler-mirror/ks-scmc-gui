@@ -32,7 +32,12 @@ ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
     initConnect();
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this]
-            { refresh(); });
+            { 
+                if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
+                {
+                    // 仅获取备份列表，保留搜索状态
+                    getBackupList();
+                } });
 }
 
 ContainerBackupPage::~ContainerBackupPage()
