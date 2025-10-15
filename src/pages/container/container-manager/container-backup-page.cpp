@@ -335,7 +335,8 @@ void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPa
 
     if (reply.first.ok())
     {
-        updateInfo();
+        // 仅刷新备份列表，保留搜索状态
+        getBackupList();
     }
     else
     {
