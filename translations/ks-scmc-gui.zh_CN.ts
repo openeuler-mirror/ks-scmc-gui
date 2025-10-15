@@ -3090,13 +3090,13 @@ Instruction</source>
         <translation>更新节点网络进程白名单成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="294"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="295"/>
         <source>Update Node Network Rules</source>
         <translation>更新节点网络访问控制</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="138"/>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="295"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="296"/>
         <source>Failed to update node network rules</source>
         <translation>更新节点网络访问控制失败</translation>
     </message>
