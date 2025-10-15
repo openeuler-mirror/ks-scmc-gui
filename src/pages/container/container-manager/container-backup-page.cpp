@@ -411,7 +411,7 @@ void ContainerBackupPage::getExportBackupFinished(const QString objId, const QPa
 
     if (reply.first.ok())
     {
-        updateInfo();
+        getBackupList();
         NotificationManager::sendNotify(tr("Export container backup seccessful!"),
                                         reply.second.isEmpty() ? tr("You can see it in image manager.") : tr("Save path:%1").arg(reply.second));
     }
