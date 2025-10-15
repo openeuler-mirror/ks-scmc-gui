@@ -288,6 +288,12 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
         setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk << itemWarning << itemComment);
         row++;
     }
+
+    // 在刷新之后，若搜索关键字不为空，则进行搜索
+    if (!getSearchKey().isEmpty())
+    {
+        search();
+    }
 }
 
 void NodeListPage::getCreateResult(const QString objId, const QPair<grpc::Status, node::CreateReply> &reply)
