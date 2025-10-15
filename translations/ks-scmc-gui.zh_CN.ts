@@ -3513,103 +3513,103 @@ Instruction</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="306"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="312"/>
         <source>Create Node</source>
         <translation>创建节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="307"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="313"/>
         <source>Create node failed!</source>
         <translation>创建节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="308"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="314"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="325"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="331"/>
         <source>Remove Node</source>
         <translation>移除节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="326"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="332"/>
         <source>Remove node failed!</source>
         <translation>移除节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="327"/>
-        <location filename="../src/pages/node/node-list-page.cpp" line="348"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="333"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="354"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="346"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="352"/>
         <source>Update Node</source>
         <translation>更新节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="347"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="353"/>
         <source>Update node failed!</source>
         <translation>更新节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="382"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="388"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="389"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="395"/>
         <source>Remove</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="403"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="409"/>
         <source>Node Name</source>
         <translation>节点名</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="404"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="410"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="405"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="411"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="406"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="412"/>
         <source>Container Number</source>
         <translation>容器总数</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="408"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="414"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="409"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="415"/>
         <source>Disk</source>
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="410"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="416"/>
         <source>Warning Number</source>
         <translation>告警数</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="411"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="417"/>
         <source>Comment</source>
         <translation>备注</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="412"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="418"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="419"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="425"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
