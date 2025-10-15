@@ -289,12 +289,12 @@
         <translation>容器内置配置项，请谨慎修改！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="262"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="260"/>
         <source>Delete Container</source>
         <translation>删除容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="264"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="262"/>
         <source>Container built-in configuration items, please delete with caution!</source>
         <translation>容器内置配置项，请谨慎删除！</translation>
     </message>
