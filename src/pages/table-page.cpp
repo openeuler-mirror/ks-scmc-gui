@@ -679,31 +679,42 @@ void TablePage::updateCheckStatus(bool toggled)
 {
     int rowCounts = m_model->rowCount();
     int checkableNum = 0;
+    bool haskRunningCtn = false;
 
+    // 批量操作
+    m_isBatchUpdating = true;
     for (int i = 0; i < rowCounts; i++)
     {
         QStandardItem *item = m_model->item(i, 0);
         if (item && item->isCheckable())
         {
             if (toggled)
-                item->setCheckState(Qt::Checked);
-            else
-                item->setCheckState(Qt::Unchecked);
-
-            auto nameItem = m_model->item(item->row(), 1);
-            auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
-            if (infoMap.value(CONTAINER_STATUS).toString() == "running")
             {
-                if (item->checkState() == Qt::Checked)
-                    emit sigHasRunningCtn(true);
+                item->setCheckState(Qt::Checked);
+
+                auto nameItem = m_model->item(item->row(), 1);
+                auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
+                if (infoMap.value(CONTAINER_STATUS).toString() == "running")
+                {
+                    if (item->checkState() == Qt::Checked)
+                        haskRunningCtn = true;
+                }
+            }
+            else
+            {
+                item->setCheckState(Qt::Unchecked);
             }
 
             checkableNum++;
         }
     }
+    m_isBatchUpdating = false;
 
     // 可选中列大于0个时，使能批量操作按钮
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled == false ? toggled : checkableNum > 0);
+
+    // 使能批量操作按钮后设置删除按钮状态
+    emit sigDisableDelBtn(toggled == false ? true : haskRunningCtn);
 }
 
 void TablePage::lastBtnClick()
