@@ -216,7 +216,7 @@ void NetworkConfigPage::initUI()
     m_accessList = new NetworkAccessList(this);
     ui->layout_access_control->addWidget(m_accessList);
 
-    m_processList = new SecurityList(tr("Network process"), this);
+    m_processList = new SecurityList(tr("Network process"), tr("The process path error."), this);
     ui->layout_process->addWidget(m_processList);
 
     auto accessBtnGroup = new QButtonGroup(this);
