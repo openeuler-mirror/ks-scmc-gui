@@ -1617,7 +1617,12 @@ The first characters must be letter or digit</source>
         <translation>关键文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="163"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="160"/>
+        <source>The file path error.</source>
+        <translation>文件路径有误</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="164"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
