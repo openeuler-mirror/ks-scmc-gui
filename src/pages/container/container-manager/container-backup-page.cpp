@@ -355,7 +355,7 @@ void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPa
 
     if (reply.first.ok())
     {
-        updateInfo();
+        getBackupList();
     }
     else
     {
