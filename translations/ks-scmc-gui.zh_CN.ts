@@ -279,7 +279,7 @@
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="220"/>
-        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="263"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-view.cpp" line="261"/>
         <source>Confirm Continue?</source>
         <translation>确认继续?</translation>
     </message>
