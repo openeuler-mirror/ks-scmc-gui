@@ -375,7 +375,7 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
     if (reply.first.ok())
     {
         m_containerId = reply.second.container_id().data();
-        updateInfo();
+        getBackupList();
         NotificationManager::sendNotify(tr("Resume container backup seccessful!"), "");
     }
     else
