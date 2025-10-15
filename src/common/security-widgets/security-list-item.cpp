@@ -17,7 +17,6 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
 {
     ui->setupUi(this);
     ui->label_name->setText(text);
-    ui->lab_error_tips->setText(tr("the path format is wrong"));
     ui->lab_error_tips->setStyleSheet("color:#F56C6C;font-size:12px;");
     ui->lab_error_tips->setVisible(false);
     ui->btn_add->setIcon(QIcon(":/images/icon-add.svg"));
