@@ -68,7 +68,7 @@ public:
 
     void setPaging(int totalPages = 0);  // 设置分页
     void updatePaging(int page_no = 1);
-    //    QString getSearchKey();
+    QString getSearchKey();
     void setSeachPageNone();  // 搜索结果为空
     void hideSearchLine();    // 隐藏搜索框
 
