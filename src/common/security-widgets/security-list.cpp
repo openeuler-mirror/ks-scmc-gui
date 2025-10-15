@@ -99,6 +99,7 @@ void SecurityList::createItem(int index)
     itemText = tr("%1 %2").arg(m_itemTitle).arg(itemIndex);
 
     customItem = new SecurityListItem(itemText, m_listWidget);
+    customItem->setTooltip(m_tooltip);
     if (index == 0)
         customItem->setDeleteBtnVisible(false);
 
