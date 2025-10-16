@@ -4464,84 +4464,90 @@ of applications, isolated operation of applications, centralized monitoring of a
         <source>Form</source>
         <translation></translation>
     </message>
-    <message>
-        <source>the path format is wrong</source>
-        <translation type="vanished">路径格式错误</translation>
-    </message>
 </context>
 <context>
     <name>SecurityListTab</name>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="134"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="144"/>
         <source>Please improve your path in file protection!</source>
         <translation>请完善文件保护中的路径！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="168"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="154"/>
+        <source>Please input file list in file protection!</source>
+        <translation>请在文件保护中输入文件列表！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="181"/>
         <source>Please improve your path in process protection!</source>
         <translation>请完善进程安全中的路径！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="176"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="190"/>
         <source>Please input process in process protection!</source>
         <translation>请在进程安全中输入进程！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="192"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="217"/>
         <source>Please improve your path in network process protection!</source>
         <translation>请完善网络进程白名单中的路径！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="222"/>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="310"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="227"/>
+        <source>Please input process in network process protection!</source>
+        <translation>请在网络进程白名单中输入网络进程！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="250"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="338"/>
         <source>Key file %1</source>
         <translation>关键文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="223"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="251"/>
         <source>The file path error.</source>
         <translation>文件路径有误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="227"/>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="312"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="255"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="340"/>
         <source>Process %1</source>
         <translation>进程 %1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="228"/>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="233"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="256"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="261"/>
         <source>The process path error.</source>
         <translation>进程路径有误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="232"/>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="314"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="260"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="342"/>
         <source>Network process %1</source>
         <translation>网络进程 %1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="347"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="375"/>
         <source>Open status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="349"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="377"/>
         <source>White list status</source>
         <translation>白名单状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="351"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="379"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="352"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="380"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="373"/>
+        <location filename="../src/pages/container/security-configuration/security-list-tab.cpp" line="401"/>
         <source>Function
 Instruction</source>
         <translation>功能
