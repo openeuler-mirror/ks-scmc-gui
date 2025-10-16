@@ -3148,24 +3148,30 @@ Instruction</source>
         <translation>更新节点网络进程白名单失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="220"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="219"/>
         <source>The process path error.</source>
         <translation>进程路径有误</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="297"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="296"/>
         <source>The port %1 is in use, please input again!</source>
         <translation>端口%1为默认端口，已被占用，请重新输入！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="328"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="327"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="333"/>
         <source>Failed to save the network process configuration</source>
         <translation>保存节点网络进程配置失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="328"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="327"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="333"/>
+        <source>Please input the netword process white list when the network process white list is enabled.</source>
+        <translation>当网络进程白名单开启时，请输入网络进程。</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="219"/>
