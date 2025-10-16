@@ -202,17 +202,30 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+
+            QString filePath = item->getInfo();
+            KLOG_DEBUG() << "Network process path:" << filePath;
+
+            if (filePath.isEmpty())
+            {
+                emptyRowCount++;
+                continue;
+            }
+
             if (!item->getPathCorrect())
             {
                 errMsg = tr("Please improve your path in network process protection!");
-                ret = false;
-                break;
+                return false;
             }
 
-            QString filePath = item->getInfo();
-            KLOG_DEBUG() << "Net process path:" << filePath;
-            if (!filePath.isEmpty())
-                processProtect->add_exe_list(filePath.toStdString());
+            processProtect->add_exe_list(filePath.toStdString());
+        }
+
+        // 网络进程白名单做特殊处理：若打开网络进程白名单，列表中的数据不能为空，当列表数据都为空时，报错
+        if (m_isEnable && emptyRowCount == m_listWidget->count())
+        {
+            errMsg = tr("Please input process in network process protection!");
+            return false;
         }
         break;
     }
