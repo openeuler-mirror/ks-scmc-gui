@@ -181,16 +181,21 @@
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="61"/>
-        <source>0-%1, default:system cores %1</source>
-        <translation>0-%1，默认：系统核心数 %1</translation>
+        <source>less than or equal to %1, default:system cores %1</source>
+        <translation>小于等于%1，默认：系统核心数 %1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="81"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="95"/>
+        <source>CPU cores must be greater than 0!</source>
+        <translation>CPU总核数必须大于0！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="90"/>
         <source>CPU core can&apos;t be greater than the node cpu core limit!</source>
         <translation>CPU总核数不能大于系统核心数！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="92"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="106"/>
         <source>The container resource limit arg is error.</source>
         <translation>容器资源限制参数错误。</translation>
     </message>
