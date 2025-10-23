@@ -58,7 +58,7 @@ CPUConfTab::~CPUConfTab()
 void CPUConfTab::setTotalCPU(double totalCPU)
 {
     m_totalCPU = totalCPU;
-    ui->lineEdit_cpu_core->setPlaceholderText(tr("0-%1, default:system cores %1").arg(QString::number(totalCPU)));
+    ui->lineEdit_cpu_core->setPlaceholderText(tr("less than or equal to %1, default:system cores %1").arg(QString::number(totalCPU)));
 }
 
 void CPUConfTab::setCPUInfo(container::ResourceLimit* cfg)
