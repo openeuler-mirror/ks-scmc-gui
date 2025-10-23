@@ -87,13 +87,13 @@
       <widget class="QLineEdit" name="lineEdit_cpu_core">
        <property name="minimumSize">
         <size>
-         <width>200</width>
+         <width>300</width>
          <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>300</width>
          <height>30</height>
         </size>
        </property>
