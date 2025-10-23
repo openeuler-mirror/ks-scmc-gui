@@ -76,13 +76,27 @@ bool CPUConfTab::getCPUInfo(container::ResourceLimit* cfg, QString& errMsg)
 {
     if (cfg)
     {
-        if (ui->lineEdit_cpu_core->text().toDouble() > m_totalCPU)
+        double core;
+        // 如果没有输入ｃｐｕ核心数，则默认为总核心数
+        if (!ui->lineEdit_cpu_core->text().isEmpty())
+            core = ui->lineEdit_cpu_core->text().toDouble();
+        else
+        {
+            core = m_totalCPU;
+        }
+
+        if (core > m_totalCPU)
         {
             errMsg = tr("CPU core can't be greater than the node cpu core limit!");
             return false;
         }
-        cfg->set_cpu_limit(ui->lineEdit_cpu_core->text().toDouble());
+        else if (core <= 0)
+        {
+            errMsg = tr("CPU cores must be greater than 0!");
+            return false;
+        }
 
+        cfg->set_cpu_limit(core);
         // 调度优先级
         cfg->set_cpu_prio(ui->cb_sche_pri->itemData(ui->cb_sche_pri->currentIndex()).toInt());
         return true;
