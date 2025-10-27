@@ -236,17 +236,21 @@ void ContainerListPage::onApp(int row)
                  << "container id:" << containerId.data()
                  << "node address:" << nodeAddr;
 
-    if (!m_appDialog)
+    static QMap<std::string, ContainerAppDialog *> appDialogs;
+
+    auto appDialog = appDialogs[containerId];
+    if (!appDialog)
     {
-        m_appDialog = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName, this);
-        m_appDialog->resize(QSize(1400, 832));
+        appDialog = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName, this);
+        appDialog->resize(QSize(1400, 832));
+        appDialogs[containerId] = appDialog;
     }
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-    m_appDialog->move(screenGeometry.x() + (screenGeometry.width() - m_appDialog->width()) / 2,
-                      screenGeometry.y() + (screenGeometry.height() - m_appDialog->height()) / 2);
-    m_appDialog->show();
+    appDialog->move(screenGeometry.x() + (screenGeometry.width() - appDialog->width()) / 2,
+                    screenGeometry.y() + (screenGeometry.height() - appDialog->height()) / 2);
+    appDialog->show();
 }
 
 void ContainerListPage::onMonitor(int row)
