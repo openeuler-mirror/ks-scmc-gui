@@ -606,7 +606,7 @@ bool ContainerAppPage::isGuiAppRunning(int appID)
 
 ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : KiranTitlebarWindow(parent)
 {
-    setTitle(tr("Container app"));
+    setTitle(tr("Container(%1) app").arg(containerName));
     setIcon(QIcon(":/images/logo.png"));
     auto windowContentWidget = getWindowContentWidget();
     auto vLayout = new QVBoxLayout(windowContentWidget);
