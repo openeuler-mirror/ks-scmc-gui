@@ -33,6 +33,10 @@ IPCPage::IPCPage(QWidget *parent) : Page(parent),
 
 IPCPage::~IPCPage()
 {
+    if (m_createDialog)
+    {
+        delete m_createDialog;
+    }
     delete ui;
 }
 
