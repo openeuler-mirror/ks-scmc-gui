@@ -311,7 +311,7 @@ KiranTitlebarWindow *IPCPage::initCreateDialog()
     connect(btnCancel, &QPushButton::clicked, window, &IPCPage::hide);
     connect(btnConfirm, &QPushButton::clicked, this, &IPCPage::createIPC);
 
-    m_createDialog = window;
+    return window;
 }
 
 void IPCPage::search()
