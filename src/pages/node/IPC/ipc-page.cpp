@@ -256,10 +256,9 @@ void IPCPage::initUI()
     connect(ui->tableView, &IpcTable::headerCheckStateChanged, this, &IPCPage::updateDeleteBtnState);
 }
 
-void IPCPage::initCreateDialog()
+KiranTitlebarWindow *IPCPage::initCreateDialog()
 {
     auto window = new KiranTitlebarWindow(this);
-    window->setAttribute(Qt::WA_DeleteOnClose, true);
     window->setWindowModality(Qt::ApplicationModal);
     window->setTitle(tr("Create IPC"));
     window->setIcon(QIcon(":/images/logo.png"));
