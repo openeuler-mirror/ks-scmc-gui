@@ -102,7 +102,6 @@ private:
     QMultiMap<int, QString> m_networksMap;
     QMap<int, NodeInfo *> m_nodeInfoMap;
     QStringList m_imageInfos;
-    ContainerAppDialog *m_appDialog;
 };
 
 #endif  // CONTAINERLISTPAGE_H
