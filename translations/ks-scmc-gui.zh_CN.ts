@@ -5230,18 +5230,18 @@ RestartPolicy: %2</source>
 <context>
     <name>UserTable</name>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="586"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="584"/>
         <source>Remove User</source>
         <translation>删除用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="587"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="585"/>
         <source>Are you sure you want to remove 
 %1 ?</source>
         <translation>确定删除用户%1？</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="588"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="586"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
