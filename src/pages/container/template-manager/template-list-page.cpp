@@ -521,8 +521,8 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
 
         // 基础配置
         // cpu,内存,网卡
-        auto cpuNum = cfg.resouce_limit().cpu_limit();
-        auto memoryNum = cfg.resouce_limit().memory_limit() / 1024;
+        auto cpuNum = cfg.resource_limit().cpu_limit();
+        auto memoryNum = cfg.resource_limit().memory_limit() / 1024;
         auto networkNum = cfg.networks_size();
         QString baseCfg = tr("CPU: %1 core \n Memory: %2 G \n Network: %3 piece")
                               .arg(cpuNum)
