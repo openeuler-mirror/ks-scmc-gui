@@ -754,15 +754,15 @@ QString TemplateListPage::convertTemplateToJson(const container::ContainerTempla
 
     // 转换ResourceLimit
     QJsonObject resourceLimitJson;
-    resourceLimitJson["cpu_limit"] = cfg.resouce_limit().cpu_limit();
-    resourceLimitJson["cpu_prio"] = static_cast<qint64>(cfg.resouce_limit().cpu_prio());
-    resourceLimitJson["memory_limit"] = cfg.resouce_limit().memory_limit();
-    resourceLimitJson["memory_soft_limit"] = cfg.resouce_limit().memory_soft_limit();
-    resourceLimitJson["disk_limit"] = cfg.resouce_limit().disk_limit();
-    resourceLimitJson["disk_prio"] = static_cast<qint64>(cfg.resouce_limit().disk_prio());
-    resourceLimitJson["disk_rbw"] = static_cast<qint64>(cfg.resouce_limit().disk_rbw());
-    resourceLimitJson["disk_wbw"] = static_cast<qint64>(cfg.resouce_limit().disk_wbw());
-    configJson["resouce_limit"] = resourceLimitJson;
+    resourceLimitJson["cpu_limit"] = cfg.resource_limit().cpu_limit();
+    resourceLimitJson["cpu_prio"] = static_cast<qint64>(cfg.resource_limit().cpu_prio());
+    resourceLimitJson["memory_limit"] = cfg.resource_limit().memory_limit();
+    resourceLimitJson["memory_soft_limit"] = cfg.resource_limit().memory_soft_limit();
+    resourceLimitJson["disk_limit"] = cfg.resource_limit().disk_limit();
+    resourceLimitJson["disk_prio"] = static_cast<qint64>(cfg.resource_limit().disk_prio());
+    resourceLimitJson["disk_rbw"] = static_cast<qint64>(cfg.resource_limit().disk_rbw());
+    resourceLimitJson["disk_wbw"] = static_cast<qint64>(cfg.resource_limit().disk_wbw());
+    configJson["resource_limit"] = resourceLimitJson;
 
     // 转换ContainerMiscConfig
     QJsonObject miscConfigJson;
