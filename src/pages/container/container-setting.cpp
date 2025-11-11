@@ -1291,7 +1291,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     auto ipc = info.ipcname();
     ipcPage->setIPC(m_nodeID, ipc.data());
 
-    auto limit = info.resouce_limit();
+    auto limit = info.resource_limit();
     // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setCPUInfo(&limit);
