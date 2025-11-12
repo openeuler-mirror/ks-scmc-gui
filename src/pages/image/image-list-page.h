@@ -38,6 +38,7 @@ private:
     void OperateImage(ImageOperateType type);
     bool imageIsTransfering(QString imageName, QString version, QString title);
     QString getRefuseReason(bool *ok);
+    int popupAuthDialog(const QString &msgTitle = "");
 
 private slots:
     void onBtnUpload();
