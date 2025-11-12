@@ -25,8 +25,10 @@
 #include <QStandardPaths>
 #include <QToolTip>
 #include "common/message-dialog.h"
+#include "authorization-dialog.h"
 #include "def.h"
 #include "notification-manager.h"
+#include "user-configuration.h"
 using namespace grpc;
 
 #define IMAGE_APPROVE_STATUS_COL 5
