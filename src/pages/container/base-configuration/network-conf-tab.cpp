@@ -117,6 +117,26 @@ void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg, QList<
 
     KLOG_INFO() << "Set ip to ui:" << QString::fromStdString(networkCfg->ip_address().data());
     ui->lineEdit_ip->setIp(QString::fromStdString(networkCfg->ip_address().data()));
+
+    // 设置下行流量限制（下载速度）
+    if (networkCfg->net_rbw() > 0)
+    {
+        ui->download_speed_edit->setText(QString::number(networkCfg->net_rbw()));
+    }
+    else
+    {        
+        ui->download_speed_edit->setText("0");
+    }
+
+    // 设置上行流量限制（上传速度）
+    if (networkCfg->net_wbw() > 0)
+    {
+        ui->upload_speed_edit->setText(QString::number(networkCfg->net_wbw()));
+    }
+    else
+    {
+        ui->upload_speed_edit->setText("0");
+    }
 }
 
 void NetworkConfTab::setVirtNetwork(QString virtNetwork)
