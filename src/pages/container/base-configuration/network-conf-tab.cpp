@@ -167,6 +167,8 @@ void NetworkConfTab::initVirtNetworkInfo(QList<QString> networks)
     ui->cb_virt_networkcard->clear();
     ui->cb_virt_networkcard->addItems(QStringList(networks));
     ui->lineEdit_ip->clear();
+    ui->download_speed_edit->setText("0");
+    ui->upload_speed_edit->setText("0");
 }
 
 void NetworkConfTab::initUI()
