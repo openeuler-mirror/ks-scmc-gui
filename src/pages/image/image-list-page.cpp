@@ -917,7 +917,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
                 goto _END;
         }
 
-        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemNode << itemDesc << itemLoadStatus << itemChkStatus << itemApprovalStatus << itemUpdateTime);
         row++;
     _END:
         continue;
