@@ -1336,6 +1336,42 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     securityLevelTab->setSecurityInfo(securityCfg.security_level_template(), securityCfg.network_access_controll());
 }
 
+void ContainerSetting::getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &reply)
+{
+    if (m_objId != objId) {
+        KLOG_WARNING() << "m_objId:" << m_objId;
+        KLOG_WARNING() << "objId:" << objId;
+        return;
+    }
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Get Image list result failed:" << reply.first.error_message().data();
+        return;
+    }
+
+    QStringList imageList;
+    for (auto info: reply.second.images())
+    {
+        QString imageName = QString::fromStdString(info.name());
+        imageList.append(imageName);
+    }
+
+    QString currentImage = ui->cb_image->currentText();
+
+    setImageList(imageList);
+    int index = ui->cb_image->findText(currentImage);
+    if (index >= 0)
+    {
+        ui->cb_image->setCurrentIndex(index);
+    } 
+    else if (imageList.size() > 0)
+    {
+        ui->cb_image->setCurrentIndex(0);
+    }
+}
+
+
 void ContainerSetting::getUpdateContainerResult(QString objId, const QPair<grpc::Status, container::UpdateReply> &reply)
 {
     if (m_objId != objId)
