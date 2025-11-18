@@ -2042,6 +2042,16 @@ The first characters must be letter or digit</source>
         <translation>下载镜像</translation>
     </message>
     <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="848"/>
+        <source>Not Loaded</source>
+        <translation>未加载</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="851"/>
+        <source>Loaded</source>
+        <translation>已加载</translation>
+    </message>
+    <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="813"/>
         <source>Failed</source>
         <translation>未通过</translation>
