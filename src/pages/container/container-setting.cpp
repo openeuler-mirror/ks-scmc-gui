@@ -1117,6 +1117,13 @@ void ContainerSetting::onNodeSelectedChanged(const QString &newStr)
     // 更新IPC列表
     auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
     ipcPage->update(ui->cb_node->currentData().toInt());
+
+    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE || 
+        m_type == CONTAINER_SETTING_TYPE_TEMPLATE_CREATE)
+    {
+        Image::getInstance().listImage(m_objId, ui->cb_node->currentData().toInt());
+        KLOG_WARNING() << "node selected, and list images";
+    }
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
