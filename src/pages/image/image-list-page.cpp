@@ -830,8 +830,38 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         QStandardItem *itemVer = new QStandardItem(image.version().data());
         infoMap.insert(IMAGE_VERSION, image.version().data());
 
+        QString nodeName = QString::fromStdString(image.node_name());
+        if (nodeName.isEmpty())
+        {
+            nodeName = "";
+        }
+        QStandardItem *itemNode = new QStandardItem(nodeName);
+        infoMap.insert(BELONG_NODE_NAME, nodeName); 
+
         QStandardItem *itemDesc = new QStandardItem(image.description().data());
         infoMap.insert(IMAGE_DESC, image.description().data());
+
+        QString loadStatus;
+        switch (image.load_status())
+        {
+        case 0:
+            loadStatus = tr("Not Loaded");
+            break;
+        case 1:
+            loadStatus = tr("Loaded");
+            break;
+        default:
+            loadStatus = "";
+            break;
+        }
+        QStandardItem *itemLoadStatus = new QStandardItem(loadStatus);
+        if (image.load_status() == 1) //已加载
+        {
+            itemLoadStatus->setForeground(QBrush(QColor("#00921b")));
+        } else { //未加载
+            itemLoadStatus->setForeground(QBrush(QColor("#EEA43C")));
+        }
+        infoMap.insert(LOAD_STATUS, loadStatus);
 
         QStandardItem *itemChkStatus = new QStandardItem();
         switch (image.verify_status())
