@@ -394,6 +394,8 @@ void ContainerSetting::initConnection()
     default:
         break;
     }
+
+    connect(&Image::getInstance(), &Image::listImageFinished, this, &ContainerSetting::getListImageFinishedResult, Qt::UniqueConnection);
 }
 
 void ContainerSetting::loadSettings()
