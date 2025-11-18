@@ -70,7 +70,9 @@ void ImageListPage::initTable()
         "",
         tr("Image Name"),
         tr("Version"),
+        tr("Belonging Node"),
         tr("Description"),
+        tr("Load Status"),
         tr("Inspection Status"),
         tr("Approval Status"),
         tr("Last Update")};
