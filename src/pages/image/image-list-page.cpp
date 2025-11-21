@@ -914,7 +914,10 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         {
             QString str = itemApprovalStatus->text();
             if (is_del_row[i] == str)
+            {
+                delete itemUpdateTime;
                 goto _END;
+            }
         }
 
         setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemNode << itemDesc << itemLoadStatus << itemChkStatus << itemApprovalStatus << itemUpdateTime);
