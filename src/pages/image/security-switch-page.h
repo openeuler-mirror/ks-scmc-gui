@@ -26,6 +26,7 @@ private slots:
 private:
     void initUI();
     void setStatus(bool);
+    void setCheckboxStateWithoutSignal(bool checked);
 
 signals:
 
