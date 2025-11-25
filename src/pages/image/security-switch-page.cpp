@@ -92,7 +92,28 @@ void SecuritySwitchPage::initUI()
     connect(m_checkbox, &QCheckBox::clicked, this, &SecuritySwitchPage::setStatus);
 }
 
-void SecuritySwitchPage::setStatus(bool isEnable)
+void SecuritySwitchPage::setCheckboxStateWithoutSignal(bool checked)
 {
-    System::getInstance().setSecuritySwitch(m_objId, isEnable);
+    m_checkbox->blockSignals(true);
+    m_checkbox->setChecked(checked);
+    m_checkbox->blockSignals(false);
+}
+
+void SecuritySwitchPage::setStatus(bool isEnable)
+{    
+    // 保存原状态
+    bool oldState = !isEnable;   
+    
+    QString user;
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, user);
+        
+    auto authDialog = new AuthorizationDialog(this); 
+    authDialog->setUserName(user);
+
+    if (authDialog->exec() == QDialog::Accepted) {
+        System::getInstance().setSecuritySwitch(m_objId, isEnable);        
+    } else {
+        setCheckboxStateWithoutSignal(oldState);
+        KLOG_WARNING() << "Authentication failed, abort security switch operation"; 
+    }   
 }
