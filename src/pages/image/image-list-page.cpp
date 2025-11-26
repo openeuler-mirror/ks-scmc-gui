@@ -31,7 +31,7 @@
 #include "user-configuration.h"
 using namespace grpc;
 
-#define IMAGE_APPROVE_STATUS_COL 5
+#define IMAGE_APPROVE_STATUS_COL 7
 ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent),
                                                            m_pImageOp(nullptr),
                                                            m_securityOpen(true)
