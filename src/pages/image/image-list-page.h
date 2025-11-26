@@ -79,6 +79,7 @@ private:
     bool is_init_audit_btn = false;
     bool is_open_checkbox = true;
     bool m_securityOpen;
+    QMap<QString, QPair<QString, QString>> m_uploadingImages;
 };
 
 #endif  // IMAGELISTPAGE_H
