@@ -401,21 +401,21 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
             if (i.info().resource_stat().has_mem_stat())
             {
                 char str[128]{};
-                snprintf(str, sizeof(str), "%0.1fMB", i.info().resource_stat().mem_stat().used());
+                snprintf(str, sizeof(str), "%0.1f%%", i.info().resource_stat().mem_stat().percentage());
                 strMemPct = std::string(str);
             }
 
             if (i.info().resource_stat().has_disk_stat())
             {
                 char str[128]{};
-                snprintf(str, sizeof(str), "%0.0fMB", i.info().resource_stat().disk_stat().used());
+                snprintf(str, sizeof(str), "%0.0f", i.info().resource_stat().disk_stat().used());
                 strDiskPct = std::string(str);
             }
 
             if (i.info().resource_stat().has_net_stat())
             {
                 char str[128]{};
-                snprintf(str, sizeof(str), "%0.2f/%0.2f MB", i.info().resource_stat().net_stat().rx(),i.info().resource_stat().net_stat().tx());
+                snprintf(str, sizeof(str), "%0.2f/%0.2f", i.info().resource_stat().net_stat().rx(),i.info().resource_stat().net_stat().tx());
                 strNetwork = std::string(str);
             }
         }
