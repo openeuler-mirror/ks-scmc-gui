@@ -283,8 +283,15 @@ KiranTitlebarWindow *IPCPage::initCreateDialog()
 
     auto tipBtn = new QToolButton(content);
     tipBtn->setIcon(QIcon(":/images/tips.svg"));
-    tipBtn->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
+    QString tipText = tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit");
+    tipBtn->setToolTip(tipText);
     tipBtn->setFixedSize(16, 16);
+     
+    connect(tipBtn, &QToolButton::clicked, [tipBtn, tipText]() {
+        QPoint pos = tipBtn->mapToGlobal(QPoint(0, tipBtn->height() + 5));
+        QRect rect = QRect(pos.x(), pos.y(), 30, 10);
+        QToolTip::showText(pos, tipText, tipBtn, rect);
+    });
 
     layout->addWidget(label);
     layout->addWidget(m_edit);
