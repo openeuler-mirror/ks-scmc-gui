@@ -1150,13 +1150,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="941"/>
-        <source>Disk</source>
-        <translation>磁盘</translation>
+        <source>Disk(MB)</source>
+        <translation>磁盘（MB）</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="942"/>
-        <source>Network</source>
-        <translation>网络</translation>
+        <source>Network(MB/s)</source>
+        <translation>网络（MB/s）</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="943"/>
