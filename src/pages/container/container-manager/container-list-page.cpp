@@ -622,14 +622,36 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
     }
 
     qDeleteAll(m_nodeInfoMap);
+    m_nodeInfoMap.clear();
+
     for (auto n : reply.second.nodes())
     {
         auto nodeId = n.id();
         auto nodeInfo = new NodeInfo;
         nodeInfo->nodeID = nodeId;
-        nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
-        nodeInfo->totalCPU = n.status().cpu_stat().total();
-        nodeInfo->totalMemory = n.status().mem_stat().total();
+        std::string address = n.address();
+        if (!address.empty())
+        {
+            nodeInfo->nodeAddr = QString::fromStdString(address);
+        }
+        else
+        {
+            nodeInfo->nodeAddr = QString();
+        }
+        
+        // 安全地获取节点状态信息
+        if (n.has_status())
+        {
+            if (n.status().has_cpu_stat())
+            {
+                nodeInfo->totalCPU = n.status().cpu_stat().total();
+            }
+            if (n.status().has_mem_stat())
+            {
+                nodeInfo->totalMemory = n.status().mem_stat().total();
+            }
+        }
+
         KLOG_DEBUG() << "Get node info:"
                      << "id: " << nodeInfo->nodeID
                      << "address:" << nodeInfo->nodeAddr
