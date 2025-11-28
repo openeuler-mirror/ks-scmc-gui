@@ -128,8 +128,41 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
         QString currenItemData = currItem->data(Qt::UserRole).toString();
         setPageName(guideItem->getItemText());
 
-        if (!m_pageMap.value(currenItemData))
+        Page* page = m_pageMap.value(currenItemData);
+        if (!page)
+        {
+            KLOG_WARNING() << "page is null";
             return;
+        }
+        // 检查页面对象是否仍然有效
+        // 如果页面对象已被删除，检查它是否还在 stackedWidget 中
+        bool pageExists = false;
+        for (int i = 0; i < m_stackedWidget->count(); ++i)
+        {
+            if (m_stackedWidget->widget(i) == page)
+            {
+                pageExists = true;
+                break;
+            }
+        }
+        
+        if (!pageExists)
+        {
+            // 页面对象已被删除，从 map 中移除
+            KLOG_WARNING() << "remove not exist page";
+            m_pageMap.remove(currenItemData);
+            return;
+        }
+
+        // 再次验证对象类型，确保对象仍然有效
+        Page* validPage = qobject_cast<Page*>(page);
+        if (!validPage)
+        {
+            KLOG_WARNING() << "page is invalid";
+            m_pageMap.remove(currenItemData);
+            return;
+        } 
+
         m_pageMap[currenItemData]->updateInfo();
         m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
     }
