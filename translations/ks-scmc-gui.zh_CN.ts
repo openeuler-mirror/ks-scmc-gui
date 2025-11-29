@@ -2161,7 +2161,7 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="275"/>
         <location filename="../build/src/ui_image-operate-dialog.h" line="250"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Name</source>
-        <translation> &lt;font color=red&gt;*&lt;/font&gt;名字</translation>
+        <translation> &lt;font color=red&gt;*&lt;/font&gt;镜像名</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="301"/>
