@@ -142,7 +142,7 @@ void ImageOperateDialog::UploadParamDeal()
     uploadInfo.insert("Image Version", version);
     uploadInfo.insert("Image Description", desc);
     uploadInfo.insert("Image File", imageFile);
-    uploadInfo.insert("Sign File", m_securityOpen ? signFile : "");
+    uploadInfo.insert("Sign File", signFile);
     emit sigUploadSave(uploadInfo);
     close();
 }
