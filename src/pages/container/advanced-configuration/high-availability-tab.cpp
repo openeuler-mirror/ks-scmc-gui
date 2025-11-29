@@ -120,5 +120,11 @@ void HighAvailabilityTab::initUI()
     ui->cb_app_avail_policy->addItem(APP_HIGH_AVAILABILITY_OFF);
     ui->cb_app_avail_policy->setCurrentText(APP_HIGH_AVAILABILITY_OFF);
 
+    //隐藏应用高可用设置
+    ui->label_2->hide();
+    ui->cb_app_avail_policy->hide();
+    ui->label_2->setEnabled(false);    
+    ui->cb_app_avail_policy->setEnabled(false);
+
     connect(ui->cb_high_avail_policy, QOverload<const QString &>::of(&QComboBox::activated), this, &HighAvailabilityTab::onCbActivated);
 }
