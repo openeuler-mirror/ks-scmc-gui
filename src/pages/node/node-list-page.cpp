@@ -25,7 +25,7 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
 {
     m_objId = Node::generateId(this);
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
-    m_mapStatus.insert(1, QPair<QString, QString>(tr("Unknown"), "black"));
+    m_mapStatus.insert(1, QPair<QString, QString>(tr("Offline"), "red"));
     m_mapStatus.insert(10, QPair<QString, QString>(tr("Online"), "green"));
     initButtons();
     initTable();
