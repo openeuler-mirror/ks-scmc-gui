@@ -324,12 +324,11 @@ void MainWindow::initUI()
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     userMenu->addSeparator();
     QAction* aboutAct = userMenu->addAction(tr("About"));
-    QAction* helpAct = userMenu->addAction(tr("Help"));
     ui->btn_user->setMenu(userMenu);
     connect(changePasswdAct, &QAction::triggered, this, &MainWindow::onChangePwAction);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
     connect(aboutAct, &QAction::triggered, this, &MainWindow::onAboutAction);
-    connect(helpAct, &QAction::triggered, this, &MainWindow::onHelpAction);
+
 
     // 创建右侧堆叠页面
     m_stackedWidget = new QStackedWidget(this);
