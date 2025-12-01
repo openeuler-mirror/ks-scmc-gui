@@ -341,6 +341,7 @@ void ContainerSetting::initSummaryUI()
     }
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         setWindowTitle(tr("Create template"));
+        ui->label->setText(tr("Container template:"));
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
