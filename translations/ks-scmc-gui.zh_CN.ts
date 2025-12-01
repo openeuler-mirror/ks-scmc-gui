@@ -1372,12 +1372,7 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/container-setting.cpp" line="350"/>
         <source>Create container from template</source>
         <translation>基于模板创建容器</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="353"/>
-        <source>Container template Name:</source>
-        <translation>模板名称：</translation>
-    </message>
+    </message>    
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="357"/>
         <source>Generate template</source>
