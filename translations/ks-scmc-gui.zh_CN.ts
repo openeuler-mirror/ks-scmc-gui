@@ -1359,6 +1359,11 @@ The first characters must be letter or digit</source>
         <translation>创建模板</translation>
     </message>
     <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="344"/>
+        <source>Container template:</source>
+        <translation>容器模板：</translation>
+    </message>
+    <message>
         <location filename="../src/pages/container/container-setting.cpp" line="346"/>
         <source>Edit template</source>
         <translation>编辑模板</translation>
