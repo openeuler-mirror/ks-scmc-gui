@@ -367,10 +367,10 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
 
         QStandardItem *itemNodeAddress = new QStandardItem(i.node_address().data());
 
-        std::string strCpuPct = "-";
-        std::string strMemPct = "-";
-        std::string strDiskPct = "-";
-        std::string strNetwork = "-";
+        std::string strCpuPct = "0.0";
+        std::string strMemPct = "0.00";
+        std::string strDiskPct = "0";
+        std::string strNetwork = "0.00/0.00";
         if (i.info().has_resource_stat())
         {
             if (i.info().resource_stat().has_cpu_stat())
