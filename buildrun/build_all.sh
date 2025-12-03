@@ -67,6 +67,10 @@ fi
 # install pkg one by one, mariadb-server cannot be started
 cd \$RPM_PATH
 
+if [[ "\${OS_VERSION}" != "3.3-6" ]]; then
+    rm -rf kiran-log-2.4.0-4.ky3_3.kb3.x86_64.rpm
+fi
+
 deppgs=\$(ls | grep -v '^$g_software_name')
 kspkgs=\$(ls | grep -E "^$g_software_name")
 if [[ ! \$deppgs == "" ]];then
