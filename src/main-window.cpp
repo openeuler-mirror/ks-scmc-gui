@@ -69,7 +69,7 @@ MainWindow::MainWindow(QString name, QString userRole, QWidget* parent)
     initUI();
     ui->btn_user->setText(name);
 
-    connect(&Common::getInstance(), &Common::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
+    connect(&Common::getInstance(), &Common::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()
