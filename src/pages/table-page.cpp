@@ -661,13 +661,22 @@ void TablePage::onItemEntered(const QModelIndex &index)
     auto item = m_model->itemFromIndex(index);
     if (item)
     {
-        QFontMetrics fm(fontMetrics());
-        int textWidthInPxs = fm.width(item->text());
-        if (textWidthInPxs > ui->tableView->columnWidth(index.column()))
+        QString itemText = item->text();
+        bool isTextItem = !itemText.isEmpty() && !item->isCheckable();
+        if (isTextItem && m_btnDelegate != nullptr)
+        {
+            QAbstractItemDelegate *colDelegate = ui->tableView->itemDelegateForColumn(index.column());
+            if (colDelegate == m_btnDelegate)
+            {
+                isTextItem = false;
+            }
+        }
+
+        if (isTextItem)
         {
             QPoint point = QCursor::pos();
             QRect rect = QRect(point.x(), point.y(), 30, 10);
-            QToolTip::showText(point, tooptipWordWrap(item->text()), ui->tableView, rect);
+            QToolTip::showText(point, tooptipWordWrap(itemText), ui->tableView, rect);
         }
         else
             QToolTip::hideText();
