@@ -204,3 +204,18 @@ void LoadConfiguration::_getSslConfig()
         }
     }
 }
+
+bool LoadConfiguration::getTimeoutLogoutDisable()
+{
+    m_settings->beginGroup(TERMINAL_GROUP_NAME);
+    QString value = m_settings->value(TIMEOUT_LOGOUT_DISABLE).toString();
+    m_settings->endGroup();
+    
+    // 如果配置不存在或为空，返回 false
+    if (value.isEmpty())
+    {
+        return false;
+    }
+    
+    return value == "true";
+}
