@@ -18,6 +18,7 @@ public:
     ~LoadConfiguration();
     QString getTerminalConfig(QString nodeAddr, QString containerName, QString appexec = "");
     void getSslConfig(bool &enable, QString &ca, QString &cert, QString &key);
+    bool getTimeoutLogoutDisable();
 
 private:
     void initConfig();
