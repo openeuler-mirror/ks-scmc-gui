@@ -21,6 +21,7 @@
 #define TERMINAL_CMD "cmd"
 #define TERMINAL_RCFILE "rcfile"
 #define TERMINAL_TOTAL_CMD "total_cmd"
+#define TIMEOUT_LOGOUT_DISABLE "timeout_logout_disable"
 
 LoadConfiguration::LoadConfiguration(QObject *parent) : m_settings(nullptr)
 {
