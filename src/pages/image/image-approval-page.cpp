@@ -37,7 +37,7 @@ void ImageApprovalPage::createSubPage(ImageApprovalType type)
     }
     case APPROVE_PASSED:
     {
-        m_imagelist_passed = new ImageListPage(this);
+        m_imagelist_passed = new ImageListPage(this, true);
         m_imagelist_passed->setCheckBox(false);
         m_imagelist_passed->setDelRow(tr("Wait for Approve"), tr("Rejected"));
         m_imagelist_passed->setOperateAreaVisible(false);
