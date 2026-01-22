@@ -119,10 +119,12 @@ void LoadConfiguration::getTerminalCmd()
     {
         if (0 == QProcess::execute("which konsole"))
         {
-            m_cmd = "konsole --nofork -e";
-            m_totalCmd = m_cmd + " " + sshCmd;
+            m_cmd = "konsole --hide-tabbar --nofork -e";
+            m_totalCmd = m_cmd + " \"" + sshCmd + "\"";
         }
     }
+
+    KLOG_INFO() << "Terminal command constructed:" << m_totalCmd;
 }
 
 QString LoadConfiguration::_getTerminalConfig()
