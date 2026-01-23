@@ -258,9 +258,36 @@ void WarningListView::getReadWarningResult(const QString objId, const QPair<grpc
     if (m_ObjId != objId)
         return;
 
+    // 遍历表格，更新已读状态
     if (reply.first.ok())
     {
-        updateInfo();
+        QList<int64_t> readIds = m_pendingReadIds;
+        m_pendingReadIds.clear();
+
+        int statusCol = is_showContainerName ? 3 : 2;
+        int rowCount = getRowCount();
+        for (int row = 0; row < rowCount; row++) {
+            QStandardItem *item = getItem(row, 1);
+            if (!item) {
+                continue;
+            }
+
+            auto infoMap = item->data().value<QMap<QString, QVariant>>();
+            if (infoMap.isEmpty()) {
+                continue;
+            }
+
+            qint64 id = infoMap.value(WARN_IDS).toInt();
+            if (readIds.contains(static_cast<int64_t>(id))) {
+                QStandardItem *statusItem = getItem(row, statusCol);
+                if (statusItem) {
+                    statusItem->setText(tr("Readed"));
+                }
+            }
+        }
+
+        // 清除选中状态
+        clearCheckState();
     }
     else
     {
