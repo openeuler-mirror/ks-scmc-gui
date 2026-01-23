@@ -39,6 +39,7 @@ private:
     void readWarn(QList<int64_t> ids);
     void refresh();
     void getCheckedItemsId(QList<qint64> &ids);
+    QList<int64_t> m_pendingReadIds;
 
 private slots:
     void getListWarningResult(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
