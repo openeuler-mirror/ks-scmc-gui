@@ -16,6 +16,7 @@
 #include <QProcess>
 #include <QStandardItem>
 #include <QTimer>
+#include <QPointer>
 #include "def.h"
 
 #include "authorization-dialog.h"
