@@ -1,0 +1,20 @@
+# CI/CD自动化检查配置文件
+# 定义项目的构建、测试、合规检查等自动化流程配置
+
+# SCA配置
+sca:
+  enabled: true # 是否启用
+
+  # 允许的组件列表(许可证兼容)
+  license_compatible_components:
+    - "Clementine"
+    - "ks-ssr"
+    - "ks-scmc-gui"
+
+# SonarQube配置
+sonarqube:
+  enabled: true # 是否启用
+
+# 构建配置
+build:
+  enabled: false  # 是否启用构建检查
