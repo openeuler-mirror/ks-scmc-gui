@@ -66,7 +66,11 @@ def extract_specific_libs(deps_file, dest_path):
             sub_path = line.lstrip("/")
             full_path = dest_path + sub_path
             if not os.path.exists(full_path):
-                os.makedirs(full_path, exist_ok=True)
+                try:
+                    os.makedirs(full_path)
+                except OSError:
+                    # 目录已存在，忽略错误
+                    pass
 
             logging.info("extract libs to %s\n" % (full_path))
         else:
