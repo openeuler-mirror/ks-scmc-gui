@@ -175,6 +175,9 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_sysconfdir}/ks-scmc-gui/*
 
 %changelog
+* Tue Jan 27 2026 yubin <yubin@kylinos.com.cn> - 1.2.1-14
+- Fix the application crash issue. (b:116527)
+
 * Fri Dec 12 2025 yubin <yubin@kylinos.com.cn> - 1.2.1-13
 - KYOS-F: Upgrade from 1.2.1-12 to 1.2.1-13. (#108371)
 
