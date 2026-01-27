@@ -1,46 +1,54 @@
-
 #!/usr/bin/python
-#encoding: utf-8
+# encoding: utf-8
 
-import sys
 import os
-import re
 import argparse
 import logging
 
 FILE_NOT_EXISTS_MSG = "%s is not exists!"
 
+
 def extract_qt_plugins_libs(dest_path):
-    logging.info("Start to extract qt plugins libs...");
-    
+    logging.info("Start to extract qt plugins libs...")
+
     qt_plugin_path = "/usr/lib64/qt5/"
-    #add plugins dir whitch you needed
-    plugins = {"plugins/bearer", "plugins/iconengines", "plugins/platformthemes", "plugins/styles", "plugins/imageformats",
-               "plugins/platforminputcontexts", "plugins/platforms", "plugins/designer", "plugins/xcbglintegrations"}
+    # add plugins dir whitch you needed
+    plugins = {
+        "plugins/bearer",
+        "plugins/iconengines",
+        "plugins/platformthemes",
+        "plugins/styles",
+        "plugins/imageformats",
+        "plugins/platforminputcontexts",
+        "plugins/platforms",
+        "plugins/designer",
+        "plugins/xcbglintegrations"
+    }
 
     dest_path = dest_path + "/plugins"
     if not os.path.exists(dest_path):
         os.system("mkdir -p %s" % (dest_path))
-        
+
     for plugin in plugins:
         path = qt_plugin_path + plugin
         if os.path.exists(path):
-            os.system("cp -r %s %s" % (path,dest_path))
+            os.system("cp -r %s %s" % (path, dest_path))
         else:
-            logging.debug(FILE_NOT_EXISTS_MSG %(path))
+            logging.debug(FILE_NOT_EXISTS_MSG % (path))
+
 
 def extract_specific_libs(deps_file, dest_path):
-    logging.info("Start to extract specific libs...");
-    
-    f  =  open(deps_file,  "r")
-    info  =  f.readlines()
+    logging.info("Start to extract specific libs...")
+
+    f = open(deps_file, "r")
+    info = f.readlines()
     full_path = dest_path
-    
+
     for line in info:
         line = line.strip()
         if len(line) == 0:
             continue
-        
+
         if line.startswith("[") and line.endswith("]"):
             line = line.lstrip("[").rstrip("]")
             sub_path = line.lstrip("/")
