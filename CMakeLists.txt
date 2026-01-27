@@ -28,10 +28,12 @@ find_program(_PROTOBUF_PROTOC protoc)
 
 find_package(Protobuf REQUIRED)
 find_package(PkgConfig REQUIRED)
-find_package(Qt5 COMPONENTS Widgets REQUIRED LinguistTools)
+find_package(
+  Qt5
+  COMPONENTS Widgets
+  REQUIRED LinguistTools)
 find_package(Qt5Charts)
-#pkg_search_module(GRPC REQUIRED grpc)
-#find_package(gRPC CONFIG REQUIRED)
+# pkg_search_module(GRPC REQUIRED grpc) find_package(gRPC CONFIG REQUIRED)
 pkg_search_module(KIRAN_WIDGETS_QT5 REQUIRED kiranwidgets-qt5)
 pkg_search_module(KLOG_QT5 REQUIRED klog-qt5)
 pkg_search_module(CRYPTOPP REQUIRED cryptopp)
