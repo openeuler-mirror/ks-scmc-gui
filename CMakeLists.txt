@@ -56,18 +56,16 @@ set(INSTALL_DIR "/usr/libexec")
 set(ICON_DIR "${DATA_DIR}/${PROJECT_NAME}/icons")
 set(TRANSLATIONS_DIR "${DATA_DIR}/${PROJECT_NAME}/translations/")
 set(HELP_MANUAL_PATH "${DATA_DIR}/${PROJECT_NAME}/DOC/")
-#添加config.h.in文件
-configure_file (
-    "${PROJECT_SOURCE_DIR}/config/config.h.in"
-    "${PROJECT_BINARY_DIR}/config/config.h"
-)
+# 添加config.h.in文件
+configure_file("${PROJECT_SOURCE_DIR}/config/config.h.in"
+               "${PROJECT_BINARY_DIR}/config/config.h")
 
-if (GENERATE_TO_RUN)
-    add_definitions(-DGENERATE_TO_RUN)
-endif ()
+if(GENERATE_TO_RUN)
+  add_definitions(-DGENERATE_TO_RUN)
+endif()
 
 if(HIDE_CONTAINER_IN_NODE)
-    add_definitions(-DHIDE_CONTAINER_IN_NODE)
+  add_definitions(-DHIDE_CONTAINER_IN_NODE)
 endif()
 
 add_subdirectory(proto)
