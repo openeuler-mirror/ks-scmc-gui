@@ -64,7 +64,9 @@ bool EnvsConfTab::getEnvInfo(container::UpdateRequest *req, QString &errMsg)
 {
     if (req)
     {
-        auto env = req->mutable_envs();
+        //auto env = req->mutable_envs();
+        auto envs = req->mutable_envs();
+        envs->Clear();
         auto itemList = m_configTable->getAllData();
         for (auto item : itemList)
         {
