@@ -533,7 +533,8 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
 
         // 高级配置
         // 环境变量、高可用
-        auto envNum = cfg.envs().size();
+        // auto envNum = cfg.envs().size();
+         auto envNum = cfg.envs_size();
         auto restartPolicy = cfg.restart_policy().name().data();
         QMap<QString, QString> policyMap = {{"no", tr("no")},
                                             {"always", tr("always")},
