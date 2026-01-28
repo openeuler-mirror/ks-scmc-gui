@@ -94,6 +94,7 @@ enum ErrCode
     ErrStatus = -2,
 };
 
+class Common;
 class Common : public QObject
 {
     Q_OBJECT
