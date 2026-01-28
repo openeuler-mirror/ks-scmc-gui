@@ -46,7 +46,10 @@ bool EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errM
                 else
                     continue;
             }
-            env->insert({key.toStdString(), value.toStdString()});
+
+            auto *envVar = envs->Add();
+            envVar->set_key(key.toStdString());
+            envVar->set_value(value.toStdString());
         }
         return true;
     }
