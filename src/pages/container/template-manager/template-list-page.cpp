@@ -911,9 +911,13 @@ void TemplateListPage::parseJsonToTemplate(const QByteArray &jsonData, const QSt
 
     // 填充环境变量
     QJsonObject envsObj = confObj["envs"].toObject();
+    auto envs = configs->mutable_envs();
+    envs->Clear();
     for (auto it = envsObj.begin(); it != envsObj.end(); ++it)
     {
-        (*configs->mutable_envs())[it.key().toStdString()] = it.value().toString().toStdString();
+        auto *envVar = envs->Add();
+        envVar->set_key(it.key().toStdString());
+        envVar->set_value(it.value().toString().toStdString());
     }
 
     // 填充挂载点
