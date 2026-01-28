@@ -976,11 +976,19 @@ void ContainerSetting::onAdvancedItemChanged(QListWidgetItem *current, QListWidg
         {
             current->setSelected(false);
 
-            // 使用 QTimer::singleShot 延迟恢复前一个选中状态,防止信号立即发送，导致槽递归调用，item状态更新不及时
-            QTimer::singleShot(0, this, [this, previous]()
-                               {
-                ui->listWidget_advanced_config->setCurrentItem(previous);
-                previous->setSelected(true); });
+            // 使用 row 索引而不是指针，避免 previous 被删除后导致空指针访问
+            int previousRow = ui->listWidget_advanced_config->row(previous);
+            QTimer::singleShot(0, this, [this, previousRow]() {
+                if (previousRow >= 0 && previousRow < ui->listWidget_advanced_config->count())
+                {
+                    QListWidgetItem *prevItem = ui->listWidget_advanced_config->item(previousRow);
+                    if (prevItem)
+                    {
+                        ui->listWidget_advanced_config->setCurrentItem(prevItem);
+                        prevItem->setSelected(true);
+                    }
+                }
+            });
 
             return;
         }
