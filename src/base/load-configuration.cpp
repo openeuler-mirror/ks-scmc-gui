@@ -24,6 +24,7 @@
 #define TERMINAL_RCFILE "rcfile"
 #define TERMINAL_TOTAL_CMD "total_cmd"
 #define TIMEOUT_LOGOUT_DISABLE "timeout_logout_disable"
+#define DETACHED_PIDS_GROUP_NAME "detached_pids"
 
 LoadConfiguration::LoadConfiguration(QObject *parent) : m_settings(nullptr)
 {
