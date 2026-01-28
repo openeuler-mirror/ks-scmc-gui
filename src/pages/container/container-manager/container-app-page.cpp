@@ -10,6 +10,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTimer>
+#include <QProcess>
+#include <QFile>
 #include "load-configuration.h"
 #include "message-dialog.h"
 #include "notification-manager.h"
