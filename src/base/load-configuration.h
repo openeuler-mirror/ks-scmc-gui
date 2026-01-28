@@ -20,6 +20,12 @@ public:
     void getSslConfig(bool &enable, QString &ca, QString &cert, QString &key);
     bool getTimeoutLogoutDisable();
 
+     // 保存和加载 detached GUI 应用的 PID
+    void saveDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID, qint64 pid);
+    void removeDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID);
+    qint64 loadDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID);
+    QMap<qint64, qint64> loadAllDetachedPids(int64_t nodeId, const std::string &containerId);
+
 private:
     void initConfig();
     void setValue();
