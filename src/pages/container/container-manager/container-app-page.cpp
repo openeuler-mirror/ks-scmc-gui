@@ -141,28 +141,76 @@ void ContainerAppPage::onRun(int row)
     {
         auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
         KLOG_DEBUG() << "Container app command:" << cmd;
+        
         // 图形app则弹出终端
         // 判断该应用程序是否已经在运行
-        auto process = m_procs.value(appID, nullptr);
-        if (!process)
+        // 优先检查 detached 进程
+        if (m_detachedPids.contains(appID))
         {
-            process = new QProcess(this);
-            m_procs.insert(appID, process);
-            connect(process, &QProcess::stateChanged,
-                    [=](QProcess::ProcessState state)
-                    {
-                        guiAppStatus(row, state);
-                    });
+            qint64 pid = m_detachedPids[appID];
+            if (pid > 0)
+            {
+                // 检查进程是否仍在运行
+                QProcess checkProcess;
+                checkProcess.start("kill", QStringList() << "-0" << QString::number(pid));
+                checkProcess.waitForFinished();
+                if (checkProcess.exitCode() == 0)
+                {
+                    NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+                    return;
+                }
+                else
+                {
+                    // 进程已退出，清理 PID
+                    m_detachedPids.remove(appID);
+                    removeDetachedPidFromConfig(appID);
+                }
+            }
+            else if (pid == 0)
+            {
+                // PID 为 0 表示已启动但 PID 未知，认为正在运行
+                NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+                return;
+            }
         }
-
-        if (process->state() == QProcess::ProcessState::Running)
+        
+        // 兼容旧的 QProcess 方式
+        auto process = m_procs.value(appID, nullptr);
+        if (process && process->state() == QProcess::ProcessState::Running)
         {
             NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
             return;
         }
 
-        process->start(cmd);
-        KLOG_DEBUG() << "pid: " << process->processId();
+        // 使用 startDetached 启动进程，使进程与 GUI 分离
+        // 这样 GUI 关闭后，图形应用依然可以继续运行
+        // 使用静态方法 QProcess::startDetached() 来获取进程 PID
+        qint64 pid = 0;
+        bool success = QProcess::startDetached("/bin/sh", QStringList() << "-c" << cmd, QString(), &pid);
+        
+        if (success)
+        {
+            if (pid > 0)
+            {
+                // 成功获取到 PID，存储真实的进程 ID
+                m_detachedPids[appID] = pid;
+                saveDetachedPidToConfig(appID, pid);
+                KLOG_DEBUG() << "Started detached process successfully, PID: " << pid << ", command: " << cmd;
+            }
+            else
+            {
+                // 启动成功但未获取到 PID（理论上不应该发生）
+                m_detachedPids[appID] = 0;  // 0 表示已启动但 PID 未知
+                saveDetachedPidToConfig(appID, 0); 
+                KLOG_INFO() << "Started detached process but PID is 0, command: " << cmd;
+            }
+            guiAppStatus(row, QProcess::ProcessState::Running);
+        }
+        else
+        {
+            KLOG_ERROR() << "Failed to start detached process, command: " << cmd;
+            NotificationManager::sendNotify(tr("Failed to start app(%1)").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+        }
     }
     else
     {
