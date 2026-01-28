@@ -224,3 +224,91 @@ bool LoadConfiguration::getTimeoutLogoutDisable()
     
     return value == "true";
 }
+
+void LoadConfiguration::saveDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID, qint64 pid)
+{
+    // 使用 nodeId_containerId_appID 作为唯一标识
+    QString key = QString("node_%1_container_%2_app_%3")
+                      .arg(nodeId)
+                      .arg(QString::fromStdString(containerId))
+                      .arg(appID);
+    
+    m_settings->beginGroup(DETACHED_PIDS_GROUP_NAME);
+    m_settings->setValue(key, pid);
+    m_settings->endGroup();
+    m_settings->sync();
+    
+    KLOG_DEBUG() << "Saved detached PID:" << key << "=" << pid;
+}
+
+void LoadConfiguration::removeDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID)
+{
+    QString key = QString("node_%1_container_%2_app_%3")
+                      .arg(nodeId)
+                      .arg(QString::fromStdString(containerId))
+                      .arg(appID);
+    
+    m_settings->beginGroup(DETACHED_PIDS_GROUP_NAME);
+    m_settings->remove(key);
+    m_settings->endGroup();
+    m_settings->sync();
+    
+    KLOG_DEBUG() << "Removed detached PID:" << key;
+}
+
+qint64 LoadConfiguration::loadDetachedPid(int64_t nodeId, const std::string &containerId, qint64 appID)
+{
+    QString key = QString("node_%1_container_%2_app_%3")
+                      .arg(nodeId)
+                      .arg(QString::fromStdString(containerId))
+                      .arg(appID);
+    
+    m_settings->beginGroup(DETACHED_PIDS_GROUP_NAME);
+    bool ok;
+    qint64 pid = m_settings->value(key, -1).toLongLong(&ok);
+    m_settings->endGroup();
+    
+    if (ok && pid > 0)
+    {
+        KLOG_DEBUG() << "Loaded detached PID:" << key << "=" << pid;
+        return pid;
+    }
+    
+    return -1;  // 返回 -1 表示未找到或无效
+}
+
+QMap<qint64, qint64> LoadConfiguration::loadAllDetachedPids(int64_t nodeId, const std::string &containerId)
+{
+    QMap<qint64, qint64> result;
+    
+    QString prefix = QString("node_%1_container_%2_app_").arg(nodeId).arg(QString::fromStdString(containerId));
+    
+    m_settings->beginGroup(DETACHED_PIDS_GROUP_NAME);
+    QStringList keys = m_settings->allKeys();
+    
+    for (const QString &key : keys)
+    {
+        if (key.startsWith(prefix))
+        {
+            // 提取 appID: "node_X_container_Y_app_Z" -> Z
+            QString appIdStr = key.mid(prefix.length());
+            bool ok;
+            qint64 appID = appIdStr.toLongLong(&ok);
+            
+            if (ok)
+            {
+                // 直接从配置读取 PID（包括 0）
+                bool pidOk;
+                qint64 pid = m_settings->value(key, -1).toLongLong(&pidOk);
+                if (pidOk && pid >= 0)  // 包括 pid == 0 的情况
+                {
+                    result[appID] = pid;
+                }
+            }
+        }
+    }
+    m_settings->endGroup();
+    
+    KLOG_DEBUG() << "Loaded" << result.size() << "detached PIDs for node" << nodeId << "container" << QString::fromStdString(containerId);
+    return result;
+}
