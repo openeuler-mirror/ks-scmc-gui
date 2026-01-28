@@ -120,8 +120,6 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
         pLineEdit->deselect();
         pLineEdit->clearFocus();
         QString data = pLineEdit->text();
-        QFontMetrics elidfont(pLineEdit->font());
-        pLineEdit->setText(elidfont.elidedText(data, Qt::ElideRight, pLineEdit->width()));
         pLineEdit->setToolTip(data);
     }
 }
