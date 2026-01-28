@@ -29,7 +29,8 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
                                                                                                                                                m_nodeAddr(nodeAddr),
                                                                                                                                                m_containerName(containerName),
                                                                                                                                                m_appOp(nullptr),
-                                                                                                                                               m_timer(nullptr)
+                                                                                                                                               m_timer(nullptr),
+                                                                                                                                               m_detachedPids()
 {
     m_objId = Container::generateId(this);
     m_timer = new QTimer(this);
