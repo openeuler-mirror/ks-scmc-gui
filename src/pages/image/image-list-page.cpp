@@ -232,6 +232,23 @@ int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, 
     return 0;
 }
 
+qint64 ImageListPage::getImageFileSize(const QString &fileName)
+{
+    QFile f(fileName);
+    if (!f.open(QIODevice::ReadOnly))
+    {
+        KLOG_WARNING() << "Failed to open " << fileName;
+        return 0;
+    }
+
+    qint64 fileSize = f.size();
+    f.close();
+
+    KLOG_DEBUG() << "fileSize:" << fileSize;
+    return fileSize;
+}
+
+
 QString ImageListPage::checkImageLegality(const QString &fileName)
 {
     struct archive *pArchive = archive_read_new();
