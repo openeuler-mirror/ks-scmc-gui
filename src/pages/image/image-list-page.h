@@ -39,6 +39,7 @@ private:
     bool imageIsTransfering(QString imageName, QString version, QString title);
     QString getRefuseReason(bool *ok);
     int popupAuthDialog(const QString &msgTitle = "");
+    qint64 getImageFileSize(const QString &fileName);
 
 private slots:
     void onBtnUpload();
