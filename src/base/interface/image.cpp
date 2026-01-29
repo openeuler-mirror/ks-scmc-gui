@@ -486,25 +486,11 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
         }
         auto fileSize = file.size();
 
-        QCryptographicHash hash(QCryptographicHash::Sha256);
-        if (!hash.addData(&file))
-        {
-            KLOG_WARNING() << "Failed to read file " << filePath;
-            message = tr("file was broken!");
-            statusCode = grpc::StatusCode::INTERNAL;
-            status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
-            progress = 99;
-            file.close();
-            break;
-        }
         file.close();
 
-        auto strSha256 = hash.result().toHex();
-        KLOG_DEBUG() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
-
-        if (size != fileSize || checksum != strSha256.toStdString())
+        if (size != fileSize)
         {
-            KLOG_DEBUG() << size << fileSize << checksum.data() << strSha256.toStdString().data();
+            KLOG_DEBUG() << "File size mismatch: expected=" << size << ", actual=" << fileSize;
             message = tr("file was broken!");
             statusCode = grpc::StatusCode::INTERNAL;
             status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
