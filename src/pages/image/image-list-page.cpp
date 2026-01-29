@@ -623,9 +623,9 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 
     const QString imageFile = Info["Image File"];
     const QString signFile = Info["Sign File"];
-    QString strSha256;
-    qint64 fileSize;
-    if (0 > getImageFileInfo(imageFile, strSha256, fileSize))
+    QString strSha256 = "";
+    qint64 fileSize = getImageFileSize(imageFile);
+    if (fileSize == 0)
     {
         MessageDialog::message(tr("Upload Image"),
                                tr("Can't open \"%1\" file").arg(imageFile),
