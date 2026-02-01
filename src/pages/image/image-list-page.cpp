@@ -838,8 +838,26 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
     if (m_objId != objId)
         return;
 
-    setBusy(false);
+    m_listRequestInFlight = false;
+    if (isBusy())
+    {
+        setBusy(false);
+    }
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+
+    // 自动刷新时保留已勾选项：用「镜像名|版本|所在节点」稳定键，避免 ID/顺序导致错行
+    QSet<QString> checkedRowKeys;
+    if (m_preserveCheckStateOnNextResult && !is_init_audit_btn)
+    {
+        m_preserveCheckStateOnNextResult = false;
+        QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+        for (const auto &idMap : info)
+        {
+            QString key = idMap.value(IMAGE_NAME).toString() + "|" + idMap.value(IMAGE_VERSION).toString()
+                          + "|" + idMap.value(BELONG_NODE_NAME).toString();
+            checkedRowKeys.insert(key);
+        }
+    }
 
     if (!reply.first.ok())
     {
