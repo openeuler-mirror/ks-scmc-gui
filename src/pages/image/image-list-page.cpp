@@ -24,6 +24,9 @@
 #include <QPlainTextEdit>
 #include <QStandardPaths>
 #include <QToolTip>
+#include <QShowEvent>
+#include <QHideEvent>
+#include <QTimer>
 #include "common/message-dialog.h"
 #include "authorization-dialog.h"
 #include "def.h"
