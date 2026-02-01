@@ -35,9 +35,13 @@
 using namespace grpc;
 
 #define IMAGE_APPROVE_STATUS_COL 7
+#define IMAGE_APPROVE_STATUS_COL 7
+#define IMAGE_REFRESH_TIMEOUT 1000  // 1秒刷新一次
+
 ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent),
                                                            m_pImageOp(nullptr),
-                                                           m_securityOpen(true)
+                                                           m_securityOpen(true),
+                                                           m_timer(nullptr)
 {
     is_init_audit_btn = flag;
     m_objId = Image::generateId(this);
