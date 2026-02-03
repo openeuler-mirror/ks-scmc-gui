@@ -36,9 +36,11 @@ message ListDBReply {
     repeated ImageDBInfo images = 1;
 }
 
+// 签名已内置于镜像文件中，由后端根据是否开启校验对镜像内签名验签，不再单独传 sign
 message UploadRequest {
+    reserved 2;
+    reserved "sign";
     UploadInfo info       = 1;
-    SignInfo   sign       = 2;
     bytes      chunk_data = 3;
 }
 
