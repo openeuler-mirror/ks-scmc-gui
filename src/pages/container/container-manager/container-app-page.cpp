@@ -246,9 +246,7 @@ void ContainerAppPage::onStop(int row)
             else if (pid == 0)
             {
                 // PID 为 0 表示已启动但 PID 未知，无法通过 PID 停止
-                // 提示用户手动关闭终端窗口
                 NotificationManager::sendNotify(tr("Cannot stop app(%1) automatically. Please close the terminal window manually.").arg(appName), "");
-                // 清理记录，允许重新启动
                 m_detachedPids.remove(appID);
                 removeDetachedPidFromConfig(appID);
                 guiAppStatus(row, QProcess::ProcessState::NotRunning);
