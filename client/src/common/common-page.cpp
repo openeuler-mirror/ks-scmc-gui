@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
 #include <QPainter>
+#include <QTableView>
 #include <QTime>
 #include <QTimer>
 #include <iostream>
@@ -54,7 +55,8 @@ CommonPage::~CommonPage()
 void CommonPage::setBusy(bool status)
 {
     m_maskWidget->setMaskVisible(status);
-    setOpBtnEnabled(!status);
+    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, !status);
+    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, !status);
 }
 
 void CommonPage::clearTable()
@@ -64,25 +66,36 @@ void CommonPage::clearTable()
     KLOG_INFO() << "current" << m_model->rowCount();
 }
 
-void CommonPage::addOperationButton(QToolButton *btn)
+void CommonPage::addSingleOperationButton(QAbstractButton *btn)
 {
     ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+    m_singleOpBtns.append(btn);
 }
 
-void CommonPage::addOperationButtons(QList<QPushButton *> opBtns)
+void CommonPage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
     {
         ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+        m_batchOpBtns.append(btn);
     }
 }
 
-void CommonPage::setOpBtnEnabled(bool enabled)
+void CommonPage::setOpBtnEnabled(OperatorButtonType type, bool enabled)
 {
-    for (int i = 0; i < ui->hLayout_OpBtns->count(); i++)
+    if (type == OPERATOR_BUTTON_TYPE_BATCH)
     {
-        QAbstractButton *btn = qobject_cast<QAbstractButton *>(ui->hLayout_OpBtns->itemAt(i)->widget());
-        btn->setEnabled(enabled);
+        foreach (QAbstractButton *btn, m_batchOpBtns)
+        {
+            btn->setEnabled(enabled);
+        }
+    }
+    else if (type == OPERATOR_BUTTON_TYPE_SINGLE)
+    {
+        foreach (QAbstractButton *btn, m_singleOpBtns)
+        {
+            btn->setEnabled(enabled);
+        }
     }
 }
 
@@ -142,21 +155,21 @@ void CommonPage::setHeaderSections(QStringList names)
         m_model->setHorizontalHeaderItem(i, headItem);
     }
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tableView->horizontalHeader()->setSectionResizeMode(names.size() - 1, QHeaderView::Fixed);
 
     //设置列宽度
     for (int i = 0; i < names.size(); i++)
     {
-        ui->tableView->setColumnWidth(i, 150);
+        ui->tableView->setColumnWidth(i + 1, 150);
     }
-    ui->tableView->setColumnWidth(0, 300);
-    ui->tableView->setColumnWidth(1, 150);
+    ui->tableView->setColumnWidth(0, 30);
 }
 
 void CommonPage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    for (int i = 0; i < m_model->columnCount() - 1; i++)
+    for (int i = 0; i < m_model->columnCount(); i++)
     {
         QStandardItem *item = new QStandardItem(text);
         item->setTextAlignment(Qt::AlignCenter);
@@ -188,7 +201,8 @@ QList<QMap<QString, QVariant>> CommonPage::getCheckedItemInfo(int col)
         auto item = m_model->item(i, col);
         if (item->checkState() == Qt::CheckState::Checked)
         {
-            QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
+            auto infoItem = m_model->item(i, col + 1);
+            QMap<QString, QVariant> idMap = infoItem->data().value<QMap<QString, QVariant>>();
             checkedItemInfo.append(idMap);
         }
     }
@@ -243,6 +257,8 @@ void CommonPage::initUI()
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setFocusPolicy(Qt::NoFocus);
 
+    connect(ui->tableView, &QTableView::clicked, this, &CommonPage::onItemClicked);
+    connect(m_model, &QStandardItemModel::itemChanged, this, &CommonPage::onItemChecked);
     connect(btn_search, &QPushButton::clicked, this, &CommonPage::search);
     connect(m_headerView, &HeaderView::ckbToggled, this, &CommonPage::onHeaderCkbTog);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &CommonPage::refresh);
@@ -258,6 +274,20 @@ void CommonPage::adjustTableSize()
     height = m_model->rowCount() * 60 + 40 + 20;  // row height+ header height + space
     ui->tableView->setFixedHeight(height);
     emit sigTableHeightChanged(height);
+}
+
+int CommonPage::getCheckedItemNum()
+{
+    int count;
+    for (int i = 0; i < m_model->rowCount(); i++)
+    {
+        auto item = m_model->item(i, 0);
+        if (item->checkState() == Qt::CheckState::Checked)
+        {
+            count++;
+        }
+    }
+    return count;
 }
 
 bool CommonPage::eventFilter(QObject *watched, QEvent *event)
@@ -392,13 +422,13 @@ void CommonPage::search()
         {
             ui->label_search_tips->setText(tr("No search results were found!"));
             ui->tableView->setFixedHeight(120);
-            setOpBtnEnabled(false);
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
             return;
         }
         //sort
         ui->tableView->sortByColumn(0);
         ui->label_search_tips->clear();
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
         adjustTableSize();
     }
 }
@@ -410,10 +440,32 @@ void CommonPage::refresh()
     updateInfo();
 }
 
+void CommonPage::onItemChecked(QStandardItem *item)
+{
+    if (item)
+    {
+        if (item->isCheckable())
+        {
+            if (getCheckedItemNum() > 0)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+            else
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+        }
+    }
+}
+
+void CommonPage::onItemClicked(const QModelIndex &index)
+{
+    emit sigItemClicked(index);
+}
+
 void CommonPage::onHeaderCkbTog(bool toggled)
 {
     int rowCounts = m_model->rowCount();
     KLOG_INFO() << "onHeaderCkbTog" << rowCounts;
+
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled);
+
     for (int i = 0; i < rowCounts; i++)
     {
         QStandardItem *item = m_model->item(i, 0);

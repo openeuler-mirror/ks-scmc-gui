@@ -104,7 +104,7 @@ void NodeList::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
 {
     if (reply.first.ok())
     {
-        setOpBtnEnabled(true);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         int size = reply.second.nodes_size();
         if (size <= 0)
         {
@@ -120,9 +120,12 @@ void NodeList::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
             qint64 nodeId = node.id();
             idMap.insert(NODE_ID, nodeId);
 
+            QStandardItem *itemCheck = new QStandardItem();
+            itemCheck->setCheckable(true);
+
             QStandardItem *itemName = new QStandardItem(node.name().data());
             itemName->setData(QVariant::fromValue(idMap));
-            itemName->setCheckable(true);
+            itemName->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemIp = new QStandardItem(node.address().data());
             itemIp->setTextAlignment(Qt::AlignCenter);
@@ -170,15 +173,14 @@ void NodeList::getListResult(const QPair<grpc::Status, node::ListReply> &reply)
             QStandardItem *itemDisk = new QStandardItem("-");
             itemDisk->setTextAlignment(Qt::AlignCenter);
 
-            setTableItem(row, 0, itemName);
-            setTableItems(row, 0, QList<QStandardItem *>() << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk);
+            setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemIp << itemCntrCnt << itemCpu << itemMem << itemDisk);
             row++;
         }
     }
     else
     {
         setTableDefaultContent("-");
-        setOpBtnEnabled(false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     }
 }
 
@@ -210,12 +212,21 @@ void NodeList::getRemoveResult(const QPair<grpc::Status, node::RemoveReply> &rep
     }
 }
 
+void NodeList::onItemClicked(const QModelIndex &index)
+{
+    if (index.column() == 1)
+    {
+        KLOG_INFO() << "onItemClicked: " << index.column();
+    }
+}
+
 void NodeList::initButtons()
 {
     QPushButton *btnCreate = new QPushButton(this);
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
+    addSingleOperationButton(btnCreate);
     connect(btnCreate, &QPushButton::clicked, this, &NodeList::onCreateNode);
 
     QPushButton *btnRemove = new QPushButton(this);
@@ -224,13 +235,15 @@ void NodeList::initButtons()
     btnRemove->setFixedSize(QSize(78, 32));
     connect(btnRemove, &QPushButton::clicked, this, &NodeList::onRemoveNode);
 
-    addOperationButtons(QList<QPushButton *>() << btnCreate << btnRemove);
-    setOpBtnEnabled(false);
+    addBatchOperationButtons(QList<QPushButton *>() << btnRemove);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void NodeList::initTable()
 {
     QStringList tableHHeaderDate = {
+        "",
         QString(tr("Node Name")),
         QString(tr("Status")),
         QString(tr("IP")),
@@ -242,12 +255,13 @@ void NodeList::initTable()
     };
     setHeaderSections(tableHHeaderDate);
     setTableColNum(tableHHeaderDate.size());
-    QList<int> sortablCol = {0, 2};
+    QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
     setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/monitor.svg");
     setTableDefaultContent("-");
 
     connect(this, &NodeList::sigMonitor, this, &NodeList::onMonitor);
+    connect(this, &NodeList::sigItemClicked, this, &NodeList::onItemClicked);
 }
 
 void NodeList::initNodeConnect()
