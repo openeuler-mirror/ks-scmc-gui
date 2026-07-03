@@ -293,18 +293,14 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
 
             QStandardItem *itemName = new QStandardItem(i.info().name().data());
             itemName->setData(QVariant::fromValue(infoMap));
-            itemName->setTextAlignment(Qt::AlignCenter);
 
             auto status = m_statusMap[i.info().state().data()];
             QStandardItem *itemStatus = new QStandardItem(status.first);
             itemStatus->setForeground(QBrush(QColor(status.second)));
-            itemStatus->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemImage = new QStandardItem(i.info().image().data());
-            itemImage->setTextAlignment(Qt::AlignCenter);
 
             QStandardItem *itemNodeAddress = new QStandardItem(i.node_address().data());
-            itemNodeAddress->setTextAlignment(Qt::AlignCenter);
 
             std::string strCpuPct = "-";
             std::string strMemPct = "-";
@@ -328,13 +324,10 @@ void ContainerList::getContainerListResult(const QPair<grpc::Status, container::
             }
 
             QStandardItem *itemCpu = new QStandardItem(strCpuPct.data());
-            itemCpu->setTextAlignment(Qt::AlignCenter);
             QStandardItem *itemMem = new QStandardItem(strMemPct.data());
             QStandardItem *itemDisk = new QStandardItem("-");
             QStandardItem *onlineTime = new QStandardItem("-");
-            itemDisk->setTextAlignment(Qt::AlignCenter);
-            itemMem->setTextAlignment(Qt::AlignCenter);
-            onlineTime->setTextAlignment(Qt::AlignCenter);
+
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
 
             row++;
@@ -418,33 +411,22 @@ void ContainerList::initButtons()
         {OPERATION_BUTTOM_CONTAINER_LIST_RUN, tr("Run")},
         {OPERATION_BUTTOM_CONTAINER_LIST_STOP, tr("Stop")},
         {OPERATION_BUTTOM_CONTAINER_LIST_RESTART, tr("Restart")},
-        {OPERATION_BUTTOM_CONTAINER_LIST_DELETE, tr("Delete")},
-        {OPERATION_BUTTOM_CONTAINER_LIST_MORE, tr("More")}};
+        {OPERATION_BUTTOM_CONTAINER_LIST_DELETE, tr("Delete")}};
 
     for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
     {
         QString name = iter.value();
         QPushButton *btn = new QPushButton(this);
-        if (name == tr("More"))
-        {
-            KLOG_INFO() << name;
-            btn->setObjectName("btnMore");
-            btn->setStyleSheet("#btnMore{background-color:#ffffff;"
-                               "border:none;"
-                               "border-radius: 4px;"
-                               "color:#000000}"
-                               "#btnMore:hover{ background-color:#EBEEF5;}"
-                               "#btnMore:focus{outline:none;}");
-        }
-        else if (name == tr("Delete"))
+        if (name == tr("Delete"))
         {
             btn->setObjectName("btn");
             btn->setStyleSheet("#btn{background-color:#ff4b4b;"
                                "border:none;"
                                "border-radius: 4px;"
                                "color:#ffffff;}"
-                               "#btn:hover{ background-color:#EBEEF5;}"
-                               "#btn:focus{outline:none;}");
+                               "#btn:hover{ background-color:#ff6c6c;}"
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
         }
         else
         {
@@ -454,24 +436,13 @@ void ContainerList::initButtons()
                                "border-radius: 4px;"
                                "color:#ffffff;}"
                                "#btn:hover{ background-color:#77ceff;}"
-                               "#btn:focus{outline:none;}");
+                               "#btn:focus{outline:none;}"
+                               "#btn:disabled{color:#919191;background:#393939;}");
         }
         btn->setText(name);
         btn->setFixedSize(QSize(78, 32));
         m_batchOpBtnMap.insert(iter.key(), btn);
     }
-
-    QPushButton *btnMore = m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_MORE];
-    QMenu *moreMenu = new QMenu(this);
-    moreMenu->setObjectName("moreMenu");
-    QAction *actBatchUpdate = moreMenu->addAction(tr("Batch update version"));
-    QAction *actBatchEdit = moreMenu->addAction(tr("Batch edit"));
-    QAction *actBackup = moreMenu->addAction(tr("Backupt"));
-    btnMore->setMenu(moreMenu);
-
-    connect(actBatchUpdate, &QAction::triggered, this, &ContainerList::onActBatchUpdate);
-    connect(actBatchEdit, &QAction::triggered, this, &ContainerList::onActBatchEdit);
-    connect(actBackup, &QAction::triggered, this, &ContainerList::onActBackup);
 
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RUN], SIGNAL(clicked()), this, SLOT(onBtnRun()));
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_STOP], SIGNAL(clicked()), this, SLOT(onBtnStop()));

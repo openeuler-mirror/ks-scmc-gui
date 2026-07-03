@@ -1,28 +1,24 @@
 /***********************MainWindow************************/
+QLabel
+{
+    font-size:14px;
+}
 QWidget#widget_sider
 {
 
 }
-QWidget#widget_user
-{
-    background-color:#2EB3FF;
-    color:#ffffff;
-    border-top-left-radius : 4px;
-    border-top-right-radius : 4px;
-}
-
 MainWindow #listWidget
 {
     background:#2d2d2d;
     border:none;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+    border-radius:4px;
     outline:none;
 }
 MainWindow #listWidget::item
 {
     background:transparent;
     border:none;
+    border-radius:4px;
 }
 MainWindow #listWidget::Item:selected
 {
@@ -51,6 +47,11 @@ QLabel#label_name
 {
     color:#ffffff;
     font-size:14px;
+}
+
+MainWindow > BubbleTipButton
+{
+    border-radius:4px;
 }
 
 QPushButton#btn_menu
@@ -96,7 +97,8 @@ CommonPage QTableView::item
 {
     padding-left:10px;
     border-bottom : 1px solid #393939;
-    height:100px;
+/*     border-left : 1px solid #393939;*/
+    height:60px;
 }
 CommonPage QTableView::indicator:unchecked
 {
@@ -127,7 +129,6 @@ CommonPage
     background:#2d2d2d;
     border-radius: 4px;
 }
-
 
 /*************************ContainerList**********************/
 QPushButton#btnCreate
@@ -173,15 +174,7 @@ QPushButton#btnCreate::menu-indicator
     left: -5px;
 }
 
-QPushButton#btnMore::menu-indicator{
-    image: url(:/images/arrow_n.png);
-    subcontrol-position: right center;
-    subcontrol-origin: padding;
-    left: -5px;
-}
-
 QMenu#btnCreateMenu,
-QMenu#moreMenu,
 QMenu#addMenu,
 QMenu#moreInTableMenu,
 QMenu#userMenu
@@ -193,7 +186,6 @@ QMenu#userMenu
 }
 
 QMenu#btnCreateMenu::item ,
-QMenu#moreMenu::item,
 QMenu#addMenu::item,
 QMenu#moreInTableMenu::item,
 QMenu#userMenu::item
@@ -205,7 +197,6 @@ QMenu#userMenu::item
 }
 
 QMenu#btnCreateMenu::item:hover,
-QMenu#moreMenu::item:hover,
 QMenu#addMenu::item:hover,
 QMenu#moreInTableMenu::item:hover,
 QMenu#userMenu::item:hover
@@ -217,7 +208,6 @@ QMenu#userMenu::item:hover
 }
 
 QMenu#btnCreateMenu::item:selected ,
-QMenu#moreMenu::item:selected,
 QMenu#addMenu::item:selected,
 QMenu#moreInTableMenu::item:selected,
 QMenu#userMenu::item:selected
@@ -239,6 +229,7 @@ CommonPage HeaderView
 
 CommonPage HeaderView::section
 {
+    padding-left:10px;
     background:#2d2d2d;
     border:none;
     font-style:normal;
