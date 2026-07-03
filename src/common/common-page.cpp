@@ -118,7 +118,7 @@ void CommonPage::setTableItem(int row, int col, QStandardItem *item)
 
 void CommonPage::setTableItems(int row, int col, QList<QStandardItem *> items)
 {
-    for (int i = col; i < items.size(); i++)
+    for (int i = 0; i < items.size(); i++)
     {
         m_model->setItem(row, i, items.at(i));
         items.at(i)->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -257,7 +257,7 @@ void CommonPage::initUI()
 
     //设置表头
     m_headerView = new HeaderView(true, ui->tableView);
-    m_headerView->setStretchLastSection(false);
+    m_headerView->setStretchLastSection(true);
     ui->tableView->setHorizontalHeader(m_headerView);
 
     //隐藏列表头
@@ -293,7 +293,6 @@ void CommonPage::adjustTableSize()
 
 int CommonPage::getCheckedItemNum()
 {
-    KLOG_INFO() << "getCheckedItemNum";
     int count = 0;
     for (int i = 0; i < m_model->rowCount(); i++)
     {
@@ -476,13 +475,11 @@ void CommonPage::onItemChecked(QStandardItem *changeItem)
                     }
                 }
             }
+
+            if (getCheckedItemNum() > 0)
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
             else
-            {
-                if (getCheckedItemNum() > 0)
-                    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
-                else
-                    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-            }
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         }
     }
 }

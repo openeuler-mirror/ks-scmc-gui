@@ -2,6 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QCryptographicHash>
+#include <QDateTime>
 #include <QDesktopWidget>
 #include <QFile>
 #include <QFileDialog>
@@ -112,6 +113,7 @@ void ImageManager::initImageConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageManager::getListDBResult);
     //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageManager::getCheckResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageManager::getRemoveResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageManager::getUploadResult);
 }
 
 int ImageManager::getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize)
@@ -263,26 +265,7 @@ void ImageManager::uploadSaveSlot(QMap<QString, QString> Info)
     pInfo->set_description(Info["Image Description"].toStdString());
     pInfo->set_size(fileSize);
 
-    QPair<grpc::Status, image::UploadReply> reply = InfoWorker::getInstance().uploadImage(request, imageFile);
-    KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
-    if (reply.first.ok())
-    {
-        KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
-        MessageDialog::message(tr("Upload Image"),
-                               tr("Upload Image success!"),
-                               tr(""),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-        getImageList();
-    }
-    else
-    {
-        MessageDialog::message(tr("Upload Image"),
-                               tr("Upload Image failed!"),
-                               tr(reply.first.error_message().data()),
-                               ":/images/warning.svg",
-                               MessageDialog::StandardButton::Ok);
-    }
+    InfoWorker::getInstance().uploadImage(request, imageFile);
 }
 
 void ImageManager::updateSaveSlot(QMap<QString, QString> Info)
@@ -436,7 +419,10 @@ void ImageManager::getListDBResult(const QPair<grpc::Status, image::ListDBReply>
             }
 
             // TODO parse unix timestamp
-            QStandardItem *itemUpdateTime = new QStandardItem(image.update_at());
+            QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
+            QString updateTime = time.toString("yyyy/MM/dd hh:mm:ss");
+            KLOG_INFO() << "due time = " << updateTime;
+            QStandardItem *itemUpdateTime = new QStandardItem(updateTime);
 
             itemName->setData(QVariant::fromValue(infoMap));
 
@@ -500,6 +486,28 @@ void ImageManager::getRemoveResult(const QPair<grpc::Status, image::RemoveReply>
     {
         MessageDialog::message(tr("Remove Image"),
                                tr("Remove Image failed!"),
+                               tr(reply.first.error_message().data()),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
+
+void ImageManager::getUploadResult(const QPair<grpc::Status, image::UploadReply> &reply)
+{
+    if (reply.first.ok())
+    {
+        KLOG_INFO() << "upload images success, return id:" << reply.second.image_id();
+        MessageDialog::message(tr("Upload Image"),
+                               tr("Upload Image success!"),
+                               tr(""),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        getImageList();
+    }
+    else
+    {
+        MessageDialog::message(tr("Upload Image"),
+                               tr("Upload Image failed!"),
                                tr(reply.first.error_message().data()),
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
