@@ -522,7 +522,6 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
     //    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
     InfoWorker::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
     updateInfo();
-    emit sigUpdateTipSums();
 }
 
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
@@ -539,6 +538,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
             int size = reply.second.images_size();
             if (size <= 0)
             {
+                emit sigUpdateTipSums();
                 setTableDefaultContent("-");
                 return;
             }
@@ -628,6 +628,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
                 setTableDefaultContent("-");
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
             }
+            emit sigUpdateTipSums();
         }
         else
         {
@@ -756,6 +757,20 @@ void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc
 
         bool ret = reply.first.error_code() == 0 ? true : false;
         std::string msg = reply.first.error_message();
+        if (ret)
+        {
+            QString strSha256;
+            qint64 fileSize;
+            if (getImageFileInfo(reply.second.imageFile.data(), strSha256, fileSize))
+                ret = false;
+
+            if (reply.second.filesize != fileSize || reply.second.checksum != strSha256.toStdString())
+            {
+                KLOG_INFO() << reply.second.filesize << fileSize << reply.second.checksum.data() << strSha256.toStdString().data();
+                msg = "receive data error";
+                ret = false;
+            }
+        }
 
         if (ret)
         {

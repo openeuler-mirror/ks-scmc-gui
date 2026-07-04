@@ -10,13 +10,25 @@
 #include <QDateTime>
 #include <QHBoxLayout>
 
-LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(parent, is_open_paging), m_datePicker(nullptr), m_datePickStart(nullptr), m_datePickEnd(nullptr), m_BtnApply(nullptr)
+LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(parent, is_open_paging),
+    m_datePicker(nullptr),
+    m_datePickStart(nullptr),
+    m_datePickEnd(nullptr),
+    m_BtnApply(nullptr),
+    m_searchKey("")
 {
     is_openPaging = is_open_paging;
     m_objId = InfoWorker::generateId(this);
     initButtons();
     initTable();
     initLogListConnect();
+
+    connect(this,&TablePage::sigPagingSearch,this,&LogListView::searchClicked);
+    connect(this, &TablePage::sigRefreshSearchResult,this,
+            [this]() {
+                if (m_searchKey != "")
+                    m_searchKey = "";
+            });
 }
 
 LogListView::~LogListView()
@@ -27,9 +39,10 @@ void LogListView::updateInfo(QString keyword)
 {
     KLOG_INFO() << "LogListView updateInfo";
     clearText();
+    // 刷新搜索结果
     if (keyword.isEmpty())
     {
-        connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
+        //connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
         getLogList(m_type, m_pageOn);
     }
 }
@@ -46,7 +59,7 @@ void LogListView::initTable()
         tr("Operation Details")};
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
-    setSearchableCol(2);  //设置"对象"列可供搜索
+//    setSearchableCol(2);  //设置"对象"列可供搜索
     setTableDefaultContent("-");
     //    setTableSingleChoose(true);
 }
@@ -148,13 +161,23 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     default:
         break;
     }
+    if (m_searchKey != "")
+    {
+        KLOG_INFO() << "search_key : " << m_searchKey;
+//        logging::Filter *filter = request.mutable_filter();
+        request.mutable_filter()->set_fuzzy(true);
+
+        std::string query = m_searchKey.toStdString();
+        request.mutable_filter()->set_query(query);
+
+        std::string property = "target";
+        request.mutable_filter()->set_property(property);
+
+//        request.set_allocated_filter(filter);
+    }
 
     request.set_page_no(page_on);
-    //    request.set_username("chendingjian");
-    //    request.set_page_size(10);
-    //    request.set_page_no(1);
-    //    request.set_sort_by("aa");
-    //    request.set_sort_desc(true);
+
     setBusy(true);
     InfoWorker::getInstance().listRuntimeLogging(m_objId, request);
 }
@@ -180,8 +203,11 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
                 emit sigOpenPaging(m_totalPages);
 
             int size = reply.second.logs_size();
+            KLOG_INFO() <<"size:" << size;
             if (size <= 0)
             {
+                if (m_searchKey != "")
+                    setSeachPageNone();
                 setTableDefaultContent("-");
                 return;
             }
@@ -199,6 +225,8 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
                 QStandardItem *itemUpdateTime = new QStandardItem(created);
 
                 QStandardItem *itemObj = new QStandardItem(logging.target().data());
+
+                KLOG_INFO() <<"obj:" <<logging.target().data();
 
                 QStandardItem *itemOpt = new QStandardItem();
                 switch (logging.event_type())
@@ -333,6 +361,14 @@ void LogListView::updatePagingInfo(int page_on)
 {
     m_pageOn = page_on;
     updateInfo();
+}
+
+void LogListView::searchClicked(QString key)
+{
+//    clearText();
+    m_searchKey = key;
+    getLogList(m_type, m_pageOn);
+//    updateInfo();
 }
 
 void LogListView::setLogListPageType(LogListPageType type)
