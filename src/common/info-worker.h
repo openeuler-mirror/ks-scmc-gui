@@ -76,6 +76,7 @@ public:
     void restartContainer(const std::map<int64_t, std::vector<std::string>> &ids);
     void removeContainer(const std::map<int64_t, std::vector<std::string>> &ids);
     void updateContainer(const container::UpdateRequest &);
+    void monitorHistory(int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
 
     // network management
     void listNetwork(const int64_t);
@@ -116,6 +117,7 @@ private:
     static QPair<grpc::Status, container::RestartReply> _restartContainer(const container::RestartRequest &);
     static QPair<grpc::Status, container::UpdateReply> _updateContainer(const container::UpdateRequest &);
     static QPair<grpc::Status, container::RemoveReply> _removeContainer(const container::RemoveRequest &);
+    static QPair<grpc::Status, container::MonitorHistoryReply> _monitorHistory(const container::MonitorHistoryRequest &);
 
     // network management
     static QPair<grpc::Status, network::ListReply> _listNetwork(const network::ListRequest &);
@@ -151,6 +153,7 @@ signals:
     void restartContainerFinished(const QPair<grpc::Status, container::RestartReply> &);
     void updateContainerFinished(const QPair<grpc::Status, container::UpdateReply> &);
     void removeContainerFinished(const QPair<grpc::Status, container::RemoveReply> &);
+    void monitorHistoryFinished(const QPair<grpc::Status, container::MonitorHistoryReply> &);
 
     // network management
     void listNetworkFinished(const QPair<grpc::Status, network::ListReply> &);
