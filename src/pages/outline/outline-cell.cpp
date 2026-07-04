@@ -12,7 +12,8 @@ OutlineCell::OutlineCell(QWidget *parent) :
 //    m_outline_view = new OutlineView(this);
     ui->setupUi(this);
     this->setIcon();
-    ui->frame->setStyleSheet("background: #2d2d2d;");
+    ui->frame->setStyleSheet("background: #2d2d2d;"
+                             "border-radius: 4px;");
 }
 
 OutlineCell::~OutlineCell()
