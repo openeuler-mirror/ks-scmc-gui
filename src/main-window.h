@@ -3,9 +3,11 @@
 
 #include <kiranwidgets-qt5/kiran-titlebar-window.h>
 #include <QListWidgetItem>
+#include <QMutex>
 #include <QStackedWidget>
 #include <QWidget>
 #include "common/def.h"
+#include "common/info-worker.h"
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -16,6 +18,7 @@ QT_END_NAMESPACE
 class GuideItem;
 class CommonPage;
 class TransmissionList;
+class BubbleTipButton;
 class MainWindow : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -28,6 +31,7 @@ public:
 protected:
     void onItemClicked(QListWidgetItem *currItem);
     void paintEvent(QPaintEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     void initUI();
@@ -38,6 +42,8 @@ private:
 private slots:
     void onLogoutAction(bool checked);
     void popupTransmissionList();
+    void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);
+    void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
 
 signals:
     void sigLogout();
@@ -50,5 +56,11 @@ private:
     QMap<QListWidgetItem *, bool> m_isShowMap;
     QList<GuideItem *> m_pageItems;
     TransmissionList *m_transmissionList;
+    QStringList m_transferImages;
+    BubbleTipButton *m_btnTransmission;
+    BubbleTipButton *m_btnApproval;
+    BubbleTipButton *m_btnWarning;
+    QTimer *m_timer;
+    QMutex m_mutex;
 };
 #endif  // MAINWINDOW_H

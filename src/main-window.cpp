@@ -3,24 +3,28 @@
 #include <QAction>
 #include <QDebug>
 #include <QIcon>
+#include <QMutexLocker>
 #include <QPainter>
+#include <QTimer>
 #include <iostream>
 #include "./ui_main-window.h"
 #include "common/bubble-tip-button.h"
 #include "common/common-page.h"
 #include "common/guide-item.h"
-#include "common/info-worker.h"
 #include "common/transmission-list.h"
 #include "pages/container/container-list.h"
 #include "pages/image/image-manager.h"
 #include "pages/node/node-list.h"
 
+#define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
-    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr)
+    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr), m_timer(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
-
+    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
     initUI();
+    m_timer = new QTimer(this);
+    //connect(m_timer, &QTimer::timeout, this, &MainWindow::)
 }
 
 MainWindow::~MainWindow()
@@ -96,34 +100,55 @@ void MainWindow::paintEvent(QPaintEvent* event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+bool MainWindow::eventFilter(QObject* obj, QEvent* event)
+{
+    if (obj == m_btnTransmission)
+    {
+        if (event->type() == QEvent::MouseButtonPress)
+        {
+            QPoint point = m_btnTransmission->mapToGlobal(QPoint(0, 0));
+            KLOG_INFO() << point;
+
+            m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
+            m_transmissionList->show();
+        }
+    }
+    else
+        m_transmissionList->hide();
+
+    return false;
+}
+
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
 
     //创建消息提示按钮
-    BubbleTipButton* btn_transmission = new BubbleTipButton(":/images/transmit.svg", this);
-    btn_transmission->setObjectName("btn_transmission");
-    btn_transmission->setFixedSize(40, 32);
-    btn_transmission->setCursor(Qt::PointingHandCursor);
-    ui->hlayout_btn->addWidget(btn_transmission);
-    connect(btn_transmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
+    m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
+    m_btnTransmission->setObjectName("btn_transmission");
+    m_btnTransmission->setFixedSize(40, 32);
+    m_btnTransmission->setCursor(Qt::PointingHandCursor);
+    m_btnTransmission->installEventFilter(this);
+    ui->hlayout_btn->addWidget(m_btnTransmission);
+    //connect(m_btnTransmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
 
-    BubbleTipButton* btn_approval = new BubbleTipButton(":/images/approve.svg", this);
-    btn_approval->setObjectName("btn_approval");
-    btn_approval->setFixedSize(40, 32);
-    btn_approval->setCursor(Qt::PointingHandCursor);
-    ui->hlayout_btn->addWidget(btn_approval);
+    m_btnApproval = new BubbleTipButton(":/images/approve.svg", this);
+    m_btnApproval->setObjectName("btn_approval");
+    m_btnApproval->setFixedSize(40, 32);
+    m_btnApproval->setCursor(Qt::PointingHandCursor);
+    ui->hlayout_btn->addWidget(m_btnApproval);
 
-    BubbleTipButton* btn_warning = new BubbleTipButton(":/images/warning-info.svg", this);
-    btn_warning->setObjectName("btn_warning");
-    btn_warning->setFixedSize(40, 32);
-    btn_warning->setCursor(Qt::PointingHandCursor);
-    ui->hlayout_btn->addWidget(btn_warning);
+    m_btnWarning = new BubbleTipButton(":/images/warning-info.svg", this);
+    m_btnWarning->setObjectName("btn_warning");
+    m_btnWarning->setFixedSize(40, 32);
+    m_btnWarning->setCursor(Qt::PointingHandCursor);
+    ui->hlayout_btn->addWidget(m_btnWarning);
 
-    //btn_approval->setTipMsg(99);
+    //m_btnApproval->setTipMsg(99);
     //创建传输列表控件
     m_transmissionList = new TransmissionList();
     m_transmissionList->setObjectName("transmissionList");
+    connect(m_transmissionList, &TransmissionList::transferItemDeleted, this, &MainWindow::onTransferItemDeleted);
 
     //创建用户菜单
     QMenu* userMenu = new QMenu(this);
@@ -244,7 +269,7 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     ui->listWidget->setItemWidget(newItem, customItem);
     newItem->setTextAlignment(Qt::AlignVCenter);
 
-    newItem->setSizeHint(QSize(230, 40));
+    newItem->setSizeHint(QSize(220, 40));
     if (type == GUIDE_ITEM_TYPE_SUB)
     {
         newItem->setHidden(true);
@@ -256,7 +281,7 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     }
     else
         customItem->setArrow(true);
-    ui->listWidget->setGridSize(QSize(230, 50));
+    ui->listWidget->setGridSize(QSize(220, 50));
 
     return newItem;
 }
@@ -274,7 +299,44 @@ void MainWindow::onLogoutAction(bool checked)
 
 void MainWindow::popupTransmissionList()
 {
-    KLOG_INFO() << QCursor::pos().x() << QCursor::pos().y();
-    m_transmissionList->move(QPoint(QCursor::pos().x() - 360, QCursor::pos().y() + 20));
+    BubbleTipButton* btn = qobject_cast<BubbleTipButton*>(sender());
+    QPoint point = btn->mapToGlobal(QPoint(0, 0));
+    KLOG_INFO() << point;
+
+    m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
     m_transmissionList->show();
+}
+
+void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate)
+{
+    KLOG_INFO() << "getTransferImageInfo:" << status << name << version << rate;
+
+    QString transferImage = name + "-" + version;
+
+    QMutexLocker locker(&m_mutex);
+    if (!m_transferImages.contains(transferImage, Qt::CaseInsensitive) && !InfoWorker::getInstance().isTransferStoped(name, version))
+    {
+        m_transmissionList->addItem(name, version, status, rate);
+        m_transferImages.append(transferImage);
+        m_btnTransmission->setTipMsg(m_transferImages.size());
+    }
+    else
+    {
+        m_transmissionList->updateItem(name, version, status, rate);
+    }
+}
+
+void MainWindow::onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status)
+{
+    QString transferImage = name + "-" + version;
+    if (!transferImage.isEmpty())
+    {
+        if (m_transferImages.contains(transferImage, Qt::CaseInsensitive))
+        {
+            InfoWorker::getInstance().stopTransfer(name, version, true);
+            m_transferImages.removeOne(transferImage);
+            m_btnTransmission->setTipMsg(m_transferImages.size());
+            KLOG_INFO() << "stop transfer:" << name << version << ",tipMsg:" << m_transferImages.size();
+        }
+    }
 }
