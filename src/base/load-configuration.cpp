@@ -7,6 +7,7 @@
 #include "load-configuration.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QFileInfo>
+#include <QProcess>
 #include <QSettings>
 
 LoadConfiguration::LoadConfiguration() : m_settings(nullptr)
@@ -121,11 +122,17 @@ void LoadConfiguration::_getSSLConfig(bool &enable, QString &ca, QString &cert, 
 
 void LoadConfiguration::getCmd(QString &cmd, QString &totalCmd)
 {
-#ifdef HAS_MATE_TERMINAL
-    cmd = "mate-terminal -e";
-    totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
-#elif HAS_KONSOLE
-    cmd = "konsole -e";
-    totalCmd = "konsole -e ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
-#endif
+    if (0 == QProcess::execute("which mate-terminal"))
+    {
+        cmd = "mate-terminal -e";
+        totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
+    }
+    else
+    {
+        if (0 == QProcess::execute("which konsole"))
+        {
+            cmd = "konsole -e";
+            totalCmd = "konsole -e ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
+        }
+    }
 }

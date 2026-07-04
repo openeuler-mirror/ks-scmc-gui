@@ -24,6 +24,7 @@
 
 #define TRANSLATION_DIR TRANSLATIONS_FILE_DIR
 #define APP_NAME "ks-scmc-gui"
+
 int main(int argc, char *argv[])
 {
     //设置日志输出
