@@ -130,6 +130,7 @@ public:
 
     // image management
     void listImage(const QString objId, const int64_t);
+    void listImage(const QString objId);
     void listDBImage(const QString objId);
     void uploadImage(const QString objId, image::UploadRequest &req, const QString &imageFile, const QString &signFile);
     void updateImage(const QString objId, image::UpdateRequest &req, const QString &imageFile, const QString &signFile);

@@ -47,6 +47,8 @@ private slots:
     void onItemEntered(const QModelIndex &index);
 
     void getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply);
+    void getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &);
+    void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &);
 
     void getContainerListResult(const QString objId, const QPair<grpc::Status, container::ListReply> &);
     void getContainerStartResult(const QString objId, const QPair<grpc::Status, container::StartReply> &);
@@ -69,6 +71,8 @@ private:
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
     void timedRefresh(bool start);
     void getNetworkInfo(int64_t node_id);
+    void getNodeInfo();
+    void getImageInfo();
 
 private:
     QString m_objId;
@@ -83,6 +87,8 @@ private:
     QMap<QString, QPair<QString, QString>> m_statusMap;
     QMultiMap<int, QPair<int, QString>> m_templateMap;  //templateId nodeId,template name
     QMultiMap<int, QString> m_networksMap;
+    QMap<int, NodeInfo *> m_nodeInfoMap;
+    QStringList m_imageInfos;
 };
 
 #endif  // CONTAINERLISTPAGE_H

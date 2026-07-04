@@ -7,6 +7,7 @@
 #ifndef TEMPLATELISTPAGE_H
 #define TEMPLATELISTPAGE_H
 #include <table-page.h>
+#include "container/container-setting.h"
 #include "info-worker.h"
 
 class ContainerSetting;
@@ -25,6 +26,9 @@ private slots:
     void onRemoveTemplate();
 
     void getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply);
+    void getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &);
+    void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &);
+
     void getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
     void getRemoveTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &reply);
 
@@ -34,14 +38,19 @@ private:
     void initTemplateConnect();
     void getCheckedItemsId(QList<int64_t> &ids);
     void getItemId(int row, int64_t &id);
+
     void getNetworkInfo(int64_t node_id);
     void getTemplateInfo();
+    void getNodeInfo();
+    void getImageInfo();
 
 private:
     QString m_objId;
     ContainerSetting *m_createTPSetting;
     ContainerSetting *m_editTPSetting;
     QMultiMap<int, QString> m_networksMap;
+    QMap<int, NodeInfo *> m_nodeInfoMap;
+    QStringList m_imageInfos;
 };
 
 #endif  // TEMPLATELISTPAGE_H

@@ -44,6 +44,18 @@ enum TabConfigGuideItemType
     TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL
 };
 
+struct NodeInfo
+{
+    NodeInfo()
+    {
+        nodeID = 0;
+        totalCPU = 0;
+    }
+    int nodeID;
+    QString nodeAddr;
+    int totalCPU;
+};
+
 class GuideItem;
 class NetworkConfTab;
 class ContainerSetting : public QWidget
@@ -51,12 +63,20 @@ class ContainerSetting : public QWidget
     Q_OBJECT
 
 public:
-    explicit ContainerSetting(ContainerSettingType type, QMultiMap<int, QString> networksMap, QMap<QString, QVariant> ids = QMap<QString, QVariant>(), QWidget *parent = nullptr);
+    explicit ContainerSetting(ContainerSettingType type, QWidget *parent = nullptr);
     ~ContainerSetting();
     void paintEvent(QPaintEvent *event);
     void setItems(int row, int col, QWidget *);
     void setTitle(QString title);
+
     void setTemplateList(QMultiMap<int, QPair<int, QString>> templateMap);
+    void setNodeInfos(QMap<int, NodeInfo *> nodeInfoMap);
+    void setImageList(QStringList imageList);
+    void setNetworkInfos(QMultiMap<int, QString> networksMap);
+
+    void getContainerInspect(int nodeID, const QString containerID);
+    void getTemplateInspect();
+    void getTemplateInspect(int templateID);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
@@ -64,6 +84,7 @@ protected:
 private:
     void initUI();
     void initSummaryUI();
+    void initConnection();
     GuideItem *createGuideItem(QListWidget *parent, QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void initBaseConfPages();
     void initAdvancedConfPages();
@@ -72,10 +93,6 @@ private:
     QString tooptipWordWrap(const QString &org);
     void deleteItem(QString itemText, int row);
     void updateRemovableItem(QString itemText);
-    void getContainerInspect();
-    void getTemplateInspect(int templateId);
-    void getNodeInfo();
-    void getImageInfo(int64_t node_id);
     void setNodeNetworkList(int nodeId);
 
     bool writeContainerConfig(container::ContainerConfigs *cntrCfg);
@@ -97,9 +114,6 @@ private slots:
     void onNodeSelectedChanged(QString newStr);
     void onTempSelectedChanged(QString newStr);
 
-    void getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &);
-    void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &);
-
     void getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &);
     void getContainerInspectResult(QString objId, const QPair<grpc::Status, container::InspectReply> &);
     void getUpdateContainerResult(QString objId, const QPair<grpc::Status, container::UpdateReply> &);
@@ -118,17 +132,19 @@ private:
     QList<GuideItem *> m_advancedItems;
     QList<GuideItem *> m_securityItems;
     QMenu *m_addMenu;
-    QComboBox *m_cbImage;
-    QLabel *m_labImage;
-    QMap<int64_t, QString> m_nodeInfo;       //id,address
-    QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
+
     int m_templateId;
+    int m_nodeID;
+    QString m_containerID;
     int m_netWorkCount;
+
     ContainerSettingType m_type;
     QMap<int, double> m_nodeTotalCPU;  //node total cpu
     QList<NetworkConfTab *> m_netWorkPages;
     QMultiMap<int, QString> m_networksMap;
     QMultiMap<int, QPair<int, QString>> m_templateMap;
+    QMap<int, NodeInfo *> m_nodeInfoMap;
+    QStringList m_imageList;
 };
 
 #endif  // CONTAINERSETTING_H
