@@ -60,7 +60,6 @@ private slots:
     void onAboutAction(bool checked);
     void onHelpAction(bool checked);
     void onUpdatePwSuccessful();
-    void popupTransmissionList();
     void onApprovalPage(bool check);
     void onWarningPage(bool check);
     void setApprovalTipNums(int);

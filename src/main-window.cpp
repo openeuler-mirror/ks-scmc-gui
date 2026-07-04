@@ -710,16 +710,6 @@ void MainWindow::onUpdatePwSuccessful()
     emit sigLogout();
 }
 
-void MainWindow::popupTransmissionList()
-{
-    BubbleTipButton* btn = qobject_cast<BubbleTipButton*>(sender());
-    QPoint point = btn->mapToGlobal(QPoint(0, 0));
-    KLOG_INFO() << point;
-
-    m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
-    m_transmissionList->show();
-}
-
 void MainWindow::onApprovalPage(bool check)
 {
     Q_UNUSED(check);

@@ -23,9 +23,11 @@ public:
     void removeItem(QString name, QString version);
     int getTransfersNum();
 
+protected:
+    void paintEvent(QPaintEvent* event);
+
 private:
     void initUI();
-    void adjustSize();
 
 public slots:
     void setTransfersNum(int num);

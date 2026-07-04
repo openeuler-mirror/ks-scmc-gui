@@ -7,9 +7,18 @@
 #include "transmission-list.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QLabel>
+#include <QPainter>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include "transmission-item.h"
+
+#define LIST_ITEM_HEIGHT 80
+#define LIST_ITEM_WIDTH 360
+#define LIST_ITEM_SPACE 2
+#define LIST_ITEM_VISIBLE_NUM 5
+#define LIST_HEIGHT LIST_ITEM_VISIBLE_NUM *(LIST_ITEM_HEIGHT + LIST_ITEM_SPACE)
+#define LIST_WIDTH 380
+
 TransmissionList::TransmissionList(QWidget *parent) : QWidget(parent), m_listWidget(nullptr), m_stackedWidget(nullptr), m_transfersNum(0)
 {
     setAttribute(Qt::WA_TranslucentBackground, true);
@@ -19,6 +28,15 @@ TransmissionList::TransmissionList(QWidget *parent) : QWidget(parent), m_listWid
 
 TransmissionList::~TransmissionList()
 {
+}
+
+void TransmissionList::paintEvent(QPaintEvent *event)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    QWidget::paintEvent(event);
 }
 
 void TransmissionList::addItem(QString name, QString version, ImageTransmissionStatus status, int rate)
@@ -39,13 +57,12 @@ void TransmissionList::addItem(QString name, QString version, ImageTransmissionS
     m_listWidget->setItemWidget(newItem, customItem);
     newItem->setTextAlignment(Qt::AlignVCenter);
 
-    newItem->setSizeHint(QSize(360, 80));
-    m_listWidget->setGridSize(QSize(360, 82));
+    newItem->setSizeHint(QSize(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT));
+    m_listWidget->setGridSize(QSize(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT + LIST_ITEM_SPACE));
 
     auto num = ++m_transfersNum;
     setTransfersNum(num);
     m_transfersItems.append(customItem);
-    adjustSize();
 
     connect(customItem, &TransmissionItem::sigClose, this, &TransmissionList::deleteItem);
 }
@@ -90,8 +107,9 @@ void TransmissionList::removeItem(QString name, QString version)
 void TransmissionList::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::Popup | Qt::FramelessWindowHint);
-    setFixedWidth(360);
-    setFixedHeight(80);
+    setFixedWidth(LIST_WIDTH);
+    setFixedHeight(LIST_HEIGHT);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(0);
@@ -108,20 +126,17 @@ void TransmissionList::initUI()
     layout->setMargin(0);
     QLabel *defaultLabel = new QLabel(tr("No transfer task"), defaultWidget);
     defaultLabel->setAlignment(Qt::AlignCenter);
-    defaultWidget->setFixedHeight(80);
+    defaultWidget->setFixedHeight(LIST_ITEM_HEIGHT);
     layout->addWidget(defaultLabel, Qt::AlignCenter);
 
     m_listWidget = new QListWidget(this);
     m_listWidget->setObjectName("transmissionListWidget");
+    m_listWidget->setResizeMode(QListView::Adjust);
+    m_listWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_listWidget->setFixedHeight(LIST_HEIGHT);
 
     m_stackedWidget->addWidget(defaultWidget);
     m_stackedWidget->addWidget(m_listWidget);
-}
-
-void TransmissionList::adjustSize()
-{
-    if (m_transfersItems.size() > 0)
-        this->setFixedHeight(m_transfersItems.size() * (80 + 2));
 }
 
 int TransmissionList::getTransfersNum()
@@ -153,7 +168,6 @@ void TransmissionList::deleteItem()
             m_transfersItems.removeAt(row);
             auto num = --m_transfersNum;
             setTransfersNum(num);
-            adjustSize();
 
             emit transferItemDeleted(transmissionItem->name(), transmissionItem->version(), transmissionItem->status());
 
