@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/user/passwd-update-dialog.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "passwd-update-dialog.h"
 #include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>

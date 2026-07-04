@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/button-delegate.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "button-delegate.h"
 #include <QApplication>
 #include <QMouseEvent>

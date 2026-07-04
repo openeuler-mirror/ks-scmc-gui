@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/base/info-worker.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "info-worker.h"
 
 #include <kiran-log/qt5-log-i.h>
@@ -312,11 +318,14 @@ void InfoWorker::listWarnLogging(const QString objId, const logging::ListWarnReq
     RPC_ASYNC(logging::ListWarnReply, _listWarnLogging, loggingListWarnFinished, objId, req);
 }
 
-void InfoWorker::readWarnLogging(const QString objId, int64_t ids)
+void InfoWorker::readWarnLogging(const QString objId, QList<int64_t> ids)
 {
     logging::ReadWarnRequest req;
-    req.add_ids(ids);
-    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId, req);
+    foreach (int64_t id, ids)
+    {
+        req.add_ids(id);
+    }
+    RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId,req);
 }
 
 void InfoWorker::listNetwork(const QString objId, const int64_t node_id)

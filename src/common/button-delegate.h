@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/button-delegate.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef BUTTONDELEGATE_H
 #define BUTTONDELEGATE_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/container-setting.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef CONTAINERSETTING_H
 #define CONTAINERSETTING_H
 #include <QComboBox>

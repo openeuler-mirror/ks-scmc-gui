@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/user/passwd-update-dialog.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef PASSWDUPDATEDIALOG_H
 #define PASSWDUPDATEDIALOG_H
 

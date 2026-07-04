@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/node/node-list-page.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef NODELISTPAGE_H
 #define NODELISTPAGE_H
 

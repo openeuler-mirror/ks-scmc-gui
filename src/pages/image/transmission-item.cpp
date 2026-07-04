@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/image/transmission-item.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "transmission-item.h"
 #include <QPainter>
 #include <QStyleOption>

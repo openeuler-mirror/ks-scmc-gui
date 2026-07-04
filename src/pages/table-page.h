@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/table-page.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef TABLEPAGE_H
 #define TABLEPAGE_H
 

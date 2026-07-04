@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/image/image-list-page.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef IMAGELISTPAGE_H
 #define IMAGELISTPAGE_H
 

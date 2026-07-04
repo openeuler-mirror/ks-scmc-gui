@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/stacked-page.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "stacked-page.h"
 #include <QVBoxLayout>
 StackedPage::StackedPage(QWidget *parent) : Page(parent), m_stackedWidget(nullptr)

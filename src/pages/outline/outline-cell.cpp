@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/outline/outline-cell.cpp
+ * @brief         
+ * @author        chendingjian <chendingjian@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "outline-cell.h"
 #include "ui_outline-cell.h"
 #include "main-window.h"

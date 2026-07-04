@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/include/rpc.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef RPC_H_
 #define RPC_H_
 

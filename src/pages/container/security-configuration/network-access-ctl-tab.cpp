@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/security-configuration/network-access-ctl-tab.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "network-access-ctl-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>

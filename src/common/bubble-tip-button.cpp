@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/common/bubble-tip-button.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "bubble-tip-button.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QPainter>

@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/include/def.h
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #ifndef DEF_H
 #define DEF_H
 #include <QString>

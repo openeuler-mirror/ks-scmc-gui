@@ -1,3 +1,9 @@
+/**
+ * @file          /ks-scmc-gui/src/pages/container/container-manager/container-backup-operate-dialog.cpp
+ * @brief         
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 #include "container-backup-operate-dialog.h"
 #include <widget-property-helper.h>
 #include <QTextEdit>
