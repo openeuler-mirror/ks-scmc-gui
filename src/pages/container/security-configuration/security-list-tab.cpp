@@ -110,8 +110,9 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     }
 }
 
-void SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg)
+bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg)
 {
+    bool pathCorrect = true;
     switch (m_type)
     {
     case PROTECT_FILE_LIST:
@@ -122,10 +123,15 @@ void SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            QString filePath = item->getInfo();
-            KLOG_INFO() << "filePath:" << filePath;
-            if (!filePath.isEmpty())
-                fileProtect->add_file_list(filePath.toStdString());
+            if (item->getPathCorrect())
+            {
+                QString filePath = item->getInfo();
+                KLOG_INFO() << "filePath:" << filePath;
+                if (!filePath.isEmpty())
+                    fileProtect->add_file_list(filePath.toStdString());
+            }
+            else
+                pathCorrect = false;
         }
         break;
     }
@@ -138,10 +144,15 @@ void SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            QString filePath = item->getInfo();
-            KLOG_INFO() << "process path:" << filePath;
-            if (!filePath.isEmpty())
-                processProtect->add_exe_list(filePath.toStdString());
+            if (item->getPathCorrect())
+            {
+                QString filePath = item->getInfo();
+                KLOG_INFO() << "process path:" << filePath;
+                if (!filePath.isEmpty())
+                    processProtect->add_exe_list(filePath.toStdString());
+            }
+            else
+                pathCorrect = false;
         }
         break;
     }
@@ -154,10 +165,15 @@ void SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            QString filePath = item->getInfo();
-            KLOG_INFO() << "net process path:" << filePath;
-            if (!filePath.isEmpty())
-                processProtect->add_exe_list(filePath.toStdString());
+            if (item->getPathCorrect())
+            {
+                QString filePath = item->getInfo();
+                KLOG_INFO() << "net process path:" << filePath;
+                if (!filePath.isEmpty())
+                    processProtect->add_exe_list(filePath.toStdString());
+            }
+            else
+                pathCorrect = false;
         }
         break;
     }
@@ -165,6 +181,7 @@ void SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
     default:
         break;
     }
+    return pathCorrect;
 }
 
 SecurityListItem *SecurityListTab::createItem(int index)

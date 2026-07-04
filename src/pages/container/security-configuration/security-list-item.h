@@ -21,8 +21,13 @@ public:
     QString getInfo();
     bool getPathCorrect();
 
+protected:
+    void changeEvent(QEvent *event);
+
 private:
     void checkPath();
+    QString tooptipWordWrap(const QString &org);
+
 signals:
     void sigAdd();
     void sigDelete();
