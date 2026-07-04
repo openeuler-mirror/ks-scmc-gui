@@ -561,13 +561,13 @@ void MainWindow::loadUserPage()
 void MainWindow::loadUserItem()
 {
     createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL,
-                                                ":/images/home.svg");
+                    ":/images/home.svg");
     if (m_userRole == USER_ROLE_SYSADM)
     {
         createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
-                                                       ":/images/node-manager.svg");
+                        ":/images/node-manager.svg");
         createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
-                                                           ":/images/image-manager.svg");
+                        ":/images/image-manager.svg");
 
         QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,
                                                             ":/images/container-manager.svg");
@@ -744,8 +744,6 @@ void MainWindow::setWarningTipNums(int64_t nums)
 
 void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate)
 {
-    KLOG_INFO() << "get transfer image info:" << status << name << version << rate;
-
     QString transferImage = name + "-" + version;
 
     QMutexLocker locker(&m_mutex);

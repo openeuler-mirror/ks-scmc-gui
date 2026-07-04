@@ -15,7 +15,7 @@
 #include <QTimer>
 #include "message-dialog.h"
 #include "notification-manager.h"
-#define TIMEOUT 60000
+#define TIMEOUT 5000
 #define BACKUP_TIME_COL 3
 using namespace grpc;
 
@@ -63,7 +63,6 @@ void ContainerBackupPage::updateInfo(QString keyword)
     {
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
-            setBusy(true);
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
         }
     }
@@ -245,8 +244,6 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
 {
     if (m_objId != objId)
         return;
-
-    setBusy(false);
 
     if (!reply.first.ok())
     {

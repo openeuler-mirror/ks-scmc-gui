@@ -22,13 +22,15 @@ NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPa
 void NodeInfoPage::setNodeId(qint64 nodeId)
 {
     m_nodeId = nodeId;
+    m_containerListPage->setNodeID(m_nodeId);
+    m_networkPage->setNodeId(m_nodeId);
+    m_configPage->setNodeId(m_nodeId);
 }
 
 void NodeInfoPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "NodeInfoPage UpdateInfo" << m_nodeId;
     setCurrentPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
-    m_containerListPage->getContainerList(m_nodeId);
+    m_containerListPage->updateInfo();
 }
 
 void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
@@ -69,18 +71,18 @@ void NodeInfoPage::updatePageInfo(int index)
 {
     if (index == NODE_INFO_SUB_PAGE_TYPE_CONTAINER)
     {
-        m_containerListPage->getContainerList(m_nodeId);
+        m_containerListPage->updateInfo();
     }
     else if (index == NODE_INFO_SUB_PAGE_TYPE_MONITOR)
+    {
         m_monitor->updateMonitorInfo(m_nodeId);
+    }
     else if (index == NODE_INFO_SUB_PAGE_TYPE_NETWORK)
     {
-        m_networkPage->setNodeId(m_nodeId);
         m_networkPage->updateInfo();
     }
     else if (index == NODE_INFO_SUB_PAGE_TYPE_CONFIG)
     {
-        m_configPage->setNodeId(m_nodeId);
         m_configPage->updateInfo();
     }
 }

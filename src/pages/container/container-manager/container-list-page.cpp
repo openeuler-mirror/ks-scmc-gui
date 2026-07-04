@@ -31,7 +31,7 @@
 #define CONTAINRT_STATUS_PAUSED "paused"
 #define CONTAINRT_STATUS_REMOVING "removing"
 #define CONTAINRT_STATUS_RESTARTING "restarting"
-#define TIMEOUT 60000
+#define TIMEOUT 5000
 using namespace grpc;
 
 ContainerListPage::ContainerListPage(QWidget *parent)
@@ -255,7 +255,6 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
     if (m_objId != objId)
         return;
 
-    setBusy(false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 
     if (!reply.first.ok())
@@ -365,7 +364,7 @@ void ContainerListPage::getContainerStartResult(const QString objId, const QPair
     setBusy(false);
     if (reply.first.ok())
     {
-        getContainerList(m_nodeId);
+        getContainerList();
     }
     else
     {
@@ -385,7 +384,7 @@ void ContainerListPage::getContainerStopResult(const QString objId, const QPair<
     setBusy(false);
     if (reply.first.ok())
     {
-        getContainerList(m_nodeId);
+        getContainerList();
     }
     else
     {
@@ -405,7 +404,7 @@ void ContainerListPage::getContainerRestartResult(const QString objId, const QPa
     setBusy(false);
     if (reply.first.ok())
     {
-        getContainerList(m_nodeId);
+        getContainerList();
     }
     else
     {
@@ -425,7 +424,7 @@ void ContainerListPage::getContainerRemoveResult(const QString objId, const QPai
     setBusy(false);
     if (reply.first.ok())
     {
-        getContainerList(m_nodeId);
+        getContainerList();
     }
     else
     {
@@ -545,7 +544,6 @@ void ContainerListPage::getTemplateList()
 
 void ContainerListPage::getNetworkInfo(int64_t node_id)
 {
-    KLOG_INFO() << "get node:" << node_id << "NetworkInfo";
     InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 
@@ -559,23 +557,18 @@ void ContainerListPage::getImageInfo()
     InfoWorker::getInstance().listImage(m_objId);
 }
 
-void ContainerListPage::getContainerList(qint64 nodeId)
+void ContainerListPage::getContainerList()
 {
-    m_nodeId = nodeId;
-    setBusy(true);
     std::vector<int64_t> vecNodeId;
-    if (nodeId < 0)
+    if (m_nodeId < 0)
     {
         InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取所有容器
     }
     else
     {
-        KLOG_INFO() << "get container list of node " << nodeId;
-        vecNodeId.push_back(nodeId);
+        KLOG_INFO() << "get container list of node " << m_nodeId;
+        vecNodeId.push_back(m_nodeId);
         InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
-        getNetworkInfo(-1);                                                 //-1返回所有节点的网卡信息
-        getNodeInfo();
-        getImageInfo();
     }
 }
 
@@ -702,7 +695,7 @@ void ContainerListPage::operateContainer(ContainerSettingType type, int row)
                 });
         connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    getContainerList(m_nodeId);
+                    getContainerList();
                 });
     }
 }
@@ -853,10 +846,15 @@ void ContainerListPage::updateInfo(QString keyword)
     if (keyword.isEmpty())
     {
         //gRPC->拿数据->填充内容
-        getContainerList(m_nodeId);
+        getContainerList();
         getTemplateList();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         getNodeInfo();
         getImageInfo();
     }
+}
+
+void ContainerListPage::setNodeID(qint64 nodeID)
+{
+    m_nodeId = nodeID;
 }
