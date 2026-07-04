@@ -50,6 +50,10 @@ private slots:
     void onAboutAction(bool checked);
     void onUpdatePwSuccessful();
     void popupTransmissionList();
+    void onApprovalPage(bool check);
+    void onWarningPage(bool check);
+    void setApprovalTipNums(int);
+    void setWarningTipNums(int);
     void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);
     void onTransferItemDeleted(QString name, QString version, ImageTransmissionStatus status);
     void outlineJumpPage(OutlineCellType type);
