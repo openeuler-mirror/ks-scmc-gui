@@ -2,11 +2,16 @@
 %global pkg_ver 1.1.1
 %global pkg_rel 2
 
-%global _is_grpc_plugins 0
+%global _is_grpc_plugins 1
 %global _is_generate_to_run 0
-Name:           ks-scmc-gui
-Version:        1.1.1
-Release:        2
+
+%if (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} == 4 && 0%{kylin_sub_minor_version} >= 5) || (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} >= 5)
+	%global enable_set_palette 1
+%endif
+
+Name:           %{pkg_name}
+Version:        %{pkg_ver}
+Release:        %{pkg_rel}
 Summary:        KylinSec security container magic cube gui
 
 License:        No license
@@ -31,7 +36,10 @@ BuildRequires:  kylin-license-devel
 BuildRequires:  qrencode-devel
 BuildRequires:  c-ares-devel
 BuildRequires:  libnotify-devel
+
+%if 0%{?enable_set_palette}
 BuildRequires:  kiran-qt5-integration-devel
+%endif
 
 %if 0%{?_is_grpc_plugins}
 BuildRequires:  grpc-plugins
@@ -46,7 +54,10 @@ Requires:       protobuf
 Requires:	libnotify
 Requires:       kylin-license-client
 Requires:	qt5-qtcharts
+
+%if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4
+%endif
 
 %description
 KylinSec security container magic cube gui
