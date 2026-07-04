@@ -32,8 +32,6 @@ private:
     bool inspectLoginParam();
 
 private slots:
-    void getPasswd();
-    void onBtnRemember(bool checked);
     void onMenuTrigger(QAction *act);
     void onLogin();
     void onLogout();
@@ -43,7 +41,6 @@ private slots:
 private:
     Ui::LoginDialog *ui;
     MainWindow *m_mainWindow;
-    bool m_isRemember = false;
     QTimer *m_timer;
     UserConfiguration *m_userConfig;
     ServerConfigDialog *m_serverCfgDlg;

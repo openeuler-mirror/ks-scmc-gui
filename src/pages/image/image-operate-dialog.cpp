@@ -1,8 +1,8 @@
+#include "image-operate-dialog.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QFileDialog>
 #include <QFileInfo>
 #include "common/message-dialog.h"
-#include "image-operate-dialog.h"
 #include "ui_image-operate-dialog.h"
 
 ImageOperateDialog::ImageOperateDialog(ImageOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
@@ -41,6 +41,7 @@ void ImageOperateDialog::setImageInfo(QMap<QString, QVariant> imageInfoMap)
 
 void ImageOperateDialog::initUI()
 {
+    setIcon(QIcon(":/images/logo.png"));
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowModality(Qt::ApplicationModal);
     setTitle(tr("Image Operate"));
@@ -51,15 +52,9 @@ void ImageOperateDialog::initUI()
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectImage);
     initLineEdit(ui->lineEditImageFile, imageFileBtn);
 
-    //TODO:方便测试，后续去掉
-    ui->lineEditImageFile->setText("/home/yuanxing/Documents/image/httpd.tar");
-
     QPushButton *imageSignBtn = new QPushButton(this);
     connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperateDialog::selectSign);
     initLineEdit(ui->lineEditImageSign, imageSignBtn);
-
-    //TODO:方便测试，后续去掉
-    ui->lineEditImageSign->setText("/home/yuanxing/Documents/image/httpd.tar.sig");
 }
 
 void ImageOperateDialog::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)

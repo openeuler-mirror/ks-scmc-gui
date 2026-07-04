@@ -28,7 +28,6 @@ using namespace CryptoPP;
 LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                             ui(new Ui::LoginDialog),
                                             m_mainWindow(nullptr),
-                                            m_timer(nullptr),
                                             m_serverCfgDlg(nullptr),
                                             m_userConfig(nullptr)
 {
@@ -38,9 +37,6 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_serverCfgDlg->hide();
 
     m_userConfig = new UserConfiguration();
-
-    m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, this, &LoginDialog::getPasswd);
 
     initUI();
     //loadConfig();
@@ -54,11 +50,6 @@ LoginDialog::~LoginDialog()
     {
         delete m_mainWindow;
         m_mainWindow = nullptr;
-    }
-    if (m_timer)
-    {
-        delete m_timer;
-        m_timer = nullptr;
     }
     if (m_userConfig)
     {
@@ -83,7 +74,7 @@ void LoginDialog::paintEvent(QPaintEvent *event)
 void LoginDialog::initUI()
 {
     setTitle(tr("KylinSec security Container magic Cube"));
-
+    setIcon(QIcon(":/images/logo.png"));
     //创建标题栏中菜单按钮
     setTitlebarCustomLayoutAlignHCenter(false);
     QHBoxLayout *titleBarLayout = getTitlebarCustomLayout();
@@ -106,12 +97,6 @@ void LoginDialog::initUI()
     //ui->lineEdit_passwd->setText("12345678");
 
     connect(ui->btn_login, &QPushButton::clicked, this, &LoginDialog::onLogin);
-    connect(ui->radio_btn_remember_pw, &QRadioButton::toggled, this, &LoginDialog::onBtnRemember);
-    connect(ui->lineEdit_username, &QLineEdit::textEdited,
-            [this](QString text) {
-                if (!text.isEmpty())
-                    m_timer->start(TIMEOUT);
-            });
 }
 
 void LoginDialog::loadConfig()
@@ -147,22 +132,6 @@ bool LoginDialog::inspectLoginParam()
         return false;
     }
     return true;
-}
-
-void LoginDialog::getPasswd()
-{
-    QString decryptedPw;
-    m_userConfig->readConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, decryptedPw);
-    if (!decryptedPw.isNull())
-    {
-        ui->lineEdit_passwd->setText(decryptedPw);
-    }
-    m_timer->stop();
-}
-
-void LoginDialog::onBtnRemember(bool checked)
-{
-    m_isRemember = checked;
 }
 
 void LoginDialog::onMenuTrigger(QAction *act)
@@ -207,12 +176,12 @@ void LoginDialog::getLoginResult(const QPair<grpc::Status, user::LoginReply> &re
             connect(m_mainWindow, &MainWindow::sigLogout, this, &LoginDialog::onLogout);
             hide();
         }
-        if (m_isRemember)
-        {
-            QString encryptedPw = QString::fromStdString(m_userConfig->desEncrypt(ui->lineEdit_passwd->text().toStdString()));
-            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_NAME, ui->lineEdit_username->text());
-            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, encryptedPw);
-        }
+        //        if (m_isRemember)
+        //        {
+        //            QString encryptedPw = QString::fromStdString(m_userConfig->desEncrypt(ui->lineEdit_passwd->text().toStdString()));
+        //            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_NAME, ui->lineEdit_username->text());
+        //            m_userConfig->writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), LOGIN_USER_PASSWORD, encryptedPw);
+        //        }
     }
     else
     {
