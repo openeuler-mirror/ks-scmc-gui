@@ -20,6 +20,7 @@ ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType typ
     setIcon(QIcon(":/images/logo.png"));
     setResizeable(false);
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
+    setWindowModality(Qt::ApplicationModal);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_ok, Kiran::BUTTON_Default);
 
     QDateTime currTime = QDateTime::currentDateTime();
