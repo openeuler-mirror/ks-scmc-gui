@@ -187,6 +187,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
     KLOG_INFO() << "getListTemplateFinishResult" << m_objId << objId;
     if (m_objId == objId)
     {
+        setBusy(false);
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
         if (reply.first.ok())
         {
@@ -260,7 +261,13 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
             if (reply.first.error_code() == PERMISSION_DENIED)
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
             else
+            {
                 setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+                if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
+                {
+                    setTips(tr("Response timeout!"));
+                }
+            }
             setTableDefaultContent("-");
             setHeaderCheckable(false);
         }
@@ -358,5 +365,6 @@ void TemplateListPage::getNetworkInfo(int64_t node_id)
 
 void TemplateListPage::getTemplateInfo()
 {
+    setBusy(true);
     InfoWorker::getInstance().listTemplate(m_objId);
 }

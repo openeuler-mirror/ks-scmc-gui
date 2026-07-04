@@ -19,6 +19,7 @@ public:
     ~Page();
     void setMaskParent(QWidget *parent);
     void setBusy(bool);
+    bool isBusy();
     void setData(QVariant data);
     QVariant getData();
     virtual void updateInfo(QString keyword = "") = 0;

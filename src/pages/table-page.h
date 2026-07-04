@@ -56,6 +56,7 @@ public:
     void setHeaderCheckable(bool checkable);
     void setTableDefaultContent(QString text);
     void setSearchableCol(int col);
+    void setTips(QString text);
     void clearText();
     int getTableRowCount();
     QStandardItem *getItem(int row, int col);
@@ -76,6 +77,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event);
     void paintEvent(QPaintEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    virtual void timerEvent(QTimerEvent *event);
 
 signals:
     void sigMonitor(int row);
@@ -129,6 +131,7 @@ private:
     HeaderView *m_headerView;
     QTimer *m_searchTimer;
     QTimer *m_refreshBtnTimer;
+    int m_timerID;
     ButtonDelegate *m_btnDelegate;
 
     QList<QAbstractButton *> m_singleOpBtns;
