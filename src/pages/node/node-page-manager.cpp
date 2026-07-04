@@ -1,4 +1,5 @@
 #include "node-page-manager.h"
+#include <kiran-log/qt5-log-i.h>
 #include "node-info-page.h"
 #include "node-list-page.h"
 #include "page.h"
@@ -36,7 +37,7 @@ void NodePageManager::createStackedPage(NodePageType type, QString key)
 void NodePageManager::updateInfo(QString keyword)
 {
     setCurrentPage(NODE_PAGE_TYPE_NODE_LIST);
-    updateCurrentPage(keyword);
+    updateCurrentPage();
 }
 
 void NodePageManager::onNodeNameClicked(qint64 nodeId)
