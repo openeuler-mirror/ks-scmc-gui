@@ -19,11 +19,11 @@
 #include "common/guide-item.h"
 #include "message-dialog.h"
 #include "page.h"
-#include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/audit/log-list/log-list-page.h"
 #include "pages/audit/warning-list/warning-list-page.h"
 #include "pages/container/container-manager/container-page-manager.h"
 #include "pages/container/template-manager/template-list-page.h"
+#include "pages/image/image-approval-page.h"
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-page-manager.h"
@@ -31,28 +31,36 @@
 #include "table-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
+
 #define CONTAINER_MANAGER QObject::tr("Container Manager")
 #define CONTAINER_LIST QObject::tr("Container List")
 #define CONTAINER_TEMPLATE QObject::tr("Container Template")
-#define AUDIT_CENTER QObject::tr("Audit Center")
-#define AUDIT_APPLY_LIST QObject::tr("Audit Apply List")
-#define AUDIT_WORNING_LIST QObject::tr("Audit Warning List")
-#define AUDIT_LOG_LIST QObject::tr("Audit Log List")
-#define IMAGE_MANAGER QObject::tr("Image Manager")
+
+#define WARNING_LOG QObject::tr("Warning Log")
+#define WORNING_LIST QObject::tr("Warning List")
+#define LOG_LIST QObject::tr("Log List")
+
+#define IMAGE_STOREHOUSE QObject::tr("Image Storehouse")
+#define IMAGE_APPROVAL QObject::tr("Image Approval")
+#define IMAGE_APPROVAL_LIST QObject::tr("Image Approval List")
+
 #define NODE_MANAGER QObject::tr("Node Manager")
-#define SYSTEM_MANAGER QObject::tr("System Manager")
+
+//#define SYSTEM_MANAGER QObject::tr("System Manager")
 //#define OUTLINE_PAGES QObject::tr("Outline")
 
 #define TIMEOUT 200
-MainWindow::MainWindow(QWidget* parent)
+MainWindow::MainWindow(QString name, QWidget* parent)
     : KiranTitlebarWindow(parent),
       ui(new Ui::MainWindow),
+      m_userName(name),
       m_transmissionList(nullptr),
       m_pwUpdateDlg(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
-    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
     initUI();
+    ui->btn_user->setText(name);
+    connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
     connect(m_stackedWidget, SIGNAL(currentChanged(int)), this, SLOT(changePage(int)));
 }
 
@@ -73,17 +81,12 @@ MainWindow::~MainWindow()
     }
 }
 
-void MainWindow::setUserName(QString name)
-{
-    ui->btn_user->setText(name);
-    m_userName = name;
-}
-
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
 {
     //侧边栏展开与收缩
     GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
-    if (guideItem->getItemType() != GUIDE_ITEM_TYPE_GROUP)
+    //点击的不是组项
+    if (!m_groupMap.contains(currItem))
     {
         guideItem->setSelected(true);
         foreach (GuideItem* item, m_pageItems)
@@ -93,9 +96,29 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
                 item->setSelected(false);
             }
         }
+        //跳转、更新右侧页面
+        QString currenItemData = currItem->data(Qt::UserRole).toString();
+        setPageName(guideItem->getItemText());
+
+        if (!m_pageMap.value(currenItemData))
+            return;
+        m_pageMap[currenItemData]->updateInfo();
+        m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
     }
-    if (m_groupMap.contains(currItem))
+    //点击的是组项
+    else
     {
+        //同步右侧页面对应的侧边项
+        auto currPage = qobject_cast<Page*>(m_stackedWidget->currentWidget());
+        auto currPageData = m_pageMap.key(currPage);
+        for (int i = 0; i < ui->listWidget->count(); i++)
+        {
+            auto item = ui->listWidget->item(i);
+            if (item->data(Qt::UserRole).toString() == currPageData)
+                item->setSelected(true);
+        }
+
+        //侧边项收缩与展开
         if (m_isShowMap.value(currItem))  //hide
         {
             guideItem->setArrow(true);
@@ -116,22 +139,6 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
             }
             m_isShowMap.insert(currItem, true);
         }
-    }
-    QString currenItemData = currItem->data(Qt::UserRole).toString();
-
-    if (!m_groupMap.contains(currItem))
-        setPageName(guideItem->getItemText());
-    if (guideItem->getItemText() == GENERAL_OUTLINE)
-    {
-        m_outline->updateInfo();
-        m_stackedWidget->setCurrentWidget(m_outline);
-    }
-    else
-    {
-        if (!m_pageMap.value(currenItemData))
-            return;
-        m_pageMap[currenItemData]->updateInfo();
-        m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
     }
 }
 
@@ -283,93 +290,79 @@ void MainWindow::initUI()
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
     connect(aboutAct, &QAction::triggered, this, &MainWindow::onAboutAction);
 
-    //创建右侧内容页面
+    //创建右侧堆叠页面
     m_stackedWidget = new QStackedWidget(this);
     m_stackedWidget->setObjectName("stackedWidget");
     ui->vlayout_page->addWidget(m_stackedWidget);
-
-    //pageMap.value
-    const QMap<GUIDE_ITEM, QString> pageMap = {
-        {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
-        {GUIDE_ITEM_AUDIT_WARNING_LIST, AUDIT_WORNING_LIST},
-        {GUIDE_ITEM_AUDIT_LOG_LIST, AUDIT_LOG_LIST},
-        {GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER, CONTAINER_LIST},
-        {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
-        {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
-        {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
-    for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
-    {
-        GUIDE_ITEM itemEnum = iter.key();
-        auto subPage = createSubPage(itemEnum);
-        if (!subPage)
-        {
-            KLOG_WARNING() << "sub page is null,ignore!";
-            continue;
-        }
-        subPage->setData(QVariant(iter.value()));
-        m_stackedWidget->addWidget(subPage);
-        m_pageMap[iter.value()] = subPage;
-    }
+    loadUserPage();
 
     //创建左侧侧边栏
-    QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
+    loadUserItem();
 
-    QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
-    QListWidgetItem* imageManager = createGuideItem(IMAGE_MANAGER, GUIDE_ITEM_TYPE_NORMAL, ":/images/image-manager.svg");
+    //set current widget to home
+    m_stackedWidget->setCurrentWidget(m_pageMap[GENERAL_OUTLINE]);
+    ui->listWidget->setCurrentRow(0);
 
-    QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP, ":/images/container-manager.svg");
-    QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
-    QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
-    m_groupMap.insert(containerManager, containerSubItems);
-    m_isShowMap.insert(containerManager, false);
-
-    QListWidgetItem* auditCenter = createGuideItem(AUDIT_CENTER, GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
-    QListWidgetItem* auditApplyList = createGuideItem(AUDIT_APPLY_LIST, GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* auditWarningList = createGuideItem(AUDIT_WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
-    QListWidgetItem* auditLogList = createGuideItem(AUDIT_LOG_LIST, GUIDE_ITEM_TYPE_SUB);
-    QList<QListWidgetItem*> auditSubItems = {auditApplyList, auditWarningList, auditLogList};
-    m_groupMap.insert(auditCenter, auditSubItems);
-    ///TODO: m_isShowMap.insert(auditCenter, false);
-    m_isShowMap.insert(auditCenter, false);
-
-    GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(homeItem));
+    GuideItem* item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(ui->listWidget->item(0)));
     item->setSelected(true);
     setPageName(item->getItemText());
 
-    m_outline = new OutlineView(this);
-    m_stackedWidget->addWidget(m_outline);
-    connect(m_outline, &OutlineView::outlineCellStepPages, this, &MainWindow::outlineJumpPage);
+    m_pageMap[GENERAL_OUTLINE]->updateInfo();
 
-    ///TODO:set current widget to home
-    m_stackedWidget->setCurrentWidget(m_outline);
-    ui->listWidget->setCurrentRow(0);
-    m_outline->setStyleSheet("background-color: #222222;"
-                             "border:none;");
-    m_stackedWidget->setContentsMargins(0, 0, 0, 0);
-    m_outline->updateInfo();
-    //    m_pageMap[GENERAL_OUTLINE]->updateInfo();
-
-    connect(m_outline, &OutlineView::sigApproveSumNums, this, &MainWindow::setApprovalTipNums);
-    connect(m_outline, &OutlineView::sigWarnSumNums, this, &MainWindow::setWarningTipNums);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
 }
 
 void MainWindow::outlinePageChange(QString str)
 {
+    if (!m_pageMap[str])
+        return;
+    bool find = false;
     setPageName(str);
-    QListWidgetItem* currItem = new QListWidgetItem;
+    auto currItem = ui->listWidget->item(0);
+    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    outlineItem->setSelected(false);
 
+    QListWidgetItem* item = nullptr;
+
+    //判断要跳转的页面是否是侧边栏子项，若是，则将组项展开，子项设 置选中状态，更新对应界面
     for (int i = 0; i < ui->listWidget->count(); i++)
     {
-        currItem = ui->listWidget->item(i);
-        if (currItem->data(Qt::UserRole).toString() == str)
+        item = ui->listWidget->item(i);
+        if (item->data(Qt::UserRole).toString() == str)
         {
-            GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
-            m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
+            ui->listWidget->setCurrentItem(item);
+            item->setSelected(true);
+            GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
             guideItem->setSelected(true);
-            ui->listWidget->setItemSelected(currItem, true);
-            m_pageMap[str]->updateInfo();
+
+            auto i = m_groupMap.constBegin();
+            while (i != m_groupMap.constEnd())
+            {
+                if (i.value().contains(item))
+                {
+                    auto item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(i.key()));
+                    if (!m_isShowMap.value(i.key()))  //show
+                    {
+                        item->setArrow(false);
+                        foreach (QListWidgetItem* subItem, i.value())
+                        {
+                            subItem->setHidden(false);
+                        }
+                        m_isShowMap.insert(i.key(), true);
+                    }
+                    m_pageMap[str]->updateInfo();
+                    m_stackedWidget->setCurrentWidget(m_pageMap[str]);
+                    find = true;
+                    break;
+                }
+                ++i;
+            }
+
+            if (!find)
+            {
+                m_pageMap[str]->updateInfo();
+                m_stackedWidget->setCurrentWidget(m_pageMap[str]);
+            }
             break;
         }
     }
@@ -377,45 +370,36 @@ void MainWindow::outlinePageChange(QString str)
 
 void MainWindow::outlineJumpPage(OutlineCellType type)
 {
-    auto item = ui->listWidget->item(0);
-    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
-    //    guideItem->setSelected(true);
     switch (type)
     {
     case ONUTLINE_CELL_NODE:
     {
         outlinePageChange(NODE_MANAGER);
-        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_CONTAINER:
     {
         outlinePageChange(CONTAINER_LIST);
-        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_IMAGE:
     {
-        outlinePageChange(IMAGE_MANAGER);
-        outlineItem->setSelected(false);
+        outlinePageChange(IMAGE_STOREHOUSE);
         break;
     }
     case ONUTLINE_CELL_TEMPLATE_CONTAINER:
     {
         outlinePageChange(CONTAINER_TEMPLATE);
-        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_EXAMINE:
     {
-        outlinePageChange(AUDIT_APPLY_LIST);
-        outlineItem->setSelected(false);
+        outlinePageChange(IMAGE_APPROVAL_LIST);
         break;
     }
     case ONUTLINE_CELL_NODE_WARNING:
     {
-        outlinePageChange(AUDIT_WORNING_LIST);
-        outlineItem->setSelected(false);
+        outlinePageChange(WORNING_LIST);
         break;
     }
     default:
@@ -430,17 +414,20 @@ void MainWindow::changePage(int)
     QString data = page->getData().toString();
     if (data != NODE_MANAGER)
     {
-        m_pageMap[NODE_MANAGER]->updateInfo(info);
+        if (m_pageMap[NODE_MANAGER])
+            m_pageMap[NODE_MANAGER]->updateInfo(info);
     }
     if (data != CONTAINER_LIST)
     {
-        m_pageMap[CONTAINER_LIST]->updateInfo(info);
+        if (m_pageMap[CONTAINER_LIST])
+            m_pageMap[CONTAINER_LIST]->updateInfo(info);
     }
 }
 
 void MainWindow::onUpdateWarnTipsSums()
 {
-    m_outline->updateWarningSums();
+    OutlineView* outline = qobject_cast<OutlineView*>(m_pageMap[GENERAL_OUTLINE]);
+    outline->updateWarningSums();
 }
 
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
@@ -449,6 +436,15 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 
     switch (itemEnum)
     {
+    case GUIDE_ITEM_HONE:
+    {
+        OutlineView* outline = new OutlineView(this);
+        connect(outline, &OutlineView::outlineCellStepPages, this, &MainWindow::outlineJumpPage);
+        connect(outline, &OutlineView::sigApproveSumNums, this, &MainWindow::setApprovalTipNums);
+        connect(outline, &OutlineView::sigWarnSumNums, this, &MainWindow::setWarningTipNums);
+        page = outline;
+        break;
+    }
     case GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER:
     {
         page = new ContainerPageManager(this);
@@ -472,19 +468,20 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         page = imagePage;
         break;
     }
-    case GUIDE_ITEM_AUDIT_APPLY_LIST:
+    case GUIDE_ITEM_IMAGE_APPROVAL_LIST:
     {
-        AuditListPage* auditPage = new AuditListPage(this);
-        connect(auditPage, &AuditListPage::sigUpdateTipSumsProxy, this, &MainWindow::setApprovalTipNums);
-        page = auditPage;
+        //TODO:修改ImageApprovalPage为镜像审批页面ImageApprovalPage
+        ImageApprovalPage* approvePage = new ImageApprovalPage(this);
+        connect(approvePage, &ImageApprovalPage::sigUpdateTipSumsProxy, this, &MainWindow::setApprovalTipNums);
+        page = approvePage;
         break;
     }
-    case GUIDE_ITEM_AUDIT_LOG_LIST:
+    case GUIDE_ITEM_LOG_LIST:
     {
         page = new LogListPage(this);
         break;
     }
-    case GUIDE_ITEM_AUDIT_WARNING_LIST:
+    case GUIDE_ITEM_WARNING_LIST:
     {
         WarningListPage* warnPage = new WarningListPage(this);
         connect(warnPage, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onUpdateWarnTipsSums);
@@ -496,6 +493,94 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         break;
     }
     return page;
+}
+
+void MainWindow::loadUserPage()
+{
+    QMap<GUIDE_ITEM, QString> pageMap;
+    if (m_userName == "sysadm")
+    {
+        pageMap = {
+            {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
+            {GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER, CONTAINER_LIST},
+            {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
+            {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
+            {GUIDE_ITEM_IMAGE_LIST, IMAGE_STOREHOUSE}};
+    }
+    else if (m_userName == "secadm")
+    {
+        pageMap = {
+            {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
+            {GUIDE_ITEM_IMAGE_APPROVAL_LIST, IMAGE_APPROVAL_LIST}};
+    }
+    else if (m_userName == "audadm")
+    {
+        pageMap = {
+            {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
+            {GUIDE_ITEM_WARNING_LIST, WORNING_LIST},
+            {GUIDE_ITEM_LOG_LIST, LOG_LIST}};
+    }
+
+    for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
+    {
+        GUIDE_ITEM itemEnum = iter.key();
+        auto subPage = createSubPage(itemEnum);
+        if (!subPage)
+        {
+            KLOG_WARNING() << "sub page is null,ignore!";
+            continue;
+        }
+        subPage->setData(QVariant(iter.value()));
+        m_stackedWidget->addWidget(subPage);
+        m_pageMap[iter.value()] = subPage;
+    }
+}
+
+void MainWindow::loadUserItem()
+{
+    QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL,
+                                                ":/images/home.svg");
+    if (m_userName == "sysadm")
+    {
+        QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
+                                                       ":/images/node-manager.svg");
+        QListWidgetItem* imageStorehouse = createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
+                                                           ":/images/image-manager.svg");
+
+        QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,
+                                                            ":/images/container-manager.svg");
+        containerManager->setFlags(containerManager->flags() & ~Qt::ItemIsSelectable);
+
+        QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
+        QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
+
+        QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
+        m_groupMap.insert(containerManager, containerSubItems);
+        m_isShowMap.insert(containerManager, true);
+    }
+    else if (m_userName == "secadm")
+    {
+        QListWidgetItem* imageApproval = createGuideItem(IMAGE_APPROVAL, GUIDE_ITEM_TYPE_GROUP,
+                                                         ":/images/image-manager.svg");
+        imageApproval->setFlags(imageApproval->flags() & ~Qt::ItemIsSelectable);
+
+        QListWidgetItem* imageApprovalList = createGuideItem(IMAGE_APPROVAL_LIST, GUIDE_ITEM_TYPE_SUB);
+        QList<QListWidgetItem*> iamgeApprovalSubItems = {imageApprovalList};
+        m_groupMap.insert(imageApproval, iamgeApprovalSubItems);
+        m_isShowMap.insert(imageApproval, true);
+    }
+    else if (m_userName == "audadm")
+    {
+        QListWidgetItem* warningLog = createGuideItem(WARNING_LOG, GUIDE_ITEM_TYPE_GROUP,
+                                                      ":/images/audit-center.svg");
+        warningLog->setFlags(warningLog->flags() & ~Qt::ItemIsSelectable);
+
+        QListWidgetItem* warningList = createGuideItem(WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
+        QListWidgetItem* logList = createGuideItem(LOG_LIST, GUIDE_ITEM_TYPE_SUB);
+        QList<QListWidgetItem*> auditSubItems = {warningList, logList};
+        m_groupMap.insert(warningLog, auditSubItems);
+        m_isShowMap.insert(warningLog, true);
+    }
 }
 
 QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString icon)
@@ -513,17 +598,19 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     newItem->setTextAlignment(Qt::AlignVCenter);
 
     newItem->setSizeHint(QSize(220, 40));
-    if (type == GUIDE_ITEM_TYPE_SUB)
-    {
-        newItem->setHidden(true);
-        m_pageItems.append(customItem);
-    }
-    else if (type == GUIDE_ITEM_TYPE_NORMAL)
-    {
-        m_pageItems.append(customItem);
-    }
+    //    if (type == GUIDE_ITEM_TYPE_SUB)
+    //    {
+    //        newItem->setHidden(true);
+    //        m_pageItems.append(customItem);
+    //    }
+    //    else if (type == GUIDE_ITEM_TYPE_NORMAL)
+    //    {
+    //        m_pageItems.append(customItem);
+    //    }
+    if (type == GUIDE_ITEM_TYPE_GROUP)
+        customItem->setArrow(false);  //默认展开
     else
-        customItem->setArrow(true);
+        m_pageItems.append(customItem);
     ui->listWidget->setGridSize(QSize(220, 56));
 
     newItem->setData(Qt::UserRole, text);

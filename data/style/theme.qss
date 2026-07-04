@@ -889,7 +889,6 @@ OutlineView QScrollArea QScrollBar:vertical
 {
     width: 6px;
     border-radius:6px;
-    background-color:#919191;
 }
 OutlineView  QScrollArea QScrollBar::handle:vertical
 {
@@ -913,7 +912,6 @@ OutlineView QScrollArea QScrollBar:horizontal
 {
     height: 6px;
     border-radius:6px;
-    background-color:#919191;
 }
 OutlineView  QScrollArea QScrollBar::handle:horizontal
 {
