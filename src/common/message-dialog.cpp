@@ -8,8 +8,30 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QAbstractButton>
 #include <QMetaEnum>
+#include <QProxyStyle>
 #include <QPushButton>
 #include "ui_message-dialog.h"
+
+class WinStyle : public QProxyStyle
+{
+public:
+    WinStyle(QWidget *parent)
+    {
+        setParent(parent);
+    };
+
+private:
+    int styleHint(StyleHint hint, const QStyleOption *option = 0,
+                  const QWidget *widget = 0, QStyleHintReturn *returnData = 0) const override
+    {
+        if (hint == SH_DialogButtonLayout)
+        {
+            return QDialogButtonBox::WinLayout;
+        }
+        return QProxyStyle::styleHint(hint, option, widget, returnData);
+    }
+};
+
 static QMap<MessageDialog::StandardButton, QPair<QString, ButtonRole>> standardButtonInfoMap;
 
 MessageDialog::MessageDialog(QWidget *parent) : QDialog(parent),
@@ -116,7 +138,8 @@ void MessageDialog::initUI()
             {StandardButton::RestoreDefaults, {QObject::tr("Restore Defaults"), ButtonRole::ResetRole}}};
     }
 
-    m_btnBox = new QDialogButtonBox(this);
+    m_btnBox = new QDialogButtonBox(Qt::Horizontal, this);
+    m_btnBox->setStyle(new WinStyle(this));
     ui->hlayout_btns->addWidget(m_btnBox);
     QLayout *layout = m_btnBox->layout();
     layout->setSpacing(20);
