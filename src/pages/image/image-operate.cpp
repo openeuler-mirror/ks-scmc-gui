@@ -42,16 +42,24 @@ void ImageOperate::setImageInfo(QMap<QString, QVariant> imageInfoMap)
 void ImageOperate::initUI()
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowTitle(tr("Image Operate"));
+    setWindowModality(Qt::ApplicationModal);
+    setTitle(tr("Image Operate"));
+    setFixedSize(600, 500);
     setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
 
     QPushButton *imageFileBtn = new QPushButton(this);
     connect(imageFileBtn, &QPushButton::clicked, this, &ImageOperate::selectImage);
     initLineEdit(ui->lineEditImageFile, imageFileBtn);
 
+    //TODO:方便测试，后续去掉
+    ui->lineEditImageFile->setText("/home/yuanxing/Documents/image/httpd.tar");
+
     QPushButton *imageSignBtn = new QPushButton(this);
     connect(imageSignBtn, &QPushButton::clicked, this, &ImageOperate::selectSign);
     initLineEdit(ui->lineEditImageSign, imageSignBtn);
+
+    //TODO:方便测试，后续去掉
+    ui->lineEditImageSign->setText("/home/yuanxing/Documents/image/httpd.tar.sig");
 }
 
 void ImageOperate::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
@@ -93,6 +101,7 @@ void ImageOperate::UploadParamDeal()
     uploadInfo.insert("Image File", imageFile);
     uploadInfo.insert("Sign File", signFile);
     emit sigUploadSave(uploadInfo);
+    close();
 }
 
 void ImageOperate::updateParamDeal()
@@ -124,6 +133,7 @@ void ImageOperate::updateParamDeal()
     updateInfo.insert("Image File", imageFile);
     updateInfo.insert("Sign File", signFile);
     emit sigUpdateSave(updateInfo);
+    close();
 }
 
 //void ImageOperate::checkParamDeal()
@@ -176,7 +186,7 @@ void ImageOperate::selectImage()
 
 void ImageOperate::selectSign()
 {
-    ui->lineEditImageSign->setText(ChooseFile("*.sign"));
+    ui->lineEditImageSign->setText(ChooseFile("*.sig"));
 }
 
 void ImageOperate::onSave()
@@ -192,8 +202,6 @@ void ImageOperate::onSave()
     default:
         break;
     }
-
-    this->close();
 }
 
 void ImageOperate::onCancel()

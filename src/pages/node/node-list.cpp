@@ -48,8 +48,8 @@ void NodeList::onCreateNode()
         m_nodeAddition = new NodeAddition();
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-        m_nodeAddition->move(screenGeometry.x() + (screenGeometry.width() - this->width()) / 2,
-                             screenGeometry.y() + (screenGeometry.height() - this->height()) / 2);
+        m_nodeAddition->move(screenGeometry.x() + (screenGeometry.width() - m_nodeAddition->width()) / 2,
+                             screenGeometry.y() + (screenGeometry.height() - m_nodeAddition->height()) / 2);
         m_nodeAddition->show();
 
         connect(m_nodeAddition, &NodeAddition::sigSave, this, &NodeList::onSaveSlot);
