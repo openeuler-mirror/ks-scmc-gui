@@ -104,7 +104,7 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Disk Limit (GB)</string>
+        <string>Disk Limit (MB)</string>
        </property>
       </widget>
      </item>
