@@ -283,6 +283,11 @@ void MainWindow::initUI()
     //创建用户菜单
     QMenu* userMenu = new QMenu(this);
     userMenu->setObjectName("userMenu");
+
+    QFont font = userMenu->font();
+    font.setPixelSize(12);
+    userMenu->setFont(font);
+
     QAction* changePasswdAct = userMenu->addAction(tr("Change Password"));
     QAction* logoutAct = userMenu->addAction(tr("Logout"));
     userMenu->addSeparator();
