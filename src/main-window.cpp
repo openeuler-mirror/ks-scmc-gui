@@ -27,6 +27,7 @@
 #define IMAGE_MANAGER QObject::tr("Image Manager")
 #define NODE_MANAGER QObject::tr("Node Manager")
 #define SYSTEM_MANAGER QObject::tr("System Manager")
+#define OUTLINE_PAGES QObject::tr("Outline")
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
@@ -96,11 +97,24 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
     }
     QString currenItemData = currItem->data(Qt::UserRole).toString();
 
-    if (!m_pageMap.value(currenItemData))
-        return;
     setPageName(guideItem->getItemText());
-    m_pageMap[currenItemData]->updateInfo();
-    m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
+    if(guideItem->getItemText() == OUTLINE_PAGES)
+    {
+//        m_outline = new OutlineView;
+        m_outline->updateInfo();
+        m_stackedWidget->addWidget(m_outline);
+        m_stackedWidget->setCurrentWidget(m_outline);
+        m_outline->setStyleSheet("background-color: #222222;"
+                                       "border:none;");
+        m_stackedWidget->setContentsMargins(0,0,0,0);
+    }
+    else
+    {
+        if (!m_pageMap.value(currenItemData))
+            return;
+        m_pageMap[currenItemData]->updateInfo();
+        m_stackedWidget->setCurrentWidget(m_pageMap.value(currenItemData));
+    }
 }
 
 void MainWindow::paintEvent(QPaintEvent* event)
@@ -200,6 +214,7 @@ void MainWindow::initUI()
 
     //创建左侧侧边栏
     QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
+    QListWidgetItem* outline = createGuideItem(OUTLINE_PAGES, GUIDE_ITEM_TYPE_NORMAL, ":/images/node-manager.svg");
     QListWidgetItem* auditCenter = createGuideItem(AUDIT_CENTER, GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
     QListWidgetItem* auditApplyList = createGuideItem(AUDIT_APPLY_LIST, GUIDE_ITEM_TYPE_SUB);
     QListWidgetItem* auditWarningList = createGuideItem(AUDIT_WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
@@ -237,6 +252,60 @@ void MainWindow::initUI()
     m_pageMap[CONTAINER_LIST]->updateInfo();
 
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::onItemClicked);
+    m_outline = new OutlineView;
+    connect(m_outline,&OutlineView::outlineCellStepPages,this,&MainWindow::outlineJumpPage);
+}
+
+void MainWindow::outlinePageChange(GUIDE_ITEM type)
+{
+    m_stackedWidget->setCurrentWidget(m_pageMap.value(type));
+    ui->listWidget->setCurrentRow(type);
+    auto item = ui->listWidget->item(type);
+    GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
+    guideItem->setSelected(true);
+    m_pageMap[type]->updateInfo();
+}
+
+void MainWindow::outlineJumpPage(OutlineCellType type)
+{
+    auto item = ui->listWidget->item(GUIDE_ITEM_OUTLINE);
+    GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(item));
+//    guideItem->setSelected(true);
+    switch (type)
+    {
+    case ONUTLINE_CELL_NODE:
+    {
+        outlinePageChange(GUIDE_ITEM_NODE_MANAGER);
+        outlineItem->setSelected(false);
+        break;
+    }
+    case ONUTLINE_CELL_CONTAINER:
+    {
+        outlinePageChange(GUIDE_ITEM_CONTAINER_LIST);
+        outlineItem->setSelected(false);
+        break;
+    }
+    case ONUTLINE_CELL_IMAGE:
+    {
+        outlinePageChange(GUIDE_ITEM_IMAGE_MANAGER);
+        outlineItem->setSelected(false);
+        break;
+    }
+    case ONUTLINE_CELL_TEMPLATE_CONTAINER:
+    {
+        break;
+    }
+    case ONUTLINE_CELL_EXAMINE:
+    {
+        break;
+    }
+    case ONUTLINE_CELL_NODE_WARNING:
+    {
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 CommonPage* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
