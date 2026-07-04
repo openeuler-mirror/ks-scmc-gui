@@ -67,10 +67,13 @@ void HighAvailabilityTab::setLineEditVisible(bool visible)
 void HighAvailabilityTab::initUI()
 {
     setLineEditVisible(false);
-    ui->cb_high_avail_policy->addItem(tr("no"), "no");
-    ui->cb_high_avail_policy->addItem(tr("always"), "always");
-    ui->cb_high_avail_policy->addItem(tr("on-failure"), "on-failure");
-    ui->cb_high_avail_policy->addItem(tr("unless-stopped"), "unless-stopped");
+
+    //后面加空格，是为了防止在3.3-6Nari系统中下拉列表项显示不全
+    //TODO:QListView item计算中文长度有误，后续完善
+    ui->cb_high_avail_policy->addItem(tr("no    "), "no");
+    ui->cb_high_avail_policy->addItem(tr("always    "), "always");
+    ui->cb_high_avail_policy->addItem(tr("on-failure    "), "on-failure");
+    ui->cb_high_avail_policy->addItem(tr("unless-stopped    "), "unless-stopped");
 
     ui->lineEdit_times->setValidator(new QIntValidator(0, 65535, this));
     ui->lineEdit_times->setPlaceholderText("0-65535");
