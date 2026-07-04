@@ -371,6 +371,7 @@ void ContainerListPage::getContainerStartResult(const QString objId, const QPair
         return;
 
     setBusy(false);
+    clearCheckState();
     if (reply.first.ok())
     {
         getContainerList();
@@ -391,6 +392,7 @@ void ContainerListPage::getContainerStopResult(const QString objId, const QPair<
         return;
 
     setBusy(false);
+    clearCheckState();
     if (reply.first.ok())
     {
         getContainerList();
@@ -411,6 +413,7 @@ void ContainerListPage::getContainerRestartResult(const QString objId, const QPa
         return;
 
     setBusy(false);
+    clearCheckState();
     if (reply.first.ok())
     {
         getContainerList();
