@@ -53,6 +53,7 @@ private:
     void initNodeConnect();
     void getNodeList();
     void getCheckedItemsId(QList<qint64> &ids);
+    void refresh(const QString keyword = "", bool clear = false);
 
 private:
     QString m_objId;

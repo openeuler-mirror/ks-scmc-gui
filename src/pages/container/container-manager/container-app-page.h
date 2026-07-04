@@ -49,6 +49,7 @@ private:
     void initConnect();
     void showOperateDlg();
     void getCheckedItemsId(QList<qint64> &ids);
+    void refresh(const QString keyword = "", bool clear = false);
 
 private:
     QString m_objId;
