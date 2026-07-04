@@ -55,7 +55,7 @@ Requires:       qt5-qtsvg
 Requires:       protobuf
 Requires:       libnotify
 Requires:       ks-license-client
-Requires        qt5-qtcharts
+Requires:       qt5-qtcharts
 Requires:       c-ares
 Requires:       fcitx-qt5
 Requires:       libarchive
