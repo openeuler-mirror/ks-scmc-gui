@@ -165,7 +165,7 @@ void WarningListView::getListWarning(const QString objId, const QPair<grpc::Stat
                 setTableDefaultContent("-");
                 return;
             }
-            setHeaderCheckable(false);
+            setHeaderCheckable(true);
             int row = 0;
             QMap<QString, QVariant> infoMap;
             for (auto logging : reply.second.logs())

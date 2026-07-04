@@ -52,6 +52,7 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         {
             pBox->addItem(m_listMode[i]);
         }
+        pBox->setItemDelegate(new QStyledItemDelegate(parent));
         m_pComboBoxMode.append(pBox);
         if (curPage)
             pBox->setDisabled(true);
