@@ -107,12 +107,17 @@ void ContainerSetting::setNodeInfos(QMap<int, NodeInfo *> nodeInfoMap)
         auto nodeInfo = iter.value();
         ui->cb_node->addItem(nodeInfo->nodeAddr, nodeId);
         m_nodeTotalCPU.insert(nodeId, nodeInfo->totalCPU);
+        m_nodeTotalMemory.insert(nodeId, nodeInfo->totalMemory);
         iter++;
     }
 
     //设置cpu核心数
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
+
+    //设置节点内存总数
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    memoryPage->setTotalMemory(m_nodeTotalMemory.value(ui->cb_node->currentData().toInt()));
 }
 
 void ContainerSetting::setImageList(QStringList imageList)
@@ -923,6 +928,10 @@ void ContainerSetting::onNodeSelectedChanged(QString newStr)
     //更新cpu最大值
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
+
+    //设置节点内存总数
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    memoryPage->setTotalMemory(m_nodeTotalMemory.value(ui->cb_node->currentData().toInt()));
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
@@ -971,7 +980,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
 
     //名字
     showLongText(ui->lineEdit_name, info.name().data());
-    KLOG_INFO() << info.name().data() << info.image().data();
+    KLOG_INFO() << "container name:" << info.name().data() << "image:" << info.image().data();
     //描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
     {

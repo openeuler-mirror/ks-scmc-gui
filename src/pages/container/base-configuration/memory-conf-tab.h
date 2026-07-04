@@ -24,6 +24,7 @@ class MemoryConfTab : public QWidget
 public:
     explicit MemoryConfTab(QWidget *parent = nullptr);
     ~MemoryConfTab();
+    void setTotalMemory(double memory);
     void setMemoryInfo(container::ResourceLimit *cfg);
     bool getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg);
 
@@ -34,6 +35,7 @@ private:
 
 private:
     Ui::MemoryConfTab *ui;
+    double m_totalMemory;
 };
 
 #endif  // MEMORYCONFTAB_H

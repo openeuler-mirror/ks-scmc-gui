@@ -194,6 +194,7 @@ void TemplateListPage::getNodeListResult(QString objId, const QPair<Status, node
         nodeInfo->nodeID = nodeId;
         nodeInfo->nodeAddr = QString::fromStdString(n.address().data());
         nodeInfo->totalCPU = n.status().cpu_stat().total();
+        nodeInfo->totalMemory = n.status().mem_stat().total();
         m_nodeInfoMap.insert(nodeId, nodeInfo);
     }
 }
