@@ -1,5 +1,6 @@
 #include "node-config-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include <QIntValidator>
 #include <QKeyEvent>
 #include "notification-manager.h"
 #include "ui_node-config-page.h"

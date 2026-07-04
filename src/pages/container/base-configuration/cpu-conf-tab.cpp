@@ -51,9 +51,8 @@ CPUConfTab::~CPUConfTab()
 void CPUConfTab::setTotalCPU(double totalCPU)
 {
     m_totalCPU = totalCPU;
-    QDoubleValidator* doubleValidator = new QDoubleValidator(0.01, totalCPU, 2, this);
-    doubleValidator->setNotation(QDoubleValidator::StandardNotation);
-    ui->lineEdit_cpu_core->setValidator(doubleValidator);
+    QRegExp regExp("[0-9]*\\.?([0-9]{2})");
+    ui->lineEdit_cpu_core->setValidator(new QRegExpValidator(regExp, this));
     ui->lineEdit_cpu_core->setPlaceholderText(tr("0-%1, default:system cores %1").arg(QString::number(totalCPU)));
 }
 
@@ -68,21 +67,24 @@ void CPUConfTab::setCPUInfo(container::ResourceLimit* cfg)
     }
 }
 
-ErrorCode CPUConfTab::getCPUInfo(container::ResourceLimit* cfg)
+bool CPUConfTab::getCPUInfo(container::ResourceLimit* cfg, QString& errMsg)
 {
     if (cfg)
     {
-        KLOG_INFO() << "cpu core:" << ui->lineEdit_cpu_core->text().toDouble();
         if (ui->lineEdit_cpu_core->text().toDouble() > m_totalCPU)
         {
-            KLOG_INFO() << "cpu core is more than max cpu core:" << m_totalCPU;
-            return INPUT_OVERLIMIT_ERROR;
+            errMsg = tr("CPU core can't be greater than the node cpu core limit!");
+            return false;
         }
         cfg->set_cpu_limit(ui->lineEdit_cpu_core->text().toDouble());
 
         //调度优先级
         cfg->set_cpu_prio(ui->cb_sche_pri->itemData(ui->cb_sche_pri->currentIndex()).toInt());
-        return NO_ERROR;
+        return true;
     }
-    return CONFIG_ARG_ERROR;
+    else
+    {
+        errMsg = tr("The container resource limit arg is error.");
+        return false;
+    }
 }
