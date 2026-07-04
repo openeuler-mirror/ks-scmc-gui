@@ -329,32 +329,54 @@
     <name>ContainerBackupOperateDialog</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="103"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="138"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="55"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="104"/>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="68"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="139"/>
+        <source>Version:  &lt;font color=red&gt;*&lt;/font&gt;</source>
+        <translation>版本：&lt;font color=red&gt;*&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="78"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="140"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="113"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="105"/>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="165"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="143"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="132"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="106"/>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.ui" line="184"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-backup-operate-dialog.h" line="144"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="22"/>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="26"/>
         <source>Please input 0 to 200 characters</source>
         <translation>请输入0 - 200个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="28"/>
+        <source>Please input 1 to 20 characters</source>
+        <translation>请输入1 - 20个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="30"/>
+        <source>Only letter, digit or ._- three special characters;
+The first characters must be letter or digit</source>
+        <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="38"/>
+        <source>Please input backup version!</source>
+        <translation>请输入备份版本！</translation>
     </message>
 </context>
 <context>
@@ -418,42 +440,35 @@
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="273"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="270"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="294"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="291"/>
         <source>Update Container Backup</source>
         <translation>更新容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="295"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="292"/>
         <source>Update container backup failed!</source>
         <translation>更新容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="296"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="318"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="344"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="367"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="293"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="315"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="341"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="364"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="297"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="319"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="368"/>
-        <source>:/images/error.svg</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="316"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="313"/>
         <source>Create Container Backup</source>
         <translation>创建容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="317"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="314"/>
         <source>Create container backup failed!</source>
         <translation>创建容器失败！</translation>
     </message>
@@ -462,78 +477,77 @@
         <translation type="vanished">恢复容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="334"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="331"/>
         <source>Resume container backup seccessful!</source>
         <translation>恢复容器备份成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="343"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="340"/>
         <source>Resume container backup failed!</source>
         <translation>恢复容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="365"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="362"/>
         <source>Remove Container Backup</source>
         <translation>移除容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="366"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="363"/>
         <source>Remove container backup failed!</source>
         <translation>移除容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="378"/>
         <source>Backup file Name</source>
-        <translation>备份文件名称</translation>
+        <translation type="vanished">备份文件名称</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="379"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="376"/>
         <source>Backup status</source>
         <translation>备份状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="380"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="377"/>
         <source>Backup start time</source>
         <translation>备份开始时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="381"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="375"/>
         <source>Backup version</source>
         <translation>备份版本</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="382"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="378"/>
         <source>Backup size</source>
         <translation>备份大小</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="383"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="379"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="384"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="380"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="387"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="383"/>
         <source>Resume</source>
         <translation>恢复</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="388"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="384"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="389"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="408"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="385"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="404"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="402"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="398"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
@@ -618,14 +632,6 @@
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="497"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="429"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="453"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="476"/>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="498"/>
-        <source>:/images/error.svg</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="450"/>
@@ -918,14 +924,6 @@
         <location filename="../src/pages/container/container-setting.cpp" line="682"/>
         <source>Memory soft limit can&apos;t be greater than the maximum limit !</source>
         <translation>内存软限制不能高于最大限制！</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="557"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="576"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="600"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="683"/>
-        <source>:/images/error.svg</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="573"/>
@@ -2288,37 +2286,35 @@ p, li { white-space: pre-wrap; }
     <name>NetworkConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="132"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="113"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="133"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="114"/>
         <source>Virtual network card:</source>
         <translation>虚拟网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="47"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="134"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="119"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="117"/>
         <source>Network type:</source>
         <translation>网络类型：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="54"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="135"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="63"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="115"/>
         <source>IP:</source>
         <translation>IP:</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="119"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="136"/>
         <source>MAC address:</source>
-        <translation>MAC 地址：</translation>
+        <translation type="vanished">MAC 地址：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="168"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="137"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="99"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_network-conf-tab.h" line="116"/>
         <source>Bridge</source>
         <translation>桥接</translation>
     </message>
@@ -2327,8 +2323,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="99"/>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="114"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="95"/>
         <source>Default auto-assignment when not config</source>
         <translation>不配置时，默认自动分配</translation>
     </message>
@@ -2457,12 +2452,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/pages/node/node-list-page.cpp" line="353"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="331"/>
-        <location filename="../src/pages/node/node-list-page.cpp" line="354"/>
-        <source>:/images/error.svg</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-list-page.cpp" line="351"/>
