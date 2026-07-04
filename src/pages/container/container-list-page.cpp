@@ -9,16 +9,12 @@
 #include <QProcess>
 #include <QStandardItem>
 #include <QTimer>
+#include "def.h"
 
 #include "common/message-dialog.h"
 #include "common/monitor-dialog.h"
 #include "container-list-page.h"
 #include "container-setting.h"
-
-#define NODE_ID "node id"
-#define NODE_ADDRESS "node address"
-#define CONTAINER_ID "container id"
-#define CONTAINER_NAME "container name"
 
 // TODO read from config file.
 const QString TERMINAL_CMD = "mate-terminal -e";
@@ -239,10 +235,8 @@ void ContainerListPage::onEdit(int row)
     if (!m_editCTSetting)
     {
         auto item = getItem(row, 1);
-        QPair<int64_t, QString> ids = {item->data().toMap().value(NODE_ID).toInt(),
-                                       item->data().toMap().value(CONTAINER_ID).toString()};
 
-        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT, ids);
+        m_editCTSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_CONTAINER_EDIT, item->data().value<QMap<QString, QVariant>>());
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_editCTSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editCTSetting->width()) / 2,
@@ -524,10 +518,10 @@ void ContainerListPage::initTable()
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 3};
     setSortableCol(sortablCol);
-    setTableActions(tableHHeaderDate.size() - 1, QStringList() << ":/images/monitor.svg"
-                                                               << ":/images/edit.svg"
-                                                               << ":/images/terminal.svg"
-                                                               << ":/images/more.svg");
+    setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_MONITOR, ":/images/monitor.svg"},
+                                                                                   {ACTION_BUTTON_TYPE_EDIT, ":/images/edit.svg"},
+                                                                                   {ACTION_BUTTON_TYPE_TERINAL, ":/images/terminal.svg"},
+                                                                                   {ACTION_BUTTON_TYPE_MENU, ":/images/more.svg"}});
 
     setTableDefaultContent("-");
 

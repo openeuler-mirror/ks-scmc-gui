@@ -82,6 +82,7 @@ public:
     // container template
     void listTemplate(const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
     void listTemplate();
+    void inspectTemplate(int64_t id);
     void createTemplate(const container::CreateTemplateRequest &);
     void updateTemplate(const container::UpdateTemplateRequest &);
     void removeTemplate(QList<int64_t> ids);
@@ -109,9 +110,6 @@ public:
     void login(const std::string &username, const std::string &password);
     void logout();
     void updatePassword(const std::string oldPassword, const std::string newPassword);
-
-    // logging management
-    void listRuntimeLogging(const logging::ListRuntimeRequest &);
 
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
@@ -141,6 +139,7 @@ private:
 
     //container template
     static QPair<grpc::Status, container::ListTemplateReply> _listTemplate(const container::ListTemplateRequest &);
+    static QPair<grpc::Status, container::InspectTemplateReply> _inspectTemplate(const container::InspectTemplateRequest &);
     static QPair<grpc::Status, container::CreateTemplateReply> _createTemplate(const container::CreateTemplateRequest &);
     static QPair<grpc::Status, container::UpdateTemplateReply> _updateTemplate(const container::UpdateTemplateRequest &);
     static QPair<grpc::Status, container::RemoveTemplateReply> _removeTemplate(const container::RemoveTemplateRequest &);
@@ -169,9 +168,6 @@ private:
     static QPair<grpc::Status, user::LogoutReply> _logout(const user::LogoutRequest &);
     static QPair<grpc::Status, user::UpdatePasswordReply> _updatePassword(const user::UpdatePasswordRequest &);
 
-    // logging management
-    static QPair<grpc::Status,logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
-
 signals:
     // node management
     void listNodeFinished(const QPair<grpc::Status, node::ListReply> &);
@@ -194,6 +190,7 @@ signals:
 
     // container template
     void listTemplateFinished(const QPair<grpc::Status, container::ListTemplateReply> &);
+    void inspectTemplateFinished(const QPair<grpc::Status, container::InspectTemplateReply> &);
     void createTemplateFinished(const QPair<grpc::Status, container::CreateTemplateReply> &);
     void updateTemplateFinished(const QPair<grpc::Status, container::UpdateTemplateReply> &);
     void removeTemplateFinished(const QPair<grpc::Status, container::RemoveTemplateReply> &);
@@ -223,9 +220,6 @@ signals:
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QPair<grpc::Status, user::LogoutReply> &);
     void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
-
-        // logging management
-    void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
 
 private:
     QMutex mutex;
