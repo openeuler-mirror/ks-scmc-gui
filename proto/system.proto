@@ -9,6 +9,9 @@ service System {
     rpc Ping(PingRequest) returns (PingReply) {}
     // 客户端订阅通知消息
     rpc Subscribe(SubscribeRequest) returns (stream SubscribeReply) {}
+
+    rpc SetSecuritySwitch(SetSecuritySwitchRequest) returns (SetSecuritySwitchReply) {}
+    rpc GetSecuritySwitch(GetSecuritySwitchRequest) returns (GetSecuritySwitchReply) {}
 }
 
 message PingRequest {}
@@ -25,4 +28,20 @@ enum SubscribeMessage {
 message SubscribeReply {
     int64  msg_type    = 1;
     string msg_content = 2;
+}
+
+
+message SetSecuritySwitchRequest {
+    bool is_on = 1;
+}
+
+message SetSecuritySwitchReply {
+    bool is_on = 1;
+}
+
+message GetSecuritySwitchRequest {
+}
+
+message GetSecuritySwitchReply {
+    bool is_on = 1;
 }

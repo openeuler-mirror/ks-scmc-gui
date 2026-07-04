@@ -342,6 +342,21 @@ void InfoWorker::readWarnLogging(const QString objId, QList<int64_t> ids)
     RPC_ASYNC(logging::ReadWarnReply, _listReadWarnLogging, loggingReadWarnFinished, objId, req);
 }
 
+void InfoWorker::setSecuritySwitch(const QString objId, const bool &isOn)
+{
+    sys::SetSecuritySwitchRequest req;
+    req.set_is_on(isOn);
+    QPair<grpc::Status, sys::SetSecuritySwitchReply> reply = _setSecuritySwitch(req);
+    emit setSecuritySwitchFinished(objId, reply);
+}
+
+void InfoWorker::getSecuritySwitch(const QString objId)
+{
+    sys::GetSecuritySwitchRequest req;
+    QPair<grpc::Status, sys::GetSecuritySwitchReply> reply = _getSecuritySwitch(req);
+    emit getSecuritySwitchFinished(objId, reply);
+}
+
 void InfoWorker::listNetwork(const QString objId, const int64_t node_id)
 {
     network::ListRequest req;
@@ -623,6 +638,16 @@ QPair<grpc::Status, logging::ListWarnReply> InfoWorker::_listWarnLogging(const l
 QPair<grpc::Status, logging::ReadWarnReply> InfoWorker::_listReadWarnLogging(const logging::ReadWarnRequest &req)
 {
     RPC_IMPL(logging::ReadWarnReply, logging::Logging::NewStub, ReadWarn);
+}
+
+QPair<grpc::Status, sys::SetSecuritySwitchReply> InfoWorker::_setSecuritySwitch(const sys::SetSecuritySwitchRequest &req)
+{
+    RPC_IMPL(sys::SetSecuritySwitchReply, sys::System::NewStub, SetSecuritySwitch);
+}
+
+QPair<grpc::Status, sys::GetSecuritySwitchReply> InfoWorker::_getSecuritySwitch(const sys::GetSecuritySwitchRequest &req)
+{
+    RPC_IMPL(sys::GetSecuritySwitchReply, sys::System::NewStub, GetSecuritySwitch);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)

@@ -14,6 +14,7 @@
 #include "proto/logging.grpc.pb.h"
 #include "proto/network.grpc.pb.h"
 #include "proto/node.grpc.pb.h"
+#include "proto/system.grpc.pb.h"
 #include "proto/user.grpc.pb.h"
 
 /*
