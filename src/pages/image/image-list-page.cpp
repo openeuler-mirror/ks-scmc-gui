@@ -11,8 +11,9 @@
 #include "common/message-dialog.h"
 #include "def.h"
 
-ImageListPage::ImageListPage(QWidget *parent) : TablePage(parent), m_pImageOp(nullptr)
+ImageListPage::ImageListPage(QWidget *parent,bool flag) : TablePage(parent), m_pImageOp(nullptr)
 {
+    is_init_audit_btn = flag;
     initButtons();
     initTable();
     initImageConnect();
@@ -50,6 +51,12 @@ void ImageListPage::initTable()
         tr("Inspection Status"),
         tr("Approval Status"),
         tr("Last Update")};
+    if(is_init_audit_btn)
+    {
+        tableHHeaderDate.append(tr("Operation"));
+        setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QString>{{ACTION_BUTTON_TYPE_IMAGE_REFUSE, tr("Refuse")},
+                                                                                       {ACTION_BUTTON_TYPE_IMAGE_PASS,  tr("Pass")}});
+    }
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
     setTableDefaultContent("-");
@@ -58,54 +65,91 @@ void ImageListPage::initTable()
 
 void ImageListPage::initButtons()
 {
-    QMap<int, QPushButton *> opBtnMap;
-    //按钮
-    const QMap<int, QString> btnNameMap = {
-        {OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD, tr("Upload")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE, tr("Update")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD, tr("Download")},
-        {OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE, tr("Remove")}};
-
-    for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
+    if(!is_init_audit_btn)
     {
-        QString name = iter.value();
-        QPushButton *btn = new QPushButton(this);
-        btn->setObjectName("btn");
+        QMap<int, QPushButton *> opBtnMap;
+        //按钮
+        const QMap<int, QString> btnNameMap = {
+            {OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD, tr("Upload")},
+            {OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE, tr("Update")},
+            {OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD, tr("Download")},
+            {OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE, tr("Remove")}};
 
-        if (name == tr("Remove"))
+        for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
         {
-            btn->setStyleSheet("#btn{background-color:#ff4b4b;"
-                               "border:none;"
-                               "border-radius: 4px;"
-                               "color:#ffffff;}"
-                               "#btn:hover{ background-color:#ff6c6c;}"
-                               "#btn:focus{outline:none;}"
-                               "#btn:disabled{color:#919191;background:#393939;}");
+            QString name = iter.value();
+            QPushButton *btn = new QPushButton(this);
+            btn->setObjectName("btn");
+
+            if (name == tr("Remove"))
+            {
+                btn->setStyleSheet("#btn{background-color:#ff4b4b;"
+                                   "border:none;"
+                                   "border-radius: 4px;"
+                                   "color:#ffffff;}"
+                                   "#btn:hover{ background-color:#ff6c6c;}"
+                                   "#btn:focus{outline:none;}"
+                                   "#btn:disabled{color:#919191;background:#393939;}");
+            }
+            else
+                btn->setStyleSheet("#btn{background-color:#2eb3ff;"
+                                   "border:none;"
+                                   "border-radius: 4px;"
+                                   "color:#ffffff;}"
+                                   "#btn:hover{ background-color:#77ceff;}"
+                                   "#btn:focus{outline:none;}"
+                                   "#btn:disabled{color:#919191;background:#393939;}");
+
+            btn->setText(name);
+            btn->setFixedSize(QSize(78, 32));
+            opBtnMap.insert(iter.key(), btn);
         }
-        else
-            btn->setStyleSheet("#btn{background-color:#2eb3ff;"
-                               "border:none;"
-                               "border-radius: 4px;"
-                               "color:#ffffff;}"
-                               "#btn:hover{ background-color:#77ceff;}"
-                               "#btn:focus{outline:none;}"
-                               "#btn:disabled{color:#919191;background:#393939;}");
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnUpload);
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnDownload);
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE], &QPushButton::clicked, this, &ImageListPage::onBtnUpdate);
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageListPage::onBtnRemove);
 
-        btn->setText(name);
-        btn->setFixedSize(QSize(78, 32));
-        opBtnMap.insert(iter.key(), btn);
+        addSingleOperationButton(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD]);
+        addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE]
+                                                        << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD]
+                                                        << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE]);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
     }
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnUpload);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD], &QPushButton::clicked, this, &ImageListPage::onBtnDownload);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE], &QPushButton::clicked, this, &ImageListPage::onBtnUpdate);
-    connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE], &QPushButton::clicked, this, &ImageListPage::onBtnRemove);
+    else
+    {
+        QMap<int, QPushButton *> opBtnMap;
+        //按钮
+        const QMap<int, QString> btnNameMap = {
+            {OPERATION_BUTTOM_IMAGE_MANAGER_PASS, tr("Pass")},
+            {OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE, tr("Refuse")}};
+        for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
+        {
+            QString name = iter.value();
+            QPushButton *btn = new QPushButton(this);
+            btn->setObjectName("btn");
 
-    addSingleOperationButton(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD]);
-    addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE]
-                                                    << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_DOWNLOAD]
-                                                    << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE]);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+            btn->setStyleSheet("#btn{background-color:#2eb3ff;"
+                                "border:none;"
+                                "border-radius: 4px;"
+                                "color:#ffffff;}"
+                                "#btn:hover{ background-color:#77ceff;}"
+                                "#btn:focus{outline:none;}"
+                                "#btn:disabled{color:#919191;background:#393939;}");
+            btn->setText(name);
+            btn->setFixedSize(QSize(78, 32));
+            opBtnMap.insert(iter.key(), btn);
+        }
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS], &QPushButton::clicked, this, &ImageListPage::onBtnPass);
+        connect(opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE], &QPushButton::clicked, this, &ImageListPage::onBtnRefuse);
+        connect(this,&TablePage::sigImagePass,this,&ImageListPage::onBtnPass);
+        connect(this,&TablePage::sigImageRefuse,this,&ImageListPage::onBtnRefuse);
+
+        addBatchOperationButtons(QList<QPushButton *>() << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_PASS]
+                                                        << opBtnMap[OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE]);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+    }
 }
 
 void ImageListPage::initImageConnect()
@@ -265,6 +309,16 @@ void ImageListPage::onBtnRemove()
     }
 }
 
+void ImageListPage::onBtnPass()
+{
+
+}
+
+void ImageListPage::onBtnRefuse()
+{
+
+}
+
 void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
 {
     KLOG_INFO() << "uploadSaveSlot:  ***********"
@@ -382,7 +436,6 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
         }
 
         int row = 0;
-
         for (auto image : reply.second.images())
         {
             QMap<QString, QVariant> infoMap;
@@ -390,7 +443,10 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             infoMap.insert(IMAGE_ID, imageId);
 
             QStandardItem *itemCheck = new QStandardItem();
-            itemCheck->setCheckable(true);
+            if(is_open_checkbox)
+                itemCheck->setCheckable(true);
+            else
+                itemCheck->setCheckable(false);
 
             QStandardItem *itemName = new QStandardItem(image.name().data());
             infoMap.insert(IMAGE_NAME, image.name().data());
@@ -450,12 +506,10 @@ void ImageListPage::getListDBResult(const QPair<grpc::Status, image::ListDBReply
             for (int i = 0; i < is_del_row.count(); i++)
             {
                 QString str = itemApprovalStatus->text();
-                if (is_del_row[i] == str)
-                {
-                    row++;
+                if(is_del_row[i] == str)
                     goto _END;
-                }
             }
+
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer << itemDesc << itemChkStatus << itemApprovalStatus << itemUpdateTime);
             row++;
         _END:
@@ -625,4 +679,8 @@ void ImageListPage::getTransferImageFinishedResult(QString name, QString version
     {
         m_transferImages.removeAll(image);
     }
+}
+void ImageListPage::setCheckBox(bool flag)
+{
+    is_open_checkbox = flag;
 }

@@ -17,6 +17,7 @@ public:
     ~ImageListPage();
     void updateInfo(QString keyword = "");  //刷新表格
     void setDelRow(const QString type1 = "",const QString type2 = ""); //"Wait for Approve","Rejected","Passed"
+    void setCheckBox(bool);
 
 private:
     void initTable();
@@ -54,7 +55,8 @@ private:
     QStringList m_transferImages = {};
     QMutex m_mutex;
     QVector<QString> is_del_row;
-    bool is_init_btn = false;
+    bool is_init_audit_btn = false;
+    bool is_open_checkbox = true;
 };
 
 #endif  // IMAGELISTPAGE_H

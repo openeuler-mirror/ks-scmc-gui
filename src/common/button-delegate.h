@@ -24,6 +24,8 @@ signals:
     void sigActRun(QModelIndex);
     void sigActStop(QModelIndex);
     void sigActRestart(QModelIndex);
+    void sigImagePass(int row);
+    void sigImageRefuse(int row);
 
 private slots:
     void onActTriggered(QAction* act);
