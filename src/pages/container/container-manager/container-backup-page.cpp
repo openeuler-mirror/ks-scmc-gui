@@ -312,6 +312,11 @@ void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPa
         {
             m_containerId = reply.second.container_id().data();
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            MessageDialog::message(tr("Resume Container Backup"),
+                                   tr("Resume container backup seccessful!"),
+                                   "",
+                                   ":/images/success.svg",
+                                   MessageDialog::StandardButton::Ok);
         }
         else
         {
