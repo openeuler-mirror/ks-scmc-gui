@@ -2,6 +2,8 @@ syntax = "proto3";
 
 option go_package = "scmc/rpc/pb/container";
 
+import "common.proto";
+
 package container;
 
 service Container {
@@ -23,6 +25,12 @@ service Container {
 
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
+
+    // 安全配置
+    rpc UpdateProcProtect(UpdateProcProtectRequest) returns (UpdateProcProtectReply) {}           // 进程白名单/黑名单
+    rpc UpdateNetProcProtect(UpdateNetProcProtectRequest) returns (UpdateNetProcProtectReply) {}  // 网络进程白名单
+    rpc UpdateFileProtect(UpdateFileProtectRequest) returns (UpdateFileProtectReply) {}           // 文件保护
+    rpc UpdateNetworkRule(UpdateNetworkRuleRequest) returns (UpdateNetworkRuleReply) {}           // 网络访问规则
 }
 
 message ListRequest {
@@ -134,6 +142,8 @@ message MonitorHistoryReply {
     repeated MonitorSample disk_usage   = 3;
     repeated MonitorSample net_rx       = 4;
     repeated MonitorSample net_tx       = 5;
+
+    ResourceLimit rsc_limit = 11;   // 资源使用限制
 }
 
 message ListTemplateRequest {
@@ -170,6 +180,38 @@ message RemoveTemplateRequest {
 }
 
 message RemoveTemplateReply {}
+
+message UpdateProcProtectRequest {
+    int64           node_id      = 1;
+    int64           container_id = 2;
+    ProcProtectList proc_protect = 3;
+}
+
+message UpdateProcProtectReply {}
+
+message UpdateNetProcProtectRequest {
+    int64           node_id          = 1;
+    int64           container_id     = 2;
+    ProcProtectList net_proc_protect = 3;
+}
+
+message UpdateNetProcProtectReply {}
+
+message UpdateFileProtectRequest {
+    int64                  node_id      = 1;
+    int64                  container_id = 2;
+    common.FileProtectList file_protect = 3;
+}
+
+message UpdateFileProtectReply {}
+
+message UpdateNetworkRuleRequest {
+    int64                  node_id      = 1;
+    int64                  container_id = 2;
+    common.NetworkRuleList network_rule = 3;
+}
+
+message UpdateNetworkRuleReply {}
 
 /***** DATA TYPES *****/
 
@@ -327,16 +369,21 @@ message NetworkConfig {
 message ResourceLimit {
     double cpu_limit         = 1;   // CPU使用核心数限制
     int64  cpu_prio          = 2;   // CPU优先级
-    int64  memory_limit      = 11;  // 内存限制 单位MB
-    int64  memory_soft_limit = 12;  // 内存软限制 单位MB 数值低于memory_limit
-    int64  disk_limit        = 21;  // 磁盘使用限制 单位MB
+    double memory_limit      = 11;  // 内存限制 单位MB
+    double memory_soft_limit = 12;  // 内存软限制 单位MB 数值低于memory_limit
+    double disk_limit        = 21;  // 磁盘使用限制 单位MB
 }
 
 message SecurityConfig {
-    bool network_host_enabled      = 1;  // 宿主机网络可联通
-    bool network_container_enabled = 2;  // 宿主机其他容器可联通
-    bool network_external_enabled  = 3;  // 外部可联通
-    bool cmd_operate_enabled       = 4;  // 运行命令行操作
+    bool network_host_enabled     = 1;  // 宿主机网络可联通
+    bool network_external_enabled = 2;  // 宿主机外部可联通
+    bool cmd_operate_enabled      = 3;  // 运行命令行操作
+
+    ProcProtectList        proc_protect     = 11;  // 进程白名单
+    ProcProtectList        net_proc_protect = 12;  // 网络进程白名单
+    common.FileProtectList file_protect     = 13;  // 文件防篡改保护
+    common.NetworkRuleList network_rule     = 14;  // 网络访问规则
+
     // to be extended
 }
 
@@ -350,10 +397,8 @@ message ContainerConfigs {
     bool   graphic_enabled = 7;  // 支持图形界面访问
     bool   privileged      = 8;
 
-    map<string, string> env            = 30;  // 环境变量
-    repeated Mount      mounts         = 31;  // 挂载目录
-    repeated string     masked_paths   = 32;
-    repeated string     readonly_paths = 33;  // 只读的路径
+    map<string, string> env    = 30;  // 环境变量
+    repeated Mount      mounts = 31;  // 挂载目录
 
     RestartPolicy          restart_policy = 40;  // 重启策略(高可用)
     ResourceLimit          resource_limit = 41;  // 资源使用限制
@@ -364,4 +409,9 @@ message ContainerConfigs {
 message ContainerTemplate {
     int64            id   = 1;
     ContainerConfigs conf = 2;
+}
+
+message ProcProtectList {
+    int32           mode     = 1;  // 0:关 1:白名单模式 2:黑名单模式
+    repeated string exe_path = 2;
 }

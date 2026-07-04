@@ -13,8 +13,8 @@ public:
     explicit DatePicker(QWidget *parent = nullptr);
     ~DatePicker();
     //void SetQuickValue(QDatePanel::QuickPick pick);
-    QDate getStartDate();
-    QDate getEndDate();
+    QDateTime getStartDate();
+    QDateTime getEndDate();
     void showDatePicker(int type);  //start:0  end:1
 
 private slots:
