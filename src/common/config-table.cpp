@@ -43,7 +43,7 @@ void ConfigTable::initwindow()
     if (m_ChooseTable)
         head << tr("Container path") << tr("Host path") << tr("Permission") << tr("Quick Actions");
     else
-        head << tr("Name") << tr("Value") << tr("Permission") << tr("Quick Actions");
+        head << tr("Variable name") << tr("Value") << tr("Permission") << tr("Quick Actions");
 
     ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section, QTableCornerButton::section {padding:1px;border:none;background-color:#F0F0F0;color:Black;}");
     m_pModel.reset(new ConfigModel(head));

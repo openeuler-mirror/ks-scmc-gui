@@ -238,6 +238,20 @@
         <translation>只读</translation>
     </message>
     <message>
+        <source>Please enter variable</source>
+        <translation type="vanished">请输入值</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="153"/>
+        <source>Please enter variable name</source>
+        <translation>请输入变量名</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="155"/>
+        <source>Please enter container path</source>
+        <translation>请输入容器路径</translation>
+    </message>
+    <message>
         <location filename="../src/common/config-view.cpp" line="156"/>
         <location filename="../src/common/config-view.cpp" line="166"/>
         <source>Save Data</source>
@@ -248,6 +262,11 @@
         <location filename="../src/common/config-view.cpp" line="167"/>
         <source>Data is empty!</source>
         <translation>数据为空！</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="165"/>
+        <source>Please enter host path</source>
+        <translation>请输入宿主机路径</translation>
     </message>
 </context>
 <context>
@@ -296,8 +315,12 @@
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="46"/>
+        <source>Variable name</source>
+        <translation>变量名</translation>
+    </message>
+    <message>
         <source>Name</source>
-        <translation>名字</translation>
+        <translation type="vanished">名字</translation>
     </message>
     <message>
         <location filename="../src/common/config-table.cpp" line="46"/>
@@ -885,7 +908,6 @@
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="492"/>
         <location filename="../src/pages/container/container-setting.cpp" line="510"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="534"/>
         <location filename="../src/pages/container/container-setting.cpp" line="629"/>
         <location filename="../src/pages/container/container-setting.cpp" line="648"/>
         <location filename="../src/pages/container/container-setting.cpp" line="672"/>
@@ -925,7 +947,7 @@
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="288"/>
         <source>Edit template</source>
-        <translation>编辑备份</translation>
+        <translation>编辑模板</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="299"/>
