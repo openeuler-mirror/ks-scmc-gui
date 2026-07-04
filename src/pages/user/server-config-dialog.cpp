@@ -1,6 +1,7 @@
 #include "server-config-dialog.h"
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-message-box.h>
+#include <widget-property-helper.h>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QLabel>
@@ -46,12 +47,15 @@ void ServerConfigDialog::initUI()
 {
     setWindowModality(Qt::WindowModal);
     setTitle(tr("Config Server"));
+    setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarButtonHint::TitlebarCloseButtonHint);
-    this->setFixedSize(400, 300);
+    this->setFixedSize(460, 340);
 
     QWidget *windowContentWidget = getWindowContentWidget();
     QVBoxLayout *mainVLayout = new QVBoxLayout(windowContentWidget);
     mainVLayout->setSpacing(10);
+    mainVLayout->setMargin(0);
+    mainVLayout->setContentsMargins(24, 16, 24, 40);
 
     QWidget *ipWidget = new QWidget(windowContentWidget);
     QVBoxLayout *ipLayout = new QVBoxLayout(ipWidget);
@@ -59,25 +63,33 @@ void ServerConfigDialog::initUI()
     ipLayout->setSpacing(10);
     QLabel *ipLab = new QLabel(tr("Ip Address"), ipWidget);
     m_ipLineEdit = new QLineEdit(ipWidget);
-    m_ipLineEdit->setFixedHeight(32);
+    m_ipLineEdit->setFixedSize(370, 36);
     m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
+    m_ipLineEdit->setTextMargins(10, 0, 0, 0);
     ipLayout->addWidget(ipLab);
     ipLayout->addWidget(m_ipLineEdit);
 
     QWidget *portWidget = new QWidget(windowContentWidget);
     QVBoxLayout *portLayout = new QVBoxLayout(portWidget);
-    portLayout->setMargin(0);
+    portLayout->setContentsMargins(0, 0, 0, 10);
     portLayout->setSpacing(10);
     QLabel *portLab = new QLabel(tr("Port"), portWidget);
     m_portLineEdit = new QLineEdit(portWidget);
-    m_portLineEdit->setFixedHeight(32);
+    m_portLineEdit->setFixedSize(370, 36);
     m_portLineEdit->setPlaceholderText(tr("Please input port"));
+    m_portLineEdit->setTextMargins(10, 0, 0, 0);
     portLayout->addWidget(portLab);
     portLayout->addWidget(m_portLineEdit);
 
     QHBoxLayout *btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(36);
+    btnLayout->setMargin(0);
     QPushButton *confirmBtn = new QPushButton(tr("Confirm"));
+    confirmBtn->setFixedSize(110, 36);
+    Kiran::WidgetPropertyHelper::setButtonType(confirmBtn, Kiran::BUTTON_Default);
     QPushButton *cancleBtn = new QPushButton(tr("Cancle"));
+    Kiran::WidgetPropertyHelper::setButtonType(cancleBtn, Kiran::BUTTON_Normal);
+    cancleBtn->setFixedSize(110, 36);
     btnLayout->addWidget(confirmBtn);
     btnLayout->addWidget(cancleBtn);
 
