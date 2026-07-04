@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include "outline-status-icon.h"
 //#include "outline-view.h"
 
 namespace Ui {
@@ -20,6 +21,7 @@ enum OutlineCellType
     ONUTLINE
 };
 
+class OutlineStatusIcon;
 
 class OutlineCell : public QWidget
 {
@@ -33,7 +35,7 @@ public:
     bool is_mouse_Press; // 鼠标是否按下
     Ui::OutlineCell *ui;
 
-public:
+protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 signals:
@@ -41,7 +43,8 @@ signals:
     void isPress(); //鼠标按下信号
 
 private:
-//    OutlineView *m_outline_view;
+    OutlineStatusIcon *m_status_icon_green;
+    OutlineStatusIcon *m_status_icon_red;
 
 };
 
