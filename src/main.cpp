@@ -16,6 +16,8 @@
 #include <iostream>
 #include "config/config.h"
 #include "login-dialog.h"
+#include <kiran-style/style-palette.h>
+
 #define TRANSLATION_DIR TRANSLATIONS_FILE_DIR
 #define APP_NAME "ks-scmc-gui"
 int main(int argc, char *argv[])
@@ -28,6 +30,8 @@ int main(int argc, char *argv[])
     KLOG_INFO("******New Output*********\n");
 
     KiranSingleApplication a(argc, argv);
+    //设在主题不跟随系统主题变化,KY3.4-4中不需要此功能
+    Kiran::StylePalette::instance()->setDesignatedPaletteType(Kiran::PALETTE_DARK);
     //a.setStyle(QStyleFactory::create("fusion"));
 
     ///加载qss样式表
