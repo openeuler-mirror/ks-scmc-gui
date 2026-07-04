@@ -4,7 +4,8 @@
 #include "common/message-dialog.h"
 #include "ui_envs-conf-tab.h"
 EnvsConfTab::EnvsConfTab(QWidget *parent) : QWidget(parent),
-                                            ui(new Ui::EnvsConfTab)
+                                            ui(new Ui::EnvsConfTab),
+                                            m_configTable(nullptr)
 {
     ui->setupUi(this);
     initUI();

@@ -569,17 +569,17 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
 
         //Graph
         //info.enable_graphic();
-        auto graphPage = qobject_cast<GraphicConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+        auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
         graphPage->setGraphicInfo();
 
         //volume
-        auto volumesPage = qobject_cast<VolumesConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+        auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
         for (auto mount : info.mounts())
         {
             volumesPage->setVolumeInfo(&mount);
         }
 
-        // network content?
+        // network
         auto size = info.networks_size();
         KLOG_INFO() << "network_config_size:" << size;
         for (int i = 0; i < size - 1; ++i)
@@ -604,7 +604,7 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         }
 
         //env
-        auto envPage = qobject_cast<EnvsConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+        auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
         envPage->setEnvInfo(&info);
 
         //high-availability
