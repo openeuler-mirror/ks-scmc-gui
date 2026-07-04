@@ -48,5 +48,4 @@ private:
     Ui::LicenseActivation* m_ui;
     QSharedPointer<LicenseProxy> m_licenseProxy;
     QRCodeDialog* m_qrcodeDialog;
-    QPushButton* m_activateQRcodeBtn;
 };

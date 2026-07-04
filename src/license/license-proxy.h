@@ -17,7 +17,7 @@
 #include <ks-license/license-i.h>
 #include <QObject>
 
-#define LICENSE_OBJECT_NAME "KSSC"
+#define LICENSE_OBJECT_NAME "KSSCMC"
 #define TIMEOUT_MS 5000
 #define METHOD_GET_LICENSE "GetLicense"
 #define METHOD_GET_LICENSE_OBJECT "GetLicenseObject"
