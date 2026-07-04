@@ -1,6 +1,6 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.1.1
-%global pkg_rel 6
+%global pkg_rel 7
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
@@ -93,14 +93,13 @@ rm -rf $RPM_BUILD_ROOT
 %make_install
 
 %post
-sudo echo %{version}-%{release} > %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
-sudo chmod 0744 %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
+echo %{version}-%{release} > %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
+chmod 0744 %{_datadir}/ks-scmc-gui/ks-scmc-gui.version > /dev/null || :
 
 gtk-update-icon-cache -f /usr/share/icons/hicolor/
 xdg-desktop-icon install --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 
 %postun
-sudo rm -rf %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
 xdg-desktop-icon uninstall --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 killall ks-scmc-gui > /dev/null 2>&1 || true
 
@@ -114,6 +113,9 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_datadir}/icons/hicolor/*/apps/*.*
 
 %changelog
+* Mon May 06 2024 zhenggongping <zhenggongping@kylinos.com.cn> -1.1.1-7
+- KYOS-F: Remove sudo from the spec file. (#36753)
+
 * Thu Aug 17 2023 yuanxing <yuanxing@kylinos.com.cn> -1.1.1-3
 - KYOS-F: fix bugs of ks-scmc-gui-1.1
 
