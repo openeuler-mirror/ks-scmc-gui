@@ -17,6 +17,10 @@ MaskWidget::MaskWidget(QWidget *parent) : QWidget(parent), m_labLoading(nullptr)
 void MaskWidget::setMaskVisible(bool visible)
 {
     this->setVisible(visible);
+    if (visible)
+        m_movie->start();
+    else
+        m_movie->stop();
 }
 
 bool MaskWidget::maskIsVisible()
@@ -26,6 +30,12 @@ bool MaskWidget::maskIsVisible()
 
 MaskWidget::~MaskWidget()
 {
+    if (m_movie)
+    {
+        m_movie->stop();
+        delete m_movie;
+        m_movie = nullptr;
+    }
 }
 
 void MaskWidget::initUI()
@@ -38,11 +48,8 @@ void MaskWidget::initUI()
 
     m_labLoading = new QLabel(this);
     m_labLoading->setFixedSize(128, 128);
-    QMovie *movie;
-    movie = new QMovie(":/images/loading.gif");
-    m_labLoading->setMovie(movie);
-    movie->start();
-
+    m_movie = new QMovie(":/images/loading.gif");
+    m_labLoading->setMovie(m_movie);
     gridLayout->addWidget(m_labLoading, 0, 0, Qt::AlignCenter);
 
     hide();

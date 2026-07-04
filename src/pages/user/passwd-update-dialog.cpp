@@ -51,16 +51,19 @@ PasswdUpdateDialog::~PasswdUpdateDialog()
     delete ui;
     if (m_oldTimer)
     {
+        m_oldTimer->stop();
         delete m_oldTimer;
         m_oldTimer = nullptr;
     }
     if (m_newTimer)
     {
+        m_newTimer->stop();
         delete m_newTimer;
         m_newTimer = nullptr;
     }
     if (m_confirmTimer)
     {
+        m_confirmTimer->stop();
         delete m_confirmTimer;
         m_confirmTimer = nullptr;
     }

@@ -64,4 +64,5 @@ void Page::resizeEvent(QResizeEvent *event)
         m_maskWidget->setPalette(pal);
         m_maskWidget->setFixedSize(this->size());
     }
+    QWidget::resizeEvent(event);
 }

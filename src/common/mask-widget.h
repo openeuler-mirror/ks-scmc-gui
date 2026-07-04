@@ -27,6 +27,7 @@ public slots:
 
 private:
     QLabel *m_labLoading;
+    QMovie *m_movie;
 };
 
 #endif  // MASKWIDGET_H

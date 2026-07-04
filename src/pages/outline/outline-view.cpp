@@ -31,6 +31,10 @@ OutlineView::OutlineView(QWidget *parent) : Page(parent)
 
 OutlineView::~OutlineView()
 {
+    if (m_timer)
+    {
+        m_timer->stop();
+    }
 }
 
 void OutlineView::initUI()
