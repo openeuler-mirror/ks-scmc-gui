@@ -243,7 +243,7 @@ void ContainerListPage::onTerminal(int row)
     //    auto cmd = QString("%1 \"ssh -Xt root@%2 CONTAINER_NAME=%3 bash --rcfile %4\"")
     //                   .arg(TERMINAL_CMD, nodeAddr, containerName, BASHRC_FILE);
 
-    auto cmd = LoadConfiguration::getTerminalConfig(nodeAddr, containerName);
+    auto cmd = LoadConfiguration::Instance().getTerminalConfig(nodeAddr, containerName);
 
     KLOG_INFO() << cmd;
     QProcess proc;
