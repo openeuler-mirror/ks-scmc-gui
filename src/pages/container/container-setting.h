@@ -17,7 +17,8 @@ enum ContainerSettingType
     CONTAINER_SETTING_TYPE_CONTAINER_CREATE,
     CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
     CONTAINER_SETTING_TYPE_TEMPLATE_CREATE,
-    CONTAINER_SETTING_TYPE_TEMPLATE_EDIT
+    CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
+    CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE
 };
 
 enum TabConfigGuideItemType
@@ -53,6 +54,7 @@ public:
     void paintEvent(QPaintEvent *event);
     void setItems(int row, int col, QWidget *);
     void setTitle(QString title);
+    void setTemplateList(QMap<int, QString> templateList);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
@@ -66,7 +68,7 @@ private:
     void initSecurityConfPages();
     void updateRemovableItem(QString itemText);
     void getContainerInspect();
-    void getTemplateInspect();
+    void getTemplateInspect(int templateId);
     void getNodeInfo();
     void getImageInfo(int64_t node_id);
 
@@ -86,6 +88,8 @@ private slots:
     void onDelItem();
     void onConfirm();
     void onNodeSelectedChanged(QString newStr);
+    void onTempSelectedChanged(QString newStr);
+
     void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
     void getListImageFinishedResult(const QPair<grpc::Status, image::ListReply> &);
     void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
@@ -112,7 +116,7 @@ private:
     QLabel *m_labImage;
     QMap<int64_t, QString> m_nodeInfo;       //id,address
     QPair<int64_t, QString> m_containerIds;  //nodeId,containerId
-    qint64 m_templateId;
+    int m_templateId;
     int m_netWorkCount;
     ContainerSettingType m_type;
     double m_totalCPU;

@@ -48,6 +48,8 @@ private slots:
     void getContainerRestartResult(const QPair<grpc::Status, container::RestartReply> &);
     void getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &);
 
+    void getListTemplateFinishResult(const QPair<grpc::Status, container::ListTemplateReply> &reply);
+
 signals:
     void sigContainerNameClicked(QMap<QString, QVariant> infoMap);
 
@@ -55,6 +57,7 @@ private:
     void initButtons();
     void initTable();
     void initConnect();
+    void getTemplateList();
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
     void timedRefresh(bool start);
@@ -62,13 +65,14 @@ private:
 private:
     QMenu *m_createMenu;
     QMenu *m_moreMenu;
+    QAction *m_createFromTemplateAct;
     QMap<int, QPushButton *> m_batchOpBtnMap;
     ContainerSetting *m_createCTSetting;
     ContainerSetting *m_editCTSetting;
     MonitorDialog *m_monitor;
-    std::vector<int64_t> m_vecNodeId;
     QTimer *m_timer;
     QMap<QString, QPair<QString, QString>> m_statusMap;
+    QMap<int, QString> m_templateMap;
 };
 
 #endif  // CONTAINERLISTPAGE_H

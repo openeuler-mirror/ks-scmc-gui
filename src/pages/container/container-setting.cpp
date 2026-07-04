@@ -62,31 +62,33 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QMap<QString, QVar
     m_templateId = ids.value(TEMPLATE_ID).toInt();
 
     getNodeInfo();
-    if (type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+
+    switch (type)
     {
+    case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
         if (!ids.isEmpty())
-        {
             getContainerInspect();
-        }
         connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
-    }
-    else if (type == CONTAINER_SETTING_TYPE_CONTAINER_CREATE)
-    {
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
         connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
-    }
-    else if (type == CONTAINER_SETTING_TYPE_TEMPLATE_CREATE)
-    {
+        break;
+    case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
         connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
-    }
-    else if (type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
-    {
+        break;
+    case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         if (!ids.isEmpty())
-        {
-            getTemplateInspect();
-        }
+            getTemplateInspect(m_templateId);
         connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
         connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
+        break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
+        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        break;
+    default:
+        break;
     }
 }
 
@@ -110,6 +112,16 @@ void ContainerSetting::paintEvent(QPaintEvent *event)
 void ContainerSetting::setItems(int row, int col, QWidget *item)
 {
     ui->gridLayout->addWidget(item, row, col);
+}
+
+void ContainerSetting::setTemplateList(QMap<int, QString> templateList)
+{
+    auto iter = templateList.begin();
+    while (iter != templateList.end())
+    {
+        ui->cb_template->addItem(iter.value(), iter.key());
+        iter++;
+    }
 }
 
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
@@ -223,10 +235,13 @@ void ContainerSetting::initUI()
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
     connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onNodeSelectedChanged);
+    connect(ui->cb_template, QOverload<const QString &>::of(&QComboBox::currentTextChanged), this, &ContainerSetting::onTempSelectedChanged);
 }
 
 void ContainerSetting::initSummaryUI()
 {
+    ui->label_template_name->hide();
+    ui->cb_template->hide();
     switch (m_type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
@@ -236,7 +251,7 @@ void ContainerSetting::initSummaryUI()
         m_cbImage->setParent(this);
         m_cbImage->setFixedSize(QSize(200, 30));
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
-        layout->addWidget(m_cbImage, 2, 1);
+        layout->addWidget(m_cbImage, 3, 1);
         break;
     }
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
@@ -244,9 +259,10 @@ void ContainerSetting::initSummaryUI()
         setWindowTitle(tr("Edit Container"));
         m_labImage = new QLabel(this);
         QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
-        layout->addWidget(m_labImage, 2, 1);
+        layout->addWidget(m_labImage, 3, 1);
         ui->cb_node->setEnabled(false);
-        ui->cb_node->setStyleSheet("border:none;margin-left:0px;padding-left:0px;");
+        ui->cb_node->setStyleSheet("#cb_node{border:none;margin-left:0px;padding-left:0px;}"
+                                   "#cb_node::down-arrow{image:none;}");
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
         ui->lineEdit_describe->setStyleSheet("border:none;");
@@ -265,6 +281,18 @@ void ContainerSetting::initSummaryUI()
         ui->lineEdit_describe->setStyleSheet("border:none;");
         ui->lineEdit_describe->setReadOnly(true);
         break;
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
+    {
+        setWindowTitle(tr("Create template from template"));
+        ui->label_template_name->show();
+        ui->cb_template->show();
+        m_cbImage = new QComboBox(this);
+        m_cbImage->setParent(this);
+        m_cbImage->setFixedSize(QSize(200, 30));
+        QGridLayout *layout = dynamic_cast<QGridLayout *>(ui->page_container->layout());
+        layout->addWidget(m_cbImage, 3, 1);
+        break;
+    }
     default:
         break;
     }
@@ -374,9 +402,9 @@ void ContainerSetting::getContainerInspect()
     InfoWorker::getInstance().containerInspect(m_containerIds.first, m_containerIds.second.toStdString());
 }
 
-void ContainerSetting::getTemplateInspect()
+void ContainerSetting::getTemplateInspect(int templateId)
 {
-    InfoWorker::getInstance().inspectTemplate(m_templateId);
+    InfoWorker::getInstance().inspectTemplate(templateId);
 }
 
 void ContainerSetting::getNodeInfo()
@@ -820,6 +848,7 @@ void ContainerSetting::onConfirm()
     switch (m_type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
+    case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
         createContainer();
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
@@ -841,6 +870,13 @@ void ContainerSetting::onNodeSelectedChanged(QString newStr)
     KLOG_INFO() << "onNodeSelectedChanged :" << newStr;
     InfoWorker::getInstance().listNetwork(m_nodeInfo.key(newStr));
     getImageInfo(m_nodeInfo.key(newStr));
+}
+
+void ContainerSetting::onTempSelectedChanged(QString newStr)
+{
+    KLOG_INFO() << "onTempSelectedChanged :" << newStr;
+    int index = ui->cb_template->findText(newStr);
+    getTemplateInspect(ui->cb_template->itemData(index).toInt());
 }
 
 void ContainerSetting::getNodeListResult(const QPair<grpc::Status, node::ListReply> &reply)
@@ -1001,13 +1037,17 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
     {
         //init ui
         auto info = reply.second.data().conf();
-        ui->lineEdit_name->setText(info.name().data());
-        KLOG_INFO() << info.name().data();
 
-        if (!QString::fromStdString(info.desc().data()).isEmpty())
-            ui->lineEdit_describe->setText(info.desc().data());
-        else
-            ui->lineEdit_describe->setText(tr("none"));
+        if (m_type == CONTAINER_SETTING_TYPE_TEMPLATE_EDIT)
+        {
+            ui->lineEdit_name->setText(info.name().data());
+            KLOG_INFO() << info.name().data();
+
+            if (!QString::fromStdString(info.desc().data()).isEmpty())
+                ui->lineEdit_describe->setText(info.desc().data());
+            else
+                ui->lineEdit_describe->setText(tr("none"));
+        }
 
         //Graph
         //info.enable_graphic();
@@ -1126,7 +1166,10 @@ void ContainerSetting::getListImageFinishedResult(const QPair<grpc::Status, imag
         {
             m_cbImage->clear();
             for (auto info : reply.second.images())
+            {
                 m_cbImage->addItem(QString::fromStdString(info.name()));
+                KLOG_INFO() << info.name().data();
+            }
         }
     }
     else
