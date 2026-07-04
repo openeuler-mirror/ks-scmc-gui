@@ -9,7 +9,7 @@ enum NodeInfoSubPageType
     NODE_INFO_SUB_PAGE_TYPE_MONITOR
 };
 
-class MonitorDialog;
+class MonitorContent;
 class ContainerListPage;
 class NodeInfoPage : public TabPage
 {
@@ -25,7 +25,7 @@ private:
 
 private:
     qint64 m_nodeId = -1;
-    MonitorDialog *m_monitor;
+    MonitorContent *m_monitor;
     ContainerListPage *m_containerListPage;
 };
 

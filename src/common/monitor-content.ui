@@ -1,49 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MonitorDialog</class>
- <widget class="QWidget" name="MonitorDialog">
+ <class>MonitorContent</class>
+ <widget class="QWidget" name="MonitorContent">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>732</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QWidget" name="widget" native="true">
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>50</height>
+       <height>32</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>50</height>
+       <height>32</height>
       </size>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Cycle</string>
+         <string>Cycle:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="cb_select_cycle"/>
+       <widget class="QComboBox" name="cb_select_cycle">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QWidget" name="widget_date_selete" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
           <number>10</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
          </property>
          <item>
           <widget class="QLabel" name="label_2">
@@ -54,6 +109,18 @@
          </item>
          <item>
           <widget class="DatePickButton" name="btn_start">
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -68,6 +135,18 @@
          </item>
          <item>
           <widget class="DatePickButton" name="btn_end">
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>32</height>
+            </size>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -78,6 +157,18 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_apply">
+        <property name="minimumSize">
+         <size>
+          <width>78</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>78</width>
+          <height>32</height>
+         </size>
+        </property>
         <property name="text">
          <string>Apply</string>
         </property>
@@ -119,6 +210,12 @@
       </property>
       <item>
        <widget class="QScrollArea" name="scrollArea">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -127,9 +224,12 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>380</width>
-           <height>224</height>
+           <width>732</width>
+           <height>536</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background:red;</string>
          </property>
         </widget>
        </widget>

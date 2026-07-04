@@ -1,3 +1,4 @@
+#include "image-list-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QCryptographicHash>
@@ -9,7 +10,6 @@
 #include <QStandardPaths>
 #include "common/message-dialog.h"
 #include "def.h"
-#include "image-list-page.h"
 
 ImageListPage::ImageListPage(QWidget *parent) : TablePage(parent), m_pImageOp(nullptr)
 {
@@ -32,8 +32,10 @@ void ImageListPage::updateInfo(QString keyword)
 {
     KLOG_INFO() << "ImageList updateInfo";
     clearText();
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
     if (keyword.isEmpty())
     {
+        connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
         getImageList();
     }
 }
@@ -109,7 +111,7 @@ void ImageListPage::initButtons()
 
 void ImageListPage::initImageConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
+    //connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &ImageListPage::getListDBResult);
     //connect(&InfoWorker::getInstance(), &InfoWorker::checkImageFinished, this, &ImageListPage::getCheckResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::removeImageFinished, this, &ImageListPage::getRemoveResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::uploadFinished, this, &ImageListPage::getUploadResult);
