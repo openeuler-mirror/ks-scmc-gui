@@ -42,6 +42,8 @@ private slots:
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
 
+    void getNetworkListResult(const QPair<grpc::Status, network::ListReply> &reply);
+
     void getContainerListResult(const QPair<grpc::Status, container::ListReply> &);
     void getContainerStartResult(const QPair<grpc::Status, container::StartReply> &);
     void getContainerStopResult(const QPair<grpc::Status, container::StopReply> &);
@@ -61,6 +63,7 @@ private:
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
     void timedRefresh(bool start);
+    void getNetworkInfo(int64_t node_id);
 
 private:
     QMenu *m_createMenu;
@@ -72,7 +75,8 @@ private:
     MonitorDialog *m_monitor;
     QTimer *m_timer;
     QMap<QString, QPair<QString, QString>> m_statusMap;
-    QMap<int, QString> m_templateMap;
+    QMultiMap<int, QPair<int, QString>> m_templateMap;  //templateId nodeId,template name
+    QMultiMap<int, QString> m_networksMap;
 };
 
 #endif  // CONTAINERLISTPAGE_H
