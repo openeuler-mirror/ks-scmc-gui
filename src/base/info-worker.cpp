@@ -13,8 +13,6 @@
 #include <QtConcurrent/QtConcurrent>
 #define DEADLINE 20000
 
-static std::string s_authKey = "";
-
 const int CHUNK_SIZE = 1024 * 1024;
 
 #define RPC_ASYNC(REPLY_TYPE, WORKER, CALLBACK, OBJID, ...)                 \
@@ -68,6 +66,11 @@ QString InfoWorker::generateId(QObject *callObj)
     return QString("%1_%2").arg(callObj->metaObject()->className()).arg(uid);
 }
 
+std::string InfoWorker::getAuthKey()
+{
+    return s_authKey;
+}
+
 void InfoWorker::listNode(const QString objId)
 {
     node::ListRequest req;
@@ -96,12 +99,12 @@ void InfoWorker::createContainer(const QString objId, const container::CreateReq
     RPC_ASYNC(container::CreateReply, _createContainer, createContainerFinished, objId, req);
 }
 
-void InfoWorker::containerStatus(const QString objId, const int64_t node_id)
-{
-    container::StatusRequest req;
-    req.set_node_id(node_id);
-    RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, objId, req);
-}
+//void InfoWorker::containerStatus(const QString objId, const int64_t node_id)
+//{
+//    container::StatusRequest req;
+//    req.set_node_id(node_id);
+//    RPC_ASYNC(container::StatusReply, _containerStatus, containerStatusFinished, objId, req);
+//}
 
 void InfoWorker::removeNode(const QString objId, const std::vector<int64_t> &node_ids)
 {
@@ -170,21 +173,21 @@ void InfoWorker::stopContainer(const QString objId, const std::map<int64_t, std:
     RPC_ASYNC(container::StopReply, _stopContainer, stopContainerFinished, objId, req);
 }
 
-void InfoWorker::killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
-{
-    container::KillRequest req;
-    for (auto &id : ids)
-    {
-        auto pId = req.add_ids();
-        pId->set_node_id(id.first);
-        for (auto &container_id : id.second)
-        {
-            pId->add_container_ids(container_id);
-        }
-    }
+//void InfoWorker::killContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
+//{
+//    container::KillRequest req;
+//    for (auto &id : ids)
+//    {
+//        auto pId = req.add_ids();
+//        pId->set_node_id(id.first);
+//        for (auto &container_id : id.second)
+//        {
+//            pId->add_container_ids(container_id);
+//        }
+//    }
 
-    RPC_ASYNC(container::KillReply, _killContainer, killContainerFinished, objId, req);
-}
+//    RPC_ASYNC(container::KillReply, _killContainer, killContainerFinished, objId, req);
+//}
 
 void InfoWorker::restartContainer(const QString objId, const std::map<int64_t, std::vector<std::string>> &ids)
 {
@@ -495,10 +498,10 @@ QPair<grpc::Status, container::CreateReply> InfoWorker::_createContainer(const c
     RPC_IMPL(container::CreateReply, container::Container::NewStub, Create);
 }
 
-QPair<grpc::Status, container::StatusReply> InfoWorker::_containerStatus(const container::StatusRequest &req)
-{
-    RPC_IMPL(container::StatusReply, container::Container::NewStub, Status);
-}
+//QPair<grpc::Status, container::StatusReply> InfoWorker::_containerStatus(const container::StatusRequest &req)
+//{
+//    RPC_IMPL(container::StatusReply, container::Container::NewStub, Status);
+//}
 
 QPair<grpc::Status, node::RemoveReply> InfoWorker::_removeNode(const node::RemoveRequest &req)
 {
@@ -530,10 +533,10 @@ QPair<grpc::Status, container::StopReply> InfoWorker::_stopContainer(const conta
     RPC_IMPL(container::StopReply, container::Container::NewStub, Stop);
 }
 
-QPair<grpc::Status, container::KillReply> InfoWorker::_killContainer(const container::KillRequest &req)
-{
-    RPC_IMPL(container::KillReply, container::Container::NewStub, Kill);
-}
+//QPair<grpc::Status, container::KillReply> InfoWorker::_killContainer(const container::KillRequest &req)
+//{
+//    RPC_IMPL(container::KillReply, container::Container::NewStub, Kill);
+//}
 
 QPair<grpc::Status, container::RestartReply> InfoWorker::_restartContainer(const container::RestartRequest &req)
 {

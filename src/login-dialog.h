@@ -26,6 +26,7 @@ class LoginDialog;
 
 class MainWindow;
 class ServerConfigDialog;
+class SubscribeThread;
 class LoginDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -37,10 +38,12 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     void initUI();
     void initMessageBox();
+    void createSubscribThread();
     void loadConfig();
     bool inspectLoginParam();
     void getLicense(QString license_str);
@@ -77,6 +80,8 @@ private:
     QLabel *activate_label;
     AboutPage *m_about;
     QMutex m_sessionMutex;
+    QThread *m_thread;
+    SubscribeThread *m_subscribeThread;
 };
 
 #endif  // LOGIN_DIALOG_H
