@@ -19,9 +19,8 @@
 #define TIMEOUT 300
 
 using namespace CryptoPP;
+using namespace grpc;
 
-//std::string g_server_addr = "10.200.12.181:10060";
-//std::string g_server_addr;
 LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                             ui(new Ui::LoginDialog),
                                             m_mainWindow(nullptr),
@@ -448,7 +447,7 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
     {
         QApplication::restoreOverrideCursor();
 
-        if (reply.first.ok())
+        if (reply.first.ok() || reply.first.error_code() == UNAUTHENTICATED)
         {
             if (m_mainWindow)
             {

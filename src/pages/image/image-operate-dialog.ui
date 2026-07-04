@@ -14,6 +14,21 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
@@ -21,155 +36,271 @@
      </property>
      <widget class="QWidget" name="pageImage">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEditName"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labSign">
-         <property name="text">
-          <string>Signature file </string>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>10</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>5</number>
+       </property>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="lineEditImageSign">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>36</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="lineEditDesc"/>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labName">
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="lineEditImageFile"/>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineEditImageSign"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labVersion">
-         <property name="text">
-          <string>Version</string>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>36</height>
+          </size>
          </property>
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="labDesc">
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
         <widget class="QLabel" name="labFile">
          <property name="text">
           <string>Image Select</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditVersion"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="pageUpdate">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="labUpdateName">
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="updateName"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labUpdateVer">
-         <property name="text">
-          <string>Version</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labUpdateSelect">
-         <property name="text">
-          <string>Image Select</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="updateSelect"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labUpdateSign">
-         <property name="text">
-          <string>Signature file </string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="updateSign"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="labUpdateDesc">
+       <item row="8" column="0">
+        <widget class="QLabel" name="labDesc">
          <property name="text">
           <string>Description</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="updateDesc"/>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEditVersion">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>36</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="lineEditDesc">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>36</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="label_tip_sign">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labVersion">
+         <property name="text">
+          <string> &lt;font color=red&gt;*&lt;/font&gt;Version</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="label_tip_image">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="updateVersion"/>
+        <widget class="QLabel" name="label_tip_name">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="pageDownload">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_13">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>image</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="downloadImage">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>0</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <item row="6" column="0">
+        <widget class="QLabel" name="labSign">
+         <property name="text">
+          <string>Signature file </string>
+         </property>
+        </widget>
        </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>save path</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="downloadPath"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="downloadChoosePath">
-           <property name="text">
-            <string>chose path</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <item row="0" column="0">
+        <widget class="QLabel" name="labName">
+         <property name="text">
+          <string> &lt;font color=red&gt;*&lt;/font&gt;Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QToolButton" name="btn_tip_name">
+         <property name="minimumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QToolButton" name="btn_tip_version">
+         <property name="minimumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEditName">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>36</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEditImageFile">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>36</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="label_tip_version">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLabel" name="label_tip_desc">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -190,6 +321,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_15">
+     <property name="spacing">
+      <number>10</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -227,14 +361,6 @@
   <tabstop>lineEditImageFile</tabstop>
   <tabstop>lineEditImageSign</tabstop>
   <tabstop>lineEditDesc</tabstop>
-  <tabstop>updateName</tabstop>
-  <tabstop>updateVersion</tabstop>
-  <tabstop>updateSelect</tabstop>
-  <tabstop>updateSign</tabstop>
-  <tabstop>updateDesc</tabstop>
-  <tabstop>downloadImage</tabstop>
-  <tabstop>downloadPath</tabstop>
-  <tabstop>downloadChoosePath</tabstop>
   <tabstop>btnSave</tabstop>
   <tabstop>btnCancel</tabstop>
  </tabstops>
