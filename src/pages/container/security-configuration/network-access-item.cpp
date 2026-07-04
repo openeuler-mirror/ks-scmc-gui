@@ -56,6 +56,8 @@ void NetworkAccessItem::initUI()
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit_address->setPlaceholderText("192.168.1.1/24");
     ui->lineEdit_port->setText(QString::number(0));
+    ui->lineEdit_port->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_address->setTextMargins(10, 0, 0, 0);
     ui->btn_tcp->setChecked(true);
     connect(ui->btn_add, &QToolButton::clicked, this, &NetworkAccessItem::onAdd);
     connect(ui->btn_delete, &QToolButton::clicked, this, &NetworkAccessItem::ondelete);
