@@ -1,9 +1,9 @@
-#include "operate-widget.h"
-#include "ui_operate-widget.h"
+#include "config-operate-widget.h"
+#include "ui_config-operate-widget.h"
 
-OperateWidget::OperateWidget(int curRow, int page, QWidget *parent) : QWidget(parent),
-                                                                      ui(new Ui::OperateWidget),
-                                                                      m_CurRow(curRow)
+ConfigOperateWidget::ConfigOperateWidget(int curRow, int page, QWidget *parent) : QWidget(parent),
+                                                                                  ui(new Ui::ConfigOperateWidget),
+                                                                                  m_CurRow(curRow)
 {
     ui->setupUi(this);
 
@@ -12,27 +12,27 @@ OperateWidget::OperateWidget(int curRow, int page, QWidget *parent) : QWidget(pa
     ui->stackedWidget->setCurrentIndex(page);
 }
 
-OperateWidget::~OperateWidget()
+ConfigOperateWidget::~ConfigOperateWidget()
 {
     delete ui;
 }
 
-int OperateWidget::getCurRow()
+int ConfigOperateWidget::getCurRow()
 {
     return m_CurRow;
 }
 
-int OperateWidget::getCurPage()
+int ConfigOperateWidget::getCurPage()
 {
     return ui->stackedWidget->currentIndex();
 }
 
-void OperateWidget::setPage(int page)
+void ConfigOperateWidget::setPage(int page)
 {
     ui->stackedWidget->setCurrentIndex(page);
 }
 
-void OperateWidget::initControl()
+void ConfigOperateWidget::initControl()
 {
     ui->m_pBtnSave->setText(tr("Save"));
     ui->m_pBtnEdit->setFocusPolicy(Qt::NoFocus);
@@ -46,7 +46,7 @@ void OperateWidget::initControl()
     ui->m_pBtnDel->setIcon(QIcon(":/images/delete_item.svg"));
 }
 
-void OperateWidget::initConnections()
+void ConfigOperateWidget::initConnections()
 {
     connect(ui->m_pBtnSave, SIGNAL(clicked()), this, SLOT(sendSave()));
     connect(ui->m_pBtnEdit, SIGNAL(clicked()), this, SLOT(sendEdit()));
@@ -54,23 +54,23 @@ void OperateWidget::initConnections()
     connect(ui->m_pBtnDel, SIGNAL(clicked()), this, SLOT(sendDelete()));
 }
 
-void OperateWidget::sendSave()
+void ConfigOperateWidget::sendSave()
 {
     emit sendSaveSig(this);
 }
 
-void OperateWidget::sendEdit()
+void ConfigOperateWidget::sendEdit()
 {
     ui->stackedWidget->setCurrentWidget(ui->page);
     emit sendEditSig(this);
 }
 
-void OperateWidget::sendAdd()
+void ConfigOperateWidget::sendAdd()
 {
     emit sendAddSig(this);
 }
 
-void OperateWidget::sendDelete()
+void ConfigOperateWidget::sendDelete()
 {
     emit sendDeleteSig(this);
 }
