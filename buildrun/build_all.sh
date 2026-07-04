@@ -7,7 +7,7 @@ cd $g_basedir
 
 g_software_name=ks-scmc-gui
 support_archs=(x86_64 aarch64)
-ALLOWED_OS_VERSION="3.2-8"
+ALLOWED_OS_VERSION="3.3-6"
 
 function process_install_shell()
 {
