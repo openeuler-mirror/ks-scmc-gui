@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget* parent)
     initUI();
     m_timer = new QTimer(this);
     //connect(m_timer, &QTimer::timeout, this, &MainWindow::)
+    connect(m_stackedWidget, SIGNAL(currentChanged(int)), this, SLOT(changePage(int)));
 }
 
 MainWindow::~MainWindow()
@@ -341,6 +342,26 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     default:
         break;
+    }
+}
+
+
+void MainWindow::changePage(int index)
+{
+    QString info = "exitTimedRefresh";
+    if (6 != index)
+    {
+        if (m_pageMap.value(NODE_MANAGER))
+        {
+            m_pageMap[NODE_MANAGER]->updateInfo(info);
+        }
+    }
+    if (3 != index)
+    {
+        if (m_pageMap.value(CONTAINER_LIST))
+        {
+            m_pageMap[CONTAINER_LIST]->updateInfo(info);
+        }
     }
 }
 

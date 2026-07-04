@@ -57,6 +57,7 @@ private:
     void initConnect();
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
+    void timedRefresh(bool start);
 
 private:
     QMenu *m_createMenu;
