@@ -663,6 +663,14 @@ LoginDialog #btn_login
     color:#ffffff;
     border-radius:4px;
 }
+LoginDialog #btn_login:hover
+{
+     background-color:#77ceff;
+}
+LoginDialog #btn_login:pressed
+{
+    background-color:#2eb3ff;
+}
 
 LoginDialog #btnMenu
 {

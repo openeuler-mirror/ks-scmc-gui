@@ -31,7 +31,6 @@ ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent), m_
 
 ImageListPage::~ImageListPage()
 {
-    KLOG_INFO() << "************Deconstruction ImageListPage";
     if (m_pImageOp)
     {
         delete m_pImageOp;

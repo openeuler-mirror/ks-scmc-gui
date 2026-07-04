@@ -27,7 +27,6 @@ ImageOperateDialog::ImageOperateDialog(ImageOperateType type, QWidget *parent) :
 
 ImageOperateDialog::~ImageOperateDialog()
 {
-    KLOG_INFO() << "**********Deconstruction ImageOperateDialog";
     delete ui;
 }
 

@@ -42,6 +42,7 @@ void ContainerPageManager::updateInfo(QString keyword)
 {
     setCurrentPage(CONTAINER_PAGE_TYPE_LIST);
     updateCurrentPage(keyword);
+    m_containerInfoPage->updateInfo(keyword);
 }
 
 void ContainerPageManager::onNameClicked(QMap<QString, QVariant> infoMap)

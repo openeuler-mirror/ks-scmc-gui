@@ -32,7 +32,8 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
         {
             auto key = item->m_firstColVal;
             auto value = item->m_secondColVal;
-            KLOG_INFO() << key.isEmpty() << value.isEmpty();
+            KLOG_INFO() << "key:" << key
+                        << "value:" << value;
 
             if (key.isEmpty())
             {
