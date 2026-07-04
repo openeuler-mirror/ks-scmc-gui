@@ -267,7 +267,7 @@ void TemplateListPage::initTemplateConnect()
 
 void TemplateListPage::getCheckedItemsId(QList<int64_t> &ids)
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(0);
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     foreach (auto idInfo, info)
     {
         ids.append(idInfo.value(TEMPLATE_ID).toInt());

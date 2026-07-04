@@ -142,22 +142,23 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
 void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnInfo)
 {
     //设置表中操作按钮代理
-    ButtonDelegate *btnDelegate = new ButtonDelegate(btnInfo, this);
-    ui->tableView->setItemDelegateForColumn(col, btnDelegate);
+    m_btnDelegate = new ButtonDelegate(btnInfo, this);
+    m_btnDelegate->isSetDelegateDefault(false);
+    ui->tableView->setItemDelegateForColumn(col, m_btnDelegate);
     m_isSetTableActions = true;
 
-    connect(btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
-    connect(btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
-    connect(btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
-    connect(btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::onDelete);
-    connect(btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
-    connect(btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
-    connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
-    connect(btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::onActImagePass);
-    connect(btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::onActImageRefuse);
-    connect(btnDelegate, &ButtonDelegate::sigBackupResume, this, &TablePage::onActBackupResume);
-    connect(btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::onActBackupUpdate);
-    connect(btnDelegate, &ButtonDelegate::sigBackupRemove, this, &TablePage::onActBackupRemove);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupResume, this, &TablePage::onActBackupResume);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupUpdate, this, &TablePage::onActBackupUpdate);
+    connect(m_btnDelegate, &ButtonDelegate::sigBackupRemove, this, &TablePage::onActBackupRemove);
+    connect(m_btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
+    connect(m_btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
+    connect(m_btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
+    connect(m_btnDelegate, &ButtonDelegate::sigdelete, this, &TablePage::onDelete);
+    connect(m_btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
+    connect(m_btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
+    connect(m_btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
+    connect(m_btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::sigImagePass);
+    connect(m_btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::sigImageRefuse);
 }
 
 void TablePage::setTableSingleChoose(bool isSingleChoose)
@@ -200,6 +201,8 @@ void TablePage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
     auto colCount = m_isSetTableActions ? m_model->columnCount() - 1 : m_model->columnCount();
+    //    if(m_isSetTableActions == true)
+    //        m_btnDelegate->isSetDelegateDefault(true);
 
     for (int i = 1; i < colCount; i++)
     {
@@ -230,10 +233,10 @@ QList<QMap<QString, QVariant>> TablePage::getCheckedItemInfo(int col)
     QList<QMap<QString, QVariant>> checkedItemInfo;  //containerId,nodeId
     for (int i = 0; i < m_model->rowCount(); i++)
     {
-        auto item = m_model->item(i, col);
+        auto item = m_model->item(i, 0);
         if (item->checkState() == Qt::CheckState::Checked)
         {
-            auto infoItem = m_model->item(i, col + 1);
+            auto infoItem = m_model->item(i, col);
             QMap<QString, QVariant> infoMap = infoItem->data().value<QMap<QString, QVariant>>();
             checkedItemInfo.append(infoMap);
         }
@@ -399,17 +402,17 @@ void TablePage::onActRestart(QModelIndex index)
     emit sigRestart(index);
 }
 
-void TablePage::onActImagePass(int row)
-{
-    KLOG_INFO() << "TablePage::onActImagePass" << row;
-    emit sigImagePass(row);
-}
+//void TablePage::onActImagePass(int row)
+//{
+//    KLOG_INFO() << "TablePage::onActImagePass" << row;
+//    emit sigImagePass(row);
+//}
 
-void TablePage::onActImageRefuse(int row)
-{
-    KLOG_INFO() << "TablePage::onActImageRefuse" << row;
-    emit sigImageRefuse(row);
-}
+//void TablePage::onActImageRefuse(int row)
+//{
+//    KLOG_INFO() << "TablePage::onActImageRefuse" << row;
+//    emit sigImageRefuse(row);
+//}
 
 void TablePage::onActBackupResume(int row)
 {
