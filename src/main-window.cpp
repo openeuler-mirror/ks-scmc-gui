@@ -314,7 +314,8 @@ void MainWindow::getTransferImageStatus(ImageTransmissionStatus status, QString 
     QString transferImage = name + "-" + version;
 
     QMutexLocker locker(&m_mutex);
-    if (!m_transferImages.contains(transferImage, Qt::CaseInsensitive) && !InfoWorker::getInstance().isTransferStoped(name, version))
+    if (!m_transferImages.contains(transferImage, Qt::CaseInsensitive) &&
+        !InfoWorker::getInstance().isTransferStoped(name, version))
     {
         m_transmissionList->addItem(name, version, status, rate);
         m_transferImages.append(transferImage);
@@ -338,11 +339,11 @@ void MainWindow::onTransferItemDeleted(QString name, QString version, ImageTrans
     {
         if (m_transferImages.contains(transferImage, Qt::CaseInsensitive))
         {
+            QMutexLocker locker(&m_mutex);
             if (status == IMAGE_TRANSMISSION_STATUS_DOWNLOADING || status == IMAGE_TRANSMISSION_STATUS_UPLOADING)
             {
                 InfoWorker::getInstance().stopTransfer(name, version, true);
             }
-            QMutexLocker locker(&m_mutex);
             m_transferImages.removeOne(transferImage);
             m_btnTransmission->setTipMsg(m_transferImages.size());
             KLOG_INFO() << "stop transfer:" << name << version << ",tipMsg:" << m_transferImages.size();

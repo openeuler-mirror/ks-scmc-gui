@@ -61,6 +61,26 @@ void TransmissionList::updateItem(QString name, QString version, ImageTransmissi
     }
 }
 
+void TransmissionList::removeItem(QString name, QString version)
+{
+    QString itemMark = name + "-" + version;
+    if (m_transfersItems.size() != 0)
+    {
+        foreach (auto item, m_transfersItems)
+        {
+            if (item->name() + "-" + item->version() == itemMark)
+            {
+                m_transfersItems.removeOne(item);
+                auto num = --m_transfersNum;
+                setTransfersNum(num);
+                delete item;
+                item = nullptr;
+                break;
+            }
+        }
+    }
+}
+
 void TransmissionList::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::Popup | Qt::FramelessWindowHint);
