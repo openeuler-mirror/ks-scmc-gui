@@ -63,12 +63,12 @@ MainWindow::MainWindow(QString name, QWidget* parent)
     ui->setupUi(getWindowContentWidget());
     initUI();
     ui->btn_user->setText(name);
+
     connect(&InfoWorker::getInstance(), &InfoWorker::transferImageStatus, this, &MainWindow::getTransferImageStatus, Qt::BlockingQueuedConnection);
 }
 
 MainWindow::~MainWindow()
 {
-    KLOG_INFO() << "**********Deconstruction MainWindow";
     delete ui;
 
     if (m_transmissionList)

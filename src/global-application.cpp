@@ -13,7 +13,7 @@ GlobalApplication::GlobalApplication(int &argc, char **argv) : KiranSingleApplic
     m_pthread->moveToThread(m_pthread);
 
     connect(m_pthread, SIGNAL(started()), m_timer, SLOT(start()));
-    connect(m_timer, &QTimer::timeout, this, &GlobalApplication::logout);
+    connect(m_timer, &QTimer::timeout, this, &GlobalApplication::expired);
     m_pthread->start();
 }
 
@@ -34,8 +34,7 @@ bool GlobalApplication::notify(QObject *receiver, QEvent *e)
     return KiranSingleApplication::notify(receiver, e);
 }
 
-void GlobalApplication::logout()
+void GlobalApplication::expired()
 {
-    KLOG_INFO() << "Long time no operate,logout...";
     emit sessionExpired();
 }

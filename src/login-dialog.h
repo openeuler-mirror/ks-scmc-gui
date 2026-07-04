@@ -26,7 +26,6 @@ class LoginDialog;
 
 class MainWindow;
 class ServerConfigDialog;
-class SubscribeThread;
 class LoginDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -79,6 +78,8 @@ private:
     QLabel *activate_label;
     AboutPage *m_about;
     QMutex m_sessionMutex;
+    bool m_isLogin;
+    bool m_isSessionExpired;
 };
 
 #endif  // LOGIN_DIALOG_H

@@ -39,7 +39,7 @@ pkg_search_module(KIRAN_STYLE QUIET kiran-style-helper)
 if (KIRAN_STYLE_FOUND)
 	add_definitions(-DKIRAN_STYLE_FOUND)
 else()
-	message(STATUS "kiran-style-helper is not found!")
+        message(STATUS "Warning: kiran-style-helper is not found!")
 endif()
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
