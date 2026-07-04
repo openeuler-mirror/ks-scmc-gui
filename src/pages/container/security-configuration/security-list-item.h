@@ -30,6 +30,7 @@ signals:
 private:
     Ui::SecurityListItem *ui;
     bool m_isPathCorrect;
+    QTimer *m_timer;
 };
 
 #endif  // SECURITYLISTITEM_H

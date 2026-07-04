@@ -598,44 +598,48 @@ NodeListPage #btnCreate:disabled,NodeListPage #btnRemove:disabled
     background:#393939;
 }
 
-/***************************NodeAdditionDialog******************/
-NodeAdditionDialog
+/***************************NodeOperateDialog******************/
+NodeOperateDialog
 {
     background-color:#ffffff;
 }
-NodeAdditionDialog QLabel
+NodeOperateDialog QLabel
 {
     color:#000000;
 }
-NodeAdditionDialog QLineEdit
+NodeOperateDialog QLineEdit
 {
     border:1px solid #E4E7ED;
     border-radius:6px;
     color:#000000;
 }
-NodeAdditionDialog #btn_save
+NodeOperateDialog QLineEdit:disabled
+{
+    background-color:#F0F0F0;
+}
+NodeOperateDialog #btn_save
 {
     background-color:#409EFF;
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
 }
-NodeAdditionDialog #btn_save:hover
+NodeOperateDialog #btn_save:hover
 {
     background-color:#66B1FF;
 }
-NodeAdditionDialog #btn_cancel
+NodeOperateDialog #btn_cancel
 {
     background-color:#ffffff;
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
 }
-NodeAdditionDialog #btn_cancel:hover
+NodeOperateDialog #btn_cancel:hover
 {
     background-color:#EBEEF5;
 }
-NodeAdditionDialog #btn_save:focus,NodeAdditionDialog #btn_cancel:focus
+NodeOperateDialog #btn_save:focus,NodeOperateDialog #btn_cancel:focus
 {
     outline: none;
 }

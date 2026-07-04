@@ -5,14 +5,13 @@
 #define CONTAINER_ID "container id"
 #define NODE_ID "node id"
 #define NODE_ADDRESS "node address"
+#define NODE_NAME "node name"
+#define NODE_COMMENT "node comment"
 #define CONTAINER_NAME "container name"
 #define CONTAINER_STATUS "container status"
 #define TEMPLATE_ID "template id"
 #define BACKUP_ID "backup id"
 #define BACKUP_NAME "backup name"
-#define VERSION "V1.0"
-#define SCMC_GUI_VERSION_FILE_PATH "/usr/share/ks-scmc-gui/ks-scmc-gui.version"
-#define SCMC_VERSION_FILE_PATH "/usr/share/ks-scmc/ks-scmc.version"
 
 enum GUIDE_ITEM_TYPE
 {
@@ -45,8 +44,6 @@ enum ACTION_BUTTON_TYPE
     ACTION_BUTTON_TYPE_BACKUP_RESUME,
     ACTION_BUTTON_TYPE_BACKUP_UPDATE,
     ACTION_BUTTON_TYPE_BACKUP_REMOVE,
-    ACTION_BUTTON_TYPE_WARN_READ,
-    ACTION_BUTTON_TYPE_WARN_IGNORE,
     ACTION_BUTTON_TYPE_MENU
 };
 
@@ -71,9 +68,7 @@ enum OPERATION_BUTTOM
     OPERATION_BUTTOM_IMAGE_MANAGER_REMOVE,
     OPERATION_BUTTOM_IMAGE_MANAGER_CHECK,
     OPERATION_BUTTOM_IMAGE_MANAGER_PASS,
-    OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE,
-    OPERATION_BUTTOM_WARN_READ,
-    OPERATION_BUTTOM_WARN_IGNORE
+    OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE
 };
 
 enum ImageTransmissionStatus

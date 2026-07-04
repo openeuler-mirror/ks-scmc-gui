@@ -159,8 +159,6 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QString> btnIn
     connect(m_btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
     connect(m_btnDelegate, &ButtonDelegate::sigImagePass, this, &TablePage::sigImagePass);
     connect(m_btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::sigImageRefuse);
-    connect(m_btnDelegate, &ButtonDelegate::sigWarnRead, this, &TablePage::sigWarnRead);
-    connect(m_btnDelegate, &ButtonDelegate::sigWarnIgnore, this, &TablePage::sigWarnIgnore);
 }
 
 void TablePage::setTableSingleChoose(bool isSingleChoose)
@@ -196,7 +194,6 @@ void TablePage::setHeaderSections(QStringList names)
 
 void TablePage::setHeaderCheckable(bool checkable)
 {
-    KLOG_INFO() << "setHeaderCheckable : " << checkable;
     m_headerView->setCheckable(checkable);
 }
 

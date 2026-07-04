@@ -88,6 +88,7 @@ void MessageDialog::initUI()
 {
     setWindowFlags(Qt::WindowCloseButtonHint);
     setWindowIcon(QIcon(":/images/logo.png"));
+    ui->label_body->setWordWrap(true);
     if (standardButtonInfoMap.isEmpty())
     {
         standardButtonInfoMap = {
