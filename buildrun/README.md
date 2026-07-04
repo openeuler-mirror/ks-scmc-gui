@@ -16,6 +16,12 @@ gpgcheck=0
 baseurl=http://192.168.120.17/kojifiles/repos/KY3.3-EPEL-build/latest/x86_64/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin-release
 
+[license]
+name=KylinSec OS-$releasever - License
+gpgcheck=0
+baseurl=http://192.168.120.17/kojifiles/repos/KY3.3-6-PG-ks-license-2.6-build/latest/x86_64/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin-release
+
 2 change /etc/yum.conf make keepcache=1
 
 3 get depend packages
