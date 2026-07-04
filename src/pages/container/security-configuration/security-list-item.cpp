@@ -24,13 +24,6 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit->setTextMargins(10, 0, 0, 0);
 
-    m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout,
-            [this] {
-                checkPath();
-                m_timer->stop();
-            });
-
     connect(ui->btn_add, &QToolButton::clicked,
             [this] {
                 emit sigAdd();
@@ -42,13 +35,7 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
     connect(ui->lineEdit, &QLineEdit::textChanged,
             [this](QString text) {
                 ui->lineEdit->setToolTip(tooptipWordWrap(text));
-                if (!text.isEmpty())
-                    m_timer->start();
-                else
-                {
-                    m_isPathCorrect = true;
-                    ui->lab_error_tips->hide();
-                }
+                checkPath();
             });
 }
 
@@ -74,10 +61,7 @@ void SecurityListItem::setInfo(QString text)
 
 QString SecurityListItem::getInfo()
 {
-    if (m_isPathCorrect)
-        return ui->lineEdit->text();
-    else
-        return "";
+    return ui->lineEdit->text();
 }
 
 bool SecurityListItem::getPathCorrect()
@@ -96,16 +80,15 @@ void SecurityListItem::changeEvent(QEvent *event)
 void SecurityListItem::checkPath()
 {
     QString path = ui->lineEdit->text();
+    m_isPathCorrect = true;
     if (!path.isEmpty())
     {
         QRegExp regExp("^/.+$");
-        if (regExp.exactMatch(path))
-            m_isPathCorrect = true;
-        else
+        if (!regExp.exactMatch(path))
             m_isPathCorrect = false;
-
-        ui->lab_error_tips->setVisible(!m_isPathCorrect);
     }
+
+    ui->lab_error_tips->setVisible(!m_isPathCorrect);
 }
 
 QString SecurityListItem::tooptipWordWrap(const QString &org)

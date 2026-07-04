@@ -116,9 +116,9 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     }
 }
 
-bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg)
+bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg, QString &errMsg)
 {
-    bool pathCorrect = true;
+    bool ret = true;
     switch (m_type)
     {
     case PROTECT_FILE_LIST:
@@ -129,20 +129,23 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            if (item->getPathCorrect())
+            if (!item->getPathCorrect())
             {
-                QString filePath = item->getInfo();
-                KLOG_INFO() << "filePath:" << filePath;
-                if (!filePath.isEmpty())
-                    fileProtect->add_file_list(filePath.toStdString());
+                errMsg = tr("Please improve your path in file protection!");
+                ret = false;
+                break;
             }
-            else
-                pathCorrect = false;
+
+            QString filePath = item->getInfo();
+            KLOG_INFO() << "filePath:" << filePath;
+            if (!filePath.isEmpty())
+                fileProtect->add_file_list(filePath.toStdString());
         }
         break;
     }
     case EXEC_WHITELIST:
     {
+        auto emptyRowCount = 0;
         auto processProtect = securityCfg->mutable_proc_protection();
         processProtect->set_protection_type(security::EXEC_WHITELIST);
         processProtect->set_is_on(m_isEnable);
@@ -150,15 +153,28 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            if (item->getPathCorrect())
+
+            QString filePath = item->getInfo();
+            KLOG_INFO() << "process path:" << filePath;
+            //进程白名单做特殊处理：列表中的数据不能为空，当列表数据都为空时，报错
+            if (filePath.isEmpty())
             {
-                QString filePath = item->getInfo();
-                KLOG_INFO() << "process path:" << filePath;
-                if (!filePath.isEmpty())
-                    processProtect->add_exe_list(filePath.toStdString());
+                emptyRowCount++;
+                continue;
             }
-            else
-                pathCorrect = false;
+
+            if (!item->getPathCorrect())
+            {
+                errMsg = tr("Please improve your path in process protection!");
+                return false;
+            }
+            processProtect->add_exe_list(filePath.toStdString());
+        }
+
+        if (m_isEnable && emptyRowCount == m_listWidget->count())
+        {
+            errMsg = tr("Please input process in process protection!");
+            return false;
         }
         break;
     }
@@ -171,15 +187,17 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-            if (item->getPathCorrect())
+            if (!item->getPathCorrect())
             {
-                QString filePath = item->getInfo();
-                KLOG_INFO() << "net process path:" << filePath;
-                if (!filePath.isEmpty())
-                    processProtect->add_exe_list(filePath.toStdString());
+                errMsg = tr("Please improve your path in network process protection!");
+                ret = false;
+                break;
             }
-            else
-                pathCorrect = false;
+
+            QString filePath = item->getInfo();
+            KLOG_INFO() << "net process path:" << filePath;
+            if (!filePath.isEmpty())
+                processProtect->add_exe_list(filePath.toStdString());
         }
         break;
     }
@@ -187,7 +205,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
     default:
         break;
     }
-    return pathCorrect;
+    return ret;
 }
 
 SecurityListItem *SecurityListTab::createItem(int index)
