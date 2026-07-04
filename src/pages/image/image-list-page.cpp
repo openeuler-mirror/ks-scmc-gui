@@ -315,6 +315,8 @@ QString ImageListPage::getRefuseReason(bool *ok)
     Kiran::WidgetPropertyHelper::setButtonType(okBtn, Kiran::BUTTON_Default);
     okBtn->setFixedSize(78, 32);
     cancelBtn->setFixedSize(78, 32);
+    okBtn->setText(tr("OK"));
+    cancelBtn->setText(tr("Cancel"));
 
     const int ret = dlg->exec();
     if (ok)
@@ -736,7 +738,7 @@ void ImageListPage::getCheckResult(const QString objId, const QPair<grpc::Status
         {
             MessageDialog::message(tr("Approve Image"),
                                    tr("Approve image failed!"),
-                                   tr(reply.first.error_message().data()),
+                                   reply.first.error_message().data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
@@ -757,7 +759,7 @@ void ImageListPage::getRemoveResult(const QString objId, const QPair<grpc::Statu
         {
             MessageDialog::message(tr("Remove Image"),
                                    tr("Remove image failed!"),
-                                   tr(reply.first.error_message().data()),
+                                   reply.first.error_message().data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
@@ -779,7 +781,7 @@ void ImageListPage::getUploadResult(const QString objId, const QPair<grpc::Statu
         {
             MessageDialog::message(tr("Upload Image"),
                                    tr("Upload image failed!"),
-                                   tr(reply.first.error_message().data()),
+                                   reply.first.error_message().data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
@@ -801,7 +803,7 @@ void ImageListPage::getUpdateResult(const QString objId, const QPair<grpc::Statu
         {
             MessageDialog::message(tr("Update Image"),
                                    tr("Update image failed!"),
-                                   tr(reply.first.error_message().data()),
+                                   reply.first.error_message().data(),
                                    ":/images/error.svg",
                                    MessageDialog::StandardButton::Ok);
         }
@@ -822,12 +824,15 @@ void ImageListPage::getDownloadImageResult(const QString objId, const QPair<grpc
         {
             KLOG_INFO() << "download images success";
             NotificationManager::sendNotify(tr("Download image success!"), "");
-
             getImageList();
         }
         else
         {
-            NotificationManager::sendNotify(tr("Download image failed! "), QString::fromStdString(msg.data()));
+            MessageDialog::message(tr("Download Image"),
+                                   tr("Download image failed!"),
+                                   msg.data(),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
         }
     }
 }
