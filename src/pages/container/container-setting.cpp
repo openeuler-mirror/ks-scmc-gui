@@ -103,19 +103,12 @@ void ContainerSetting::setNodeInfos(QMap<int, NodeInfo *> nodeInfoMap)
     {
         auto nodeId = iter.key();
         auto nodeInfo = iter.value();
-        ui->cb_node->addItem(nodeInfo->nodeAddr, nodeId);
         m_nodeTotalCPU.insert(nodeId, nodeInfo->totalCPU);
         m_nodeTotalMemory.insert(nodeId, nodeInfo->totalMemory);
+        //插入cpu、内存总数后再将节点插入到下拉框，这样ui->cb_node::currentTextChanged槽函数中才会有对应数据
+        ui->cb_node->addItem(nodeInfo->nodeAddr, nodeId);
         iter++;
     }
-
-    //设置cpu核心数
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->setTotalCPU(m_nodeTotalCPU.value(ui->cb_node->currentData().toInt()));
-
-    //设置节点内存总数
-    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    memoryPage->setTotalMemory(m_nodeTotalMemory.value(ui->cb_node->currentData().toInt()));
 }
 
 void ContainerSetting::setImageList(QStringList imageList)
@@ -269,7 +262,7 @@ void ContainerSetting::initUI()
     connect(ui->listWidget_security_config, &QListWidget::itemClicked, this, &ContainerSetting::onItemClicked);
     connect(ui->btn_confirm, &QToolButton::clicked, this, &ContainerSetting::onConfirm);
     connect(ui->btn_cancel, &QToolButton::clicked, this, &ContainerSetting::close);
-    connect(ui->cb_node, QOverload<const QString &>::of(&QComboBox::activated), this, &ContainerSetting::onNodeSelectedChanged);
+    connect(ui->cb_node, &QComboBox::currentTextChanged, this, &ContainerSetting::onNodeSelectedChanged);
     connect(ui->cb_template, QOverload<const QString &>::of(&QComboBox::activated), this, &ContainerSetting::onTempSelectedChanged);
 }
 
@@ -538,7 +531,7 @@ void ContainerSetting::updateRemovableItem(QString itemText)
 void ContainerSetting::setNodeNetworkList(int nodeId)
 {
     QList<QString> networks = m_networksMap.values(nodeId);
-    KLOG_INFO() << networks;
+    KLOG_INFO() << "set network list of node " << nodeId << ": " << networks;
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->initVirtNetworkInfo(networks);
@@ -911,7 +904,7 @@ void ContainerSetting::onConfirm()
     }
 }
 
-void ContainerSetting::onNodeSelectedChanged(QString newStr)
+void ContainerSetting::onNodeSelectedChanged(const QString &newStr)
 {
     //更新网络列表
     setNodeNetworkList(ui->cb_node->currentData().toInt());

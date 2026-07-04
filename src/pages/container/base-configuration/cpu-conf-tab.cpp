@@ -17,7 +17,11 @@ CPUConfTab::CPUConfTab(QWidget* parent) : QWidget(parent),
     ui->setupUi(this);
     ui->label_tips->hide();
     ui->label_tips->setStyleSheet("color:#F56C6C;font-size:12px;");
+
+    QRegExp regExp("[0-9]*\\.?([0-9]{2})");
+    ui->lineEdit_cpu_core->setValidator(new QRegExpValidator(regExp, this));
     ui->lineEdit_cpu_core->setTextMargins(10, 0, 0, 0);
+
     ui->cb_sche_pri->addItem(tr("Low"), QVariant(1));
     ui->cb_sche_pri->addItem(tr("Medium"), QVariant(5));
     ui->cb_sche_pri->addItem(tr("High"), QVariant(10));
@@ -51,8 +55,6 @@ CPUConfTab::~CPUConfTab()
 void CPUConfTab::setTotalCPU(double totalCPU)
 {
     m_totalCPU = totalCPU;
-    QRegExp regExp("[0-9]*\\.?([0-9]{2})");
-    ui->lineEdit_cpu_core->setValidator(new QRegExpValidator(regExp, this));
     ui->lineEdit_cpu_core->setPlaceholderText(tr("0-%1, default:system cores %1").arg(QString::number(totalCPU)));
 }
 
