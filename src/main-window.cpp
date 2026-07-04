@@ -428,12 +428,6 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
 }
 
-void MainWindow::onUpdateWarnTipsSums()
-{
-    OutlineView* outline = qobject_cast<OutlineView*>(m_pageMap[GENERAL_OUTLINE]);
-    outline->updateInfo();
-}
-
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 {
     Page* page = nullptr;
@@ -493,7 +487,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     case GUIDE_ITEM_WARNING_LIST:
     {
         WarningListPage* warnPage = new WarningListPage(this);
-        connect(warnPage, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onUpdateWarnTipsSums);
+        connect(warnPage, &WarningListPage::sigUpdateWaringSums, this, &MainWindow::setWarningTipNums);
         page = warnPage;
         break;
     }
@@ -758,7 +752,7 @@ void MainWindow::setApprovalTipNums(int nums)
     m_btnApproval->setTipMsg(nums);
 }
 
-void MainWindow::setWarningTipNums(int nums)
+void MainWindow::setWarningTipNums(int64_t nums)
 {
     m_btnWarning->setTipMsg(nums);
 }

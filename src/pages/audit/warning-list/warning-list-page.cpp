@@ -30,7 +30,7 @@ void WarningListPage::createSubPage(WarningListPageType type)
     {
         m_warninglistview_container = new WarningListView(this, true, true);
         m_warninglistview_container->setLogListPageType(CONTAINER_WARNING);
-        connect(m_warninglistview_container, &WarningListView::sigUpdateWaringSums, this, &WarningListPage::sigReadedUpdateWaringSums);
+        connect(m_warninglistview_container, &WarningListView::sigUpdateWaringSums, this, &WarningListPage::sigUpdateWaringSums);
         addTabPage(m_warninglistview_container, tr("container warning"));
         m_warninglistview_container->hideSearchLine();
         break;
@@ -39,7 +39,7 @@ void WarningListPage::createSubPage(WarningListPageType type)
     {
         m_warninglistview_node = new WarningListView(this, false, true);
         m_warninglistview_node->setLogListPageType(NODE_WARNING);
-        connect(m_warninglistview_node, &WarningListView::sigUpdateWaringSums, this, &WarningListPage::sigReadedUpdateWaringSums);
+        connect(m_warninglistview_node, &WarningListView::sigUpdateWaringSums, this, &WarningListPage::sigUpdateWaringSums);
         addTabPage(m_warninglistview_node, tr("node warning"));
         m_warninglistview_node->hideSearchLine();
         break;

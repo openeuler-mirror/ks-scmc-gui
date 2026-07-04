@@ -16,7 +16,9 @@
 #define WARN_CONTAINER_ID "warn container id"
 #define WARN_CONTAINER_NAME "warn container name"
 
-WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool is_open_paging) : TablePage(parent, is_open_paging)
+WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool is_open_paging) : TablePage(parent, is_open_paging),
+                                                                                                   m_totalPages(0),
+                                                                                                   m_totalWarnning(0)
 {
     m_ObjId = InfoWorker::generateId(this);
     is_showContainerName = isShowContainerName;
@@ -161,6 +163,7 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
 
     clearTable();
 
+    //更新总页数
     m_totalPages = int(reply.second.total_pages());
     if (is_openPaging == true)
     {
@@ -171,6 +174,15 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
         setPaging(m_totalPages);
     }
 
+    //更新告警总数
+    auto totalWarnning = reply.second.total_warnning();
+    KLOG_INFO() << "total warnning:" << totalWarnning;
+    if (totalWarnning != m_totalWarnning)
+    {
+        m_totalWarnning = totalWarnning;
+        emit sigUpdateWaringSums(m_totalWarnning);
+    }
+
     int size = reply.second.logs_size();
     if (size <= 0)
     {
@@ -179,6 +191,7 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
         return;
     }
     setHeaderCheckable(true);
+
     int row = 0;
     QMap<QString, QVariant> infoMap;
     for (auto logging : reply.second.logs())
@@ -226,7 +239,6 @@ void WarningListView::getReadWarningResult(const QString objId, const QPair<grpc
     if (reply.first.ok())
     {
         updateInfo();
-        emit sigUpdateWaringSums();
     }
     else
     {

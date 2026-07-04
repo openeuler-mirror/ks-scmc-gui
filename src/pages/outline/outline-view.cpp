@@ -10,18 +10,23 @@
 #include <QPainter>
 #include <QStandardItem>
 #include <QStyleOption>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <cmath>
 #include "outline-cell.h"
 #include "ui_outline-cell.h"
-
-using namespace std;
+#define TIMEOUT 60000
 
 OutlineView::OutlineView(QWidget *parent) : Page(parent)
 {
     m_objId = InfoWorker::generateId(this);
     initUI();
     initConnect();
+
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, [this] {
+        updateInfo();
+    });
 }
 
 OutlineView::~OutlineView()
@@ -124,6 +129,18 @@ void OutlineView::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void OutlineView::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    Page::showEvent(event);
+}
+
+void OutlineView::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    Page::hideEvent(event);
 }
 
 void OutlineView::setOutlineCellNode()
@@ -288,10 +305,10 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
     m_outlineCell_examine->ui->Name_counts->setText(QString::number(approveCount, 10));
     emit sigApproveSumNums(approveCount);
 
-    //log status
-    int unreadWarnCount = reply.second.log().unread_warn_count();
+    //warnning status
+    auto unreadWarnCount = reply.second.log().unread_warn_count();
     m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
-    emit sigWarnSumNums(int(unreadWarnCount));
+    emit sigWarnSumNums(unreadWarnCount);
 
     KLOG_INFO() << nodeTotal << nodeOnline << nodeOffline
                 << containerTotal << containerOnline << containerOffline
