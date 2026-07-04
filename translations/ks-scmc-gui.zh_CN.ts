@@ -222,13 +222,24 @@
     </message>
     <message>
         <location filename="../src/common/config-view.cpp" line="219"/>
+        <location filename="../src/common/config-view.cpp" line="262"/>
         <source>Confirm Continue?</source>
         <translation>确认继续?</translation>
     </message>
     <message>
         <location filename="../src/common/config-view.cpp" line="220"/>
-        <source>Container built-in configuration items, please modify with caution</source>
+        <source>Container built-in configuration items, please modify with caution!</source>
         <translation>容器内置配置项，请谨慎修改！</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="261"/>
+        <source>Delete Container</source>
+        <translation>删除容器</translation>
+    </message>
+    <message>
+        <location filename="../src/common/config-view.cpp" line="263"/>
+        <source>Container built-in configuration items, please delete with caution!</source>
+        <translation>容器内置配置项，请谨慎删除！</translation>
     </message>
 </context>
 <context>
@@ -3152,51 +3163,52 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>原密码输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="106"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="105"/>
         <source>Please input at least 8 characters</source>
         <translation>请输入至少8位密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="108"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="107"/>
         <source>Can&apos;t input Chinese</source>
         <translation>不能输入中文</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="111"/>
-        <source>Please input at least a combination of character and number</source>
-        <translation>请输入至少数字和字母一种组合</translation>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="125"/>
+        <source>Please input at least two combinations of
+ uppercase letter, lowercase letter, number and special character</source>
+        <translation>请输入包含大写字母、小写字母、数字和特殊字符中至少两种组合</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="138"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="145"/>
         <source>The confirmation password is not match with the new password</source>
         <translation>密码与新密码不匹配</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="177"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="184"/>
         <source>Update Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="178"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="185"/>
         <source>Update password failed!</source>
         <translation>修改密码失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="179"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="186"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="194"/>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="201"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="213"/>
-        <source>The password should contain at least
- a combination of character and number,
- with a length range of 8-32 characters</source>
-        <translation>密码必须包含字母+数字组合，长度范围(8-32)个字符</translation>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="220"/>
+        <source>The password length 8-32 bits, should contain
+ at least two combinations of uppercase letter,
+ lowercase letter, number and special character</source>
+        <translation>密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少两种组合</translation>
     </message>
 </context>
 <context>
