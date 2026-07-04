@@ -16,6 +16,10 @@
 #include "container-list-page.h"
 #include "load-configuration.h"
 
+#define CONTAINER_STATUS_RUNNING "running"
+#define CONTAINER_STATUS_EXITED "exited"
+#define CONTAINRT_STATUS_CREATED "created"
+
 using namespace grpc;
 
 ContainerListPage::ContainerListPage(QWidget *parent)
@@ -31,9 +35,9 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     initTable();
     initConnect();
 
-    m_statusMap.insert("running", QPair<QString, QString>(tr("Online"), "#00921b"));
-    m_statusMap.insert("exited", QPair<QString, QString>(tr("Offline"), "#d30000"));
-    m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
+    m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
+    m_statusMap.insert(CONTAINER_STATUS_EXITED, QPair<QString, QString>(tr("Offline"), "#d30000"));
+    m_statusMap.insert(CONTAINRT_STATUS_CREATED, QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
@@ -584,6 +588,10 @@ void ContainerListPage::initButtons()
     connect(this, SIGNAL(sigRun(QModelIndex)), this, SLOT(onBtnRun(QModelIndex)));
     connect(this, SIGNAL(sigStop(QModelIndex)), this, SLOT(onBtnStop(QModelIndex)));
     connect(this, SIGNAL(sigRestart(QModelIndex)), this, SLOT(onBtnRestart(QModelIndex)));
+    connect(this, &ContainerListPage::sigHasRunningCtn,
+            [this](bool hasRunningCtn) {
+                m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE]->setDisabled(hasRunningCtn);
+            });
 
     addBatchOperationButtons(m_batchOpBtnMap.values());
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
@@ -710,7 +718,6 @@ void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::str
     {
         KLOG_INFO() << idMap.value(NODE_ID).toInt();
         KLOG_INFO() << idMap.value(CONTAINER_ID).toString();
-
         node_id = idMap.value(NODE_ID).toInt();
         std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
         if (iter == ids.end())
