@@ -9,10 +9,11 @@
 
 #include <QSettings>
 
-class LoadConfiguration
+class LoadConfiguration : public QObject
 {
+    Q_OBJECT
 public:
-    LoadConfiguration();
+    LoadConfiguration(QObject *parent = nullptr);
     ~LoadConfiguration();
     static QString getTerminalConfig(QString nodeAddr, QString containerName, QString appexec = "")
     {

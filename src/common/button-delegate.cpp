@@ -168,7 +168,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
             // 鼠标位于按钮之上
             if (!btnRect.contains(m_mousePoint))
             {
-                i++;
+                ++i;
                 count++;
                 continue;
             }
@@ -293,7 +293,7 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 break;
             }
             count++;
-            i++;
+            ++i;
             //            m_isSetDelegateDefault = true;
         }
     }

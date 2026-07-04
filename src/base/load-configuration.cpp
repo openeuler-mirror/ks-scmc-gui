@@ -10,7 +10,7 @@
 #include <QProcess>
 #include <QSettings>
 
-LoadConfiguration::LoadConfiguration() : m_settings(nullptr)
+LoadConfiguration::LoadConfiguration(QObject *parent) : m_settings(nullptr)
 {
     m_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "kylinsec", "ks-scmc-config");
     initConfig();

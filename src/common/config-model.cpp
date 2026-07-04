@@ -7,9 +7,8 @@
 #include "config-model.h"
 #include <kiran-log/qt5-log-i.h>
 
-ConfigModel::ConfigModel(QStringList &head)
+ConfigModel::ConfigModel(const QStringList &head) : m_listHead(head)
 {
-    m_listHead = head;
 }
 
 ConfigModel::~ConfigModel()

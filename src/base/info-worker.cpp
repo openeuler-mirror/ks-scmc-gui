@@ -221,7 +221,7 @@ void InfoWorker::monitorHistory(const QString objId, int node_id, int start_time
     RPC_ASYNC(container::MonitorHistoryReply, _monitorHistory, monitorHistoryFinished, objId, req);
 }
 
-void InfoWorker::listTemplate(const QString objId, const int perPage, const int nextPage, const std::string sort, const std::string likeSearch)
+void InfoWorker::listTemplate(const QString objId, const int perPage, const int nextPage, const std::string &sort, const std::string &likeSearch)
 {
     container::ListTemplateRequest req;
     req.set_per_page(perPage);
@@ -305,7 +305,7 @@ void InfoWorker::exportBackup(const QString objId, const container::ExportBackup
     RPC_ASYNC(QString, _exportBackup, exportBackupFinished, objId, req, path);
 }
 
-void InfoWorker::listAppEntry(const QString objId, const int nodeId, const std::string containerId)
+void InfoWorker::listAppEntry(const QString objId, const int nodeId, const std::string &containerId)
 {
     container::ListAppEntryRequest req;
     req.set_node_id(nodeId);
@@ -323,7 +323,7 @@ void InfoWorker::updateAppEntry(const QString objId, const container::UpdateAppE
     RPC_ASYNC(container::UpdateAppEntryReply, _updateAppEntry, updateAppEntryFinished, objId, req);
 }
 
-void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std::string containerId, const QList<int> appIds)
+void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<int> appIds)
 {
     container::RemoveAppEntryRequest req;
     req.set_node_id(nodeId);
@@ -335,7 +335,7 @@ void InfoWorker::removeAppEntry(const QString objId, const int nodeId, const std
     RPC_ASYNC(container::RemoveAppEntryReply, _removeAppEntry, removeAppEntryFinished, objId, req);
 }
 
-void InfoWorker::runAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId)
+void InfoWorker::runAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId)
 {
     container::RunAppEntryRequest req;
     req.set_node_id(nodeId);
@@ -344,7 +344,7 @@ void InfoWorker::runAppEntry(const QString objId, const int nodeId, const std::s
     RPC_ASYNC(container::RunAppEntryReply, _runAppEntry, runAppEntryFinished, objId, req);
 }
 
-void InfoWorker::killAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId)
+void InfoWorker::killAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId)
 {
     container::KillAppEntryRequest req;
     req.set_node_id(nodeId);
@@ -476,7 +476,7 @@ void InfoWorker::createNic(const QString objId, const network::CreateNicRequest 
     RPC_ASYNC(network::CreateNicReply, _createNic, createNicFinished, objId, req);
 }
 
-void InfoWorker::removeNic(const QString objId, const int64_t nodeId, const std::string name)
+void InfoWorker::removeNic(const QString objId, const int64_t nodeId, const std::string &name)
 {
     network::RemoveNicRequest req;
     req.set_node_id(nodeId);
@@ -524,7 +524,7 @@ void InfoWorker::downloadImage(const QString objId, const int64_t &image_id, con
     RPC_ASYNC(downloadImageInfo, _downloadImage, downloadImageFinished, objId, req, image_id, name, version, savePath);
 }
 
-void InfoWorker::checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string reject_reason)
+void InfoWorker::checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string &reject_reason)
 {
     image::ApproveRequest req;
     req.set_image_id(image_id);
@@ -558,7 +558,7 @@ void InfoWorker::logout(const QString objId)
     RPC_ASYNC(user::LogoutReply, _logout, logoutFinished, objId, req);
 }
 
-void InfoWorker::updatePassword(const QString objId, const std::string oldPassword, const std::string newPassword)
+void InfoWorker::updatePassword(const QString objId, const std::string &oldPassword, const std::string &newPassword)
 {
     user::UpdatePasswordRequest req;
     req.set_old_password(oldPassword);
@@ -1238,7 +1238,6 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     const auto type = reply.info().type();
     const auto checksum = reply.info().checksum();
     const auto size = reply.info().size();
-    const auto desc = reply.info().description();
 
     QString filePath = QString("%1%2_%3%4").arg(savePath).arg(name).arg(version).arg(type.data());
     QFile imgFile(filePath);

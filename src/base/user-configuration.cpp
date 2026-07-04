@@ -13,7 +13,7 @@
 
 using namespace CryptoPP;
 static std::string m_ServerAddr;
-UserConfiguration::UserConfiguration() : m_loginSettings(nullptr), m_serverSetting(nullptr)
+UserConfiguration::UserConfiguration(QObject *parent) : m_loginSettings(nullptr), m_serverSetting(nullptr)
 {
     m_loginSettings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "kylinsec", "ks-scmc-user");
     m_serverSetting = new QSettings(QSettings::IniFormat, QSettings::UserScope, "kylinsec", "ks-scmc-server");
@@ -109,7 +109,7 @@ std::string UserConfiguration::getServerAddr()
     return m_ServerAddr;
 }
 
-void UserConfiguration::setServerAddr(std::string addr)
+void UserConfiguration::setServerAddr(const std::string &addr)
 {
     m_ServerAddr = addr;
 }

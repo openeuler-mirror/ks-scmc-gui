@@ -19,7 +19,7 @@
 class QCustomStyle : public QProxyStyle
 {
 public:
-    QCustomStyle(QWidget *parent)
+    explicit QCustomStyle(QWidget *parent)
     {
         setParent(parent);
     };
@@ -37,10 +37,10 @@ private:
 };
 
 CalendarWidget::CalendarWidget(QWidget *parent)
-    : QCalendarWidget(parent)
+    : QCalendarWidget(parent),
+      m_selectableStart(minimumDate()),
+      m_selectableEnd(maximumDate())
 {
-    m_selectableStart = minimumDate();
-    m_selectableEnd = maximumDate();
     initControl();
 }
 
@@ -68,13 +68,13 @@ void CalendarWidget::setSelectableEnd(QDate end)
 QDate CalendarWidget::getSelectableStart()
 {
     return m_selectableStart;
-    updateCells();
+    //updateCells();
 }
 
 QDate CalendarWidget::getSelectableEnd()
 {
     return m_selectableEnd;
-    updateCells();
+//    updateCells();
 }
 
 void CalendarWidget::hideNextButton()

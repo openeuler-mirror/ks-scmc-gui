@@ -284,8 +284,8 @@ void SecurityListTab::deleteItem()
 
     if (m_listWidget->count() == 1)
     {
-        SecurityListItem *item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(m_listWidget->item(0)));
-        item->setDeleteBtnVisible(false);
+        SecurityListItem *item1 = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(m_listWidget->item(0)));
+        item1->setDeleteBtnVisible(false);
     }
 }
 

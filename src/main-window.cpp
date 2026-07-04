@@ -335,12 +335,10 @@ void MainWindow::outlinePageChange(QString str)
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(outlineWidgetItem));
     outlineItem->setSelected(false);
 
-    QListWidgetItem* item = nullptr;
-
     //判断要跳转的页面是否是侧边栏子项，若是，则将组项展开，子项设 置选中状态，更新对应界面
     for (int i = 0; i < ui->listWidget->count(); i++)
     {
-        item = ui->listWidget->item(i);
+        QListWidgetItem* item = ui->listWidget->item(i);
         if (item->data(Qt::UserRole).toString() == str)
         {
             ui->listWidget->setCurrentItem(item);
@@ -355,27 +353,27 @@ void MainWindow::outlinePageChange(QString str)
                 }
             }
 
-            auto i = m_groupMap.constBegin();
-            while (i != m_groupMap.constEnd())
+            auto group = m_groupMap.constBegin();
+            while (group != m_groupMap.constEnd())
             {
-                if (i.value().contains(item))
+                if (group.value().contains(item))
                 {
-                    auto item = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(i.key()));
-                    if (!m_isShowMap.value(i.key()))  //show
+                    auto item1 = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(group.key()));
+                    if (!m_isShowMap.value(group.key()))  //show
                     {
-                        item->setArrow(false);
-                        foreach (QListWidgetItem* subItem, i.value())
+                        item1->setArrow(false);
+                        foreach (QListWidgetItem* subItem, group.value())
                         {
                             subItem->setHidden(false);
                         }
-                        m_isShowMap.insert(i.key(), true);
+                        m_isShowMap.insert(group.key(), true);
                     }
                     m_pageMap[str]->updateInfo();
                     m_stackedWidget->setCurrentWidget(m_pageMap[str]);
                     find = true;
                     break;
                 }
-                ++i;
+                ++group;
             }
 
             if (!find)
@@ -562,13 +560,13 @@ void MainWindow::loadUserPage()
 
 void MainWindow::loadUserItem()
 {
-    QListWidgetItem* homeItem = createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL,
+    createGuideItem(GENERAL_OUTLINE, GUIDE_ITEM_TYPE_NORMAL,
                                                 ":/images/home.svg");
     if (m_userRole == USER_ROLE_SYSADM)
     {
-        QListWidgetItem* nodeManager = createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
+        createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
                                                        ":/images/node-manager.svg");
-        QListWidgetItem* imageStorehouse = createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
+        createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
                                                            ":/images/image-manager.svg");
 
         QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,

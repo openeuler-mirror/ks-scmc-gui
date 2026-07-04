@@ -6,11 +6,8 @@
  */
 #include "outline-status-icon.h"
 
-OutlineStatusIcon::OutlineStatusIcon(QString color, int x, int y, QWidget *parent) : QWidget(parent)
+OutlineStatusIcon::OutlineStatusIcon(QString color, int x, int y, QWidget *parent) : QWidget(parent), m_color(color), m_x(x), m_y(y)
 {
-    m_color = color;
-    m_x = x;
-    m_y = y;
     this->setMaximumSize(10, 10);
     this->setContentsMargins(0, 0, 0, 0);
     setGeometry(0, 0, 10, 10);

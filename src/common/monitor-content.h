@@ -50,7 +50,7 @@ class MonitorContent : public QWidget
 public:
     explicit MonitorContent(QWidget *parent = nullptr);
     ~MonitorContent();
-    void updateMonitorInfo(qint64 nodeId, std::string containerId = "");
+    void updateMonitorInfo(qint64 nodeId, const std::string &containerId = "");
     virtual QSize sizeHint() const override;
 
 private:

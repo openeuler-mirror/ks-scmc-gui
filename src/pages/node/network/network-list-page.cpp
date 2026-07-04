@@ -100,10 +100,9 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
 
     clearTable();
     int row = 0;
-    int size = 0;
     if (m_type == NETWORK_IFS_TYPE_REAL)
     {
-        size = reply.second.real_ifs().size();
+        int size = reply.second.real_ifs().size();
         KLOG_INFO() << "real ifs size: " << size;
         if (size <= 0)
         {
@@ -144,7 +143,7 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
         if (m_realIfs.isEmpty())
             KLOG_INFO() << "there is no real interface!";
 
-        size = reply.second.virtual_ifs().size();
+        int size = reply.second.virtual_ifs().size();
         KLOG_INFO() << "virture ifs size: " << size;
 
         if (size <= 0)

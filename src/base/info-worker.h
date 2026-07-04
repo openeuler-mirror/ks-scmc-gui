@@ -92,7 +92,7 @@ public:
     void monitorHistory(const QString objId, int node_id, int start_time, int end_time, uint32_t interval, std::string container_id = "");
 
     // container template
-    void listTemplate(const QString objId, const int perPage, const int nextPage, const std::string sort, const std::string likeSearch);
+    void listTemplate(const QString objId, const int perPage, const int nextPage, const std::string &sort, const std::string &likeSearch);
     void listTemplate(const QString objId);
     void inspectTemplate(const QString objId, int64_t id);
     void createTemplate(const QString objId, const container::CreateTemplateRequest &);
@@ -108,12 +108,12 @@ public:
     void exportBackup(const QString objId, const container::ExportBackupRequest &req, const QString path);
 
     //container app
-    void listAppEntry(const QString objId, const int nodeId, const std::string containerId);
+    void listAppEntry(const QString objId, const int nodeId, const std::string &containerId);
     void addAppEntry(const QString objId, const container::AddAppEntryRequest &);
     void updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &);
-    void removeAppEntry(const QString objId, const int nodeId, const std::string containerId, const QList<int> appIds);
-    void runAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId);
-    void killAppEntry(const QString objId, const int nodeId, const std::string containerId, const int appId);
+    void removeAppEntry(const QString objId, const int nodeId, const std::string &containerId, const QList<int> appIds);
+    void runAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
+    void killAppEntry(const QString objId, const int nodeId, const std::string &containerId, const int appId);
 
     // network management
     void listNetwork(const QString objId, const int64_t);
@@ -125,7 +125,7 @@ public:
     void modifyIPtables(const QString objId, const network::ModifyIPtablesRequest &);
     void removeIPtables(const QString objId, const network::RemoveIPtablesRequest &);
     void createNic(const QString objId, const network::CreateNicRequest &);
-    void removeNic(const QString objId, const int64_t nodeId, const std::string name);
+    void removeNic(const QString objId, const int64_t nodeId, const std::string &name);
     void updateNic(const QString objId, const network::UpdateNicRequest &);
 
     // image management
@@ -135,13 +135,13 @@ public:
     void uploadImage(const QString objId, image::UploadRequest &req, const QString &imageFile, const QString &signFile);
     void updateImage(const QString objId, image::UpdateRequest &req, const QString &imageFile, const QString &signFile);
     void downloadImage(const QString objId, const int64_t &image_id, const QString &name, const QString &version, const QString &savePath);
-    void checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string reject_reason);
+    void checkImage(const QString objId, const int64_t image_id, const bool approve, const std::string &reject_reason);
     void removeImage(const QString objId, const std::vector<int64_t> &image_ids);
 
     // user management
     void login(const QString objId, const std::string &username, const std::string &password);
     void logout(const QString objId);
-    void updatePassword(const QString objId, const std::string oldPassword, const std::string newPassword);
+    void updatePassword(const QString objId, const std::string &oldPassword, const std::string &newPassword);
 
     // logging management
     void listRuntimeLogging(const QString objId, const logging::ListRuntimeRequest &);

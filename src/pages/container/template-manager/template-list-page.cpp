@@ -64,7 +64,6 @@ void TemplateListPage::onEdit(int row)
         m_editTPSetting->setNetworkInfos(m_networksMap);
         m_editTPSetting->setImageList(m_imageInfos);
 
-        auto item = getItem(row, 1);
         auto idMap = item->data().value<QMap<QString, QVariant>>();
         int templateID = idMap.value(TEMPLATE_ID).toInt();
         m_editTPSetting->getTemplateInspect(templateID);
