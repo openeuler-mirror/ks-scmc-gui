@@ -43,7 +43,7 @@ public:
     void setOperateSearchVisible(bool visible);
     void addSingleOperationButton(QAbstractButton *);
     void addBatchOperationButtons(QList<QPushButton *>);
-    void addSingleWidgetButton(QWidget *);
+    void addSingleOperationWidget(QWidget *);
     void setOpBtnEnabled(OperatorButtonType type, bool enabled);
     void setTableColNum(int num);
     void setTableRowNum(int num);

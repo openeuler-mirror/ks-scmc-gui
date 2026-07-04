@@ -120,7 +120,7 @@ void LogListView::initButtons()
     hlayout->addWidget(m_BtnApply);
     hlayout->setContentsMargins(0, 0, 0, 0);
 
-    addSingleWidgetButton(btn_widget);
+    addSingleOperationWidget(btn_widget);
     //    addBatchOperationButtons(date_pick);
 }
 

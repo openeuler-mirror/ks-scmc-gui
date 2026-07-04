@@ -106,11 +106,9 @@ void TablePage::addSingleOperationButton(QAbstractButton *btn)
     m_singleOpBtns.append(btn);
 }
 
-void TablePage::addSingleWidgetButton(QWidget *btnwidget)
+void TablePage::addSingleOperationWidget(QWidget *btnwidget)
 {
     ui->operate_btns->layout()->addWidget(btnwidget);
-    //    ui->operate_btns->setMinimumSize(324,32);
-    //    m_singleOpBtns.append(btnwidget);
 }
 
 void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
@@ -754,53 +752,55 @@ void TablePage::refresh()
 
 void TablePage::onItemChecked(QStandardItem *changeItem)
 {
-    if (changeItem)
+    if (!changeItem)
+        return;
+
+    if (changeItem->isCheckable())
     {
-        if (changeItem->isCheckable())
+        bool hasRunningCtn = false;
+        for (int i = 0; i < m_model->rowCount(); i++)
         {
-            bool hasRunningCtn = false;
-            for (int i = 0; i < m_model->rowCount(); i++)
+            //针对容器列表：获取列表中是否有正在运行的容器
+            auto item = m_model->item(i, 0);
+            auto nameItem = m_model->item(i, 1);
+            if (nameItem)
             {
-                auto item = m_model->item(i, 0);
-                auto nameItem = m_model->item(item->row(), 1);
-                if (nameItem)
+                auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
+                if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
+                    (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
                 {
-                    auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
-                    if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
-                        (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
-                    {
-                        hasRunningCtn = true;
-                    }
+                    hasRunningCtn = true;
                 }
-
-                if (m_singleChoose)
+            }
+            //若为单选，将其他选中复选框置为未选中
+            if (m_singleChoose)
+            {
+                if (changeItem->checkState() == Qt::Checked)
                 {
-                    if (changeItem->checkState() == Qt::Checked)
+                    if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
                     {
-                        if (changeItem != item && item->checkState() == Qt::CheckState::Checked)
-                        {
-                            item->setCheckState(Qt::Unchecked);
-                        }
+                        item->setCheckState(Qt::Unchecked);
                     }
                 }
             }
+        }
 
-            int num = getCheckedItemNum();
-            if (num > 0)
-            {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
-                emit sigHasRunningCtn(hasRunningCtn);
+        //更新表头复选框状态、更新批量处理按钮状态
+        int num = getCheckedItemNum();
+        if (num > 0)
+        {
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+            emit sigHasRunningCtn(hasRunningCtn);
 
-                if (num == m_model->rowCount())
-                    m_headerView->setCheckState(true);
-                else
-                    m_headerView->setCheckState(false);
-            }
+            if (num == m_model->rowCount())
+                m_headerView->setCheckState(true);
             else
-            {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
                 m_headerView->setCheckState(false);
-            }
+        }
+        else
+        {
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+            m_headerView->setCheckState(false);
         }
     }
 }
@@ -851,8 +851,6 @@ void TablePage::onHeaderCkbTog(bool toggled)
             {
                 if (item->checkState() == Qt::Checked)
                     emit sigHasRunningCtn(true);
-                else
-                    emit sigHasRunningCtn(false);
             }
         }
     }
