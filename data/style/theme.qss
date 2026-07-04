@@ -179,22 +179,6 @@ QPushButton#btnCreate:focus
     outline: none;
 }
 
-/* the subcontrols below are used only in the MenuButtonPopup mode */
-/* QToolButton#btnCreate::menu-button {
-     border:none;
-     background-color:transparent;
-     left: -5px;
- }
-
-QToolButton#btnCreate::menu-arrow {
-     image: url(:/images/down-arrow.svg);
-     subcontrol-position: right center;
- }*/
-
-/* QToolButton::menu-arrow:open {
-     top: 1px; left: 1px; /* shift it a bit */
-/* }*/
-
 QPushButton#btnCreate::menu-indicator
 {
     image: url(:/images/down-arrow.svg);
@@ -204,55 +188,36 @@ QPushButton#btnCreate::menu-indicator
     height:16px*/
     left: -5px;
 }
-
-QMenu#btnCreateMenu,
-QMenu#addMenu,
-QMenu#moreInTableMenu,
-QMenu#userMenu
+QMenu#btnCreateMenu::item:disabled
 {
-    background-color: #ffffff; /* sets background of the menu */
+    color:#919191;
+}
+
+QMenu#addMenu
+{
+    background-color: #ffffff;
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#000000;
     font-size:14px;
 }
 
-QMenu#btnCreateMenu::item ,
-QMenu#addMenu::item,
-QMenu#moreInTableMenu::item,
-QMenu#userMenu::item
+QMenu#addMenu::item
 {
-    /* sets background of menu item. set this to something non-transparent
-        if you want menu color and menu item color to be different */
     background-color: #ffffff;
-     height:32px;
+    height:20px;
 }
 
-QMenu#btnCreateMenu::item:hover,
-QMenu#addMenu::item:hover,
-QMenu#moreInTableMenu::item:hover,
-QMenu#userMenu::item:hover
+QMenu#addMenu::item:hover
 {
-    /* sets background of menu item. set this to something non-transparent
-        if you want menu color and menu item color to be different */
-/*    background-color: red;*/
     color:#303133
 }
 
-QMenu#btnCreateMenu::item:selected ,
-QMenu#addMenu::item:selected,
-QMenu#moreInTableMenu::item:selected,
-QMenu#userMenu::item:selected
-{ /* when user selects item using mouse or keyboard */
+QMenu#addMenu::item:selected
+{
     background-color:#EBEEF5;
     color:#303133;
 }
-
-QMenu#btnCreateMenu::item:disabled
-{
-    color:#919191;
-}
-
 /************************HeaderView************************/
 TablePage HeaderView
 {
