@@ -474,12 +474,12 @@ ContainerSetting QCheckBox
 ContainerSetting QCheckBox::indicator:disabled:unchecked
 {
     color:#919191;
-    image: url(:/images/frame_s.png);
+    image: url(:/images/marquee_disable-default.png);
 }
 ContainerSetting QCheckBox::indicator:disabled:checked
 {
     color:#919191;
-    image: url(:/images/frame_s.png);
+    image: url(:/images/marquee_disable-checked.png);
 }
 
 ContainerSetting QCheckBox::indicator

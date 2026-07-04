@@ -46,9 +46,13 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     getLicense(licence_str);
 
     initUI();
-    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire);
+
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
+
+    connect(&InfoWorker::getInstance(), &InfoWorker::sessinoExpire, this, &LoginDialog::sessionExpire);
+    connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     //loadConfig();
 }
 
@@ -377,7 +381,6 @@ void LoginDialog::onLogin()
     if (!inspectLoginParam())
         return;
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     InfoWorker::getInstance().login(ui->lineEdit_username->text().toStdString(), ui->lineEdit_passwd->text().toStdString());
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
@@ -385,7 +388,6 @@ void LoginDialog::onLogin()
 void LoginDialog::onLogout()
 {
     InfoWorker::getInstance().logout();
-    connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));  //等待旋转
 }
 

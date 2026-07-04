@@ -34,7 +34,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert("created", QPair<QString, QString>(tr("Created"), "#00921b"));
 
     m_timer = new QTimer(this);
-    m_timer->start(60000);
+    //m_timer->start(60000);
     //    connect(m_timer, &QTimer::timeout,
     //            [this] {
     //                std::vector<int64_t> vecNodeId;
@@ -313,11 +313,11 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
         }
 
         //todo delete
-        //        if (!m_vecNodeId.empty())
-        //        {
-        //            setBusy(true);
-        //            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
-        //        }
+        if (!m_vecNodeId.empty())
+        {
+            setBusy(true);
+            InfoWorker::getInstance().listContainer(m_vecNodeId, true);
+        }
     }
     else
     {
