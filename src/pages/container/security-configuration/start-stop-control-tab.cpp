@@ -25,7 +25,7 @@ void StartStopControlTab::initUI()
     m_checkBox = new QCheckBox(this);
     m_checkBox->setObjectName("startStopCtlCheckBox");
     m_checkBox->setChecked(false);
-    m_checkBox->setText(tr("Restrict containers cannot run / stop containers from the command line"));
+    m_checkBox->setText(tr("Forbid operating this container from command line"));
     m_checkBox->setStyleSheet("#startStopCtlCheckBox::indicator:checked{color:#2eb3ff;}");
 
     layout->addWidget(m_checkBox);
