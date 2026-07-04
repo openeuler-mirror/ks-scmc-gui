@@ -303,8 +303,6 @@ void MonitorContent::applyDatePicker()
 
 void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<grpc::Status, container::MonitorHistoryReply> &reply)
 {
-    KLOG_INFO() << "getMonitorHistoryResult" << m_objId << objID;
-
     if (m_objId != objID)
         return;
 

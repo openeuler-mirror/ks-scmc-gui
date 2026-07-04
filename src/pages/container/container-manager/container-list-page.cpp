@@ -31,7 +31,7 @@
 #define CONTAINRT_STATUS_PAUSED "paused"
 #define CONTAINRT_STATUS_REMOVING "removing"
 #define CONTAINRT_STATUS_RESTARTING "restarting"
-
+#define TIMEOUT 60000
 using namespace grpc;
 
 ContainerListPage::ContainerListPage(QWidget *parent)
@@ -570,6 +570,18 @@ void ContainerListPage::getContainerList(qint64 nodeId)
     }
 }
 
+void ContainerListPage::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void ContainerListPage::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
+}
+
 void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
 {
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
@@ -827,27 +839,9 @@ void ContainerListPage::initConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::removeContainerFinished, this, &ContainerListPage::getContainerRemoveResult, Qt::UniqueConnection);
 }
 
-void ContainerListPage::timedRefresh(bool start)
-{
-    KLOG_INFO() << "container list time refresh:" << start;
-    if (start)
-        m_timer->start(60000);
-    else
-    {
-        m_timer->stop();
-    }
-}
-
 void ContainerListPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "containerList updateInfo, keyword:" << keyword;
-    if (keyword == "exitTimedRefresh")
-    {
-        timedRefresh(false);
-        clearCheckState();
-        return;
-    }
-
+    //clearCheckState();
     clearText();
     if (keyword.isEmpty())
     {
@@ -857,6 +851,5 @@ void ContainerListPage::updateInfo(QString keyword)
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         getNodeInfo();
         getImageInfo();
-        timedRefresh(true);
     }
 }

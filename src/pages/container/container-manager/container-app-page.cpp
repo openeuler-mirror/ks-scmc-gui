@@ -2,7 +2,7 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QDesktopWidget>
-
+#include <QTimer>
 #include "load-configuration.h"
 #include "message-dialog.h"
 #include "notification-manager.h"
@@ -13,21 +13,29 @@ using namespace grpc;
 #define CONTAINER_APP_PATH "container app path"
 #define CONTAINER_APP_IS_GUI "container app is_gui"
 #define STATUS_COL 4
-
+#define TIMEOUT 30000
 ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : TablePage(parent),
                                                                                                                                         m_nodeId(nodeId),
                                                                                                                                         m_containerId(containerId),
                                                                                                                                         m_nodeAddr(nodeAddr),
                                                                                                                                         m_containerName(containerName),
                                                                                                                                         m_appOp(nullptr),
-                                                                                                                                        m_proc(nullptr)
+                                                                                                                                        m_proc(nullptr),
+                                                                                                                                        m_timer(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
+    m_timer = new QTimer(this);
+
     initButtons();
     initTable();
     initConnect();
     setStyleSheet("background-color:#222222;");
     setMinimumWidth(900);
+
+    connect(m_timer, &QTimer::timeout,
+            [this] {
+                updateInfo();
+            });
 }
 
 ContainerAppPage::~ContainerAppPage()
@@ -43,6 +51,18 @@ void ContainerAppPage::updateInfo(QString keyword)
 {
     clearText();
     InfoWorker::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
+}
+
+void ContainerAppPage::showEvent(QShowEvent *event)
+{
+    m_timer->start(TIMEOUT);
+    TablePage::showEvent(event);
+}
+
+void ContainerAppPage::hideEvent(QHideEvent *event)
+{
+    m_timer->stop();
+    TablePage::hideEvent(event);
 }
 
 void ContainerAppPage::onCreate()

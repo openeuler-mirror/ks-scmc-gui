@@ -28,6 +28,10 @@ public:
     ~NodeListPage();
     void updateInfo(QString keyword = "");  //刷新表格
 
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+
 private slots:
     void onCreateNode();
     void onRemoveNode();
@@ -48,7 +52,6 @@ private:
     void initTable();
     void initNodeConnect();
     void getNodeList();
-    void timedRefresh(bool start);
 
 private:
     QString m_objId;

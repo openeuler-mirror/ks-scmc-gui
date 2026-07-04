@@ -22,11 +22,6 @@ void ContainerInfoPage::setContainerInfo(QMap<QString, QVariant> infoMap)
 
 void ContainerInfoPage::updateInfo(QString keyword)
 {
-    if (keyword == "exitTimedRefresh")
-    {
-        m_containerBackup->refresh(false);
-        return;
-    }
     m_monitor->updateMonitorInfo(m_infoMap.value(NODE_ID, -1).toInt(), m_infoMap.value(CONTAINER_ID, "").toString().toStdString());
     m_containerBackup->updateBackupList(m_infoMap.value(NODE_ID, -1).toInt(),
                                         m_infoMap.value(CONTAINER_ID, "").toString().toStdString(),

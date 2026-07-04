@@ -19,7 +19,10 @@ public:
     ~ContainerBackupPage();
     void updateInfo(QString keyword = "");
     void updateBackupList(int nodeId, std::string containerId, QString containerStatus);
-    void refresh(bool);
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
 
 private slots:
     void onCreateBackupBtn();
