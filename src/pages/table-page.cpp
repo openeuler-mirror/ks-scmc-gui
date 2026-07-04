@@ -26,7 +26,6 @@ using namespace std;
 TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
                                                       ui(new Ui::TablePage),
                                                       m_searchTimer(nullptr),
-                                                      m_refreshBtnTimer(nullptr),
                                                       m_isHeadCheckable(false),
                                                       m_singleChoose(false),
                                                       m_isSetTableActions(false),
@@ -42,8 +41,6 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
                 search();
                 m_searchTimer->stop();
             });
-    m_refreshBtnTimer = new QTimer(this);
-    connect(m_refreshBtnTimer, &QTimer::timeout, this, &TablePage::onRefreshTimeout);
     if (m_isOpenPaging)
         initPaging();
     //    setPaging(1,is_open);
@@ -57,26 +54,6 @@ TablePage::~TablePage()
         delete m_searchTimer;
         m_searchTimer = nullptr;
     }
-    if (m_refreshBtnTimer)
-    {
-        delete m_refreshBtnTimer;
-        m_refreshBtnTimer = nullptr;
-    }
-    //    if (m_pageEdit)
-    //    {
-    //        delete m_pageEdit;
-    //        m_pageEdit = nullptr;
-    //    }
-    //    if (m_pagingHlayout)
-    //    {
-    //        delete m_pagingHlayout;
-    //        m_pagingHlayout = nullptr;
-    //    }
-    //    if (m_totalPageLabel)
-    //    {
-    //        delete m_totalPageLabel;
-    //        m_totalPageLabel = nullptr;
-    //    }
 }
 
 void TablePage::clearTable()
@@ -373,8 +350,6 @@ void TablePage::hideSearchLine()
 void TablePage::initUI()
 {
     setMaskParent(this);
-    ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
-    ui->btn_refresh->installEventFilter(this);
 
     QHBoxLayout *layout = new QHBoxLayout(ui->lineEdit_search);
     layout->setMargin(0);
@@ -545,22 +520,6 @@ QString TablePage::tooptipWordWrap(const QString &org)
     return result;
 }
 
-bool TablePage::eventFilter(QObject *watched, QEvent *event)
-{
-    if (watched == ui->btn_refresh && event->type() == QEvent::HoverEnter)
-    {
-        ui->btn_refresh->setIcon(QIcon(":/images/refresh-hover.svg"));
-        return true;
-    }
-    else if (watched == ui->btn_refresh && event->type() == QEvent::HoverLeave)
-    {
-        ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
-        return true;
-    }
-
-    return false;
-}
-
 void TablePage::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;
@@ -628,18 +587,6 @@ void TablePage::onActRestart(QModelIndex index)
     emit sigRestart(index);
 }
 
-//void TablePage::onActImagePass(int row)
-//{
-//    KLOG_INFO() << "TablePage::onActImagePass" << row;
-//    emit sigImagePass(row);
-//}
-
-//void TablePage::onActImageRefuse(int row)
-//{
-//    KLOG_INFO() << "TablePage::onActImageRefuse" << row;
-//    emit sigImageRefuse(row);
-//}
-
 void TablePage::onActBackupResume(int row)
 {
     KLOG_INFO() << "TablePage::onActBackupResume" << row;
@@ -656,34 +603,6 @@ void TablePage::onActBackupRemove(int row)
 {
     KLOG_INFO() << "TablePage::onActBackupRemove" << row;
     emit sigBackupRemove(row);
-}
-
-void TablePage::onRefreshTimeout()
-{
-    static int count = 0;
-    count++;
-    QPixmap pix(":/images/refresh-hover.svg");
-    static int rat = 0;
-    rat = rat >= 180 ? 30 : rat + 30;
-    int imageWidth = pix.width();
-    int imageHeight = pix.height();
-    QPixmap temp(pix.size());
-    temp.fill(Qt::transparent);
-    QPainter painter(&temp);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.translate(imageWidth / 2, imageHeight / 2);        //让图片的中心作为旋转的中心
-    painter.rotate(rat);                                       //顺时针旋转90度
-    painter.translate(-(imageWidth / 2), -(imageHeight / 2));  //使原点复原
-    painter.drawPixmap(0, 0, pix);
-    painter.end();
-    ui->btn_refresh->setIcon(QIcon(temp));
-
-    if (count == 6)
-    {
-        m_refreshBtnTimer->stop();
-        ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
-        count = 0;
-    }
 }
 
 void TablePage::search()
@@ -742,7 +661,6 @@ void TablePage::search()
 
 void TablePage::refresh()
 {
-    m_refreshBtnTimer->start(100);
     //刷新搜索结果
     if (m_isOpenPaging)
         emit sigRefreshSearchResult();
