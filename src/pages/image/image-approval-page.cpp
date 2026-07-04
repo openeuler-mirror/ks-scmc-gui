@@ -38,7 +38,6 @@ void ImageApprovalPage::createSubPage(ImageApprovalType type)
         //        m_imagelist_approve->setIsInitAuditButtons(true);
         m_imagelist_approve->setOperateAreaVisible(true);
         addTabPage(m_imagelist_approve, tr("Wait for Approve"));
-        connect(m_imagelist_approve, &ImageListPage::sigUpdateAuditInfo, this, &ImageApprovalPage::updateApprovalInfo);
         connect(m_imagelist_approve, &ImageListPage::sigUpdateAPproveTipSums, this, &ImageApprovalPage::sigUpdateTipSumsProxy);
         break;
     }

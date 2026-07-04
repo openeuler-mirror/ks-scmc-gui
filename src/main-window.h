@@ -47,6 +47,7 @@ protected:
 private:
     void initUI();
     Page *createSubPage(GUIDE_ITEM itemEnum);
+    void loadUserButton();
     void loadUserPage();
     void loadUserItem();
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");

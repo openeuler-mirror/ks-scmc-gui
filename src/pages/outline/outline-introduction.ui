@@ -96,14 +96,14 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_1">
+           <widget class="QLabel" name="label_summary">
             <property name="text">
              <string>TextLabel</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="label_body">
             <property name="text">
              <string>TextLabel</string>
             </property>

@@ -411,6 +411,12 @@ void InfoWorker::getSecuritySwitch(const QString objId)
     emit getSecuritySwitchFinished(objId, reply);
 }
 
+void InfoWorker::dashboard(const QString objId)
+{
+    sys::DashboardRequest req;
+    RPC_ASYNC(sys::DashboardReply, _dashboard, dashboardFinished, objId, req);
+}
+
 void InfoWorker::listNetwork(const QString objId, const int64_t node_id)
 {
     network::ListRequest req;
@@ -853,6 +859,11 @@ QPair<grpc::Status, sys::SetSecuritySwitchReply> InfoWorker::_setSecuritySwitch(
 QPair<grpc::Status, sys::GetSecuritySwitchReply> InfoWorker::_getSecuritySwitch(const sys::GetSecuritySwitchRequest &req)
 {
     RPC_IMPL(sys::GetSecuritySwitchReply, sys::System::NewStub, GetSecuritySwitch);
+}
+
+QPair<grpc::Status, sys::DashboardReply> InfoWorker::_dashboard(const sys::DashboardRequest &req)
+{
+    RPC_IMPL(sys::DashboardReply, sys::System::NewStub, Dashboard);
 }
 
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
