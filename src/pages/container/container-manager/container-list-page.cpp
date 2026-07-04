@@ -25,8 +25,12 @@
 #include "load-configuration.h"
 
 #define CONTAINER_STATUS_RUNNING "running"
-#define CONTAINER_STATUS_EXITED "exited"
 #define CONTAINRT_STATUS_CREATED "created"
+#define CONTAINER_STATUS_EXITED "exited"
+#define CONTAINRT_STATUS_DEAD "dead"
+#define CONTAINRT_STATUS_PAUSED "paused"
+#define CONTAINRT_STATUS_REMOVING "removing"
+#define CONTAINRT_STATUS_RESTARTING "restarting"
 
 using namespace grpc;
 
@@ -48,8 +52,12 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     //setMaskParent(this);
 
     m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
-    m_statusMap.insert(CONTAINER_STATUS_EXITED, QPair<QString, QString>(tr("Offline"), "#d30000"));
     m_statusMap.insert(CONTAINRT_STATUS_CREATED, QPair<QString, QString>(tr("Created"), "#00921b"));
+    m_statusMap.insert(CONTAINER_STATUS_EXITED, QPair<QString, QString>(tr("Offline"), "#d30000"));
+    m_statusMap.insert(CONTAINRT_STATUS_DEAD, QPair<QString, QString>(tr("Dead"), "#d30000"));
+    m_statusMap.insert(CONTAINRT_STATUS_PAUSED, QPair<QString, QString>(tr("Paused"), "#d30000"));
+    m_statusMap.insert(CONTAINRT_STATUS_REMOVING, QPair<QString, QString>(tr("Removing"), "#d30000"));
+    m_statusMap.insert(CONTAINRT_STATUS_RESTARTING, QPair<QString, QString>(tr("Restarting"), "#F57900"));
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this] {
