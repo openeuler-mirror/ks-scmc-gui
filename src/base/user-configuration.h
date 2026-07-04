@@ -4,6 +4,8 @@
 #include <QSettings>
 
 #define SCMC_DES_KEY "vaksscms"
+#define PASSWORD "password"
+#define USERNAME "username"
 
 enum ConfigSettingType
 {
@@ -30,8 +32,8 @@ public:
     static std::string desDecrypt(const std::string &message, const std::string &key = SCMC_DES_KEY);  //解密
 
 private:
-    QSettings *m_serverSetting;
     QSettings *m_loginSettings;
+    QSettings *m_serverSetting;
 };
 
 #endif  // USERCONFIGURATION_H

@@ -31,6 +31,9 @@
    </property>
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>10</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -70,7 +73,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLabel" name="lab_ne_pw_tips">
+      <widget class="QLabel" name="lab_new_pw_tips">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -123,6 +126,9 @@
      <property name="spacing">
       <number>36</number>
      </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -151,12 +157,12 @@
         </size>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Confirm</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="brn_cancel">
+      <widget class="QPushButton" name="btn_cancel">
        <property name="minimumSize">
         <size>
          <width>110</width>
@@ -170,7 +176,7 @@
         </size>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>

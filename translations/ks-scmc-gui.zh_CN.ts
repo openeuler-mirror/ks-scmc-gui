@@ -2,30 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name>AuditListPage</name>
-    <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="27"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="35"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="45"/>
-        <source>Rejected</source>
-        <translation>拒绝</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="27"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="37"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="43"/>
-        <source>Passed</source>
-        <translation>通过</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="29"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="35"/>
-        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="43"/>
-        <source>Wait for Approve</source>
-        <translation>等待审批</translation>
-    </message>
-</context>
-<context>
     <name>ButtonDelegate</name>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="19"/>
@@ -665,8 +641,8 @@
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="274"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="542"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="551"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="518"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="527"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
@@ -707,76 +683,76 @@
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="493"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="502"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="469"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="478"/>
         <source>Check Image</source>
         <translation>校验镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="494"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="470"/>
         <source>Check Image success!</source>
         <translation>校验镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="503"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="479"/>
         <source>Check Image failed!</source>
         <translation>校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="516"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="529"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="492"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="505"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="517"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="493"/>
         <source>Remove Image success!</source>
         <translation>移除镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="530"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="506"/>
         <source>Remove Image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="543"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="519"/>
         <source>Upload Image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="552"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="528"/>
         <source>Upload Image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="564"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="573"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="540"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="549"/>
         <source>update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="565"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="541"/>
         <source>update Image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="574"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="550"/>
         <source>update Image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="604"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="613"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="580"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="589"/>
         <source>download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="605"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="581"/>
         <source>download Image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="614"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="590"/>
         <source>download Image failed!</source>
         <translation>下载镜像失败！</translation>
     </message>
@@ -1005,17 +981,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="180"/>
+        <location filename="../src/main-window.cpp" line="181"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="181"/>
+        <location filename="../src/main-window.cpp" line="182"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="182"/>
+        <location filename="../src/main-window.cpp" line="183"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1658,10 +1634,24 @@ It mainly includes four modules: user management, node management, image and ima
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="154"/>
-        <location filename="../src/pages/user/passwd-update-dialog.ui" line="173"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="174"/>
+        <source>Confirm</source>
+        <translation type="unfinished">确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.ui" line="173"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_passwd-update-dialog.h" line="175"/>
-        <source>PushButton</source>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="21"/>
+        <source>Change Password</source>
+        <translation type="unfinished">修改密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/user/passwd-update-dialog.cpp" line="28"/>
+        <source>The password should contain at least a combination of password and number, with a length range of 8-32 characters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
