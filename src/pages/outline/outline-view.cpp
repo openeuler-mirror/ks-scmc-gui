@@ -258,7 +258,7 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "Can't get system dashboard information!";
+        KLOG_WARNING() << "Can't get system dashboard information!";
         return;
     }
 
@@ -311,10 +311,16 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
     m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
     emit sigWarnSumNums(unreadWarnCount);
 
-    KLOG_INFO() << nodeTotal << nodeOnline << nodeOffline
-                << containerTotal << containerOnline << containerOffline
-                << templateTotal
-                << imageTotal << imageSize
-                << approveCount
-                << unreadWarnCount;
+    KLOG_DEBUG() << "Node info:"
+                 << "total:" << nodeTotal << "online number: " << nodeOnline << "offline number:" << nodeOffline << "\n"
+                 << "Container info:"
+                 << "total:" << containerTotal << "online number:" << containerOnline << "offline number:" << containerOffline << "\n"
+                 << "Template info:"
+                 << "tatol:" << templateTotal << "\n"
+                 << "Image info:"
+                 << "tatol:" << imageTotal << "size:" << imageSize << "\n"
+                 << "Unapproved info:"
+                 << "tatol:" << approveCount << "\n"
+                 << "Unread warnning info:"
+                 << "tatol: " << unreadWarnCount << "\n";
 }

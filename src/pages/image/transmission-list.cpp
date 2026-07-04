@@ -41,7 +41,6 @@ void TransmissionList::paintEvent(QPaintEvent *event)
 
 void TransmissionList::addItem(QString name, QString version, ImageTransmissionStatus status, int rate)
 {
-    KLOG_INFO() << "transmission list add item:" << name << version;
     QListWidgetItem *newItem = nullptr;
     TransmissionItem *customItem = nullptr;
 
@@ -151,7 +150,6 @@ int TransmissionList::getTransfersNum()
 void TransmissionList::setTransfersNum(int num)
 {
     m_transfersNum = num;
-    KLOG_INFO() << "set transfers num" << num;
     if (num > 0)
         m_stackedWidget->setCurrentIndex(1);
     else

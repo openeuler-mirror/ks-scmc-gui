@@ -140,9 +140,7 @@ void TrendChartForm::clearChart(QString seriesName)
 
 void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesName)
 {
-    KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
-
-    KLOG_INFO() << "setDate" << seriesName;
+    KLOG_DEBUG() << "Update" << seriesName << "chart:" << chartInfo.yStart << chartInfo.yEnd;
 
     QChart *chart = m_chartView->chart();
     //x轴

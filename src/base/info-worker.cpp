@@ -30,7 +30,7 @@ const int CHUNK_SIZE = 16 * 1024;
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());                        \
     if (!chan)                                                                              \
     {                                                                                       \
-        KLOG_INFO("%s %s failed to get connection", #STUB, #RPC_NAME);                      \
+        KLOG_WARNING("%s %s failed to get connection", #STUB, #RPC_NAME);                   \
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,                                   \
                                QObject::tr("Network Error").toStdString());                 \
         return r;                                                                           \
@@ -709,7 +709,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO() << "export backup failed to get connection";
+        KLOG_WARNING() << "Export backup failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         return r;
@@ -725,7 +725,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     bool ret = stream->Read(&reply);
     if (!ret)
     {
-        KLOG_INFO() << "recv param err";
+        KLOG_WARNING() << "Recv backup param err";
         r.first = stream->Finish();
         return r;
     }
@@ -748,7 +748,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     const auto version = QString::fromStdString(reply.img_version());
     const auto size = reply.img_size();
     QString exportName = name + "-" + version;
-    KLOG_INFO() << name << version << size;
+    KLOG_DEBUG() << "export name:" << name << "export version:" << version << "export size:" << size;
     if (InfoWorker::getInstance().m_exportList.contains(exportName))
     {
         r.first = grpc::Status(grpc::StatusCode::ALREADY_EXISTS, tr("The %1 backup is exporting,please wait a minute.").arg(exportName).toStdString());
@@ -761,7 +761,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     QFile imgFile(filePath);
     if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        KLOG_INFO() << "Failed to open " << filePath;
+        KLOG_WARNING() << "Failed to open " << filePath;
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Failed to open %1").arg(filePath).toStdString());
         InfoWorker::getInstance().m_exportList.removeAll(exportName);
@@ -939,7 +939,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO() << "uploadImage failed to get connection";
+        KLOG_WARNING() << "UploadImage failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -955,7 +955,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     QFile imgFile(imageFile);
     if (!imgFile.open(QIODevice::ReadOnly))
     {
-        KLOG_INFO() << "Failed to open " << imageFile;
+        KLOG_WARNING() << "Failed to open " << imageFile;
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -973,7 +973,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         QFile sigFile(signFile);
         if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
         {
-            KLOG_INFO() << "Failed to open " << signFile;
+            KLOG_WARNING() << "Failed to open " << signFile;
             imgFile.close();
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
@@ -985,7 +985,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         if (signContent.size() == 0)
         {
             // 读取签名文件错误
-            KLOG_INFO() << "Read sign file " << signFile;
+            KLOG_WARNING() << "Read sign file " << signFile << "faild.";
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1000,7 +1000,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     auto stream = image::Image::NewStub(chan)->Upload(&context, &r.second);
     if (!stream->Write(req))
     {
-        KLOG_INFO() << "send param err";
+        KLOG_WARNING() << "Send image param err";
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Internal Error").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1016,7 +1016,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     {
         if (InfoWorker::getInstance().isTransferStoped(name, version))
         {
-            KLOG_INFO() << "Transmission interruption";
+            KLOG_DEBUG() << "Transmission interruption";
             context.TryCancel();
             emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, progress);
             break;
@@ -1028,7 +1028,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
             req.set_chunk_data(buf, n);
             if (!stream->Write(req))
             {
-                KLOG_INFO() << "Broken stream, bytes transmitted:" << trans;
+                KLOG_DEBUG() << "Broken stream, bytes transmitted:" << trans;
                 emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, progress);
                 break;
             }
@@ -1051,8 +1051,6 @@ finish:
         r.first = grpc::Status(r.first.error_code(), tr("The transmission was cancelled.").toStdString());
 
     emit InfoWorker::getInstance().transferImageFinished(name, version);
-    KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
-
     return r;
 }
 
@@ -1066,7 +1064,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO() << "update image failed to get connection";
+        KLOG_WARNING() << "Update image failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1084,7 +1082,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     {
         if (!stream->Write(req))
         {
-            KLOG_INFO() << "send param err";
+            KLOG_WARNING() << "Send image param err";
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                    QObject::tr("Internal Error").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1096,7 +1094,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         QFile imgFile(imageFile);
         if (!imgFile.open(QIODevice::ReadOnly))
         {
-            KLOG_INFO() << "Failed to open " << imageFile;
+            KLOG_WARNING() << "Failed to open " << imageFile;
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1108,7 +1106,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             QFile sigFile(signFile);
             if (!sigFile.open(QIODevice::ReadOnly) || sigFile.size() > 8192 || sigFile.size() == 0)
             {
-                KLOG_INFO() << "Failed to open " << signFile;
+                KLOG_WARNING() << "Failed to open " << signFile;
                 r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                        QObject::tr("Invalid Argument").toStdString());
                 emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1120,7 +1118,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
             if (signContent.size() == 0)
             {
                 // 读取签名文件错误
-                KLOG_INFO() << "Read sign file " << signFile;
+                KLOG_WARNING() << "Read sign file " << signFile << "faild.";
                 r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                        QObject::tr("Invalid Argument").toStdString());
                 emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1140,7 +1138,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
 
         if (!stream->Write(req))
         {
-            KLOG_INFO() << "send param err";
+            KLOG_WARNING() << "Send image param err";
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                    QObject::tr("Internal Error").toStdString());
             emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1157,7 +1155,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         {
             if (InfoWorker::getInstance().isTransferStoped(name, version))
             {
-                KLOG_INFO() << "Transmission interruption";
+                KLOG_DEBUG() << "Transmission interruption";
                 context.TryCancel();
                 emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, progress);
                 break;
@@ -1169,7 +1167,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
                 req.set_chunk_data(buf, n);
                 if (!stream->Write(req))
                 {
-                    KLOG_INFO() << "Broken stream, bytes transmitted:" << trans;
+                    KLOG_DEBUG() << "Broken stream, bytes transmitted:" << trans;
                     emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, progress);
                     break;
                 }
@@ -1192,7 +1190,6 @@ finish:
         r.first = grpc::Status(r.first.error_code(), tr("The transmission was cancelled.").toStdString());
 
     emit InfoWorker::getInstance().transferImageFinished(name, version);
-    KLOG_INFO() << "return:" << r.first.error_code();
     return r;
 }
 
@@ -1202,7 +1199,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO() << "download image failed to get connection";
+        KLOG_WARNING() << "Download image failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1220,7 +1217,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     bool ret = stream->Read(&reply);
     if (!ret)
     {
-        KLOG_INFO() << "recv param err";
+        KLOG_WARNING() << "Recv image param err";
         r.first = stream->Finish();
         emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
@@ -1234,7 +1231,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     QFile imgFile(filePath);
     if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        KLOG_INFO() << "Failed to open " << filePath;
+        KLOG_WARNING() << "Failed to open " << filePath;
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Failed to open %1").arg(filePath).toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
@@ -1273,7 +1270,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         //QByteArray fileArray;
         if (!file.open(QIODevice::ReadOnly))
         {
-            KLOG_INFO() << "Failed to open " << filePath;
+            KLOG_WARNING() << "Failed to open " << filePath;
             message = tr("Failed to open %1!").arg(filePath);
             statusCode = grpc::StatusCode::INTERNAL;
             status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
@@ -1285,7 +1282,7 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
         QCryptographicHash hash(QCryptographicHash::Sha256);
         if (!hash.addData(&file))
         {
-            KLOG_INFO() << "Failed to read file " << filePath;
+            KLOG_WARNING() << "Failed to read file " << filePath;
             message = tr("file was broken!");
             statusCode = grpc::StatusCode::INTERNAL;
             status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
@@ -1294,12 +1291,13 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
             break;
         }
         file.close();
-        auto strSha256 = hash.result().toHex();
 
-        KLOG_INFO() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
+        auto strSha256 = hash.result().toHex();
+        KLOG_DEBUG() << "strSha256:" << strSha256 << ", fileSize:" << fileSize;
+
         if (size != fileSize || checksum != strSha256.toStdString())
         {
-            KLOG_INFO() << size << fileSize << checksum.data() << strSha256.toStdString().data();
+            KLOG_DEBUG() << size << fileSize << checksum.data() << strSha256.toStdString().data();
             message = tr("file was broken!");
             statusCode = grpc::StatusCode::INTERNAL;
             status = IMAGE_TRANSMISSION_STATUS_DOWNLOADING_FAILED;
@@ -1337,7 +1335,7 @@ QPair<grpc::Status, user::LoginReply> InfoWorker::_login(const user::LoginReques
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO("user::User::NewStub Login failed to get connection");
+        KLOG_WARNING("user::User::NewStub Login failed to get connection");
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         return r;
@@ -1362,7 +1360,7 @@ QPair<grpc::Status, user::LogoutReply> InfoWorker::_logout(const user::LogoutReq
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
-        KLOG_INFO("user::User::NewStub Logout failed to get connection");
+        KLOG_WARNING("user::User::NewStub Logout failed to get connection");
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         return r;

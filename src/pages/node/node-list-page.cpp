@@ -94,7 +94,7 @@ void NodeListPage::onRemoveNode()
     std::vector<int64_t> node_ids;
     foreach (auto &idMap, info)
     {
-        KLOG_INFO() << idMap.value(NODE_ID).toInt();
+        KLOG_INFO() << "Remove node:" << idMap.value(NODE_ID).toInt();
         node_ids.push_back(idMap.value(NODE_ID).toInt());
     }
 
@@ -141,7 +141,8 @@ void NodeListPage::onEdit(int row)
 
 void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "name" << Info[NODE_NAME] << "ip" << Info[NODE_ADDRESS] << Info[NODE_COMMENT];
+    KLOG_INFO() << "Save node. "
+                << "name: " << Info[NODE_NAME] << "ip: " << Info[NODE_ADDRESS] << "description:" << Info[NODE_COMMENT];
     NodeOperateDialog *dialog = qobject_cast<NodeOperateDialog *>(sender());
     auto type = dialog->getType();
     auto nodeId = dialog->getNodeId();
@@ -204,7 +205,8 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
     QMap<QString, QVariant> idMap;
     for (auto node : reply.second.nodes())
     {
-        KLOG_INFO() << "node id:" << node.id() << "node name:" << node.name().data();
+        KLOG_DEBUG() << "Get node list. "
+                     << "node id:" << node.id() << "node name:" << node.name().data();
         qint64 nodeId = node.id();
         idMap.insert(NODE_ID, nodeId);
         idMap.insert(NODE_NAME, node.name().data());
@@ -354,7 +356,7 @@ void NodeListPage::onItemClicked(const QModelIndex &index)
     auto item = getItem(index.row(), index.column());
     auto itemInfo = item->data().toMap();
     qint64 nodeId = itemInfo[NODE_ID].toInt();
-    KLOG_INFO() << "node " << nodeId << "clicked";
+    KLOG_DEBUG() << "Node " << nodeId << "has clicked.";
 
     emit sigNodeNameClicked(nodeId);
 }

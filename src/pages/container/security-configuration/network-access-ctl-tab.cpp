@@ -47,7 +47,7 @@ void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securi
 
     int count = 0;
     QStringList protocols;
-    KLOG_INFO() << "rules_size:" << networkRuleList.rules_size();
+    KLOG_DEBUG() << "Network rules size:" << networkRuleList.rules_size();
     for (auto rule : networkRuleList.rules())
     {
         protocols.clear();
@@ -88,7 +88,7 @@ void NetworkAccessCtlTab::getNetworkAccessInfo(container::SecurityConfig *securi
         QString addr;
         int port;
         item->getInfo(protocols, addr, port);
-        KLOG_INFO() << protocols << addr << port;
+        KLOG_DEBUG() << "Network access info:" << protocols << addr << port;
         foreach (QString protocol, protocols)
         {
             rules->add_protocols(protocol.toStdString());
@@ -228,7 +228,7 @@ void NetworkAccessCtlTab::addItem()
         QListWidgetItem *listItem = m_listWidget->item(row);
         if (m_listWidget->itemWidget(listItem) == item)
         {
-            KLOG_INFO() << "NetworkAccessItem index:" << row;
+            KLOG_DEBUG() << "Insert network Access item in index:" << row;
             createItem(row + 1);
             break;
         }
@@ -246,7 +246,7 @@ void NetworkAccessCtlTab::deleteItem()
         QListWidgetItem *listItem = m_listWidget->item(row);
         if (m_listWidget->itemWidget(listItem) == item)
         {
-            KLOG_INFO() << "NetworkAccessItem index:" << row;
+            KLOG_DEBUG() << "Delete network access item index:" << row;
             QListWidgetItem *delItem = m_listWidget->takeItem(row);
             delete delItem;
             delItem = nullptr;
@@ -260,7 +260,6 @@ void NetworkAccessCtlTab::popuoFuncDesc()
 {
     QToolButton *btn = qobject_cast<QToolButton *>(sender());
     QPoint point = btn->mapToGlobal(QPoint(0, 0));
-    KLOG_INFO() << point;
 
     m_funcDesc->move(QPoint(point.x() - 600, point.y() - 200));
     m_funcDesc->show();

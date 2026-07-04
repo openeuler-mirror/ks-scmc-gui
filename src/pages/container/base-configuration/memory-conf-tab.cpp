@@ -50,8 +50,8 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
     {
         auto memLimit = cfg->memory_limit();
         auto softLimit = cfg->memory_soft_limit();
-        KLOG_INFO() << "memory_limit: " << cfg->memory_limit()
-                    << "memory_soft_limit" << cfg->memory_soft_limit();
+        KLOG_DEBUG() << "Memory limit: " << cfg->memory_limit()
+                     << "Memory soft limit" << cfg->memory_soft_limit();
 
         ui->cb_max_unit->setCurrentText("MB");
         ui->cb_soft_unit->setCurrentText("MB");
@@ -66,10 +66,10 @@ bool MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg, QString &errMsg
     if (cfg)
     {
         auto softLimit = limitDataHandle(ui->lineEdit_soft_limit->text().toDouble(), ui->cb_soft_unit);
-        KLOG_INFO() << "Memory soft limit: " << softLimit;
+        KLOG_DEBUG() << "Memory soft limit: " << softLimit;
 
         auto maxLimit = limitDataHandle(ui->lineEdit_max_limit->text().toDouble(), ui->cb_max_unit);
-        KLOG_INFO() << "Memory max limit: " << maxLimit;
+        KLOG_DEBUG() << "Memory max limit: " << maxLimit;
 
         if (maxLimit < 0 || softLimit < 0)  //判断内存软限制和最大值是否溢出
         {

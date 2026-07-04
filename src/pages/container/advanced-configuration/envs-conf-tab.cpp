@@ -32,8 +32,8 @@ bool EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errM
         {
             auto key = item->m_firstColVal;
             auto value = item->m_secondColVal;
-            KLOG_INFO() << "key:" << key
-                        << "value:" << value;
+            KLOG_DEBUG() << "Env key:" << key
+                         << "Env value:" << value;
 
             if (key.isEmpty())
             {

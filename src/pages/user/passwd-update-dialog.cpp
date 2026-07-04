@@ -79,21 +79,21 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         {
             if (0 == QString::compare(inputPw, oldPw, Qt::CaseSensitive))  //same
             {
-                KLOG_INFO() << "old password input ok!";
+                KLOG_DEBUG() << "Old password input ok!";
                 ui->lab_old_pw_tips->clear();
                 ui->lab_old_pw_tips->hide();
                 return true;
             }
             else
             {
-                errorMsg = tr("old password input error");
-                KLOG_INFO() << errorMsg;
+                errorMsg = tr("Old password input error");
+                KLOG_WARNING() << errorMsg;
                 ui->lab_old_pw_tips->show();
                 ui->lab_old_pw_tips->setText(errorMsg);
             }
         }
         else
-            KLOG_INFO() << "There is no password in ks-scmc-user.ini";
+            KLOG_WARNING() << "There is no password in ks-scmc-user.ini";
         break;
     }
     case PASSWORF_TYPE_NEW:
@@ -109,14 +109,14 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         }
         else
         {
-            KLOG_INFO() << "new password input ok!";
+            KLOG_DEBUG() << "New password input ok!";
             ui->lab_new_pw_tips->clear();
             ui->lab_new_pw_tips->hide();
             return true;
         }
         ui->lab_new_pw_tips->show();
         ui->lab_new_pw_tips->setText(errorMsg);
-        KLOG_INFO() << errorMsg;
+        KLOG_WARNING() << errorMsg;
         break;
     }
 
@@ -125,7 +125,7 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         QString newPw = ui->lineEdit_new_pw->text();
         if (0 == QString::compare(newPw, inputPw))
         {
-            KLOG_INFO() << "confirm password input ok!";
+            KLOG_DEBUG() << "Confirm password input ok!";
             ui->lab_confirm_pw_tips->clear();
             ui->lab_confirm_pw_tips->hide();
             return true;
@@ -133,7 +133,7 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         else
         {
             errorMsg = tr("The confirmation password is not match with the new password");
-            KLOG_INFO() << errorMsg;
+            KLOG_WARNING() << errorMsg;
             ui->lab_confirm_pw_tips->show();
             ui->lab_confirm_pw_tips->setText(errorMsg);
         }
@@ -154,7 +154,7 @@ void PasswdUpdateDialog::onConfirm()
         updatePassword(ui->lineEdit_old_pw->text(), ui->lineEdit_new_pw->text());
     }
     else
-        KLOG_INFO() << "password arg error";
+        KLOG_WARNING() << "The password has error";
 }
 
 void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply)

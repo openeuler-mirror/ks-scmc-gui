@@ -100,7 +100,6 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == m_mainWindow && event->type() == QEvent::Close)
     {
-        KLOG_INFO() << "mainwindow close event!";
         if (QThreadPool::globalInstance()->activeThreadCount())
         {
             MessageDialog::message(tr("Quit Application"),
@@ -342,7 +341,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
             0 != QString::compare(userRole, USER_ROLE_AUDADM))
         {
             auto msg = tr("Login failed: there is no %1 user role").arg(userRole);
-            KLOG_INFO() << msg;
+            KLOG_WARNING() << msg;
             ui->lab_tips->setText(msg);
             ui->lab_tips->show();
             ui->lineEdit_passwd->clear();
@@ -364,7 +363,7 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
     }
     else
     {
-        KLOG_INFO() << "Login failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Login failed:" << reply.first.error_message().data();
         ui->lab_tips->setText(tr("Login failed %1").arg(reply.first.error_message().data()));
         ui->lab_tips->show();
         ui->lineEdit_passwd->clear();
@@ -406,7 +405,7 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
                                tr("Error: ") + reply.first.error_message().data(),
                                ":/images/error.svg",
                                MessageDialog::StandardButton::Ok);
-        KLOG_INFO() << "Logout failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Logout failed:" << reply.first.error_message().data();
     }
 }
 
@@ -416,11 +415,11 @@ void LoginDialog::sessionExpire()
     if (!m_isLogin)
         return;
 
-    KLOG_INFO() << "get session expired!";
+    KLOG_DEBUG() << "get session expired!";
 
     if (!m_sessionMutex.tryLock())
     {
-        KLOG_INFO() << "get lock fail and return";
+        KLOG_DEBUG() << "Get lock fail and return";
         return;
     }
 

@@ -12,7 +12,7 @@ void NotificationManager::sendNotify(const QString &summary, const QString &body
 {
     if (!notify_init("NotificationManager"))
     {
-        KLOG_DEBUG() << "init notify failed!";
+        KLOG_WARNING() << "init notify failed!";
         return;
     }
 
@@ -24,7 +24,7 @@ void NotificationManager::sendNotify(const QString &summary, const QString &body
                                                          icon.toStdString().c_str());
     if (!notify_notification_show(notify, &error))
     {
-        KLOG_DEBUG() << error->message;
+        KLOG_WARNING() << error->message;
         g_error_free(error);
     }
 

@@ -133,12 +133,12 @@ void ContainerAppPage::onRun(int row)
         }
 
         auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
-        KLOG_INFO() << cmd;
+        KLOG_DEBUG() << "Container app command:" << cmd;
 
         m_runningAppRow = row;
         m_proc->start(cmd);
 
-        KLOG_INFO() << "pid: " << m_proc->processId();
+        KLOG_DEBUG() << "pid: " << m_proc->processId();
     }
     else
     {
@@ -240,7 +240,7 @@ void ContainerAppPage::onSaveApp(const QString name, const QString path, const b
 
 void ContainerAppPage::guiAppStatus(QProcess::ProcessState state)
 {
-    KLOG_INFO() << "process status:" << state;
+    KLOG_DEBUG() << "Process status:" << state;
     auto item = getItem(m_runningAppRow, STATUS_COL);
     auto dataItem = getItem(m_runningAppRow, 1);
     QMap<QString, QVariant> appInfo = dataItem->data().toMap();
@@ -269,7 +269,7 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get container app list failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get container app list failed:" << reply.first.error_message().data();
         if (PERMISSION_DENIED == reply.first.error_code())
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         else
@@ -291,7 +291,7 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
     clearTable();
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     int size = reply.second.apps_size();
-    KLOG_INFO() << "container app  size:" << size;
+    KLOG_DEBUG() << "Container app size:" << size;
     if (size <= 0)
     {
         setHeaderCheckable(false);
@@ -507,7 +507,6 @@ void ContainerAppPage::showOperateDlg()
     m_appOp->show();
     connect(m_appOp, &ContainerAppOperateDialog::destroyed,
             [=] {
-                KLOG_INFO() << "destroy  ContainerAppOperateDialog";
                 m_appOp->deleteLater();
                 m_appOp = nullptr;
             });

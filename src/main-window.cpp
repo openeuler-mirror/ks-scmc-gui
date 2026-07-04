@@ -540,7 +540,7 @@ void MainWindow::loadUserPage()
     }
     else
     {
-        KLOG_INFO() << "create page failed,there is no such user role!";
+        KLOG_WARNING() << "Create page failed,there is no such user role!";
         return;
     }
 
@@ -550,7 +550,7 @@ void MainWindow::loadUserPage()
         auto subPage = createSubPage(itemEnum);
         if (!subPage)
         {
-            KLOG_WARNING() << "sub page is null,ignore!";
+            KLOG_WARNING() << "Sub page is null,ignore!";
             continue;
         }
         subPage->setData(QVariant(iter.value()));
@@ -607,7 +607,7 @@ void MainWindow::loadUserItem()
     }
     else
     {
-        KLOG_INFO() << "create side item failed, there is no such user role!";
+        KLOG_WARNING() << "Create side item failed, there is no such user role!";
         return;
     }
 }
@@ -697,11 +697,11 @@ void MainWindow::onHelpAction(bool checked)
     QString file = QString(HELP_MANUAL_PATH) + QString("manual.pdf");
     if (QFile::exists(file))
     {
-        KLOG_INFO() << "open help manual PDF. from system";
+        KLOG_DEBUG() << "open help manual PDF. from system";
         QDesktopServices::openUrl(QUrl::fromLocalFile(file));
     }
     else
-        KLOG_INFO() << file << "is not exit!";
+        KLOG_WARNING() << "Help file: " << file << "is not exit!";
 }
 
 void MainWindow::onUpdatePwSuccessful()
@@ -780,7 +780,7 @@ void MainWindow::onTransferItemDeleted(QString name, QString version, ImageTrans
             }
             m_transferImages.removeOne(transferImage);
             m_btnTransmission->setTipMsg(m_transferImages.size());
-            KLOG_INFO() << "stop transfer:" << name << version << ",tipMsg:" << m_transferImages.size();
+            KLOG_DEBUG() << "stop transfer:" << name << version << ",tipMsg:" << m_transferImages.size();
         }
     }
 }

@@ -114,13 +114,12 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
     if (m_objId != objId)
         return;
 
-    KLOG_INFO() << "node id:" << m_nodeId;
     if (m_nodeId <= 0)
         return;
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get node list result failed:" << reply.first.error_message().data();
         return;
     }
 
@@ -139,7 +138,9 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
             auto cpuTotal = node.status().cpu_stat().total();
             auto memoryTotal = node.status().mem_stat().total();
             auto diskTotal = node.status().disk_stat().total();
-            KLOG_INFO() << cpuTotal << memoryTotal << diskTotal;
+            KLOG_DEBUG() << "Total cpu: " << cpuTotal
+                         << "Total memory: " << memoryTotal
+                         << "Total disk: " << diskTotal;
 
             ui->lineEdit_cpu->setPlaceholderText(tr("Maximum %1 cores").arg(cpuTotal));
             if (!ui->lineEdit_cpu->validator())

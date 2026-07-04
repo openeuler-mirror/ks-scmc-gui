@@ -37,9 +37,9 @@ public:
         {
             m_begin = std::chrono::steady_clock::now();
             //auto request = static_cast<const google::protobuf::Message *>(methods->GetSendMessage());
-	    auto request = (const google::protobuf::Message* )(methods->GetSendMessage());
+            auto request = (const google::protobuf::Message *)(methods->GetSendMessage());
             // TODO DEBUG LOG
-            KLOG_INFO() << "RPC " << info_->method() << "\nrequest: " << request->DebugString().data();
+            KLOG_DEBUG() << "RPC " << info_->method() << "\nrequest: " << request->DebugString().data();
         }
         if (methods->QueryInterceptionHookPoint(HookPoints::POST_RECV_STATUS))
         {
@@ -56,16 +56,16 @@ public:
             if (status->ok())
             {
                 // TODO DEBUG LOG
-                KLOG_INFO() << "RPC " << info_->method()
-                            << "\ncost: " << time_cost << "[ms]"
-                            << "\nreply: " << reply->DebugString().data();
+                KLOG_DEBUG() << "RPC " << info_->method()
+                             << "\ncost: " << time_cost << "[ms]"
+                             << "\nreply: " << reply->DebugString().data();
             }
             else
             {
-                KLOG_INFO() << "RPC " << info_->method()
-                            << "\ncost: " << time_cost << "[ms]"
-                            << "\nerror: " << status->error_code()
-                            << " " << status->error_message().data();
+                KLOG_DEBUG() << "RPC " << info_->method()
+                             << "\ncost: " << time_cost << "[ms]"
+                             << "\nerror: " << status->error_code()
+                             << " " << status->error_message().data();
             }
         }
         methods->Proceed();
@@ -98,7 +98,7 @@ static std::shared_ptr<grpc::ChannelCredentials> SslCredentials()
     bool enable;
     QString ca, cert, key;
     LoadConfiguration::Instance().getSslConfig(enable, ca, cert, key);
-    KLOG_DEBUG() << "enable ssl: " << enable;
+    KLOG_DEBUG() << "Enable ssl: " << enable;
     if (!enable)
     {
         return grpc::InsecureChannelCredentials();
@@ -120,8 +120,8 @@ static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
 
     for (int i = 0; i < 2; i++)
     {
-//        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
-//                    addr, SslCredentials(), args, std::move(creators));
+        //        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(
+        //                    addr, SslCredentials(), args, std::move(creators));
 
         auto chan = grpc::CreateCustomChannel(addr, SslCredentials(), args);
         //        auto chan = grpc::experimental::CreateCustomChannelWithInterceptors(

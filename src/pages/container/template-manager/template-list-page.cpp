@@ -76,7 +76,6 @@ void TemplateListPage::onEdit(int row)
         m_editTPSetting->show();
         connect(m_editTPSetting, &ContainerSetting::destroyed,
                 [=] {
-                    KLOG_INFO() << "update template setting destroy";
                     m_editTPSetting->deleteLater();
                     m_editTPSetting = nullptr;
                 });
@@ -169,12 +168,13 @@ void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grp
                               .arg(QString::fromStdString(name))
                               .arg(tr("Subnet"))
                               .arg(QString::fromStdString(subnet));
-            KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
+            KLOG_DEBUG() << "Get network info. "
+                         << "node id:" << nodeId << "network info:" << str;
             m_networksMap.insert(nodeId, str);
         }
     }
     else
-        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+        KLOG_WARNING() << "Get network list result failed: " << reply.first.error_message().data();
 }
 
 void TemplateListPage::getNodeListResult(QString objId, const QPair<Status, node::ListReply> &reply)
@@ -184,7 +184,7 @@ void TemplateListPage::getNodeListResult(QString objId, const QPair<Status, node
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get node list result failed:" << reply.first.error_message().data();
         return;
     }
 
@@ -208,7 +208,7 @@ void TemplateListPage::getListImageFinishedResult(QString objId, const QPair<Sta
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get image list result failed:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get image list result failed:" << reply.first.error_message().data();
         return;
     }
 
@@ -230,7 +230,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "get template list failed!" << reply.first.error_message().data();
+        KLOG_WARNING() << "Get template list failed!" << reply.first.error_message().data();
         if (reply.first.error_code() == PERMISSION_DENIED)
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         else
@@ -249,7 +249,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     clearTable();
     int size = reply.second.data_size();
-    KLOG_INFO() << "template size:" << size;
+    KLOG_DEBUG() << "Template size:" << size;
     if (size <= 0)
     {
         setTableDefaultContent("-");
@@ -399,7 +399,7 @@ void TemplateListPage::getItemId(int row, int64_t &id)
 
 void TemplateListPage::getNetworkInfo(int64_t node_id)
 {
-    KLOG_INFO() << "get network info of node:" << node_id;
+    KLOG_DEBUG() << "Get network info of node:" << node_id;
     InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 
