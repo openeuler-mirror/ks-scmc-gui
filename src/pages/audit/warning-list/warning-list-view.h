@@ -25,7 +25,7 @@ private:
     void initButtons();
     void initLogListConnect();
     void getWarningList(WarningListPageType type = CONTAINER_WARNING,int page_on = 1);
-    void getReadWarn(int64_t ids);
+    void getReadWarn(QList<int64_t> ids);
 
 private slots:
     void getListWarning(const QPair<grpc::Status, logging::ListWarnReply> &);
