@@ -1,7 +1,7 @@
 #cmake_minimum_required(VERSION 3.10)
 cmake_minimum_required(VERSION 2.8)
 
-set(INCLUDE_DIRS "../include/" "pages/" "common/" "base/" "dbus/")
+set(INCLUDE_DIRS "../include/" "pages/" "common/" "base/")
 set(TS_FILES "../translations/${PROJECT_NAME}.zh_CN.ts" )
 set(PROTO_LIB_DIR "${PROJECT_BINARY_DIR}/proto/")
 
