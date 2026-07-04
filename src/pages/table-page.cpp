@@ -181,6 +181,7 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     connect(m_btnDelegate, &ButtonDelegate::sigBackupExport, this, &TablePage::sigBackupExport);
     connect(m_btnDelegate, &ButtonDelegate::sigApp, this, &TablePage::sigApp);
     connect(m_btnDelegate, &ButtonDelegate::sigAppRun, this, &TablePage::sigAppRun);
+    connect(m_btnDelegate, &ButtonDelegate::sigAppStop, this, &TablePage::sigAppStop);
     connect(m_btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
     connect(m_btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
     connect(m_btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
@@ -759,7 +760,8 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
                 if (nameItem)
                 {
                     auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
-                    if (infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked)
+                    if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
+                        (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
                     {
                         hasRunningCtn = true;
                     }

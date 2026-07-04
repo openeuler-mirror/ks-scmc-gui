@@ -52,6 +52,7 @@ service Container {
     rpc UpdateAppEntry(UpdateAppEntryRequest) returns (UpdateAppEntryReply) {}
     rpc RemoveAppEntry(RemoveAppEntryRequest) returns (RemoveAppEntryReply) {}
     rpc RunAppEntry(RunAppEntryRequest) returns (RunAppEntryReply) {}
+    rpc KillAppEntry(KillAppEntryRequest) returns (KillAppEntryReply) {}
 
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
@@ -88,6 +89,7 @@ message AppEntry {
     string name         = 3;
     string exe_path     = 4;  // 应用程序路径
     bool   is_gui       = 5;  // 是否是图形程序
+    bool   is_running   = 6;  // 应用是否正在运行
 }
 
 message ListAppEntryRequest {
@@ -100,32 +102,42 @@ message ListAppEntryReply {
 }
 
 message AddAppEntryRequest {
-    int64    node_id = 1;
-    AppEntry app     = 2;
+    int64    node_id      = 1;
+    AppEntry app          = 2;
 }
 
 message AddAppEntryReply {}
 
 message UpdateAppEntryRequest {
-    int64    node_id = 1;
-    AppEntry app     = 2;
+    int64    node_id      = 1;
+    AppEntry app          = 2;
 }
 
 message UpdateAppEntryReply {}
 
 message RemoveAppEntryRequest {
-    int64          node_id = 1;
-    repeated int64 app_ids = 2;
+    int64          node_id      = 1;
+    string         container_id = 2;
+    repeated int64 app_ids      = 3;
 }
 
 message RemoveAppEntryReply {}
 
 message RunAppEntryRequest {
-    int64 node_id = 1;
-    int64 app_id  = 2;
+    int64  node_id      = 1;
+    string container_id = 2;
+    int64  app_id       = 3;
 }
 
 message RunAppEntryReply {}
+
+message KillAppEntryRequest {
+    int64  node_id      = 1;
+    string container_id = 2;
+    int64  app_id       = 3;
+}
+
+message KillAppEntryReply {}
 
 message CreateBackupRequest {
     int64  node_id      = 1;
