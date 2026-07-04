@@ -60,6 +60,16 @@ void CommonPage::setBusy(bool status)
     //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, !status);
 }
 
+void CommonPage::setData(QVariant data)
+{
+    m_data = data;
+}
+
+QVariant CommonPage::getData()
+{
+    return m_data;
+}
+
 void CommonPage::clearTable()
 {
     KLOG_INFO() << "pre" << m_model->rowCount();
