@@ -27,14 +27,14 @@ void ActivatePage::init()
     KiranTitlebarWindow::setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint | KiranTitlebarWindow::TitlebarMinimizeButtonHint);
     KiranTitlebarWindow::setIcon(QIcon(":/images/logo.png"));
 //        KiranTitlebarWindow::setTitleBarHeight(30);
-//    KiranTitlebarWindow::setFixedSize(500, 400);
-    KiranTitlebarWindow::setFixedSize(500, 500);
+//    KiranTitlebarWindow::setFixedSize(500, 340);
+    KiranTitlebarWindow::setFixedSize(500, 480);
     KiranTitlebarWindow::setWindowModality(Qt::ApplicationModal);
 
     QWidget *windowContentWidget = getWindowContentWidget();
 
     QVBoxLayout *vlayout = new QVBoxLayout(windowContentWidget);
-    vlayout->setContentsMargins(6, 6, 0, 12);
+    vlayout->setContentsMargins(6, 6, 0, 6);
 
     date_code_label = new QLabel(windowContentWidget);
     date_code_edit = new QLineEdit(windowContentWidget);
@@ -73,11 +73,16 @@ void ActivatePage::init()
     QPushButton *activeButton = new QPushButton(tr("Active"));
     QPushButton *canCelButton = new QPushButton(tr("Cancel"));
 
+    widget->setMinimumHeight(52);
+    widget->setContentsMargins(0,0,0,0);
+
     Kiran::WidgetPropertyHelper::setButtonType(activeButton, Kiran::ButtonType::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(canCelButton, Kiran::ButtonType::BUTTON_Normal);
 
     activeButton->setFixedHeight(36);
-    canCelButton->setFixedHeight(36);
+    canCelButton->setFixedHeight(40);
+//    activeButton->setMinimumHeight(36);
+//    canCelButton->setMinimumHeight(40);
 
     buttonLayout->addWidget(new QLabel(""));
     buttonLayout->addWidget(activeButton);

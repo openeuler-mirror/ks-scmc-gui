@@ -3413,7 +3413,7 @@ It mainly includes four modules: user management, node management, image and ima
     <message>
         <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="46"/>
         <source>Current Node</source>
-        <translation>当前节点</translation>
+        <translation>所在节点</translation>
     </message>
     <message>
         <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="47"/>
