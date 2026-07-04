@@ -6,6 +6,7 @@
  */
 #include "tab-page.h"
 #include <kiran-log/qt5-log-i.h>
+#include <table-page.h>
 #include <QPainter>
 #include <QStyleOption>
 #include <QVBoxLayout>

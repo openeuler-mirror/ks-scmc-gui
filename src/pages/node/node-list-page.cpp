@@ -348,23 +348,27 @@ void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status
 
 void NodeListPage::onItemClicked(const QModelIndex &index)
 {
-    if (index.column() == 1)
-    {
-        auto item = getItem(index.row(), index.column());
-        auto itemInfo = item->data().toMap();
-        qint64 nodeId = itemInfo[NODE_ID].toInt();
-        KLOG_INFO() << "node " << nodeId << "clicked";
+    if (index.column() != 1)
+        return;
 
-        emit sigNodeNameClicked(nodeId);
-    }
+    auto item = getItem(index.row(), index.column());
+    auto itemInfo = item->data().toMap();
+    qint64 nodeId = itemInfo[NODE_ID].toInt();
+    KLOG_INFO() << "node " << nodeId << "clicked";
+
+    emit sigNodeNameClicked(nodeId);
 }
 
 void NodeListPage::onItemEntered(const QModelIndex &index)
 {
-    if (index.column() == 1)
-        this->setCursor(Qt::PointingHandCursor);
-    else
+    if (index.column() != 1 && this->cursor() != Qt::ArrowCursor)
+    {
         this->setCursor(Qt::ArrowCursor);
+    }
+    else
+    {
+        this->setCursor(Qt::PointingHandCursor);
+    }
 }
 
 void NodeListPage::initButtons()

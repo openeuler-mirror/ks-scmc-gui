@@ -53,7 +53,6 @@ private:
     QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> m_btnInfo;
     int m_nType;  // 按钮状态：0-划过 1-按下
     QMenu* m_menu;
-    bool m_isSetDelegateDefault;
 };
 
 #endif  // BUTTONDELEGATE_H

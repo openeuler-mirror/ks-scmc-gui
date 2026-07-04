@@ -4,7 +4,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include "network-list-page.h"
-#include "table-page.h"
 NetworkPageManager::NetworkPageManager(QWidget *parent) : Page(parent)
 
 {

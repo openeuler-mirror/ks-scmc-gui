@@ -13,7 +13,7 @@
 #include <QWidget>
 #include "def.h"
 #include "page.h"
-#include "table-page.h"
+
 class TabPage : public Page
 {
     Q_OBJECT
