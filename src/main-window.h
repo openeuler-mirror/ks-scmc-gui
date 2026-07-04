@@ -42,11 +42,12 @@ private:
     Page *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
-    void outlinePageChange(int type, QString str);
+    void outlinePageChange(QString str);
 
 private slots:
     void onLogoutAction(bool checked);
     void onChangePwAction(bool checked);
+    void onAboutAction(bool checked);
     void onUpdatePwSuccessful();
     void popupTransmissionList();
     void getTransferImageStatus(ImageTransmissionStatus status, QString name, QString version, int rate);

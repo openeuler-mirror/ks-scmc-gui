@@ -42,13 +42,14 @@ private slots:
     void getOutlineCellImageNums(const QPair<grpc::Status, image::ListDBReply> &reply);
     void getOutlineCellTemplateContainerNums(const QPair<grpc::Status, container::ListTemplateReply> &reply);
     void getOutlineCellExamineNums(const QPair<grpc::Status, image::ListDBReply> &reply); //待审核
-    void getOutlineCellWarningNums();
+    void getOutlineCellWarningNums(const QPair<grpc::Status, node::ListReply> &);
 
     void emitOutlineCellType();
     void getlNodeList();
     void getContainerList();
     void getImageList();
     void getlTemplateContainer();
+    void getWarnNums();
 
 signals:
     void outlineCellStepPages(OutlineCellType type);

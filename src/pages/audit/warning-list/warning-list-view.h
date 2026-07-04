@@ -11,12 +11,12 @@ enum WarningListPageType
     NODE_WARNING
 };
 
-class WaringListView : public TablePage
+class WarningListView : public TablePage
 {
     Q_OBJECT
 public:
-    explicit WaringListView(QWidget *parent = nullptr);
-    ~WaringListView();
+    explicit WarningListView(QWidget *parent = nullptr);
+    ~WarningListView();
     void updateInfo(QString keyword = "");  //刷新表格
     void setLogListPageType(WarningListPageType);
 
@@ -25,11 +25,11 @@ private:
     void initButtons();
     void initLogListConnect();
     void getWarningList(WarningListPageType);
-    void getReadWarn();
+    void getReadWarn(int64_t ids);
 
 private slots:
     void getListWarning(const QPair<grpc::Status, logging::ListWarnReply> &);
-    void getReadWarning(const QPair<grpc::Status, logging::ReadWarnReply> &);
+//    void getReadWarning(const QPair<grpc::Status, logging::ReadWarnReply> &);
     void onBtnRead();
     void onBtnIgnore();
     void onBtnReadLabel(int row);
@@ -37,6 +37,7 @@ private slots:
 
 private:
     WarningListPageType m_type;
+    QMap<int, int64_t> m_idsMap;
 };
 
 #endif  // LOGLISTVIEW_H
