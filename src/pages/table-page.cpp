@@ -600,8 +600,7 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
         if (nameItem)
         {
             auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
-            if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked) ||
-                (infoMap.value(CONTAIENR_APP_IS_RUNNING).toBool() && item->checkState() == Qt::CheckState::Checked))
+            if ((infoMap.value(CONTAINER_STATUS).toString() == "running" && item->checkState() == Qt::CheckState::Checked))
             {
                 hasRunningCtn = true;
             }

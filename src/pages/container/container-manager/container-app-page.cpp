@@ -20,7 +20,6 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
                                                                                                                                                m_nodeAddr(nodeAddr),
                                                                                                                                                m_containerName(containerName),
                                                                                                                                                m_appOp(nullptr),
-                                                                                                                                               m_proc(nullptr),
                                                                                                                                                m_timer(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
@@ -40,11 +39,8 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
 
 ContainerAppPage::~ContainerAppPage()
 {
-    if (m_proc)
-    {
-        delete m_proc;
-        m_proc = nullptr;
-    }
+    qDeleteAll(m_procs);
+    m_procs.clear();
 }
 
 void ContainerAppPage::updateInfo(QString keyword)
@@ -79,17 +75,17 @@ void ContainerAppPage::onEdit(int row)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> appInfo = item->data().toMap();
+    auto isGUI = appInfo.value(CONTAINER_APP_IS_GUI).toBool();
+    auto name = appInfo.value(CONTAINER_APP_NAME).toString();
+    auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
     //判断应用是否在运行
-    QString name = appInfo.value(CONTAINER_APP_NAME).toString();
-    if (!appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool())
+    bool isRunning = appInfo.value(CONTAINER_APP_IS_RUNNING).toBool();
+    if (!isRunning)
     {
-        int appId = appInfo.value(CONTAINER_APP_ID).toInt();
         QString path = appInfo.value(CONTAINER_APP_PATH).toString();
-        bool isGUI = appInfo.value(CONTAINER_APP_IS_GUI).toBool();
-
         if (!m_appOp)
         {
-            m_appOp = new ContainerAppOperateDialog(appId, name, path, isGUI, APP_OPERATE_TYPE_EDIT, this);
+            m_appOp = new ContainerAppOperateDialog(appID, name, path, isGUI, APP_OPERATE_TYPE_EDIT, this);
             m_appOp->setTitle(tr("Edit app"));
             connect(m_appOp, &ContainerAppOperateDialog::sigSave, this, &ContainerAppPage::onSaveApp);
         }
@@ -106,39 +102,38 @@ void ContainerAppPage::onRun(int row)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> appInfo = item->data().toMap();
+    auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
 
     //判断app类型
     if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
     {
         //图形app则弹出终端
         //判断该应用程序是否已经在运行
-        auto isRunning = appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool();
-        if (isRunning)
+        auto process = m_procs.value(appID, nullptr);
+        if (!process)
         {
-            NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
-            return;
+            process = new QProcess(this);
+            m_procs.insert(appID, process);
+            connect(process, &QProcess::stateChanged,
+                    [=](QProcess::ProcessState state) {
+                        guiAppStatus(row, state);
+                    });
         }
-
-        if (!m_proc)
+        if (process)
         {
-            m_proc = new QProcess();
-            connect(m_proc, &QProcess::stateChanged, this, &ContainerAppPage::guiAppStatus);
+            if (process->state() == QProcess::ProcessState::Running)
+            {
+                NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+                return;
+            }
+            else
+            {
+                auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
+                KLOG_DEBUG() << "Container app command:" << cmd;
+                process->start(cmd);
+                KLOG_DEBUG() << "pid: " << process->processId();
+            }
         }
-
-        //判断该子进程中是否有应用程序在运行
-        if (m_proc->state() == QProcess::ProcessState::Running)
-        {
-            NotificationManager::sendNotify(tr("There is a app running!"), "");
-            return;
-        }
-
-        auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
-        KLOG_DEBUG() << "Container app command:" << cmd;
-
-        m_runningAppRow = row;
-        m_proc->start(cmd);
-
-        KLOG_DEBUG() << "pid: " << m_proc->processId();
     }
     else
     {
@@ -152,25 +147,36 @@ void ContainerAppPage::onStop(int row)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> appInfo = item->data().toMap();
+    auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
+    auto isGUI = appInfo.value(CONTAINER_APP_IS_GUI).toBool();
+    auto appName = appInfo.value(CONTAINER_APP_NAME).toString();
 
     //判断app类型
-    if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
+    if (isGUI)
     {
         //图形app则关闭终端
-        if (!appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool())
+        auto process = m_procs.value(appID);
+        if (!process)
         {
-            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
             return;
         }
-        if (m_proc && m_proc->state() == QProcess::ProcessState::Running)
+        if (process)
         {
-            m_proc->kill();
+            if (process->state() == QProcess::ProcessState::Running)
+            {
+                process->kill();
+            }
+            else
+            {
+                NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
+                return;
+            }
         }
     }
     else
     {
         //非图形app直接运行
-        int appId = appInfo.value(CONTAINER_APP_ID).toInt();
         InfoWorker::getInstance().killAppEntry(m_objId, m_nodeId, m_containerId, appId);
     }
 }
@@ -178,7 +184,22 @@ void ContainerAppPage::onStop(int row)
 void ContainerAppPage::onDelete()
 {
     QList<qint64> appIds;
-    getCheckedItemsId(appIds);
+    auto infos = getCheckedItemInfo(1);
+    foreach (auto info, infos)
+    {
+        auto isRunning = info.value(CONTAINER_APP_IS_RUNNING).toBool();
+        if (isRunning)
+        {
+            MessageDialog::message(tr("Delete Container App"),
+                                   tr("Can't delete container app!"),
+                                   tr("There are some app is running. "),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Yes);
+            return;
+        }
+        auto id = info.value(CONTAINER_APP_ID).toInt();
+        appIds.append(id);
+    }
 
     if (!appIds.empty())
     {
@@ -196,18 +217,28 @@ void ContainerAppPage::onDelete()
 
 void ContainerAppPage::onDelete(int row)
 {
-    auto ret = MessageDialog::message(tr("Delete Container App"),
-                                      tr("Are you sure you want to delete the app?"),
-                                      tr("It can't be recovered after deletion.Are you sure you want to continue?"),
-                                      ":/images/warning.svg",
-                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
-    if (ret == MessageDialog::StandardButton::Yes)
+    auto item = getItem(row, 1);
+    auto appInfo = item->data().toMap();
+    auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
+    auto name = appInfo.value(CONTAINER_APP_NAME).toString();
+    //判断应用是否在运行
+    bool isRunning = appInfo.value(CONTAINER_APP_IS_RUNNING).toBool();
+    if (!isRunning)
     {
-        auto item = getItem(row, 1);
-        QMap<QString, QVariant> appInfo = item->data().toMap();
-        auto appId = appInfo.value(CONTAINER_APP_ID).toInt();
-
-        InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, QList<qint64>() << appId);
+        auto ret = MessageDialog::message(tr("Delete Container App"),
+                                          tr("Are you sure you want to delete the app?"),
+                                          tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+        if (ret == MessageDialog::StandardButton::Yes)
+        {
+            InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, QList<qint64>() << appID);
+        }
+    }
+    else
+    {
+        NotificationManager::sendNotify(tr("Can't delete the app %1").arg(name),
+                                        tr("The app is running!"));
     }
 }
 
@@ -238,25 +269,32 @@ void ContainerAppPage::onSaveApp(const QString name, const QString path, const b
     }
 }
 
-void ContainerAppPage::guiAppStatus(QProcess::ProcessState state)
+void ContainerAppPage::guiAppStatus(int row, QProcess::ProcessState state)
 {
     KLOG_DEBUG() << "Process status:" << state;
-    auto item = getItem(m_runningAppRow, STATUS_COL);
-    auto dataItem = getItem(m_runningAppRow, 1);
-    QMap<QString, QVariant> appInfo = dataItem->data().toMap();
-    if (state == QProcess::ProcessState::Running)
+    auto item = getItem(row, STATUS_COL);
+    auto dataItem = getItem(row, 1);
+
+    //这里要判断item && dataItem是否存在
+    //用户可能会在gui程序运行时关闭app窗口，析构时kill掉QProcess，进入QProcess状态变化槽函数，这时表格中的item可能已经delete掉了
+    if (item && dataItem)
     {
-        item->setText(tr("Running"));
-        item->setForeground(QBrush(QColor("#00921b")));
-        appInfo.insert(CONTAIENR_APP_IS_RUNNING, true);
-        dataItem->setData(appInfo);
-    }
-    else if (state == QProcess::ProcessState::NotRunning)
-    {
-        item->setText(tr("Stop"));
-        item->setForeground(QBrush(QColor("#d30000")));
-        appInfo.insert(CONTAIENR_APP_IS_RUNNING, false);
-        dataItem->setData(appInfo);
+        QMap<QString, QVariant> appInfo = dataItem->data().toMap();
+
+        if (state == QProcess::ProcessState::Running)
+        {
+            item->setText(tr("Running"));
+            item->setForeground(QBrush(QColor("#00921b")));
+            appInfo.insert(CONTAINER_APP_IS_RUNNING, true);
+            dataItem->setData(appInfo);
+        }
+        else
+        {
+            item->setText(tr("Stop"));
+            item->setForeground(QBrush(QColor("#d30000")));
+            appInfo.insert(CONTAINER_APP_IS_RUNNING, false);
+            dataItem->setData(appInfo);
+        }
     }
 }
 
@@ -307,21 +345,18 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
         std::string appPath = app.exe_path().data();
         qint64 appID = app.id();
         bool isGUI = app.is_gui();
-        bool isRuning = app.is_running();
+        bool isRunning = isGUI ? isGuiAppRunning(appID) : app.is_running();
+
         infoMap.insert(NODE_ID, m_nodeId);
         infoMap.insert(CONTAINER_ID, contaienrId.data());
         infoMap.insert(CONTAINER_APP_ID, appID);
         infoMap.insert(CONTAINER_APP_NAME, appName.data());
         infoMap.insert(CONTAINER_APP_PATH, appPath.data());
         infoMap.insert(CONTAINER_APP_IS_GUI, isGUI);
-        infoMap.insert(CONTAIENR_APP_IS_RUNNING, isRuning);
+        infoMap.insert(CONTAINER_APP_IS_RUNNING, isRunning);
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
-        if (-1 != ids.indexOf(appID))
-        {
-            itemCheck->setCheckState(Qt::Checked);
-        }
 
         QStandardItem *itemName = new QStandardItem(appName.data());
         itemName->setData(infoMap);
@@ -330,10 +365,15 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
 
         QStandardItem *itemPath = new QStandardItem(app.exe_path().data());
 
-        QStandardItem *itemStatus = new QStandardItem(isRuning ? tr("Running") : tr("Stop"));
-        itemStatus->setForeground(QBrush(QColor(isRuning ? "#00921b" : "#d30000")));
+        QStandardItem *itemStatus = new QStandardItem(isRunning ? tr("Running") : tr("Stop"));
+        itemStatus->setForeground(QBrush(QColor(isRunning ? "#00921b" : "#d30000")));
 
         setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemType << itemPath << itemStatus);
+        if (-1 != ids.indexOf(appID))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
+
         row++;
     }
 }
@@ -453,10 +493,6 @@ void ContainerAppPage::initButtons()
     btnDelete->setFixedSize(QSize(78, 32));
 
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(onDelete()));
-    connect(this, &ContainerAppPage::sigHasRunningCtn,
-            [=](bool hasRunningCtn) {
-                btnDelete->setDisabled(hasRunningCtn);
-            });
 
     addBatchOperationButtons(QList<QPushButton *>() << btnDelete);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
@@ -528,6 +564,17 @@ void ContainerAppPage::refresh(const QString keyword, bool clear)
         clearCheckState();
     clearText();
     InfoWorker::getInstance().listAppEntry(m_objId, m_nodeId, m_containerId);
+}
+
+bool ContainerAppPage::isGuiAppRunning(int appID)
+{
+    auto process = m_procs.value(appID);
+    if (!process)
+        return false;
+    else
+    {
+        return process->state() == QProcess::Running ? true : false;
+    }
 }
 
 ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : KiranTitlebarWindow(parent)
