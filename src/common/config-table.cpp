@@ -101,6 +101,19 @@ QList<QSharedPointer<ModelItem> > ConfigTable::getAllData()
     return m_pModel->getAllModel();
 }
 
+void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
+{
+    m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
+    ui->tableView->setItemDelegate(m_pDelegate.get());
+    m_pModel->deleteModelByRow(0);
+    for (auto pItem : itemList)
+    {
+        m_pModel->addModelRow(pItem);
+    }
+
+    paintEditor(itemList.size());
+}
+
 void ConfigTable::saveRowSlot(int row)
 {
     auto pItem = m_pModel->getModelByRow(row);

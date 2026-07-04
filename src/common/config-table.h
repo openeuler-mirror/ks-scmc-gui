@@ -22,6 +22,7 @@ public:
     void initTable();
     void paintEditor(int curRow);
     QList<QSharedPointer<ModelItem>> getAllData();
+    void setData(QList<QSharedPointer<ModelItem> > itemList);
 
 private slots:
     void saveRowSlot(int row);

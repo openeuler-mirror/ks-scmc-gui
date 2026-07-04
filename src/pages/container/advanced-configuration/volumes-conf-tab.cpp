@@ -48,10 +48,21 @@ ErrorCode VolumesConfTab::getVolumeInfo(container::ContainerConfigs *cfg)
     return CONFIG_ARG_ERROR;
 }
 
-void VolumesConfTab::setVolumeInfo(const container::Mount *mounts)
+void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs* cfg)
 {
     KLOG_INFO() << "setVolumeInfo";
-    KLOG_INFO() << mounts->source().data() << mounts->target().data() << mounts->read_only();
+    QList<QSharedPointer<ModelItem>> itemList;
+    for (auto mounts : cfg->mounts())
+    {
+        KLOG_INFO() << mounts.source().data() << mounts.target().data() << mounts.read_only();
+        QSharedPointer<ModelItem> pItem(new ModelItem());
+        pItem->m_firstColVal = mounts.source().data();
+        pItem->m_secondColVal = mounts.target().data();
+        pItem->m_thirdColVal = mounts.read_only();
+        itemList.push_back(pItem);
+    }
+    if (!itemList.isEmpty())
+        m_configTable->setData(itemList);
 }
 
 void VolumesConfTab::initUI()
