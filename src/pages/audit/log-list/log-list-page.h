@@ -4,13 +4,6 @@
 #include "pages/tab-page.h"
 #include "log-list-view.h"
 
-enum LogListPageType
-{
-    CONTAINER_LOGS,
-    SYSTEM_LOGS,
-    USERS_REFUSED
-};
-
 class LogListView;
 class LogListPage  : public TabPage
 {
@@ -24,7 +17,9 @@ private:
     void updatePageInfo(int index);
 
 private:
-    LogListView *m_loglistview;
+    LogListView *m_loglistview_container;
+    LogListView *m_loglistview_system;
+    LogListView *m_loglistview_users;
 };
 
 
