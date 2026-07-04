@@ -36,6 +36,7 @@ BuildRequires:  ks-license-devel
 BuildRequires:  qrencode-devel
 BuildRequires:  c-ares-devel
 BuildRequires:  libnotify-devel
+BuildRequires:  libarchive-devel
 
 %if 0%{?enable_set_palette}
 BuildRequires:  kiran-qt5-integration-devel
@@ -50,13 +51,14 @@ BuildRequires:  cryptopp-devel
 Requires:       kiran-widgets-qt5 >= 2.1.1
 Requires:       kiran-log-qt5
 Requires:       qt5-qtbase
-Requires:	qt5-qtsvg
+Requires:       qt5-qtsvg
 Requires:       protobuf
-Requires:	libnotify
+Requires:       libnotify
 Requires:       ks-license-client
-Requires:	qt5-qtcharts
-Requires:	c-ares
-Requires:	fcitx-qt5
+Requires        qt5-qtcharts
+Requires:       c-ares
+Requires:       fcitx-qt5
+Requires:       libarchive
 
 %if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4

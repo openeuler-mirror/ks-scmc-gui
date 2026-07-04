@@ -5,6 +5,8 @@
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #include "image-list-page.h"
+#include <archive.h>
+#include <archive_entry.h>
 #include <kiran-log/qt5-log-i.h>
 #include <widget-property-helper.h>
 #include <QApplication>
@@ -15,6 +17,10 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QInputDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QPlainTextEdit>
 #include <QStandardPaths>
 #include "common/message-dialog.h"
@@ -202,10 +208,11 @@ int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, 
     }
 
     QCryptographicHash hash(QCryptographicHash::Sha256);
-    if (!hash.addData(&f))
+    QByteArray buffer(1024 * 1024, '\0');
+    int bytesRead = 0;
+    while ((bytesRead = f.read(buffer.data(), buffer.size())) > 0)
     {
-        KLOG_WARNING() << "Failed to read file " << fileName;
-        return -1;
+        hash.addData(buffer.constData(), bytesRead);
     }
     f.close();
 
@@ -213,6 +220,83 @@ int ImageListPage::getImageFileInfo(const QString fileName, QString &strSha256, 
     fileSize = f.size();
     KLOG_DEBUG() << "Get file hash:" << strSha256 << ", fileSize:" << fileSize;
     return 0;
+}
+
+QString ImageListPage::checkImageLegality(const QString &fileName)
+{
+    struct archive *pArchive = archive_read_new();
+    archive_read_support_format_tar(pArchive);
+    size_t blockSize = 10240;
+    if (archive_read_open_filename(pArchive, fileName.toStdString().c_str(), blockSize) != ARCHIVE_OK)
+    {
+        archive_read_free(pArchive);
+        return tr("Image file is damaged");  // 镜像文件损坏
+    }
+
+    const QString manifestFile = "manifest.json";
+    QStringList fileList;
+    QString manifestContent;
+    struct archive_entry *pEntry = nullptr;
+    while (archive_read_next_header(pArchive, &pEntry) == ARCHIVE_OK)
+    {
+        QString pathName(archive_entry_pathname(pEntry));
+        fileList << pathName;
+        if (pathName == manifestFile)
+        {
+            size_t entrySize = archive_entry_size(pEntry);
+            QByteArray buffer(entrySize + 1, '\0');
+            archive_read_data(pArchive, buffer.data(), entrySize);
+            manifestContent = buffer.constData();
+        }
+    }
+    archive_read_close(pArchive);
+    archive_read_free(pArchive);
+    if (!fileList.contains(manifestFile))
+    {
+        return tr("Image tar package without manifest.json");  // 镜像没有 manifest.json 文件
+    }
+
+    return parseManifest(manifestContent, fileList);
+}
+
+QString ImageListPage::parseManifest(const QString &manifestContent, const QStringList &fileList)
+{
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(manifestContent.toUtf8());
+    if (jsonDoc.isNull() || !jsonDoc.isArray())
+    {
+        return tr("Failed to read image data"); // 读写镜像数据失败
+    }
+
+    const QJsonArray &jsonArray = jsonDoc.array();
+    for (QJsonValue data : jsonArray)
+    {
+        if (!data.isObject())
+        {
+            return tr("Failed to read image data");
+        }
+
+        const QJsonObject &jsonObj = data.toObject();
+        if (jsonObj.contains("Config") && jsonObj["Config"].isString())
+        {
+            if (fileList.indexOf(jsonObj["Config"].toString()) == -1)
+            {
+                return tr("Image tar package without") + jsonObj["Config"].toString();  // 镜像没有$config
+            }
+        }
+
+        if (jsonObj.contains("Layers") && jsonObj["Layers"].isArray())
+        {
+            for (auto layer : jsonObj["Layers"].toArray())
+            {
+                if (fileList.indexOf(layer.toString()) == -1)
+                {
+                    return tr("Image tar package without") + layer.toString();  // 镜像没有$layer
+                }
+            }
+        }
+    }
+
+    return QString();
 }
 
 void ImageListPage::getImageList()
@@ -477,6 +561,16 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
                                MessageDialog::StandardButton::Ok);
         return;
     }
+    QString checkRet = checkImageLegality(imageFile);
+    if (!checkRet.isEmpty())
+    {
+        MessageDialog::message(tr("Upload Image"),
+                               tr("Upload image failed!"),
+                               checkRet,
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
 
     //在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Upload Image")))
@@ -535,6 +629,17 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         }
         else
             check = true;
+
+        QString checkRet = checkImageLegality(imageFile);
+        if (!checkRet.isEmpty())
+        {
+            MessageDialog::message(tr("Update Image"),
+                                   tr("Update image failed!"),
+                                   checkRet,
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
+            return;
+        }
     }
 
     //在检查文件成功后再将其加入传输任务列表

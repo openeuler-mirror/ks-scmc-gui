@@ -35,6 +35,7 @@ set(link_lib_list
 	protobuf
 	qrencode
 	cryptopp
+	archive
 	Qt5::Widgets
 	Qt5::Charts
 	Qt5::DBus
