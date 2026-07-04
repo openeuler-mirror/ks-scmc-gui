@@ -31,8 +31,8 @@ private:
 
 private:
     qint64 m_nodeId = -1;
-    MonitorContent *m_monitor;
     ContainerListPage *m_containerListPage;
+    MonitorContent *m_monitor;
 };
 
 #endif  // NODEINFOPAGE_H
