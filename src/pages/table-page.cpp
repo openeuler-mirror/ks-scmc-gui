@@ -17,7 +17,8 @@ TablePage::TablePage(QWidget *parent) : Page(parent),
                                         ui(new Ui::TablePage),
                                         m_searchTimer(nullptr),
                                         m_refreshBtnTimer(nullptr),
-                                        m_singleChoose(false)
+                                        m_singleChoose(false),
+                                        m_isSetTableActions(false)
 {
     ui->setupUi(this);
     initUI();
@@ -139,6 +140,7 @@ void TablePage::setTableActions(int col, QStringList actionIcons)
     }
     ButtonDelegate *btnDelegate = new ButtonDelegate(btnInfo, this);
     ui->tableView->setItemDelegateForColumn(col, btnDelegate);
+    m_isSetTableActions = true;
 
     connect(btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
     connect(btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
@@ -187,7 +189,9 @@ void TablePage::setHeaderCheckable(bool checkable)
 void TablePage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
-    for (int i = 1; i < m_model->columnCount(); i++)
+    auto colCount = m_isSetTableActions ? m_model->columnCount() - 1 : m_model->columnCount();
+
+    for (int i = 1; i < colCount; i++)
     {
         QStandardItem *item = new QStandardItem(text);
         item->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);

@@ -331,6 +331,19 @@ ContainerSetting QLineEdit:focus
 {
     border:1px solid #409EFF;
 }
+ContainerSetting #widget_base_sider
+{
+    border-right:1px solid #E4E7ED;
+}
+
+ContainerSetting #listWidget_advanced_config
+{
+    border:1px solid #E4E7ED;
+    border-top:none;
+    border-left:none;
+    border-bottom:none;
+}
+
 ContainerSetting GuideItem
 {
     border:none;
@@ -341,11 +354,11 @@ ContainerSetting QListWidget
 }
 ContainerSetting QListWidget::item:hover
 {
-    background:#EBEEF5;
+    background:#EFEFEF;
 }
 ContainerSetting QListWidget::item:selected
 {
-    background:#EBEEF5;
+    background:#EFEFEF;
 
 }
 ContainerSetting QListWidget::item:focus
@@ -375,6 +388,17 @@ ContainerSetting #btn_add:pressed
     background-color:#0099FF;
 }
 
+ContainerSetting #tab_base_config,
+ContainerSetting #tab_advanced_config
+{
+    background:#ffffff;
+}
+
+ContainerSetting QTabWidget
+{
+    background:#E5EBF6;
+}
+
 ContainerSetting QTabWidget::pane {
     border:none;
 }
@@ -393,7 +417,18 @@ ContainerSetting QTabBar::tab {
     border:none;
 /*    min-width: 8ex;*/
     padding: 10px;
-    color:#000000;
+    color:#606266;
+    font-size:14px;
+}
+
+ContainerSetting QTabBar::tab:first
+{
+    margin-left:30px;
+}
+
+ContainerSetting QTabBar::tab:hover {
+    border-bottom:2px solid #43A3F5;
+    outline:none;
 }
 
 ContainerSetting QTabBar::tab:selected {

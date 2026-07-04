@@ -515,6 +515,7 @@ void ContainerListPage::initTable()
                                                                << ":/images/edit.svg"
                                                                << ":/images/terminal.svg"
                                                                << ":/images/more.svg");
+
     setTableDefaultContent("-");
 
     connect(this, &ContainerListPage::sigMonitor, this, &ContainerListPage::onMonitor);
