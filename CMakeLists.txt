@@ -41,7 +41,7 @@ set(BIN_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
 set(INSTALL_DIR "/usr/libexec")
 set(ICON_DIR "${DATA_DIR}/${PROJECT_NAME}/icons")
 set(TRANSLATIONS_DIR "${DATA_DIR}/${PROJECT_NAME}/translations/")
-
+set(HELP_MANUAL_PATH "${DATA_DIR}/${PROJECT_NAME}/DOC/")
 #添加config.h.in文件
 configure_file (
     "${PROJECT_SOURCE_DIR}/config/config.h.in"
@@ -51,4 +51,5 @@ configure_file (
 add_subdirectory(proto)
 add_subdirectory(src)
 add_subdirectory(config)
+add_subdirectory(data/doc)
 add_subdirectory(data/images)

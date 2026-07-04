@@ -104,8 +104,8 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
                     auto memoryTotal = node.status().mem_stat().total();
                     auto diskTotal = node.status().disk_stat().total();
                     KLOG_INFO() << cpuTotal << memoryTotal << diskTotal;
-                    if (ui->lineEdit_cpu->placeholderText().isEmpty())
-                        ui->lineEdit_cpu->setPlaceholderText(tr("Maximum %1 cores").arg(cpuTotal));
+
+                    ui->lineEdit_cpu->setPlaceholderText(tr("Maximum %1 cores").arg(cpuTotal));
                     if (!ui->lineEdit_cpu->validator())
                     {
                         QDoubleValidator *v = new QDoubleValidator(0.01, cpuTotal, 2, this);
@@ -113,8 +113,7 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
                         ui->lineEdit_cpu->setValidator(v);
                     }
 
-                    if (ui->lineEdit_disk->placeholderText().isEmpty())
-                        ui->lineEdit_disk->setPlaceholderText(tr("Maximum %1 GB").arg(diskTotal / 1024));  //to GB
+                    ui->lineEdit_disk->setPlaceholderText(tr("Maximum %1 GB").arg(diskTotal / 1024));  //to GB
                     if (!ui->lineEdit_disk->validator())
                     {
                         QDoubleValidator *v = new QDoubleValidator(0.01, diskTotal / 1024, 2, this);
@@ -122,8 +121,7 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
                         ui->lineEdit_disk->setValidator(v);
                     }
 
-                    if (ui->lineEdit_memory->placeholderText().isEmpty())
-                        ui->lineEdit_memory->setPlaceholderText(tr("Maximum %1 MB").arg(memoryTotal));
+                    ui->lineEdit_memory->setPlaceholderText(tr("Maximum %1 MB").arg(memoryTotal));
                     if (!ui->lineEdit_memory->validator())
                     {
                         QDoubleValidator *v = new QDoubleValidator(0.01, memoryTotal, 2, this);

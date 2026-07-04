@@ -38,6 +38,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
       m_timer(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
+    m_nodeId = -1;
     initButtons();
     //初始化表格
     initTable();
@@ -449,7 +450,7 @@ void ContainerListPage::getContainerStartResult(const QString objId, const QPair
         KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
-            getContainerList();
+            getContainerList(m_nodeId);
             return;
         }
         else
@@ -473,7 +474,7 @@ void ContainerListPage::getContainerStopResult(const QString objId, const QPair<
         if (reply.first.ok())
         {
             KLOG_INFO() << "stop surccessful";
-            getContainerList();
+            getContainerList(m_nodeId);
             return;
         }
         else
@@ -496,7 +497,7 @@ void ContainerListPage::getContainerRestartResult(const QString objId, const QPa
         KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
-            getContainerList();
+            getContainerList(m_nodeId);
             return;
         }
         else
@@ -518,7 +519,7 @@ void ContainerListPage::getContainerRemoveResult(const QString objId, const QPai
         setBusy(false);
         if (reply.first.ok())
         {
-            getContainerList();
+            getContainerList(m_nodeId);
             return;
         }
         else
@@ -748,7 +749,7 @@ void ContainerListPage::operateContainer(ContainerSettingType type, int row)
                 });
         connect(m_containerSetting, &ContainerSetting::sigUpdateContainer,
                 [=] {
-                    getContainerList();
+                    getContainerList(m_nodeId);
                 });
     }
 }
@@ -760,6 +761,7 @@ void ContainerListPage::getTemplateList()
 
 void ContainerListPage::getContainerList(qint64 nodeId)
 {
+    m_nodeId = nodeId;
     setBusy(true);
     std::vector<int64_t> vecNodeId;
     if (nodeId < 0)
@@ -840,7 +842,7 @@ void ContainerListPage::updateInfo(QString keyword)
     if (keyword.isEmpty())
     {
         //gRPC->拿数据->填充内容
-        getContainerList();
+        getContainerList(m_nodeId);
         getTemplateList();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         timedRefresh(true);

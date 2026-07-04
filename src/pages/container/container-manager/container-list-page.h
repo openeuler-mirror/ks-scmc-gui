@@ -75,6 +75,7 @@ private:
 
 private:
     QString m_objId;
+    int m_nodeId;
     QMenu *m_createMenu;
     QMenu *m_moreMenu;
     QAction *m_createFromTemplateAct;
