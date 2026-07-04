@@ -2,6 +2,30 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>AuditListPage</name>
+    <message>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="27"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="35"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="45"/>
+        <source>Rejected</source>
+        <translation>拒绝</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="27"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="37"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="43"/>
+        <source>Passed</source>
+        <translation>通过</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="29"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="35"/>
+        <location filename="../src/pages/audit/audit-list/audit-list-page.cpp" line="43"/>
+        <source>Wait for Approve</source>
+        <translation>等待审批</translation>
+    </message>
+</context>
+<context>
     <name>ButtonDelegate</name>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="19"/>
@@ -641,8 +665,8 @@
     </message>
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="274"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="518"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="527"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="542"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="551"/>
         <source>Upload Image</source>
         <translation>上传镜像</translation>
     </message>
@@ -683,76 +707,76 @@
         <translation>拒绝</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="469"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="478"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="493"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="502"/>
         <source>Check Image</source>
         <translation>校验镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="470"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="494"/>
         <source>Check Image success!</source>
         <translation>校验镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="479"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="503"/>
         <source>Check Image failed!</source>
         <translation>校验镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="492"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="505"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="516"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="529"/>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="493"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="517"/>
         <source>Remove Image success!</source>
         <translation>移除镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="506"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="530"/>
         <source>Remove Image failed!</source>
         <translation>移除镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="519"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="543"/>
         <source>Upload Image success!</source>
         <translation>上传镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="528"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="552"/>
         <source>Upload Image failed!</source>
         <translation>上传镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="540"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="549"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="564"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="573"/>
         <source>update Image</source>
         <translation>更新镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="541"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="565"/>
         <source>update Image success!</source>
         <translation>更新镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="550"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="574"/>
         <source>update Image failed!</source>
         <translation>更新镜像失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="580"/>
-        <location filename="../src/pages/image/image-list-page.cpp" line="589"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="604"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="613"/>
         <source>download Image</source>
         <translation>下载镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="581"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="605"/>
         <source>download Image success!</source>
         <translation>下载镜像成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="590"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="614"/>
         <source>download Image failed!</source>
         <translation>下载镜像失败！</translation>
     </message>
@@ -981,17 +1005,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="179"/>
+        <location filename="../src/main-window.cpp" line="180"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="180"/>
+        <location filename="../src/main-window.cpp" line="181"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="181"/>
+        <location filename="../src/main-window.cpp" line="182"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1762,57 +1786,57 @@ It mainly includes four modules: user management, node management, image and ima
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="21"/>
+        <location filename="../src/main-window.cpp" line="22"/>
         <source>General Outline</source>
         <translation>概要</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="22"/>
+        <location filename="../src/main-window.cpp" line="23"/>
         <source>Container Manager</source>
         <translation>容器管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="23"/>
+        <location filename="../src/main-window.cpp" line="24"/>
         <source>Container List</source>
         <translation>容器列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="24"/>
+        <location filename="../src/main-window.cpp" line="25"/>
         <source>Container Template</source>
         <translation>容器模板</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="25"/>
+        <location filename="../src/main-window.cpp" line="26"/>
         <source>Audit Center</source>
         <translation>审计中心</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="26"/>
+        <location filename="../src/main-window.cpp" line="27"/>
         <source>Audit Apply List</source>
         <translation>审核列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="27"/>
+        <location filename="../src/main-window.cpp" line="28"/>
         <source>Audit Warning List</source>
         <translation>告警列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="28"/>
+        <location filename="../src/main-window.cpp" line="29"/>
         <source>Audit Log List</source>
         <translation>日志列表</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="29"/>
+        <location filename="../src/main-window.cpp" line="30"/>
         <source>Image Manager</source>
         <translation>镜像管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="30"/>
+        <location filename="../src/main-window.cpp" line="31"/>
         <source>Node Manager</source>
         <translation>节点管理</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="31"/>
+        <location filename="../src/main-window.cpp" line="32"/>
         <source>System Manager</source>
         <translation>系统管理</translation>
     </message>

@@ -41,7 +41,7 @@ private:
     Page *createSubPage(GUIDE_ITEM itemEnum);
     QListWidgetItem *createGuideItem(QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void setPageName(QString name);
-    void outlinePageChange(int type, QString str);
+    void outlinePageChange(QString str);
 
 private slots:
     void onLogoutAction(bool checked);
