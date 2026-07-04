@@ -764,9 +764,9 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
     QFile imgFile(filePath);
     if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        KLOG_INFO() << "Failed to open " << filePath.data();
+        KLOG_INFO() << "Failed to open " << filePath;
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Failed to open %1").arg(filePath.data()).toStdString());
+                               QObject::tr("Failed to open %1").arg(filePath).toStdString());
         InfoWorker::getInstance().m_exportList.removeAll(exportName);
         return r;
     }
@@ -1212,13 +1212,13 @@ QPair<grpc::Status, downloadImageInfo> InfoWorker::_downloadImage(image::Downloa
     const auto size = reply.info().size();
     const auto desc = reply.info().description();
 
-    QString filePath = QString("%1%2_%3%4").arg(savePath).arg(name.data()).arg(version.data()).arg(type.data());
+    QString filePath = QString("%1%2_%3%4").arg(savePath).arg(name).arg(version).arg(type.data());
     QFile imgFile(filePath);
     if (!imgFile.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        KLOG_INFO() << "Failed to open " << filePath.data();
+        KLOG_INFO() << "Failed to open " << filePath;
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Failed to open %1").arg(filePath.data()).toStdString());
+                               QObject::tr("Failed to open %1").arg(filePath).toStdString());
         emit InfoWorker::getInstance().transferImageFinished(name, version);
         return r;
     }

@@ -570,7 +570,7 @@ void TablePage::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
     QCursor cur = this->cursor();
-    if (cur != Qt::ArrowCursor)
+    if (cur.shape() != Qt::ArrowCursor)
         this->setCursor(Qt::ArrowCursor);
 }
 

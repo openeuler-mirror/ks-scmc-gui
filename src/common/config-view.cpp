@@ -48,7 +48,7 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         if (curPage)
             pEdit->setDisabled(true);
         pEdit->setStyleSheet("QLineEdit{border:1px solid #E4E7ED;}");
-        return pEdit.get();
+        return pEdit.data();
     }
     else if (index.column() == THIRD_COLUMN_HEADER)
     {
@@ -61,7 +61,7 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
         m_pComboBoxMode.append(pBox);
         if (curPage)
             pBox->setDisabled(true);
-        return pBox.get();
+        return pBox.data();
     }
     else if (index.column() == OPERATE_HEADER)
     {
