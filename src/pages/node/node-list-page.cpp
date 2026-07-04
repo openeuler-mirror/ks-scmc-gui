@@ -284,6 +284,8 @@ void NodeListPage::getCreateResult(const QString objId, const QPair<grpc::Status
         if (reply.first.ok())
         {
             getNodeList();
+            if (m_nodeAddition)
+                m_nodeAddition->close();
             return;
         }
         else
@@ -328,6 +330,8 @@ void NodeListPage::getUpdateResult(const QString objId, const QPair<grpc::Status
         if (reply.first.ok())
         {
             getNodeList();
+            if (m_nodeUpdate)
+                m_nodeUpdate->close();
         }
         else
         {

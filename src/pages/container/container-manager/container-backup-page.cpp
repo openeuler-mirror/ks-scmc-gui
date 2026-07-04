@@ -271,6 +271,8 @@ void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPa
         if (reply.first.ok())
         {
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            if (m_backupEditDlg)
+                m_backupEditDlg->close();
         }
         else
         {
@@ -291,6 +293,8 @@ void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPa
         if (reply.first.ok())
         {
             InfoWorker::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            if (m_backupAddDlg)
+                m_backupAddDlg->close();
         }
         else
         {

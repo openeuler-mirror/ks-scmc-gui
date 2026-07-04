@@ -14,6 +14,7 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
     setTitle(tr("Add Node"));
     setResizeable(false);
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
+    setWindowModality(Qt::ApplicationModal);
 
     ui->lineEdit_node_name->setFocus();
     ui->lineEdit_node_name->setMaxLength(50);
@@ -50,6 +51,7 @@ void NodeOperateDialog::setNodeInfo(int64_t nodeId, QString name, QString addr, 
 {
     m_nodeId = nodeId;
     ui->lineEdit_node_name->setText(name);
+    ui->lineEdit_node_name->setCursorPosition(0);
     ui->lineEdit_node_ip->setText(addr);
     ui->text_comment->setText(comment);
 }
@@ -83,7 +85,6 @@ void NodeOperateDialog::onSave()
     newNodeInfo.insert(NODE_ADDRESS, ip);
     newNodeInfo.insert(NODE_COMMENT, comment);
     emit sigSave(newNodeInfo);
-    this->close();
 }
 
 void NodeOperateDialog::onCancel()
