@@ -25,7 +25,7 @@ public:
     ~CPUConfTab();
     void setTotalCPU(double totalCPU);
     void setCPUInfo(container::ResourceLimit *cfg);
-    void getCPUInfo(container::ResourceLimit *cfg);
+    ErrorCode getCPUInfo(container::ResourceLimit *cfg);
 
 private:
     Ui::CPUConfTab *ui;

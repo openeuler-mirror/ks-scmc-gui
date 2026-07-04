@@ -34,8 +34,8 @@ void MemoryConfTab::setMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        int memLimit = limitDataHandle(true, cfg->memory_limit(), ui->cb_max_unit);
-        int softLimit = limitDataHandle(true, cfg->memory_soft_limit(), ui->cb_soft_unit);
+        int memLimit = limitDataHandle(cfg->memory_limit(), ui->cb_max_unit);
+        int softLimit = limitDataHandle(cfg->memory_soft_limit(), ui->cb_soft_unit);
         KLOG_INFO() << "memory_limit: " << cfg->memory_limit()
                     << "memory_soft_limit" << cfg->memory_soft_limit();
 
@@ -48,37 +48,37 @@ ErrorCode MemoryConfTab::getMemoryInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        auto softLimit = limitDataHandle(false, ui->lineEdit_soft_limit->text().toDouble(), ui->cb_soft_unit);
+        auto softLimit = limitDataHandle(ui->lineEdit_soft_limit->text().toDouble(), ui->cb_soft_unit);
         KLOG_INFO() << "Memory soft limit: " << softLimit;
 
-        auto maxLimit = limitDataHandle(false, ui->lineEdit_max_limit->text().toDouble(), ui->cb_max_unit);
+        auto maxLimit = limitDataHandle(ui->lineEdit_max_limit->text().toDouble(), ui->cb_max_unit);
         KLOG_INFO() << "Memory max limit: " << maxLimit;
 
-        if (softLimit <= maxLimit)
+        if (maxLimit < 0 || softLimit < 0)  //判断内存软限制和最大值是否溢出
         {
-            cfg->set_memory_limit(maxLimit);
-            cfg->set_memory_soft_limit(softLimit);
-            return NO_ERROR;
+            KLOG_INFO() << "The soft memory or max memory is overload";
+            return INPUT_OVERLIMIT_ERROR;
         }
-        else
+        else if (softLimit > maxLimit)  // 判断内存软限制是否大于最大限制
+        {
+            KLOG_INFO() << "The soft momory is greater then the max memory";
             return INPUT_ARG_ERROR;
+        }
+
+        cfg->set_memory_limit(maxLimit);
+        cfg->set_memory_soft_limit(softLimit);
+        return NO_ERROR;
     }
     return CONFIG_ARG_ERROR;
 }
 
-int MemoryConfTab::limitDataHandle(bool stom, double originData, QComboBox *unitWidget)
+int MemoryConfTab::limitDataHandle(double originData, QComboBox *unitWidget)
 {
     QString unit = unitWidget->currentText();
     int limit = originData;
-    if (stom)  // MB->GB
+    if (unit == "GB")
     {
-        if (unit == "GB")
-            limit = originData / 1024.0;
-    }
-    else  // GB->MB
-    {
-        if (unit == "GB")
-            limit = originData * 1024.0;
+        limit = originData * 1024.0;
     }
     return limit;
 }

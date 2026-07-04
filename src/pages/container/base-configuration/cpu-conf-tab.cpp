@@ -68,14 +68,21 @@ void CPUConfTab::setCPUInfo(container::ResourceLimit* cfg)
     }
 }
 
-void CPUConfTab::getCPUInfo(container::ResourceLimit* cfg)
+ErrorCode CPUConfTab::getCPUInfo(container::ResourceLimit* cfg)
 {
     if (cfg)
     {
         KLOG_INFO() << "cpu core:" << ui->lineEdit_cpu_core->text().toDouble();
+        if (ui->lineEdit_cpu_core->text().toDouble() > m_totalCPU)
+        {
+            KLOG_INFO() << "cpu core is more than max cpu core:" << m_totalCPU;
+            return INPUT_OVERLIMIT_ERROR;
+        }
         cfg->set_cpu_limit(ui->lineEdit_cpu_core->text().toDouble());
 
         //调度优先级
         cfg->set_cpu_prio(ui->cb_sche_pri->itemData(ui->cb_sche_pri->currentIndex()).toInt());
+        return NO_ERROR;
     }
+    return CONFIG_ARG_ERROR;
 }

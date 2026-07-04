@@ -279,6 +279,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 
     QLabel *labName = new QLabel(QString("%1 <font color=red>*</font>").arg(tr("Name:")), content);
     QLineEdit *lineEditName = new QLineEdit(content);
+    lineEditName->setMaxLength(200);
     lineEditName->setFixedHeight(36);
     if (!name.isEmpty())
         lineEditName->setText(name);
@@ -308,6 +309,9 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
             cbBindRealIfs->setCurrentText(realIfs);
         }
     }
+    QLabel *labTip = new QLabel(content);
+    labTip->setStyleSheet("color:#d30000");
+    labTip->hide();
 
     gridLayout->addWidget(labName, 0, 0);
     gridLayout->addWidget(lineEditName, 0, 1);
@@ -315,6 +319,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     gridLayout->addWidget(lineEditSubnet, 1, 1);
     gridLayout->addWidget(labBindRealIfs, 2, 0);
     gridLayout->addWidget(cbBindRealIfs, 2, 1);
+    gridLayout->addWidget(labTip, 3, 1);
 
     QHBoxLayout *btnLayout = new QHBoxLayout;
     btnLayout->setMargin(0);
@@ -325,6 +330,13 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     Kiran::WidgetPropertyHelper::setButtonType(btnConfirm, Kiran::BUTTON_Default);
     connect(btnConfirm, &QPushButton::clicked,
             [=] {
+                if (lineEditName->text().isEmpty() || lineEditSubnet->text().isEmpty())
+                {
+                    labTip->setText(tr("Please input complete infomation!"));
+                    labTip->show();
+                    return;
+                }
+                labTip->hide();
                 if (type == OPERATE_TYPE_CREATE)
                 {
                     network::CreateNicRequest req;

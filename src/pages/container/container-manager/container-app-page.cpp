@@ -303,21 +303,22 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
                 row++;
             }
         }
-    }
-    else
-    {
-        if (PERMISSION_DENIED == reply.first.error_code())
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
         else
         {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            if (DEADLINE_EXCEEDED == reply.first.error_code())
+            KLOG_INFO() << "get container app list failed:" << reply.first.error_message().data();
+            if (PERMISSION_DENIED == reply.first.error_code())
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            else
             {
-                setTips(tr("Response timeout!"));
+                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+                if (DEADLINE_EXCEEDED == reply.first.error_code())
+                {
+                    setTips(tr("Response timeout!"));
+                }
             }
+            setHeaderCheckable(false);
+            setTableDefaultContent("-");
         }
-        setHeaderCheckable(false);
-        setTableDefaultContent("-");
     }
 }
 

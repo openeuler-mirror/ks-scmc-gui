@@ -301,9 +301,9 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
                 QStandardItem *itemUser = new QStandardItem(logging.username().data());
                 QStandardItem *itemRes = new QStandardItem();
                 if (logging.error().data())
-                    itemRes->setText("success");
+                    itemRes->setText(tr("failed"));
                 else
-                    itemRes->setText("failed");
+                    itemRes->setText(tr("success"));
                 QStandardItem *itemDetail = new QStandardItem(logging.detail().data());
 
                 QStandardItem *itemCheck = new QStandardItem();

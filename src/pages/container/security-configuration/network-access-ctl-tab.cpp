@@ -50,6 +50,7 @@ void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securi
     KLOG_INFO() << "rules_size:" << networkRuleList.rules_size();
     for (auto rule : networkRuleList.rules())
     {
+        protocols.clear();
         if (count > 0)
             createItem(count);
         for (std::string protocol : rule.protocols())

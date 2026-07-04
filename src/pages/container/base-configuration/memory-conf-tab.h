@@ -30,7 +30,7 @@ public:
 private:
     //MB->GB,GB->MB
     //stom: Small to Max
-    int limitDataHandle(bool stom, double originData, QComboBox *unitWidget);
+    int limitDataHandle(double originData, QComboBox *unitWidget);
 
 private:
     Ui::MemoryConfTab *ui;

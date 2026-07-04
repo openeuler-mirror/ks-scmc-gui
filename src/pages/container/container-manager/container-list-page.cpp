@@ -782,8 +782,7 @@ void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::str
 
     foreach (auto idMap, info)
     {
-        KLOG_INFO() << idMap.value(NODE_ID).toInt();
-        KLOG_INFO() << idMap.value(CONTAINER_ID).toString();
+        KLOG_INFO() << "node Id:" << idMap.value(NODE_ID).toInt() << "container id:" << idMap.value(CONTAINER_ID).toString();
         node_id = idMap.value(NODE_ID).toInt();
         std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
         if (iter == ids.end())
