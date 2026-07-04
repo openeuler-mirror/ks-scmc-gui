@@ -11,6 +11,7 @@ OutlineCell::OutlineCell(QWidget *parent) :
     ui->setupUi(this);
     this->setIcon();
     ui->frame->setStyleSheet("background: #2d2d2d;");
+//    ui->label_online->setMinimumSize(20,20);
 }
 
 OutlineCell::~OutlineCell()
@@ -34,7 +35,7 @@ void OutlineCell::mouseReleaseEvent(QMouseEvent *event)
 void OutlineCell::setIcon()
 {
     ui->cell_name->setStyleSheet("QLabel{"
-                               "background-image:url(:/images/node-manager.svg);"
+                               "background-image:url(:/images/dot.svg);"
                                "background-position:left;"
                                "background-origin:content;"
                                "background-repeat:none;"

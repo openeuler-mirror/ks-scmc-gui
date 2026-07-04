@@ -91,6 +91,7 @@
     <name>ConfigOperateWidget</name>
     <message>
         <location filename="../src/common/config-operate-widget.ui" line="20"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_config-operate-widget.h" line="153"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
@@ -984,17 +985,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="168"/>
+        <location filename="../src/main-window.cpp" line="181"/>
         <source>Change Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="169"/>
+        <location filename="../src/main-window.cpp" line="182"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="170"/>
+        <location filename="../src/main-window.cpp" line="183"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1304,10 +1305,208 @@
     </message>
 </context>
 <context>
-    <name>OperateWidget</name>
+    <name>OutlineCell</name>
     <message>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_operate-widget.h" line="153"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="233"/>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-cell.ui" line="131"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="238"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="245"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="235"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="237"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="238"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-cell.ui" line="274"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="305"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="239"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="242"/>
+        <source>pix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-cell.ui" line="281"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="312"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="240"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="243"/>
+        <source>label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-cell.ui" line="296"/>
+        <location filename="../src/pages/outline/outline-cell.ui" line="327"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="241"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="244"/>
+        <source>Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OutlineIntroduction</name>
+    <message>
+        <location filename="../src/pages/outline/outline-introduction.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="105"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-introduction.ui" line="101"/>
+        <location filename="../src/pages/outline/outline-introduction.ui" line="108"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="106"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-introduction.h" line="107"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-introduction.cpp" line="24"/>
+        <source>Container platform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-introduction.cpp" line="32"/>
+        <source>A single neutral console manages heterogeneous infrastructure, interfaces with existing business process platforms, and logically Pools Resources on the cloud,
+So as to implement resource allocation based on enterprise organizational structure and provide standard processes and standardized cloud services.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OutlineView</name>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="242"/>
+        <source>Offline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="243"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="244"/>
+        <source>Online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="275"/>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="276"/>
+        <source>Exited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="277"/>
+        <source>Created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="322"/>
+        <source>node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="337"/>
+        <source>Number of nodes: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="347"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="411"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="607"/>
+        <source>online: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="356"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="420"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="616"/>
+        <source>offline: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="365"/>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="373"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="437"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="625"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="633"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="386"/>
+        <source>Container</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="401"/>
+        <source>Number of Container: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="429"/>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="450"/>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="465"/>
+        <source>Number of Image: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="475"/>
+        <source>Image Capacity: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="484"/>
+        <source>3.9G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="504"/>
+        <source>Template Container</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="519"/>
+        <source>Number of Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="543"/>
+        <source>Reviewed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="558"/>
+        <source>Number of Reviewed: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="582"/>
+        <source>Give Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="597"/>
+        <source>Number of Give Alarm: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
