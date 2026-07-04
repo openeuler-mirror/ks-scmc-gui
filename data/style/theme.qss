@@ -4,6 +4,13 @@ QLabel
     font-size:14px;
 }
 
+QTextBrowser
+{
+    color:#000000;
+    border:1px solid #2eb3ff;
+    border-radius:4px;
+}
+
 MainWindow QWidget#widget_content
 {
     background:#2d2d2d;
@@ -342,32 +349,41 @@ ContainerSetting #widget_base_sider
     border-right:1px solid #E4E7ED;
 }
 
-ContainerSetting #listWidget_advanced_config
+ContainerSetting #listWidget_advanced_config,
+ContainerSetting #listWidget_security_config
 {
     border:1px solid #E4E7ED;
     border-top:none;
     border-left:none;
     border-bottom:none;
+    outline:none;
+}
+ContainerSetting #listwidget_base_config
+{
+    outline:none;
 }
 
 ContainerSetting GuideItem
 {
     border:none;
 }
-ContainerSetting QListWidget
-{
-    outline:none;
-}
-ContainerSetting QListWidget::item:hover
+
+ContainerSetting #listwidget_base_config::item:hover,
+ContainerSetting #listWidget_advanced_config::item:hover,
+ContainerSetting #listWidget_security_config::item:hover
 {
     background:#EFEFEF;
 }
-ContainerSetting QListWidget::item:selected
+ContainerSetting #listwidget_base_config::item:selected,
+ContainerSetting #listWidget_advanced_config::item:selected,
+ContainerSetting #listWidget_security_config::item:selected
 {
     background:#EFEFEF;
 
 }
-ContainerSetting QListWidget::item:focus
+ContainerSetting #listwidget_base_config::item:focus,
+ContainerSetting #listWidget_advanced_config::item:focus,
+ContainerSetting #listWidget_security_config::item:focus
 {
     outline:none;
 }
@@ -395,7 +411,8 @@ ContainerSetting #btn_add:pressed
 }
 
 ContainerSetting #tab_base_config,
-ContainerSetting #tab_advanced_config
+ContainerSetting #tab_advanced_config,
+ContainerSetting #tab_security_config
 {
     background:#ffffff;
 }
@@ -836,3 +853,97 @@ TemplateListPage #btnCreate:disabled,TemplateListPage #btnRemove:disabled
     color:#919191;
     background:#393939;
 }
+
+/********************************************NetworkAccessCtlTab**********************************************/
+/*NetworkAccessCtlTab QScrollArea
+{
+    background-color:#ffffff;
+}
+NetworkAccessCtlTab QScrollArea QScrollBar:vertical{
+            min-width: 2px;
+            border-radius:2px;
+            background-color:#ffffff;
+}
+NetworkAccessCtlTab  QScrollArea QScrollBar::handle:vertical
+{
+           border-radius:4px;
+           min-width:2px;
+            background-color:#EFEFEF;
+}
+NetworkAccessCtlTab  QScrollArea QScrollBar::sub-line:vertical
+{
+    image:none;
+}
+NetworkAccessCtlTab  QScrollArea QScrollBar::add-line:vertical
+{
+    image:none;
+}*/
+NetworkAccessCtlTab QListWidget::item
+{
+    background-color:transparent;
+    border:none;
+    outline:none;
+}
+NetworkAccessCtlTab QListWidget::item:hover
+{
+    background-color:transparent;
+}
+NetworkAccessCtlTab QListWidget::item:selected
+{
+    background-color:transparent;
+}
+NetworkAccessCtlTab QListWidget::item:focus
+{
+   outline:none;
+}
+
+NetworkAccessCtlTab QCheckBox
+{
+    color:#000000;
+    font-size:14px;
+    outline:none;
+}
+NetworkAccessCtlTab QCheckBox::indicator
+{
+    width: 12px;
+    height: 12px;
+}
+NetworkAccessCtlTab QCheckBox::indicator:unchecked
+{
+    image: url(:/images/check-default.svg);
+}
+NetworkAccessCtlTab QCheckBox::indicator:checked
+{
+    image: url(:/images/checked.svg);
+}
+
+NetworkAccessCtlTab QScrollBar:vertical
+{
+    width:4px;
+    background:rgba(0,0,0,0%);
+    margin:0px,0px,0px,0px;
+}
+NetworkAccessCtlTab QScrollBar::handle:vertical
+{
+    width:4px;
+    background:rgba(0,0,0,25%);
+    border-radius:2px;
+    min-height:20;
+}
+NetworkAccessCtlTab QScrollBar::handle:vertical:hover
+{
+    width:4px;
+    background:rgba(0,0,0,50%);
+    border-radius:2px;
+    min-height:20;
+}
+
+NetworkAccessCtlTab QScrollBar::add-line:vertical
+{
+    image:none;
+}
+NetworkAccessCtlTab QScrollBar::sub-line:vertical
+{
+    image:none;
+}
+
