@@ -318,8 +318,6 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
     case ONUTLINE_CELL_TEMPLATE_CONTAINER:
     {
-        outlinePageChange(CONTAINER_TEMPLATE);
-        outlineItem->setSelected(false);
         break;
     }
     case ONUTLINE_CELL_EXAMINE:
@@ -407,7 +405,7 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     }
     else
         customItem->setArrow(true);
-    ui->listWidget->setGridSize(QSize(220, 50));
+    ui->listWidget->setGridSize(QSize(220, 56));
 
     newItem->setData(Qt::UserRole, text);
 
