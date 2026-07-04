@@ -54,11 +54,13 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="hLayout_OpBtns">
-        <property name="spacing">
-         <number>24</number>
-        </property>
-       </layout>
+       <widget class="QWidget" name="operate_btns" native="true">
+        <layout class="QHBoxLayout" name="hLayout_OpBtns">
+         <property name="spacing">
+          <number>24</number>
+         </property>
+        </layout>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">

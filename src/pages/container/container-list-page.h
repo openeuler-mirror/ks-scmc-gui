@@ -17,9 +17,12 @@ public:
     explicit ContainerListPage(QWidget *parent = nullptr);
     ~ContainerListPage();
     void updateInfo(QString keyword = "");  //刷新表格
+    void getContainerList(qint64 nodeId = -1);
+    void operateAreaVisible(bool visible);
 
 private slots:
-    void onBtnRun();
+    void
+    onBtnRun();
     void onBtnRun(QModelIndex index);
     void onBtnStop();
     void onBtnStop(QModelIndex index);
@@ -47,7 +50,6 @@ private:
     void initButtons();
     void initTable();
     void initConnect();
-    void getContainerList();
     void getContainerInspect(QMap<QString, QVariant> itemData);
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);

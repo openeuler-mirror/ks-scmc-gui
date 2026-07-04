@@ -54,9 +54,25 @@ void TablePage::clearTable()
     KLOG_INFO() << "current" << m_model->rowCount();
 }
 
+void TablePage::setOperateAreaVisible(bool visible)
+{
+    ui->widget_operate->setVisible(visible);
+}
+
+void TablePage::setOperateBtnsVisible(bool visible)
+{
+    ui->operate_btns->setVisible(visible);
+}
+
+void TablePage::setOperateSearchVisible(bool visible)
+{
+    ui->lineEdit_search->setVisible(visible);
+    ui->btn_refresh->setVisible(visible);
+}
+
 void TablePage::addSingleOperationButton(QAbstractButton *btn)
 {
-    ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+    ui->operate_btns->layout()->addWidget(btn);
     m_singleOpBtns.append(btn);
 }
 
@@ -64,7 +80,7 @@ void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
     {
-        ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
+        ui->operate_btns->layout()->addWidget(btn);
         m_batchOpBtns.append(btn);
     }
 }

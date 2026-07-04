@@ -30,6 +30,7 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId, QWidget *paren
     m_xFormat = "hh:mm";
     initUI();
     initChart();
+    connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorDialog::getMonitorHistoryResult);
 }
 
 MonitorDialog::~MonitorDialog()
@@ -40,6 +41,11 @@ MonitorDialog::~MonitorDialog()
         delete m_datePicker;
         m_datePicker = nullptr;
     }
+}
+
+void MonitorDialog::updateMonitorInfo()
+{
+    InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
 }
 
 void MonitorDialog::initUI()
@@ -103,8 +109,8 @@ void MonitorDialog::initChart()
     QDateTime startDate = currTime.addSecs(-(60 * 10));
     int startTimestamp = startDate.toTime_t();
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorDialog::getMonitorHistoryResult);
-    InfoWorker::getInstance().monitorHistory(m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
+    if (m_nodeId > 0)
+        InfoWorker::getInstance().monitorHistory(m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
 }
 
 void MonitorDialog::BuildCharts(TrendChartForm *chartForm, QStringList seriesNames, QString yTitle)
