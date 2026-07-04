@@ -79,6 +79,9 @@
          <height>16</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -213,6 +216,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_old_pw</tabstop>
+  <tabstop>lineEdit_new_pw</tabstop>
+  <tabstop>lineEdit_confirm_pw</tabstop>
+  <tabstop>btn_confirm</tabstop>
+  <tabstop>btn_cancel</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../data/resources.qrc"/>
  </resources>
