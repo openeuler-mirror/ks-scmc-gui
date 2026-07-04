@@ -717,6 +717,7 @@ QPair<grpc::Status, QString> InfoWorker::_exportBackup(const container::ExportBa
         context.AddMetadata("authorization", s_authKey);
 
     auto stream = container::Container::NewStub(chan)->ExportBackup(&context, req);
+    //Read流数据会耗时一会
     bool ret = stream->Read(&reply);
     if (!ret)
     {

@@ -525,7 +525,6 @@ void ContainerSetting::getNodeInfo()
 
 void ContainerSetting::getImageInfo(int64_t node_id)
 {
-    KLOG_INFO() << "getImageInfo" << node_id;
     InfoWorker::getInstance().listImage(m_objId, node_id);
 }
 
@@ -1291,7 +1290,6 @@ void ContainerSetting::getListImageFinishedResult(QString objId, const QPair<grp
                 for (auto info : reply.second.images())
                 {
                     m_cbImage->addItem(QString::fromStdString(info.name()));
-                    KLOG_INFO() << info.name().data();
                 }
             }
         }
