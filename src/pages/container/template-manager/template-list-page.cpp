@@ -184,6 +184,7 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            clearTable();
             int size = reply.second.data_size();
             if (size <= 0)
             {
@@ -191,7 +192,6 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
                 setHeaderCheckable(false);
                 return;
             }
-            clearTable();
             setHeaderCheckable(true);
             int row = 0;
             QMap<QString, QVariant> idMap;

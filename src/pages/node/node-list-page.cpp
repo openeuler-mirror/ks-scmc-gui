@@ -173,6 +173,7 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
         if (reply.first.ok())
         {
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+            clearTable();
             int size = reply.second.nodes_size();
             if (size <= 0)
             {
@@ -180,7 +181,6 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
                 setHeaderCheckable(false);
                 return;
             }
-            clearTable();
             setHeaderCheckable(true);
             int row = 0;
             QMap<QString, QVariant> idMap;
