@@ -279,6 +279,8 @@ void TablePage::clearCheckState()
 {
     m_headerView->setCheckState(false);
     onHeaderCkbTog(false);
+}
+
 void TablePage::setPaging(int totalPages)
 {
     if(m_isOpenPaging)
