@@ -32,7 +32,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  xsd
 BuildRequires:  grpc-devel
-BuildRequires:  kylin-license-devel
+BuildRequires:  ks-license-devel
 BuildRequires:  qrencode-devel
 BuildRequires:  c-ares-devel
 BuildRequires:  libnotify-devel
@@ -50,10 +50,13 @@ BuildRequires:  cryptopp-devel
 Requires:       kiran-widgets-qt5 >= 2.1.1
 Requires:       kiran-log-qt5
 Requires:       qt5-qtbase
+Requires:	qt5-qtsvg
 Requires:       protobuf
 Requires:	libnotify
-Requires:       kylin-license-client
+Requires:       ks-license-client
 Requires:	qt5-qtcharts
+Requires:	c-ares
+#Requres:	zlog
 
 %if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4
@@ -87,6 +90,7 @@ xdg-desktop-icon install --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 %postun
 sudo rm -rf %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
 xdg-desktop-icon uninstall --novendor %{_datadir}/applications/ks-scmc-gui.desktop
+killall ks-scmc-gui
 
 %files
 %{_datadir}/ks-scmc-gui/*
