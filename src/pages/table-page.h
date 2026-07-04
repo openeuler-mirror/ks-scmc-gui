@@ -65,9 +65,9 @@ public:
     void clearCheckState();
     void setPaging(int totalPages = 0);  // 设置分页
     void updatePaging(int page_no = 1);
-//    QString getSearchKey();
-    void setSeachPageNone(); // 搜索结果为空
-    void hideSearchLine(); // 隐藏搜索框
+    //    QString getSearchKey();
+    void setSeachPageNone();  // 搜索结果为空
+    void hideSearchLine();    // 隐藏搜索框
 
 private:
     void initUI();
@@ -90,6 +90,7 @@ signals:
     void sigRun(QModelIndex index);
     void sigStop(QModelIndex index);
     void sigRestart(QModelIndex index);
+    void sigGenerateTemp(QModelIndex index);
     void sigImagePass(int row);
     void sigImageRefuse(int row);
     void sigBackupResume(int row);
@@ -103,7 +104,7 @@ signals:
     void sigUpdatePaging(int);                      //更新页面
     void sigHasRunningCtn(bool);
     void sigPagingSearch(QString);
-    void sigRefreshSearchResult(); // 刷新搜索结果
+    void sigRefreshSearchResult();  // 刷新搜索结果
 
 private slots:
     void onMonitor(int row);

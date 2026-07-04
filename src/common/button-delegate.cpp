@@ -33,6 +33,7 @@ ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>
         m_menu->addAction(tr("Run"));
         m_menu->addAction(tr("Stop"));
         m_menu->addAction(tr("Restart"));
+        m_menu->addAction(tr("Generate template"));
         connect(m_menu, &QMenu::triggered, this, &ButtonDelegate::onActTriggered);
     }
 }
@@ -269,6 +270,8 @@ void ButtonDelegate::onActTriggered(QAction *act)
         emit sigActStop(m_index);
     else if (act->text() == tr("Restart"))
         emit sigActRestart(m_index);
+    else if (act->text() == tr("Generate template"))
+        emit sigActGenerateTemp(m_index);
 }
 
 void ButtonDelegate::isSetDelegateDefault(bool key)

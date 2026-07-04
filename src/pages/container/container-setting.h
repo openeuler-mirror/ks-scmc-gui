@@ -24,7 +24,8 @@ enum ContainerSettingType
     CONTAINER_SETTING_TYPE_CONTAINER_EDIT,
     CONTAINER_SETTING_TYPE_TEMPLATE_CREATE,
     CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
-    CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE
+    CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE,
+    CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE
 };
 
 enum TabConfigGuideItemType
@@ -77,6 +78,7 @@ private:
     void getImageInfo(int64_t node_id);
     void setNodeNetworkList(int nodeId);
 
+    void writeContainerConfig(container::ContainerConfigs *cntrCfg);
     void createContainer();
     void updateContainer();
 
