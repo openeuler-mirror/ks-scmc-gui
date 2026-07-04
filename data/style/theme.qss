@@ -871,6 +871,10 @@ MonitorContent  QScrollArea QScrollBar::handle:vertical
     border-radius:4px;
     background-color:#393939;
 }
+MonitorContent  QScrollArea QScrollBar::handle:vertical:hover
+{
+    background-color:#6C6C6C;
+}
 MonitorContent  QScrollArea QScrollBar::sub-line:vertical
 {
     image:none;
@@ -879,6 +883,57 @@ MonitorContent  QScrollArea QScrollBar::add-line:vertical
 {
     image:none;
 }
+
+/********************************************************Outline****************************************/
+OutlineView QScrollArea QScrollBar:vertical
+{
+    width: 6px;
+    border-radius:6px;
+    background-color:#919191;
+}
+OutlineView  QScrollArea QScrollBar::handle:vertical
+{
+    border-radius:4px;
+    background-color:#393939;
+}
+OutlineView  QScrollArea QScrollBar::handle:vertical:hover
+{
+    background-color:#6C6C6C;
+}
+OutlineView  QScrollArea QScrollBar::sub-line:vertical
+{
+    image:none;
+}
+OutlineView  QScrollArea QScrollBar::add-line:vertical
+{
+    image:none;
+}
+
+OutlineView QScrollArea QScrollBar:horizontal
+{
+    height: 6px;
+    border-radius:6px;
+    background-color:#919191;
+}
+OutlineView  QScrollArea QScrollBar::handle:horizontal
+{
+    border-radius:4px;
+    background-color:#393939;
+}
+OutlineView  QScrollArea QScrollBar::handle:horizontal:hover
+{
+    background-color:#6C6C6C;
+}
+OutlineView  QScrollArea QScrollBar::sub-line:horizontal
+{
+    image:none;
+}
+OutlineView  QScrollArea QScrollBar::add-line:horizontal
+{
+    image:none;
+}
+
+
 
 /********************************************************TabPage****************************************/
 TabPage QTabWidget::pane {
