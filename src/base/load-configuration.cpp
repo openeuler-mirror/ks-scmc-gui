@@ -6,10 +6,10 @@
  */
 #include "load-configuration.h"
 #include <kiran-log/qt5-log-i.h>
-#include <QSettings>
 #include <QFileInfo>
+#include <QSettings>
 
-LoadConfiguration::LoadConfiguration() :m_settings(nullptr)
+LoadConfiguration::LoadConfiguration() : m_settings(nullptr)
 {
     m_settings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "kylinsec", "ks-scmc-config");
     initConfig();
@@ -24,7 +24,6 @@ LoadConfiguration::~LoadConfiguration()
     }
 }
 
-
 LoadConfiguration &LoadConfiguration::Instance()
 {
     static LoadConfiguration loadCfg;
@@ -35,7 +34,7 @@ void LoadConfiguration::initConfig()
 {
     m_values.insert("TERMINAL_CMD", "mate-terminal -e");
     m_values.insert("BASHRC_FILE", "/etc/ks-scmc/graphic_rc");
-    m_values.insert("TERMINAL_USAGE", "mate-terminal -e \"ssh -Xt root@${nodeAddr} CONTAINER_NAME=${containerName} bash --rcfile /etc/ks-scmc/graphic_rc\"");
+    m_values.insert("TERMINAL_USAGE", "mate-terminal --disable-factory -e \"ssh -Xt root@${nodeAddr} CONTAINER_NAME=${containerName} ${appexec} bash --rcfile /etc/ks-scmc/graphic_rc\"");
     m_values.insert("SSL_ENABLE", "false");
     m_values.insert("SSL_CA", "/etc/ks-scmc/x509/ca.pem");
     m_values.insert("SSL_CERT", "/etc/ks-scmc/x509/client-cert.pem");
@@ -46,8 +45,8 @@ void LoadConfiguration::initConfig()
     if (!fileinfo.isFile())
     {
         m_settings->beginGroup("terminal");
-        m_settings->setValue("cmd",  m_values["TERMINAL_CMD"]);
-        m_settings->setValue("rcfile",  m_values["BASHRC_FILE"]);
+        m_settings->setValue("cmd", m_values["TERMINAL_CMD"]);
+        m_settings->setValue("rcfile", m_values["BASHRC_FILE"]);
         m_settings->setValue("total_cmd", m_values["TERMINAL_USAGE"]);
         m_settings->endGroup();
 
@@ -64,26 +63,33 @@ void LoadConfiguration::initConfig()
 QString LoadConfiguration::readConfig(QString group, QString key)
 {
     QString value = m_settings->value(group + "/" + key).toString();
-    return  value;
+    return value;
 }
 
-
-QString LoadConfiguration::_getTerminalConfig(QString nodeAddr, QString containerName)
+QString LoadConfiguration::_getTerminalConfig(QString nodeAddr, QString containerName, QString appexec)
 {
     const QString group = "terminal";
     QString cmd = readConfig(group, "total_cmd");
     if (cmd.isEmpty())
         cmd = m_values["TERMINAL_USAGE"];
-    QString result = cmd.replace("${nodeAddr}", nodeAddr).replace("${containerName}", containerName);
+    QString result;
+    if (appexec.isEmpty())
+    {
+        result = cmd.replace("${nodeAddr}", nodeAddr).replace("${containerName}", containerName).replace("${appexec}", "");
+    }
+    else
+    {
+        result = cmd.replace("${nodeAddr}", nodeAddr).replace("${containerName}", containerName).replace("${appexec}", QString("CONTAINER_CMD=%1").arg(appexec));
+    }
 
-//    QString execmd = readConfig(group, "cmd");
-//    if (execmd.isEmpty())
-//        execmd = m_values["TERMINAL_CMD"];
-//    QString file = readConfig(group,  "rcfile");
-//    if (file.isEmpty())
-//        file = m_values["BASHRC_FILE"];
+    //    QString execmd = readConfig(group, "cmd");
+    //    if (execmd.isEmpty())
+    //        execmd = m_values["TERMINAL_CMD"];
+    //    QString file = readConfig(group,  "rcfile");
+    //    if (file.isEmpty())
+    //        file = m_values["BASHRC_FILE"];
 
-    return  result;
+    return result;
 }
 
 void LoadConfiguration::_getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key)
@@ -101,15 +107,11 @@ void LoadConfiguration::_getSSLConfig(bool &enable, QString &ca, QString &cert, 
     if (ca.isEmpty())
         ca = m_values["SSL_CA"];
 
-
-    cert = readConfig(group,  "cert");
+    cert = readConfig(group, "cert");
     if (cert.isEmpty())
         cert = m_values["SSL_CERT"];
 
-
-    key = readConfig(group,  "key");
+    key = readConfig(group, "key");
     if (key.isEmpty())
         key = m_values["SSL_KEY"];
 }
-
-

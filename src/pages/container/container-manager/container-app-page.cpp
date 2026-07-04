@@ -2,6 +2,8 @@
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
 #include <QDesktopWidget>
+
+#include "load-configuration.h"
 #include "message-dialog.h"
 #include "notification-manager.h"
 using namespace grpc;
@@ -10,16 +12,30 @@ using namespace grpc;
 #define CONTAINER_APP_NAME "container app name"
 #define CONTAINER_APP_PATH "container app path"
 #define CONTAINER_APP_IS_GUI "container app is_gui"
+#define STATUS_COL 4
 
-ContainerAppPage::ContainerAppPage(int nodeId, std::string containerId, QWidget *parent) : TablePage(parent),
-                                                                                           m_nodeId(nodeId),
-                                                                                           m_containerId(containerId),
-                                                                                           m_appOp(nullptr)
+ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : TablePage(parent),
+                                                                                                                                        m_nodeId(nodeId),
+                                                                                                                                        m_containerId(containerId),
+                                                                                                                                        m_nodeAddr(nodeAddr),
+                                                                                                                                        m_containerName(containerName),
+                                                                                                                                        m_appOp(nullptr),
+                                                                                                                                        m_proc(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
     initButtons();
     initTable();
     initConnect();
+    setStyleSheet("background-color:#222222;");
+}
+
+ContainerAppPage::~ContainerAppPage()
+{
+    if (m_proc)
+    {
+        delete m_proc;
+        m_proc = nullptr;
+    }
 }
 
 void ContainerAppPage::updateInfo(QString keyword)
@@ -43,7 +59,7 @@ void ContainerAppPage::onEdit(int row)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> appInfo = item->data().toMap();
-    //TODO:判断应用是否在运行
+    //判断应用是否在运行
     QString name = appInfo.value(CONTAINER_APP_NAME).toString();
     if (!appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool())
     {
@@ -75,6 +91,34 @@ void ContainerAppPage::onRun(int row)
     if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
     {
         //图形app则弹出终端
+        //判断该应用程序是否已经在运行
+        auto isRunning = appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool();
+        if (isRunning)
+        {
+            NotificationManager::sendNotify(tr("The app(%1) is running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+            return;
+        }
+
+        if (!m_proc)
+        {
+            m_proc = new QProcess();
+            connect(m_proc, &QProcess::stateChanged, this, &ContainerAppPage::guiAppStatus);
+        }
+
+        //判断该子进程中是否有应用程序在运行
+        if (m_proc->state() == QProcess::ProcessState::Running)
+        {
+            NotificationManager::sendNotify(tr("There is a app running!"), "");
+            return;
+        }
+
+        auto cmd = LoadConfiguration::getTerminalConfig("10.20.1.52 -p 222", m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
+        KLOG_INFO() << cmd;
+
+        m_runningAppRow = row;
+        m_proc->start(cmd);
+
+        KLOG_INFO() << "pid: " << m_proc->processId();
     }
     else
     {
@@ -92,7 +136,16 @@ void ContainerAppPage::onStop(int row)
     //判断app类型
     if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
     {
-        //图形app则弹出终端
+        //图形app则关闭终端
+        if (!appInfo.value(CONTAIENR_APP_IS_RUNNING).toBool())
+        {
+            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appInfo.value(CONTAINER_APP_NAME).toString()), "");
+            return;
+        }
+        if (m_proc && m_proc->state() == QProcess::ProcessState::Running)
+        {
+            m_proc->kill();
+        }
     }
     else
     {
@@ -175,6 +228,28 @@ void ContainerAppPage::onSaveApp(const QString name, const QString path, const b
     }
 }
 
+void ContainerAppPage::guiAppStatus(QProcess::ProcessState state)
+{
+    KLOG_INFO() << "process status:" << state;
+    auto item = getItem(m_runningAppRow, STATUS_COL);
+    auto dataItem = getItem(m_runningAppRow, 1);
+    QMap<QString, QVariant> appInfo = dataItem->data().toMap();
+    if (state == QProcess::ProcessState::Running)
+    {
+        item->setText(tr("Running"));
+        item->setForeground(QBrush(QColor("#00921b")));
+        appInfo.insert(CONTAIENR_APP_IS_RUNNING, true);
+        dataItem->setData(appInfo);
+    }
+    else if (state == QProcess::ProcessState::NotRunning)
+    {
+        item->setText(tr("Stop"));
+        item->setForeground(QBrush(QColor("#d30000")));
+        appInfo.insert(CONTAIENR_APP_IS_RUNNING, false);
+        dataItem->setData(appInfo);
+    }
+}
+
 void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &reply)
 {
     KLOG_INFO() << "getListAppEntryFinished" << m_objId << objId;
@@ -222,6 +297,7 @@ void ContainerAppPage::getListAppEntryFinished(const QString objId, const QPair<
                 QStandardItem *itemPath = new QStandardItem(app.exe_path().data());
 
                 QStandardItem *itemStatus = new QStandardItem(isRuning ? tr("Running") : tr("Stop"));
+                itemStatus->setForeground(QBrush(QColor(isRuning ? "#00921b" : "#d30000")));
 
                 setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemType << itemPath << itemStatus);
                 row++;
@@ -418,21 +494,19 @@ void ContainerAppPage::showOperateDlg()
             });
 }
 
-ContainerAppDialog::ContainerAppDialog(int64_t nodeId, std::string containerId, QWidget *parent) : KiranTitlebarWindow(parent)
+ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::string containerId, QString containerName, QWidget *parent) : KiranTitlebarWindow(parent)
 {
-    setTitle("Container app");
+    setTitle(tr("Container app"));
     setIcon(QIcon(":/images/logo.png"));
-    setButtonHints(KiranTitlebarWindow::TitlebarMinimizeButtonHint | KiranTitlebarWindow::TitlebarCloseButtonHint);
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowModality(Qt::ApplicationModal);
-    //setResizeable(false);
     QWidget *windowContentWidget = getWindowContentWidget();
     QVBoxLayout *vLayout = new QVBoxLayout(windowContentWidget);
     vLayout->setMargin(0);
     vLayout->setSpacing(0);
     vLayout->setContentsMargins(0, 20, 0, 20);
 
-    ContainerAppPage *appPage = new ContainerAppPage(nodeId, containerId, windowContentWidget);
+    ContainerAppPage *appPage = new ContainerAppPage(nodeId, nodeAddr, containerId, containerName, windowContentWidget);
     appPage->updateInfo();
     vLayout->addWidget(appPage);
 }
