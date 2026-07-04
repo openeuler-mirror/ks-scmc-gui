@@ -90,7 +90,7 @@ xdg-desktop-icon install --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 %postun
 sudo rm -rf %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
 xdg-desktop-icon uninstall --novendor %{_datadir}/applications/ks-scmc-gui.desktop
-killall ks-scmc-gui
+killall ks-scmc-gui > /dev/null 2>&1 || true
 
 %files
 %{_datadir}/ks-scmc-gui/*
