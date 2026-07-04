@@ -11,6 +11,7 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId = "", QWidget *
 {
     setIcon(QIcon(":/images/logo.png"));
     setAttribute(Qt::WA_DeleteOnClose);
+    setTitle(tr("Monitor"));
     setWindowModality(Qt::ApplicationModal);
     setMonitorContent(nodeId, containerId);
 }

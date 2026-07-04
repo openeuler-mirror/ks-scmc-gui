@@ -345,7 +345,7 @@ void SecurityListTab::initUI()
 
     QToolButton *funcDescBtn = new QToolButton(this);
     funcDescBtn->setObjectName("funcDescBtn");
-    funcDescBtn->setText("Function\nInstruction");
+    funcDescBtn->setText(tr("Function\nInstruction"));
     funcDescBtn->setFixedSize(50, 40);
     funcDescBtn->setCursor(Qt::PointingHandCursor);
     connect(funcDescBtn, &QToolButton::clicked, this, &SecurityListTab::popuoFuncDesc);

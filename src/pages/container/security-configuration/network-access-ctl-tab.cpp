@@ -158,7 +158,7 @@ void NetworkAccessCtlTab::initUI()
     btnLayout->setMargin(0);
     QToolButton *funcDescBtn = new QToolButton(this);
     funcDescBtn->setObjectName("funcDescBtn");
-    funcDescBtn->setText("Function\nInstruction");
+    funcDescBtn->setText(tr("Function\nInstruction"));
     funcDescBtn->setCursor(Qt::PointingHandCursor);
     funcDescBtn->setFixedSize(50, 40);
     btnLayout->addWidget(funcDescBtn);
