@@ -29,8 +29,8 @@ OutlineIntroduction::OutlineIntroduction(QWidget *parent) :
                                 "font-size: 14px;"
                                 "border-radius:0px;"
                                 "color: #ffffff;}");
-    ui->label_2->setText(tr("A single neutral console manages heterogeneous infrastructure, interfaces with existing business process platforms, and logically Pools Resources on the cloud,\n\
-So as to implement resource allocation based on enterprise organizational structure and provide standard processes and standardized cloud services."));
+    ui->label_2->setText(tr("The security container management client mainly provides a management interface to realize the management of the server.\n\
+It mainly includes four modules: user management, node management, image and image warehouse management, and container management."));
 }
 
 OutlineIntroduction::~OutlineIntroduction()
