@@ -413,7 +413,7 @@ void NodeListPage::initTable()
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
     QList<int> sortablCol = {1, 2};
-    setSortableCol(sortablCol);
+    setSortableCols(sortablCol);
     setTableDefaultContent("-");
 
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{

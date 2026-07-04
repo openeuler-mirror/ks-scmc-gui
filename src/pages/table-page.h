@@ -51,7 +51,8 @@ public:
     void setTableItems(int row, int col, QList<QStandardItem *> items);
     void setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo);
     void setTableSingleChoose(bool isSingleChoose);
-    void setSortableCol(QList<int> cols);
+    void setSortableCols(QList<int> cols);
+    void setSortableCol(int col, Qt::SortOrder order);
     void setHeaderSections(QStringList names);
     void setHeaderCheckable(bool checkable);
     void setTableDefaultContent(QString text);
