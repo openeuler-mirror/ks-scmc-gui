@@ -498,7 +498,10 @@ void ContainerListPage::getNodeListResult(QString objId, const QPair<Status, nod
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get node list result failed:" << reply.first.error_message().data();
         return;
+    }
 
     qDeleteAll(m_nodeInfoMap);
     for (auto n : reply.second.nodes())
@@ -519,7 +522,10 @@ void ContainerListPage::getListImageFinishedResult(QString objId, const QPair<St
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get image list result failed:" << reply.first.error_message().data();
         return;
+    }
 
     m_imageInfos.clear();
     for (auto info : reply.second.images())

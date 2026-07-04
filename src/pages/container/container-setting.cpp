@@ -964,7 +964,16 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get container inspect result faild:" << reply.first.error_message().data();
+        MessageDialog::message(tr("Edit Container"),
+                               tr("Get container infomation failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        close();
         return;
+    }
 
     //init ui
     auto info = reply.second.configs();
@@ -1091,7 +1100,16 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
         return;
 
     if (!reply.first.ok())
+    {
+        KLOG_INFO() << "get container template result faild:" << reply.first.error_message().data();
+        MessageDialog::message(tr("Edit Container"),
+                               tr("Get template infomation failed!"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        close();
         return;
+    }
 
     //init ui
     int nodeID = reply.second.data().node_id();
