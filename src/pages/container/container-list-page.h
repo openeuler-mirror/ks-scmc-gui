@@ -50,7 +50,7 @@ private:
     void initButtons();
     void initTable();
     void initConnect();
-    void getContainerInspect(QMap<QString, QVariant> itemData);
+    //void getContainerInspect(QMap<QString, QVariant> itemData);
     void getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids);
     void getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids);
 
