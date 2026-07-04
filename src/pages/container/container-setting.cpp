@@ -5,16 +5,16 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPair>
-#include "advanced-configuration/envs-conf-page.h"
-#include "advanced-configuration/graphic-conf-page.h"
-#include "advanced-configuration/high-availability-page.h"
-#include "advanced-configuration/volumes-conf-page.h"
-#include "base-configuration/cpu-conf-page.h"
-#include "base-configuration/memory-conf-page.h"
-#include "base-configuration/network-conf-page.h"
-#include "common/def.h"
+#include "advanced-configuration/envs-conf-tab.h"
+#include "advanced-configuration/graphic-conf-tab.h"
+#include "advanced-configuration/high-availability-tab.h"
+#include "advanced-configuration/volumes-conf-tab.h"
+#include "base-configuration/cpu-conf-tab.h"
+#include "base-configuration/memory-conf-tab.h"
+#include "base-configuration/network-conf-tab.h"
 #include "common/guide-item.h"
 #include "common/message-dialog.h"
+#include "def.h"
 #include "ui_container-setting.h"
 
 #define CPU "CPU"
@@ -228,29 +228,29 @@ GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, 
 
 void ContainerSetting::initBaseConfPages()
 {
-    CPUConfPage *cpuInfoPage = new CPUConfPage(m_totalCPU, ui->tab_base_config);
-    m_baseConfStack->addWidget(cpuInfoPage);
+    CPUConfTab *cpuInfoTab = new CPUConfTab(m_totalCPU, ui->tab_base_config);
+    m_baseConfStack->addWidget(cpuInfoTab);
 
-    MemoryConfPage *memoryConfPage = new MemoryConfPage(ui->tab_base_config);
-    m_baseConfStack->addWidget(memoryConfPage);
+    MemoryConfTab *memoryConfTab = new MemoryConfTab(ui->tab_base_config);
+    m_baseConfStack->addWidget(memoryConfTab);
 
-    NetworkConfPage *networkConfPage = new NetworkConfPage(ui->tab_base_config);
-    m_baseConfStack->addWidget(networkConfPage);
+    NetworkConfTab *networkConfTab = new NetworkConfTab(ui->tab_base_config);
+    m_baseConfStack->addWidget(networkConfTab);
 }
 
 void ContainerSetting::initAdvancedConfPages()
 {
-    EnvsConfPage *envsConfPage = new EnvsConfPage(ui->tab_advanced_config);
-    m_advancedConfStack->addWidget(envsConfPage);
+    EnvsConfTab *envsConfTab = new EnvsConfTab(ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(envsConfTab);
 
-    GraphicConfPage *graphicConfPage = new GraphicConfPage(ui->tab_advanced_config);
-    m_advancedConfStack->addWidget(graphicConfPage);
+    GraphicConfTab *graphicConfTab = new GraphicConfTab(ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(graphicConfTab);
 
-    VolumesConfPage *volumesConfPage = new VolumesConfPage(ui->tab_advanced_config);
-    m_advancedConfStack->addWidget(volumesConfPage);
+    VolumesConfTab *volumesConfTab = new VolumesConfTab(ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(volumesConfTab);
 
-    HighAvailabilityPage *highAvailability = new HighAvailabilityPage(ui->tab_advanced_config);
-    m_advancedConfStack->addWidget(highAvailability);
+    HighAvailabilityTab *highAvailabilityTab = new HighAvailabilityTab(ui->tab_advanced_config);
+    m_advancedConfStack->addWidget(highAvailabilityTab);
 }
 
 void ContainerSetting::updateRemovableItem(QString itemText)
@@ -306,11 +306,11 @@ void ContainerSetting::createContainer()
     //cpu
     auto hostCfg = request.mutable_host_config();
     auto resourceCfg = hostCfg->mutable_resource_config();
-    auto cpuPage = qobject_cast<CPUConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->getCPUInfo(resourceCfg);
 
     //memory
-    auto memoryPage = qobject_cast<MemoryConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     ret = memoryPage->getMemoryInfo(resourceCfg);
     if (ret == INPUT_ARG_ERROR)
     {
@@ -324,15 +324,15 @@ void ContainerSetting::createContainer()
 
     //High
     auto policy = hostCfg->mutable_restart_policy();
-    auto highAvailabilityPage = qobject_cast<HighAvailabilityPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
     //network card
-    auto networkPage = qobject_cast<NetworkConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
+    auto networkPage = qobject_cast<NetworkConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
     networkPage->getNetworkInfo(&request);
 
     //env
-    auto envPage = qobject_cast<EnvsConfPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     ret = envPage->getEnvInfo(cntrCfg);
     if (ret == INPUT_NULL_ERROR)
     {
@@ -345,7 +345,7 @@ void ContainerSetting::createContainer()
     }
 
     //volume
-    auto volumePage = qobject_cast<VolumesConfPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
     ret = volumePage->getVolumeInfo(hostCfg);
     if (ret == INPUT_NULL_ERROR)
     {
@@ -358,7 +358,7 @@ void ContainerSetting::createContainer()
     }
 
     //Graph
-    auto graphicPage = qobject_cast<GraphicConfPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
     graphicPage->getGraphicInfo(&request);
 
     InfoWorker::getInstance().createContainer(request);
@@ -371,14 +371,14 @@ void ContainerSetting::updateContainer()
     request.set_container_id(m_containerIds.second.toStdString());
 
     auto rsrcCfg = request.mutable_resource_config();
-    auto cpuPage = qobject_cast<CPUConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
     cpuPage->getCPUInfo(rsrcCfg);
 
-    auto memoryPage = qobject_cast<MemoryConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->getMemoryInfo(rsrcCfg);
 
     auto policy = request.mutable_restart_policy();
-    auto highAvailabilityPage = qobject_cast<HighAvailabilityPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+    auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
     InfoWorker::getInstance().updateContainer(request);
@@ -427,7 +427,7 @@ void ContainerSetting::onAddItem(QAction *action)
                                           ":/images/container-net-card.svg");
         m_baseItems.append(item);
         updateRemovableItem(tr("Network card"));
-        NetworkConfPage *networkConfPage = new NetworkConfPage(this);
+        NetworkConfTab *networkConfPage = new NetworkConfTab(this);
         m_baseConfStack->addWidget(networkConfPage);
         break;
     }
@@ -490,7 +490,7 @@ void ContainerSetting::onConfirm()
 
 void ContainerSetting::onNodeSelectedChanged(QString newStr)
 {
-    auto networkPage = qobject_cast<NetworkConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
+    auto networkPage = qobject_cast<NetworkConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD));
     networkPage->updateNetworkInfo(m_nodeInfo.key(newStr));
     getImageInfo(m_nodeInfo.key(newStr));
 }
@@ -557,15 +557,15 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
 
         auto host = reply.second.host_config();
         //cpu
-        auto cpuPage = qobject_cast<CPUConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+        auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
         cpuPage->setCPUInfo(&host);
 
         //memory
-        auto memoryPage = qobject_cast<MemoryConfPage *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+        auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
         memoryPage->setMemoryInfo(&host);
 
         //high-availability
-        auto highAvailabilityPage = qobject_cast<HighAvailabilityPage *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
+        auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
         highAvailabilityPage->setRestartPolicy(&host);
     }
 }

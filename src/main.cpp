@@ -1,5 +1,6 @@
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-single-application.h>
+#include <kiranwidgets-qt5/kiran-message-box.h>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
@@ -8,14 +9,14 @@
 #include <QTranslator>
 #include <iostream>
 #include "config/config.h"
-#include "main-window.h"
-#include "pages/user/login.h"
+#include "login-dialog.h"
 
 #define TRANSLATION_DIR TRANSLATIONS_FILE_DIR
+#define APP_NAME "ks-scmc-gui"
 int main(int argc, char *argv[])
 {
     //设置日志输出
-    if (klog_qt5_init("", "kylinsec-session", "ks-scmc-gui", "ks-scmc-gui") < 0)
+    if (klog_qt5_init("", "kylinsec-session", APP_NAME, APP_NAME) < 0)
     {
         std::cout << "init klog error" << std::endl;
     }
@@ -34,11 +35,11 @@ int main(int argc, char *argv[])
     }
     else
     {
-        QMessageBox::warning(NULL, "warning", "Open failed", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        KiranMessageBox::message(NULL, "Warning", "Open failed", KiranMessageBox::Ok);
     }
     //加载翻译文件
     QTranslator *qtTranslator = new QTranslator(qApp);
-    if (qtTranslator->load(QLocale(), "ks-scmc", ".", TRANSLATION_DIR, ".qm"))
+    if (qtTranslator->load(QLocale(), APP_NAME, ".", TRANSLATION_DIR, ".qm"))
     {
         a.installTranslator(qtTranslator);
     }
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
         qDebug("Load Translator File failed : %s\n", TRANSLATION_DIR);
     }
 
-    Login w;
+    LoginDialog w;
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);

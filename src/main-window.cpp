@@ -8,13 +8,13 @@
 #include <QTimer>
 #include <iostream>
 #include "./ui_main-window.h"
+#include "common-page.h"
 #include "common/bubble-tip-button.h"
-#include "common/common-page.h"
 #include "common/guide-item.h"
-#include "common/transmission-list.h"
-#include "pages/container/container-list.h"
-#include "pages/image/image-manager.h"
-#include "pages/node/node-list.h"
+#include "pages/container/container-list-page.h"
+#include "pages/image/image-manager-page.h"
+#include "pages/image/transmission-list.h"
+#include "pages/node/node-list-page.h"
 
 #define TIMEOUT 200
 MainWindow::MainWindow(QWidget* parent)
@@ -164,6 +164,7 @@ void MainWindow::initUI()
     m_stackedWidget->setObjectName("stackedWidget");
     ui->vlayout_page->addWidget(m_stackedWidget);
 
+    //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_CONTAINER_LIST, tr("Container List")},
         {GUIDE_ITEM_NODE_MANAGER, tr("Node List")},
@@ -233,7 +234,7 @@ CommonPage* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     {
     case GUIDE_ITEM_CONTAINER_LIST:
     {
-        page = new ContainerList(this);
+        page = new ContainerListPage(this);
         break;
     }
     case GUIDE_ITEM_CONTAINER_TEMPLATE:
@@ -241,12 +242,12 @@ CommonPage* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_NODE_MANAGER:
     {
-        page = new NodeList(this);
+        page = new NodeListPage(this);
         break;
     }
     case GUIDE_ITEM_IMAGE_MANAGER:
     {
-        page = new ImageManager(this);
+        page = new ImageManagerPage(this);
         break;
     }
     default:
