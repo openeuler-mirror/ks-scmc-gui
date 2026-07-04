@@ -15,6 +15,7 @@ NodeList::NodeList(QWidget *parent) : CommonPage(parent),
     m_mapStatus.insert(10, QPair<QString, QString>(tr("Online"), "green"));
     initButtons();
     initTable();
+    initNodeConnect();
 }
 
 NodeList::~NodeList()
@@ -30,10 +31,12 @@ void NodeList::updateInfo(QString keyword)
 {
     KLOG_INFO() << "NodeList updateInfo";
     clearText();
-    InfoWorker::getInstance().disconnect();
+    //InfoWorker::getInstance().disconnect();
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
     if (keyword.isEmpty())
     {
-        initNodeConnect();
+        //initNodeConnect();
+        connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &NodeList::getListResult);
         getNodeList();
     }
 }

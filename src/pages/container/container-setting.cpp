@@ -38,6 +38,7 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QWidget *parent) :
     ui->setupUi(this);
     initUI();
     setAttribute(Qt::WA_DeleteOnClose);
+    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
 
     connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &ContainerSetting::getNodeListResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
@@ -505,12 +506,6 @@ void ContainerSetting::getNodeListResult(const QPair<grpc::Status, node::ListRep
             m_nodeInfo.insert(n.id(), QString("%1").arg(n.address().data()));
             ui->cb_node->addItem(QString("%1").arg(n.address().data()));
             m_totalCPU = n.status().cpu_stat().total();
-        }
-        if (!m_nodeInfo.isEmpty())
-        {
-            auto iter = m_nodeInfo.begin();
-            onNodeSelectedChanged(iter.value());
-            KLOG_INFO() << "total cpu = " << m_totalCPU;
         }
     }
 }

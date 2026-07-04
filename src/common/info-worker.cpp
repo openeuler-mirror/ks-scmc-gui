@@ -214,60 +214,9 @@ void InfoWorker::uploadImage(image::UploadRequest &req, const QString &imageFile
     RPC_ASYNC(image::UploadReply, _uploadImage, uploadFinished, req, imageFile);
 }
 
-QPair<grpc::Status, image::UpdateReply> InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile)
+void InfoWorker::updateImage(image::UpdateRequest &req, const QString &imageFile)
 {
-    QPair<grpc::Status, image::UpdateReply> r;
-    auto chan = get_rpc_channel(g_server_addr);
-    if (!chan)
-    {
-        KLOG_INFO() << "uploadImage failed to get connection";
-        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
-                               QObject::tr("Network Error").toStdString());
-        return r;
-    }
-
-    grpc::ClientContext context;
-    image::UpdateReply reply;
-    auto stream = image::Image::NewStub(chan)->Update(&context, &reply);
-    bool ret = stream->Write(req);
-    if (!ret)
-    {
-        KLOG_INFO() << "send param err";
-        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
-                               QObject::tr("Internal Error").toStdString());
-        return r;
-    }
-
-    QFile file(imageFile);
-    if (!file.open(QIODevice::ReadOnly))
-    {
-        KLOG_INFO() << "Failed to open " << imageFile;
-        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                               QObject::tr("Invalid Argument").toStdString());
-        return r;
-    }
-
-    char *pBuf = new char[CHUNK_SIZE];
-    while (!file.atEnd())
-    {
-        qint64 ret = file.read(pBuf, CHUNK_SIZE);
-        req.mutable_chunk_data();
-        req.set_chunk_data(pBuf, (size_t)ret);
-        if (!stream->Write(req))
-        {
-            KLOG_INFO() << "Broken stream";
-            break;
-        }
-    }
-
-    file.close();
-    stream->WritesDone();
-    r.first = stream->Finish();
-    r.second = reply;
-    delete[] pBuf;
-    KLOG_INFO() << "return:" << r.first.error_code();
-
-    return r;
+    RPC_ASYNC(image::UpdateReply, _updateImage, updateFinished, req, imageFile);
 }
 
 QPair<grpc::Status, downloadImageInfo> InfoWorker::downloadImage(const int64_t image_id, const QString &savePath)
@@ -499,6 +448,60 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     r.first = stream->Finish();
     delete[] pBuf;
     KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
+
+    return r;
+}
+
+QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRequest &req, const QString &imageFile)
+{
+    QPair<grpc::Status, image::UpdateReply> r;
+    auto chan = get_rpc_channel(g_server_addr);
+    if (!chan)
+    {
+        KLOG_INFO() << "update image failed to get connection";
+        r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
+                               QObject::tr("Network Error").toStdString());
+        return r;
+    }
+
+    grpc::ClientContext context;
+    auto stream = image::Image::NewStub(chan)->Update(&context, &r.second);
+    bool ret = stream->Write(req);
+    if (!ret)
+    {
+        KLOG_INFO() << "send param err";
+        r.first = grpc::Status(grpc::StatusCode::INTERNAL,
+                               QObject::tr("Internal Error").toStdString());
+        return r;
+    }
+
+    QFile file(imageFile);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        KLOG_INFO() << "Failed to open " << imageFile;
+        r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
+                               QObject::tr("Invalid Argument").toStdString());
+        return r;
+    }
+
+    char *pBuf = new char[CHUNK_SIZE];
+    while (!file.atEnd())
+    {
+        qint64 ret = file.read(pBuf, CHUNK_SIZE);
+        req.mutable_chunk_data();
+        req.set_chunk_data(pBuf, (size_t)ret);
+        if (!stream->Write(req))
+        {
+            KLOG_INFO() << "Broken stream";
+            break;
+        }
+    }
+
+    file.close();
+    stream->WritesDone();
+    r.first = stream->Finish();
+    delete[] pBuf;
+    KLOG_INFO() << "return:" << r.first.error_code();
 
     return r;
 }
