@@ -212,6 +212,52 @@ void InfoWorker::listNetwork(const int64_t node_id)
     RPC_ASYNC(network::ListReply, _listNetwork, listNetworkFinished, req);
 }
 
+void InfoWorker::connectNetwork(const network::ConnectRequest &req)
+{
+    RPC_ASYNC(network::ConnectReply, _connectNetwork, connectNetworkFinished, req);
+}
+
+void InfoWorker::disconnectNetwork(const int64_t node_id, std::string interface, std::string container_id)
+{
+    network::DisconnectRequest req;
+    req.set_node_id(node_id);
+    req.set_interface(interface);
+    req.set_container_id(container_id);
+    RPC_ASYNC(network::DisconnectReply, _disconnectNetwork, disconnectNetworkFinished, req);
+}
+
+void InfoWorker::listIPtables(const int64_t node_id, std::string container_id)
+{
+    network::ListIPtablesRequest req;
+    req.set_node_id(node_id);
+    req.set_container_id(container_id);
+    RPC_ASYNC(network::ListIPtablesReply, _listIPtables, listIPtablesFinished, req);
+}
+
+void InfoWorker::enableIPtables(const int64_t node_id, bool enable, std::string container_id)
+{
+    network::EnableIPtablesRequest req;
+    req.set_node_id(node_id);
+    req.set_container_id(container_id);
+    req.set_enable(enable);
+    RPC_ASYNC(network::EnableIPtablesReply, _enableIPtables, enableIPtablesFinished, req);
+}
+
+void InfoWorker::createIPtables(const network::CreateIPtablesRequest &req)
+{
+    RPC_ASYNC(network::CreateIPtablesReply, _createIPtables, createIPtablesFinished, req);
+}
+
+void InfoWorker::modifyIPtables(const network::ModifyIPtablesRequest &req)
+{
+    RPC_ASYNC(network::ModifyIPtablesReply, _modifyIPtables, modifyIPtablesFinished, req);
+}
+
+void InfoWorker::removeIPtables(const network::RemoveIPtablesRequest &req)
+{
+    RPC_ASYNC(network::RemoveIPtablesReply, _removeIPtables, removeIPtablesFinished, req);
+}
+
 void InfoWorker::listImage(const int64_t node_id)
 {
     image::ListRequest req;
@@ -367,6 +413,41 @@ QPair<grpc::Status, container::MonitorHistoryReply> InfoWorker::_monitorHistory(
 QPair<grpc::Status, network::ListReply> InfoWorker::_listNetwork(const network::ListRequest &req)
 {
     RPC_IMPL(network::ListReply, network::Network::NewStub, List);
+}
+
+QPair<grpc::Status, network::ConnectReply> InfoWorker::_connectNetwork(const network::ConnectRequest &req)
+{
+    RPC_IMPL(network::ConnectReply, network::Network::NewStub, Connect);
+}
+
+QPair<grpc::Status, network::DisconnectReply> InfoWorker::_disconnectNetwork(const network::DisconnectRequest &req)
+{
+    RPC_IMPL(network::DisconnectReply, network::Network::NewStub, Disconnect);
+}
+
+QPair<grpc::Status, network::ListIPtablesReply> InfoWorker::_listIPtables(const network::ListIPtablesRequest &req)
+{
+    RPC_IMPL(network::ListIPtablesReply, network::Network::NewStub, ListIPtables);
+}
+
+QPair<grpc::Status, network::EnableIPtablesReply> InfoWorker::_enableIPtables(const network::EnableIPtablesRequest &req)
+{
+    RPC_IMPL(network::EnableIPtablesReply, network::Network::NewStub, EnableIPtables);
+}
+
+QPair<grpc::Status, network::CreateIPtablesReply> InfoWorker::_createIPtables(const network::CreateIPtablesRequest &req)
+{
+    RPC_IMPL(network::CreateIPtablesReply, network::Network::NewStub, CreateIPtables);
+}
+
+QPair<grpc::Status, network::ModifyIPtablesReply> InfoWorker::_modifyIPtables(const network::ModifyIPtablesRequest &req)
+{
+    RPC_IMPL(network::ModifyIPtablesReply, network::Network::NewStub, ModifyIPtables);
+}
+
+QPair<grpc::Status, network::RemoveIPtablesReply> InfoWorker::_removeIPtables(const network::RemoveIPtablesRequest &req)
+{
+    RPC_IMPL(network::RemoveIPtablesReply, network::Network::NewStub, RemoveIPtables);
 }
 
 QPair<grpc::Status, image::ListReply> InfoWorker::_listImage(const image::ListRequest &req)

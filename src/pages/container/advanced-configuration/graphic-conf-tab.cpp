@@ -16,7 +16,8 @@ void GraphicConfTab::setGraphicInfo()
 {
 }
 
-void GraphicConfTab::getGraphicInfo(container::CreateRequest* request)
+
+bool GraphicConfTab::isGraphic()
 {
-    request->set_enable_graphic(ui->graphic_checkBox->isChecked());
+    return ui->graphic_checkBox->isChecked();
 }

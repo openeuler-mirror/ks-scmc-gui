@@ -16,9 +16,9 @@ NetworkConfTab::~NetworkConfTab()
     delete ui;
 }
 
-void NetworkConfTab::getNetworkInfo(container::CreateRequest *req)
+void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
 {
-    auto cfg = req->add_network_config();
+    auto cfg = cntrCfg->add_networks();
     QString str = ui->cb_virt_networkcard->currentText();
     QString name = str.split(" ").first();  // 网卡名
     container::NetworkConfig network;
@@ -28,9 +28,35 @@ void NetworkConfTab::getNetworkInfo(container::CreateRequest *req)
     cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
 }
 
+void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
+{
+    auto cfg = req->add_networks();
+    QString str = ui->cb_virt_networkcard->currentText();
+    QString name = str.split(" ").first();  // 网卡名
+    container::NetworkConfig network;
+
+    cfg->set_interface(name.toStdString());
+    cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
+    cfg->set_mac_address(ui->lineEdit_mac->text().toStdString());
+}
 void NetworkConfTab::setNetworkInfo(container::NetworkConfig *networkCfg)
 {
     KLOG_INFO() << "setNetworkInfo: " << networkCfg->ip_address().data() << networkCfg->mac_address().data();
+    ui->lineEdit_ip->setText(QString::fromStdString(networkCfg->ip_address().data()));
+    ui->lineEdit_mac->setText(QString::fromStdString(networkCfg->mac_address().data()));
+}
+
+void NetworkConfTab::setNetworkInfo1(container::NetworkConfig *networkCfg)
+{
+    KLOG_INFO() << "setNetworkInfo1: " << networkCfg->interface().data() << networkCfg->ip_address().data() << networkCfg->mac_address().data();
+    auto name = networkCfg->interface().data();
+    auto subnet = networkCfg->ip_address() + "/" + std::to_string(networkCfg->ip_prefix_len());
+    QString str = QString("%1 (%2:%3)")
+                      .arg(QString::fromStdString(name))
+                      .arg(tr("Subnet"))
+                      .arg(QString::fromStdString(subnet));
+    KLOG_INFO() << str;
+    ui->cb_virt_networkcard->addItem(str);
     ui->lineEdit_ip->setText(QString::fromStdString(networkCfg->ip_address().data()));
     ui->lineEdit_mac->setText(QString::fromStdString(networkCfg->mac_address().data()));
 }

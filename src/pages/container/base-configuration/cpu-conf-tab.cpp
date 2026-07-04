@@ -20,25 +20,24 @@ CPUConfTab::~CPUConfTab()
     delete ui;
 }
 
-void CPUConfTab::setCPUInfo(container::HostConfig* cfg)
+void CPUConfTab::setCPUInfo(container::ResourceLimit* cfg)
 {
     if (cfg)
     {
-        auto resourceCfg = cfg->mutable_resource_config();
-        KLOG_INFO() << resourceCfg->nano_cpus() / 1e9 << resourceCfg->cpu_shares();
-        ui->lineEdit_cpu_core->setText(QString("%1").arg(resourceCfg->nano_cpus() / 1e9));
-        ui->lineEdit_sche_pri->setText(QString("%1").arg(resourceCfg->cpu_shares()));
+        KLOG_INFO() << cfg->cpu_limit() << cfg->cpu_prio();
+        ui->lineEdit_cpu_core->setText(QString("%1").arg(cfg->cpu_limit()));
+        ui->lineEdit_sche_pri->setText(QString("%1").arg(cfg->cpu_prio()));
     }
 }
 
-void CPUConfTab::getCPUInfo(container::ResourceConfig* cfg)
+void CPUConfTab::getCPUInfo(container::ResourceLimit *cfg)
 {
     if (cfg)
     {
-        KLOG_INFO() << "cpu core:" << ui->lineEdit_cpu_core->text().toInt() * 1e9;
-        cfg->set_nano_cpus(ui->lineEdit_cpu_core->text().toInt() * 1e9);
+        KLOG_INFO() << "cpu core:" << ui->lineEdit_cpu_core->text().toDouble();
+        cfg->set_cpu_limit(ui->lineEdit_cpu_core->text().toDouble());
 
         //调度优先级
-        cfg->set_cpu_shares(ui->lineEdit_sche_pri->text().toInt());
+        cfg->set_cpu_prio(ui->lineEdit_sche_pri->text().toInt());
     }
 }

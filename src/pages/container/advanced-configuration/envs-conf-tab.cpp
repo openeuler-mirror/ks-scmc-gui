@@ -15,11 +15,11 @@ EnvsConfTab::~EnvsConfTab()
     delete ui;
 }
 
-ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfig *cfg)
+ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg)
 {
-    if (cfg)
+    if (cntrCfg)
     {
-        auto env = cfg->mutable_env();
+        auto env = cntrCfg->mutable_envs();
         auto itemList = m_configTable->getAllData();
         for (auto item : itemList)
         {
@@ -40,10 +40,10 @@ ErrorCode EnvsConfTab::getEnvInfo(container::ContainerConfig *cfg)
     return CONFIG_ARG_ERROR;
 }
 
-void EnvsConfTab::setEnvInfo(const container::ContainerConfig *cfg)
+void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
 {
     KLOG_INFO() << "setEnvInfo";
-    auto envMap = cfg->env();
+    auto envMap = cfg->envs();
     KLOG_INFO() << envMap["PATH"].data();
 }
 

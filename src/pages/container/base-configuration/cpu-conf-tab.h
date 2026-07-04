@@ -16,8 +16,8 @@ class CPUConfTab : public QWidget
 public:
     explicit CPUConfTab(double totalCPU, QWidget *parent = nullptr);
     ~CPUConfTab();
-    void setCPUInfo(container::HostConfig *cfg);
-    void getCPUInfo(container::ResourceConfig *cfg);
+    void setCPUInfo(container::ResourceLimit *cfg);
+    void getCPUInfo(container::ResourceLimit *cfg);
 
 private:
     Ui::CPUConfTab *ui;
