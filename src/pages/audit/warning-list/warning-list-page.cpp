@@ -12,6 +12,7 @@ WarningListPage::WarningListPage(QWidget *parent) : TabPage(parent)
 
 void WarningListPage::updateInfo(QString keyword)
 {
+    setCurrentPage(CONTAINER_WARNING);
     m_warninglistview_container->updateInfo();
 //    m_loglistview_system->updateInfo();
 }
@@ -22,14 +23,14 @@ void WarningListPage::createSubPage(WarningListPageType type)
     {
     case CONTAINER_WARNING:
     {
-        m_warninglistview_container = new WarningListView;
+        m_warninglistview_container = new WarningListView(this,true,true);
         m_warninglistview_container->setLogListPageType(CONTAINER_WARNING);
         addTabPage(m_warninglistview_container,tr("container warning"));
         break;
     }
     case NODE_WARNING:
     {
-        m_warninglistview_node = new WarningListView;
+        m_warninglistview_node = new WarningListView(this,false,true);
         m_warninglistview_node->setLogListPageType(NODE_WARNING);
         addTabPage(m_warninglistview_node,tr("node warning"));
         break;
