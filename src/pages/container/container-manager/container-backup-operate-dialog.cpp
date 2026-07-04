@@ -11,9 +11,9 @@
 #include <QFileDialog>
 #include <QTextEdit>
 #include "ui_container-backup-operate-dialog.h"
-ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType type, QWidget *parent) : KiranTitlebarWindow(parent),
-                                                                                                      ui(new Ui::ContainerBackupOperateDialog),
-                                                                                                      m_type(type)
+ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType type, QString backup, QWidget *parent) : KiranTitlebarWindow(parent),
+                                                                                                                      ui(new Ui::ContainerBackupOperateDialog),
+                                                                                                                      m_type(type)
 {
     ui->setupUi(getWindowContentWidget());
     setAttribute(Qt::WA_DeleteOnClose);
@@ -27,11 +27,15 @@ ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType typ
     {
         ui->stackedWidget->setCurrentWidget(ui->page_operate);
 
-        ui->lineEdit_version->setText(currTime.toString("yyyyMMddhhmmss"));
         ui->lineEdit_version->setMaxLength(20);
         ui->lineEdit_version->setPlaceholderText(tr("Please input 1 to 20 characters"));
         if (m_type == BACKUP_OPERATE_TYPE_EDIT)
+        {
+            ui->lineEdit_version->setText(backup);
             ui->lineEdit_version->setDisabled(true);
+        }
+        else if (m_type == BACKUP_OPERATE_TYPE_CREATE)
+            ui->lineEdit_version->setText(currTime.toString("yyyyMMddhhmmss"));
 
         ui->btn_tip->setIcon(QIcon(":/images/tips.svg"));
         ui->btn_tip->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
@@ -42,22 +46,16 @@ ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType typ
     else
     {
         ui->stackedWidget->setCurrentWidget(ui->page_export);
-        ui->btn_tip_name->setIcon(QIcon(":/images/tips.svg"));
-        ui->btn_tip_name->setToolTip(tr("Only lowercase, digit or ._- three special characters;\nThe first and last characters cannot be special characters"));
+
         ui->btn_tip_version->setIcon(QIcon(":/images/tips.svg"));
         ui->btn_tip_version->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
-
-        ui->lineEdit_image_name->setMaxLength(50);
-        ui->lineEdit_image_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
         ui->lineEdit_image_version->setMaxLength(20);
         ui->lineEdit_image_version->setPlaceholderText(tr("Please input 1 to 20 characters"));
-        ui->lineEdit_image_version->setText(currTime.toString("yyyyMMddhhmmss"));
-        ui->textEdit_image_desc->setPlaceholderText(tr("Please input 0 to 200 characters"));
+        ui->lineEdit_image_version->setText(backup);
 
         ui->rd_btn_local->setChecked(true);
-        ui->label_image_tip->hide();
+        ui->label_tip_image->hide();
     }
-    connect(ui->textEdit_image_desc, &QTextEdit::textChanged, this, &ContainerBackupOperateDialog::limitLength);
     connect(ui->textEdit_desc, &QTextEdit::textChanged, this, &ContainerBackupOperateDialog::limitLength);
     connect(ui->btn_ok, &QPushButton::clicked, this, &ContainerBackupOperateDialog::save);
     connect(ui->btn_cancel, &QPushButton::clicked, this, &ContainerBackupOperateDialog::close);
@@ -99,18 +97,16 @@ void ContainerBackupOperateDialog::save()
     }
     else
     {
-        if (ui->lineEdit_image_name->text().isEmpty() || ui->lineEdit_image_version->text().isEmpty())
+        if (ui->lineEdit_image_version->text().isEmpty())
         {
-            ui->label_image_tip->setText(tr("Please complate the information!"));
-            ui->label_image_tip->show();
+            ui->label_tip_image->setText(tr("Please complate the information!"));
+            ui->label_tip_image->show();
             return;
         }
 
-        ui->label_tip_version->hide();
+        ui->label_tip_image->hide();
         bool isDownLoad = ui->rd_btn_local->isChecked();
-        QString name = ui->lineEdit_image_name->text();
         QString version = ui->lineEdit_image_version->text();
-        QString desc = ui->textEdit_image_desc->toPlainText();
         QString path = "";
 
         if (isDownLoad)
@@ -125,7 +121,8 @@ void ContainerBackupOperateDialog::save()
             KLOG_INFO() << "imagePath:" << path;
         }
 
-        emit sigExport(isDownLoad, name, version, desc, path);
+        emit sigExport(isDownLoad, version, path);
+        close();
 
         //popup file dialog
     }

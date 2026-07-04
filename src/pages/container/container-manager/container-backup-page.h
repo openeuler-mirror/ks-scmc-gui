@@ -29,19 +29,19 @@ private slots:
     void onResumeBackup(int row);
     void onUpdateBackup(int row);
     void onExportBackup(int row);
-    void exportBackup(bool isDownload, QString name, QString version, QString desc, QString path);
+    void exportBackup(bool isDownload, QString version, QString path);
 
     void getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
     void getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
     void getCreateBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &);
     void getResumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &);
     void getRemoveBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
+    void getExportBackupFinished(const QString objId, const QPair<grpc::Status, QString> &);
 
 private:
     void initTable();
     void initButtons();
     void initConnect();
-    KiranTitlebarWindow *createExportWindow();
 
 private:
     QString m_objId;

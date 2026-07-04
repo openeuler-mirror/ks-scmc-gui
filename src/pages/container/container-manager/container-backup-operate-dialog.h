@@ -27,7 +27,7 @@ class ContainerBackupOperateDialog : public KiranTitlebarWindow
     Q_OBJECT
 
 public:
-    explicit ContainerBackupOperateDialog(BackupOperateType type, QWidget *parent = nullptr);
+    explicit ContainerBackupOperateDialog(BackupOperateType type, QString backup = "", QWidget *parent = nullptr);
     ~ContainerBackupOperateDialog();
 
 private:
@@ -38,7 +38,7 @@ private slots:
 
 signals:
     void sigSave(BackupOperateType type, QString desc, QString name);
-    void sigExport(bool isDownload, QString name, QString version, QString desc, QString path);
+    void sigExport(bool isDownload, QString version, QString path);
 
 private:
     Ui::ContainerBackupOperateDialog *ui;
