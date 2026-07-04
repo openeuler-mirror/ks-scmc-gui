@@ -125,14 +125,14 @@ void LoadConfiguration::getCmd(QString &cmd, QString &totalCmd)
     if (0 == QProcess::execute("which mate-terminal"))
     {
         cmd = "mate-terminal -e";
-        totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
+        totalCmd = "mate-terminal --disable-factory -e \"ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}\"";
     }
     else
     {
         if (0 == QProcess::execute("which konsole"))
         {
             cmd = "konsole -e";
-            totalCmd = "konsole -e ssh -Xt root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
+            totalCmd = "konsole -e ssh -Xt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${nodeAddr} /etc/ks-scmc/access-container-gui ${containerName} ${appexec}";
         }
     }
 }
