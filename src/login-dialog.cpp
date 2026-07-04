@@ -18,6 +18,7 @@
 #include <QSettings>
 #include <QTimer>
 #include "common/message-dialog.h"
+#include "global-application.h"
 #include "main-window.h"
 #include "pages/user/server-config-dialog.h"
 #include "subscribe-thread.h"
@@ -44,24 +45,24 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     m_serverCfgDlg->hide();
     m_activate_page = new ActivatePage(this);
     m_activate_page->hide();
-    m_dbusutil = new DBusUtils(this);
 
+    m_dbusutil = new DBusUtils(this);
     connect(m_dbusutil, SIGNAL(LicenseChanged(bool)), this, SLOT(updateLicense(bool)));
     connect(m_dbusutil, SIGNAL(callDbusFailed()), this, SLOT(showErrorBox()));
 
     QString licence_str = m_dbusutil->callInterface(GET_LICENSE);
     getLicense(licence_str);
 
-    createSubscribThread();
-
     initUI();
     m_activate_page->setText(m_license->machine_code, m_license->activation_code, m_license->activation_time, m_license->expired_time);
     connect(m_activate_page, &ActivatePage::activate_app, this, &LoginDialog::activation);
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::sessionExpire, this, &LoginDialog::sessionExpire, Qt::UniqueConnection);
     connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
     //loadConfig();
+
+    auto qAPP = static_cast<GlobalApplication *>(QCoreApplication::instance());
+    connect(qAPP, &GlobalApplication::sessionExpired, this, &LoginDialog::sessionExpire);
 }
 
 LoginDialog::~LoginDialog()
@@ -87,17 +88,6 @@ LoginDialog::~LoginDialog()
     {
         delete m_dbusutil;
         m_dbusutil = nullptr;
-    }
-    if (m_subscribeThread)
-    {
-        delete m_subscribeThread;
-        m_subscribeThread = nullptr;
-    }
-    if (m_thread)
-    {
-        m_thread->quit();
-        m_thread->wait();
-        m_thread->deleteLater();
     }
 }
 
@@ -125,13 +115,6 @@ bool LoginDialog::eventFilter(QObject *obj, QEvent *event)
     if (obj == m_mainWindow && event->type() == QEvent::Close)
     {
         KLOG_INFO() << "mainwindow close event!";
-        if (m_thread->isRunning())
-        {
-            KLOG_INFO() << "quit m_thread";
-            m_subscribeThread->cancel();
-            m_thread->quit();
-            m_thread->wait();
-        }
         if (QThreadPool::globalInstance()->activeThreadCount())
         {
             MessageDialog::message(tr("Quit Application"),
@@ -290,16 +273,6 @@ void LoginDialog::initMessageBox()
     m_dbusErrorBox->setButtonSize(QSize(80, 30));
     m_dbusErrorBox->setText(tr("Failed to get data, please check the service status."));
     connect(okButton, SIGNAL(clicked(bool)), this, SLOT(close()));
-}
-
-void LoginDialog::createSubscribThread()
-{
-    m_thread = new QThread;
-    m_subscribeThread = new SubscribeThread;
-    m_subscribeThread->moveToThread(m_thread);
-
-    connect(m_subscribeThread, &SubscribeThread::sessionExpire, this, &LoginDialog::sessionExpire, Qt::QueuedConnection);
-    connect(m_thread, &QThread::started, m_subscribeThread, &SubscribeThread::subscribe);
 }
 
 void LoginDialog::loadConfig()
@@ -483,8 +456,6 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
     if (reply.first.ok())
     {
-        //订阅功能，1.1版本加上
-        m_thread->start();
         if (!m_mainWindow)
         {
             m_mainWindow = new MainWindow(ui->lineEdit_username->text());
@@ -549,12 +520,6 @@ void LoginDialog::sessionExpire()
         m_mainWindow = nullptr;
     }
     show();
-    if (m_thread->isRunning())
-    {
-        m_subscribeThread->cancel();
-        m_thread->quit();
-        m_thread->wait();
-    }
     ui->lineEdit_passwd->clear();
     ui->lab_tips->clear();
     ui->lab_tips->setText(tr("Session Expired,Please login again!"));
