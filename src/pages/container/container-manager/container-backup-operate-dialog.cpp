@@ -9,6 +9,8 @@ ContainerBackupOperateDialog::ContainerBackupOperateDialog(BackupOperateType typ
     ui->setupUi(getWindowContentWidget());
     setAttribute(Qt::WA_DeleteOnClose);
     setIcon(QIcon(":/images/logo.png"));
+    setResizeable(false);
+    setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_ok, Kiran::BUTTON_Default);
 
     connect(ui->btn_ok, &QPushButton::clicked,

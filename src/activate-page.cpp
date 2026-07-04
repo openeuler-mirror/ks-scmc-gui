@@ -1,16 +1,15 @@
 #include "activate-page.h"
 
 #include <qrencode.h>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
-#include <QPainter>
 #include <QPaintEvent>
+#include <QPainter>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include <QDateTime>
 
-ActivatePage::ActivatePage(KiranTitlebarWindow *parent) :
-    KiranTitlebarWindow(parent)
+ActivatePage::ActivatePage(KiranTitlebarWindow *parent) : KiranTitlebarWindow(parent)
 {
     this->setWindowModality(Qt::ApplicationModal);
     init();
@@ -23,10 +22,11 @@ ActivatePage::~ActivatePage()
 
 void ActivatePage::init()
 {
+    setResizeable(false);
     KiranTitlebarWindow::setTitle(tr("Software Activation"));
     KiranTitlebarWindow::setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint | KiranTitlebarWindow::TitlebarMinimizeButtonHint);
     KiranTitlebarWindow::setIcon(QIcon(":/images/logo.png"));
-//    KiranTitlebarWindow::setTitleBarHeight(30);
+    //    KiranTitlebarWindow::setTitleBarHeight(30);
     KiranTitlebarWindow::setFixedSize(500, 340);
     KiranTitlebarWindow::setWindowModality(Qt::ApplicationModal);
 
@@ -48,7 +48,7 @@ void ActivatePage::init()
     QHBoxLayout *hlayout = new QHBoxLayout(machine_code_edit);
     QPushButton *button = new QPushButton(machine_code_edit);
     button->setFlat(true);
-   // KS::WidgetPropertyHelper::setButtonType(button, KS::ButtonType::BUTTON_Default);
+    // KS::WidgetPropertyHelper::setButtonType(button, KS::ButtonType::BUTTON_Default);
     connect(button, SIGNAL(clicked(bool)), this, SLOT(showQR()));
 
     button->setStyleSheet("QPushButton{border-image: url(:/images/qrcode.png);}");
@@ -66,8 +66,8 @@ void ActivatePage::init()
 
     QWidget *widget = new QWidget();
     widget->setStyleSheet("QWidget{"
-                         "font:NotoSansCJKsc-Regular;"
-                         "font-size:14px;}");
+                          "font:NotoSansCJKsc-Regular;"
+                          "font-size:14px;}");
     QHBoxLayout *buttonLayout = new QHBoxLayout(widget);
     QPushButton *activeButton = new QPushButton(tr("Active"));
     QPushButton *canCelButton = new QPushButton(tr("Cancel"));
@@ -102,7 +102,7 @@ void ActivatePage::createQRcode(QString machine_code)
     qr = new KiranTitlebarWindow(this);
     qr->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
     qr->setIcon(QIcon(":/images/logo.png"));
-//    qr->setTitleBarHeight(30);
+    //    qr->setTitleBarHeight(30);
     qr->setFixedSize(300, 250);
     qr->setWindowModality(Qt::ApplicationModal);
     qr->setTitle(tr("QR Code"));
@@ -125,7 +125,7 @@ void ActivatePage::createQRcode(QString machine_code)
 
     QPixmap QRPixmap;
     m_qrcode = QRcode_encodeString(machine_code.toStdString().c_str(), 2, QR_ECLEVEL_Q, QR_MODE_8, 1);
-    int qrcodeWidth = m_qrcode->width >0 ? m_qrcode->width : 1;
+    int qrcodeWidth = m_qrcode->width > 0 ? m_qrcode->width : 1;
     double scaledWidgth = (double)width / (double)qrcodeWidth;
     double scaledHeight = (double)height / (double)qrcodeWidth;
     QImage image = QImage(width, height, QImage::Format_ARGB32);
@@ -138,12 +138,12 @@ void ActivatePage::createQRcode(QString machine_code)
     QColor foreground(Qt::black);
     painter.setBrush(foreground);
 
-    for( qint32 y = 0; y < qrcodeWidth; y++)
+    for (qint32 y = 0; y < qrcodeWidth; y++)
     {
-        for(qint32 x = 0; x < qrcodeWidth; x++)
+        for (qint32 x = 0; x < qrcodeWidth; x++)
         {
             unsigned char b = m_qrcode->data[y * qrcodeWidth + x];
-            if(b & 0x01)
+            if (b & 0x01)
             {
                 QRectF r(x * scaledWidgth, y * scaledHeight, scaledWidgth, scaledHeight);
                 painter.drawRects(&r, 1);
@@ -173,25 +173,24 @@ void ActivatePage::initMessageBox()
     m_errorBox = new KiranMessageBox(this);
     QPushButton *bt = new QPushButton(tr("OK"));
     bt->setStyleSheet("QPushButton{"
-                          "color:black;"
-                          "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;"
-                          "border-radius:4px;"
-                          "background:rgba(255,255,255,255);}");
+                      "color:black;"
+                      "font:NotoSansCJKsc-Regular;"
+                      "font-size:14px;"
+                      "border-radius:4px;"
+                      "background:rgba(255,255,255,255);}");
     bt->setFocusPolicy(Qt::NoFocus);
     m_errorBox->addButton(bt, QDialogButtonBox::AcceptRole);
     m_errorBox->setButtonSize(QSize(80, 30));
     m_errorBox->setText(tr("Activation failed. Please confirm whether the activation code is correct."));
 
-
     m_acitvedMessageBox = new KiranMessageBox(this);
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setStyleSheet("QPushButton{"
-                          "color:black;"
-                          "font:NotoSansCJKsc-Regular;"
-                          "font-size:14px;"
-                          "border-radius:4px;"
-                          "background:rgba(255,255,255,255);}");
+                            "color:black;"
+                            "font:NotoSansCJKsc-Regular;"
+                            "font-size:14px;"
+                            "border-radius:4px;"
+                            "background:rgba(255,255,255,255);}");
     okButton->setFocusPolicy(Qt::NoFocus);
     m_acitvedMessageBox->addButton(okButton, QDialogButtonBox::AcceptRole);
     m_acitvedMessageBox->setButtonSize(QSize(80, 30));
@@ -203,16 +202,16 @@ void ActivatePage::initMessageBox()
 void ActivatePage::activation()
 {
     QString activation_code = license_code_edit->text();
-    if(activation_code.isEmpty())
+    if (activation_code.isEmpty())
     {
-        int x = this->x() + this->width()/2 - m_messageBox->width()/2;
-        int y = this->y() + this->height()/2 - m_messageBox->height()/2;
+        int x = this->x() + this->width() / 2 - m_messageBox->width() / 2;
+        int y = this->y() + this->height() / 2 - m_messageBox->height() / 2;
         m_messageBox->move(x, y);
         m_messageBox->show();
     }
     else
     {
-       emit this->activate_app(activation_code);
+        emit this->activate_app(activation_code);
     }
 }
 
@@ -223,8 +222,8 @@ void ActivatePage::cancel()
 
 void ActivatePage::showQR()
 {
-    int x = this->x() + this->width()/2 - qr->width()/2;
-    int y = this->y() + this->height()/2 - qr->height()/2;
+    int x = this->x() + this->width() / 2 - qr->width() / 2;
+    int y = this->y() + this->height() / 2 - qr->height() / 2;
     qr->move(x, y);
     qr->show();
 }
@@ -236,9 +235,9 @@ void ActivatePage::hideQR()
 
 void ActivatePage::setText(QString machine_code, QString activation_code, int activation_time, int expired_time)
 {
-    if(!machine_code.isNull())
+    if (!machine_code.isNull())
         createQRcode(machine_code);
-    if(activation_code.isEmpty())
+    if (activation_code.isEmpty())
     {
         date_code_edit->hide();
         date_code_label->hide();
@@ -257,8 +256,8 @@ void ActivatePage::setText(QString machine_code, QString activation_code, int ac
 
 void ActivatePage::showAcitvedBox()
 {
-    int x = this->x() + this->width()/2 - m_acitvedMessageBox->width()/2;
-    int y = this->y() + this->height()/2 - m_acitvedMessageBox->height()/2;
+    int x = this->x() + this->width() / 2 - m_acitvedMessageBox->width() / 2;
+    int y = this->y() + this->height() / 2 - m_acitvedMessageBox->height() / 2;
     m_acitvedMessageBox->move(x, y);
     m_acitvedMessageBox->show();
     update();
@@ -266,8 +265,8 @@ void ActivatePage::showAcitvedBox()
 
 void ActivatePage::showErrorBox()
 {
-    int x = this->x() + this->width()/2 - m_errorBox->width()/2;
-    int y = this->y() + this->height()/2 - m_errorBox->height()/2;
+    int x = this->x() + this->width() / 2 - m_errorBox->width() / 2;
+    int y = this->y() + this->height() / 2 - m_errorBox->height() / 2;
     m_errorBox->move(x, y);
     m_errorBox->show();
 }

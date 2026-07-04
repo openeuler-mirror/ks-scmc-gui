@@ -43,6 +43,7 @@ void ServerConfigDialog::initUI()
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarButtonHint::TitlebarCloseButtonHint);
     this->setFixedSize(460, 340);
+    setResizeable(false);
 
     QWidget *windowContentWidget = getWindowContentWidget();
     QVBoxLayout *mainVLayout = new QVBoxLayout(windowContentWidget);

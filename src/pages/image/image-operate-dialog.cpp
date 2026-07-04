@@ -47,6 +47,7 @@ void ImageOperateDialog::initUI()
     setWindowModality(Qt::ApplicationModal);
     setTitle(tr("Image Operate"));
     setFixedSize(600, 500);
+    setResizeable(false);
     setButtonHints(TitlebarCloseButtonHint | TitlebarMinimizeButtonHint);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btnSave, Kiran::BUTTON_Default);
 
