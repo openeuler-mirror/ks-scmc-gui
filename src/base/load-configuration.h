@@ -15,9 +15,13 @@ public:
     LoadConfiguration();
     ~LoadConfiguration();
     static QString getTerminalConfig(QString nodeAddr, QString containerName, QString appexec = "")
-    { return LoadConfiguration::Instance()._getTerminalConfig(nodeAddr, containerName, appexec); }
+    {
+        return LoadConfiguration::Instance()._getTerminalConfig(nodeAddr, containerName, appexec);
+    }
     static void getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key)
-    { LoadConfiguration::Instance()._getSSLConfig(enable, ca, cert, key); }
+    {
+        LoadConfiguration::Instance()._getSSLConfig(enable, ca, cert, key);
+    }
 
 private:
     static LoadConfiguration &Instance();
@@ -25,10 +29,11 @@ private:
     QString readConfig(QString group, QString key);
     QString _getTerminalConfig(QString nodeAddr, QString containerName, QString appexec);
     void _getSSLConfig(bool &enable, QString &ca, QString &cert, QString &key);
+    QString getTerminal();
 
 private:
     QSettings *m_settings;
     QMap<QString, QString> m_values;
 };
 
-#endif // LOADCONFIGURATION_H
+#endif  // LOADCONFIGURATION_H
