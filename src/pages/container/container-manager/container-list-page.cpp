@@ -84,7 +84,7 @@ ContainerListPage::~ContainerListPage()
 
 void ContainerListPage::onBtnRun()
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getCheckedItemsId(ids);
     if (!ids.empty())
     {
@@ -95,7 +95,7 @@ void ContainerListPage::onBtnRun()
 
 void ContainerListPage::onBtnRun(QModelIndex index)
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getItemId(index.row(), ids);
     setBusy(true);
     InfoWorker::getInstance().startContainer(m_objId, ids);
@@ -103,7 +103,7 @@ void ContainerListPage::onBtnRun(QModelIndex index)
 
 void ContainerListPage::onBtnStop()
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getCheckedItemsId(ids);
     if (!ids.empty())
     {
@@ -114,7 +114,7 @@ void ContainerListPage::onBtnStop()
 
 void ContainerListPage::onBtnStop(QModelIndex index)
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getItemId(index.row(), ids);
     setBusy(true);
     InfoWorker::getInstance().stopContainer(m_objId, ids);
@@ -122,7 +122,7 @@ void ContainerListPage::onBtnStop(QModelIndex index)
 
 void ContainerListPage::onBtnRestart()
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getCheckedItemsId(ids);
     if (!ids.empty())
     {
@@ -133,7 +133,7 @@ void ContainerListPage::onBtnRestart()
 
 void ContainerListPage::onBtnRestart(QModelIndex index)
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getItemId(index.row(), ids);
     setBusy(true);
     InfoWorker::getInstance().restartContainer(m_objId, ids);
@@ -141,7 +141,7 @@ void ContainerListPage::onBtnRestart(QModelIndex index)
 
 void ContainerListPage::onBtnDelete()
 {
-    std::map<int64_t, std::vector<std::string>> ids;
+    QMap<int64_t, QStringList> ids;
     getCheckedItemsId(ids);
     if (!ids.empty())
     {
@@ -274,6 +274,9 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         return;
     }
 
+    QMap<int64_t, QStringList> ids;
+    getCheckedItemsId(ids);
+
     clearTable();
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
     int size = reply.second.containers_size();
@@ -289,14 +292,20 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
     for (auto i : reply.second.containers())
     {
         qint64 nodeId = i.node_id();
+        auto containerID = i.info().id().data();
         infoMap.insert(NODE_ID, nodeId);
-        infoMap.insert(CONTAINER_ID, i.info().id().data());
+        infoMap.insert(CONTAINER_ID, containerID);
         infoMap.insert(CONTAINER_NAME, i.info().name().data());
         infoMap.insert(CONTAINER_STATUS, i.info().state().data());
         infoMap.insert(NODE_ADDRESS, i.node_address().data());
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
+
+        if (-1 != ids[nodeId].indexOf(containerID))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
 
         QStandardItem *itemName = new QStandardItem(i.info().name().data());
         itemName->setData(QVariant::fromValue(infoMap));
@@ -584,37 +593,24 @@ void ContainerListPage::hideEvent(QHideEvent *event)
     TablePage::hideEvent(event);
 }
 
-void ContainerListPage::getCheckedItemsId(std::map<int64_t, std::vector<std::string>> &ids)
+void ContainerListPage::getCheckedItemsId(QMap<int64_t, QStringList> &ids)
 {
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
 
     foreach (auto idMap, info)
     {
-        KLOG_INFO() << "node Id:" << idMap.value(NODE_ID).toInt() << "container id:" << idMap.value(CONTAINER_ID).toString();
         int64_t node_id = idMap.value(NODE_ID).toInt();
-        std::map<int64_t, std::vector<std::string>>::iterator iter = ids.find(node_id);
-        if (iter == ids.end())
-        {
-            std::vector<std::string> container_ids;
-            container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
-            ids.insert(std::pair<int64_t, std::vector<std::string>>(node_id, container_ids));
-        }
-        else
-        {
-            ids[node_id].push_back(idMap.value(CONTAINER_ID).toString().toStdString());
-        }
+        ids[node_id].append(idMap.value(CONTAINER_ID).toString());
     }
 }
 
-void ContainerListPage::getItemId(int row, std::map<int64_t, std::vector<std::string>> &ids)
+void ContainerListPage::getItemId(int row, QMap<int64_t, QStringList> &ids)
 {
     auto item = getItem(row, 1);
     QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
 
-    std::vector<std::string> container_ids;
-    container_ids.push_back(idMap.value(CONTAINER_ID).toString().toStdString());
     auto nodeId = idMap.value(NODE_ID).toInt();
-    ids.insert(std::pair<int64_t, std::vector<std::string>>(nodeId, container_ids));
+    ids[nodeId].append(idMap.value(CONTAINER_ID).toString());
 }
 
 void ContainerListPage::onItemClicked(const QModelIndex &index)

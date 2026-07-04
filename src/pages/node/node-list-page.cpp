@@ -192,8 +192,11 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
         setHeaderCheckable(false);
         return;
     }
-
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+
+    QList<qint64> ids;
+    getCheckedItemsId(ids);
+
     clearTable();
     int size = reply.second.nodes_size();
     if (size <= 0)
@@ -216,6 +219,10 @@ void NodeListPage::getListResult(const QString objId, const QPair<grpc::Status, 
 
         QStandardItem *itemCheck = new QStandardItem();
         itemCheck->setCheckable(true);
+        if (-1 != ids.indexOf(nodeId))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
 
         QStandardItem *itemName = new QStandardItem(node.name().data());
         itemName->setData(QVariant::fromValue(idMap));
@@ -424,4 +431,14 @@ void NodeListPage::initNodeConnect()
 void NodeListPage::getNodeList()
 {
     InfoWorker::getInstance().listNode(m_objId);
+}
+
+void NodeListPage::getCheckedItemsId(QList<qint64> &ids)
+{
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+
+    foreach (auto idMap, info)
+    {
+        ids.append(idMap.value(NODE_ID).toInt());
+    }
 }

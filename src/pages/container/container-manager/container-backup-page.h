@@ -46,6 +46,7 @@ private:
     void initTable();
     void initButtons();
     void initConnect();
+    void getCheckedItemsId(QList<qint64> &ids);
 
 private:
     QString m_objId;

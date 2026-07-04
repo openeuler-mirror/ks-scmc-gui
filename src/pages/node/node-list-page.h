@@ -52,6 +52,7 @@ private:
     void initTable();
     void initNodeConnect();
     void getNodeList();
+    void getCheckedItemsId(QList<qint64> &ids);
 
 private:
     QString m_objId;
