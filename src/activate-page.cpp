@@ -119,6 +119,7 @@ void ActivatePage::createQRcode(QString machine_code)
 
     QWidget *widget = qr->getWindowContentWidget();
     QVBoxLayout *vlayout = new QVBoxLayout(widget);
+    vlayout->setContentsMargins(0, 20, 0, 20);
     QLabel *label = new QLabel(widget);
     label->setAlignment(Qt::AlignCenter);
     label->setContentsMargins(0, 0, 0, 0);

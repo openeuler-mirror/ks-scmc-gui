@@ -164,7 +164,7 @@ void LoginDialog::initUI()
 
     //未激活文本
     activate_label = new QLabel(this);
-    activate_label->setAlignment(Qt::AlignHCenter);
+    activate_label->setAlignment(Qt::AlignCenter);
     activate_label->setFixedHeight(18);
     activate_label->setMinimumWidth(50);
     if (m_license->activation_status != LicenseActivationStatus::LAS_ACTIVATED)
