@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QToolButton>
+#include <QMouseEvent>
 #include <QWidget>
 #include "page.h"
 namespace Ui
@@ -57,6 +58,7 @@ private:
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
     void paintEvent(QPaintEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 signals:
     void sigMonitor(int row);
@@ -67,6 +69,7 @@ signals:
     void sigRestart(QModelIndex index);
     void sigTableHeightChanged(int height);
     void sigItemClicked(const QModelIndex &index);
+    void sigItemEntered(const QModelIndex &index);//鼠标进入item
 
 private slots:
     void onMonitor(int row);
@@ -80,6 +83,7 @@ private slots:
     void refresh();
     void onItemChecked(QStandardItem *changeItem);
     void onItemClicked(const QModelIndex &index);
+    void onItemEntered(const QModelIndex &index);
     void onHeaderCkbTog(bool toggled);
 
 private:
