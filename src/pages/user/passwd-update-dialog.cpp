@@ -194,7 +194,6 @@ void PasswdUpdateDialog::initUI()
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_cancel, Kiran::BUTTON_Normal);
 
-    //    ui->btn_tips->setToolTip();
     ui->btn_tips->setIcon(QIcon(":/images/tips.svg"));
     ui->btn_tips->setStyleSheet("QToolTip{"
                                 "background-color: rgb(255,255,255);"

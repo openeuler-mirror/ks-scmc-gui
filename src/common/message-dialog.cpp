@@ -28,7 +28,7 @@ void MessageDialog::setSummary(const QString &summary)
 
 void MessageDialog::setBody(const QString &body)
 {
-    ui->label_body->setText(body);
+    ui->browser_body->setText(body);
 }
 
 void MessageDialog::setIcon(const QString icon)
@@ -88,7 +88,6 @@ void MessageDialog::initUI()
 {
     setWindowFlags(Qt::WindowCloseButtonHint);
     setWindowIcon(QIcon(":/images/logo.png"));
-    ui->label_body->setWordWrap(true);
     if (standardButtonInfoMap.isEmpty())
     {
         standardButtonInfoMap = {
