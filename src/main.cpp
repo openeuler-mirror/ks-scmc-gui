@@ -43,6 +43,9 @@ int main(int argc, char *argv[])
 #endif
     //a.setStyle(QStyleFactory::create("fusion"));
 
+    //设置qt程序加载输入法模块为fcitx
+    qputenv("QT_IM_MODULE", QByteArray("fcitx"));
+
     ///加载qss样式表
     QFile file(":/style/theme.qss");
     if (file.open(QFile::ReadOnly))
