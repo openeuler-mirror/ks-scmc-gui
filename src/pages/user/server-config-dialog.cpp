@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "base/user-configuration.h"
+#include "user-configuration.h"
 
 #define SERVER_GROUP "Server"
 #define SERVER_IP "Ip"
@@ -42,7 +42,7 @@ QString ServerConfigDialog::getServerInfo()
     return server;
 }
 
-void ServerConfigDialog::ServerConfigDialog::initUI()
+void ServerConfigDialog::initUI()
 {
     setWindowModality(Qt::WindowModal);
     setTitle(tr("Config Server"));

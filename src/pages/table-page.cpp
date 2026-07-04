@@ -1,4 +1,4 @@
-#include "common-page.h"
+#include "table-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QHBoxLayout>
 #include <QPainter>
@@ -8,25 +8,19 @@
 #include <iostream>
 #include "common/button-delegate.h"
 #include "common/header-view.h"
-#include "common/mask-widget.h"
-#include "ui_common-page.h"
+#include "ui_table-page.h"
 
 using namespace std;
 
 #define TIMEOUT 200
-CommonPage::CommonPage(QWidget *parent) : QWidget(parent),
-                                          ui(new Ui::CommonPage),
-                                          m_searchTimer(nullptr),
-                                          m_refreshBtnTimer(nullptr),
-                                          m_maskWidget(nullptr),
-                                          m_singleChoose(false)
+TablePage::TablePage(QWidget *parent) : Page(parent),
+                                        ui(new Ui::TablePage),
+                                        m_searchTimer(nullptr),
+                                        m_refreshBtnTimer(nullptr),
+                                        m_singleChoose(false)
 {
     ui->setupUi(this);
     initUI();
-
-    m_maskWidget = new MaskWidget(this);
-    m_maskWidget->setFixedSize(this->size());  //设置窗口大小
-    this->stackUnder(qobject_cast<QWidget *>(m_maskWidget));
 
     m_searchTimer = new QTimer(this);
     connect(m_searchTimer, &QTimer::timeout,
@@ -35,10 +29,10 @@ CommonPage::CommonPage(QWidget *parent) : QWidget(parent),
                 m_searchTimer->stop();
             });
     m_refreshBtnTimer = new QTimer(this);
-    connect(m_refreshBtnTimer, &QTimer::timeout, this, &CommonPage::onRefreshTimeout);
+    connect(m_refreshBtnTimer, &QTimer::timeout, this, &TablePage::onRefreshTimeout);
 }
 
-CommonPage::~CommonPage()
+TablePage::~TablePage()
 {
     delete ui;
     if (m_searchTimer)
@@ -53,37 +47,20 @@ CommonPage::~CommonPage()
     }
 }
 
-void CommonPage::setBusy(bool status)
-{
-    m_maskWidget->setMaskVisible(status);
-    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, !status);
-    //setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, !status);
-}
-
-void CommonPage::setData(QVariant data)
-{
-    m_data = data;
-}
-
-QVariant CommonPage::getData()
-{
-    return m_data;
-}
-
-void CommonPage::clearTable()
+void TablePage::clearTable()
 {
     KLOG_INFO() << "pre" << m_model->rowCount();
     m_model->removeRows(0, m_model->rowCount());
     KLOG_INFO() << "current" << m_model->rowCount();
 }
 
-void CommonPage::addSingleOperationButton(QAbstractButton *btn)
+void TablePage::addSingleOperationButton(QAbstractButton *btn)
 {
     ui->hLayout_OpBtns->addWidget(btn, Qt::AlignLeft);
     m_singleOpBtns.append(btn);
 }
 
-void CommonPage::addBatchOperationButtons(QList<QPushButton *> opBtns)
+void TablePage::addBatchOperationButtons(QList<QPushButton *> opBtns)
 {
     foreach (QPushButton *btn, opBtns)
     {
@@ -92,7 +69,7 @@ void CommonPage::addBatchOperationButtons(QList<QPushButton *> opBtns)
     }
 }
 
-void CommonPage::setOpBtnEnabled(OperatorButtonType type, bool enabled)
+void TablePage::setOpBtnEnabled(OperatorButtonType type, bool enabled)
 {
     if (type == OPERATOR_BUTTON_TYPE_BATCH)
     {
@@ -110,23 +87,23 @@ void CommonPage::setOpBtnEnabled(OperatorButtonType type, bool enabled)
     }
 }
 
-void CommonPage::setTableRowNum(int num)
+void TablePage::setTableRowNum(int num)
 {
     m_model->setRowCount(num);
 }
 
-void CommonPage::setTableColNum(int num)
+void TablePage::setTableColNum(int num)
 {
     m_model->setColumnCount(num);
 }
 
-void CommonPage::setTableItem(int row, int col, QStandardItem *item)
+void TablePage::setTableItem(int row, int col, QStandardItem *item)
 {
     m_model->setItem(row, col, item);
     adjustTableSize();
 }
 
-void CommonPage::setTableItems(int row, int col, QList<QStandardItem *> items)
+void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
 {
     for (int i = 0; i < items.size(); i++)
     {
@@ -136,7 +113,7 @@ void CommonPage::setTableItems(int row, int col, QList<QStandardItem *> items)
     adjustTableSize();
 }
 
-void CommonPage::setTableActions(int col, QStringList actionIcons)
+void TablePage::setTableActions(int col, QStringList actionIcons)
 {
     //设置表中操作按钮代理
     QMap<int, QString> btnInfo;
@@ -147,25 +124,25 @@ void CommonPage::setTableActions(int col, QStringList actionIcons)
     ButtonDelegate *btnDelegate = new ButtonDelegate(btnInfo, this);
     ui->tableView->setItemDelegateForColumn(col, btnDelegate);
 
-    connect(btnDelegate, &ButtonDelegate::sigMonitor, this, &CommonPage::onMonitor);
-    connect(btnDelegate, &ButtonDelegate::sigEdit, this, &CommonPage::onEdit);
-    connect(btnDelegate, &ButtonDelegate::sigTerminal, this, &CommonPage::onTerminal);
-    connect(btnDelegate, &ButtonDelegate::sigActRun, this, &CommonPage::onActRun);
-    connect(btnDelegate, &ButtonDelegate::sigActStop, this, &CommonPage::onActStop);
-    connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &CommonPage::onActRestart);
+    connect(btnDelegate, &ButtonDelegate::sigMonitor, this, &TablePage::onMonitor);
+    connect(btnDelegate, &ButtonDelegate::sigEdit, this, &TablePage::onEdit);
+    connect(btnDelegate, &ButtonDelegate::sigTerminal, this, &TablePage::onTerminal);
+    connect(btnDelegate, &ButtonDelegate::sigActRun, this, &TablePage::onActRun);
+    connect(btnDelegate, &ButtonDelegate::sigActStop, this, &TablePage::onActStop);
+    connect(btnDelegate, &ButtonDelegate::sigActRestart, this, &TablePage::onActRestart);
 }
 
-void CommonPage::setTableSingleChoose(bool isSingleChoose)
+void TablePage::setTableSingleChoose(bool isSingleChoose)
 {
     m_singleChoose = isSingleChoose;
 }
 
-void CommonPage::setSortableCol(QList<int> cols)
+void TablePage::setSortableCol(QList<int> cols)
 {
     m_headerView->setSortableCols(cols);
 }
 
-void CommonPage::setHeaderSections(QStringList names)
+void TablePage::setHeaderSections(QStringList names)
 {
     //插入表头数据
     for (int i = 0; i < names.size(); i++)
@@ -186,12 +163,12 @@ void CommonPage::setHeaderSections(QStringList names)
     ui->tableView->setColumnWidth(0, 35);
 }
 
-void CommonPage::setHeaderCheckable(bool checkable)
+void TablePage::setHeaderCheckable(bool checkable)
 {
     m_headerView->setCheckable(checkable);
 }
 
-void CommonPage::setTableDefaultContent(QString text)
+void TablePage::setTableDefaultContent(QString text)
 {
     m_model->removeRows(0, m_model->rowCount());
     for (int i = 1; i < m_model->columnCount(); i++)
@@ -202,23 +179,23 @@ void CommonPage::setTableDefaultContent(QString text)
     }
 }
 
-void CommonPage::clearText()
+void TablePage::clearText()
 {
     ui->label_search_tips->clear();
     ui->lineEdit_search->clear();
 }
 
-int CommonPage::getTableRowCount()
+int TablePage::getTableRowCount()
 {
     return m_model->rowCount();
 }
 
-QStandardItem *CommonPage::getItem(int row, int col)
+QStandardItem *TablePage::getItem(int row, int col)
 {
     return m_model->item(row, col);
 }
 
-QList<QMap<QString, QVariant>> CommonPage::getCheckedItemInfo(int col)
+QList<QMap<QString, QVariant>> TablePage::getCheckedItemInfo(int col)
 {
     QList<QMap<QString, QVariant>> checkedItemInfo;  //containerId,nodeId
     for (int i = 0; i < m_model->rowCount(); i++)
@@ -234,14 +211,14 @@ QList<QMap<QString, QVariant>> CommonPage::getCheckedItemInfo(int col)
     return checkedItemInfo;
 }
 
-void CommonPage::sleep(int sec)
+void TablePage::sleep(int sec)
 {
     QTime dieTime = QTime::currentTime().addSecs(sec);
     while (QTime::currentTime() < dieTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
-void CommonPage::initUI()
+void TablePage::initUI()
 {
     ui->lineEdit_search->setPlaceholderText(tr("Please enter the keyword"));
     ui->btn_refresh->setIcon(QIcon(":/images/refresh.svg"));
@@ -282,18 +259,18 @@ void CommonPage::initUI()
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setShowGrid(false);
 
-    connect(ui->tableView, &QTableView::clicked, this, &CommonPage::onItemClicked);
-    connect(m_model, &QStandardItemModel::itemChanged, this, &CommonPage::onItemChecked);
-    connect(btn_search, &QPushButton::clicked, this, &CommonPage::search);
-    connect(m_headerView, &HeaderView::ckbToggled, this, &CommonPage::onHeaderCkbTog);
-    connect(ui->btn_refresh, &QToolButton::clicked, this, &CommonPage::refresh);
+    connect(ui->tableView, &QTableView::clicked, this, &TablePage::onItemClicked);
+    connect(m_model, &QStandardItemModel::itemChanged, this, &TablePage::onItemChecked);
+    connect(btn_search, &QPushButton::clicked, this, &TablePage::search);
+    connect(m_headerView, &HeaderView::ckbToggled, this, &TablePage::onHeaderCkbTog);
+    connect(ui->btn_refresh, &QToolButton::clicked, this, &TablePage::refresh);
     connect(ui->lineEdit_search, &QLineEdit::textChanged,
             [this](QString text) {
                 m_searchTimer->start(TIMEOUT);
             });
 }
 
-void CommonPage::adjustTableSize()
+void TablePage::adjustTableSize()
 {
     int height = 0;
     height = m_model->rowCount() * 60 + 40 + 20;  // row height+ header height + space
@@ -301,7 +278,7 @@ void CommonPage::adjustTableSize()
     emit sigTableHeightChanged(height);
 }
 
-int CommonPage::getCheckedItemNum()
+int TablePage::getCheckedItemNum()
 {
     int count = 0;
     for (int i = 0; i < m_model->rowCount(); i++)
@@ -315,7 +292,7 @@ int CommonPage::getCheckedItemNum()
     return count;
 }
 
-bool CommonPage::eventFilter(QObject *watched, QEvent *event)
+bool TablePage::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == ui->btn_refresh && event->type() == QEvent::HoverEnter)
     {
@@ -330,23 +307,7 @@ bool CommonPage::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-void CommonPage::resizeEvent(QResizeEvent *event)
-{
-    if (event)
-    {
-    }  //消除警告提示
-
-    if (m_maskWidget != nullptr)
-    {
-        m_maskWidget->setAutoFillBackground(true);
-        QPalette pal = m_maskWidget->palette();
-        pal.setColor(QPalette::Background, QColor(0x00, 0x00, 0x00, 0x20));
-        m_maskWidget->setPalette(pal);
-        m_maskWidget->setFixedSize(this->size());
-    }
-}
-
-void CommonPage::paintEvent(QPaintEvent *event)
+void TablePage::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;
     opt.init(this);
@@ -354,43 +315,43 @@ void CommonPage::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void CommonPage::onMonitor(int row)
+void TablePage::onMonitor(int row)
 {
-    KLOG_INFO() << "CommonPage::onMonitor" << row;
+    KLOG_INFO() << "TablePage::onMonitor" << row;
     emit sigMonitor(row);
 }
 
-void CommonPage::onTerminal(int row)
+void TablePage::onTerminal(int row)
 {
-    KLOG_INFO() << "CommonPage::onTerminal" << row;
+    KLOG_INFO() << "TablePage::onTerminal" << row;
     emit sigTerminal(row);
 }
 
-void CommonPage::onEdit(int row)
+void TablePage::onEdit(int row)
 {
-    KLOG_INFO() << "CommonPage::onEdit" << row;
+    KLOG_INFO() << "TablePage::onEdit" << row;
     emit sigEdit(row);
 }
 
-void CommonPage::onActRun(QModelIndex index)
+void TablePage::onActRun(QModelIndex index)
 {
     KLOG_INFO() << index.row();
     emit sigRun(index);
 }
 
-void CommonPage::onActStop(QModelIndex index)
+void TablePage::onActStop(QModelIndex index)
 {
     KLOG_INFO() << index.row();
     emit sigStop(index);
 }
 
-void CommonPage::onActRestart(QModelIndex index)
+void TablePage::onActRestart(QModelIndex index)
 {
     KLOG_INFO() << index.row();
     emit sigRestart(index);
 }
 
-void CommonPage::onRefreshTimeout()
+void TablePage::onRefreshTimeout()
 {
     static int count = 0;
     count++;
@@ -418,7 +379,7 @@ void CommonPage::onRefreshTimeout()
     }
 }
 
-void CommonPage::search()
+void TablePage::search()
 {
     KLOG_INFO() << "search....";
     auto resultCount = 0;
@@ -458,14 +419,14 @@ void CommonPage::search()
     }
 }
 
-void CommonPage::refresh()
+void TablePage::refresh()
 {
     m_refreshBtnTimer->start(100);
     //更新列表信息
     updateInfo();
 }
 
-void CommonPage::onItemChecked(QStandardItem *changeItem)
+void TablePage::onItemChecked(QStandardItem *changeItem)
 {
     if (changeItem)
     {
@@ -494,12 +455,12 @@ void CommonPage::onItemChecked(QStandardItem *changeItem)
     }
 }
 
-void CommonPage::onItemClicked(const QModelIndex &index)
+void TablePage::onItemClicked(const QModelIndex &index)
 {
     emit sigItemClicked(index);
 }
 
-void CommonPage::onHeaderCkbTog(bool toggled)
+void TablePage::onHeaderCkbTog(bool toggled)
 {
     int rowCounts = m_model->rowCount();
     KLOG_INFO() << "onHeaderCkbTog" << rowCounts;

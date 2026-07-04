@@ -8,13 +8,14 @@
 #include <QTimer>
 #include <iostream>
 #include "./ui_main-window.h"
-#include "common-page.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
+#include "page.h"
 #include "pages/container/container-list-page.h"
-#include "pages/image/image-manager-page.h"
+#include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
+#include "table-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
 #define CONTAINER_MANAGER QObject::tr("Container Manager")
@@ -188,8 +189,8 @@ void MainWindow::initUI()
     //pageMap.value
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
-        {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
-        {GUIDE_ITEM_IMAGE_MANAGER, IMAGE_MANAGER}};
+        {GUIDE_ITEM_NODE_LIST, NODE_MANAGER},
+        {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
     for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
     {
         GUIDE_ITEM itemEnum = iter.key();
@@ -310,9 +311,9 @@ void MainWindow::outlineJumpPage(OutlineCellType type)
     }
 }
 
-CommonPage* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
+Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 {
-    CommonPage* page = nullptr;
+    Page* page = nullptr;
 
     switch (itemEnum)
     {
@@ -321,17 +322,17 @@ CommonPage* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         page = new ContainerListPage(this);
         break;
     }
-    case GUIDE_ITEM_CONTAINER_TEMPLATE:
+    case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
     {
     }
-    case GUIDE_ITEM_NODE_MANAGER:
+    case GUIDE_ITEM_NODE_LIST:
     {
         page = new NodeListPage(this);
         break;
     }
-    case GUIDE_ITEM_IMAGE_MANAGER:
+    case GUIDE_ITEM_IMAGE_LIST:
     {
-        page = new ImageManagerPage(this);
+        page = new ImageListPage(this);
         break;
     }
     default:

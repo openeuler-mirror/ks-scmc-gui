@@ -1,19 +1,19 @@
-#ifndef IMAGEMANAGERPAGE_H
-#define IMAGEMANAGERPAGE_H
+#ifndef IMAGELISTPAGE_H
+#define IMAGELISTPAGE_H
 
 #include <QMutex>
 #include <QWidget>
-#include "base/info-worker.h"
-#include "common-page.h"
 #include "image-operate-dialog.h"
+#include "info-worker.h"
+#include "table-page.h"
 
 class ImageOperate;
-class ImageManagerPage : public CommonPage
+class ImageListPage : public TablePage
 {
     Q_OBJECT
 public:
-    explicit ImageManagerPage(QWidget *parent = nullptr);
-    ~ImageManagerPage();
+    explicit ImageListPage(QWidget *parent = nullptr);
+    ~ImageListPage();
     void updateInfo(QString keyword = "");  //刷新表格
 
 private:
@@ -51,4 +51,4 @@ private:
     QMutex m_mutex;
 };
 
-#endif  // IMAGEMANAGERPAGE_H
+#endif  // IMAGELISTPAGE_H

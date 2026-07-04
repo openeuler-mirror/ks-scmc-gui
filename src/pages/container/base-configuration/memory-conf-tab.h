@@ -4,8 +4,8 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QWidget>
-#include "base/info-worker.h"
 #include "def.h"
+#include "info-worker.h"
 namespace Ui
 {
 class MemoryConfTab;
