@@ -362,7 +362,7 @@ ContainerSetting GuideItem #delBtn
 /*    outline: none;*/
     font-size:14px;
 }
-ContainerSetting #btn_add
+ContainerSetting  #btn_tab_add
 {
     background-color:#0099FF;
     color:#ffffff;
@@ -370,11 +370,11 @@ ContainerSetting #btn_add
     border-radius:6px;
     font-size:14px;
 }
-ContainerSetting #btn_add:hover
+ContainerSetting  #btn_tab_add:hover
 {
     background-color:#66B1FF;
 }
-ContainerSetting #btn_add:pressed
+ContainerSetting  #btn_tab_add:pressed
 {
     background-color:#0099FF;
 }
