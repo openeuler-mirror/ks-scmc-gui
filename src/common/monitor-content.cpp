@@ -8,11 +8,11 @@
 #include "flowlayout.h"
 #include "ui_monitor-content.h"
 
-#define CHART_SERIES_NAME_CPU "CPU Usage"
-#define CHART_SERIES_NAME_MEMORY "Memory Usage"
-#define CHART_SERIES_NAME_DISK "Disk Usage"
-#define CHART_SERIES_NAME_NETWORK_RX "Network Receiving Speed"
-#define CHART_SERIES_NAME_NETWORK_TX "Network Transmission Speed"
+#define CHART_SERIES_NAME_CPU QObject::tr("CPU Usage")
+#define CHART_SERIES_NAME_MEMORY QObject::tr("Memory Usage")
+#define CHART_SERIES_NAME_DISK QObject::tr("Disk Usage")
+#define CHART_SERIES_NAME_NETWORK_RX QObject::tr("Network Receiving Speed")
+#define CHART_SERIES_NAME_NETWORK_TX QObject::tr("Network Transmission Speed")
 
 #define K_BITE 1024
 
@@ -113,10 +113,10 @@ void MonitorContent::initChart()
     BuildCharts(m_memoryChartForm, memorySeriesInfo, tr("Memory usage (%)"));
 
     QMap<QString, QString> diskSeriesInfo = {{CHART_SERIES_NAME_DISK, "#2eb3ff"}};
-    BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk I/O (unit M)"));
+    BuildCharts(m_diskChartForm, diskSeriesInfo, tr("Disk usage (unit M)"));
 
     QMap<QString, QString> netSeriesInfo = {{CHART_SERIES_NAME_NETWORK_RX, "#2eb3ff"}, {CHART_SERIES_NAME_NETWORK_TX, "#F57900"}};
-    BuildCharts(m_netChartForm, netSeriesInfo, tr("Network usage (unit M)"));
+    BuildCharts(m_netChartForm, netSeriesInfo, tr("Network throughput (unit M)"));
 
     QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
     int currTimeStamp = currTime.toTime_t();            //将当前时间转为时间戳
@@ -352,7 +352,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             diskChartInfo.yStart = start;
             diskChartInfo.yEnd = end;
             diskChartInfo.yFormat = "%d";
-            diskChartInfo.yTitle = tr("Disk I/O(unit %1)").arg(unit);
+            diskChartInfo.yTitle = tr("Disk usage(unit %1)").arg(unit);
             for (auto i : reply.second.disk_usage())
             {
                 QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
@@ -394,7 +394,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             netChartInfo.yStart = start;
             netChartInfo.yEnd = end;
             netChartInfo.yFormat = "%d";
-            netChartInfo.yTitle = tr("Network usage (unit %1)").arg(unit);
+            netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
             for (auto i : reply.second.net_rx())
             {
                 QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
