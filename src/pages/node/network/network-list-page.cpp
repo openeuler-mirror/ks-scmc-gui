@@ -81,7 +81,7 @@ void NetworkListPage::onEditVirtIfs(int row)
     auto infoMap = item->data().toMap();
     QString name = infoMap[NAME].toString();
     QString subnet = infoMap[SUBNET].toString();
-    QString realIfs = infoMap[REAL_IFS].toString();
+    QString realIfs = infoMap[REAL_IFS].toString().isEmpty() ? tr("None(bridge)") : infoMap[REAL_IFS].toString();
 
     showOperateDialog(OPERATE_TYPE_EDIT, name, subnet, realIfs);
 }
@@ -302,7 +302,9 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     cbBindRealIfs->setFixedHeight(36);
     if (!m_realIfs.isEmpty())
     {
-        cbBindRealIfs->addItems(m_realIfs);
+        QStringList realIfsList = m_realIfs;
+        realIfsList.append(tr("None(bridge)"));  // 不绑定(桥接)
+        cbBindRealIfs->addItems(realIfsList);
         if (!realIfs.isEmpty())
         {
             cbBindRealIfs->setCurrentText(realIfs);
@@ -355,7 +357,11 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     network::CreateNicRequest req;
                     req.set_node_id(m_nodeId);
                     req.set_name(lineEditName->text().toStdString());
-                    req.set_parent(cbBindRealIfs->currentText().toStdString());
+                    if (QString(tr("None(bridge)")) != cbBindRealIfs->currentText())
+                    {
+                        KLOG_INFO() << "macvlan net";
+                        req.set_parent(cbBindRealIfs->currentText().toStdString());
+                    }
                     req.set_subnet(lineEditSubnet->text().toStdString());
                     InfoWorker::getInstance().createNic(m_objId, req);
                 }
@@ -364,7 +370,12 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     network::UpdateNicRequest req;
                     req.set_node_id(m_nodeId);
                     req.set_name(lineEditName->text().toStdString());
-                    req.set_parent(cbBindRealIfs->currentText().toStdString());
+                    if (QString(tr("None(bridge)")) != cbBindRealIfs->currentText())
+                    {
+                        KLOG_INFO() << "macvlan net";
+                        req.set_parent(cbBindRealIfs->currentText().toStdString());
+                    }
+
                     req.set_subnet(lineEditSubnet->text().toStdString());
                     InfoWorker::getInstance().updateNic(m_objId, req);
                 }
