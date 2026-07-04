@@ -32,9 +32,6 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 
-public slots:
-    void onItemClose();
-
 signals:
     void sigClose();
 

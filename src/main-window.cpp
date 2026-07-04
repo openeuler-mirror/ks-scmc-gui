@@ -332,7 +332,6 @@ void MainWindow::outlinePageChange(QString str)
     bool find = false;
     setPageName(str);
     auto outlineWidgetItem = ui->listWidget->item(0);
-    KLOG_INFO() << "current tab item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(outlineWidgetItem));
     outlineItem->setSelected(false);
 
@@ -728,7 +727,6 @@ void MainWindow::onApprovalPage(bool check)
     if (!m_pageMap[IMAGE_APPROVAL_LIST])
         return;
     auto currItem = ui->listWidget->currentItem();
-    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
     outlineItem->setSelected(false);
     outlineJumpPage(ONUTLINE_CELL_EXAMINE);
@@ -741,7 +739,6 @@ void MainWindow::onWarningPage(bool check)
         return;
 
     auto currItem = ui->listWidget->currentItem();
-    KLOG_INFO() << "current item :" << ui->listWidget->currentRow();
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
     outlineItem->setSelected(false);
     outlineJumpPage(ONUTLINE_CELL_NODE_WARNING);
