@@ -256,6 +256,12 @@ void TablePage::sleep(int sec)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
+void TablePage::clearCheckState()
+{
+    m_headerView->setCheckState(false);
+    onHeaderCkbTog(false);
+}
+
 void TablePage::initUI()
 {
     ui->lineEdit_search->setPlaceholderText(tr("Please enter the keyword"));
