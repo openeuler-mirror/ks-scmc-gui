@@ -85,5 +85,6 @@
         <file>images/success.svg</file>
         <file>images/tips.svg</file>
         <file>images/open-disable.svg</file>
+        <file>images/container-cmd.png</file>
     </qresource>
 </RCC>
