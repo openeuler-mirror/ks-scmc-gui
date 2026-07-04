@@ -28,6 +28,15 @@ function process_install_shell()
 # check arch type
 ARCH_TYPE=\$(cat /etc/.kyinfo | sed 's/ //g' | grep ^arch= | awk -F= '{ print \$2 }')
 OS_VERSION="\$(cat /etc/.kyinfo | sed 's/ //g' | grep ^milestone | awk -F= '{print \$2}')"
+# task 46273, support new version format
+if [[ "\${OS_VERSION:0:2}" == "3-" ]];then
+    TMP_VERSION="\$(cat /etc/.kyinfo | sed 's/ //g' | grep dist_id | tr '-' '\n' | tail -n 2 | head -n 1)"
+    if [[ "\$TMP_VERSION" == "44"* ]];then
+        OS_VERSION="3.4-4"
+    elif [[ "\$TMP_VERSION" == "36"* ]];then
+	OS_VERSION="3.3-6"
+    fi
+fi
 
 if [ -d "\$1" ]; then
     CURR_PATH=\$1
@@ -37,12 +46,15 @@ fi
 
 if [[ "\${OS_VERSION}" && "\${ARCH_TYPE}" ]]; then
     echo "Current os is \${OS_VERSION}, arch is \${ARCH_TYPE}"
-    if [[ "\${OS_VERSION}" == "3.3-6" || "\${OS_VERSION}" > "3.3-6" ]] && [[ "\${ARCH_TYPE}" == "x86_64" ]]; then
-        RPM_PATH=\${CURR_PATH}/"3.3-6"/\${ARCH_TYPE}
-    else
-        echo "Cannot find os or arch"
-        exit 1
-    fi
+    KS_ALLOW_OS=(\$(cd \${CURR_PATH}; find . -maxdepth 1 -mindepth 1 -type d -not -empty -printf '%f\n'))
+    echo "Support os: \${KS_ALLOW_OS[@]}"
+    for KS_OS_NAME in \${KS_ALLOW_OS[@]}
+    do
+        if [[ "\$OS_VERSION" == "\$KS_OS_NAME"* ]];then
+            RPM_PATH=\${CURR_PATH}/\${KS_OS_NAME}/\${ARCH_TYPE}
+            break
+        fi
+    done
 else
     echo "Cannot find os or arch"
     exit 1
@@ -61,14 +73,23 @@ cd \$RPM_PATH
 deppgs=\$(ls | grep -v '^$g_software_name')
 kspkgs=\$(ls | grep -E "^$g_software_name")
 if [[ ! \$deppgs == "" ]];then
-    yum localinstall \$deppgs -y --nogpgcheck --disablerepo=*
+    yumoption="--nogpgcheck --disablerepo=*"
+    if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
+        deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiran-log')
+        rpm -qa | grep kiranwidgets-qt5 > /dev/null || deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiranwidgets-qt5-devel-2.1.1')
+        yumoption="\$yumoption --allowerasing"
+    fi
+    yum localinstall \$deppgs -y \$yumoption
     if [[ \$? -ne 0 ]];then
-        echo "please make sure the repo is valid or remove all invalid repo"
+        echo "please make sure the repo is valid or remove all invalid repo, yumoption: \$yumoption"
         exit 1
     fi 
 fi
 
 sudo rpm -Uvh \$kspkgs --nodeps --force
+if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
+    sudo rpm -ivh kiran-log-qt5-2.2.4-1.x86_64.rpm
+fi
 
 cd -
 
