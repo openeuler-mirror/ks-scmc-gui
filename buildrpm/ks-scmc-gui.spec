@@ -53,6 +53,15 @@ BuildRequires:  grpc-plugins
 BuildRequires:  cryptopp-devel
 
 %if "%{kylin_version}" == "3.3"
+%global _is_generate_to_run 1
+BuildRequires: qt5-qtsvg
+BuildRequires: fcitx-qt5
+%endif
+
+Requires:       ks-license-client
+
+%if %{_is_generate_to_run} == 0
+%if "%{kylin_version}" == "3.3"
 Requires:       kiran-widgets-qt5 >= 2.1.1
 %else
 Requires:       pkgconfig(kiranwidgets-qt5) >= 2.1.1
@@ -62,7 +71,6 @@ Requires:       qt5-qtbase
 Requires:       qt5-qtsvg
 Requires:       protobuf
 Requires:       libnotify
-Requires:       ks-license-client
 Requires:       qt5-qtcharts
 Requires:       c-ares
 Requires:       fcitx-qt5
@@ -70,6 +78,7 @@ Requires:       libarchive
 
 %if 0%{?enable_set_palette}
 Requires:	kiran-qt5-integration >= 2.4
+%endif
 %endif
 
 %description
@@ -79,10 +88,11 @@ KylinSec security container magic cube gui
 %autosetup -p1
 
 %build
+mkdir build; cd build
 %if %{_is_generate_to_run}
-    %cmake
+    %cmake ..
 %else
-    %cmake  -DGENERATE_TO_RUN:BOOL=OFF \
+    %cmake .. -DGENERATE_TO_RUN:BOOL=OFF \
 %endif
 
 make %{?_smp_mflags}
@@ -90,7 +100,14 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cd build
 %make_install
+cd -
+%if %{_is_generate_to_run}
+deps_dir=%{buildroot}/usr/local/ks-scmc-gui
+extract_file=./extract-libs/extract-libs.py
+python $extract_file $deps_dir --need_qt_plugins
+%endif
 
 %post
 echo %{version}-%{release} > %{_datadir}/ks-scmc-gui/ks-scmc-gui.version
@@ -109,6 +126,7 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_bindir}/ks-scmc-gui
 %if %{_is_generate_to_run}
 	%{_libexecdir}/ks-scmc-gui
+    /usr/local/ks-scmc-gui/*
 %endif
 %{_datadir}/icons/hicolor/*/apps/*.*
 
