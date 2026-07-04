@@ -164,8 +164,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
-    m_outline = new OutlineView;
-
     //创建消息提示按钮
     m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
     m_btnTransmission->setObjectName("btn_transmission");
@@ -264,6 +262,7 @@ void MainWindow::initUI()
     item->setSelected(true);
     setPageName(item->getItemText());
 
+    m_outline = new OutlineView(this);
     m_stackedWidget->addWidget(m_outline);
     connect(m_outline, &OutlineView::outlineCellStepPages, this, &MainWindow::outlineJumpPage);
 
