@@ -151,8 +151,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
         if (event->type() == QEvent::MouseButtonPress)
         {
             QPoint point = m_btnTransmission->mapToGlobal(QPoint(0, 0));
-            KLOG_INFO() << point;
-
             m_transmissionList->move(QPoint(point.x() - 350, point.y() + 35));
             m_transmissionList->show();
             return true;
