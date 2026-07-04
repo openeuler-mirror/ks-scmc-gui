@@ -7,12 +7,12 @@
 #ifndef SECURITYLISTTAB_H
 #define SECURITYLISTTAB_H
 
-#include <info-worker.h>
 #include <QLabel>
 #include <QListWidget>
 #include <QRadioButton>
 #include <QTextBrowser>
 #include <QWidget>
+#include "proto/container.grpc.pb.h"
 enum ProtectionType
 {
     NONE = 0,

@@ -38,6 +38,8 @@ public:
     virtual ~TablePage();
     virtual void updateInfo(QString keyword = "") = 0;
     void clearTable();
+    void clearText();
+    void clearCheckState();
     void setOperateAreaVisible(bool visible);
     void setOperateBtnsVisible(bool visible);
     void setOperateSearchVisible(bool visible);
@@ -58,12 +60,11 @@ public:
     void setTableDefaultContent(QString text);
     void setSearchableCol(int col);
     void setTips(QString text);
-    void clearText();
     int getTableRowCount();
     QStandardItem *getItem(int row, int col);
     QList<QMap<QString, QVariant>> getCheckedItemInfo(int col);
     void sleep(int sec);
-    void clearCheckState();
+
     void setPaging(int totalPages = 0);  // 设置分页
     void updatePaging(int page_no = 1);
     //    QString getSearchKey();
@@ -116,7 +117,7 @@ private slots:
     void onItemChecked(QStandardItem *changeItem);
     void onItemClicked(const QModelIndex &index);
     void onItemEntered(const QModelIndex &index);
-    void onHeaderCkbTog(bool toggled);
+    void updateCheckStatus(bool toggled);
     void lastBtnClick();
     void nextBtnClick();
     void pageEditChage();  //输入框回车按下
