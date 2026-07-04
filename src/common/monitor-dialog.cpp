@@ -1,6 +1,7 @@
 #include "monitor-dialog.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QTime>
+#include "date-picker/date-picker.h"
 #include "flowlayout.h"
 #include "ui_monitor-dialog.h"
 
@@ -19,7 +20,8 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId, QWidget *paren
                                                                                      m_memoryChartForm(nullptr),
                                                                                      m_diskChartForm(nullptr),
                                                                                      m_netChartForm(nullptr),
-                                                                                     m_xInterval(1)
+                                                                                     m_xInterval(1),
+                                                                                     m_datePicker(nullptr)
 {
     ui->setupUi(this);
     m_xFormat = "hh:mm";
@@ -30,12 +32,35 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId, QWidget *paren
 MonitorDialog::~MonitorDialog()
 {
     delete ui;
+    if (m_datePicker)
+    {
+        delete m_datePicker;
+        m_datePicker = nullptr;
+    }
 }
 
 void MonitorDialog::initUI()
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowModality(Qt::ApplicationModal);
+
+    ui->widget_date_selete->hide();
+    ui->btn_apply->hide();
+    QDate currDate = QDate::currentDate();
+    ui->btn_end->setText(currDate.toString("yy-MM-dd"));
+    ui->btn_start->setText(currDate.addDays(-7).toString("yy-MM-dd"));
+
+    m_datePicker = new DatePicker;
+    //m_datePicker->installEventFilter(this);
+    connect(m_datePicker, &DatePicker::sigStartdateChange,
+            [this](QString date) {
+                ui->btn_start->setText(date);
+            });
+    connect(m_datePicker, &DatePicker::sigEndDateChange,
+            [this](QString date) {
+                ui->btn_end->setText(date);
+            });
+
     m_flowLayout = new FlowLayout(0, 30, 30);
     ui->widget_forms->setLayout(m_flowLayout);
 
@@ -58,6 +83,10 @@ void MonitorDialog::initUI()
     ui->cb_select_cycle->addItem(tr("1 month"), CHART_CYCLE_ONE_MONTH);
     ui->cb_select_cycle->addItem(tr("Custom"), CHART_CYCLE_CUSTOM);
     connect(ui->cb_select_cycle, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MonitorDialog::onCycleChanged);
+
+    connect(ui->btn_start, &DatePickButton::clicked, this, &MonitorDialog::popupStartDatePicker);
+    connect(ui->btn_end, &DatePickButton::clicked, this, &MonitorDialog::popupEndDatePicker);
+    connect(ui->btn_apply, &QPushButton::clicked, this, &MonitorDialog::applyDatePicker);
 }
 
 void MonitorDialog::initChart()
@@ -99,58 +128,78 @@ void MonitorDialog::BuildCharts(TrendChartForm *chartForm, QStringList seriesNam
 void MonitorDialog::onCycleChanged(int index)
 {
     KLOG_INFO() << "onCycleChanged: " << index;
+    ui->widget_date_selete->hide();
+    ui->btn_apply->hide();
     int cycle = ui->cb_select_cycle->currentIndex();
     QDateTime currDate = QDateTime::currentDateTime();  //获取当前时间
     QDateTime startDate;
-    switch (cycle)
+    if (cycle == CHART_CYCLE_CUSTOM)
     {
-    case CHART_CYCLE_TEN_MINUTE:
-        startDate = currDate.addSecs(-(60 * 10));
-        m_xFormat = "hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 1;
-        break;
-    case CHART_CYCLE_ONE_HOUR:
-        startDate = currDate.addSecs(-(60 * 60));
-        m_xFormat = "hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 5;
-        break;
-    case CHART_CYCLE_ONE_DAY:
-        startDate = currDate.addDays(-1);
-        m_xFormat = "dd hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 2 * 60;
-        break;
-    case CHART_CYCLE_ONE_WEEK:
-        startDate = currDate.addDays(-7);
-        m_xFormat = "MM-dd hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 12 * 60;
-        break;
-    case CHART_CYCLE_ONE_MONTH:
-        startDate = currDate.addDays(-30);
-        m_xFormat = "yy-MM-dd hh:mm";
-        m_xStart = startDate;
-        m_xEnd = currDate;
-        m_xInterval = 2 * 24 * 60;
-        break;
-    case CHART_CYCLE_CUSTOM:
-        //        startDate = currDate.addDays();
-        //        m_xFormat = "yy-MM-dd hh:mm";
-        //        m_xStart = startDate;
-        //        m_xEnd = currDate;
-        //        m_xInterval = 2 * 24 * 60;
-        break;
-    default:
-        break;
+        ui->widget_date_selete->show();
+        ui->btn_apply->show();
     }
+    else
+    {
+        switch (cycle)
+        {
+        case CHART_CYCLE_TEN_MINUTE:
+            startDate = currDate.addSecs(-(60 * 10));
+            m_xFormat = "hh:mm";
+            m_xStart = startDate;
+            m_xEnd = currDate;
+            m_xInterval = 1;
+            break;
+        case CHART_CYCLE_ONE_HOUR:
+            startDate = currDate.addSecs(-(60 * 60));
+            m_xFormat = "hh:mm";
+            m_xStart = startDate;
+            m_xEnd = currDate;
+            m_xInterval = 5;
+            break;
+        case CHART_CYCLE_ONE_DAY:
+            startDate = currDate.addDays(-1);
+            m_xFormat = "dd hh:mm";
+            m_xStart = startDate;
+            m_xEnd = currDate;
+            m_xInterval = 2 * 60;
+            break;
+        case CHART_CYCLE_ONE_WEEK:
+            startDate = currDate.addDays(-7);
+            m_xFormat = "MM-dd hh:mm";
+            m_xStart = startDate;
+            m_xEnd = currDate;
+            m_xInterval = 12 * 60;
+            break;
+        default:
+            break;
+        }
+        InfoWorker::getInstance().monitorHistory(m_nodeId, startDate.toTime_t(), currDate.toTime_t(), m_xInterval, m_containerId);
+    }
+}
 
-    InfoWorker::getInstance().monitorHistory(m_nodeId, startDate.toTime_t(), currDate.toTime_t(), m_xInterval, m_containerId);
+void MonitorDialog::popupStartDatePicker()
+{
+    QPoint point = ui->btn_start->mapToGlobal(QPoint(0, 0));
+    m_datePicker->move(QPoint(point.x(), point.y() + 35));
+    m_datePicker->showDatePicker(CALENDAR_TYPE_START);
+    m_datePicker->show();
+}
+
+void MonitorDialog::popupEndDatePicker()
+{
+    QPoint point = ui->btn_end->mapToGlobal(QPoint(0, 0));
+    m_datePicker->move(QPoint(point.x(), point.y() + 35));
+    m_datePicker->showDatePicker(CALENDAR_TYPE_END);
+    m_datePicker->show();
+}
+
+void MonitorDialog::applyDatePicker()
+{
+    m_xFormat = "MM-dd";
+    m_xStart = QDateTime(m_datePicker->getStartDate());
+    m_xEnd = QDateTime(m_datePicker->getEndDate());
+    m_xInterval = 12 * 60;
+    InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toTime_t(), m_xEnd.toTime_t(), m_xInterval, m_containerId);
 }
 
 void MonitorDialog::getMonitorHistoryResult(const QPair<grpc::Status, container::MonitorHistoryReply> &reply)

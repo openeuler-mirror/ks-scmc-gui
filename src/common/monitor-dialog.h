@@ -28,8 +28,15 @@ enum ChartCycleNum
     CHART_CYCLE_CUSTOM           //10  //24 * 60
 };
 
+enum CalendarType
+{
+    CALENDAR_TYPE_START = 0,
+    CALENDAR_TYPE_END
+};
+
 class FlowLayout;
 class TrendChartForm;
+class DatePicker;
 class MonitorDialog : public QWidget
 {
     Q_OBJECT
@@ -45,10 +52,15 @@ private:
 
 private slots:
     void onCycleChanged(int index);
+    void popupStartDatePicker();
+    void popupEndDatePicker();
+    void applyDatePicker();
     void getMonitorHistoryResult(const QPair<grpc::Status, container::MonitorHistoryReply> &reply);
+    //bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     Ui::MonitorDialog *ui;
+    DatePicker *m_datePicker;
     FlowLayout *m_flowLayout;
     TrendChartForm *m_cpuChartForm;
     TrendChartForm *m_memoryChartForm;
