@@ -101,7 +101,6 @@ void TemplateListPage::onDelete(int row)
                                           MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            //setBusy(true);
             InfoWorker::getInstance().removeTemplate(m_objId, QList<int64_t>() << id);
         }
     }
@@ -147,7 +146,6 @@ void TemplateListPage::onRemoveTemplate()
                                           MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            //setBusy(true);
             InfoWorker::getInstance().removeTemplate(m_objId, ids);
         }
     }
