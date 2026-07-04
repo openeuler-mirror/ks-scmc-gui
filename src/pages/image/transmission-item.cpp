@@ -117,7 +117,8 @@ void TransmissionItem::onItemClose()
                                           tr("The image %1(%2) is being transferred,the transmission will be interrupted after close!").arg(name()).arg(version()),
                                           ":/images/warning.svg",
                                           MessageDialog::StandardButton::Cancel | MessageDialog::StandardButton::Yes);
-        if (ret == MessageDialog::StandardButton::Yes)
-            emit sigClose();
+        if (ret != MessageDialog::StandardButton::Yes)
+            return;
     }
+    emit sigClose();
 }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file          /ks-scmc-gui/src/pages/image/image-list-page.h
  * @brief         
  * @author        yuanxing <yuanxing@kylinos.com>
@@ -33,6 +33,7 @@ private:
     void getImageList();
     void OperateImage(ImageOperateType type);
     bool imageIsTransfering(QString imageName, QString version, QString title);
+    QString getRefuseReason();
 
 private slots:
     void onBtnUpload();
