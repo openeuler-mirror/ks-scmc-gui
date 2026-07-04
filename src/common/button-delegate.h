@@ -11,7 +11,6 @@ class ButtonDelegate : public QStyledItemDelegate
 public:
     explicit ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QString> btnInfo, QObject* parent = nullptr);
     ~ButtonDelegate();
-    void isSetDelegateDefault(bool key = false);
 
 protected:
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
@@ -27,6 +26,9 @@ signals:
     void sigActRestart(QModelIndex);
     void sigImagePass(int row);
     void sigImageRefuse(int row);
+    void sigBackupResume(int row);
+    void sigBackupUpdate(int row);
+    void sigBackupRemove(int row);
 
 private slots:
     void onActTriggered(QAction* act);
@@ -38,7 +40,6 @@ private:
     QStringList m_btnIcons;
     int m_nType;  // 按钮状态：0-划过 1-按下
     QMenu* m_menu;
-    bool m_isSetDelegateDefault;
 };
 
 #endif  // BUTTONDELEGATE_H

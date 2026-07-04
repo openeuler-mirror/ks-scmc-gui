@@ -589,6 +589,24 @@ void ContainerSetting::createTemplate()
         return;
     }
 
+    //security
+    auto securityCfg = cntrCfg->mutable_security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->getSecurityListInfo(securityCfg);
+
+    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    //    processProtectPage->getSecurityListInfo(securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->getSecurityListInfo(securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
+
     InfoWorker::getInstance().createTemplate(request);
 }
 
@@ -662,6 +680,24 @@ void ContainerSetting::updateTemplate()
                                MessageDialog::StandardButton::Ok);
         return;
     }
+
+    //security
+    auto securityCfg = cntrCfg->mutable_security_config();
+
+    auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+    fileProtectPage->getSecurityListInfo(securityCfg);
+
+    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    //    processProtectPage->getSecurityListInfo(securityCfg);
+
+    auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+    netProcessProtectPage->getSecurityListInfo(securityCfg);
+
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+    networkAccessCtlPage->getNetworkAccessInfo(securityCfg);
+
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
 
     InfoWorker::getInstance().updateTemplate(request);
 }
@@ -1016,6 +1052,24 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         //memory
         auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
         memoryPage->setMemoryInfo(&limit);
+
+        //security
+        auto securityCfg = info.security_config();
+
+        auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
+        fileProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+        processProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
+        netProcessProtectPage->setSecurityListInfo(&securityCfg);
+
+        auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+        networkAccessCtlPage->setNetworkAccessInfo(&securityCfg);
+
+        auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+        startStopCtlPage->setStartStopInfo(securityCfg.disable_cmd_operation());
     }
 }
 

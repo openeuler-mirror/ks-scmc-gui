@@ -471,6 +471,17 @@ ContainerSetting QCheckBox
     outline:none;
 }
 
+ContainerSetting QCheckBox::indicator:disabled:unchecked
+{
+    color:#919191;
+    image: url(:/images/frame_s.png);
+}
+ContainerSetting QCheckBox::indicator:disabled:checked
+{
+    color:#919191;
+    image: url(:/images/frame_s.png);
+}
+
 ContainerSetting QCheckBox::indicator
 {
     width: 16px;

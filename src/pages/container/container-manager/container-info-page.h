@@ -11,6 +11,7 @@ enum ContainerInfoSubPageType
 };
 
 class MonitorContent;
+class ContainerBackupPage;
 class ContainerInfoPage : public TabPage
 {
     Q_OBJECT
@@ -26,6 +27,7 @@ private:
 private:
     QMap<QString, QVariant> m_infoMap;
     MonitorContent *m_monitor;
+    ContainerBackupPage *m_containerBackup;
 };
 
 #endif  // CONTAINERINFOPAGE_H
