@@ -283,6 +283,7 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
     if (reply.first.ok())
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+        setHeaderCheckable(true);
         m_vecNodeId.clear();
         for (auto n : reply.second.nodes())
         {
@@ -299,6 +300,7 @@ void ContainerListPage::getNodeListResult(const QPair<grpc::Status, node::ListRe
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
         setTableDefaultContent("-");
+        setHeaderCheckable(false);
     }
 }
 
@@ -315,6 +317,7 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
 
         clearTable();
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+        setHeaderCheckable(true);
         int row = 0;
         QMap<QString, QVariant> infoMap;
         for (auto i : reply.second.containers())
@@ -374,6 +377,7 @@ void ContainerListPage::getContainerListResult(const QPair<grpc::Status, contain
     {
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        setHeaderCheckable(false);
     }
 }
 
@@ -383,7 +387,7 @@ void ContainerListPage::getContainerStartResult(const QPair<grpc::Status, contai
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        updateInfo();
+        getContainerList();
         return;
     }
 }
@@ -395,7 +399,7 @@ void ContainerListPage::getContainerStopResult(const QPair<grpc::Status, contain
     if (reply.first.ok())
     {
         KLOG_INFO() << "stop surccessful";
-        updateInfo();
+        getContainerList();
         return;
     }
     else
@@ -410,7 +414,7 @@ void ContainerListPage::getContainerRestartResult(const QPair<grpc::Status, cont
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        updateInfo();
+        getContainerList();
         return;
     }
 }
@@ -421,7 +425,7 @@ void ContainerListPage::getContainerRemoveResult(const QPair<grpc::Status, conta
     KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
     if (reply.first.ok())
     {
-        updateInfo();
+        getContainerList();
         return;
     }
 }
