@@ -298,8 +298,12 @@ void LoginDialog::updateActivation()
         onLogout();
     }
     //设置激活对话框和激活状态标签是否可见
-    m_activateDialog->setVisible(!isActivate);
-    m_activate_label->setVisible(!isActivate);
+    // license变化只处理激活后隐藏界面, Fix #34441
+    if (isActivate)
+    {
+        m_activateDialog->setVisible(!isActivate);
+        m_activate_label->setVisible(!isActivate);
+    }
 }
 
 void LoginDialog::onLogin()
