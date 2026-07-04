@@ -6,7 +6,6 @@
  */
 #include "config-table.h"
 #include <kiran-log/qt5-log-i.h>
-#include <QDebug>
 #include "ui_config-table.h"
 
 ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(parent),
