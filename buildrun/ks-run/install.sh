@@ -1,6 +1,7 @@
 #/bin/bash
 export KS_PATH="$1"
 export PROJECK_NAME="$2"
+export KS_ALLOW_OS="$3"
 
 if [ "$KS_PATH" == "" ]; then
         echo "please check projeck tar is it correct!"
