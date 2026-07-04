@@ -36,9 +36,6 @@ private slots:
     void onBtnDelete();
     void onActCreate();
     void onActCopyConfig();
-    void onActBatchUpdate();
-    void onActBatchEdit();
-    void onActBackup();
     void onActGenerateTemp(QModelIndex index);
 
     void onApp(int row);

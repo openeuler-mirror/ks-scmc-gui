@@ -40,7 +40,6 @@ void StackedPage::initUI()
 
     m_stackedWidget = new QStackedWidget(this);
     mainLayout->addWidget(m_stackedWidget);
-    //connect(m_stackedWidget, &QStackedWidget::currentChanged, this, &StackedPage::onCurrentPageChanged);
 }
 
 void StackedPage::onCurrentPageChanged(int)

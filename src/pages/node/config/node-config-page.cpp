@@ -111,84 +111,85 @@ void NodeConfigPage::onCancel()
 
 void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status, node::ListReply> &reply)
 {
-    KLOG_INFO() << "getListResult" << m_objId << objId;
+    if (m_objId != objId)
+        return;
+
     KLOG_INFO() << "node id:" << m_nodeId;
-    if (m_objId == objId && m_nodeId > 0)
+    if (m_nodeId <= 0)
+        return;
+
+    if (!reply.first.ok())
+        return;
+
+    int size = reply.second.nodes_size();
+    if (size <= 0)
     {
-        if (reply.first.ok())
+        updateUI(false);
+        ui->btn_save->setDisabled(true);
+        return;
+    }
+    for (auto node : reply.second.nodes())
+    {
+        if (node.id() == m_nodeId)
         {
-            int size = reply.second.nodes_size();
-            if (size <= 0)
+            m_nodeName = node.name();
+            auto cpuTotal = node.status().cpu_stat().total();
+            auto memoryTotal = node.status().mem_stat().total();
+            auto diskTotal = node.status().disk_stat().total();
+            KLOG_INFO() << cpuTotal << memoryTotal << diskTotal;
+
+            ui->lineEdit_cpu->setPlaceholderText(tr("Maximum %1 cores").arg(cpuTotal));
+            if (!ui->lineEdit_cpu->validator())
             {
-                updateUI(false);
-                ui->btn_save->setDisabled(true);
-                return;
+                QIntValidator *v = new QIntValidator(0, cpuTotal, this);
+                ui->lineEdit_cpu->setValidator(v);
             }
-            for (auto node : reply.second.nodes())
+
+            //由于使用QDoubleValidator会导致输入字符时判断不正确，因此改用QIntValidator。
+            //所有将原来的GB单位修改为MB，精度更小，方便设置阈值
+            ui->lineEdit_disk->setPlaceholderText(tr("Maximum %1 MB").arg(diskTotal));  //
+            if (!ui->lineEdit_disk->validator())
             {
-                if (node.id() == m_nodeId)
-                {
-                    m_nodeName = node.name();
-                    auto cpuTotal = node.status().cpu_stat().total();
-                    auto memoryTotal = node.status().mem_stat().total();
-                    auto diskTotal = node.status().disk_stat().total();
-                    KLOG_INFO() << cpuTotal << memoryTotal << diskTotal;
-
-                    ui->lineEdit_cpu->setPlaceholderText(tr("Maximum %1 cores").arg(cpuTotal));
-                    if (!ui->lineEdit_cpu->validator())
-                    {
-                        QIntValidator *v = new QIntValidator(0, cpuTotal, this);
-                        ui->lineEdit_cpu->setValidator(v);
-                    }
-
-                    //由于使用QDoubleValidator会导致输入字符时判断不正确，因此改用QIntValidator。
-                    //所有将原来的GB单位修改为MB，精度更小，方便设置阈值
-                    ui->lineEdit_disk->setPlaceholderText(tr("Maximum %1 MB").arg(diskTotal));  //
-                    if (!ui->lineEdit_disk->validator())
-                    {
-                        QIntValidator *v = new QIntValidator(0, diskTotal, this);
-                        ui->lineEdit_disk->setValidator(v);
-                    }
-
-                    ui->lineEdit_memory->setPlaceholderText(tr("Maximum %1 MB").arg(memoryTotal));
-                    if (!ui->lineEdit_memory->validator())
-                    {
-                        QIntValidator *v = new QIntValidator(0, memoryTotal, this);
-                        ui->lineEdit_memory->setValidator(v);
-                    }
-
-                    auto limit = node.rsc_limit();
-                    m_cpuLimit = limit.cpu_limit();
-                    m_memoryLimit = limit.memory_limit();
-                    m_diskLimit = limit.disk_limit();
-                    ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
-                    ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
-                    ui->lineEdit_disk->setText(QString::number(m_diskLimit));
-                    break;
-                }
+                QIntValidator *v = new QIntValidator(0, diskTotal, this);
+                ui->lineEdit_disk->setValidator(v);
             }
+
+            ui->lineEdit_memory->setPlaceholderText(tr("Maximum %1 MB").arg(memoryTotal));
+            if (!ui->lineEdit_memory->validator())
+            {
+                QIntValidator *v = new QIntValidator(0, memoryTotal, this);
+                ui->lineEdit_memory->setValidator(v);
+            }
+
+            auto limit = node.rsc_limit();
+            m_cpuLimit = limit.cpu_limit();
+            m_memoryLimit = limit.memory_limit();
+            m_diskLimit = limit.disk_limit();
+            ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
+            ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
+            ui->lineEdit_disk->setText(QString::number(m_diskLimit));
+            break;
         }
     }
 }
 
 void NodeConfigPage::getUpdateResult(const QString objId, const QPair<grpc::Status, node::UpdateReply> &reply)
 {
-    KLOG_INFO() << "getUpdateResult" << m_objId << objId << m_nodeId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Update node config successful!"), "");
-            updateInfo();
-        }
-        else
-        {
-            NotificationManager::sendNotify(tr("Update node config failed!"), reply.first.error_message().data());
-            //还原为修改前的数据
-            ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
-            ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
-            ui->lineEdit_disk->setText(QString::number(m_diskLimit));
-        }
+        NotificationManager::sendNotify(tr("Update node config successful!"), "");
+        updateInfo();
+    }
+    else
+    {
+        NotificationManager::sendNotify(tr("Update node config failed!"), reply.first.error_message().data());
+        //还原为修改前的数据
+        ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
+        ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
+        ui->lineEdit_disk->setText(QString::number(m_diskLimit));
     }
 }
 

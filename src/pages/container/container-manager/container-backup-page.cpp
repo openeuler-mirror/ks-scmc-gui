@@ -247,191 +247,185 @@ void ContainerBackupPage::exportBackup(bool isDownload, QString version, QString
 
 void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &reply)
 {
-    KLOG_INFO() << "getListBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    setBusy(false);
+
+    if (!reply.first.ok())
     {
-        setBusy(false);
-        if (reply.first.ok())
-        {
+        if (reply.first.error_code() == PERMISSION_DENIED)
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            clearTable();
-            int size = reply.second.data_size();
-            if (size <= 0)
-            {
-                setTableDefaultContent("-");
-                return;
-            }
-            int row = 0;
-            QMap<QString, QVariant> idMap;
-            for (auto data : reply.second.data())
-            {
-                qint64 backupId = data.id();
-                idMap.insert(BACKUP_ID, backupId);
-                idMap.insert(BACKUP_NAME, data.backup_name().data());
-
-                QStandardItem *itemCheck = new QStandardItem();
-                itemCheck->setCheckable(true);
-
-                QStandardItem *itemName = new QStandardItem(data.backup_name().data());
-                itemName->setTextAlignment(Qt::AlignCenter);
-                itemName->setData(QVariant::fromValue(idMap));
-
-                int status = data.status();
-                QStandardItem *itemStatus = new QStandardItem();
-                itemStatus->setTextAlignment(Qt::AlignCenter);
-                switch (status)
-                {
-                case 0:
-                    itemStatus->setText(tr("On going"));
-                    itemStatus->setForeground(QBrush(QColor("#00921b")));
-                    break;
-                case 1:
-                    itemStatus->setText(tr("Successful"));
-                    itemStatus->setForeground(QBrush(QColor("#00921b")));
-                    break;
-                case 2:
-                    itemStatus->setText(tr("Failed"));
-                    itemStatus->setForeground(QBrush(QColor("#d30000")));
-                    break;
-                }
-
-                auto dt = QDateTime::fromSecsSinceEpoch(data.created_at());
-                QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
-                startTime->setTextAlignment(Qt::AlignCenter);
-
-                QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
-                QStandardItem *itemSize = new QStandardItem(size);
-                itemSize->setTextAlignment(Qt::AlignCenter);
-
-                QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
-                itemDesc->setTextAlignment(Qt::AlignCenter);
-
-                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemSize << itemDesc);
-                row++;
-            }
-            setSortableCol(BACKUP_TIME_COL, Qt::DescendingOrder);
-        }
         else
         {
-            if (reply.first.error_code() == PERMISSION_DENIED)
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            else
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (DEADLINE_EXCEEDED == reply.first.error_code())
             {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-                if (DEADLINE_EXCEEDED == reply.first.error_code())
-                {
-                    setTips(tr("Response timeout!"));
-                }
+                setTips(tr("Response timeout!"));
             }
-            setTableDefaultContent("-");
         }
+        setTableDefaultContent("-");
+        return;
     }
+
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    clearTable();
+    int size = reply.second.data_size();
+    if (size <= 0)
+    {
+        setTableDefaultContent("-");
+        return;
+    }
+    int row = 0;
+    QMap<QString, QVariant> idMap;
+    for (auto data : reply.second.data())
+    {
+        qint64 backupId = data.id();
+        idMap.insert(BACKUP_ID, backupId);
+        idMap.insert(BACKUP_NAME, data.backup_name().data());
+
+        QStandardItem *itemCheck = new QStandardItem();
+        itemCheck->setCheckable(true);
+
+        QStandardItem *itemName = new QStandardItem(data.backup_name().data());
+        itemName->setTextAlignment(Qt::AlignCenter);
+        itemName->setData(QVariant::fromValue(idMap));
+
+        int status = data.status();
+        QStandardItem *itemStatus = new QStandardItem();
+        itemStatus->setTextAlignment(Qt::AlignCenter);
+        switch (status)
+        {
+        case 0:
+            itemStatus->setText(tr("On going"));
+            itemStatus->setForeground(QBrush(QColor("#00921b")));
+            break;
+        case 1:
+            itemStatus->setText(tr("Successful"));
+            itemStatus->setForeground(QBrush(QColor("#00921b")));
+            break;
+        case 2:
+            itemStatus->setText(tr("Failed"));
+            itemStatus->setForeground(QBrush(QColor("#d30000")));
+            break;
+        }
+
+        auto dt = QDateTime::fromSecsSinceEpoch(data.created_at());
+        QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
+        startTime->setTextAlignment(Qt::AlignCenter);
+
+        QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
+        QStandardItem *itemSize = new QStandardItem(size);
+        itemSize->setTextAlignment(Qt::AlignCenter);
+
+        QStandardItem *itemDesc = new QStandardItem(data.backup_desc().data());
+        itemDesc->setTextAlignment(Qt::AlignCenter);
+
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << startTime << itemSize << itemDesc);
+        row++;
+    }
+    setSortableCol(BACKUP_TIME_COL, Qt::DescendingOrder);
 }
 
 void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &reply)
 {
-    KLOG_INFO() << "getUpdateBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-        }
-        else
-        {
-            MessageDialog::message(tr("Update Container Backup"),
-                                   tr("Update container backup failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        updateInfo();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update Container Backup"),
+                               tr("Update container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerBackupPage::getCreateBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &reply)
 {
-    KLOG_INFO() << "getCreateBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-        }
-        else
-        {
-            MessageDialog::message(tr("Create Container Backup"),
-                                   tr("Create container backup failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        updateInfo();
+    }
+    else
+    {
+        MessageDialog::message(tr("Create Container Backup"),
+                               tr("Create container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerBackupPage::getResumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &reply)
 {
-    KLOG_INFO() << "getResumeBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            m_containerId = reply.second.container_id().data();
-            updateInfo();
-            NotificationManager::sendNotify(tr("Resume container backup seccessful!"), "");
-        }
-        else
-        {
-            NotificationManager::sendNotify(tr("Resume container backup failed!"),
-                                            tr("Error: %1").arg(reply.first.error_message().data()));
-        }
+        m_containerId = reply.second.container_id().data();
+        updateInfo();
+        NotificationManager::sendNotify(tr("Resume container backup seccessful!"), "");
+    }
+    else
+    {
+        NotificationManager::sendNotify(tr("Resume container backup failed!"),
+                                        tr("Error: %1").arg(reply.first.error_message().data()));
     }
 }
 
 void ContainerBackupPage::getRemoveBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &reply)
 {
-    KLOG_INFO() << "getRemoveBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            updateInfo();
-        }
-        else
-        {
-            MessageDialog::message(tr("Remove Container Backup"),
-                                   tr("Remove container backup failed!"),
-                                   tr("Error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        updateInfo();
+    }
+    else
+    {
+        MessageDialog::message(tr("Remove Container Backup"),
+                               tr("Remove container backup failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void ContainerBackupPage::getExportBackupFinished(const QString objId, const QPair<Status, QString> &reply)
 {
-    KLOG_INFO() << "getExportBackupFinished" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
+        updateInfo();
+        NotificationManager::sendNotify(tr("Export container backup seccessful!"),
+                                        reply.second.isEmpty() ? tr("You can see it in image manager.") : tr("Save path:%1").arg(reply.second));
+    }
+    else
+    {
+        if (reply.first.error_code() == grpc::StatusCode::ALREADY_EXISTS)
         {
-            updateInfo();
-            NotificationManager::sendNotify(tr("Export container backup seccessful!"),
-                                            reply.second.isEmpty() ? tr("You can see it in image manager.") : tr("Save path:%1").arg(reply.second));
+            MessageDialog::message(tr("Export Container Backup"),
+                                   tr("Export container backup failed!"),
+                                   tr("Error: %1").arg(reply.first.error_message().data()),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Ok);
         }
         else
-        {
-            if (reply.first.error_code() == grpc::StatusCode::ALREADY_EXISTS)
-            {
-                MessageDialog::message(tr("Export Container Backup"),
-                                       tr("Export container backup failed!"),
-                                       tr("Error: %1").arg(reply.first.error_message().data()),
-                                       ":/images/error.svg",
-                                       MessageDialog::StandardButton::Ok);
-            }
-            else
-                NotificationManager::sendNotify(tr("Export container backup failed!"),
-                                                tr("Error: %1").arg(reply.first.error_message().data()));
-        }
+            NotificationManager::sendNotify(tr("Export container backup failed!"),
+                                            tr("Error: %1").arg(reply.first.error_message().data()));
     }
 }
 

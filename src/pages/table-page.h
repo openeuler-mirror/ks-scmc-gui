@@ -111,16 +111,6 @@ signals:
     void sigRefreshSearchResult();  // 刷新搜索结果
 
 private slots:
-    void onMonitor(int row);
-    void onTerminal(int row);
-    void onEdit(int row);
-    void onDelete(int row);
-    void onActRun(QModelIndex index);
-    void onActStop(QModelIndex index);
-    void onActRestart(QModelIndex index);
-    void onActBackupResume(int row);
-    void onActBackupUpdate(int row);
-    void onActBackupRemove(int row);
     void search();
     void refresh();
     void onItemChecked(QStandardItem *changeItem);

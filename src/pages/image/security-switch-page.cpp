@@ -1,3 +1,4 @@
+#include "security-switch-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-switch-button.h>
 #include <QCheckBox>
@@ -5,7 +6,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include "notification-manager.h"
-#include "security-switch-page.h"
 SecuritySwitchPage::SecuritySwitchPage(QWidget *parent) : Page(parent), m_checkbox(nullptr)
 {
     m_objId = InfoWorker::generateId(this);
@@ -21,37 +21,37 @@ void SecuritySwitchPage::updateInfo(QString keyword)
 
 void SecuritySwitchPage::getSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            m_checkbox->setChecked(reply.second.is_on());
-        }
-        else
-        {
-            KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
-            NotificationManager::sendNotify(tr("Get security switch result failed!"),
-                                            QString::fromStdString(reply.first.error_message()));
-        }
+        m_checkbox->setChecked(reply.second.is_on());
+    }
+    else
+    {
+        KLOG_INFO() << "get security switch result failed!" << reply.first.error_message().data();
+        NotificationManager::sendNotify(tr("Get security switch result failed!"),
+                                        QString::fromStdString(reply.first.error_message()));
     }
 }
 
 void SecuritySwitchPage::setSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::SetSecuritySwitchReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Set security switch %1").arg(reply.second.is_on() ? tr("on") : tr("off")),
-                                            "");
-        }
-        else
-        {
-            KLOG_INFO() << "Set security switch failed!" << reply.first.error_message().data();
-            NotificationManager::sendNotify(tr("Set security switch failed!"),
-                                            QString::fromStdString(reply.first.error_message()));
-            m_checkbox->setChecked(!m_checkbox->isChecked());
-        }
+        NotificationManager::sendNotify(tr("Set security switch %1").arg(reply.second.is_on() ? tr("on") : tr("off")),
+                                        "");
+    }
+    else
+    {
+        KLOG_INFO() << "Set security switch failed!" << reply.first.error_message().data();
+        NotificationManager::sendNotify(tr("Set security switch failed!"),
+                                        QString::fromStdString(reply.first.error_message()));
+        m_checkbox->setChecked(!m_checkbox->isChecked());
     }
 }
 

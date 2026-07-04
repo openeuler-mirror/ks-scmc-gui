@@ -132,7 +132,7 @@ int TransmissionList::getTransfersNum()
 void TransmissionList::setTransfersNum(int num)
 {
     m_transfersNum = num;
-    KLOG_INFO() << "setTransfersNum" << num;
+    KLOG_INFO() << "set transfers num" << num;
     if (num > 0)
         m_stackedWidget->setCurrentIndex(1);
     else

@@ -22,7 +22,6 @@ BubbleTipButton::~BubbleTipButton()
 
 void BubbleTipButton::setTipMsg(int num)
 {
-    KLOG_INFO() << "setTipMsg:" << num;
     m_tipMsg = num;
     QString text;
     QFont font;
@@ -61,7 +60,6 @@ void BubbleTipButton::paintEvent(QPaintEvent *event)
         font.setPixelSize(12);
 
         painter.drawEllipse(rt1);
-        //painter.drawRect(rt1);
         painter.setPen(Qt::white);
         painter.setFont(font);
         if (m_tipMsg < 100)

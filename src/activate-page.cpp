@@ -32,8 +32,6 @@ void ActivatePage::init()
     KiranTitlebarWindow::setTitle(tr("Software Activation"));
     KiranTitlebarWindow::setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint | KiranTitlebarWindow::TitlebarMinimizeButtonHint);
     KiranTitlebarWindow::setIcon(QIcon(":/images/logo.png"));
-    //        KiranTitlebarWindow::setTitleBarHeight(30);
-    //    KiranTitlebarWindow::setFixedSize(500, 340);
     KiranTitlebarWindow::setFixedSize(500, 480);
     KiranTitlebarWindow::setWindowModality(Qt::ApplicationModal);
 
@@ -55,7 +53,6 @@ void ActivatePage::init()
     QHBoxLayout *hlayout = new QHBoxLayout(machine_code_edit);
     QPushButton *button = new QPushButton(machine_code_edit);
     button->setFlat(true);
-    // KS::WidgetPropertyHelper::setButtonType(button, KS::ButtonType::BUTTON_Default);
     connect(button, SIGNAL(clicked(bool)), this, SLOT(showQR()));
 
     button->setStyleSheet("QPushButton{border-image: url(:/images/qrcode.png);}");
@@ -87,8 +84,6 @@ void ActivatePage::init()
 
     activeButton->setFixedHeight(36);
     canCelButton->setFixedHeight(40);
-    //    activeButton->setMinimumHeight(36);
-    //    canCelButton->setMinimumHeight(40);
 
     buttonLayout->addWidget(new QLabel(""));
     buttonLayout->addWidget(activeButton);
@@ -118,7 +113,6 @@ void ActivatePage::createQRcode(QString machine_code)
     qr = new KiranTitlebarWindow(this);
     qr->setButtonHints(KiranTitlebarWindow::TitlebarCloseButtonHint);
     qr->setIcon(QIcon(":/images/logo.png"));
-    //    qr->setTitleBarHeight(30);
     qr->setFixedSize(350, 300);
     qr->setWindowModality(Qt::ApplicationModal);
     qr->setTitle(tr("QR Code"));
@@ -127,7 +121,6 @@ void ActivatePage::createQRcode(QString machine_code)
     QVBoxLayout *vlayout = new QVBoxLayout(widget);
     QLabel *label = new QLabel(widget);
     label->setAlignment(Qt::AlignCenter);
-    //    label->setMinimumSize(160,160);
     label->setContentsMargins(0, 0, 0, 0);
 
     QLabel *textLabel = new QLabel(widget);

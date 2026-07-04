@@ -87,9 +87,6 @@ void OutlineView::initUI()
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(10);
 
-//    glayout->setRowStretch(3,1);
-
-//    m_scrollWidget->setLayout(glayout);
 #if 1
     m_scrollArea->setWidget(m_scrollWidget);
 
@@ -238,69 +235,68 @@ void OutlineView::setOutlineCellWarning()
 
 void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Status, sys::DashboardReply> &reply)
 {
-    if (objId == m_objId)
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            //node status
-            int nodeTotal = reply.second.node().total_count();
-            int nodeOnline = reply.second.node().online_count();
-            int nodeOffline = reply.second.node().offline_count();
-            m_outlineCell_node->ui->Name_counts->setText(QString::number(nodeTotal, 10));
-            m_outlineCell_node->ui->online_counts->setText(QString::number(nodeOnline, 10));
-            m_outlineCell_node->ui->offline_counts->setText(QString::number(nodeOffline, 10));
-
-            //container status
-            int containerTotal = reply.second.container().total_count();
-            int containerOnline = reply.second.container().online_count();
-            int containerOffline = reply.second.container().offline_count();
-            m_outlineCell_container->ui->Name_counts->setText(QString::number(containerTotal, 10));
-            m_outlineCell_container->ui->online_counts->setText(QString::number(containerOnline, 10));
-            m_outlineCell_container->ui->offline_counts->setText(QString::number(containerOffline, 10));
-
-            int templateTotal = reply.second.container().template_count();
-            m_outlineCell_template_container->ui->Name_counts->setText(QString::number(templateTotal, 10));
-
-            //image status
-            int imageTotal = reply.second.image().total_count();
-            m_outlineCell_image->ui->Name_counts->setText(QString::number(imageTotal, 10));
-
-            auto imageSize = reply.second.image().total_size();
-            double image_size_sum;
-            image_size_sum = double(imageSize) / pow(2, 30);
-
-            if (image_size_sum < 1)
-            {
-                image_size_sum = double(imageSize) / pow(2, 20);
-                QString str = QString::number(image_size_sum, 'f', 2);
-                m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
-            }
-            else
-            {
-                QString str = QString::number(image_size_sum, 'f', 2);
-                m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
-            }
-
-            //audit status
-            int approveCount = reply.second.audit().image_to_approve_count();
-            m_outlineCell_examine->ui->Name_counts->setText(QString::number(approveCount, 10));
-            emit sigApproveSumNums(approveCount);
-
-            //log status
-            int unreadWarnCount = reply.second.log().unread_warn_count();
-            m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
-            emit sigWarnSumNums(int(unreadWarnCount));
-
-            KLOG_INFO() << nodeTotal << nodeOnline << nodeOffline
-                        << containerTotal << containerOnline << containerOffline
-                        << templateTotal
-                        << imageTotal << imageSize
-                        << approveCount
-                        << unreadWarnCount;
-        }
-        else
-        {
-            KLOG_INFO() << "Can't get system dashboard information!";
-        }
+        KLOG_INFO() << "Can't get system dashboard information!";
+        return;
     }
+
+    //node status
+    int nodeTotal = reply.second.node().total_count();
+    int nodeOnline = reply.second.node().online_count();
+    int nodeOffline = reply.second.node().offline_count();
+    m_outlineCell_node->ui->Name_counts->setText(QString::number(nodeTotal, 10));
+    m_outlineCell_node->ui->online_counts->setText(QString::number(nodeOnline, 10));
+    m_outlineCell_node->ui->offline_counts->setText(QString::number(nodeOffline, 10));
+
+    //container status
+    int containerTotal = reply.second.container().total_count();
+    int containerOnline = reply.second.container().online_count();
+    int containerOffline = reply.second.container().offline_count();
+    m_outlineCell_container->ui->Name_counts->setText(QString::number(containerTotal, 10));
+    m_outlineCell_container->ui->online_counts->setText(QString::number(containerOnline, 10));
+    m_outlineCell_container->ui->offline_counts->setText(QString::number(containerOffline, 10));
+
+    int templateTotal = reply.second.container().template_count();
+    m_outlineCell_template_container->ui->Name_counts->setText(QString::number(templateTotal, 10));
+
+    //image status
+    int imageTotal = reply.second.image().total_count();
+    m_outlineCell_image->ui->Name_counts->setText(QString::number(imageTotal, 10));
+
+    auto imageSize = reply.second.image().total_size();
+    double image_size_sum;
+    image_size_sum = double(imageSize) / pow(2, 30);
+
+    if (image_size_sum < 1)
+    {
+        image_size_sum = double(imageSize) / pow(2, 20);
+        QString str = QString::number(image_size_sum, 'f', 2);
+        m_outlineCell_image->ui->label_offline_txt->setText(str + "MB");
+    }
+    else
+    {
+        QString str = QString::number(image_size_sum, 'f', 2);
+        m_outlineCell_image->ui->label_offline_txt->setText(str + "GB");
+    }
+
+    //audit status
+    int approveCount = reply.second.audit().image_to_approve_count();
+    m_outlineCell_examine->ui->Name_counts->setText(QString::number(approveCount, 10));
+    emit sigApproveSumNums(approveCount);
+
+    //log status
+    int unreadWarnCount = reply.second.log().unread_warn_count();
+    m_outlineCell_warning->ui->Name_counts->setText(QString::number(unreadWarnCount, 10));
+    emit sigWarnSumNums(int(unreadWarnCount));
+
+    KLOG_INFO() << nodeTotal << nodeOnline << nodeOffline
+                << containerTotal << containerOnline << containerOffline
+                << templateTotal
+                << imageTotal << imageSize
+                << approveCount
+                << unreadWarnCount;
 }

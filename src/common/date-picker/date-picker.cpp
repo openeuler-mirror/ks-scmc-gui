@@ -30,7 +30,6 @@ QDateTime DatePicker::getStartDate()
 
 QDateTime DatePicker::getEndDate()
 {
-    //QDate startDate = m_startCalendar->getSelectDate();
     QDate endDate = m_endCalendar->getSelectDate();
     QDateTime end = QDateTime(endDate);
     QDateTime curr = QDateTime::currentDateTime();
@@ -88,7 +87,6 @@ void DatePicker::initUI()
     QDate currDate = QDate::currentDate();
 
     m_startCalendar = new CalendarWidget(this);
-    //m_startCalendar->hideNextButton();
     m_startCalendar->setSelectableStart(currDate.addDays(-7));
     m_startCalendar->setSelectableEnd(currDate);
     m_startCalendar->setMinimumDate(currDate.addDays(-7));
@@ -97,7 +95,6 @@ void DatePicker::initUI()
     connect(m_startCalendar, &CalendarWidget::clicked, this, &DatePicker::startDateChanged);
 
     m_endCalendar = new CalendarWidget(this);
-    //m_endCalendar->hidePreButton();
     m_endCalendar->setSelectableStart(currDate.addDays(-7));
     m_endCalendar->setSelectableEnd(currDate);
     m_endCalendar->setMinimumDate(currDate.addDays(-7));

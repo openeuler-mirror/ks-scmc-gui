@@ -39,7 +39,6 @@ void DatePickButton::initUI()
     labIcon->setObjectName("lab_icon");
     labIcon->setFixedSize(16, 16);
     labIcon->setPixmap(QPixmap(":/images/icon_calendar.png"));
-    //labIcon->setStyleSheet("#lab_icon{image: url(:/images/icon_calendar.png);");
 
     m_dateLabel = new QLabel(this);
 

@@ -13,17 +13,13 @@ ImageApprovalPage::ImageApprovalPage(QWidget *parent) : TabPage(parent), m_image
     createSubPage(APPROVE_PASSED);
     createSubPage(APPROVE_REFUSED);
     setCurrentPage(WAIT_FOR_APPROVE);
-    //    updateInfo();
     connect(this, &ImageApprovalPage::sigTabBarClicked, this, &ImageApprovalPage::updatePageInfo);
 }
 
 void ImageApprovalPage::updateInfo(QString keyword)
 {
-    KLOG_INFO() << "ImageApprovalPage UpdateInfo";
     setCurrentPage(WAIT_FOR_APPROVE);
     m_imagelist_approve->updateInfo();
-    //    m_imagelist_passed->updateInfo();
-    //    m_imagelist_rejected->updateInfo();
 }
 
 void ImageApprovalPage::createSubPage(ImageApprovalType type)
@@ -33,9 +29,7 @@ void ImageApprovalPage::createSubPage(ImageApprovalType type)
     case WAIT_FOR_APPROVE:
     {
         m_imagelist_approve = new ImageListPage(this, true);
-        //        m_imagelist_approve->setCheckBox(false);
         m_imagelist_approve->setDelRow(tr("Rejected"), tr("Passed"));
-        //        m_imagelist_approve->setIsInitAuditButtons(true);
         m_imagelist_approve->setOperateAreaVisible(true);
         addTabPage(m_imagelist_approve, tr("Wait for Approve"));
         connect(m_imagelist_approve, &ImageListPage::sigUpdateAPproveTipSums, this, &ImageApprovalPage::sigUpdateTipSumsProxy);

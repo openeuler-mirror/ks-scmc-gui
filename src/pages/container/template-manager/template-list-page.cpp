@@ -43,7 +43,6 @@ void TemplateListPage::updateInfo(QString keyword)
     clearText();
     if (keyword.isEmpty())
     {
-        //initConnect();
         //gRPC->拿数据->填充内容
         getTemplateInfo();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
@@ -52,39 +51,38 @@ void TemplateListPage::updateInfo(QString keyword)
 
 void TemplateListPage::onEdit(int row)
 {
-    KLOG_INFO() << "TemplateListPage edit:" << row;
     QStandardItem *item = getItem(row, 1);
-    if (item)
+
+    if (!item)
+        return;
+
+    if (!m_editTPSetting)
     {
-        if (!m_editTPSetting)
-        {
-            m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
-                                                   m_networksMap,
-                                                   item->data().value<QMap<QString, QVariant>>());
+        m_editTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_EDIT,
+                                               m_networksMap,
+                                               item->data().value<QMap<QString, QVariant>>());
 
-            int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-            QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-            m_editTPSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editTPSetting->width()) / 2,
-                                  screenGeometry.y() + (screenGeometry.height() - m_editTPSetting->height()) / 2);
+        int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
+        QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
+        m_editTPSetting->move(screenGeometry.x() + (screenGeometry.width() - m_editTPSetting->width()) / 2,
+                              screenGeometry.y() + (screenGeometry.height() - m_editTPSetting->height()) / 2);
 
-            m_editTPSetting->show();
-            connect(m_editTPSetting, &ContainerSetting::destroyed,
-                    [=] {
-                        KLOG_INFO() << "update template setting destroy";
-                        m_editTPSetting->deleteLater();
-                        m_editTPSetting = nullptr;
-                    });
-            connect(m_editTPSetting, &ContainerSetting::sigUpdateTemplate,
-                    [=] {
-                        getTemplateInfo();
-                    });
-        }
+        m_editTPSetting->show();
+        connect(m_editTPSetting, &ContainerSetting::destroyed,
+                [=] {
+                    KLOG_INFO() << "update template setting destroy";
+                    m_editTPSetting->deleteLater();
+                    m_editTPSetting = nullptr;
+                });
+        connect(m_editTPSetting, &ContainerSetting::sigUpdateTemplate,
+                [=] {
+                    getTemplateInfo();
+                });
     }
 }
 
 void TemplateListPage::onDelete(int row)
 {
-    KLOG_INFO() << "TemplateListPage delete:" << row;
     int64_t id = -1;
     getItemId(row, id);
     if (id > 0)
@@ -99,14 +97,11 @@ void TemplateListPage::onDelete(int row)
             //setBusy(true);
             InfoWorker::getInstance().removeTemplate(m_objId, QList<int64_t>() << id);
         }
-        else
-            KLOG_INFO() << "cancel";
     }
 }
 
 void TemplateListPage::onCreateTemplate()
 {
-    KLOG_INFO() << "onCreateTemplate";
     if (!m_createTPSetting)
     {
         m_createTPSetting = new ContainerSetting(CONTAINER_SETTING_TYPE_TEMPLATE_CREATE, m_networksMap);
@@ -119,7 +114,6 @@ void TemplateListPage::onCreateTemplate()
         m_createTPSetting->show();
         connect(m_createTPSetting, &ContainerSetting::destroyed,
                 [=] {
-                    KLOG_INFO() << "create template setting destroy";
                     m_createTPSetting->deleteLater();
                     m_createTPSetting = nullptr;
                 });
@@ -132,7 +126,6 @@ void TemplateListPage::onCreateTemplate()
 
 void TemplateListPage::onRemoveTemplate()
 {
-    KLOG_INFO() << "onRemoveTemplate";
     QList<int64_t> ids;
     getCheckedItemsId(ids);
     if (!ids.empty())
@@ -147,148 +140,143 @@ void TemplateListPage::onRemoveTemplate()
             //setBusy(true);
             InfoWorker::getInstance().removeTemplate(m_objId, ids);
         }
-        else
-            KLOG_INFO() << "cancel";
     }
 }
 
 void TemplateListPage::getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
 {
-    KLOG_INFO() << "getNetworkListResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
+        m_networksMap.clear();
+        for (auto ifs : reply.second.virtual_ifs())
         {
-            m_networksMap.clear();
-            for (auto ifs : reply.second.virtual_ifs())
-            {
-                int nodeId = ifs.node_id();
-                auto name = ifs.name();
-                auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
-                QString str = QString("%1 (%2:%3)")
-                                  .arg(QString::fromStdString(name))
-                                  .arg(tr("Subnet"))
-                                  .arg(QString::fromStdString(subnet));
-                KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
-                m_networksMap.insert(nodeId, str);
-            }
+            int nodeId = ifs.node_id();
+            auto name = ifs.name();
+            auto subnet = ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len());
+            QString str = QString("%1 (%2:%3)")
+                              .arg(QString::fromStdString(name))
+                              .arg(tr("Subnet"))
+                              .arg(QString::fromStdString(subnet));
+            KLOG_INFO() << "node id:" << nodeId << "network info:" << str;
+            m_networksMap.insert(nodeId, str);
         }
-        else
-            KLOG_INFO() << "getNetworkListResult failed";
     }
+    else
+        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
 }
 
 void TemplateListPage::getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
-    KLOG_INFO() << "getListTemplateFinishResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    setBusy(false);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
+
+    if (!reply.first.ok())
     {
-        setBusy(false);
-        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-        if (reply.first.ok())
-        {
+        KLOG_INFO() << "get template list failed!" << reply.first.error_message().data();
+        if (reply.first.error_code() == PERMISSION_DENIED)
             setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            clearTable();
-            int size = reply.second.data_size();
-            KLOG_INFO() << "template size:" << size;
-            if (size <= 0)
-            {
-                setTableDefaultContent("-");
-                setHeaderCheckable(false);
-                return;
-            }
-            setHeaderCheckable(true);
-            int row = 0;
-            QMap<QString, QVariant> idMap;
-            for (auto data : reply.second.data())
-            {
-                auto cfg = data.conf();
-                qint64 tempId = data.id();
-                qint64 nodeId = data.node_id();
-                idMap.insert(TEMPLATE_ID, tempId);
-                idMap.insert(NODE_ID, nodeId);
-
-                QStandardItem *itemCheck = new QStandardItem();
-                itemCheck->setCheckable(true);
-
-                QStandardItem *itemName = new QStandardItem(cfg.name().data());
-                itemName->setData(QVariant::fromValue(idMap));
-                itemName->setTextAlignment(Qt::AlignCenter);
-
-                QStandardItem *itemDesc = new QStandardItem(cfg.desc().data());
-                itemDesc->setTextAlignment(Qt::AlignCenter);
-
-                //基础配置
-                //cpu,内存,网卡
-                auto cpuNum = cfg.resouce_limit().cpu_limit();
-                auto memoryNum = cfg.resouce_limit().memory_limit() / 1024;
-                auto networkNum = cfg.networks_size();
-                QString baseCfg = tr("CPU: %1 core \n Memory: %2 G \n Network: %3 piece")
-                                      .arg(cpuNum)
-                                      .arg(memoryNum)
-                                      .arg(networkNum);
-                QStandardItem *itemBaseCfg = new QStandardItem(baseCfg);
-                itemBaseCfg->setTextAlignment(Qt::AlignCenter);
-
-                //高级配置
-                //环境变量、共享目录、图形化使用、高可用
-                auto envNum = cfg.envs().size();
-                auto mountNum = cfg.mounts_size();
-                QString enableGraphic = cfg.enable_graphic() ? tr("Open") : tr("Close");
-                auto restartPolicy = cfg.restart_policy().name().data();
-                QMap<QString, QString> policyMap = {{"no", tr("no")},
-                                                    {"always", tr("always")},
-                                                    {"on-failure", tr("on-failure")},
-                                                    {"unless-stopped", tr("unless-stopped")}};
-
-                QString advanceCfg = tr("Env: %1  Mount: %2 \n Graphic: %3 \n RestartPolicy: %4")
-                                         .arg(envNum)
-                                         .arg(mountNum)
-                                         .arg(enableGraphic)
-                                         .arg(policyMap.value(restartPolicy));
-                QStandardItem *itemAdvanceCfg = new QStandardItem(advanceCfg);
-                itemAdvanceCfg->setTextAlignment(Qt::AlignCenter);
-
-                setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemDesc << itemBaseCfg << itemAdvanceCfg);
-                row++;
-            }
-        }
         else
         {
-            KLOG_INFO() << "get template list failed!" << reply.first.error_message().data();
-            if (reply.first.error_code() == PERMISSION_DENIED)
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-            else
+            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+            if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
             {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-                if (grpc::StatusCode::DEADLINE_EXCEEDED == reply.first.error_code())
-                {
-                    setTips(tr("Response timeout!"));
-                }
+                setTips(tr("Response timeout!"));
             }
-            setTableDefaultContent("-");
-            setHeaderCheckable(false);
         }
+        setTableDefaultContent("-");
+        setHeaderCheckable(false);
+        return;
+    }
+
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    clearTable();
+    int size = reply.second.data_size();
+    KLOG_INFO() << "template size:" << size;
+    if (size <= 0)
+    {
+        setTableDefaultContent("-");
+        setHeaderCheckable(false);
+        return;
+    }
+    setHeaderCheckable(true);
+    int row = 0;
+    QMap<QString, QVariant> idMap;
+    for (auto data : reply.second.data())
+    {
+        auto cfg = data.conf();
+        qint64 tempId = data.id();
+        qint64 nodeId = data.node_id();
+        idMap.insert(TEMPLATE_ID, tempId);
+        idMap.insert(NODE_ID, nodeId);
+
+        QStandardItem *itemCheck = new QStandardItem();
+        itemCheck->setCheckable(true);
+
+        QStandardItem *itemName = new QStandardItem(cfg.name().data());
+        itemName->setData(QVariant::fromValue(idMap));
+        itemName->setTextAlignment(Qt::AlignCenter);
+
+        QStandardItem *itemDesc = new QStandardItem(cfg.desc().data());
+        itemDesc->setTextAlignment(Qt::AlignCenter);
+
+        //基础配置
+        //cpu,内存,网卡
+        auto cpuNum = cfg.resouce_limit().cpu_limit();
+        auto memoryNum = cfg.resouce_limit().memory_limit() / 1024;
+        auto networkNum = cfg.networks_size();
+        QString baseCfg = tr("CPU: %1 core \n Memory: %2 G \n Network: %3 piece")
+                              .arg(cpuNum)
+                              .arg(memoryNum)
+                              .arg(networkNum);
+        QStandardItem *itemBaseCfg = new QStandardItem(baseCfg);
+        itemBaseCfg->setTextAlignment(Qt::AlignCenter);
+
+        //高级配置
+        //环境变量、共享目录、图形化使用、高可用
+        auto envNum = cfg.envs().size();
+        auto mountNum = cfg.mounts_size();
+        QString enableGraphic = cfg.enable_graphic() ? tr("Open") : tr("Close");
+        auto restartPolicy = cfg.restart_policy().name().data();
+        QMap<QString, QString> policyMap = {{"no", tr("no")},
+                                            {"always", tr("always")},
+                                            {"on-failure", tr("on-failure")},
+                                            {"unless-stopped", tr("unless-stopped")}};
+
+        QString advanceCfg = tr("Env: %1  Mount: %2 \n Graphic: %3 \n RestartPolicy: %4")
+                                 .arg(envNum)
+                                 .arg(mountNum)
+                                 .arg(enableGraphic)
+                                 .arg(policyMap.value(restartPolicy));
+        QStandardItem *itemAdvanceCfg = new QStandardItem(advanceCfg);
+        itemAdvanceCfg->setTextAlignment(Qt::AlignCenter);
+
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemDesc << itemBaseCfg << itemAdvanceCfg);
+        row++;
     }
 }
 
 void TemplateListPage::getRemoveTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &reply)
 {
-    KLOG_INFO() << "getRemoveTemplateFinishResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            getTemplateInfo();
-        }
-        else
-        {
-            MessageDialog::message(tr("Remove template"),
-                                   tr("Remove template failed!"),
-                                   tr("Error: ") + reply.first.error_message().data(),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        getTemplateInfo();
+    }
+    else
+    {
+        MessageDialog::message(tr("Remove template"),
+                               tr("Remove template failed!"),
+                               tr("Error: ") + reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
@@ -357,7 +345,7 @@ void TemplateListPage::getItemId(int row, int64_t &id)
 
 void TemplateListPage::getNetworkInfo(int64_t node_id)
 {
-    KLOG_INFO() << "getNetworkInfo" << node_id;
+    KLOG_INFO() << "get network info of node:" << node_id;
     InfoWorker::getInstance().listNetwork(m_objId, node_id);
 }
 

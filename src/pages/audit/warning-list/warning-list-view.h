@@ -37,9 +37,7 @@ private slots:
     void getListWarningResult(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
     void getReadWarningResult(const QString objId, const QPair<grpc::Status, logging::ReadWarnReply> &);
     void onBtnRead();
-    void onBtnIgnore();
     void onBtnReadLabel(int row);
-    void onBtnIgnoreLabel(int row);
     void updatePagingInfo(int page_on);
 
 private:

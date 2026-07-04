@@ -159,31 +159,28 @@ void PasswdUpdateDialog::onConfirm()
 
 void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply)
 {
-    KLOG_INFO() << "getUpdatePasswordResult" << m_objId << objId;
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            KLOG_INFO() << "Update password successful!";
-            UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
-            emit sigUpdatePasswdSuccessful();
-            close();
-        }
-        else
-        {
-            KLOG_INFO() << reply.first.error_message().data();
-            MessageDialog::message(tr("Update Password"),
-                                   tr("Update password failed!"),
-                                   tr("error: %1").arg(reply.first.error_message().data()),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Ok);
-        }
+        KLOG_INFO() << "Update password successful!";
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
+        emit sigUpdatePasswdSuccessful();
+        close();
+    }
+    else
+    {
+        MessageDialog::message(tr("Update Password"),
+                               tr("Update password failed!"),
+                               tr("error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
     }
 }
 
 void PasswdUpdateDialog::updatePassword(QString oldPw, QString newPw)
 {
-    KLOG_INFO() << "updatePassword";
     InfoWorker::getInstance().updatePassword(m_objId, oldPw.toStdString(), newPw.toStdString());
 }
 

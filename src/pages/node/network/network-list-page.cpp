@@ -88,142 +88,141 @@ void NetworkListPage::onEditVirtIfs(int row)
 
 void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
     {
-        if (reply.first.ok())
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
+        KLOG_INFO() << "get network list result failed: " << reply.first.error_message().data();
+        return;
+    }
+
+    clearTable();
+    int row = 0;
+    int size = 0;
+    if (m_type == NETWORK_IFS_TYPE_REAL)
+    {
+        size = reply.second.real_ifs().size();
+        KLOG_INFO() << "real ifs size: " << size;
+        if (size <= 0)
         {
-            clearTable();
-            int row = 0;
-            int size = 0;
-            if (m_type == NETWORK_IFS_TYPE_REAL)
-            {
-                size = reply.second.real_ifs().size();
-                KLOG_INFO() << "real ifs size: " << size;
-                if (size <= 0)
-                {
-                    setTableDefaultContent("-");
-                    return;
-                }
-                for (auto ifs : reply.second.real_ifs())
-                {
-                    auto name = QString::fromStdString(ifs.name());
-                    auto ip = QString::fromStdString(ifs.ip_address());
-                    auto mask = QString::fromStdString(ifs.ip_mask());
-                    auto gateway = QString::fromStdString(ifs.gateway());
-                    auto mac = QString::fromStdString(ifs.mac_address());
-                    auto status = ifs.is_up();
-
-                    QStandardItem *checkItem = new QStandardItem();
-                    QStandardItem *nameItem = new QStandardItem(name);
-                    QStandardItem *ipItem = new QStandardItem(ip);
-                    QStandardItem *maskItem = new QStandardItem(mask);
-                    QStandardItem *gatewayItem = new QStandardItem(gateway);
-                    QStandardItem *macItem = new QStandardItem(mac);
-                    QStandardItem *statusItem = new QStandardItem(status == true ? tr("Up") : tr("Down"));
-
-                    KLOG_INFO() << "real ifs:" << name << ip;
-
-                    setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << ipItem << maskItem << gatewayItem << macItem << statusItem);
-                    row++;
-                }
-            }
-            else if (m_type == NETWORK_IFS_TYPE_VIRT)
-            {
-                setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
-                m_realIfs.clear();
-                for (auto ifs : reply.second.real_ifs())
-                {
-                    m_realIfs.append(QString::fromStdString(ifs.name()));
-                }
-                if (m_realIfs.isEmpty())
-                    KLOG_INFO() << "there is no real interface!";
-
-                size = reply.second.virtual_ifs().size();
-                KLOG_INFO() << "virture ifs size: " << size;
-
-                if (size <= 0)
-                {
-                    setTableDefaultContent("-");
-                    return;
-                }
-                QMap<QString, QVariant> infoMap;
-                for (auto ifs : reply.second.virtual_ifs())
-                {
-                    auto name = QString::fromStdString(ifs.name());
-                    auto subnet = QString::fromStdString(ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len()));
-                    auto realName = QString::fromStdString(ifs.bind_real());
-                    auto gateway = QString::fromStdString(ifs.gateway());
-
-                    infoMap.insert(NAME, name);
-                    infoMap.insert(REAL_IFS, realName);
-                    infoMap.insert(SUBNET, subnet);
-                    infoMap.insert(GATEWAY, gateway);
-
-                    QStandardItem *checkItem = new QStandardItem();
-                    checkItem->setCheckable(true);
-                    QStandardItem *nameItem = new QStandardItem(name);
-                    nameItem->setData(QVariant::fromValue(infoMap));
-                    QStandardItem *subnetItem = new QStandardItem(subnet);
-                    QStandardItem *realNameItem = new QStandardItem(realName);
-
-                    KLOG_INFO() << "virtual ifs:" << name << subnet;
-
-                    setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << subnetItem << realNameItem);
-                    row++;
-                }
-            }
+            setTableDefaultContent("-");
+            return;
         }
-        else
+        for (auto ifs : reply.second.real_ifs())
         {
-            setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-            KLOG_INFO() << "getNetworkListResult failed";
+            auto name = QString::fromStdString(ifs.name());
+            auto ip = QString::fromStdString(ifs.ip_address());
+            auto mask = QString::fromStdString(ifs.ip_mask());
+            auto gateway = QString::fromStdString(ifs.gateway());
+            auto mac = QString::fromStdString(ifs.mac_address());
+            auto status = ifs.is_up();
+
+            QStandardItem *checkItem = new QStandardItem();
+            QStandardItem *nameItem = new QStandardItem(name);
+            QStandardItem *ipItem = new QStandardItem(ip);
+            QStandardItem *maskItem = new QStandardItem(mask);
+            QStandardItem *gatewayItem = new QStandardItem(gateway);
+            QStandardItem *macItem = new QStandardItem(mac);
+            QStandardItem *statusItem = new QStandardItem(status == true ? tr("Up") : tr("Down"));
+
+            KLOG_INFO() << "real ifs:" << name << ip;
+
+            setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << ipItem << maskItem << gatewayItem << macItem << statusItem);
+            row++;
+        }
+    }
+    else if (m_type == NETWORK_IFS_TYPE_VIRT)
+    {
+        setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+        m_realIfs.clear();
+        for (auto ifs : reply.second.real_ifs())
+        {
+            m_realIfs.append(QString::fromStdString(ifs.name()));
+        }
+        if (m_realIfs.isEmpty())
+            KLOG_INFO() << "there is no real interface!";
+
+        size = reply.second.virtual_ifs().size();
+        KLOG_INFO() << "virture ifs size: " << size;
+
+        if (size <= 0)
+        {
+            setTableDefaultContent("-");
+            return;
+        }
+        QMap<QString, QVariant> infoMap;
+        for (auto ifs : reply.second.virtual_ifs())
+        {
+            auto name = QString::fromStdString(ifs.name());
+            auto subnet = QString::fromStdString(ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len()));
+            auto realName = QString::fromStdString(ifs.bind_real());
+            auto gateway = QString::fromStdString(ifs.gateway());
+
+            infoMap.insert(NAME, name);
+            infoMap.insert(REAL_IFS, realName);
+            infoMap.insert(SUBNET, subnet);
+            infoMap.insert(GATEWAY, gateway);
+
+            QStandardItem *checkItem = new QStandardItem();
+            checkItem->setCheckable(true);
+            QStandardItem *nameItem = new QStandardItem(name);
+            nameItem->setData(QVariant::fromValue(infoMap));
+            QStandardItem *subnetItem = new QStandardItem(subnet);
+            QStandardItem *realNameItem = new QStandardItem(realName);
+
+            KLOG_INFO() << "virtual ifs:" << name << subnet;
+
+            setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << subnetItem << realNameItem);
+            row++;
         }
     }
 }
 
 void NetworkListPage::getCreateResult(const QString objId, const QPair<grpc::Status, network::CreateNicReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Create virt interface successful!"), "");
-            updateInfo();
-        }
-        else
-            NotificationManager::sendNotify(tr("Create virt interface failed!"),
-                                            reply.first.error_message().data());
+        NotificationManager::sendNotify(tr("Create virt interface successful!"), "");
+        updateInfo();
     }
+    else
+        NotificationManager::sendNotify(tr("Create virt interface failed!"),
+                                        reply.first.error_message().data());
 }
 
 void NetworkListPage::getRemoveResult(const QString objId, const QPair<grpc::Status, network::RemoveNicReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Remove virt interface successful!"), "");
-            updateInfo();
-        }
-        else
-            NotificationManager::sendNotify(tr("Remove virt interface failed!"),
-                                            reply.first.error_message().data());
+        NotificationManager::sendNotify(tr("Remove virt interface successful!"), "");
+        updateInfo();
     }
+    else
+        NotificationManager::sendNotify(tr("Remove virt interface failed!"),
+                                        reply.first.error_message().data());
 }
 
 void NetworkListPage::getUpdateResult(const QString objId, const QPair<grpc::Status, network::UpdateNicReply> &reply)
 {
-    if (m_objId == objId)
+    if (m_objId != objId)
+        return;
+
+    if (reply.first.ok())
     {
-        if (reply.first.ok())
-        {
-            NotificationManager::sendNotify(tr("Update virt interface successful!"), "");
-            updateInfo();
-        }
-        else
-            NotificationManager::sendNotify(tr("Update virt interface failed!"),
-                                            reply.first.error_message().data());
+        NotificationManager::sendNotify(tr("Update virt interface successful!"), "");
+        updateInfo();
     }
+    else
+        NotificationManager::sendNotify(tr("Update virt interface failed!"),
+                                        reply.first.error_message().data());
 }
 
 void NetworkListPage::initButtons()
