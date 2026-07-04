@@ -831,22 +831,74 @@ MonitorContent #btn_apply:focus
     outline:none;
 }
 
-MonitorContent #cb_select_cycle
+/*QComboBox#cb_select_cycle
 {
-    background:#222222;
+    background:red;
     font-size:14px;
     combobox-popup:0;
+}*/
+
+
+MonitorContent QComboBox
+{
+    border: 1px solid #393939;
+    border-radius: 6px;
+    color:#ffffff;
+    combobox-popup:0;
+    font-size:14px;
+}
+MonitorContent QComboBox:drop-down
+{
+    border:none;
+    padding-right:10px;
+}
+MonitorContent QComboBox::down-arrow
+{
+    image: url(:/images/down-arrow.svg);
+}
+
+MonitorContent QComboBox QAbstractItemView
+{
+    background:#222222;
+    color:#ffffff;
+    outline:none;
+    border: 1px solid #2eb3ff;
+    border-radius: 6px;
+    font-size:14px;
+}
+MonitorContent QComboBox QAbstractItemView::item
+{
+    height:30px;
+    border-bottom:1px solid #393939;
+
+}
+MonitorContent QComboBox QAbstractItemView::item:first
+{
+    border-top-left-radius:6px;
+    border-top-right-radius: 6px;
+}
+MonitorContent QComboBox QAbstractItemView::item:last
+{
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius: 6px;
+    border-bottom:none;
+}
+
+MonitorContent QComboBox QAbstractItemView::item:selected
+{
+    background-color:#2D2D2D;
+    color:#ffffff;
 }
 
 MonitorContent QScrollArea QScrollBar:vertical{
-            min-width: 2px;
-            border-radius:2px;
-            background-color:#919191;
+    width: 6px;
+    border-radius:6px;
+    background-color:#919191;
 }
 MonitorContent  QScrollArea QScrollBar::handle:vertical
 {
-           border-radius:4px;
-            background-color:#393939;
+    border-radius:4px;
+    background-color:#393939;
 }
 MonitorContent  QScrollArea QScrollBar::sub-line:vertical
 {

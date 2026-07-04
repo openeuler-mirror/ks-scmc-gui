@@ -104,6 +104,7 @@ void MonitorContent::initUI()
     ui->cb_select_cycle->addItem(tr("1 day"), CHART_CYCLE_ONE_DAY);
     ui->cb_select_cycle->addItem(tr("1 week"), CHART_CYCLE_ONE_WEEK);
     ui->cb_select_cycle->addItem(tr("Custom"), CHART_CYCLE_CUSTOM);
+    ui->cb_select_cycle->setItemDelegate(new QStyledItemDelegate(this));
     connect(ui->cb_select_cycle, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MonitorContent::onCycleChanged);
 
     connect(ui->btn_start, &DatePickButton::clicked, this, &MonitorContent::popupStartDatePicker);
