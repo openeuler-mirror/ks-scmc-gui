@@ -20,6 +20,8 @@ public:
     explicit OutlineView(QWidget *parent = nullptr);
     ~OutlineView() override;
     void updateInfo(QString keyword = "");
+    QString getApproveSums();
+    QString getWarningSums();
 
 protected:
     //    bool eventFilter(QObject *watched, QEvent *event);

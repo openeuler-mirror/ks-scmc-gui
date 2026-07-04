@@ -369,9 +369,12 @@ void MainWindow::changePage(int)
     }
 }
 
-void MainWindow::onReadedUpdateWarnSums()
+void MainWindow::onUpdateTipsSums()
 {
     m_outline->updateInfo();
+//    QThread::sleep(5);
+//    int a = m_outline->getWarningSums().toInt();
+//    setWarningTipNums(m_outline->getWarningSums().toInt());
 }
 
 Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
@@ -403,7 +406,9 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_AUDIT_APPLY_LIST:
     {
-        page = new AuditListPage(this);
+        AuditListPage* auditPage = new AuditListPage(this);
+        connect(auditPage, &AuditListPage::sigUpdateTipSums, this, &MainWindow::onUpdateTipsSums);
+        page = auditPage;
         break;
     }
     case GUIDE_ITEM_AUDIT_LOG_LIST:
@@ -413,9 +418,9 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_AUDIT_WARNING_LIST:
     {
-        WarningListPage* warn_page = new WarningListPage(this);
-        connect(warn_page, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onReadedUpdateWarnSums);
-        page = warn_page;
+        WarningListPage* warnPage = new WarningListPage(this);
+        connect(warnPage, &WarningListPage::sigReadedUpdateWaringSums, this, &MainWindow::onUpdateTipsSums);
+        page = warnPage;
         break;
     }
     default:
