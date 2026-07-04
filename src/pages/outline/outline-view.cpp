@@ -176,11 +176,12 @@ void OutlineView::initUI()
 
 void OutlineView::initConnect()
 {
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
-    //connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &OutlineView::getOutlineCellTemplateContainerNums);
+    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellWarningNums);
 
-    //    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellNodeNums);
     connect(m_outlineCell_node, &OutlineCell::outlineCellStep, this, &OutlineView::outlineCellStepPages);
     connect(m_outlineCell_node, &OutlineCell::isPress, this, &OutlineView::emitOutlineCellType);
 
@@ -236,16 +237,6 @@ void OutlineView::emitOutlineCellType()
 
 void OutlineView::updateInfo(QString keyword)
 {
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, 0, 0);
-    disconnect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, 0, 0);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellNodeNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listContainerFinished, this, &OutlineView::getOutlineCellContainerNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listDBImageFinished, this, &OutlineView::getOutlineCellImageNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &OutlineView::getOutlineCellTemplateContainerNums);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &OutlineView::getOutlineCellWarningNums);
-
     getlNodeList();
     getContainerList();
     getImageList();
