@@ -771,6 +771,7 @@ void ContainerListPage::getContainerList(qint64 nodeId)
         KLOG_INFO() << "get container list of node " << nodeId;
         vecNodeId.push_back(nodeId);
         InfoWorker::getInstance().listContainer(m_objId, vecNodeId, true);  //获取某节点下的容器
+        getNetworkInfo(-1);                                                 //-1返回所有节点的网卡信息
     }
 }
 
