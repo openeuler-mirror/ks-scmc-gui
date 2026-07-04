@@ -1,5 +1,5 @@
-#include "rpc.h"
 #include "load-configuration.h"
+#include "rpc.h"
 
 #include <chrono>
 #include <map>
@@ -25,7 +25,9 @@ public:
 
     virtual void Intercept(grpc::experimental::InterceptorBatchMethods *methods)
     {
-        if (methods->QueryInterceptionHookPoint(HookPoints::PRE_SEND_MESSAGE))
+        if (methods->QueryInterceptionHookPoint(HookPoints::PRE_SEND_MESSAGE) &&
+            strcmp(info_->method(), "/user.User/Login") &&
+            strcmp(info_->method(), "/user.User/UpdatePassword"))
         {
             m_begin = std::chrono::steady_clock::now();
             auto request = static_cast<const google::protobuf::Message *>(methods->GetSendMessage());
@@ -95,7 +97,7 @@ static std::shared_ptr<grpc::ChannelCredentials> SslCredentials()
     ssl_opts.pem_root_certs = ca.toStdString();
     ssl_opts.pem_cert_chain = cert.toStdString();
     ssl_opts.pem_private_key = key.toStdString();
-    return  grpc::SslCredentials(ssl_opts);
+    return grpc::SslCredentials(ssl_opts);
 }
 
 static std::shared_ptr<grpc::Channel> new_rpc_channel(const std::string &addr)
