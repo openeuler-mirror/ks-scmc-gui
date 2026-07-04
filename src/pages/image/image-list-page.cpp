@@ -714,7 +714,7 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
     _END:
         continue;
     }
-    if (getTableRowCount() == 0)
+    if (getRowCount() == 0)
     {
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);

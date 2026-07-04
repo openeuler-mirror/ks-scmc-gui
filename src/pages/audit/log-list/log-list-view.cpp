@@ -318,7 +318,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
         setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemUpdateTime << itemObj << itemOpt << itemUser << itemRes << itemDetail);
         row++;
     }
-    if (getTableRowCount() == 0)
+    if (getRowCount() == 0)
     {
         setTableDefaultContent("-");
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
