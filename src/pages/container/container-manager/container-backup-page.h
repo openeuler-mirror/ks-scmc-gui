@@ -23,12 +23,13 @@ public:
 private slots:
     void onCreateBackupBtn();
     void onRemoveBackupBtn();
-    void onBackupOperate(BackupOperateType type, QString desc);
+    void onBackupOperate(BackupOperateType type, QString desc, QString name);
 
     void onRemoveBackup(int row);
     void onResumeBackup(int row);
     void onUpdateBackup(int row);
     void onExportBackup(int row);
+    void exportBackup(bool isDownload, QString name, QString version, QString desc, QString path);
 
     void getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
     void getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
@@ -46,11 +47,13 @@ private:
     QString m_objId;
     ContainerBackupOperateDialog *m_backupAddDlg;
     ContainerBackupOperateDialog *m_backupEditDlg;
-    KiranTitlebarWindow *m_exportWindow;
+    ContainerBackupOperateDialog *m_backupExportDlg;
+    //KiranTitlebarWindow *m_exportWindow;
     int m_nodeId;
     std::string m_containerId;
     QString m_containerStatus;
     int64_t m_updateBackupId;
+    int64_t m_exportBackupId;
     QTimer *m_timer;
 };
 
