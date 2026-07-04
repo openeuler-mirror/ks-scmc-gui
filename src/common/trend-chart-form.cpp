@@ -25,7 +25,7 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
         QPen pen;
         pen.setStyle(Qt::SolidLine);
         pen.setWidth(2);
-        pen.setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+        pen.setColor(QColor(46, 179, 255));
         series->setPen(pen);    //折现序列的线条设置
         series->setName(name);  //legend中的文字
         chart->addSeries(series);
@@ -122,6 +122,7 @@ QSize TrendChartForm::sizeHint() const
 void TrendChartForm::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+
     ///TODO:方便测试，后续去掉
     //setFixedSize(800, 400);
     //setStyleSheet("QWidget{background:red;}");
@@ -145,7 +146,10 @@ void TrendChartForm::initUI()
     QChart *chart = new QChart();
     m_chartView->setChart(chart);
     m_chartView->setRenderHint(QPainter::Antialiasing);
-    chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
+    chart->setAttribute(Qt::WA_TranslucentBackground);
+    chart->setBackgroundVisible(false);
+
+    //chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
     setLegendVisible(true);
     chart->legend()->setLabelColor(QColor(255, 255, 255));
 }
