@@ -47,7 +47,7 @@ void NetworkAccessCtlTab::setNetworkAccessInfo(container::SecurityConfig *securi
 
     int count = 0;
     QStringList protocols;
-    KLOG_INFO() << "*********" << networkRuleList.rules_size();
+    KLOG_INFO() << "rules_size:" << networkRuleList.rules_size();
     for (auto rule : networkRuleList.rules())
     {
         if (count > 0)

@@ -684,7 +684,7 @@ void TablePage::search()
     }
     else
     {
-        if(!m_isOpenPaging)
+        if (!m_isOpenPaging)
         {
             //show keyword row
             int rowCounts = m_model->rowCount();
@@ -810,7 +810,6 @@ void TablePage::onItemEntered(const QModelIndex &index)
 void TablePage::onHeaderCkbTog(bool toggled)
 {
     int rowCounts = m_model->rowCount();
-    KLOG_INFO() << "onHeaderCkbTog" << rowCounts;
 
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled);
 
@@ -828,7 +827,6 @@ void TablePage::onHeaderCkbTog(bool toggled)
             auto infoMap = nameItem->data().value<QMap<QString, QVariant>>();
             if (infoMap.value(CONTAINER_STATUS).toString() == "running")
             {
-                KLOG_INFO() << "set delete btu status" << item->checkState();
                 if (item->checkState() == Qt::Checked)
                     emit sigHasRunningCtn(true);
                 else
