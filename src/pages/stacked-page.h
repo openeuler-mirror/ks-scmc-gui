@@ -14,6 +14,7 @@ class StackedPage : public Page
     Q_OBJECT
 public:
     explicit StackedPage(QWidget *parent = nullptr);
+    virtual ~StackedPage();
     virtual void updateInfo(QString keyword = "") = 0;
 
     //TODO:若后面开发用不上key，则去掉该参数

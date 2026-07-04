@@ -115,6 +115,9 @@ public:
     void createIPtables(const QString objId, const network::CreateIPtablesRequest &);
     void modifyIPtables(const QString objId, const network::ModifyIPtablesRequest &);
     void removeIPtables(const QString objId, const network::RemoveIPtablesRequest &);
+    void createNic(const QString objId, const network::CreateNicRequest &);
+    void removeNic(const QString objId, const int64_t nodeId, const std::string name);
+    void updateNic(const QString objId, const network::UpdateNicRequest &);
 
     // image management
     void listImage(const QString objId, const int64_t);
@@ -189,6 +192,9 @@ private:
     static QPair<grpc::Status, network::CreateIPtablesReply> _createIPtables(const network::CreateIPtablesRequest &);
     static QPair<grpc::Status, network::ModifyIPtablesReply> _modifyIPtables(const network::ModifyIPtablesRequest &);
     static QPair<grpc::Status, network::RemoveIPtablesReply> _removeIPtables(const network::RemoveIPtablesRequest &);
+    static QPair<grpc::Status, network::CreateNicReply> _createNic(const network::CreateNicRequest &);
+    static QPair<grpc::Status, network::RemoveNicReply> _removeNic(const network::RemoveNicRequest &);
+    static QPair<grpc::Status, network::UpdateNicReply> _updateNic(const network::UpdateNicRequest &);
 
     // image management
     static QPair<grpc::Status, image::ListReply> _listImage(const image::ListRequest &);
@@ -257,6 +263,9 @@ signals:
     void createIPtablesFinished(const QString objId, const QPair<grpc::Status, network::CreateIPtablesReply> &);
     void modifyIPtablesFinished(const QString objId, const QPair<grpc::Status, network::ModifyIPtablesReply> &);
     void removeIPtablesFinished(const QString objId, const QPair<grpc::Status, network::RemoveIPtablesReply> &);
+    void createNicFinished(const QString objId, const QPair<grpc::Status, network::CreateNicReply> &);
+    void removeNicFinished(const QString objId, const QPair<grpc::Status, network::RemoveNicReply> &);
+    void updateNicFinished(const QString objId, const QPair<grpc::Status, network::UpdateNicReply> &);
 
     // image management
     void listImageFinished(const QString objId, const QPair<grpc::Status, image::ListReply> &);

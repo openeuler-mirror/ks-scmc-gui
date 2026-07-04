@@ -4,6 +4,7 @@ option go_package = "scmc/rpc/pb/container";
 
 import "common.proto";
 import "security.proto";
+import "image.proto";
 
 package container;
 
@@ -26,11 +27,13 @@ service Container {
     rpc Update(UpdateRequest) returns (UpdateReply) {}
 
     // 容器备份客户端接口
-    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}  // 创建备份
-    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}  // 更新备份描述
-    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}  // 恢复备份
-    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}  // 删除备份
-    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}        // 备份列表
+    rpc CreateBackup(CreateBackupRequest) returns (CreateBackupReply) {}           // 创建备份
+    rpc UpdateBackup(UpdateBackupRequest) returns (UpdateBackupReply) {}           // 更新备份描述
+    rpc ResumeBackup(ResumeBackupRequest) returns (ResumeBackupReply) {}           // 恢复备份
+    rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}           // 删除备份
+    rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}                 // 备份列表
+    rpc ExportBackupJob(ExportBackupJobRequest) returns (ExportBackupJobReply) {}  // 导出备份
+    rpc ListBackupImage(ListBackupImageRequest) returns (ListBackupImageReply) {}
 
     // 查询容器模板列表
     rpc ListTemplate(ListTemplateRequest) returns (ListTemplateReply) {}
@@ -45,6 +48,23 @@ service Container {
 
     // 监控历史数据查询
     rpc MonitorHistory(MonitorHistoryRequest) returns (MonitorHistoryReply) {}
+}
+
+message ExportBackupJobRequest {
+    int64 node_id   = 1;
+    int64 backup_id = 2;
+
+    // 指定新的image信息
+    string description = 4;
+    string image_name  = 5;
+    string image_tag   = 6;
+
+    // for agent service
+    string registry = 21;
+}
+
+message ExportBackupJobReply {
+    image.ImageInfo info = 1;
 }
 
 message CreateBackupRequest {
@@ -96,6 +116,12 @@ message ListBackupRequest {
 
 message ListBackupReply {
     repeated ContainerBackup data = 1;
+}
+
+message ListBackupImageRequest {}
+
+message ListBackupImageReply {
+    repeated string images = 1;
 }
 
 message ListRequest {

@@ -1674,17 +1674,17 @@ The first characters must be letter or digit</source>
 <context>
     <name>InfoWorker</name>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1024"/>
+        <location filename="../src/base/info-worker.cpp" line="1057"/>
         <source>Failed to open %1!</source>
         <translation>打开 %1 文件失败！</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1039"/>
+        <location filename="../src/base/info-worker.cpp" line="1072"/>
         <source>file was broken!</source>
         <translation>文件已损坏！</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1046"/>
+        <location filename="../src/base/info-worker.cpp" line="1079"/>
         <source>Ok</source>
         <translation>是</translation>
     </message>
@@ -2372,6 +2372,101 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>NetworkListPage</name>
+    <message>
+        <source>Network</source>
+        <translation type="obsolete">网络</translation>
+    </message>
+    <message>
+        <source>IP</source>
+        <translation type="obsolete">IP</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="77"/>
+        <source>Up</source>
+        <translation>启用</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="77"/>
+        <source>Down</source>
+        <translation>停用</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="129"/>
+        <source>Create</source>
+        <translation>创建</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="136"/>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="154"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="169"/>
+        <source>Network interface</source>
+        <translation>网卡名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="156"/>
+        <source>Mask</source>
+        <translation>掩码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="157"/>
+        <source>Gateway</source>
+        <translation>网关</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="159"/>
+        <source>Status</source>
+        <translation>状态</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="170"/>
+        <source>Subnet</source>
+        <translation>网段</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="171"/>
+        <source>Real network interface</source>
+        <translation>绑定物理网卡</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="172"/>
+        <source>Quick Actions</source>
+        <translation>快捷操作</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="178"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="179"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+</context>
+<context>
+    <name>NetworkPageManager</name>
+    <message>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="54"/>
+        <source>Network:</source>
+        <translation>网卡：</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="58"/>
+        <source>Real Interface</source>
+        <translation>物理网卡</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="59"/>
+        <source>Virt Interface</source>
+        <translation>虚拟网卡</translation>
+    </message>
+</context>
+<context>
     <name>NodeAdditionDialog</name>
     <message>
         <source>Node Name:   &lt;font color=red&gt;*&lt;/font&gt;</source>
@@ -2409,14 +2504,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>NodeInfoPage</name>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="38"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="41"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="44"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="47"/>
         <source>Monitor</source>
         <translation>监控</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="53"/>
+        <source>Network</source>
+        <translation>网络</translation>
     </message>
 </context>
 <context>
@@ -2981,42 +3081,42 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>QObject</name>
     <message>
         <location filename="../src/base/info-worker.cpp" line="35"/>
-        <location filename="../src/base/info-worker.cpp" line="711"/>
-        <location filename="../src/base/info-worker.cpp" line="824"/>
-        <location filename="../src/base/info-worker.cpp" line="940"/>
-        <location filename="../src/base/info-worker.cpp" line="1079"/>
-        <location filename="../src/base/info-worker.cpp" line="1104"/>
+        <location filename="../src/base/info-worker.cpp" line="744"/>
+        <location filename="../src/base/info-worker.cpp" line="857"/>
+        <location filename="../src/base/info-worker.cpp" line="973"/>
+        <location filename="../src/base/info-worker.cpp" line="1112"/>
+        <location filename="../src/base/info-worker.cpp" line="1137"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../src/base/info-worker.cpp" line="49"/>
-        <location filename="../src/base/info-worker.cpp" line="1091"/>
-        <location filename="../src/base/info-worker.cpp" line="1118"/>
+        <location filename="../src/base/info-worker.cpp" line="1124"/>
+        <location filename="../src/base/info-worker.cpp" line="1151"/>
         <source>Response timeout</source>
         <translation>响应超时</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="726"/>
-        <location filename="../src/base/info-worker.cpp" line="839"/>
+        <location filename="../src/base/info-worker.cpp" line="759"/>
+        <location filename="../src/base/info-worker.cpp" line="872"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="736"/>
-        <location filename="../src/base/info-worker.cpp" line="746"/>
-        <location filename="../src/base/info-worker.cpp" line="851"/>
-        <location filename="../src/base/info-worker.cpp" line="861"/>
+        <location filename="../src/base/info-worker.cpp" line="769"/>
+        <location filename="../src/base/info-worker.cpp" line="779"/>
+        <location filename="../src/base/info-worker.cpp" line="884"/>
+        <location filename="../src/base/info-worker.cpp" line="894"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="977"/>
+        <location filename="../src/base/info-worker.cpp" line="1010"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1005"/>
+        <location filename="../src/base/info-worker.cpp" line="1038"/>
         <location filename="../src/common/message-dialog.cpp" line="111"/>
         <source>Cancel</source>
         <translation>取消</translation>

@@ -410,6 +410,24 @@ void InfoWorker::removeIPtables(const QString objId, const network::RemoveIPtabl
     RPC_ASYNC(network::RemoveIPtablesReply, _removeIPtables, removeIPtablesFinished, objId, req);
 }
 
+void InfoWorker::createNic(const QString objId, const network::CreateNicRequest &req)
+{
+    RPC_ASYNC(network::CreateNicReply, _createNic, createNicFinished, objId, req);
+}
+
+void InfoWorker::removeNic(const QString objId, const int64_t nodeId, const std::string name)
+{
+    network::RemoveNicRequest req;
+    req.set_node_id(nodeId);
+    req.set_name(name);
+    RPC_ASYNC(network::RemoveNicReply, _removeNic, removeNicFinished, objId, req);
+}
+
+void InfoWorker::updateNic(const QString objId, const network::UpdateNicRequest &req)
+{
+    RPC_ASYNC(network::UpdateNicReply, _updateNic, updateNicFinished, objId, req);
+}
+
 void InfoWorker::listImage(const QString objId, const int64_t node_id)
 {
     image::ListRequest req;
@@ -688,6 +706,21 @@ QPair<grpc::Status, network::ModifyIPtablesReply> InfoWorker::_modifyIPtables(co
 QPair<grpc::Status, network::RemoveIPtablesReply> InfoWorker::_removeIPtables(const network::RemoveIPtablesRequest &req)
 {
     RPC_IMPL(network::RemoveIPtablesReply, network::Network::NewStub, RemoveIPtables);
+}
+
+QPair<grpc::Status, network::CreateNicReply> InfoWorker::_createNic(const network::CreateNicRequest &req)
+{
+    RPC_IMPL(network::CreateNicReply, network::Network::NewStub, CreateNic);
+}
+
+QPair<grpc::Status, network::RemoveNicReply> InfoWorker::_removeNic(const network::RemoveNicRequest &req)
+{
+    RPC_IMPL(network::RemoveNicReply, network::Network::NewStub, RemoveNic);
+}
+
+QPair<grpc::Status, network::UpdateNicReply> InfoWorker::_updateNic(const network::UpdateNicRequest &req)
+{
+    RPC_IMPL(network::UpdateNicReply, network::Network::NewStub, UpdateNic);
 }
 
 QPair<grpc::Status, image::ListReply> InfoWorker::_listImage(const image::ListRequest &req)

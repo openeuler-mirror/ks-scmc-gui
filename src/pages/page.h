@@ -16,7 +16,7 @@ class Page : public QWidget
     Q_OBJECT
 public:
     explicit Page(QWidget *parent = nullptr);
-    ~Page();
+    virtual ~Page();
     void setMaskParent(QWidget *parent);
     void setBusy(bool);
     bool isBusy();

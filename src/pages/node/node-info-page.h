@@ -12,11 +12,14 @@
 enum NodeInfoSubPageType
 {
     NODE_INFO_SUB_PAGE_TYPE_CONTAINER,
-    NODE_INFO_SUB_PAGE_TYPE_MONITOR
+    NODE_INFO_SUB_PAGE_TYPE_MONITOR,
+    NODE_INFO_SUB_PAGE_TYPE_NETWORK,
+    NODE_INFO_SUB_PAGE_TYPE_SETTINGS
 };
 
 class MonitorContent;
 class ContainerListPage;
+class NetworkPageManager;
 class NodeInfoPage : public TabPage
 {
     Q_OBJECT
@@ -33,6 +36,7 @@ private:
     qint64 m_nodeId = -1;
     ContainerListPage *m_containerListPage;
     MonitorContent *m_monitor;
+    NetworkPageManager *m_networkPage;
 };
 
 #endif  // NODEINFOPAGE_H
