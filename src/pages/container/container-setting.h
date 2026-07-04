@@ -66,6 +66,8 @@ private:
     void initBaseConfPages();
     void initAdvancedConfPages();
     void initSecurityConfPages();
+    void showLongText(QLineEdit *lineEdit, QString orgText);
+    QString tooptipWordWrap(const QString &org);
     void deleteItem(QString itemText, int row);
     void updateRemovableItem(QString itemText);
     void getContainerInspect();
