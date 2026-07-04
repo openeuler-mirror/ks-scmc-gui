@@ -5,7 +5,6 @@
 #include <QLineEdit>
 #include <QObject>
 
-class UserConfiguration;
 class ServerConfigDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -21,7 +20,6 @@ private:
     void writeConfig(QString key, QString value);
 
 private:
-    UserConfiguration *m_userConfig;
     QLineEdit *m_ipLineEdit;
     QLineEdit *m_portLineEdit;
     QString m_ip;

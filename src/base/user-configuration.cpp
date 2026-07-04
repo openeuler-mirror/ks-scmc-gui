@@ -40,7 +40,8 @@ void UserConfiguration::readConfig(ConfigSettingType type, QString group, QStrin
     {
     case CONFIG_SETTING_TYPE_LOGIN:
         settings = m_loginSettings;
-        isEncryptedPw = true;
+        if (key == PASSWORD)
+            isEncryptedPw = true;
         break;
     case CONFIG_SETTING_TYPE_SERVER:
         settings = m_serverSetting;
@@ -55,7 +56,8 @@ void UserConfiguration::readConfig(ConfigSettingType type, QString group, QStrin
     {
         if (!value.isEmpty())
         {
-            std::string decryptedPw = desDecrypt(value.toStdString());
+            std::string decryptedPw = desDecrypt(value.toStdString());  //解密
+            value.clear();
             value = QString::fromStdString(decryptedPw);
         }
     }
@@ -64,10 +66,14 @@ void UserConfiguration::readConfig(ConfigSettingType type, QString group, QStrin
 void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QString key, QString value)
 {
     QSettings *settings;
+    QVariant variant;
+    QString desValue = value;
     switch (type)
     {
     case CONFIG_SETTING_TYPE_LOGIN:
         settings = m_loginSettings;
+        if (key == PASSWORD)  //加密
+            desValue = QString::fromStdString(desEncrypt(value.toStdString()));
         break;
     case CONFIG_SETTING_TYPE_SERVER:
         settings = m_serverSetting;
@@ -75,8 +81,8 @@ void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QStri
     default:
         break;
     }
-    QVariant variant;
-    variant.setValue(value);
+
+    variant.setValue(desValue);
     //将信息写入配置文件
     settings->beginGroup(group);
     settings->setValue(key, variant);
@@ -85,8 +91,10 @@ void UserConfiguration::writeConfig(ConfigSettingType type, QString group, QStri
 
 QString UserConfiguration::getDecryptedPw(QString userName)
 {
-    QString decryptedPw;
-    readConfig(CONFIG_SETTING_TYPE_LOGIN, userName, PASSWORD, decryptedPw);
+    QString pw;
+    readConfig(CONFIG_SETTING_TYPE_LOGIN, userName, PASSWORD, pw);
+
+    QString decryptedPw = QString::fromStdString(desDecrypt(pw.toStdString()));
     return decryptedPw;
 }
 

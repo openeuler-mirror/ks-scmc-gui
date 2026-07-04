@@ -321,6 +321,14 @@ void InfoWorker::logout()
     RPC_ASYNC(user::LogoutReply, _logout, logoutFinished, req);
 }
 
+void InfoWorker::updatePassword(const std::string oldPassword, const std::string newPassword)
+{
+    user::UpdatePasswordRequest req;
+    req.set_old_password(oldPassword);
+    req.set_new_password(newPassword);
+    RPC_ASYNC(user::UpdatePasswordReply, _updatePassword, updatePasswordFinished, req);
+}
+
 void InfoWorker::stopTransfer(QString name, QString version, bool isStop)
 {
     QMutexLocker locker(&mutex);
@@ -824,4 +832,9 @@ QPair<grpc::Status, user::LogoutReply> InfoWorker::_logout(const user::LogoutReq
     if (r.first.ok())
         s_authKey = "";
     return r;
+}
+
+QPair<grpc::Status, user::UpdatePasswordReply> InfoWorker::_updatePassword(const user::UpdatePasswordRequest &req)
+{
+    RPC_IMPL(user::UpdatePasswordReply, user::User::NewStub, UpdatePassword);
 }
