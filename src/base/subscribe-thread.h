@@ -8,7 +8,7 @@ class SubscribeThread : public QObject
     Q_OBJECT
 public:
     SubscribeThread(QObject *parent = nullptr);
-    ~SubscribeThread();
+    ~SubscribeThread() = default;
 
     void subscribe();
     void cancel();

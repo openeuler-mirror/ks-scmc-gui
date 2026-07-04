@@ -4,21 +4,14 @@
 #include "proto/system.grpc.pb.h"
 #include "rpc.h"
 #include "user-configuration.h"
-//extern std::string s_authKey;
 
 SubscribeThread::SubscribeThread(QObject* parent) : m_isCanceled(false)
 {
 }
 
-SubscribeThread::~SubscribeThread()
-{
-    KLOG_INFO() << "~SubscribThread";
-}
-
 void SubscribeThread::subscribe()
 {
     sys::SubscribeRequest req;
-    KLOG_INFO() << "_subscribe";
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
@@ -35,44 +28,35 @@ void SubscribeThread::subscribe()
     grpc::CompletionQueue cq;
     sys::SubscribeReply reply;
     grpc::Status status;
-    //auto stream = sys::System::NewStub(chan)->AsyncSubscribe(&context, req, &cq, (void*)1);
     std::unique_ptr<::grpc::ClientAsyncReader<::sys::SubscribeReply>> stream(sys::System::NewStub(chan)->AsyncSubscribe(&context, req, &cq, (void*)1));
-    //stream->StartCall((void*)1);
-    //
-    //    stream->Finish(&status, (void*)1);
+    stream->Finish(&status, (void*)1);
 
     void* got_tag;
     bool ok = false;
-    bool ret = cq.Next(&got_tag, &ok);
-    if (ret && ok && got_tag == (void*)1)
+    auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(1000);
+
+    while (!m_isCanceled)
     {
-        // check reply and status
-        while (1)
+        bool ret = cq.AsyncNext(&got_tag, &ok, deadline);
+        if (ret && got_tag == (void*)1)
         {
-            KLOG_INFO() << "read ............";
-            if (m_isCanceled)
+            if (ok)
             {
-                KLOG_INFO() << "cancel";
-                context.TryCancel();
-                break;
-            }
-            stream->Read(&reply, (void*)1);
-            KLOG_INFO() << "reply.msg_type :" << reply.msg_type();
-            if (reply.msg_type() == sys::UserSessionExpire)
-            {
-                KLOG_INFO() << "UserSessionExpire";
-                emit sessinoExpire();
-                break;
+                stream->Read(&reply, (void*)1);
+                if (reply.msg_type() == sys::UserSessionExpire)
+                {
+                    KLOG_INFO() << "UserSessionExpire";
+                    emit sessinoExpire();
+                    break;
+                }
             }
 
             ok = false;
-            KLOG_INFO() << "get Next ............";
-            ret = cq.Next(&got_tag, &ok);
-            KLOG_INFO() << "Next ............";
-            if (!ret || !ok || got_tag != (void*)1)
-                break;
+            continue;
         }
     }
+    if (m_isCanceled)
+        context.TryCancel();
 }
 
 void SubscribeThread::cancel()
