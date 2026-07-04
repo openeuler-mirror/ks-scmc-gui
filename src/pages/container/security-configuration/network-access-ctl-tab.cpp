@@ -118,7 +118,7 @@ void NetworkAccessCtlTab::initUI()
 {
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->setMargin(0);
-    mainLayout->setContentsMargins(20, 20, 10, 0);
+    mainLayout->setContentsMargins(20, 20, 20, 0);
     mainLayout->setSpacing(0);
 
     QVBoxLayout *layout = new QVBoxLayout();
@@ -151,9 +151,10 @@ void NetworkAccessCtlTab::initUI()
     QVBoxLayout *btnLayout = new QVBoxLayout();
     btnLayout->setMargin(0);
     QToolButton *funcDescBtn = new QToolButton(this);
+    funcDescBtn->setObjectName("funcDescBtn");
     funcDescBtn->setText("Function\nInstruction");
-    funcDescBtn->setFixedSize(50, 50);
-    funcDescBtn->setStyleSheet("border:none;border-radius:4px;font-size:10px;background-color:transparent;color:#2eb3ff;");
+    funcDescBtn->setCursor(Qt::PointingHandCursor);
+    funcDescBtn->setFixedSize(50, 40);
     btnLayout->addWidget(funcDescBtn);
     btnLayout->addStretch();
 

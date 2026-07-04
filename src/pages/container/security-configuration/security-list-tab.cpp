@@ -284,7 +284,7 @@ void SecurityListTab::initUI()
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(10);
-    mainLayout->setContentsMargins(20, 20, 10, 0);
+    mainLayout->setContentsMargins(20, 20, 20, 0);
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
@@ -320,9 +320,10 @@ void SecurityListTab::initUI()
     descBtnLayout->setSpacing(0);
 
     QToolButton *funcDescBtn = new QToolButton(this);
-    funcDescBtn->setText("Instruction");
-    funcDescBtn->setFixedSize(50, 20);
-    funcDescBtn->setStyleSheet("border:none;border-radius:4px;font-size:10px;background-color:#2eb3ff;color:#000000;");
+    funcDescBtn->setObjectName("funcDescBtn");
+    funcDescBtn->setText("Function\nInstruction");
+    funcDescBtn->setFixedSize(50, 40);
+    funcDescBtn->setCursor(Qt::PointingHandCursor);
     connect(funcDescBtn, &QToolButton::clicked, this, &SecurityListTab::popuoFuncDesc);
 
     descBtnLayout->addWidget(funcDescBtn);

@@ -49,6 +49,11 @@ MainWindow GuideItem #label_text
     font-weight:200;
 }
 
+MainWindow QLabel#lab_page_name
+{
+    font-weight:200;
+}
+
 MainWindow QLabel#lab_user_icon
 {
     image: url(:/images/user.png);
@@ -62,6 +67,11 @@ MainWindow QLabel#lab_dot
 MainWindow > BubbleTipButton
 {
     border-radius:4px;
+}
+
+QPushButton#btn_user
+{
+    font-weight:200px;
 }
 
 QPushButton#btn_approval,
@@ -204,6 +214,7 @@ QMenu#userMenu
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#000000;
+    font-size:14px;
 }
 
 QMenu#btnCreateMenu::item ,
@@ -350,6 +361,7 @@ ContainerSetting QLineEdit
     border:1px solid #E4E7ED;
     border-radius:6px;
     color:#000000;
+    font-size:14px;
 }
 ContainerSetting QLineEdit:focus
 {
@@ -409,6 +421,7 @@ ContainerSetting GuideItem #delBtn
     border:none;
     background-color:transparent;
 /*    outline: none;*/
+    font-size:14px;
 }
 ContainerSetting #btn_add
 {
@@ -416,6 +429,7 @@ ContainerSetting #btn_add
     color:#ffffff;
     border:none;
     border-radius:6px;
+    font-size:14px;
 }
 ContainerSetting #btn_add:hover
 {
@@ -486,6 +500,7 @@ ContainerSetting QCheckBox
 ContainerSetting QCheckBox::indicator:disabled:unchecked
 {
     color:#919191;
+    font-size:14px;
     image: url(:/images/marquee_disable-default.png);
 }
 ContainerSetting QCheckBox::indicator:disabled:checked
@@ -519,6 +534,15 @@ ContainerSetting QRadioButton::indicator:checked
     image: url(:/images/frame_s.png);
 }
 
+ContainerSetting QToolButton#funcDescBtn
+{
+    background-color:#2eb3ff;
+    font-size:10px;
+    font-weight:200;
+    border:none;
+    border-radius:4px;
+}
+
 /****************************Graphic*************************/
 QCheckBox#graphic_checkBox::indicator {
     width: 30px;
@@ -543,6 +567,7 @@ MessageDialog
 MessageDialog QLabel
 {
     color:#000000;
+    font-size:14px;
 }
 
 MessageDialog #btn_Ok,MessageDialog #btn_Yes
@@ -551,6 +576,7 @@ MessageDialog #btn_Ok,MessageDialog #btn_Yes
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
+    font-size:14px;
 }
 MessageDialog #btn_Ok:hover,MessageDialog #btn_Yes:hover
 {
@@ -563,6 +589,7 @@ MessageDialog #btn_Cancel
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
+    font-size:14px;
 }
 MessageDialog #btn_Cancel:hover
 {
@@ -613,6 +640,7 @@ NodeOperateDialog
 NodeOperateDialog QLabel
 {
     color:#000000;
+    font-size:14px;
 }
 NodeOperateDialog QLineEdit
 {
@@ -630,6 +658,7 @@ NodeOperateDialog #btn_save
     border: 1px solid #409EFF;
     border-radius: 6px;
     color:#ffffff;
+    font-size:14px;
 }
 NodeOperateDialog #btn_save:hover
 {
@@ -641,6 +670,7 @@ NodeOperateDialog #btn_cancel
     border: 1px solid #E4E7ED;
     border-radius: 6px;
     color:#000000;
+    font-size:14px;
 }
 NodeOperateDialog #btn_cancel:hover
 {
@@ -700,6 +730,7 @@ LoginDialog QLineEdit
     background:transparent;
     border:1px solid #393939;
     border-radius:4px;
+    font-size:14px;
 }
 
 LoginDialog QLineEdit:focus
@@ -753,6 +784,7 @@ TransmissionItem #label_text
 TransmissionItem QPushButton#btn_close
 {
     border-radius:0px;
+    font-size:14px;
 }
 TransmissionItem QPushButton#btn_close:focus
 {
@@ -788,13 +820,13 @@ CalendarWidget #CalendarRightMonthBtn
 CalendarWidget QAbstractItemView {
     background:#ffffff;
     color:#919191;
-    font: 12px;
+    font-size: 12px;
 }
 CalendarWidget QAbstractItemView:enabled
 {
     background:#ffffff;
     color:black;
-    font: 12px;
+    font-size: 12px;
 }
 /***************************************************************MonitorContent************************************/
 MonitorContent #btn_start, MonitorContent #btn_end
@@ -802,6 +834,7 @@ MonitorContent #btn_start, MonitorContent #btn_end
     border:1px solid #2eb3ff;
     background:transparent;
     border-radius:4px;
+    font-size:14px;
 }
 MonitorContent #btn_start:focus, MonitorContent #btn_end:focus
 {
@@ -812,6 +845,7 @@ MonitorContent #btn_apply
 {
     border-radius:4px;
     background:#2eb3ff;
+    font-size:14px;
 }
 MonitorContent #btn_apply:hover
 {
@@ -825,6 +859,7 @@ MonitorContent #btn_apply:focus
 MonitorContent #cb_select_cycle
 {
     background:#222222;
+    font-size:14px;
 }
 
 MonitorContent QScrollArea QScrollBar:vertical{
@@ -891,6 +926,7 @@ TabPage QTabBar::tab:selected {
 PasswdUpdateDialog #lab_old_pw_tips,#lab_new_pw_tips, #lab_confirm_pw_tips
 {
     color:#d30000;
+    font-size:14px;
 }
 
 /**************************************************TemplateListPage****************************************/
@@ -923,6 +959,7 @@ SecurityListTab QListWidget::item
     background-color:transparent;
     border:none;
     outline:none;
+    font-size:14px;
 }
 NetworkAccessCtlTab QListWidget::item:hover,
 SecurityListTab QListWidget::item:hover
@@ -980,6 +1017,7 @@ NetworkAccessCtlTab #btn_add,SecurityListTab #btn_add
     background-color:transparent;
     border:none;
     image:url(:/images/icon_plus_n.png);
+    font-size:14px;
 }
 NetworkAccessCtlTab #btn_add:pressed,SecurityListTab #btn_add:pressed
 {
