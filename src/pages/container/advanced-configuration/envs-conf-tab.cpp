@@ -56,6 +56,40 @@ bool EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errM
     }
 }
 
+bool EnvsConfTab::getEnvInfo(container::UpdateRequest *req, QString &errMsg)
+{
+    if (req)
+    {
+        auto env = req->mutable_envs();
+        auto itemList = m_configTable->getAllData();
+        for (auto item : itemList)
+        {
+            auto key = item->m_firstColVal;
+            auto value = item->m_secondColVal;
+            KLOG_DEBUG() << "Env key:" << key
+                         << "Env value:" << value;
+
+            if (key.isEmpty())
+            {
+                if (!value.isEmpty())
+                {
+                    errMsg = tr("Please improve the contents in Env table!");
+                    return false;
+                }
+                else
+                    continue;
+            }
+            env->insert({key.toStdString(), value.toStdString()});
+        }
+        return true;
+    }
+    else
+    {
+        errMsg = tr("The container config arg is error.");
+        return false;
+    }
+}
+
 void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
 {
     auto envMap = cfg->envs();

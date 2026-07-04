@@ -17,10 +17,6 @@ ConfigTable::ConfigTable(ConfigTableType whichTable, QWidget* parent) : QWidget(
     m_pModel = nullptr;
     m_pDelegate = nullptr;
     initwindow();
-    connect(m_pDelegate.data(), SIGNAL(sendSaveSig(int)), this, SLOT(saveRowSlot(int)));
-    connect(m_pDelegate.data(), SIGNAL(sendEditSig(int)), this, SLOT(editRowSlot(int)));
-    connect(m_pDelegate.data(), SIGNAL(sendAddSig(int)), this, SLOT(addRowSlot(int)));
-    connect(m_pDelegate.data(), SIGNAL(sendDeleteSig(int)), this, SLOT(removeRowSlot(int)));
 }
 
 ConfigTable::~ConfigTable()
@@ -67,8 +63,7 @@ void ConfigTable::initwindow()
         ui->tableView->setColumnHidden(2, true);
     }
 
-    m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
-    ui->tableView->setItemDelegate(m_pDelegate.data());
+    resetDelegate();
     initTable();
 }
 
@@ -109,8 +104,8 @@ void ConfigTable::setData(QList<QSharedPointer<ModelItem> > itemList)
     if (itemList.isEmpty())
         return;
 
-    m_pDelegate.reset(new ConfigDelegate(m_ChooseTable));
-    ui->tableView->setItemDelegate(m_pDelegate.data());
+    m_editContainer = true;
+    resetDelegate();
     m_pModel->deleteModelByRow(0);
     for (auto pItem : itemList)
     {
@@ -166,4 +161,15 @@ void ConfigTable::removeRowSlot(int row)
         pLineEdit->deselect();
         pLineEdit->clearFocus();
     }
+}
+
+void ConfigTable::resetDelegate()
+{
+    // reset后信号连接会失效，需要重新连接
+    m_pDelegate.reset(new ConfigDelegate(m_ChooseTable, m_editContainer));
+    ui->tableView->setItemDelegate(m_pDelegate.data());
+    connect(m_pDelegate.data(), SIGNAL(sendSaveSig(int)), this, SLOT(saveRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendEditSig(int)), this, SLOT(editRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendAddSig(int)), this, SLOT(addRowSlot(int)));
+    connect(m_pDelegate.data(), SIGNAL(sendDeleteSig(int)), this, SLOT(removeRowSlot(int)));
 }

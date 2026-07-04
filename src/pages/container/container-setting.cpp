@@ -778,6 +778,30 @@ void ContainerSetting::updateContainer()
     auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
     securityCfg->set_disable_cmd_operation(startStopCtlPage->getStartStopInfo());
 
+    // volume mounts
+    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    if (!volumePage->getVolumeInfo(&request, errMsg))
+    {
+        MessageDialog::message(tr("Volumes Data"),
+                               tr("Input error"),
+                               errMsg,
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    // env
+    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+    if (!envPage->getEnvInfo(&request, errMsg))
+    {
+        MessageDialog::message(tr("Env Data"),
+                               tr("Input error"),
+                               errMsg,
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
     InfoWorker::getInstance().updateContainer(m_objId, request);
 }
 
@@ -1062,12 +1086,6 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     //env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
-
-    if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
-    {
-        volumesPage->setDisabled(true);
-        envPage->setDisabled(true);
-    }
 
     //high-availability
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));

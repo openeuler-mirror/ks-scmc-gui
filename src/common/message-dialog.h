@@ -43,7 +43,8 @@ public:
         Help = 0x01000000,
         Apply = 0x02000000,
         Reset = 0x04000000,
-        RestoreDefaults = 0x08000000
+        RestoreDefaults = 0x08000000,
+        Confirm = 0x10000000
     };
     Q_ENUM(StandardButton)
     Q_DECLARE_FLAGS(StandardButtons, StandardButton)

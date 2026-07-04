@@ -37,6 +37,9 @@ private slots:
     void removeRowSlot(int row);
 
 private:
+    void resetDelegate();
+
+private:
     Ui::ConfigTable *ui = nullptr;
 
     QSharedPointer<ConfigView> m_pHeaderView = nullptr;
@@ -44,6 +47,7 @@ private:
     QSharedPointer<ConfigDelegate> m_pDelegate = nullptr;
 
     ConfigTableType m_ChooseTable;  //0:环境变量; 1:共享目录
+    bool m_editContainer{};         // 编辑容器默认显示ConfigOperateWidget的第一页
 };
 
 #endif  // CONFIGTABLE_H

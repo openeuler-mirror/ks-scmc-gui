@@ -30,7 +30,7 @@ class ConfigDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    explicit ConfigDelegate(ConfigTableType whichTable, QWidget *parent = nullptr);
+    explicit ConfigDelegate(ConfigTableType whichTable, bool editContainer, QWidget *parent = nullptr);
     ~ConfigDelegate();
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
@@ -57,11 +57,13 @@ private:
     mutable QList<QSharedPointer<QLineEdit>> m_pEditFirst;
     mutable QList<QSharedPointer<QLineEdit>> m_pEditSecond;
     mutable QList<QSharedPointer<QComboBox>> m_pComboBoxMode;
-    QList<int> m_listPage;
+    mutable QList<int> m_listPage;
     QStringList m_listMode;
     int m_nWidth;                   // 按钮宽度
     int m_nHeight;                  // 按钮高度
-    ConfigTableType m_ChooseTable;  //0:环境变量; 1:共享目录
+    ConfigTableType m_ChooseTable;  // 0:环境变量; 1:共享目录
+    bool m_editContainer;           // 编辑容器默认显示ConfigOperateWidget的第一页
+    QStringList m_buildIn;          // 后端内置变量
 };
 
 #endif  // CONFIGVIEW_H

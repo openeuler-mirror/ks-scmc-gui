@@ -135,7 +135,8 @@ void MessageDialog::initUI()
             {StandardButton::Help, {QObject::tr("Help"), ButtonRole::HelpRole}},
             {StandardButton::Apply, {QObject::tr("Apply"), ButtonRole::ApplyRole}},
             {StandardButton::Reset, {QObject::tr("Reset"), ButtonRole::ResetRole}},
-            {StandardButton::RestoreDefaults, {QObject::tr("Restore Defaults"), ButtonRole::ResetRole}}};
+            {StandardButton::RestoreDefaults, {QObject::tr("Restore Defaults"), ButtonRole::ResetRole}},
+            {StandardButton::Confirm, {QObject::tr("Confirm"), ButtonRole::AcceptRole}}};
     }
 
     m_btnBox = new QDialogButtonBox(Qt::Horizontal, this);
