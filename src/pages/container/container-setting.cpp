@@ -1049,18 +1049,6 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
             else
                 ui->lineEdit_describe->setText(tr("none"));
 
-            //Graph
-            //info.enable_graphic();
-            auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
-            graphPage->setGraphicInfo(&info);
-            graphPage->setDisabled(true);
-
-            //volume
-            auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
-            volumesPage->setVolumeInfo(&info);
-
-            volumesPage->setDisabled(true);
-
             // network
             auto size = info.networks_size();
             KLOG_INFO() << "network_config_size:" << size;
@@ -1089,10 +1077,25 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
                 networkPage->setNetworkInfo(&networkConfig, networkList);  //设置网卡列表和网卡信息
             }
 
+            //Graph
+            //info.enable_graphic();
+            auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+            graphPage->setGraphicInfo(&info);
+
+            //volume
+            auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+            volumesPage->setVolumeInfo(&info);
+
             //env
             auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
             envPage->setEnvInfo(&info);
-            envPage->setDisabled(true);
+
+            if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
+            {
+                graphPage->setDisabled(true);
+                volumesPage->setDisabled(true);
+                envPage->setDisabled(true);
+            }
 
             //high-availability
             auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));

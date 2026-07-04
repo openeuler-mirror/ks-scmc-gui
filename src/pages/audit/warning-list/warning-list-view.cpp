@@ -160,7 +160,11 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
 
             m_totalPages = int(reply.second.total_pages());
             if (is_openPaging == true)
+            {
+                if (m_pageOn > m_totalPages)
+                    m_pageOn = m_totalPages;
                 emit sigOpenPaging(m_totalPages);
+            }
 
             int size = reply.second.logs_size();
             if (size <= 0)
