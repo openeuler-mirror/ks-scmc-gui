@@ -388,6 +388,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         KLOG_INFO() << "uploadImage failed to get connection";
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -402,6 +403,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         KLOG_INFO() << "send param err";
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Internal Error").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -411,6 +413,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         KLOG_INFO() << "Failed to open " << imageFile;
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -421,6 +424,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                QObject::tr("Invalid Argument").toStdString());
         file.close();
+        emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
         return r;
     }
 
@@ -460,13 +464,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
                 {
                     KLOG_INFO() << "Transmission interruption";
                     context.TryCancel();
-                    r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                           QObject::tr("Invalid Argument").toStdString());
-                    file.close();
-                    filesign.close();
-                    delete[] pBuf;
-                    return r;
-                    //emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 0);
+                    break;
                 }
             }
         }
@@ -482,12 +480,19 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     stream->WritesDone();
     r.first = stream->Finish();
     delete[] pBuf;
+
+    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
+    KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
+
+    if (!r.first.ok())
+    {
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
+        return r;
+    }
     if (curCnt == (int)totalCnt)
     {
         emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
     }
-    KLOG_INFO() << "return:" << r.first.error_code() << r.second.image_id();
-
     return r;
 }
 
@@ -573,13 +578,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
                 {
                     KLOG_INFO() << "Transmission interruption";
                     context.TryCancel();
-                    r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
-                                           QObject::tr("Invalid Argument").toStdString());
-                    file.close();
-                    filesign.close();
-                    delete[] pBuf;
-                    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
-                    return r;
+                    break;
                 }
             }
         }
@@ -595,12 +594,20 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     stream->WritesDone();
     r.first = stream->Finish();
     delete[] pBuf;
+
+    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
     KLOG_INFO() << "return:" << r.first.error_code();
+
+    if (!r.first.ok())
+    {
+        emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
+        return r;
+    }
+
     if (curCnt == (int)totalCnt)
     {
         emit InfoWorker::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_SUCCESSFUL, QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()), 100);
     }
-    emit InfoWorker::getInstance().transferImageFinished(QString::fromStdString(req.info().name()), QString::fromStdString(req.info().version()));
     return r;
 }
 

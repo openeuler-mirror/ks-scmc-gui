@@ -5,7 +5,7 @@ MonitorDialog::MonitorDialog(int nodeId, std::string containerId = "", QWidget *
 {
     setIcon(QIcon(":/images/logo.png"));
     setAttribute(Qt::WA_DeleteOnClose);
-    setWindowModality(Qt::WindowModal);
+    setWindowModality(Qt::ApplicationModal);
     setMonitorContent(nodeId, containerId);
 }
 
@@ -19,7 +19,7 @@ void MonitorDialog::setMonitorContent(int nodeId, std::string containerId)
     QVBoxLayout *mainVLayout = new QVBoxLayout(getWindowContentWidget());
     mainVLayout->setMargin(0);
 
-    MonitorContent *monitorContent = new MonitorContent(nodeId, containerId);
+    MonitorContent *monitorContent = new MonitorContent(this, nodeId, containerId);
     monitorContent->setParent(getWindowContentWidget());
     mainVLayout->addWidget(monitorContent);
 }

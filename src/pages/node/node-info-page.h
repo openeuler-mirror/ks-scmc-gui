@@ -22,6 +22,7 @@ public:
 private:
     void initUI();
     void createSubPage(NodeInfoSubPageType type);
+    void updatePageInfo(int index);
 
 private:
     qint64 m_nodeId = -1;
