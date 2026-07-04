@@ -326,14 +326,28 @@ void OutlineView::getOutlineCellImageNums(const QPair<grpc::Status, image::ListD
 {
     int size = reply.second.images_size();
     m_outlineCell_image->ui->Name_counts->setText(QString::number(size, 10));
+    getOutlineCellExamineNums(reply);
 }
 
 void OutlineView::getOutlineCellTemplateContainerNums()
 {
 }
 
-void OutlineView::getOutlineCellExamineNums()
+void OutlineView::getOutlineCellExamineNums(const QPair<grpc::Status, image::ListDBReply> &reply)
 {
+    int count = 0;
+    if (reply.first.ok())
+    {
+        int row = 0;
+
+        for (auto image : reply.second.images())
+        {
+            if (image.approval_status() == 0)
+                count++;
+            row++;
+        }
+    }
+    m_outlineCell_examine->ui->Name_counts->setText(QString::number(count, 10));
 }
 
 void OutlineView::getOutlineCellWarningNums()
