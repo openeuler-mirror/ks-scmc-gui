@@ -31,6 +31,8 @@ pkg_search_module(KLOG_QT5 REQUIRED klog-qt5)
 pkg_search_module(CRYPTOPP REQUIRED cryptopp)
 pkg_search_module(KYLIN_LICENSE REQUIRED kylin-license)
 pkg_search_module(KYLIN_LICENSE REQUIRED license-wrapper)
+pkg_search_module(GRPCXX REQUIRED grpc++)
+pkg_search_module(PROTOBUF REQUIRED protobuf)
 
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
