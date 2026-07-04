@@ -6,15 +6,17 @@
 #include <QPainter>
 #include <iostream>
 #include "./ui_main-window.h"
+#include "common/bubble-tip-button.h"
 #include "common/common-page.h"
 #include "common/guide-item.h"
 #include "common/info-worker.h"
+#include "common/transmission-list.h"
 #include "pages/container/container-list.h"
 #include "pages/image/image-manager.h"
 #include "pages/node/node-list.h"
 
 MainWindow::MainWindow(QWidget* parent)
-    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow)
+    : KiranTitlebarWindow(parent), ui(new Ui::MainWindow), m_transmissionList(nullptr)
 {
     ui->setupUi(getWindowContentWidget());
 
@@ -25,6 +27,12 @@ MainWindow::~MainWindow()
 {
     KLOG_INFO() << "**********Deconstruction MainWindow";
     delete ui;
+
+    if (m_transmissionList)
+    {
+        delete m_transmissionList;
+        m_transmissionList = nullptr;
+    }
 }
 
 void MainWindow::setUserName(QString name)
@@ -91,12 +99,33 @@ void MainWindow::paintEvent(QPaintEvent* event)
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
-    ui->btn_transmission->setIcon(QIcon(":/images/transmit.svg"));
-    ui->btn_approval->setIcon(QIcon(":/images/approve.svg"));
-    ui->btn_warning->setIcon(QIcon(":/images/warning-info.svg"));
 
-    ui->btn_approval->setTipMsg(9);
+    //创建消息提示按钮
+    BubbleTipButton* btn_transmission = new BubbleTipButton(":/images/transmit.svg", this);
+    btn_transmission->setObjectName("btn_transmission");
+    btn_transmission->setFixedSize(40, 32);
+    btn_transmission->setCursor(Qt::PointingHandCursor);
+    ui->hlayout_btn->addWidget(btn_transmission);
+    connect(btn_transmission, &BubbleTipButton::clicked, this, &MainWindow::popupTransmissionList);
 
+    BubbleTipButton* btn_approval = new BubbleTipButton(":/images/approve.svg", this);
+    btn_approval->setObjectName("btn_approval");
+    btn_approval->setFixedSize(40, 32);
+    btn_approval->setCursor(Qt::PointingHandCursor);
+    ui->hlayout_btn->addWidget(btn_approval);
+
+    BubbleTipButton* btn_warning = new BubbleTipButton(":/images/warning-info.svg", this);
+    btn_warning->setObjectName("btn_warning");
+    btn_warning->setFixedSize(40, 32);
+    btn_warning->setCursor(Qt::PointingHandCursor);
+    ui->hlayout_btn->addWidget(btn_warning);
+
+    //btn_approval->setTipMsg(99);
+    //创建传输列表控件
+    m_transmissionList = new TransmissionList();
+    m_transmissionList->setObjectName("transmissionList");
+
+    //创建用户菜单
     QMenu* userMenu = new QMenu(this);
     userMenu->setObjectName("userMenu");
     QAction* changePasswdAct = userMenu->addAction(tr("Change Password"));
@@ -105,6 +134,7 @@ void MainWindow::initUI()
     ui->btn_user->setMenu(userMenu);
     connect(logoutAct, &QAction::triggered, this, &MainWindow::onLogoutAction);
 
+    //创建右侧内容页面
     m_stackedWidget = new QStackedWidget(this);
     m_stackedWidget->setObjectName("stackedWidget");
     ui->vlayout_page->addWidget(m_stackedWidget);
@@ -129,6 +159,7 @@ void MainWindow::initUI()
         m_pageMap[itemEnum] = subPage;
     }
 
+    //创建左侧侧边栏
     QListWidgetItem* homeItem = createGuideItem(tr("Home Page"), GUIDE_ITEM_TYPE_NORMAL, ":/images/home.svg");
     QListWidgetItem* auditCenter = createGuideItem(tr("Audit Center"), GUIDE_ITEM_TYPE_GROUP, ":/images/audit-center.svg");
     QListWidgetItem* auditApplyList = createGuideItem(tr("Audit Apply List"), GUIDE_ITEM_TYPE_SUB);
@@ -239,4 +270,11 @@ void MainWindow::onLogoutAction(bool checked)
 {
     Q_UNUSED(checked);
     emit sigLogout();
+}
+
+void MainWindow::popupTransmissionList()
+{
+    KLOG_INFO() << QCursor::pos().x() << QCursor::pos().y();
+    m_transmissionList->move(QPoint(QCursor::pos().x() - 360, QCursor::pos().y() + 20));
+    m_transmissionList->show();
 }

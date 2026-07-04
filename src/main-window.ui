@@ -103,7 +103,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget_content" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
        <number>0</number>
@@ -180,127 +180,86 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <property name="spacing">
-            <number>24</number>
+            <number>0</number>
            </property>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="hlayout_btn">
              <property name="spacing">
-              <number>24</number>
+              <number>0</number>
              </property>
-             <item>
-              <widget class="QPushButton" name="btn_transmission">
-               <property name="minimumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="BubbleTipButton" name="btn_approval">
-               <property name="minimumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_warning">
-               <property name="minimumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
+             <property name="bottomMargin">
+              <number>16</number>
+             </property>
             </layout>
-           </item>
-           <item>
-            <widget class="Line" name="line">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <property name="spacing">
-              <number>10</number>
+              <number>24</number>
              </property>
              <item>
-              <widget class="QLabel" name="lab_user_icon">
+              <widget class="Line" name="line">
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>1</width>
+                 <height>16</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>1</width>
+                 <height>16</height>
                 </size>
                </property>
-               <property name="text">
-                <string/>
+               <property name="styleSheet">
+                <string notr="true">background-color:#393939;</string>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_user">
-               <property name="minimumSize">
-                <size>
-                 <width>78</width>
-                 <height>0</height>
-                </size>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <property name="spacing">
+                <number>10</number>
                </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
+               <item>
+                <widget class="QLabel" name="lab_user_icon">
+                 <property name="minimumSize">
+                  <size>
+                   <width>24</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>24</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_user">
+                 <property name="minimumSize">
+                  <size>
+                   <width>78</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -321,13 +280,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>BubbleTipButton</class>
-   <extends>QPushButton</extends>
-   <header>common/bubble-tip-button.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

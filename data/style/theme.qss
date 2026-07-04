@@ -3,9 +3,10 @@ QLabel
 {
     font-size:14px;
 }
-QWidget#widget_sider
+QWidget#widget_content
 {
-
+    background:#2d2d2d;
+    border-radius:4px;
 }
 MainWindow #listWidget
 {
@@ -111,7 +112,7 @@ CommonPage QTableView#tableView::indicator:checked
 CommonPage #lineEdit_search
 {
     border:1px solid #393939 ;
-    background:transparent;
+    background:#222222;
     color:#919191;
     border-radius: 4px;
     font-size:14px;
@@ -126,8 +127,8 @@ CommonPage #label_search_tips
 }
 CommonPage
 {
-    background:#2d2d2d;
-    border-radius: 4px;
+    background:transparent;
+
 }
 
 /*************************ContainerList**********************/

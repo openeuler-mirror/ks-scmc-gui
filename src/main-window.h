@@ -15,6 +15,7 @@ QT_END_NAMESPACE
 
 class GuideItem;
 class CommonPage;
+class TransmissionList;
 class MainWindow : public KiranTitlebarWindow
 {
     Q_OBJECT
@@ -36,6 +37,7 @@ private:
 
 private slots:
     void onLogoutAction(bool checked);
+    void popupTransmissionList();
 
 signals:
     void sigLogout();
@@ -47,5 +49,6 @@ private:
     QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
     QMap<QListWidgetItem *, bool> m_isShowMap;
     QList<GuideItem *> m_pageItems;
+    TransmissionList *m_transmissionList;
 };
 #endif  // MAINWINDOW_H

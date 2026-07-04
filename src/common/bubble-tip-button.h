@@ -8,7 +8,7 @@ class BubbleTipButton : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit BubbleTipButton(QWidget *parent = nullptr);
+    explicit BubbleTipButton(QString icon, QWidget *parent = nullptr);
     ~BubbleTipButton();
 
     void setTipMsg(int num);
@@ -19,6 +19,7 @@ protected:
 private:
     int m_tipMsg;
     int m_bubbleWidth;
+    QString m_icon;
 };
 
 #endif  // BUBBLETIPBUTTON_H
