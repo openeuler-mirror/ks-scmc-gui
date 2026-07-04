@@ -48,7 +48,7 @@ class MonitorContent : public QWidget
     Q_OBJECT
 
 public:
-    explicit MonitorContent(QWidget *parent = nullptr, int nodeId = -1, std::string containerId = "");
+    explicit MonitorContent(QWidget *parent = nullptr);
     ~MonitorContent();
     void updateMonitorInfo(qint64 nodeId, std::string containerId = "");
     virtual QSize sizeHint() const override;
@@ -68,6 +68,7 @@ private slots:
     void applyDatePicker();
     void getMonitorHistoryResult(const QString objID, const QPair<grpc::Status, container::MonitorHistoryReply> &reply);
     bool eventFilter(QObject *watched, QEvent *event);
+    void updateCharts();
 
 private:
     Ui::MonitorContent *ui;

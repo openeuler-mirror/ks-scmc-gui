@@ -227,14 +227,12 @@ void ContainerListPage::onApp(int row)
             [=] {
                 KLOG_INFO() << " app destroy";
                 appPage->deleteLater();
-                //appPage = nullptr;
             });
 }
 
 void ContainerListPage::onMonitor(int row)
 {
-    KLOG_INFO() << "ContainerListPage::onMonitor" << row;
-    //setBusy(true);
+    KLOG_INFO() << "show container monitor of" << row;
 
     auto item = getItem(row, 1);
     QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
@@ -249,7 +247,6 @@ void ContainerListPage::onMonitor(int row)
         int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
         QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
         m_monitor->resize(QSize(1650, 832));
-        KLOG_INFO() << m_monitor->width() << m_monitor->height();
         m_monitor->move(screenGeometry.x() + (screenGeometry.width() - m_monitor->width()) / 2,
                         screenGeometry.y() + (screenGeometry.height() - m_monitor->height()) / 2);
 
