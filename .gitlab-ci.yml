@@ -1,0 +1,26 @@
+variables:
+  EXTRA_DNF_REPOS: |
+                   [LICENSE]
+                   name=KylinSec OS-$releasever - LICENSE
+                   gpgcheck=0
+                   priority=99
+                   exclude=libarchive-devel
+                   baseurl=http://192.168.120.17/kojifiles/repos/ks-license-2.7-nodeps-next-build/latest/x86_64/
+                   [351]
+                   name=KylinSec OS-$releasever - 351
+                   gpgcheck=0
+                   exclude=libarchive-devel
+                   baseurl=http://192.168.120.71/kojifiles/repos/KY3.5-1-EPOL-build/latest/x86_64/
+                   [KiranUI]
+                   name=KylinSec OS-$releasever - KiranUI
+                   gpgcheck=0
+                   exclude=libarchive-devel
+                   baseurl=http://192.168.120.71/kojifiles/repos/KiranUI-2.4-next-build/latest/x86_64/
+  RPM_BUILD_REQUIRES: 'cmake gcc-c++ protobuf-devel qt5-linguist qt5-qtcharts qt5-qtcharts-devel qt5-qtbase-devel xsd grpc-devel ks-license-devel qrencode-devel c-ares-devel libnotify-devel kiranwidgets-qt5-devel kiran-qt5-integration-devel grpc-plugins cryptopp-devel kiran-log-qt5 kiran-log-qt5-devel libarchive-devel'
+  DISABLE_SYNC: 'true'
+
+include:
+  - project: 'os/ks-devops'
+    ref: main
+    file: '/entrypoint/develop/cmake.yml'
+
