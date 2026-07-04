@@ -18,12 +18,12 @@
 #include "ui_container-setting.h"
 
 #define CPU "CPU"
-#define MEMORY "Memory"
-#define NETWORK_CARD "Network card"
-#define ENVS "ENVS"
-#define GRAPHIC "Graphic"
-#define VOLUMES "Volumes"
-#define HIGH_AVAILABILITY "High availability"
+#define MEMORY QObject::tr("Memory")
+#define NETWORK_CARD QObject::tr("Network card")
+#define ENVS QObject::tr("ENVS")
+#define GRAPHIC QObject::tr("Graphic")
+#define VOLUMES QObject::tr("Volumes")
+#define HIGH_AVAILABILITY QObject::tr("High availability")
 
 const std::string TagContainerDescription = "TAG_CONTAINER_DESC";
 
@@ -141,9 +141,9 @@ void ContainerSetting::initUI()
     advancedLayout->addWidget(m_advancedConfStack);
 
     //创建tabwidget中侧边栏
-    QList<QPair<QString, QString>> baseConfItemInfo = {{tr("CPU"), ":/images/container-cpu.svg"},
-                                                       {tr("Memory"), ":/images/container-memory.svg"},
-                                                       {tr("Network card"), ":/images/container-net-card.svg"}};
+    QList<QPair<QString, QString>> baseConfItemInfo = {{CPU, ":/images/container-cpu.svg"},
+                                                       {MEMORY, ":/images/container-memory.svg"},
+                                                       {NETWORK_CARD, ":/images/container-net-card.svg"}};
     for (int i = 0; i < baseConfItemInfo.count(); i++)
     {
         QString name = baseConfItemInfo.at(i).first;
@@ -156,10 +156,10 @@ void ContainerSetting::initUI()
     m_baseItems.first()->setSelected(true);
     ui->listwidget_base_config->setCurrentRow(0);
 
-    QList<QPair<QString, QString>> advancedConfItemInfo = {{tr("Envs"), ":/images/container-env.png"},
-                                                           {tr("Graphic"), ":/images/audit-center.svg"},
-                                                           {tr("Volumes"), ":/images/container-volumes.png"},
-                                                           {tr("High availability"), ":/images/container-high-avail.png"}};
+    QList<QPair<QString, QString>> advancedConfItemInfo = {{ENVS, ":/images/container-env.png"},
+                                                           {GRAPHIC, ":/images/audit-center.svg"},
+                                                           {VOLUMES, ":/images/container-volumes.png"},
+                                                           {HIGH_AVAILABILITY, ":/images/container-high-avail.png"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
     {
         QString name = advancedConfItemInfo.at(i).first;
@@ -218,6 +218,8 @@ void ContainerSetting::initSummaryUI()
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
         setWindowTitle(tr("Edit template"));
+        ui->lineEdit_name->setReadOnly(true);
+        ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
         ui->label_image->hide();
         break;
     default:
@@ -233,14 +235,12 @@ GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, 
     newItem = new QListWidgetItem(parent);
 
     customItem = new GuideItem(text, icon, type, parent);
-    if (text == tr("Network card"))
+    if (text == NETWORK_CARD)
     {
         customItem->setDeleteBtn();
         ++m_netWorkCount;
         if (m_netWorkCount == 1)
             customItem->setDeleteBtnVisible(false);
-        //if (m_netWorkCount > 1)
-        customItem->setName(QString("%1%2").arg(text).arg(m_netWorkCount));
         connect(customItem, &GuideItem::sigDeleteItem, this, &ContainerSetting::onDelItem);
     }
     customItem->setTipLinePosition(TIP_LINE_POSITION_RIGHT);
@@ -281,23 +281,28 @@ void ContainerSetting::initAdvancedConfPages()
 
 void ContainerSetting::updateRemovableItem(QString itemText)
 {
+    int count = 1;
     if (m_netWorkCount > 1)
     {
-        foreach (GuideItem *item, m_baseItems)
+        for (int i = 0; i < m_baseItems.count(); i++)
         {
+            GuideItem *item = m_baseItems.at(i);
             if (item->getItemText() == itemText)
             {
                 item->setDeleteBtnVisible(true);
+                item->setName(QString("%1%2").arg(itemText).arg(count++));
             }
         }
     }
     else if (m_netWorkCount == 1)
     {
-        foreach (GuideItem *item, m_baseItems)
+        for (int i = 0; i < m_baseItems.count(); i++)
         {
+            GuideItem *item = m_baseItems.at(i);
             if (item->getItemText() == itemText)
             {
                 item->setDeleteBtnVisible(false);
+                item->setName(QString("%1%2").arg(itemText).arg(count++));
             }
         }
     }
@@ -453,6 +458,7 @@ void ContainerSetting::createTemplate()
         return;
     }
 
+    //network
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->getNetworkInfo(cntrCfg);
@@ -501,24 +507,72 @@ void ContainerSetting::createTemplate()
 void ContainerSetting::updateTemplate()
 {
     container::UpdateTemplateRequest request;
+    ErrorCode ret;
     auto data = request.mutable_data();
     data->set_id(m_templateId);
 
     auto cntrCfg = data->mutable_conf();
-    auto rsrcCfg = cntrCfg->mutable_resouce_limit();
-    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
-    cpuPage->getCPUInfo(rsrcCfg);
+    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
+    cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
 
-    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
-    memoryPage->getMemoryInfo(rsrcCfg);
+    //Graph
+    auto graphicPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
+    cntrCfg->set_enable_graphic(graphicPage->isGraphic());
 
+    //volume mounts
+    auto volumePage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
+    ret = volumePage->getVolumeInfo(cntrCfg);
+    if (ret == INPUT_NULL_ERROR)
+    {
+        MessageDialog::message(tr("Volumes Data"),
+                               tr("Input error"),
+                               tr("Please improve the contents in Volumes table!"),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    //network
+    foreach (auto networkPage, m_netWorkPages)
+    {
+        networkPage->getNetworkInfo(cntrCfg);
+    }
+
+    //env
+    auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
+    ret = envPage->getEnvInfo(cntrCfg);
+    if (ret == INPUT_NULL_ERROR)
+    {
+        MessageDialog::message(tr("Env Data"),
+                               tr("Input error"),
+                               tr("Please improve the contents in Env table!"),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    //High
     auto policy = cntrCfg->mutable_restart_policy();
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
-    foreach (auto networkPage, m_netWorkPages)
+    auto limit = cntrCfg->mutable_resouce_limit();
+
+    //cpu
+    auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
+    cpuPage->getCPUInfo(limit);
+
+    //memory
+    auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
+    ret = memoryPage->getMemoryInfo(limit);
+    if (ret == INPUT_ARG_ERROR)
     {
-        networkPage->getNetworkInfo(cntrCfg);
+        MessageDialog::message(tr("Memory Data"),
+                               tr("Input error"),
+                               tr("Memory soft limit can't be greater than the maximum limit !"),
+                               tr(":/images/error.svg"),
+                               MessageDialog::StandardButton::Ok);
+        return;
     }
 
     InfoWorker::getInstance().updateTemplate(request);
@@ -562,11 +616,11 @@ void ContainerSetting::onAddItem(QAction *action)
     case TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_CARD:
     {
         GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                          tr("Network card"),
+                                          NETWORK_CARD,
                                           GUIDE_ITEM_TYPE_NORMAL,
                                           ":/images/container-net-card.svg");
         m_baseItems.append(item);
-        updateRemovableItem(tr("Network card"));
+        updateRemovableItem(NETWORK_CARD);
         NetworkConfTab *networkConfPage = new NetworkConfTab(this);
         m_netWorkPages.append(networkConfPage);
         m_baseConfStack->addWidget(networkConfPage);
@@ -601,7 +655,7 @@ void ContainerSetting::onDelItem()
                 m_baseConfStack->removeWidget(page);
                 m_netWorkPages.removeOne(qobject_cast<NetworkConfTab *>(page));
                 --m_netWorkCount;
-                updateRemovableItem("Network card");
+                updateRemovableItem(NETWORK_CARD);
 
                 delete page;
                 page = nullptr;
@@ -696,7 +750,7 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         if (!QString::fromStdString(info.desc().data()).isEmpty())
             ui->lineEdit_describe->setText(info.desc().data());
         else
-            ui->lineEdit_describe->setText(tr("None"));
+            ui->lineEdit_describe->setText(tr("none"));
         ui->lineEdit_describe->setStyleSheet("border:none;");
         ui->lineEdit_describe->setDisabled(true);
 
@@ -721,7 +775,7 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
         {
             //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
             GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                              tr("Network card"),
+                                              NETWORK_CARD,
                                               GUIDE_ITEM_TYPE_NORMAL,
                                               ":/images/container-net-card.svg");
             m_baseItems.append(item);
@@ -729,7 +783,7 @@ void ContainerSetting::getContainerInspectResult(const QPair<grpc::Status, conta
             m_baseConfStack->addWidget(networkConfTab);
             m_netWorkPages.append(networkConfTab);
         }
-        updateRemovableItem(tr("Network card"));
+        updateRemovableItem(NETWORK_CARD);
         InfoWorker::getInstance().listNetwork(m_containerIds.first);
         //更新网络页面信息
         for (int i = 0; i < size; i++)
@@ -787,12 +841,12 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         //init ui
         auto info = reply.second.data().conf();
         ui->lineEdit_name->setText(info.name().data());
-        KLOG_INFO() << info.name().data() << info.image().data();
+        KLOG_INFO() << info.name().data();
 
         if (!QString::fromStdString(info.desc().data()).isEmpty())
             ui->lineEdit_describe->setText(info.desc().data());
         else
-            ui->lineEdit_describe->setText(tr("None"));
+            ui->lineEdit_describe->setText(tr("none"));
         ui->lineEdit_describe->setStyleSheet("border:none;");
         ui->lineEdit_describe->setDisabled(true);
 
@@ -800,7 +854,6 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         //info.enable_graphic();
         auto graphPage = qobject_cast<GraphicConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_GRAPHIC));
         graphPage->setGraphicInfo(&info);
-        graphPage->setDisabled(true);
 
         //volume
         auto volumesPage = qobject_cast<VolumesConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES));
@@ -808,7 +861,6 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         {
             volumesPage->setVolumeInfo(&mount);
         }
-        volumesPage->setDisabled(true);
 
         // network
         auto size = info.networks_size();
@@ -817,7 +869,7 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         {
             //创建侧边栏页stacked页，由于初始页面已经创建过一次，创建个数-1
             GuideItem *item = createGuideItem(ui->listwidget_base_config,
-                                              tr("Network card"),
+                                              NETWORK_CARD,
                                               GUIDE_ITEM_TYPE_NORMAL,
                                               ":/images/container-net-card.svg");
             m_baseItems.append(item);
@@ -825,7 +877,7 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
             m_baseConfStack->addWidget(networkConfTab);
             m_netWorkPages.append(networkConfTab);
         }
-        updateRemovableItem(tr("Network card"));
+        updateRemovableItem(NETWORK_CARD);
         InfoWorker::getInstance().listNetwork(m_containerIds.first);
         //更新网络页面信息
         for (int i = 0; i < size; i++)
@@ -838,7 +890,6 @@ void ContainerSetting::getInspectTemplateFinishResult(const QPair<grpc::Status, 
         //env
         auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
         envPage->setEnvInfo(&info);
-        envPage->setDisabled(true);
 
         //high-availability
         auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
