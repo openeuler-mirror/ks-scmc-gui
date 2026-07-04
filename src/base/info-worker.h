@@ -110,6 +110,9 @@ public:
     void logout();
     void updatePassword(const std::string oldPassword, const std::string newPassword);
 
+    // logging management
+    void listRuntimeLogging(const logging::ListRuntimeRequest &);
+
     void stopTransfer(QString name, QString version, bool isStop);
     bool isTransferStoped(QString name, QString version);
 
@@ -166,6 +169,9 @@ private:
     static QPair<grpc::Status, user::LogoutReply> _logout(const user::LogoutRequest &);
     static QPair<grpc::Status, user::UpdatePasswordReply> _updatePassword(const user::UpdatePasswordRequest &);
 
+    // logging management
+    static QPair<grpc::Status,logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
+
 signals:
     // node management
     void listNodeFinished(const QPair<grpc::Status, node::ListReply> &);
@@ -217,6 +223,9 @@ signals:
     void loginFinished(const QPair<grpc::Status, user::LoginReply> &);
     void logoutFinished(const QPair<grpc::Status, user::LogoutReply> &);
     void updatePasswordFinished(const QPair<grpc::Status, user::UpdatePasswordReply> &);
+
+        // logging management
+    void loggingRuntimeFinished(const QPair<grpc::Status, logging::ListRuntimeReply> &);
 
 private:
     QMutex mutex;
