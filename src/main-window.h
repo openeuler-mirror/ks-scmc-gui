@@ -34,7 +34,7 @@ class MainWindow : public KiranTitlebarWindow
     Q_OBJECT
 
 public:
-    MainWindow(QString name, QWidget *parent = nullptr);
+    MainWindow(QString name, QString userRole, QWidget *parent = nullptr);
     ~MainWindow();
 
 protected:
@@ -76,6 +76,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     QString m_userName;
+    QString m_userRole;
     QStackedWidget *m_stackedWidget;
     QMap<QString, Page *> m_pageMap;
     QMap<QListWidgetItem *, QList<QListWidgetItem *>> m_groupMap;  //key group ,value subs
