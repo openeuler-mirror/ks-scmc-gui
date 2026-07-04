@@ -20,7 +20,6 @@ public:
     void updateInfo(QString keyword = "");  //刷新表格
 
 private:
-    void initUI();
     void createSubPage(NodeInfoSubPageType type);
     void updatePageInfo(int index);
 

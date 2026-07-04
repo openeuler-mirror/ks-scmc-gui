@@ -39,12 +39,18 @@ private slots:
     void onEdit(int row);
     void onTerminal(int row);
 
+    void onItemClicked(const QModelIndex &index);
+    void onItemEntered(const QModelIndex &index);
+
     void getNodeListResult(const QPair<grpc::Status, node::ListReply> &);
     void getContainerListResult(const QPair<grpc::Status, container::ListReply> &);
     void getContainerStartResult(const QPair<grpc::Status, container::StartReply> &);
     void getContainerStopResult(const QPair<grpc::Status, container::StopReply> &);
     void getContainerRestartResult(const QPair<grpc::Status, container::RestartReply> &);
     void getContainerRemoveResult(const QPair<grpc::Status, container::RemoveReply> &);
+
+signals:
+    void sigContainerNameClicked(QMap<QString, QVariant> infoMap);
 
 private:
     void initButtons();
