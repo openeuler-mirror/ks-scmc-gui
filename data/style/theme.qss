@@ -667,7 +667,9 @@ LoginDialog #btnMenu::menu-indicator
     subcontrol-position: center center;
 }
 
-LoginDialog QLineEdit
+LoginDialog QLineEdit,
+ImageOperateDialog QLineEdit,
+NodeOperateDialog QLineEdit
 {
     background:transparent;
     border:1px solid #393939;
@@ -675,7 +677,9 @@ LoginDialog QLineEdit
     font-size:14px;
 }
 
-LoginDialog QLineEdit:focus
+LoginDialog QLineEdit:focus,
+ImageOperateDialog QLineEdit:focus,
+NodeOperateDialog QLineEdit:focus
 {
     border:1px solid #2eb3ff;
     border-radius:4px;
