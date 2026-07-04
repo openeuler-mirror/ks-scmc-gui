@@ -17,6 +17,7 @@ public:
     virtual void updateInfo(QString keyword = "") = 0;
     void addTabPage(QWidget *tabPage, QString key);
     void updateCurrentPage();
+    void setCurrentPage(int index);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
