@@ -297,7 +297,8 @@ void TablePage::setPaging(int totalPages)
         //        initPaging(totalPages);
         m_totalPages = totalPages;
         m_totalPageLabel->setText(QString("/ ") + QString::number(m_totalPages));
-        if (m_pageEdit->text().toInt() > m_totalPages)
+
+        if (m_totalPages < m_pageEdit->text().toInt())
             m_pageEdit->setText(QString::number(m_totalPages));
 
         if (m_totalPages <= 1)
@@ -720,19 +721,16 @@ void TablePage::lastBtnClick()
     if (page <= 1)
         return;
 
-    m_pageEdit->setText(QString::number(page - 1));
-    emit sigUpdatePaging(page - 1);
+    updatePaging(page - 1);
 }
 
 void TablePage::nextBtnClick()
 {
     int page = m_pageEdit->text().toInt();
+    if (page >= m_totalPages)
+        return;
 
-    if (page + 1 <= m_totalPages)
-    {
-        m_pageEdit->setText(QString::number(page + 1));
-        emit sigUpdatePaging(page + 1);
-    }
+    updatePaging(page + 1);
 }
 
 void TablePage::pageEditChage()
@@ -741,11 +739,8 @@ void TablePage::pageEditChage()
     if (page <= m_totalPages && page >= 1)
         updatePaging(page);
     else
-    //        clearTable();
     {
         // 跳转至最后一页
         updatePaging(m_totalPages);
-        // 设置输入框文本为最后一页
-        m_pageEdit->setText(QString::number(m_totalPages));
     }
 }

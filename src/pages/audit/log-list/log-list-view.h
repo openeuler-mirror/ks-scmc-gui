@@ -25,7 +25,7 @@ class LogListView : public TablePage
 {
     Q_OBJECT
 public:
-    explicit LogListView(QWidget *parent = nullptr,bool is_open_paging = false);
+    explicit LogListView(QWidget *parent = nullptr, bool is_open_paging = false);
     ~LogListView();
     void updateInfo(QString keyword = "");  //刷新表格
     void setLogListPageType(LogListPageType);
@@ -43,7 +43,7 @@ private slots:
     void popupEndDatePicker();
     void applyDatePicker();
     void updatePagingInfo(int page_on);
-    void searchClicked(QString key); //搜索响应
+    void searchClicked(QString key);  //搜索响应
 
 private:
     QString m_objId;
@@ -56,11 +56,8 @@ private:
     LogListPageType m_type;
     bool is_openPaging;
     int m_totalPages;
-    int m_pageOn = 1;//当前页
+    int m_pageOn = 1;  //当前页
     QString m_searchKey;
-
-signals:
-    void sigOpenPaging(int);
 };
 
 #endif  // LOGLISTVIEW_H

@@ -108,7 +108,6 @@ void WarningListView::initLogListConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarningResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarningResult);
     connect(this, &WarningListView::sigUpdatePaging, this, &WarningListView::updatePagingInfo);
-    connect(this, &WarningListView::sigOpenPaging, this, &WarningListView::setPaging);
 }
 
 void WarningListView::getWarningList(WarningListPageType type, int page_on)
@@ -165,9 +164,11 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
     m_totalPages = int(reply.second.total_pages());
     if (is_openPaging == true)
     {
+        if (m_totalPages < 1)
+            m_totalPages = 1;
         if (m_pageOn > m_totalPages)
             m_pageOn = m_totalPages;
-        emit sigOpenPaging(m_totalPages);
+        setPaging(m_totalPages);
     }
 
     int size = reply.second.logs_size();
