@@ -66,6 +66,7 @@ kspkgs=\$(ls | grep -E "^$g_software_name")
 if [[ ! \$deppgs == "" ]];then
     yumoption="--nogpgcheck --disablerepo=*"
     if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
+        deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiran-log')
         rpm -qa | grep kiranwidgets-qt5 > /dev/null || deppgs=\$(ls | grep -v '^$g_software_name' | grep -v '^kiranwidgets-qt5-devel-2.1.1')
         yumoption="\$yumoption --allowerasing"
     fi
@@ -77,6 +78,9 @@ if [[ ! \$deppgs == "" ]];then
 fi
 
 sudo rpm -Uvh \$kspkgs --nodeps --force
+if [[ "\${OS_VERSION}" == "3.4-4"* ]]; then
+    sudo rpm -ivh kiran-log-qt5-2.2.4-1.x86_64.rpm
+fi
 
 cd -
 
