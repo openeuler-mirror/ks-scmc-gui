@@ -11,11 +11,11 @@
 #include <QHBoxLayout>
 
 LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(parent, is_open_paging),
-    m_datePicker(nullptr),
-    m_datePickStart(nullptr),
-    m_datePickEnd(nullptr),
-    m_BtnApply(nullptr),
-    m_searchKey("")
+                                                                 m_datePicker(nullptr),
+                                                                 m_datePickStart(nullptr),
+                                                                 m_datePickEnd(nullptr),
+                                                                 m_BtnApply(nullptr),
+                                                                 m_searchKey("")
 {
     is_openPaging = is_open_paging;
     m_objId = InfoWorker::generateId(this);
@@ -23,8 +23,8 @@ LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(paren
     initTable();
     initLogListConnect();
 
-    connect(this,&TablePage::sigPagingSearch,this,&LogListView::searchClicked);
-    connect(this, &TablePage::sigRefreshSearchResult,this,
+    connect(this, &TablePage::sigPagingSearch, this, &LogListView::searchClicked);
+    connect(this, &TablePage::sigRefreshSearchResult, this,
             [this]() {
                 if (m_searchKey != "")
                     m_searchKey = "";
@@ -59,7 +59,7 @@ void LogListView::initTable()
         tr("Operation Details")};
     setHeaderSections(tableHHeaderDate);
     setHeaderCheckable(false);
-//    setSearchableCol(2);  //设置"对象"列可供搜索
+    //    setSearchableCol(2);  //设置"对象"列可供搜索
     setTableDefaultContent("-");
     //    setTableSingleChoose(true);
 }
@@ -164,7 +164,7 @@ void LogListView::getLogList(LogListPageType type, int page_on)
     if (m_searchKey != "")
     {
         KLOG_INFO() << "search_key : " << m_searchKey;
-//        logging::Filter *filter = request.mutable_filter();
+        //        logging::Filter *filter = request.mutable_filter();
         request.mutable_filter()->set_fuzzy(true);
 
         std::string query = m_searchKey.toStdString();
@@ -173,7 +173,7 @@ void LogListView::getLogList(LogListPageType type, int page_on)
         std::string property = "target";
         request.mutable_filter()->set_property(property);
 
-//        request.set_allocated_filter(filter);
+        //        request.set_allocated_filter(filter);
     }
 
     request.set_page_no(page_on);
@@ -203,7 +203,7 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
                 emit sigOpenPaging(m_totalPages);
 
             int size = reply.second.logs_size();
-            KLOG_INFO() <<"size:" << size;
+            KLOG_INFO() << "size:" << size;
             if (size <= 0)
             {
                 if (m_searchKey != "")
@@ -217,7 +217,6 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
             {
                 QDateTime time = QDateTime::fromSecsSinceEpoch(logging.created_at());
                 QString created = time.toString("yyyy/MM/dd hh:mm:ss");
-                KLOG_INFO() << __func__ << "due time = " << created;
 
                 //            if(m_xStart.date().toJulianDay() > time.date().toJulianDay() || m_xEnd.date().toJulianDay() < time.date().toJulianDay())
                 //                continue;
@@ -225,8 +224,6 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
                 QStandardItem *itemUpdateTime = new QStandardItem(created);
 
                 QStandardItem *itemObj = new QStandardItem(logging.target().data());
-
-                KLOG_INFO() <<"obj:" <<logging.target().data();
 
                 QStandardItem *itemOpt = new QStandardItem();
                 switch (logging.event_type())
@@ -360,15 +357,15 @@ void LogListView::applyDatePicker()
 void LogListView::updatePagingInfo(int page_on)
 {
     m_pageOn = page_on;
-    updateInfo();
+    getLogList(m_type, m_pageOn);
 }
 
 void LogListView::searchClicked(QString key)
 {
-//    clearText();
+    //    clearText();
     m_searchKey = key;
     getLogList(m_type, m_pageOn);
-//    updateInfo();
+    //    updateInfo();
 }
 
 void LogListView::setLogListPageType(LogListPageType type)
