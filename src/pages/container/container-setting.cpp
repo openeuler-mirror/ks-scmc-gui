@@ -501,8 +501,8 @@ void ContainerSetting::createContainer()
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
     fileProtectPage->getSecurityListInfo(securityCfg);
 
-    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    //    processProtectPage->getSecurityListInfo(securityCfg);
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->getSecurityListInfo(securityCfg);
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
     netProcessProtectPage->getSecurityListInfo(securityCfg);
@@ -544,8 +544,8 @@ void ContainerSetting::updateContainer()
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
     fileProtectPage->getSecurityListInfo(securityCfg);
 
-    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    //    processProtectPage->getSecurityListInfo(securityCfg);
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->getSecurityListInfo(securityCfg);
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
     netProcessProtectPage->getSecurityListInfo(securityCfg);
@@ -635,8 +635,8 @@ void ContainerSetting::createTemplate()
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
     fileProtectPage->getSecurityListInfo(securityCfg);
 
-    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    //    processProtectPage->getSecurityListInfo(securityCfg);
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->getSecurityListInfo(securityCfg);
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
     netProcessProtectPage->getSecurityListInfo(securityCfg);
@@ -727,8 +727,8 @@ void ContainerSetting::updateTemplate()
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
     fileProtectPage->getSecurityListInfo(securityCfg);
 
-    //    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
-    //    processProtectPage->getSecurityListInfo(securityCfg);
+    auto processProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_PROCESS_SECURITY));
+    processProtectPage->getSecurityListInfo(securityCfg);
 
     auto netProcessProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_PROCESS_WHITE_LIST));
     netProcessProtectPage->getSecurityListInfo(securityCfg);
