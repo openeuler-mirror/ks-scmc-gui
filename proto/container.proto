@@ -32,11 +32,6 @@ service Container {
     rpc RemoveBackup(RemoveBackupRequest) returns (RemoveBackupReply) {}  // 删除备份
     rpc ListBackup(ListBackupRequest) returns (ListBackupReply) {}        // 备份列表
 
-    // 容器备份内部接口
-    rpc AddBackupJob(AddBackupJobRequest) returns (AddBackupJobReply) {}
-    rpc GetBackupJob(GetBackupJobRequest) returns (GetBackupJobReply) {}
-    rpc DelBackupJob(DelBackupJobRequest) returns (DelBackupJobReply) {}
-
     // 查询容器模板列表
     rpc ListTemplate(ListTemplateRequest) returns (ListTemplateReply) {}
     // 创建容器模板
@@ -61,6 +56,7 @@ message CreateBackupRequest {
 message CreateBackupReply {}
 
 message UpdateBackupRequest {
+    int64  node_id     = 3;
     int64  id          = 1;
     string backup_desc = 2;
 }
@@ -74,9 +70,8 @@ message ResumeBackupRequest {
     int64  backup_id    = 3;
 
     // for agent service
-    string         image_ref       = 11;
-    SecurityConfig security_config = 12;
-    // string backup_name = 12;
+    string         image_ref       = 11;  // deprecated
+    SecurityConfig security_config = 12;  // deprecated
 }
 
 message ResumeBackupReply {
@@ -85,10 +80,11 @@ message ResumeBackupReply {
 
 message RemoveBackupRequest {
     // for client
-    int64 id = 1;
+    int64 node_id = 2;
+    int64 id      = 1;
 
     // for agent service
-    string image_ref = 11;
+    string image_ref = 11;  // deprecated
 }
 
 message RemoveBackupReply {}
@@ -100,37 +96,6 @@ message ListBackupRequest {
 
 message ListBackupReply {
     repeated ContainerBackup data = 1;
-}
-
-message AddBackupJobRequest {
-    int64  id           = 1;
-    string container_id = 2;
-    string backup_name  = 3;
-}
-
-message AddBackupJobReply {
-    string file_path = 1;
-}
-
-message GetBackupJobRequest {
-    int64 id = 1;
-}
-
-message DelBackupJobRequest {
-    int64 id = 1;
-}
-
-message DelBackupJobReply {}
-
-message GetBackupJobReply {
-    int64  id           = 1;
-    string container_id = 2;
-    string backup_name  = 3;
-    string image_ref    = 4;
-    string image_id     = 5;
-    int64  image_size   = 6;
-    int64  status       = 7;  // 参考 BACKUP_STATUS 定义
-    int64  updated_at   = 8;
 }
 
 message ListRequest {
@@ -334,9 +299,6 @@ message ContainerInfo {
 message ContainerIdList {
     int64           node_id       = 1;
     repeated string container_ids = 2;
-
-    // for agent service remove container
-    repeated string backup_image_ids = 11;
 }
 
 message Mount {
