@@ -101,21 +101,28 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
     }
     case PASSWORF_TYPE_NEW:
     {
-        QRegExp rx1(QString("^(?=.*[0-9])(?=.*[a-zA-Z])(.{8,})$"));
         if (inputPw.length() < 8)
             errorMsg = tr("Please input at least 8 characters");
         else if (inputPw.contains(QRegExp("[\\x4e00-\\x9fa5]+")))
             errorMsg = tr("Can't input Chinese");
-        else if ((!rx1.exactMatch(inputPw)))  //没有包含数字与字符
-        {
-            errorMsg = tr("Please input at least a combination of character and number");
-        }
         else
         {
-            KLOG_DEBUG() << "New password input ok!";
-            ui->lab_new_pw_tips->clear();
-            ui->lab_new_pw_tips->hide();
-            return true;
+            QStringList list;
+            list << "[A-Z]" << "[a-z]" << "[0-9]" << "[^0-9A-Za-z]";
+            int complex = 0;
+            for (auto rx : list)
+            {
+                complex = inputPw.contains(QRegExp(rx)) ? complex + 1 : complex;
+                if (complex >= 2)
+                {
+                    KLOG_DEBUG() << "New password input ok!";
+                    ui->lab_new_pw_tips->clear();
+                    ui->lab_new_pw_tips->hide();
+                    return true;
+                }
+            }
+            // 请输入包含大写字母、小写字母、数字和特殊字符中至少两种组合
+            errorMsg = tr("Please input at least two combinations of\n uppercase letter, lowercase letter, number and special character");
         }
         ui->lab_new_pw_tips->show();
         ui->lab_new_pw_tips->setText(errorMsg);
@@ -210,8 +217,8 @@ void PasswdUpdateDialog::initUI()
                                 "min-height:30px;"
                                 "}"
                                 "QToolButton{border:none;}");
-    ui->btn_tips->setToolTip(tr("The password should contain at least\n a combination of character and number,\n with a length range of 8-32 characters"));
-
+    ui->btn_tips->setToolTip(tr("The password length 8-32 bits, should contain\n at least two combinations of uppercase letter,\n lowercase letter, number and special character"));
+    // 密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少两种组合
     ui->lab_old_pw_tips->hide();
     ui->lab_new_pw_tips->hide();
     ui->lab_confirm_pw_tips->hide();

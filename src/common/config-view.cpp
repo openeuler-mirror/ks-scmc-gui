@@ -217,7 +217,7 @@ void ConfigDelegate::sendEditSlot(ConfigOperateWidget *pCurWidget)
         // "修改容器" "确认继续?" "容器内置配置项，请谨慎修改！"
         auto ret = MessageDialog::message(tr("Modify Container"),
                                           tr("Confirm Continue?"),
-                                          tr("Container built-in configuration items, please modify with caution"),
+                                          tr("Container built-in configuration items, please modify with caution!"),
                                           ":/images/warning.svg",
                                           MessageDialog::StandardButton::Confirm | MessageDialog::StandardButton::Cancel);
         if (ret != MessageDialog::StandardButton::Confirm)
@@ -255,6 +255,20 @@ void ConfigDelegate::sendDeleteSlot(ConfigOperateWidget *pCurWidget)
     if (m_listPage.size() == 1 || m_pEditFirst.size() == 1 || m_pComboBoxMode.size() == 1)
         return;
 
+    if (m_buildIn.indexOf(m_pEditFirst[row]->text()) != -1)
+    {
+        // "删除容器" "确认继续?" "容器内置配置项，请谨慎删除！"
+        auto ret = MessageDialog::message(tr("Delete Container"),
+                                          tr("Confirm Continue?"),
+                                          tr("Container built-in configuration items, please delete with caution!"),
+                                          ":/images/warning.svg",
+                                          MessageDialog::StandardButton::Confirm | MessageDialog::StandardButton::Cancel);
+        if (ret != MessageDialog::StandardButton::Confirm)
+        {
+            KLOG_INFO() << pCurWidget->getCurPage();
+            return;
+        }
+    }
     dealMemberVar();
     m_listPage.removeAt(row);
     emit sendDeleteSig(row);
