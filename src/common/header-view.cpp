@@ -25,6 +25,7 @@ void HeaderView::setSortableCols(QList<int> cols)
 void HeaderView::setCheckable(bool checkable)
 {
     m_isCheckable = checkable;
+    updateSection(CHECKABLE_COL);
 }
 
 void HeaderView::paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const
