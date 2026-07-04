@@ -447,7 +447,6 @@ void ContainerListPage::getContainerStartResult(const QString objId, const QPair
     if (m_objId == objId)
     {
         setBusy(false);
-        KLOG_INFO() << reply.first.error_code() << reply.first.error_message().data();
         if (reply.first.ok())
         {
             getContainerList(m_nodeId);

@@ -36,7 +36,7 @@ public:
     explicit TrendChartForm(QWidget *parent = nullptr);
     ~TrendChartForm();
     void initChart(ChartInfo chartInfo);
-    void clearChart(QString seriesNames = "");
+    void clearChart(QString seriesName = "");
     void updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames);
     void setLegendVisible(bool visible);
     virtual QSize sizeHint() const override;
@@ -46,6 +46,7 @@ protected:
 
 private:
     void initUI();
+    QStringList getLineNames();
 
 private slots:
     void slotPointHoverd(const QPointF &point, bool state);
@@ -55,6 +56,7 @@ private:
     QChartView *m_chartView;
     QDateTimeAxis *m_xAxis;
     QValueAxis *m_yAxis;
+    QMap<QString, QAbstractSeries *> m_seriesMap;
 };
 
 #endif  // TRENDCHARTFORM_H

@@ -28,9 +28,10 @@ TrendChartForm::~TrendChartForm()
 void TrendChartForm::initChart(ChartInfo chartInfo)
 {
     QChart *chart = m_chartView->chart();
-    //折线图
+
     for (auto iter = chartInfo.seriesInfo.begin(); iter != chartInfo.seriesInfo.end(); iter++)
     {
+        //折线图
         QLineSeries *series = new QLineSeries();
         QPen pen;
         pen.setStyle(Qt::SolidLine);
@@ -39,7 +40,41 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
         series->setPen(pen);          //折现序列的线条设置
         series->setName(iter.key());  //legend中的文字
         chart->addSeries(series);
-        connect(series, &QLineSeries::hovered, this, &TrendChartForm::slotPointHoverd);
+        m_seriesMap.insert(QString("%1-line").arg(iter.key()), series);
+
+        //散点图(用于鼠标悬浮上显示的边框)
+        QScatterSeries *series1 = new QScatterSeries();
+        series1->setMarkerShape(QScatterSeries::MarkerShapeCircle);  //圆形的点
+        QRadialGradient radialGrad(QPointF(100, 100), 100);
+        radialGrad.setColorAt(0, QColor(255, 255, 255));
+        radialGrad.setColorAt(0.9, QColor(255, 255, 255));
+        radialGrad.setColorAt(0.91, QColor(255, 0, 0));
+        radialGrad.setColorAt(1, QColor(212, 227, 255));
+        series1->setBrush(QBrush(radialGrad));  //背景颜色
+        series1->setMarkerSize(9);              //点大小
+        m_seriesMap.insert(QString("%1-hoverScatter").arg(iter.key()), series1);
+
+        //散点图(用于正常的边框)
+        QScatterSeries *series2 = new QScatterSeries();
+        series2->setMarkerShape(QScatterSeries::MarkerShapeCircle);  //圆形的点
+        series2->setBorderColor(QColor(iter.value()));               //边框颜色
+        series2->setBrush(QBrush(QColor(iter.value())));             //背景颜色
+        series2->setMarkerSize(6);                                   //点大小
+        m_seriesMap.insert(QString("%1-normalScatter").arg(iter.key()), series2);
+        connect(series2, &QScatterSeries::hovered, this, &TrendChartForm::slotPointHoverd);  //用于鼠标移动到点上显示数值
+
+        //散点图(用于中心)
+        QScatterSeries *series3 = new QScatterSeries();
+        series3->setMarkerShape(QScatterSeries::MarkerShapeCircle);  //圆形的点
+        series3->setBorderColor(Qt::white);                          //边框颜色
+        series3->setBrush(QBrush(Qt::white));                        //背景颜色
+        series3->setMarkerSize(3);                                   //点大小
+        m_seriesMap.insert(QString("%1-centerScatter").arg(iter.key()), series3);
+        connect(series3, &QScatterSeries::hovered, this, &TrendChartForm::slotPointHoverd);  //用于鼠标移动到点上显示数值
+
+        chart->addSeries(series1);
+        chart->addSeries(series2);
+        chart->addSeries(series3);
     }
 
     QFont font;
@@ -85,30 +120,29 @@ void TrendChartForm::initChart(ChartInfo chartInfo)
     }
 }
 
-void TrendChartForm::clearChart(QString seriesNames)
+void TrendChartForm::clearChart(QString seriesName)
 {
-    QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
-    foreach (auto series, serieses)
+    QStringList nameList = getLineNames();
+    foreach (auto name, nameList)
     {
-        QLineSeries *ser = qobject_cast<QLineSeries *>(series);
-        if (seriesNames.isEmpty())
+        if (seriesName.isEmpty() || name == seriesName)
         {
-            ser->clear();
-            continue;
-        }
-        else if (ser->name() == seriesNames)
-        {
-            ser->clear();
-            break;
+            QLineSeries *line = qobject_cast<QLineSeries *>(m_seriesMap[QString("%1-line").arg(name)]);
+            QScatterSeries *centerScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-centerScatter").arg(name)]);
+            QScatterSeries *normalScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-normalScatter").arg(name)]);
+
+            line->clear();
+            centerScatter->clear();
+            normalScatter->clear();
         }
     }
 }
 
-void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames)
+void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesName)
 {
     KLOG_INFO() << "updateChart" << chartInfo.yStart << chartInfo.yEnd;
 
-    KLOG_INFO() << "setDate" << seriesNames;
+    KLOG_INFO() << "setDate" << seriesName;
 
     QChart *chart = m_chartView->chart();
     //x轴
@@ -121,25 +155,53 @@ void TrendChartForm::updateChart(ChartInfo chartInfo, QList<QPointF> datas, QStr
     chart->axisY()->setTitleText(chartInfo.yTitle);
     qobject_cast<QValueAxis *>(chart->axisY())->setLabelFormat(chartInfo.yFormat);
 
-    QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
-    foreach (auto series, serieses)
+    QStringList nameList = getLineNames();
+    foreach (auto name, nameList)
     {
-        QLineSeries *ser = qobject_cast<QLineSeries *>(series);
-        if (ser->name() == seriesNames)
+        if (name == seriesName)
         {
-            ser->clear();
-            ser->append(datas);
-            break;
+            QLineSeries *line = qobject_cast<QLineSeries *>(m_seriesMap[QString("%1-line").arg(name)]);
+            QScatterSeries *centerScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-centerScatter").arg(name)]);
+            QScatterSeries *normalScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-normalScatter").arg(name)]);
+
+            line->clear();
+            centerScatter->clear();
+            normalScatter->clear();
+
+            line->append(datas);
+            centerScatter->append(datas);
+            normalScatter->append(datas);
         }
     }
-
     chart->update();
 }
 
 void TrendChartForm::setLegendVisible(bool visible)
 {
     QChart *chart = m_chartView->chart();
-    chart->legend()->setVisible(visible);
+    QLegend *legend = chart->legend();
+    legend->setVisible(visible);
+
+    QStringList lineNames = getLineNames();
+    foreach (QString name, lineNames)  //隐藏散点图的图例
+    {
+        QScatterSeries *hoverScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-hoverScatter").arg(name)]);
+        QScatterSeries *centerScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-centerScatter").arg(name)]);
+        QScatterSeries *normalScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-normalScatter").arg(name)]);
+
+        foreach (QLegendMarker *marker, chart->legend()->markers(hoverScatter))
+        {
+            marker->setVisible(false);
+        }
+        foreach (QLegendMarker *marker, chart->legend()->markers(centerScatter))
+        {
+            marker->setVisible(false);
+        }
+        foreach (QLegendMarker *marker, chart->legend()->markers(normalScatter))
+        {
+            marker->setVisible(false);
+        }
+    }
 }
 
 QSize TrendChartForm::sizeHint() const
@@ -171,12 +233,30 @@ void TrendChartForm::initUI()
     chart->setBackgroundVisible(false);
     //chart->setBackgroundBrush(QBrush(QColor(45, 45, 45, 0)));
 
-    setLegendVisible(true);
+    setLegendVisible(false);
     chart->legend()->setLabelColor(QColor(255, 255, 255));
+}
+
+QStringList TrendChartForm::getLineNames()
+{
+    QList<QAbstractSeries *> serieses = m_chartView->chart()->series();
+    QStringList nameList;
+    foreach (auto series, serieses)
+    {
+        if (series->type() == QAbstractSeries::SeriesTypeLine)
+        {
+            nameList.append(series->name());  //get names
+        }
+    }
+    return nameList;
 }
 
 void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
 {
+    QScatterSeries *ser = qobject_cast<QScatterSeries *>(sender());
+    QString lineName = m_seriesMap.key(ser).split("-").first();
+    QScatterSeries *hoverScatter = qobject_cast<QScatterSeries *>(m_seriesMap[QString("%1-hoverScatter").arg(lineName)]);
+
     if (state)
     {
         QFont font;
@@ -196,10 +276,24 @@ void TrendChartForm::slotPointHoverd(const QPointF &point, bool state)
         QPoint curPos = mapFromGlobal(QCursor::pos());
         m_valueLabel->move(curPos.x() - m_valueLabel->width() / 2, curPos.y() - m_valueLabel->height() * 1.5);  //移动数值
         m_valueLabel->show();                                                                                   //显示出来
+
+        //显示被选中点的边框
+        if (hoverScatter)
+        {
+            hoverScatter->clear();
+            hoverScatter->append(point);
+            hoverScatter->setVisible(true);
+            foreach (QLegendMarker *marker, m_chartView->chart()->legend()->markers(hoverScatter))
+            {
+                marker->setVisible(false);
+            }
+        }
     }
     else
     {
         m_valueLabel->hide();
+        if (hoverScatter)
+            hoverScatter->setVisible(false);
     }
 }
 
