@@ -120,7 +120,7 @@ private:
     int m_templateId;
     int m_netWorkCount;
     ContainerSettingType m_type;
-    double m_totalCPU;
+    QMap<int, double> m_nodeTotalCPU;  //node total cpu
     QList<NetworkConfTab *> m_netWorkPages;
     QMultiMap<int, QString> m_networksMap;
     QMultiMap<int, QPair<int, QString>> m_templateMap;
