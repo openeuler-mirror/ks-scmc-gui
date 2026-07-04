@@ -28,10 +28,16 @@ SecurityListTab::~SecurityListTab()
 
 void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg)
 {
+    if (!securityCfg)
+        return;
+
     switch (m_type)
     {
     case PROTECT_FILE_LIST:
     {
+        if (!securityCfg->has_file_protection())
+            return;
+
         auto fileProtect = securityCfg->file_protection();
         if (fileProtect.is_on())
             m_btnOpen->setChecked(true);
@@ -53,6 +59,9 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     }
     case EXEC_WHITELIST:
     {
+        if (!securityCfg->has_proc_protection())
+            return;
+
         auto processProtect = securityCfg->proc_protection();
         if (processProtect.is_on())
             m_btnOpen->setChecked(true);
@@ -74,6 +83,9 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
     }
     case NET_EXEC_WHITELIST:
     {
+        if (!securityCfg->has_nproc_protection())
+            return;
+
         auto processProtect = securityCfg->nproc_protection();
         if (processProtect.is_on())
             m_btnOpen->setChecked(true);
