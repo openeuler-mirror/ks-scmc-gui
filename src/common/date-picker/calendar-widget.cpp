@@ -68,13 +68,11 @@ void CalendarWidget::setSelectableEnd(QDate end)
 QDate CalendarWidget::getSelectableStart()
 {
     return m_selectableStart;
-    //updateCells();
 }
 
 QDate CalendarWidget::getSelectableEnd()
 {
     return m_selectableEnd;
-//    updateCells();
 }
 
 void CalendarWidget::hideNextButton()
@@ -172,6 +170,7 @@ void CalendarWidget::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    QWidget::paintEvent(event);
 }
 
 void CalendarWidget::initTopWidget()

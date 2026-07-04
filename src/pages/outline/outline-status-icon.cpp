@@ -17,12 +17,15 @@ OutlineStatusIcon::~OutlineStatusIcon()
 {
 }
 
-void OutlineStatusIcon::paintEvent(QPaintEvent *)
+void OutlineStatusIcon::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    painter.save();
     QColor color(m_color);
     painter.setPen(QPen(color));
     painter.setRenderHint(QPainter::Antialiasing);  //平滑直线
     painter.setBrush(QBrush(color));                //设置画刷形式
     painter.drawEllipse(m_x, m_y, 8, 8);
+    painter.restore();
+    QWidget::paintEvent(event);
 }

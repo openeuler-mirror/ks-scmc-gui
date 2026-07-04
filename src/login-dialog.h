@@ -40,7 +40,6 @@ protected:
 private:
     void initUI();
     void initActivation();
-    void loadConfig();
     bool inspectLoginParam();
 
 private slots:
@@ -51,7 +50,7 @@ private slots:
     void getLogoutResult(const QString objID, const QPair<grpc::Status, user::LogoutReply> &);
     void sessionExpire();
     void showActivatePage();
-    void actionAboutClicked();
+    void showAboutPage();
     void updateActivation();
 
 private:

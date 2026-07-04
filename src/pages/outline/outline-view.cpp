@@ -129,6 +129,7 @@ void OutlineView::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    Page::paintEvent(event);
 }
 
 void OutlineView::showEvent(QShowEvent *event)
