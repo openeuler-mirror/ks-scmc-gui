@@ -26,6 +26,7 @@ public:
     void setTipLinePosition(TipLinePosition position);
     void setSelected(bool isSelected);
     void setDeleteBtn();
+    void setName(QString name);
     void removeDeleteBtn();
     void setDeleteBtnVisible(bool visible);
     int getItemType();

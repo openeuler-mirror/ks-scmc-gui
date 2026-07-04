@@ -13,14 +13,15 @@
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
 #include "page.h"
+#include "pages/audit/audit-list/audit-list-page.h"
 #include "pages/container/container-list-page.h"
+#include "pages/container/template/template-list-page.h"
 #include "pages/image/image-list-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-list-page.h"
 #include "pages/node/node-page-manager.h"
 #include "pages/user/passwd-update-dialog.h"
 #include "table-page.h"
-#include "pages/audit/audit-list/audit-list-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
 #define CONTAINER_MANAGER QObject::tr("Container Manager")
@@ -206,6 +207,7 @@ void MainWindow::initUI()
     const QMap<GUIDE_ITEM, QString> pageMap = {
         {GUIDE_ITEM_AUDIT_APPLY_LIST, AUDIT_APPLY_LIST},
         {GUIDE_ITEM_CONTAINER_LIST, CONTAINER_LIST},
+        {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
         {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
         {GUIDE_ITEM_IMAGE_LIST, IMAGE_MANAGER}};
     for (auto iter = pageMap.begin(); iter != pageMap.end(); iter++)
@@ -270,16 +272,17 @@ void MainWindow::initUI()
 void MainWindow::outlinePageChange(QString str)
 {
     setPageName(str);
-    QListWidgetItem *currItem = new QListWidgetItem;
+    QListWidgetItem* currItem = new QListWidgetItem;
 
-    for (int i = 0;i < ui->listWidget->count() ; i++) {
+    for (int i = 0; i < ui->listWidget->count(); i++)
+    {
         currItem = ui->listWidget->item(i);
-        if(currItem->data(Qt::UserRole).toString() == str)
+        if (currItem->data(Qt::UserRole).toString() == str)
         {
             GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
             m_stackedWidget->setCurrentWidget(m_pageMap.value(str));
             guideItem->setSelected(true);
-            ui->listWidget->setItemSelected(currItem,true);
+            ui->listWidget->setItemSelected(currItem, true);
             m_pageMap[str]->updateInfo();
             break;
         }
@@ -343,6 +346,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_CONTAINER_TEMPLATE_LIST:
     {
+        page = new TemplateListPage(this);
         break;
     }
     case GUIDE_ITEM_NODE_MANAGER:

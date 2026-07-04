@@ -73,6 +73,11 @@ void GuideItem::setDeleteBtn()
     connect(m_delBtn, &QToolButton::clicked, this, &GuideItem::onDelete);
 }
 
+void GuideItem::setName(QString name)
+{
+    ui->label_text->setText(name);
+}
+
 void GuideItem::removeDeleteBtn()
 {
     if (m_delBtn)
