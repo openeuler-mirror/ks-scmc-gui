@@ -28,6 +28,7 @@ protected:
 
 private:
     void initUI();
+    void adjustSize();
 
 public slots:
     void setTransfersNum(int num);

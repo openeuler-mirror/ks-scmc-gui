@@ -17,7 +17,7 @@
 #define LIST_ITEM_SPACE 2
 #define LIST_ITEM_VISIBLE_NUM 5
 #define LIST_HEIGHT LIST_ITEM_VISIBLE_NUM *(LIST_ITEM_HEIGHT + LIST_ITEM_SPACE)
-#define LIST_WIDTH 380
+#define LIST_WIDTH 375
 
 TransmissionList::TransmissionList(QWidget *parent) : QWidget(parent), m_listWidget(nullptr), m_stackedWidget(nullptr), m_transfersNum(0)
 {
@@ -63,6 +63,7 @@ void TransmissionList::addItem(QString name, QString version, ImageTransmissionS
     auto num = ++m_transfersNum;
     setTransfersNum(num);
     m_transfersItems.append(customItem);
+    adjustSize();
 
     connect(customItem, &TransmissionItem::sigClose, this, &TransmissionList::deleteItem);
 }
@@ -107,8 +108,11 @@ void TransmissionList::removeItem(QString name, QString version)
 void TransmissionList::initUI()
 {
     setWindowFlags(Qt::Widget | Qt::Popup | Qt::FramelessWindowHint);
-    setFixedWidth(LIST_WIDTH);
-    setFixedHeight(LIST_HEIGHT);
+    setAutoFillBackground(false);
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowOpacity(1);
+    setFixedWidth(LIST_ITEM_WIDTH);
+    setFixedHeight(LIST_ITEM_HEIGHT);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -137,6 +141,26 @@ void TransmissionList::initUI()
 
     m_stackedWidget->addWidget(defaultWidget);
     m_stackedWidget->addWidget(m_listWidget);
+}
+
+void TransmissionList::adjustSize()
+{
+    //设置高度
+    auto height = 0;
+    if (0 == m_listWidget->count())
+    {
+        height = LIST_ITEM_HEIGHT;
+    }
+    else if (m_listWidget->count() > 0 && m_listWidget->count() <= LIST_ITEM_VISIBLE_NUM)
+    {
+        height = (LIST_ITEM_HEIGHT + LIST_ITEM_SPACE) * m_listWidget->count();
+    }
+    else
+    {
+        height = (LIST_ITEM_HEIGHT + LIST_ITEM_SPACE) * LIST_ITEM_VISIBLE_NUM;
+    }
+    m_listWidget->setFixedHeight(height);
+    setFixedHeight(height);
 }
 
 int TransmissionList::getTransfersNum()
@@ -168,7 +192,7 @@ void TransmissionList::deleteItem()
             m_transfersItems.removeAt(row);
             auto num = --m_transfersNum;
             setTransfersNum(num);
-
+            adjustSize();
             emit transferItemDeleted(transmissionItem->name(), transmissionItem->version(), transmissionItem->status());
 
             delete delItem;

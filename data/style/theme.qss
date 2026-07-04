@@ -758,7 +758,6 @@ TransmissionList
 TransmissionList #transmissionListWidget
 {
     background:transparent;
-/*     show-decoration-selected: 1;*/
     border:none;
     outline:none;
 }
@@ -766,18 +765,7 @@ TransmissionList #transmissionListWidget::item
 {
     background:transparent;
     border:none;
-/*    margin-top:2px;*/
-
 }
-/*#transmissionListWidget::Item:selected
-{
-    background-color:transparent;
-}
-#transmissionListWidget::Item:hover
-{
-    background-color:transparent;
-}*/
-
 /****************************TransmissionItem********************/
 TransmissionItem
 {
