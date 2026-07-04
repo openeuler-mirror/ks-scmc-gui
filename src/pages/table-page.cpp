@@ -529,7 +529,7 @@ void TablePage::paintEvent(QPaintEvent *event)
 void TablePage::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event)
-    if (this->cursor() != Qt::ArrowCursor)
+    if (this->cursor().shape() != Qt::ArrowCursor)
         this->setCursor(Qt::ArrowCursor);
 }
 

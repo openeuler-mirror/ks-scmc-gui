@@ -648,7 +648,7 @@ void ContainerListPage::onItemClicked(const QModelIndex &index)
 
 void ContainerListPage::onItemEntered(const QModelIndex &index)
 {
-    if (index.column() != 1 && this->cursor() != Qt::ArrowCursor)
+    if (index.column() != 1 && this->cursor().shape() != Qt::ArrowCursor)
     {
         this->setCursor(Qt::ArrowCursor);
     }
