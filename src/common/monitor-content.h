@@ -59,11 +59,12 @@ private slots:
     void popupStartDatePicker();
     void popupEndDatePicker();
     void applyDatePicker();
-    void getMonitorHistoryResult(const QPair<grpc::Status, container::MonitorHistoryReply> &reply);
+    void getMonitorHistoryResult(const QString objID, const QPair<grpc::Status, container::MonitorHistoryReply> &reply);
     bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     Ui::MonitorContent *ui;
+    QString m_objId;
     FlowLayout *m_flowLayout;
     int m_nodeId;
     std::string m_containerId;

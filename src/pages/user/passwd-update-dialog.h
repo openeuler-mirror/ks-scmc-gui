@@ -31,7 +31,7 @@ private:
 private slots:
     bool checkPassword(PasswordType type, QString inputPw);
     void onConfirm();
-    void getUpdatePasswordResult(const QPair<grpc::Status, user::UpdatePasswordReply> reply);
+    void getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply);
 
 signals:
     void sigUpdatePasswdSuccessful();
@@ -41,6 +41,7 @@ private:
 
 private:
     Ui::PasswdUpdateDialog *ui;
+    QString m_objId;
     QString m_userName;
     QTimer *m_oldTimer;
     QTimer *m_newTimer;

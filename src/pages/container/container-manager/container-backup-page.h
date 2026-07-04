@@ -23,11 +23,11 @@ private slots:
     void onResumeBackup(int row);
     void onUpdateBackup(int row);
 
-    void getListBackupFinished(const QPair<grpc::Status, container::ListBackupReply> &);
-    void getUpdateBackupFinished(const QPair<grpc::Status, container::UpdateBackupReply> &);
-    void getCreateBackupFinished(const QPair<grpc::Status, container::CreateBackupReply> &);
-    void getResumeBackupFinished(const QPair<grpc::Status, container::ResumeBackupReply> &);
-    void getRemoveBackupFinished(const QPair<grpc::Status, container::RemoveBackupReply> &);
+    void getListBackupFinished(const QString objId, const QPair<grpc::Status, container::ListBackupReply> &);
+    void getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &);
+    void getCreateBackupFinished(const QString objId, const QPair<grpc::Status, container::CreateBackupReply> &);
+    void getResumeBackupFinished(const QString objId, const QPair<grpc::Status, container::ResumeBackupReply> &);
+    void getRemoveBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
 
 private:
     void initTable();
@@ -35,6 +35,7 @@ private:
     void initConnect();
 
 private:
+    QString m_objId;
     ContainerBackupOperateDialog *m_backupAddDlg;
     ContainerBackupOperateDialog *m_backupEditDlg;
     int m_nodeId;

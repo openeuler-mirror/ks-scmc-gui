@@ -19,7 +19,7 @@ class LogListView : public TablePage
 {
     Q_OBJECT
 public:
-    explicit LogListView(QWidget *parent = nullptr,bool is_open_paging = false);
+    explicit LogListView(QWidget *parent = nullptr);
     ~LogListView();
     void updateInfo(QString keyword = "");  //刷新表格
     void setLogListPageType(LogListPageType);
@@ -28,17 +28,17 @@ private:
     void initTable();
     void initButtons();
     void initLogListConnect();
-    void getLogList(LogListPageType type = CONTAINER_LOGS,int page_on = 1);
+    void getLogList(LogListPageType);
 
 private slots:
     void onDateSelection();
-    void getListRuntime(const QPair<grpc::Status, logging::ListRuntimeReply> &);
+    void getListRuntime(const QString objId, const QPair<grpc::Status, logging::ListRuntimeReply> &);
     void popupStartDatePicker();
     void popupEndDatePicker();
     void applyDatePicker();
-    void updatePagingInfo(int page_on);
 
 private:
+    QString m_objId;
     DatePicker *m_datePicker;
     DatePickButton *m_datePickStart;
     DatePickButton *m_datePickEnd;
@@ -46,12 +46,6 @@ private:
     QDateTime m_xStart;
     QDateTime m_xEnd;
     LogListPageType m_type;
-    bool is_openPaging;
-    int m_totalPages;
-    int m_pageOn = 1;//当前页
-
-signals:
-    void sigOpenPaging(int);
 };
 
 #endif  // LOGLISTVIEW_H

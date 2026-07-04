@@ -162,32 +162,6 @@ TablePage
 }
 
 /*************************ContainerList**********************/
-QPushButton#btnCreate
-{
-    background-color:#2EB3FF;
-    border:none ;
-    border-radius: 4px;
-    font-size:14px;
-    color:#ffffff;
-}
-QPushButton#btnCreate:hover
-{
-    background-color:#77ceff;
-}
-QPushButton#btnCreate:focus
-{
-    outline: none;
-}
-
-QPushButton#btnCreate::menu-indicator
-{
-    image: url(:/images/down-arrow.svg);
-    subcontrol-position: right center;
-    subcontrol-origin: padding;
-/*    width:16px;
-    height:16px*/
-    left: -5px;
-}
 QMenu#btnCreateMenu::item:disabled
 {
     color:#919191;
@@ -578,7 +552,8 @@ MessageDialog #label_body
 }
 /***************************NodeListPage**********************/
 NodeListPage #btnCreate,
-TemplateListPage #btnCreate
+TemplateListPage #btnCreate,
+ContainerBackupPage #btnCreate
 {
     background-color:#2EB3FF;
     border:none;
@@ -588,17 +563,20 @@ TemplateListPage #btnCreate
 }
 
 NodeListPage #btnCreate:hover,
-TemplateListPage #btnCreate:hover
+TemplateListPage #btnCreate:hover,
+ContainerBackupPage #btnCreate:hover
 {
    background-color:#77ceff;
 }
 NodeListPage #btnCreate:focus,
-TemplateListPage #btnCreate:focus
+TemplateListPage #btnCreate:focus,
+ContainerBackupPage #btnCreate:focus
 {
     outline: none;
 }
 NodeListPage #btnCreate:disabled,
-TemplateListPage #btnCreate:disabled
+TemplateListPage #btnCreate:disabled,
+ContainerBackupPage #btnCreate:disabled
 {
     color:#919191;
     background:#393939;

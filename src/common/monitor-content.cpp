@@ -31,6 +31,9 @@ MonitorContent::MonitorContent(QWidget *parent, int nodeId, std::string containe
     ui->setupUi(this);
     initUI();
     initChart();
+
+    m_objId = InfoWorker::getInstance().generateId(this);
+
     connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult, Qt::UniqueConnection);
 }
 
@@ -50,7 +53,7 @@ void MonitorContent::updateMonitorInfo(qint64 nodeId, std::string containerId)
     {
         m_nodeId = nodeId;
         m_containerId = containerId;
-        InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
+        InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);  //10 minute
     }
 }
 
@@ -131,7 +134,7 @@ void MonitorContent::initChart()
     int startTimestamp = startDate.toTime_t();
 
     if (m_nodeId > 0)
-        InfoWorker::getInstance().monitorHistory(m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
+        InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, startTimestamp, currTimeStamp, m_xInterval, m_containerId);  //10 minute
 }
 
 void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QString> seriesinfo, QString yTitle)
@@ -253,7 +256,7 @@ void MonitorContent::onCycleChanged(int index)
         default:
             break;
         }
-        InfoWorker::getInstance().monitorHistory(m_nodeId, startDate.toSecsSinceEpoch(), currDate.toSecsSinceEpoch(), m_xInterval, m_containerId);
+        InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, startDate.toSecsSinceEpoch(), currDate.toSecsSinceEpoch(), m_xInterval, m_containerId);
     }
 }
 
@@ -280,159 +283,162 @@ void MonitorContent::applyDatePicker()
     m_xEnd = m_datePicker->getEndDate();
     m_xInterval = 1 * 60;
     m_xTitle = tr("Time particle density(%1 hour)").arg(m_xInterval / 60);
-    InfoWorker::getInstance().monitorHistory(m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
+    InfoWorker::getInstance().monitorHistory(m_objId, m_nodeId, m_xStart.toSecsSinceEpoch(), m_xEnd.toSecsSinceEpoch(), m_xInterval, m_containerId);
 }
 
-void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container::MonitorHistoryReply> &reply)
+void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<grpc::Status, container::MonitorHistoryReply> &reply)
 {
-    KLOG_INFO() << "getMonitorHistoryResult";
-    if (reply.first.ok())
+    KLOG_INFO() << "getMonitorHistoryResult" << m_objId << objID;
+    if (m_objId == objID)
     {
-        auto cpuLimit = reply.second.rsc_limit().cpu_limit();
-        auto memoryLimit = reply.second.rsc_limit().memory_limit();
-        ChartInfo chartInfo;
-        chartInfo.xFormat = m_xFormat;
-        chartInfo.xTitle = m_xTitle;
-        chartInfo.xStart = m_xStart;
-        chartInfo.xEnd = m_xEnd;
-
-        QList<QPointF> pointList;
-        if (reply.second.cpu_usage_size() > 0)
+        if (reply.first.ok())
         {
-            ChartInfo cpuChartInfo = chartInfo;
-            pointList.clear();
+            auto cpuLimit = reply.second.rsc_limit().cpu_limit();
+            auto memoryLimit = reply.second.rsc_limit().memory_limit();
+            ChartInfo chartInfo;
+            chartInfo.xFormat = m_xFormat;
+            chartInfo.xTitle = m_xTitle;
+            chartInfo.xStart = m_xStart;
+            chartInfo.xEnd = m_xEnd;
 
-            for (auto i : reply.second.cpu_usage())
+            QList<QPointF> pointList;
+            if (reply.second.cpu_usage_size() > 0)
             {
-                //KLOG_INFO() << i.timestamp() << i.value();
-                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-                auto value = i.value() * 100;
-                QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-                pointList.append(point);
-            }
-            cpuChartInfo.yStart = 0;
-            cpuChartInfo.yEnd = 100 * cpuLimit;
-            cpuChartInfo.yFormat = "%d%%";
-            cpuChartInfo.yTitle = tr("CPU usage (%)");
-            m_cpuChartForm->updateChart(cpuChartInfo);
-            m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
-        }
+                ChartInfo cpuChartInfo = chartInfo;
+                pointList.clear();
 
-        if (reply.second.memory_usage_size() > 0)
+                for (auto i : reply.second.cpu_usage())
+                {
+                    //KLOG_INFO() << i.timestamp() << i.value();
+                    QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                    auto value = i.value() * 100;
+                    QPointF point(stempToPos.toMSecsSinceEpoch(), value);
+                    pointList.append(point);
+                }
+                cpuChartInfo.yStart = 0;
+                cpuChartInfo.yEnd = 100 * cpuLimit;
+                cpuChartInfo.yFormat = "%d%%";
+                cpuChartInfo.yTitle = tr("CPU usage (%)");
+                m_cpuChartForm->updateChart(cpuChartInfo);
+                m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
+            }
+
+            if (reply.second.memory_usage_size() > 0)
+            {
+                pointList.clear();
+                ChartInfo memoryChartInfo = chartInfo;
+
+                for (auto i : reply.second.memory_usage())
+                {
+                    //KLOG_INFO() << i.timestamp() << i.value();
+                    QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                    auto value = i.value() / memoryLimit * 100;
+                    QPointF point(stempToPos.toMSecsSinceEpoch(), value);
+                    pointList.append(point);
+                }
+                memoryChartInfo.yStart = 0;
+                memoryChartInfo.yEnd = 100;
+                memoryChartInfo.yFormat = "%d%%";
+                memoryChartInfo.yTitle = tr("Memory usage (%)");
+                m_memoryChartForm->updateChart(memoryChartInfo);
+                m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
+            }
+
+            if (reply.second.disk_usage_size() > 0)
+            {
+                pointList.clear();
+                ChartInfo diskChartInfo = chartInfo;
+                KLOG_INFO() << reply.second.disk_usage_size();
+                KLOG_INFO() << reply.second.disk_usage(0).value();
+
+                auto start = reply.second.disk_usage(0).value();
+                auto end = start;
+                for (auto i : reply.second.disk_usage())
+                {
+                    start = i.value() < start ? i.value() : start;
+                    end = i.value() > end ? i.value() : end;
+                }
+                QString unit;
+                handleYValue(start, end, unit);
+                KLOG_INFO() << "******disk" << start << end << unit;
+                diskChartInfo.yStart = start;
+                diskChartInfo.yEnd = end;
+                diskChartInfo.yFormat = "%d";
+                diskChartInfo.yTitle = tr("Disk usage(unit %1)").arg(unit);
+                for (auto i : reply.second.disk_usage())
+                {
+                    QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                    auto value = i.value();
+                    if (unit == "KB")
+                        value = value * K_BITE;
+                    else if (unit == "G")
+                        value = value / K_BITE;
+                    QPointF point(stempToPos.toMSecsSinceEpoch(), value);
+                    pointList.append(point);
+                }
+                m_diskChartForm->updateChart(diskChartInfo);
+                m_diskChartForm->setData(pointList, CHART_SERIES_NAME_DISK);
+            }
+
+            if (reply.second.net_rx_size() > 0 || reply.second.net_tx_size() > 0)
+            {
+                QList<QPointF> rxPointList;
+                QList<QPointF> txPointList;
+                ChartInfo netChartInfo = chartInfo;
+                KLOG_INFO() << reply.second.net_rx_size();
+                KLOG_INFO() << reply.second.net_rx(0).value();
+                auto start = reply.second.net_rx(0).value();
+                auto end = start;
+
+                for (auto i : reply.second.net_rx())
+                {
+                    start = i.value() < start ? i.value() : start;
+                    end = i.value() > end ? i.value() : end;
+                }
+                for (auto i : reply.second.net_tx())
+                {
+                    start = i.value() < start ? i.value() : start;
+                    end = i.value() > end ? i.value() : end;
+                }
+                QString unit;
+                handleYValue(start, end, unit);
+                KLOG_INFO() << "******net" << start << end << unit;
+                netChartInfo.yStart = start;
+                netChartInfo.yEnd = end;
+                netChartInfo.yFormat = "%d";
+                netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
+                for (auto i : reply.second.net_rx())
+                {
+                    QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                    auto value = i.value();
+                    if (unit == "KB")
+                        value = value * K_BITE;
+                    else if (unit == "G")
+                        value = value / K_BITE;
+                    QPointF point(stempToPos.toMSecsSinceEpoch(), value);
+                    rxPointList.append(point);
+                }
+                for (auto i : reply.second.net_tx())
+                {
+                    QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
+                    auto value = i.value();
+                    if (unit == "KB")
+                        value = value * K_BITE;
+                    else if (unit == "G")
+                        value = value / K_BITE;
+                    QPointF point(stempToPos.toMSecsSinceEpoch(), value);
+                    txPointList.append(point);
+                }
+
+                m_netChartForm->updateChart(netChartInfo);
+                m_netChartForm->setData(rxPointList, CHART_SERIES_NAME_NETWORK_RX);
+                m_netChartForm->setData(txPointList, CHART_SERIES_NAME_NETWORK_TX);
+            }
+        }
+        else
         {
-            pointList.clear();
-            ChartInfo memoryChartInfo = chartInfo;
-
-            for (auto i : reply.second.memory_usage())
-            {
-                //KLOG_INFO() << i.timestamp() << i.value();
-                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-                auto value = i.value() / memoryLimit * 100;
-                QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-                pointList.append(point);
-            }
-            memoryChartInfo.yStart = 0;
-            memoryChartInfo.yEnd = 100;
-            memoryChartInfo.yFormat = "%d%%";
-            memoryChartInfo.yTitle = tr("Memory usage (%)");
-            m_memoryChartForm->updateChart(memoryChartInfo);
-            m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
+            KLOG_INFO() << reply.first.error_message().data();
         }
-
-        if (reply.second.disk_usage_size() > 0)
-        {
-            pointList.clear();
-            ChartInfo diskChartInfo = chartInfo;
-            KLOG_INFO() << reply.second.disk_usage_size();
-            KLOG_INFO() << reply.second.disk_usage(0).value();
-
-            auto start = reply.second.disk_usage(0).value();
-            auto end = start;
-            for (auto i : reply.second.disk_usage())
-            {
-                start = i.value() < start ? i.value() : start;
-                end = i.value() > end ? i.value() : end;
-            }
-            QString unit;
-            handleYValue(start, end, unit);
-            KLOG_INFO() << "******disk" << start << end << unit;
-            diskChartInfo.yStart = start;
-            diskChartInfo.yEnd = end;
-            diskChartInfo.yFormat = "%d";
-            diskChartInfo.yTitle = tr("Disk usage(unit %1)").arg(unit);
-            for (auto i : reply.second.disk_usage())
-            {
-                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-                auto value = i.value();
-                if (unit == "KB")
-                    value = value * K_BITE;
-                else if (unit == "G")
-                    value = value / K_BITE;
-                QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-                pointList.append(point);
-            }
-            m_diskChartForm->updateChart(diskChartInfo);
-            m_diskChartForm->setData(pointList, CHART_SERIES_NAME_DISK);
-        }
-
-        if (reply.second.net_rx_size() > 0 || reply.second.net_tx_size() > 0)
-        {
-            QList<QPointF> rxPointList;
-            QList<QPointF> txPointList;
-            ChartInfo netChartInfo = chartInfo;
-            KLOG_INFO() << reply.second.net_rx_size();
-            KLOG_INFO() << reply.second.net_rx(0).value();
-            auto start = reply.second.net_rx(0).value();
-            auto end = start;
-
-            for (auto i : reply.second.net_rx())
-            {
-                start = i.value() < start ? i.value() : start;
-                end = i.value() > end ? i.value() : end;
-            }
-            for (auto i : reply.second.net_tx())
-            {
-                start = i.value() < start ? i.value() : start;
-                end = i.value() > end ? i.value() : end;
-            }
-            QString unit;
-            handleYValue(start, end, unit);
-            KLOG_INFO() << "******net" << start << end << unit;
-            netChartInfo.yStart = start;
-            netChartInfo.yEnd = end;
-            netChartInfo.yFormat = "%d";
-            netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
-            for (auto i : reply.second.net_rx())
-            {
-                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-                auto value = i.value();
-                if (unit == "KB")
-                    value = value * K_BITE;
-                else if (unit == "G")
-                    value = value / K_BITE;
-                QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-                rxPointList.append(point);
-            }
-            for (auto i : reply.second.net_tx())
-            {
-                QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-                auto value = i.value();
-                if (unit == "KB")
-                    value = value * K_BITE;
-                else if (unit == "G")
-                    value = value / K_BITE;
-                QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-                txPointList.append(point);
-            }
-
-            m_netChartForm->updateChart(netChartInfo);
-            m_netChartForm->setData(rxPointList, CHART_SERIES_NAME_NETWORK_RX);
-            m_netChartForm->setData(txPointList, CHART_SERIES_NAME_NETWORK_TX);
-        }
-    }
-    else
-    {
-        KLOG_INFO() << reply.first.error_message().data();
     }
 }
 
