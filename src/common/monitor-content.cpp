@@ -57,6 +57,7 @@ QSize MonitorContent::sizeHint() const
 
 void MonitorContent::initUI()
 {
+    setWindowModality(Qt::WindowModal);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_apply, Kiran::BUTTON_Default);
     ui->widget_forms->installEventFilter(this);
     ui->widget_date_selete->hide();
@@ -138,6 +139,8 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QStringList seriesNa
     chartInfo.yStart = 0;
     chartInfo.yEnd = 100;
     chartInfo.yTitle = yTitle;
+    KLOG_INFO() << "BuildCharts: " << chartInfo.seriesNames;
+
     chartForm->initChart(chartInfo);
 }
 
@@ -296,6 +299,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             cpuChartInfo.yStart = 0;
             cpuChartInfo.yEnd = 100 * cpuLimit;
             cpuChartInfo.yFormat = "%d%%";
+            cpuChartInfo.yTitle = tr("CPU usage (%)");
             m_cpuChartForm->updateChart(cpuChartInfo);
             m_cpuChartForm->setData(pointList, CHART_SERIES_NAME_CPU);
         }
@@ -316,6 +320,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             memoryChartInfo.yStart = 0;
             memoryChartInfo.yEnd = 100;
             memoryChartInfo.yFormat = "%d%%";
+            memoryChartInfo.yTitle = tr("CPU usage (%)");
             m_memoryChartForm->updateChart(memoryChartInfo);
             m_memoryChartForm->setData(pointList, CHART_SERIES_NAME_MEMORY);
         }
@@ -339,6 +344,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             KLOG_INFO() << "******disk" << start << end << unit;
             diskChartInfo.yStart = start;
             diskChartInfo.yEnd = end;
+            diskChartInfo.yFormat = "%d";
             diskChartInfo.yTitle = tr("Disk IO(unit %1)").arg(unit);
             for (auto i : reply.second.disk_usage())
             {
@@ -380,6 +386,7 @@ void MonitorContent::getMonitorHistoryResult(const QPair<grpc::Status, container
             KLOG_INFO() << "******net" << start << end << unit;
             netChartInfo.yStart = start;
             netChartInfo.yEnd = end;
+            netChartInfo.yFormat = "%d";
             netChartInfo.yTitle = tr("Network usage (unit %1)").arg(unit);
             for (auto i : reply.second.net_rx())
             {
@@ -425,5 +432,7 @@ bool MonitorContent::eventFilter(QObject *watched, QEvent *event)
         int w = e->size().width();
         if (height <= this->height())
             ui->widget_forms->resize(w, height);
+        return true;
     }
+    return false;
 }
