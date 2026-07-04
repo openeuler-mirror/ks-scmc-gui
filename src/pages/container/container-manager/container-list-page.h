@@ -41,6 +41,7 @@ private slots:
     void onActBackup();
     void onActGenerateTemp(QModelIndex index);
 
+    void onApp(int row);
     void onMonitor(int row);
     void onEdit(int row);
     void onTerminal(int row);

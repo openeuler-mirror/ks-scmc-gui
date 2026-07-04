@@ -124,6 +124,7 @@ TablePage QTableView::item
 {
     padding-left:10px;
     border-bottom : 1px solid #393939;
+    border-right : 1px solid #393939;
 /*     border-left : 1px solid #393939;*/
     height:60px;
 }
@@ -821,7 +822,8 @@ MonitorContent #btn_apply:focus
 
 
 MonitorContent QComboBox,
-NetworkPageManager QComboBox
+NetworkPageManager QComboBox,
+ContainerAppOperateDialog QComboBox
 {
     border: 1px solid #393939;
     border-radius: 6px;
@@ -830,19 +832,22 @@ NetworkPageManager QComboBox
     font-size:14px;
 }
 MonitorContent QComboBox:drop-down,
-NetworkPageManager QComboBox:drop-down
+NetworkPageManager QComboBox:drop-down,
+ContainerAppOperateDialog QComboBox:drop-down
 {
     border:none;
     padding-right:10px;
 }
 MonitorContent QComboBox::down-arrow,
-NetworkPageManager QComboBox::down-arrow
+NetworkPageManager QComboBox::down-arrow,
+ContainerAppOperateDialog QComboBox::down-arrow
 {
     image: url(:/images/down-arrow.svg);
 }
 
 MonitorContent QComboBox QAbstractItemView,
-NetworkPageManager QComboBox QAbstractItemView
+NetworkPageManager QComboBox QAbstractItemView,
+ContainerAppOperateDialog QComboBox QAbstractItemView
 {
     background:#222222;
     color:#ffffff;
@@ -852,20 +857,23 @@ NetworkPageManager QComboBox QAbstractItemView
     font-size:14px;
 }
 MonitorContent QComboBox QAbstractItemView::item,
-NetworkPageManager QComboBox QAbstractItemView::item
+NetworkPageManager QComboBox QAbstractItemView::item,
+ContainerAppOperateDialog QComboBox QAbstractItemView::item
 {
     height:30px;
     border-bottom:1px solid #393939;
 
 }
 MonitorContent QComboBox QAbstractItemView::item:first,
-NetworkPageManager QComboBox QAbstractItemView::item:first
+NetworkPageManager QComboBox QAbstractItemView::item:first,
+ContainerAppOperateDialog QComboBox QAbstractItemView::item:first
 {
     border-top-left-radius:6px;
     border-top-right-radius: 6px;
 }
 MonitorContent QComboBox QAbstractItemView::item:last,
-NetworkPageManager QComboBox QAbstractItemView::item:last
+NetworkPageManager QComboBox QAbstractItemView::item:last,
+ContainerAppOperateDialog QComboBox QAbstractItemView::item:last
 {
     border-bottom-left-radius:6px;
     border-bottom-right-radius: 6px;
@@ -873,7 +881,8 @@ NetworkPageManager QComboBox QAbstractItemView::item:last
 }
 
 MonitorContent QComboBox QAbstractItemView::item:selected,
-NetworkPageManager QComboBox QAbstractItemView::item:selected
+NetworkPageManager QComboBox QAbstractItemView::item:selected,
+ContainerAppOperateDialog QComboBox QAbstractItemView::item:selected
 {
     background-color:#2D2D2D;
     color:#ffffff;
