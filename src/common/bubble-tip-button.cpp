@@ -22,6 +22,11 @@ void BubbleTipButton::setTipMsg(int num)
     m_bubbleWidth = fm.width(QString::number(num)) + 10;
 }
 
+int BubbleTipButton::getTipMsgNum()
+{
+    return m_tipMsg;
+}
+
 void BubbleTipButton::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
