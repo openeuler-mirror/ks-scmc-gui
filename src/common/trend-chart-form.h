@@ -36,7 +36,7 @@ public:
     explicit TrendChartForm(QWidget *parent = nullptr);
     ~TrendChartForm();
     void initChart(ChartInfo chartInfo);
-    void clearChart();
+    void clearChart(QString seriesNames = "");
     void updateChart(ChartInfo chartInfo, QList<QPointF> datas, QString seriesNames);
     void setLegendVisible(bool visible);
     virtual QSize sizeHint() const override;
