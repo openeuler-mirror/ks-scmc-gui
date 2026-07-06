@@ -33,7 +33,7 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
     cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
 }
 
-//更新容器、模板使用
+// 更新容器、模板使用
 void NetworkConfTab::getNetworkInfo(container::UpdateRequest *req)
 {
     auto cfg = req->add_networks();
