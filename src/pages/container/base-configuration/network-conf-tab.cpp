@@ -107,4 +107,5 @@ void NetworkConfTab::initUI()
                                    "}");
     QRegExp rx("^[0-9.]+$");
     ui->lineEdit_ip->setValidator(new QRegExpValidator(rx, this));
+    ui->lineEdit_ip->setMaxLength(20);
 }
