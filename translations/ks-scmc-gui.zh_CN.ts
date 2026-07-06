@@ -1174,20 +1174,20 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="283"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1015"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1019"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="288"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1033"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1170"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1037"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1174"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="623"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="715"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="719"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
