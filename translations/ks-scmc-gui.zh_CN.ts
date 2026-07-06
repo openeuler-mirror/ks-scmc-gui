@@ -270,6 +270,7 @@
     <name>ConfigOperateWidget</name>
     <message>
         <location filename="../src/common/config-operate-widget.ui" line="20"/>
+        <location filename="../build/src/ui_config-operate-widget.h" line="156"/>
         <source>Form</source>
         <translation></translation>
     </message>
