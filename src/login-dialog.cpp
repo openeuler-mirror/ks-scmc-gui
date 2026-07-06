@@ -129,7 +129,7 @@ void LoginDialog::initUI()
     ui->lab_tips->setAlignment(Qt::AlignHCenter);
     ui->lab_tips->hide();
 
-    //创建标题栏中菜单按钮
+    // 创建标题栏中菜单按钮
     setTitlebarCustomLayoutAlignHCenter(false);
     QHBoxLayout *titleBarLayout = getTitlebarCustomLayout();
     titleBarLayout->setSpacing(10);
