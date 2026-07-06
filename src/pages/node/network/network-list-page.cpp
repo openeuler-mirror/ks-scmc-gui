@@ -413,9 +413,10 @@ void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name
     if (window)
     {
         connect(window, &KiranTitlebarWindow::destroyed,
-                [=] {
+                [=]
+                {
                     window->deleteLater();
-                    //window = nullptr;
+                    // window = nullptr;
                 });
     }
 
