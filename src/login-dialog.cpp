@@ -146,7 +146,7 @@ void LoginDialog::initUI()
     line->setFrameShape(QFrame::VLine);
     line->setFrameShadow(QFrame::Sunken);
 
-    //未激活文本
+    // 未激活文本
     m_activate_label = new QLabel(tr("Unactivated"), this);
     m_activate_label->setAlignment(Qt::AlignCenter);
     m_activate_label->setFixedHeight(18);
