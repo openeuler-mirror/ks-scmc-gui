@@ -1722,41 +1722,50 @@ The first characters must be letter or digit</source>
     <name>ImageOperateDialog</name>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="14"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="240"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="275"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="250"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Name</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;名字</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="301"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="252"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;Version</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;版本</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="155"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="245"/>
         <source>Signature file </source>
         <translation>签名文件</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="243"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="248"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="229"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="247"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="86"/>
         <source>Image Select</source>
         <translation>镜像选择</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="356"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="253"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.ui" line="363"/>
+        <location filename="../build/src/ui_image-operate-dialog.h" line="254"/>
         <source>cancel</source>
         <translation>取消</translation>
     </message>
