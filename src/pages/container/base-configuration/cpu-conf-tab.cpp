@@ -21,6 +21,7 @@ CPUConfTab::CPUConfTab(QWidget* parent) : QWidget(parent),
     QRegExp regExp("[0-9]*\\.?([0-9]{2})");
     ui->lineEdit_cpu_core->setValidator(new QRegExpValidator(regExp, this));
     ui->lineEdit_cpu_core->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit_cpu_core->setMaxLength(7);
 
     ui->cb_sche_pri->addItem(tr("Low"), QVariant(1));
     ui->cb_sche_pri->addItem(tr("Medium"), QVariant(5));
