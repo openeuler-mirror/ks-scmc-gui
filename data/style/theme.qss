@@ -364,6 +364,13 @@ ContainerSetting #widget_base_sider
     border-right:1px solid #E4E7ED;
 }
 
+ContainerSetting QListWidget
+{
+    background: #ffffff;
+    border:none;
+    outline:none;
+}
+
 ContainerSetting #listWidget_advanced_config,
 ContainerSetting #listWidget_security_config
 {
