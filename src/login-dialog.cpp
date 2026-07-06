@@ -162,7 +162,7 @@ void LoginDialog::initUI()
     titleBarLayout->addWidget(btnMenu, Qt::AlignRight);
     titleBarLayout->addWidget(line);
 
-    //创建标题栏中菜单
+    // 创建标题栏中菜单
     QMenu *menu = new QMenu(this);
     QFont font = menu->font();
     font.setPixelSize(12);
