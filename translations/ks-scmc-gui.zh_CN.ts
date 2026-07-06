@@ -3793,32 +3793,32 @@ Instruction</source>
         <translation>请输入服务器地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="78"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="79"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="81"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="82"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="89"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="91"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="92"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="94"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="113"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="116"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/user/server-config-dialog.cpp" line="114"/>
+        <location filename="../src/pages/user/server-config-dialog.cpp" line="117"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
