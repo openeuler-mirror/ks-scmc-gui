@@ -408,7 +408,7 @@ void ContainerSetting::initBaseConfPages()
 
 void ContainerSetting::initAdvancedConfPages()
 {
-    CmdConfTab *cmdConfTab = new CmdConfTab(m_type,ui->tab_advanced_config);
+    CmdConfTab *cmdConfTab = new CmdConfTab(m_type, ui->tab_advanced_config);
     m_advancedConfStack->addWidget(cmdConfTab);
 
     EnvsConfTab *envsConfTab = new EnvsConfTab(ui->tab_advanced_config);
