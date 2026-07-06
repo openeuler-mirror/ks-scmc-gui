@@ -109,51 +109,55 @@
     <name>CPUConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ui_cpu-conf-tab.h" line="107"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ui_cpu-conf-tab.h" line="108"/>
         <source>Total CPU cores:</source>
         <translation>CPU总核数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="112"/>
+        <location filename="../build/src/ui_cpu-conf-tab.h" line="110"/>
         <source>error: more than the system total cores</source>
         <translation>错误：高于系统核心数</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="105"/>
+        <location filename="../build/src/ui_cpu-conf-tab.h" line="109"/>
         <source>Scheduling priority:</source>
         <translation>调度优先级：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="25"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="26"/>
         <source>Low</source>
         <translation>低</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="26"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="27"/>
         <source>Medium</source>
         <translation>中</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="27"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="28"/>
         <source>High</source>
         <translation>高</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="58"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="61"/>
         <source>0-%1, default:system cores %1</source>
         <translation>0-%1，默认：系统核心数 %1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="78"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="81"/>
         <source>CPU core can&apos;t be greater than the node cpu core limit!</source>
         <translation>CPU总核数不能大于系统核心数！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="89"/>
+        <location filename="../src/pages/container/base-configuration/cpu-conf-tab.cpp" line="92"/>
         <source>The container resource limit arg is error.</source>
         <translation>容器资源限制参数错误。</translation>
     </message>
