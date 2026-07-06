@@ -582,10 +582,10 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         netInterface[network.interface().data()] = true;
     }
 
-    //cmd
+    // cmd
     auto cmdPage = qobject_cast<CmdConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_CMD));
     cmdPage->getCMDInfo(cntrCfg);
-    //env
+    // env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     if (!envPage->getEnvInfo(cntrCfg, errMsg))
     {
