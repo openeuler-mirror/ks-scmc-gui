@@ -4011,11 +4011,16 @@ Instruction</source>
         <location filename="../src/pages/image/transmission-item.ui" line="116"/>
         <location filename="../src/pages/image/transmission-item.ui" line="149"/>
         <location filename="../src/pages/image/transmission-item.ui" line="169"/>
+        <location filename="../build/src/ui_transmission-item.h" line="167"/>
+        <location filename="../build/src/ui_transmission-item.h" line="169"/>
+        <location filename="../build/src/ui_transmission-item.h" line="170"/>
+        <location filename="../build/src/ui_transmission-item.h" line="171"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="109"/>
+        <location filename="../build/src/ui_transmission-item.h" line="168"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
