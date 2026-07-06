@@ -300,8 +300,8 @@ void LoginDialog::updateActivation()
     {
         onLogout();
     }
-    //设置激活对话框和激活状态标签是否可见
-    // license变化只处理激活后隐藏界面, Fix #34441
+    // 设置激活对话框和激活状态标签是否可见
+    //  license变化只处理激活后隐藏界面, Fix #34441
     if (isActivate)
     {
         m_activateDialog->setVisible(!isActivate);
