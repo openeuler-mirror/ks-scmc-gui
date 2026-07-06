@@ -138,8 +138,8 @@ void ImageOperateDialog::UploadParamDeal()
 
 void ImageOperateDialog::updateParamDeal()
 {
-    QString name = ui->lineEditName->text();
-    QString version = ui->lineEditVersion->text();
+    QString name = ui->lineEditName->text().trimmed();
+    QString version = ui->lineEditVersion->text().trimmed();
     QString desc = ui->textDesc->toPlainText();
     QString imageFile = ui->lineEditImageFile->text();
     QString imageId = m_imageId;
