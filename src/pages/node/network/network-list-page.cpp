@@ -336,7 +336,8 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     btnConfirm->setFixedSize(100, 40);
     Kiran::WidgetPropertyHelper::setButtonType(btnConfirm, Kiran::BUTTON_Default);
     connect(btnConfirm, &QPushButton::clicked,
-            [=] {
+            [=]
+            {
                 if (lineEditName->text().isEmpty() || lineEditSubnet->text().isEmpty())
                 {
                     labTip->setText(tr("Please input complete infomation!"));
