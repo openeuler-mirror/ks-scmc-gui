@@ -66,6 +66,7 @@ void ServerConfigDialog::initUI()
     m_ipLineEdit->setFixedSize(370, 36);
     m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
     m_ipLineEdit->setTextMargins(10, 0, 0, 0);
+    m_ipLineEdit->setMaxLength(20);
     QRegExp rx("^[0-9.]+$");
     m_ipLineEdit->setValidator(new QRegExpValidator(rx, this));
     ipLayout->addWidget(ipLab);
