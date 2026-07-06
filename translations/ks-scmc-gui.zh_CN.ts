@@ -184,11 +184,13 @@
     <name>CmdConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/cmd-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ui_cmd-conf-tab.h" line="70"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/advanced-configuration/cmd-conf-tab.ui" line="32"/>
+        <location filename="../build/src/ui_cmd-conf-tab.h" line="71"/>
         <source>Startup Command:</source>
         <translation>启动命令：</translation>
     </message>
