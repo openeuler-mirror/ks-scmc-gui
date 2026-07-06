@@ -3244,11 +3244,13 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>PasswdUpdateDialog</name>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="14"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="179"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="40"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="180"/>
         <source>User Name:</source>
         <translation>用户名：</translation>
     </message>
