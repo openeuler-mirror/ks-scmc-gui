@@ -132,6 +132,19 @@ chmod 0744 %{_datadir}/ks-scmc-gui/ks-scmc-gui.version > /dev/null || :
 gtk-update-icon-cache -f /usr/share/icons/hicolor/
 xdg-desktop-icon install --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 
+if [ ! -f /etc/kiran-qt5-integration/kiran-qt5-integration.ini ]; then
+    echo "Creating /etc/kiran-qt5-integration/kiran-qt5-integration.ini..."
+    mkdir -p /etc/kiran-qt5-integration
+    cat << EOF > /etc/kiran-qt5-integration/kiran-qt5-integration.ini
+[Style]
+# 启用kiran style的应用列表,已内置部分kiran桌面环境的组件，eg: kiran-*,kiran-panel
+kiran-style-apps=ksl-os-gui,ksl-server-gui,ks-scmc-gui,ks-ssr-gui
+EOF
+    chmod 644 /etc/kiran-qt5-integration/kiran-qt5-integration.ini
+    echo "File created successfully."
+fi
+
+
 %postun
 xdg-desktop-icon uninstall --novendor %{_datadir}/applications/ks-scmc-gui.desktop
 killall ks-scmc-gui > /dev/null 2>&1 || true
