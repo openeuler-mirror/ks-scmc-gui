@@ -1788,13 +1788,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.cpp" line="67"/>
+        <location filename="../src/pages/image/image-operate-dialog.cpp" line="70"/>
         <source>Please input 1 to 50 characters</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-operate-dialog.cpp" line="70"/>
         <source>Please input 1 to 20 characters</source>
-        <translation>请输入1 - 20个字符</translation>
+        <translation type="vanished">请输入1 - 20个字符</translation>
     </message>
     <message>
         <location filename="../src/pages/image/image-operate-dialog.cpp" line="72"/>
