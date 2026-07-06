@@ -3259,31 +3259,40 @@ of applications, isolated operation of applications, centralized monitoring of a
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="64"/>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="97"/>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="124"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="181"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="183"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="185"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="188"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="54"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="182"/>
         <source>Old Password:</source>
         <translation>原密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="104"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="186"/>
         <source>New Password:</source>
         <translation>新密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="114"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="187"/>
         <source>Confirm Password:</source>
         <translation>确认密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="179"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="189"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/user/passwd-update-dialog.ui" line="198"/>
+        <location filename="../build/src/ui_passwd-update-dialog.h" line="190"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
