@@ -66,8 +66,8 @@ void ImageOperateDialog::initUI()
     ui->lineEditName->setMaxLength(50);
     ui->lineEditName->setPlaceholderText(tr("Please input 1 to 50 characters"));
     ui->lineEditName->setTextMargins(10, 0, 10, 0);
-    ui->lineEditVersion->setMaxLength(20);
-    ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 20 characters"));
+    ui->lineEditVersion->setMaxLength(50);
+    ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 50 characters"));
     ui->lineEditVersion->setTextMargins(10, 0, 10, 0);
     ui->textDesc->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
