@@ -30,6 +30,9 @@ int main(int argc, char *argv[])
     //设置qt程序加载输入法模块为fcitx,需要设置在创建app之前才能生效
     qputenv("QT_IM_MODULE", QByteArray("fcitx"));
 
+    //指定平台主题为kiran，解决在mate桌面环境下无法加载kiran主题插件问题
+    qputenv("QT_QPA_PLATFORMTHEME",QByteArray("kiran"));
+
     //设置日志输出
     if (klog_qt5_init("", "kylinsec-session", APP_NAME, APP_NAME) < 0)
     {

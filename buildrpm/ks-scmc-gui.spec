@@ -37,9 +37,7 @@ BuildRequires:  libnotify-devel
 BuildRequires:  libarchive-devel
 BuildRequires:  pkgconfig(klog-qt5)
 %if "%{kylin_version}" == "3.3"
-BuildRequires: kiran-widgets-qt5 == 2.2.2
-BuildRequires: kiran-widgets-qt5-devel == 2.2.2
-# BuildRequires:  pkgconfig(kiranwidgets-qt5) >= 2.1.1
+BuildRequires:  pkgconfig(kiranwidgets-qt5) >= 2.1.1
 %else
 BuildRequires:  kiranwidgets-qt5-devel == 2.1.1
 %endif
