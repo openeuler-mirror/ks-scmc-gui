@@ -283,7 +283,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 
     QLabel *labName = new QLabel(QString("%1<font color=red>*</font>").arg(tr("Name:")), content);
     QLineEdit *lineEditName = new QLineEdit(content);
-    lineEditName->setMaxLength(200);
+    lineEditName->setMaxLength(50);
     lineEditName->setFixedHeight(36);
     if (!name.isEmpty())
         lineEditName->setText(name);
