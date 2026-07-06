@@ -378,11 +378,6 @@ ContainerSetting #listWidget_security_config
     border-top:none;
     border-left:none;
     border-bottom:none;
-    outline:none;
-}
-ContainerSetting #listwidget_base_config
-{
-    outline:none;
 }
 
 ContainerSetting GuideItem
