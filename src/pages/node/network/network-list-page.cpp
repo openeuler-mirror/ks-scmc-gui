@@ -154,6 +154,8 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
             setTableDefaultContent("-");
             return;
         }
+	setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
+
         QMap<QString, QVariant> infoMap;
         for (auto ifs : reply.second.virtual_ifs())
         {
