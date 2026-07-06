@@ -3650,6 +3650,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>QRCodeDialog</name>
     <message>
         <location filename="../src/license/qrcode-dialog.ui" line="20"/>
+        <location filename="../build/src/ui_qrcode-dialog.h" line="83"/>
         <source>Form</source>
         <translation></translation>
     </message>
