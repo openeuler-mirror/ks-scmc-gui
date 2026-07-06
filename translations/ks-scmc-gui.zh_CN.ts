@@ -1096,62 +1096,74 @@ The first characters must be letter or digit</source>
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
+        <location filename="../build/src/ui_container-setting.h" line="302"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="94"/>
+        <location filename="../build/src/ui_container-setting.h" line="303"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="150"/>
+        <location filename="../build/src/ui_container-setting.h" line="307"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="101"/>
+        <location filename="../build/src/ui_container-setting.h" line="304"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="157"/>
+        <location filename="../build/src/ui_container-setting.h" line="308"/>
         <source>Describe:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="164"/>
+        <location filename="../build/src/ui_container-setting.h" line="309"/>
         <source>Template name:</source>
         <translation>模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="254"/>
+        <location filename="../build/src/ui_container-setting.h" line="312"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="342"/>
+        <location filename="../build/src/ui_container-setting.h" line="311"/>
         <location filename="../src/pages/container/container-setting.cpp" line="184"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="353"/>
+        <location filename="../build/src/ui_container-setting.h" line="313"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="394"/>
+        <location filename="../build/src/ui_container-setting.h" line="314"/>
         <source>Security configuration</source>
         <translation>安全策略</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="471"/>
+        <location filename="../build/src/ui_container-setting.h" line="315"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="490"/>
+        <location filename="../build/src/ui_container-setting.h" line="316"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
