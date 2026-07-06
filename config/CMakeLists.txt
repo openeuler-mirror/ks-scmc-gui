@@ -11,6 +11,8 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/ks-scmc-gui.sh"
 	DESTINATION ${BIN_DIR})
 endif ()
 
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/kiran-qt5-integration.ini"
+        DESTINATION /etc/kiran-qt5-integration/)
 
 install(FILES "${PROJECT_BINARY_DIR}/config/${PROJECT_NAME}.desktop"
         DESTINATION ${DATA_DIR}/applications/ )
