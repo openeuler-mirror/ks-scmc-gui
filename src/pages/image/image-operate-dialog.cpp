@@ -99,8 +99,8 @@ void ImageOperateDialog::initLineEdit(QLineEdit *lineEdit, QPushButton *addBtn)
 
 void ImageOperateDialog::UploadParamDeal()
 {
-    QString name = ui->lineEditName->text();
-    QString version = ui->lineEditVersion->text();
+    QString name = ui->lineEditName->text().trimmed();
+    QString version = ui->lineEditVersion->text().trimmed();
     QString desc = ui->textDesc->toPlainText();
     QString imageFile = ui->lineEditImageFile->text();
     QString signFile = ui->lineEditImageSign->text();
