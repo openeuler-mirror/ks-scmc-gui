@@ -632,7 +632,6 @@
         <translation>请输入0 - 200个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="32"/>
         <location filename="../src/pages/container/container-manager/container-backup-operate-dialog.cpp" line="54"/>
         <source>Please input 1 to 20 characters</source>
         <translation>请输入1 - 20个字符</translation>
