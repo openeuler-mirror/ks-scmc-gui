@@ -1043,29 +1043,29 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
         return;
     }
 
-    //init ui
+    // init ui
     auto info = reply.second.configs();
 
-    //名字
+    // 名字
     showLongText(ui->lineEdit_name, info.name().data());
     KLOG_DEBUG() << "Container name:" << info.name().data();
-    //描述
+    // 描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
     {
         showLongText(ui->lineEdit_describe, info.desc().data());
     }
     else
         ui->lineEdit_describe->setText(tr("none"));
-    //镜像
+    // 镜像
     auto image = info.image().data();
     KLOG_DEBUG() << "Container image: " << image;
-    //处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
+    // 处理删除镜像后，通过ImageList接口获取不到该镜像，导致显示与实际不符合问题
     if (0 > ui->cb_image->findText(image))
     {
         ui->cb_image->addItem(image);
     }
     ui->cb_image->setCurrentText(image);
-    //节点
+    // 节点
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(m_nodeID));
 
     // network
