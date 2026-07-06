@@ -2503,36 +2503,43 @@ Instruction</source>
     <name>NetworkAccessItem</name>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="20"/>
+        <location filename="../build/src/ui_network-access-item.h" line="169"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="49"/>
+        <location filename="../build/src/ui_network-access-item.h" line="170"/>
         <source>Network protocol </source>
         <translation>网络协议</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="58"/>
+        <location filename="../build/src/ui_network-access-item.h" line="171"/>
         <source>TCP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="65"/>
+        <location filename="../build/src/ui_network-access-item.h" line="172"/>
         <source>UDP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="72"/>
+        <location filename="../build/src/ui_network-access-item.h" line="173"/>
         <source>ICMP</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="101"/>
+        <location filename="../build/src/ui_network-access-item.h" line="174"/>
         <source>Network address  </source>
         <translation>网络地址</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/network-access-item.ui" line="129"/>
+        <location filename="../build/src/ui_network-access-item.h" line="175"/>
         <source>Port</source>
         <translation>端口</translation>
     </message>
