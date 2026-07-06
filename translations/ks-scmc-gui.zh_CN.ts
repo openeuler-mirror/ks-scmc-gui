@@ -2106,33 +2106,35 @@ The first characters must be letter or digit</source>
     <name>LoginDialog</name>
     <message>
         <location filename="../src/login-dialog.ui" line="32"/>
+        <location filename="../build/src/ui_login-dialog.h" line="106"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/login-dialog.ui" line="142"/>
+        <location filename="../build/src/ui_login-dialog.h" line="108"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="265"/>
+        <location filename="../src/login-dialog.cpp" line="268"/>
         <source>Config server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="272"/>
+        <location filename="../src/login-dialog.cpp" line="275"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="215"/>
+        <location filename="../src/login-dialog.cpp" line="217"/>
         <source>Please input password</source>
         <translation>请输入密码</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="196"/>
+        <location filename="../src/login-dialog.cpp" line="197"/>
         <source>Please input user name</source>
         <translation>请输入用户名</translation>
     </message>
