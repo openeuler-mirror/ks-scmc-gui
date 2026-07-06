@@ -628,7 +628,7 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         return false;
     }
 
-    //security
+    // security
     auto securityCfg = cntrCfg->mutable_security_config();
 
     auto fileProtectPage = qobject_cast<SecurityListTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_FILE_PROTECT));
