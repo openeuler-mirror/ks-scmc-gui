@@ -3835,6 +3835,7 @@ Instruction</source>
     <name>TablePage</name>
     <message>
         <location filename="../src/pages/table-page.ui" line="14"/>
+        <location filename="../build/src/ui_table-page.h" line="134"/>
         <source>Form</source>
         <translation></translation>
     </message>
