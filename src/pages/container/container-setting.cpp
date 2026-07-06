@@ -108,7 +108,7 @@ void ContainerSetting::setNodeInfos(QMap<int, NodeInfo *> nodeInfoMap)
         auto nodeInfo = iter.value();
         m_nodeTotalCPU.insert(nodeId, nodeInfo->totalCPU);
         m_nodeTotalMemory.insert(nodeId, nodeInfo->totalMemory);
-        //插入cpu、内存总数后再将节点插入到下拉框，这样ui->cb_node::currentTextChanged槽函数中才会有对应数据
+        // 插入cpu、内存总数后再将节点插入到下拉框，这样ui->cb_node::currentTextChanged槽函数中才会有对应数据
         ui->cb_node->addItem(nodeInfo->nodeAddr, nodeId);
         iter++;
     }
