@@ -422,7 +422,7 @@ void LoginDialog::getLogoutResult(const QString objID, const QPair<grpc::Status,
 
 void LoginDialog::sessionExpire()
 {
-    //注销状态下不处理
+    // 注销状态下不处理
     if (!m_isLogin)
         return;
 
