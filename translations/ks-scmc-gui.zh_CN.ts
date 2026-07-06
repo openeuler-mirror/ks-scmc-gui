@@ -2553,16 +2553,19 @@ Instruction</source>
     <name>NetworkConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ui_network-conf-tab.h" line="99"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="105"/>
+        <location filename="../build/src/ui_network-conf-tab.h" line="101"/>
         <source>Virtual network card:</source>
         <translation>虚拟网卡：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
+        <location filename="../build/src/ui_network-conf-tab.h" line="100"/>
         <source>IP:</source>
         <translation>IP:</translation>
     </message>
