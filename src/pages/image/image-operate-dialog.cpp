@@ -35,7 +35,7 @@ void ImageOperateDialog::setImageInfo(QMap<QString, QVariant> imageInfoMap)
     m_imageId = imageInfoMap.value(IMAGE_ID).toString();
     if (m_type == IMAGE_OPERATE_TYPE_UPDATE)
     {
-        //设置界面初始值
+        // 设置界面初始值
         ui->lineEditName->setText(imageInfoMap.value(IMAGE_NAME).toString());
         ui->lineEditName->setDisabled(true);
         ui->lineEditVersion->setText(imageInfoMap.value(IMAGE_VERSION).toString());
