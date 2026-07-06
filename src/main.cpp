@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     qputenv("QT_IM_MODULE", QByteArray("fcitx"));
 
     //指定平台主题为kiran，解决在mate桌面环境下无法加载kiran主题插件问题
-    qputenv("QT_QPA_PLATFORMTHEME",QByteArray("kiran"));
+    qputenv("QT_QPA_PLATFORMTHEME", QByteArray("kiran"));
 
     //设置日志输出
     if (klog_qt5_init("", "kylinsec-session", APP_NAME, APP_NAME) < 0)
