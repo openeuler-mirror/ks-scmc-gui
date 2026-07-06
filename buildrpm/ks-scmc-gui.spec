@@ -7,9 +7,9 @@
 
 %global enable_set_palette 0
 
-%if (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} == 4 && 0%{kylin_sub_minor_version} >= 4) || 
-    (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} >= 5) || 
-    (0%{kylin_major_version} == 3 && 0%{kylin_minor_version} == 3 && 0%{kylin_sub_minor_version} == 6)
+%if (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 4 && 0%{?kylin_sub_minor_version} >= 4) || \
+    (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} >= 5) ||  \
+    (0%{?kylin_major_version} == 3 && 0%{?kylin_minor_version} == 3 && 0%{?kylin_sub_minor_version} == 6)
 %global enable_set_palette 1
 %endif
 
