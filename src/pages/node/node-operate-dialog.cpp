@@ -26,6 +26,7 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
     ui->lineEdit_node_name->setPlaceholderText(tr("Please input 1 to 50 characters"));
     ui->lineEdit_node_name->setTextMargins(10, 0, 10, 0);
     ui->lineEdit_node_ip->setTextMargins(10, 0, 10, 0);
+    ui->lineEdit_node_ip->setMaxLength(20);
     ui->text_comment->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     if (type == NODE_OPERATE_TYPE_CREATE)
