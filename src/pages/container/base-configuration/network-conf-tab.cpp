@@ -20,7 +20,7 @@ NetworkConfTab::~NetworkConfTab()
 {
     delete ui;
 }
-//创建容器、模板使用
+// 创建容器、模板使用
 void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
 {
     auto cfg = cntrCfg->add_networks();
