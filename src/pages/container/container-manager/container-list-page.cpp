@@ -589,7 +589,7 @@ void ContainerListPage::refresh(const QString keyword, bool clear)
     clearText();
     if (keyword.isEmpty())
     {
-        //gRPC->拿数据->填充内容
+        // gRPC->拿数据->填充内容
         getContainerList();
         getTemplateList();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
