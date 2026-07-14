@@ -174,10 +174,12 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
         }
         return;
     }
+    QList<qint64> ids;
+    getCheckedItemsId(ids);
 
     clearTable();
 
-    //更新总页数
+    // 更新总页数
     m_totalPages = int(reply.second.total_pages());
     if (is_openPaging == true)
     {
