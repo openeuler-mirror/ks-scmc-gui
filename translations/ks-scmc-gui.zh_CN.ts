@@ -2285,22 +2285,22 @@ The first characters must be letter or digit</source>
         <translation>获取日志失败：没有%1用户角色</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="378"/>
+        <location filename="../src/login-dialog.cpp" line="379"/>
         <source>Login failed %1</source>
         <translation>登录失败 %1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="414"/>
+        <location filename="../src/login-dialog.cpp" line="415"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="415"/>
+        <location filename="../src/login-dialog.cpp" line="416"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="416"/>
+        <location filename="../src/login-dialog.cpp" line="417"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
