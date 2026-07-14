@@ -646,7 +646,7 @@ QListWidgetItem* MainWindow::createGuideItem(QString text, int type, QString ico
     //        m_pageItems.append(customItem);
     //    }
     if (type == GUIDE_ITEM_TYPE_GROUP)
-        customItem->setArrow(false);  //默认展开
+        customItem->setArrow(false);  // 默认展开
     else
         m_pageItems.append(customItem);
     ui->listWidget->setGridSize(QSize(220, 56));
