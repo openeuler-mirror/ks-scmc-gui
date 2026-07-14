@@ -292,6 +292,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     QLineEdit *lineEditName = new QLineEdit(content);
     lineEditName->setMaxLength(50);
     lineEditName->setFixedHeight(36);
+    lineEditName->setPlaceholderText(tr("Please input 1 to 50 characters"));
     if (!name.isEmpty())
         lineEditName->setText(name);
 
