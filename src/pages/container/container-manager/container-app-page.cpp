@@ -284,8 +284,8 @@ void ContainerAppPage::guiAppStatus(int row, QProcess::ProcessState state)
     auto item = getItem(row, STATUS_COL);
     auto dataItem = getItem(row, 1);
 
-    //这里要判断item && dataItem是否存在
-    //用户可能会在gui程序运行时关闭app窗口，析构时kill掉QProcess，进入QProcess状态变化槽函数，这时表格中的item可能已经delete掉了
+    // 这里要判断item && dataItem是否存在
+    // 用户可能会在gui程序运行时关闭app窗口，析构时kill掉QProcess，进入QProcess状态变化槽函数，这时表格中的item可能已经delete掉了
     if (item && dataItem)
     {
         QMap<QString, QVariant> appInfo = dataItem->data().toMap();
