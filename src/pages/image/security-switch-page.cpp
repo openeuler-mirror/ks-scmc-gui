@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/image/security-switch-page.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "security-switch-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-switch-button.h>
