@@ -208,6 +208,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ToolTipButton</class>
+   <extends>QToolButton</extends>
+   <header location="global">tool-tip-button.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>lineEdit_name</tabstop>
   <tabstop>lineEdit_path</tabstop>
