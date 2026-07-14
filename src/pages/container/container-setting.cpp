@@ -1112,7 +1112,7 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     // env
     auto envPage = qobject_cast<EnvsConfTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_ENVS));
     envPage->setEnvInfo(&info);
-    
+
     // 过检需要，在编辑容器时，无法修改环境变量和共享目录的值
     if (m_type == CONTAINER_SETTING_TYPE_CONTAINER_EDIT)
     {
