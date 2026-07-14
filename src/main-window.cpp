@@ -467,7 +467,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
     }
     case GUIDE_ITEM_IMAGE_APPROVAL_LIST:
     {
-        //TODO:修改ImageApprovalPage为镜像审批页面ImageApprovalPage
+        // TODO:修改ImageApprovalPage为镜像审批页面ImageApprovalPage
         ImageApprovalPage* approvePage = new ImageApprovalPage(this);
         connect(approvePage, &ImageApprovalPage::sigUpdateTipSumsProxy, this, &MainWindow::setApprovalTipNums);
         page = approvePage;
