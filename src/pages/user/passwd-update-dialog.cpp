@@ -239,19 +239,23 @@ void PasswdUpdateDialog::initUI()
     ui->lineEdit_confirm_pw->setMaxLength(32);
 
     connect(ui->lineEdit_old_pw, &QLineEdit::textChanged,
-            [=](QString inputStr) {
+            [=](QString inputStr)
+            {
                 m_oldTimer->start(TIMEOUT);
             });
     connect(ui->lineEdit_new_pw, &QLineEdit::textChanged,
-            [=](QString inputStr) {
+            [=](QString inputStr)
+            {
                 m_newTimer->start(TIMEOUT);
             });
     connect(ui->lineEdit_confirm_pw, &QLineEdit::textChanged,
-            [=](QString inputStr) {
+            [=](QString inputStr)
+            {
                 m_confirmTimer->start(TIMEOUT);
             });
 
     connect(ui->btn_cancel, &QPushButton::clicked,
-            [this] { close(); });
+            [this]
+            { close(); });
     connect(ui->btn_confirm, &QPushButton::clicked, this, &PasswdUpdateDialog::onConfirm);
 }
