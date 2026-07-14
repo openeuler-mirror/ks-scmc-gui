@@ -101,7 +101,7 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
                 item->setSelected(false);
             }
         }
-        //跳转、更新右侧页面
+        // 跳转、更新右侧页面
         QString currenItemData = currItem->data(Qt::UserRole).toString();
         setPageName(guideItem->getItemText());
 
