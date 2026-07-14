@@ -69,6 +69,10 @@ void ImageOperateDialog::initUI()
     ui->lineEditVersion->setMaxLength(50);
     ui->lineEditVersion->setPlaceholderText(tr("Please input 1 to 50 characters"));
     ui->lineEditVersion->setTextMargins(10, 0, 10, 0);
+    ui->lineEditImageFile->setMaxLength(4096);
+    ui->lineEditImageFile->setPlaceholderText(tr("Please input 1 to 4096 characters"));
+    ui->lineEditImageSign->setMaxLength(4096);
+    ui->lineEditImageSign->setPlaceholderText(tr("Please input 1 to 4096 characters"));
     ui->textDesc->setPlaceholderText(tr("Please input 0 to 200 characters"));
 
     QPushButton *imageFileBtn = new QPushButton(this);
