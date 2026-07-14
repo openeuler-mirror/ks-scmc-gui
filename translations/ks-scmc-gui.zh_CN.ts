@@ -4131,59 +4131,59 @@ Instruction</source>
 <context>
     <name>WarningListView</name>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="50"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="58"/>
         <source>Container Name</source>
         <translation>容器名</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="51"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="59"/>
         <source>Current Node</source>
         <translation>所在节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="52"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="60"/>
         <source>Warning Status</source>
         <translation>告警状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="53"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="61"/>
         <source>Warning Content</source>
         <translation>告警内容</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="54"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="62"/>
         <source>Upadate Times</source>
         <translation>更新时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="55"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="63"/>
         <source>Operation</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="58"/>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="72"/>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="215"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="66"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="80"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="231"/>
         <source>Readed</source>
         <translation>已读</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="79"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="87"/>
         <source>Ignore</source>
         <translation>忽略</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="217"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="233"/>
         <source>Unread</source>
         <translation>未读</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="159"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="173"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="244"/>
+        <location filename="../src/pages/audit/warning-list/warning-list-view.cpp" line="266"/>
         <source>Read warning faild</source>
         <translation>读取告警失败</translation>
     </message>
