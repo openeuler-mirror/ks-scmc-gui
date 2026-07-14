@@ -86,7 +86,7 @@ void LogListView::initButtons()
 
     m_datePickStart = new DatePickButton(btn_widget);
     m_datePickEnd = new DatePickButton(btn_widget);
-    QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
+    QDateTime currTime = QDateTime::currentDateTime();  // 获取当前时间
 
     m_xEnd = currTime;
     m_xStart.setDate(currTime.date().addDays(-7));
