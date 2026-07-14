@@ -1245,14 +1245,14 @@ NodeOperateDialog QTextEdit#browser_comment
 {
     color:#ffffff;
     font-size:12px;
-    border:1px solid #393939 ;
+    border:1px solid #393939;
     border-radius:6px;
     padding-right：10px;
 }
 ImageOperateDialog QTextEdit#textDesc:focus,
 NodeOperateDialog QTextEdit#browser_comment:focus
 {
-    border:1px solid #2eb3ff ;
+    border:1px solid #2eb3ff;
 }
 
 
