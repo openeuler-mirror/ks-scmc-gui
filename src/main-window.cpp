@@ -184,25 +184,25 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
     return false;
 }
 
-//void MainWindow::closeEvent(QCloseEvent* event)
+// void MainWindow::closeEvent(QCloseEvent* event)
 //{
-//    InfoWorker::getInstance().appQuit();
-//    if (QThreadPool::globalInstance()->activeThreadCount())
-//    {
-//        MessageDialog::message(tr("Quit Application"),
-//                               tr("There are threads that have not finished!"),
-//                               tr("Please wait for the thread to end before closing!"),
-//                               ":/images/warning.svg",
-//                               MessageDialog::StandardButton::Ok);
-//        event->ignore();
-//        return;
-//        //        if (ret == MessageDialog::StandardButton::Cancel)
-//        //        {
-//        //            event->ignore();
-//        //        }
-//        //        else
-//        //        {
-//        //            m_timerId = this->startTimer(500);
+//     InfoWorker::getInstance().appQuit();
+//     if (QThreadPool::globalInstance()->activeThreadCount())
+//     {
+//         MessageDialog::message(tr("Quit Application"),
+//                                tr("There are threads that have not finished!"),
+//                                tr("Please wait for the thread to end before closing!"),
+//                                ":/images/warning.svg",
+//                                MessageDialog::StandardButton::Ok);
+//         event->ignore();
+//         return;
+//         //        if (ret == MessageDialog::StandardButton::Cancel)
+//         //        {
+//         //            event->ignore();
+//         //        }
+//         //        else
+//         //        {
+//         //            m_timerId = this->startTimer(500);
 
 //        //            KLOG_INFO() << "start timer" << m_timerId;
 //        //            QEventLoop loop;
