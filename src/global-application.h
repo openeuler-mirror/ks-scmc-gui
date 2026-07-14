@@ -1,3 +1,10 @@
+/**
+ * @file          src/global-application.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+
 #ifndef GLOBALAPPLICATION_H
 #define GLOBALAPPLICATION_H
 #include <kiran-single-application.h>
