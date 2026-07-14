@@ -42,6 +42,11 @@ LogListView::~LogListView()
         delete m_datePicker;
         m_datePicker = nullptr;
     }
+    if (m_timer)
+    {
+        delete m_timer;
+        m_timer = nullptr;
+    }
 }
 
 void LogListView::updateInfo(QString keyword)
