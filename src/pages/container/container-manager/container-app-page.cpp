@@ -86,7 +86,7 @@ void ContainerAppPage::onEdit(int row)
     auto isGUI = appInfo.value(CONTAINER_APP_IS_GUI).toBool();
     auto name = appInfo.value(CONTAINER_APP_NAME).toString();
     auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
-    //判断应用是否在运行
+    // 判断应用是否在运行
     bool isRunning = appInfo.value(CONTAINER_APP_IS_RUNNING).toBool();
     if (!isRunning)
     {
