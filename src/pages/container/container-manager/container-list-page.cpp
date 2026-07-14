@@ -45,12 +45,12 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_objId = InfoWorker::generateId(this);
     m_nodeId = -1;
     initButtons();
-    //初始化表格
+    // 初始化表格
     initTable();
     initConnect();
 
-    //FIXME:以后在多出调用的maskwidget情况下，在updateInfo中调用该函数
-    //setMaskParent(this);
+    // FIXME:以后在多出调用的maskwidget情况下，在updateInfo中调用该函数
+    // setMaskParent(this);
 
     m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
     m_statusMap.insert(CONTAINRT_STATUS_CREATED, QPair<QString, QString>(tr("Created"), "#00921b"));
