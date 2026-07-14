@@ -195,7 +195,7 @@
         <translation>启动命令：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/cmd-conf-tab.cpp" line="51"/>
+        <location filename="../src/pages/container/advanced-configuration/cmd-conf-tab.cpp" line="60"/>
         <source>example: /bin/bash</source>
         <translation>如：/bin/bash</translation>
     </message>
