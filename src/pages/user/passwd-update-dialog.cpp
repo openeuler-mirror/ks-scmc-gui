@@ -223,8 +223,10 @@ void PasswdUpdateDialog::initUI()
                                 "min-height:30px;"
                                 "}"
                                 "QToolButton{border:none;}");
-    ui->btn_tips->setToolTip(tr("The password length 8-32 bits, should contain\n at least two combinations of uppercase letter,\n lowercase letter, number and special character"));
-    // 密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少两种组合
+
+    // 密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少三种组合
+    ui->btn_tips->setToolTip(tr("The password length 8-32 bits, should contain\n at least three combinations of uppercase letter,\n lowercase letter, number and special character"));
+
     ui->lab_old_pw_tips->hide();
     ui->lab_new_pw_tips->hide();
     ui->lab_confirm_pw_tips->hide();
