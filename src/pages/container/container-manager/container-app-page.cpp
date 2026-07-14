@@ -39,7 +39,8 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
     setMinimumWidth(900);
 
     connect(m_timer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 refresh();
             });
 }
