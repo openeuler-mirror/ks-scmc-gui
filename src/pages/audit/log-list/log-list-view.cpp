@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <QHBoxLayout>
 
+#define TIMEOUT 3000
 LogListView::LogListView(QWidget *parent, bool is_open_paging) : TablePage(parent, is_open_paging),
                                                                  m_datePicker(nullptr),
                                                                  m_datePickStart(nullptr),
