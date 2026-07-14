@@ -6,6 +6,7 @@
  */
 #include "network-access-item.h"
 #include <kiran-log/qt5-log-i.h>
+#include <QRegExpValidator>
 #include "ui_network-access-item.h"
 NetworkAccessItem::NetworkAccessItem(QWidget *parent) : QWidget(parent),
                                                         ui(new Ui::NetworkAccessItem)
