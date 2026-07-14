@@ -118,6 +118,8 @@ void WarningListView::initLogListConnect()
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingListWarnFinished, this, &WarningListView::getListWarningResult);
     connect(&InfoWorker::getInstance(), &InfoWorker::loggingReadWarnFinished, this, &WarningListView::getReadWarningResult);
     connect(this, &WarningListView::sigUpdatePaging, this, &WarningListView::updatePagingInfo);
+    connect(m_timer, &QTimer::timeout, this, [this]()
+            { refresh(); });
 }
 
 void WarningListView::getWarningList(WarningListPageType type, int page_on)
