@@ -1,7 +1,14 @@
+/**
+ * @file          src/global-application.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+
 #include "global-application.h"
 #include <kiran-log/qt5-log-i.h>
 
-#define TIMEOUT 1800000  //30min
+#define TIMEOUT 1800000  // 30min
 
 GlobalApplication::GlobalApplication(int &argc, char **argv) : KiranSingleApplication(argc, argv),
                                                                m_timer(nullptr),
