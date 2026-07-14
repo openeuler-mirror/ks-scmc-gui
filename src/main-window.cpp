@@ -338,7 +338,7 @@ void MainWindow::outlinePageChange(QString str)
     GuideItem* outlineItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(outlineWidgetItem));
     outlineItem->setSelected(false);
 
-    //判断要跳转的页面是否是侧边栏子项，若是，则将组项展开，子项设 置选中状态，更新对应界面
+    // 判断要跳转的页面是否是侧边栏子项，若是，则将组项展开，子项设 置选中状态，更新对应界面
     for (int i = 0; i < ui->listWidget->count(); i++)
     {
         QListWidgetItem* item = ui->listWidget->item(i);
