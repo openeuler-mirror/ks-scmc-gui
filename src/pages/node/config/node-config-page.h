@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/node/config/node-config-page.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #ifndef NODECONFIGPAGE_H
 #define NODECONFIGPAGE_H
 
