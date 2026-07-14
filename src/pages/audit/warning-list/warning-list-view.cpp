@@ -75,7 +75,7 @@ void WarningListView::initTable()
 void WarningListView::initButtons()
 {
     QMap<int, QPushButton *> opBtnMap;
-    //按钮
+    // 按钮
     const QMap<int, QString> btnNameMap = {
         {OPERATION_BUTTOM_WARN_READ, tr("Readed")}};
     for (auto iter = btnNameMap.begin(); iter != btnNameMap.end(); iter++)
