@@ -242,6 +242,12 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
         else
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << item_node << item_status << item_content << item_update_time);
 
+        // 恢复选中状态
+        if (-1 != ids.indexOf(loging_id))
+        {
+            itemCheck->setCheckState(Qt::Checked);
+        }
+
         row++;
     }
 }
