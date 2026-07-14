@@ -134,7 +134,7 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
             }
             m_isShowMap.insert(currItem, false);
         }
-        else  //show
+        else  // show
         {
             guideItem->setArrow(false);
             QList<QListWidgetItem*> subItems = m_groupMap.value(currItem);
