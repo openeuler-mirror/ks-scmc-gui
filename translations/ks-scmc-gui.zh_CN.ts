@@ -1862,10 +1862,6 @@ The first characters must be letter or digit</source>
         <translation>请输入1 - 50个字符</translation>
     </message>
     <message>
-        <source>Please input 1 to 20 characters</source>
-        <translation type="vanished">请输入1 - 20个字符</translation>
-    </message>
-    <message>
         <location filename="../src/pages/image/image-operate-dialog.cpp" line="76"/>
         <source>Please input 0 to 200 characters</source>
         <translation>请输入0 - 200个字符</translation>
