@@ -1,11 +1,18 @@
-#include "cmd-conf-tab.h"
-#include "ui_cmd-conf-tab.h"
-#include "../container-setting.h"
-#include <kiran-log/qt5-log-i.h>
+/**
+ * @file          src/pages/container/advanced-configuration/cmd-conf-tab.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
 
-CmdConfTab::CmdConfTab(ContainerSettingType type,QWidget *parent) : QWidget(parent),
-                                          ui(new Ui::CmdConfTab),
-                                          m_type(type)
+#include "cmd-conf-tab.h"
+#include <kiran-log/qt5-log-i.h>
+#include "../container-setting.h"
+#include "ui_cmd-conf-tab.h"
+
+CmdConfTab::CmdConfTab(ContainerSettingType type, QWidget *parent) : QWidget(parent),
+                                                                     ui(new Ui::CmdConfTab),
+                                                                     m_type(type)
 {
     ui->setupUi(this);
     initUI();
