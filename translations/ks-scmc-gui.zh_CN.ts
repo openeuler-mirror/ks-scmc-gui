@@ -982,12 +982,12 @@ The first characters must be letter or digit</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="501"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="503"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="274"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="276"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
