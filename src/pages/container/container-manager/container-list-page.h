@@ -78,6 +78,7 @@ private:
     void getNodeInfo();
     void getImageInfo();
     void refresh(const QString keyword = "", bool clear = false);
+    int popupAuthDialog();
 
 private:
     QString m_objId;
