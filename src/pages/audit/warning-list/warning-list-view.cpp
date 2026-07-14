@@ -190,7 +190,7 @@ void WarningListView::getListWarningResult(const QString objId, const QPair<grpc
         setPaging(m_totalPages);
     }
 
-    //更新告警总数
+    // 更新告警总数
     auto totalWarnning = reply.second.total_warnning();
     if (totalWarnning != m_totalWarnning)
     {
