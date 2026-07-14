@@ -201,7 +201,8 @@ void ContainerListPage::onApp(int row)
     appPage->show();
 
     connect(appPage, &ContainerAppDialog::destroyed,
-            [=] {
+            [=]
+            {
                 appPage->deleteLater();
             });
 }
