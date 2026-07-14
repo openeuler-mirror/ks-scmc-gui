@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/node/config/node-config-page.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "node-config-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QIntValidator>
