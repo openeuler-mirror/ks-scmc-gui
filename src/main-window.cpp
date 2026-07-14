@@ -543,7 +543,8 @@ void MainWindow::loadUserPage()
         pageMap = {
             {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
             {GUIDE_ITEM_WARNING_LIST, WORNING_LIST},
-            {GUIDE_ITEM_LOG_LIST, LOG_LIST}};
+            {GUIDE_ITEM_LOG_LIST, LOG_LIST},
+            {GUIDE_ITEM_LOG_SETTING, LOG_SETTING}};
     }
     else
     {
