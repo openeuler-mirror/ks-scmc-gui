@@ -230,7 +230,7 @@ void ContainerAppPage::onDelete(int row)
     auto appInfo = item->data().toMap();
     auto appID = appInfo.value(CONTAINER_APP_ID).toInt();
     auto name = appInfo.value(CONTAINER_APP_NAME).toString();
-    //判断应用是否在运行
+    // 判断应用是否在运行
     bool isRunning = appInfo.value(CONTAINER_APP_IS_RUNNING).toBool();
     if (!isRunning)
     {
