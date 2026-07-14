@@ -45,9 +45,9 @@ void RefreshButton::refresh()
     temp.fill(Qt::transparent);
     QPainter painter(&temp);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-    painter.translate(imageWidth / 2, imageHeight / 2);        //让图片的中心作为旋转的中心
-    painter.rotate(rat);                                       //顺时针旋转90度
-    painter.translate(-(imageWidth / 2), -(imageHeight / 2));  //使原点复原
+    painter.translate(imageWidth / 2, imageHeight / 2);        // 让图片的中心作为旋转的中心
+    painter.rotate(rat);                                       // 顺时针旋转90度
+    painter.translate(-(imageWidth / 2), -(imageHeight / 2));  // 使原点复原
     painter.drawPixmap(0, 0, pix);
     painter.end();
     setIcon(QIcon(temp));
