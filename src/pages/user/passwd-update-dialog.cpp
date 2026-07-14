@@ -111,12 +111,15 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
         else
         {
             QStringList list;
-            list << "[A-Z]" << "[a-z]" << "[0-9]" << "[^0-9A-Za-z]";
+            list << "[A-Z]"
+                 << "[a-z]"
+                 << "[0-9]"
+                 << "[^0-9A-Za-z]";
             int complex = 0;
             for (auto rx : list)
             {
                 complex = inputPw.contains(QRegExp(rx)) ? complex + 1 : complex;
-                if (complex >= 2)
+                if (complex >= 3)
                 {
                     KLOG_DEBUG() << "New password input ok!";
                     ui->lab_new_pw_tips->clear();
