@@ -127,8 +127,8 @@ bool PasswdUpdateDialog::checkPassword(PasswordType type, QString inputPw)
                     return true;
                 }
             }
-            // 请输入包含大写字母、小写字母、数字和特殊字符中至少两种组合
-            errorMsg = tr("Please input at least two combinations of\n uppercase letter, lowercase letter, number and special character");
+            // 请输入包含大写字母、小写字母、数字和特殊字符中至少三种组合
+            errorMsg = tr("Please input at least three combinations of\n uppercase letter, lowercase letter, number and special character");
         }
         ui->lab_new_pw_tips->show();
         ui->lab_new_pw_tips->setText(errorMsg);
