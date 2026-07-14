@@ -2245,7 +2245,7 @@ The first characters must be letter or digit</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="403"/>
+        <location filename="../src/login-dialog.cpp" line="404"/>
         <source>Session Expired,Please login again!</source>
         <translation>会话过期，请重新登录！</translation>
     </message>
