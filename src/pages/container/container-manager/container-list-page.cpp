@@ -362,7 +362,7 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         QStandardItem *onlineTime = new QStandardItem(strOnline);
 
         setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemStatus << itemImage << itemNodeAddress << itemCpu << itemMem << itemDisk << onlineTime);
-        //由于itemChecked槽函数中要判断item的容器容器状态是否时运行，所以必须插入后再设置状态
+        // 由于itemChecked槽函数中要判断item的容器容器状态是否时运行，所以必须插入后再设置状态
         if (-1 != ids[nodeId].indexOf(containerID))
         {
             itemCheck->setCheckState(Qt::Checked);
