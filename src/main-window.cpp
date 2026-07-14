@@ -282,12 +282,12 @@ void MainWindow::initUI()
 
     loadUserButton();
 
-    //创建传输列表控件
+    // 创建传输列表控件
     m_transmissionList = new TransmissionList();
     m_transmissionList->setObjectName("transmissionList");
     connect(m_transmissionList, &TransmissionList::transferItemDeleted, this, &MainWindow::onTransferItemDeleted);
 
-    //创建用户菜单
+    // 创建用户菜单
     QMenu* userMenu = new QMenu(this);
     userMenu->setObjectName("userMenu");
 
