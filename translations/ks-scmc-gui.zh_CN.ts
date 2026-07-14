@@ -2783,17 +2783,17 @@ Instruction</source>
 <context>
     <name>NetworkPageManager</name>
     <message>
-        <location filename="../src/pages/node/network/network-page-manager.cpp" line="53"/>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="60"/>
         <source>Network:</source>
         <translation>网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-page-manager.cpp" line="56"/>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="63"/>
         <source>Real Interface</source>
         <translation>物理网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-page-manager.cpp" line="57"/>
+        <location filename="../src/pages/node/network/network-page-manager.cpp" line="64"/>
         <source>Virt Interface</source>
         <translation>虚拟网卡</translation>
     </message>
