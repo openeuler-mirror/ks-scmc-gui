@@ -1201,7 +1201,7 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="288"/>
         <location filename="../src/pages/container/container-setting.cpp" line="1037"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1174"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1181"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
