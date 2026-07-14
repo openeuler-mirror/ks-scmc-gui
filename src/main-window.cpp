@@ -609,7 +609,8 @@ void MainWindow::loadUserItem()
 
         QListWidgetItem* warningList = createGuideItem(WORNING_LIST, GUIDE_ITEM_TYPE_SUB);
         QListWidgetItem* logList = createGuideItem(LOG_LIST, GUIDE_ITEM_TYPE_SUB);
-        QList<QListWidgetItem*> auditSubItems = {warningList, logList};
+        QListWidgetItem* logSetting = createGuideItem(LOG_SETTING, GUIDE_ITEM_TYPE_SUB);
+        QList<QListWidgetItem*> auditSubItems = {warningList, logList, logSetting};
         m_groupMap.insert(warningLog, auditSubItems);
         m_isShowMap.insert(warningLog, true);
     }
