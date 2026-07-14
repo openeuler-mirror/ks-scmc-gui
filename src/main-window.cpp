@@ -123,8 +123,8 @@ void MainWindow::onItemClicked(QListWidgetItem* currItem)
                 item->setSelected(true);
         }
 
-        //侧边项收缩与展开
-        if (m_isShowMap.value(currItem))  //hide
+        // 侧边项收缩与展开
+        if (m_isShowMap.value(currItem))  // hide
         {
             guideItem->setArrow(true);
             QList<QListWidgetItem*> subItems = m_groupMap.value(currItem);
