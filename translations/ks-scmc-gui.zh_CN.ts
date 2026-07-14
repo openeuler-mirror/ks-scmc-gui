@@ -2833,7 +2833,7 @@ Instruction</source>
     <message>
         <location filename="../src/pages/node/config/node-config-page.ui" line="175"/>
         <location filename="../build/src/ui_node-config-page.h" line="165"/>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="209"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="216"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
