@@ -314,3 +314,12 @@ void WarningListView::updatePagingInfo(int page_on)
     m_pageOn = page_on;
     updateInfo();
 }
+void WarningListView::getCheckedItemsId(QList<qint64> &ids)
+{
+    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
+
+    foreach (auto idMap, info)
+    {
+        ids.append(idMap.value(WARN_IDS).toInt());
+    }
+}
