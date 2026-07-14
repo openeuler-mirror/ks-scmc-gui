@@ -1,3 +1,10 @@
+/**
+ * @file          src/common/refresh-button.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+
 #ifndef REFRESHBUTTON_H
 #define REFRESHBUTTON_H
 
