@@ -487,7 +487,7 @@ void ContainerAppPage::initButtons()
                              " left: -5px;}");
 
     connect(btnCreate, &QPushButton::clicked, this, &ContainerAppPage::onCreate);
-    //其他按钮及菜单
+    // 其他按钮及菜单
     QPushButton *btnDelete = new QPushButton(tr("Delete"), this);
     btnDelete->setObjectName("btnDelete");
     btnDelete->setStyleSheet("#btnDelete{background-color:#ff4b4b;"
