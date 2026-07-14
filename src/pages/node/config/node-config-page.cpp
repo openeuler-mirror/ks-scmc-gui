@@ -156,8 +156,8 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
                 ui->lineEdit_cpu->setValidator(v);
             }
 
-            //由于使用QDoubleValidator会导致输入字符时判断不正确，因此改用QIntValidator。
-            //所有将原来的GB单位修改为MB，精度更小，方便设置阈值
+            // 由于使用QDoubleValidator会导致输入字符时判断不正确，因此改用QIntValidator。
+            // 所有将原来的GB单位修改为MB，精度更小，方便设置阈值
             ui->lineEdit_disk->setPlaceholderText(tr("Maximum %1 MB").arg(diskTotal));  //
             if (!ui->lineEdit_disk->validator())
             {
