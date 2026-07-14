@@ -183,8 +183,12 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 //! [9]
 
 //! [10]
-    QLayoutItem *item;
+    QLayoutItem *item = nullptr;
     foreach (item, itemList) {
+	if(!item)
+	{
+	    continue;
+	}
         QWidget *wid = item->widget();
         int spaceX = horizontalSpacing();
         if (spaceX == -1)
