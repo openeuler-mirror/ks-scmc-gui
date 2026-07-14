@@ -101,6 +101,14 @@ bool VolumesConfTab::getVolumeInfo(container::UpdateRequest *req, QString &errMS
 
 void VolumesConfTab::setVolumeInfo(const container::ContainerConfigs *cfg)
 {
+    if (m_configTable)
+    {
+        delete m_configTable;
+        m_configTable = nullptr;
+    }
+    m_configTable = new ConfigTable(CONFIG_TABLE_TYPE_VOLUMES, this);
+    this->layout()->addWidget(m_configTable);
+
     QList<QSharedPointer<ModelItem>> itemList;
     for (auto mounts : cfg->mounts())
     {
