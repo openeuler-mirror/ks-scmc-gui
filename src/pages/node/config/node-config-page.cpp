@@ -67,7 +67,7 @@ bool NodeConfigPage::eventFilter(QObject *watched, QEvent *event)
         if (event->type() == QEvent::KeyPress)
         {
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-            //在输入框中过滤逗号“，”，防止用户输入，解决string转数字时不能识别逗号导致转失败的问题
+            // 在输入框中过滤逗号“，”，防止用户输入，解决string转数字时不能识别逗号导致转失败的问题
             if (keyEvent->key() == Qt::Key_Comma)
                 return true;
             else
