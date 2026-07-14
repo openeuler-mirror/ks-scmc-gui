@@ -231,6 +231,8 @@ void LogListView::getListRuntime(const QString objId, const QPair<grpc::Status, 
         setTableDefaultContent("-");
         return;
     }
+    // 清除搜索后显示的数据提示
+    setTips("");
 
     int row = 0;
     for (auto logging : reply.second.logs())
