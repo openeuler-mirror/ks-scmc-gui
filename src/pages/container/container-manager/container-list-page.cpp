@@ -741,7 +741,7 @@ void ContainerListPage::operateContainer(ContainerSettingType type, int row)
 
 void ContainerListPage::initButtons()
 {
-    //创建按钮及菜单
+    // 创建按钮及菜单
     QPushButton *btnCreate = new QPushButton(this);
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
