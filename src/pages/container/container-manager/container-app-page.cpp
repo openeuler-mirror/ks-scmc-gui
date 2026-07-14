@@ -146,7 +146,7 @@ void ContainerAppPage::onRun(int row)
     }
     else
     {
-        //非图形app直接运行
+        // 非图形app直接运行
         int appId = appInfo.value(CONTAINER_APP_ID).toInt();
         InfoWorker::getInstance().runAppEntry(m_objId, m_nodeId, m_containerId, appId);
     }
