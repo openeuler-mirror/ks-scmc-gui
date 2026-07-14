@@ -23,6 +23,7 @@
 #include "def.h"
 #include "notification-manager.h"
 #include "security-configuration/network-access-ctl-tab.h"
+#include "security-configuration/security-level-tab.h"
 #include "security-configuration/security-list-tab.h"
 #include "security-configuration/start-stop-control-tab.h"
 #include "ui_container-setting.h"
