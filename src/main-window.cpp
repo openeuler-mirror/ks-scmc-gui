@@ -703,7 +703,7 @@ void MainWindow::onAboutAction(bool checked)
 void MainWindow::onHelpAction(bool checked)
 {
     Q_UNUSED(checked);
-    //popup user manual pdf
+    // popup user manual pdf
     QString file = QString(HELP_MANUAL_PATH) + QString("manual.pdf");
     if (QFile::exists(file))
     {
