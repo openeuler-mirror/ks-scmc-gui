@@ -28,8 +28,12 @@ class LogListView : public TablePage
 public:
     explicit LogListView(QWidget *parent = nullptr, bool is_open_paging = false);
     ~LogListView();
-    void updateInfo(QString keyword = "");  //刷新表格
+    void updateInfo(QString keyword = "");  // 刷新表格
     void setLogListPageType(LogListPageType);
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
 
 private:
     void initTable();
