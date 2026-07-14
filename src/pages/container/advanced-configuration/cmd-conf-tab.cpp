@@ -25,7 +25,8 @@ CmdConfTab::~CmdConfTab()
 
 void CmdConfTab::getCMDInfo(container::ContainerConfigs *cfg)
 {
-    if (cfg) {
+    if (cfg)
+    {
         std::string cmd = ui->lineEdit_cmd->text().toStdString();
         KLOG_DEBUG() << "cmd: %s" << cmd.c_str();
         cfg->set_cmd(cmd);
