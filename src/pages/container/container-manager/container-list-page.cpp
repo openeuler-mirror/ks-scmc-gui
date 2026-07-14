@@ -18,6 +18,7 @@
 #include <QTimer>
 #include "def.h"
 
+#include "authorization-dialog.h"
 #include "common/message-dialog.h"
 #include "common/monitor-dialog.h"
 #include "container-app-page.h"
