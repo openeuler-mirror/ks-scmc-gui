@@ -306,16 +306,16 @@ void MainWindow::initUI()
     connect(aboutAct, &QAction::triggered, this, &MainWindow::onAboutAction);
     connect(helpAct, &QAction::triggered, this, &MainWindow::onHelpAction);
 
-    //创建右侧堆叠页面
+    // 创建右侧堆叠页面
     m_stackedWidget = new QStackedWidget(this);
     m_stackedWidget->setObjectName("stackedWidget");
     ui->vlayout_page->addWidget(m_stackedWidget);
     loadUserPage();
 
-    //创建左侧侧边栏
+    // 创建左侧侧边栏
     loadUserItem();
 
-    //set current widget to home
+    // set current widget to home
     m_stackedWidget->setCurrentWidget(m_pageMap[GENERAL_OUTLINE]);
     ui->listWidget->setCurrentRow(0);
 
