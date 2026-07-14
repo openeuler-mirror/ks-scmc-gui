@@ -88,7 +88,7 @@ void NodeConfigPage::onSave()
 {
     if (m_editable)
     {
-        //interface
+        // interface
         node::UpdateRequest req;
         req.set_node_id(m_nodeId);
         req.set_name(m_nodeName);
