@@ -362,7 +362,7 @@ void MainWindow::outlinePageChange(QString str)
                 if (group.value().contains(item))
                 {
                     auto item1 = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(group.key()));
-                    if (!m_isShowMap.value(group.key()))  //show
+                    if (!m_isShowMap.value(group.key()))  // show
                     {
                         item1->setArrow(false);
                         foreach (QListWidgetItem* subItem, group.value())
