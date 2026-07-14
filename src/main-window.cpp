@@ -42,6 +42,7 @@
 #define WARNING_LOG QObject::tr("Warning Log")
 #define WORNING_LIST QObject::tr("Warning List")
 #define LOG_LIST QObject::tr("Log List")
+#define LOG_SETTING QObject::tr("Log Setting")
 
 #define IMAGE_STOREHOUSE QObject::tr("Image Storehouse")
 #define IMAGE_APPROVAL QObject::tr("Image Approval")
