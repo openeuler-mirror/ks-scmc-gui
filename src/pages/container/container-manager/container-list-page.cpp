@@ -61,9 +61,8 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert(CONTAINRT_STATUS_RESTARTING, QPair<QString, QString>(tr("Restarting"), "#F57900"));
 
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [this] {
-        refresh();
-    });
+    connect(m_timer, &QTimer::timeout, [this]
+            { refresh(); });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
