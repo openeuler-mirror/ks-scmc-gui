@@ -24,8 +24,12 @@ class WarningListView : public TablePage
 public:
     explicit WarningListView(QWidget *parent = nullptr, bool isShowContainerName = false, bool is_open_paging = false);
     ~WarningListView();
-    void updateInfo(QString keyword = "");  //刷新表格
+    void updateInfo(QString keyword = "");  // 刷新表格
     void setLogListPageType(WarningListPageType);
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
 
 private:
     void initTable();
@@ -33,6 +37,8 @@ private:
     void initLogListConnect();
     void getWarningList(WarningListPageType type = CONTAINER_WARNING, int page_on = 1);
     void readWarn(QList<int64_t> ids);
+    void refresh();
+    void getCheckedItemsId(QList<qint64> &ids);
 
 private slots:
     void getListWarningResult(const QString objId, const QPair<grpc::Status, logging::ListWarnReply> &);
