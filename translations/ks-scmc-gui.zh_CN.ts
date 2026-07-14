@@ -2844,28 +2844,28 @@ Instruction</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="145"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="152"/>
         <source>Maximum %1 cores</source>
         <translation>最大 %1 核</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="154"/>
         <location filename="../src/pages/node/config/node-config-page.cpp" line="161"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="168"/>
         <source>Maximum %1 MB</source>
         <translation>最大 %1 MB</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="187"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="194"/>
         <source>Update node config successful!</source>
         <translation>更新节点阈值成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="192"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="199"/>
         <source>Update node config failed!</source>
         <translation>更新节点阈值失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/config/node-config-page.cpp" line="209"/>
+        <location filename="../src/pages/node/config/node-config-page.cpp" line="216"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
