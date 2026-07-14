@@ -15,6 +15,55 @@
     </message>
 </context>
 <context>
+    <name>AuthorizationDialog</name>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="26"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="137"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="47"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="138"/>
+        <source>Please authenticate your identity first.</source>
+        <translation>请先进行身份验证</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="75"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="139"/>
+        <source>User Name</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="82"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="140"/>
+        <source> &lt;font color=red&gt;*&lt;/font&gt;Password</source>
+        <translation> &lt;font color=red&gt;*&lt;/font&gt;密码</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="159"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="142"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.ui" line="178"/>
+        <location filename="../build/src/ui_authorization-dialog.h" line="143"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.cpp" line="47"/>
+        <source>Authorization</source>
+        <translation>认证</translation>
+    </message>
+    <message>
+        <location filename="../src/common/authorization-dialog.cpp" line="70"/>
+        <source>Password error!</source>
+        <translation>密码错误！</translation>
+    </message>
+</context>
+<context>
     <name>ButtonDelegate</name>
     <message>
         <location filename="../src/common/button-delegate.cpp" line="36"/>
