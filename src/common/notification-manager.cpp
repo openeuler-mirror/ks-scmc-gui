@@ -1,3 +1,10 @@
+/**
+ * @file          src/common/notification-manager.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinos.com>
+ * @copyright (c) 2022 KylinSec. All rights reserved.
+ */
+
 // clang-format off
 #include <libnotify/notify.h>
 #include "notification-manager.h"
