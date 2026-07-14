@@ -466,7 +466,7 @@ void ContainerAppPage::getKillAppEntryFinished(const QString objId, const QPair<
 
 void ContainerAppPage::initButtons()
 {
-    //创建按钮及菜单
+    // 创建按钮及菜单
     QPushButton *btnCreate = new QPushButton(this);
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
