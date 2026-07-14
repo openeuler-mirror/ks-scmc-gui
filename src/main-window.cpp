@@ -225,29 +225,29 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 //    event->accept();
 //}
 
-//void MainWindow::timerEvent(QTimerEvent* event)
+// void MainWindow::timerEvent(QTimerEvent* event)
 //{
-//    KLOG_INFO() << "timerEvent " << event->timerId();
-//    if (event->timerId() == m_timerId)
-//    {
-//        KLOG_INFO() << m_timerId;
-//        if (0 == QThreadPool::globalInstance()->activeThreadCount())
-//        {
-//            m_filterInput = false;
-//            killTimer(m_timerId);
-//            m_isClose = true;
-//        }
-//        else
-//            m_filterInput = true;
-//        KLOG_INFO() << "m_filterInput=" << m_filterInput << "m_isClose = " << m_isClose;
-//    }
-//}
+//     KLOG_INFO() << "timerEvent " << event->timerId();
+//     if (event->timerId() == m_timerId)
+//     {
+//         KLOG_INFO() << m_timerId;
+//         if (0 == QThreadPool::globalInstance()->activeThreadCount())
+//         {
+//             m_filterInput = false;
+//             killTimer(m_timerId);
+//             m_isClose = true;
+//         }
+//         else
+//             m_filterInput = true;
+//         KLOG_INFO() << "m_filterInput=" << m_filterInput << "m_isClose = " << m_isClose;
+//     }
+// }
 
 void MainWindow::initUI()
 {
     setIcon(QIcon(":/images/logo.png"));
     setTitle(tr("KylinSec Container System V1(Security Version)"));
-    //创建消息提示按钮
+    // 创建消息提示按钮
     m_btnTransmission = new BubbleTipButton(":/images/transmit.svg", this);
     m_btnTransmission->setObjectName("btn_transmission");
     m_btnTransmission->setFixedSize(40, 32);
