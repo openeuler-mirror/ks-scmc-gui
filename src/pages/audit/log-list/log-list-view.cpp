@@ -134,7 +134,7 @@ void LogListView::initButtons()
 
 void LogListView::initLogListConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingRuntimeFinished, this, &LogListView::getListRuntime);
+    connect(&Logging::getInstance(), &Logging::loggingRuntimeFinished, this, &LogListView::getListRuntime);
     connect(this, &LogListView::sigUpdatePaging, this, &LogListView::updatePagingInfo);
 }
 
