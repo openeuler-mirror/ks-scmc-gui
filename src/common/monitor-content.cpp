@@ -161,8 +161,8 @@ void MonitorContent::BuildCharts(TrendChartForm *chartForm, QMap<QString, QStrin
     ChartInfo chartInfo;
     chartInfo.seriesInfo = seriesinfo;
 
-    //初始化记录前10分钟数据，1分钟间隔
-    QDateTime currTime = QDateTime::currentDateTime();  //获取当前时间
+    // 初始化记录前10分钟数据，1分钟间隔
+    QDateTime currTime = QDateTime::currentDateTime();  // 获取当前时间
     QDateTime startDate = currTime.addSecs(-(60 * 10));
     m_xEnd = currTime;
     m_xStart = startDate;
