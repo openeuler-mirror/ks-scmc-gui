@@ -30,7 +30,8 @@
 #include "pages/image/security-switch-page.h"
 #include "pages/image/transmission-list.h"
 #include "pages/node/node-page-manager.h"
-#include "pages/user/passwd-update-dialog.h"
+#include "pages/system/user-manager/passwd-update-dialog.h"
+#include "pages/system/user-manager/user-list-page.h"
 #include "table-page.h"
 
 #define GENERAL_OUTLINE QObject::tr("General Outline")
