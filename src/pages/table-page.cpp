@@ -137,12 +137,12 @@ void TablePage::setTableItems(int row, int col, QList<QStandardItem *> items)
         m_model->setItem(row, i, items.at(i));
         items.at(i)->setTextAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     }
-    //adjustTableSize();
+    // adjustTableSize();
 }
 
 void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo)
 {
-    //设置表中操作按钮代理
+    // 设置表中操作按钮代理
     m_btnDelegate = new ButtonDelegate(btnInfo, this);
     ui->tableView->setItemDelegateForColumn(col, m_btnDelegate);
 
