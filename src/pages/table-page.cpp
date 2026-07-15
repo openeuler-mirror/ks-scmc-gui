@@ -197,7 +197,7 @@ void TablePage::setHeaderSections(QStringList names)
     ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tableView->horizontalHeader()->setSectionResizeMode(names.size() - 1, QHeaderView::Fixed);
 
-    //设置列宽度
+    // 设置列宽度
     for (int i = 0; i < names.size(); i++)
     {
         ui->tableView->setColumnWidth(i + 1, 150);
