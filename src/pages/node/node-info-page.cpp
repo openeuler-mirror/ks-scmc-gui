@@ -117,4 +117,8 @@ void NodeInfoPage::updatePageInfo(int index)
     {
         m_fileProtectionPage->updateInfo();
     }
+    else if (index == NODE_INFO_SUB_PAGE_TYPE_IPC)
+    {
+        m_ipcPage->updateInfo();
+    }
 }
