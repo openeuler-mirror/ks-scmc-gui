@@ -196,7 +196,7 @@ private:
     static QPair<grpc::Status, container::RemoveBackupReply> _removeBackup(const container::RemoveBackupRequest &);
     static QPair<grpc::Status, QString> _exportBackup(const container::ExportBackupRequest &, const QString path);
 
-    //container app
+    // container app
     static QPair<grpc::Status, container::ListAppEntryReply> _listAppEntry(const container::ListAppEntryRequest &);
     static QPair<grpc::Status, container::AddAppEntryReply> _addAppEntry(const container::AddAppEntryRequest &);
     static QPair<grpc::Status, container::UpdateAppEntryReply> _updateAppEntry(const container::UpdateAppEntryRequest &);
