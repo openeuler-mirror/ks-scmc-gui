@@ -4012,13 +4012,13 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>SecurityListItem</name>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-item.ui" line="26"/>
+        <location filename="../src/common/security-widgets/security-list-item.ui" line="26"/>
         <location filename="../build/src/ui_security-list-item.h" line="105"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/security-list-item.cpp" line="20"/>
+        <location filename="../src/common/security-widgets/security-list-item.cpp" line="20"/>
         <source>the path format is wrong</source>
         <translation>路径格式错误</translation>
     </message>
