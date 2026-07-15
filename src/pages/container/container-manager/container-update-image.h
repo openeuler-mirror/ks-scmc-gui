@@ -1,0 +1,41 @@
+/**
+ * @file          src/pages/container/container-manager/container-update-image.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
+#ifndef CONTAINERUPDATEIMAGE_H
+#define CONTAINERUPDATEIMAGE_H
+
+#include <kiran-titlebar-window.h>
+#include <QWidget>
+
+namespace Ui
+{
+class ContainerUpdateImage;
+}
+
+class ContainerUpdateImage : public KiranTitlebarWindow
+{
+    Q_OBJECT
+
+public:
+    explicit ContainerUpdateImage(QWidget *parent = nullptr);
+    ~ContainerUpdateImage();
+    void setContainerInfo(int containerID, const QString &containerName);
+    void setImageInfo(int imageID, const QString &imageName, const QStringList &imageVersions);
+
+private:
+    void initUI();
+
+signals:
+    void updateImage();
+
+private:
+    Ui::ContainerUpdateImage *ui;
+    int m_containerID;
+    int m_imageID;
+};
+
+#endif  // CONTAINERUPDATEIMAGE_H
