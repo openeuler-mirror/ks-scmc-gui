@@ -69,7 +69,7 @@
         <location filename="../src/common/button-delegate.cpp" line="36"/>
         <location filename="../src/common/button-delegate.cpp" line="77"/>
         <location filename="../src/common/button-delegate.cpp" line="125"/>
-        <location filename="../src/common/button-delegate.cpp" line="266"/>
+        <location filename="../src/common/button-delegate.cpp" line="276"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
