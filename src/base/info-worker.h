@@ -254,11 +254,11 @@ signals:
     // container management
     void listContainerFinished(const QString objId, const QPair<grpc::Status, container::ListReply> &);
     void createContainerFinished(const QString objId, const QPair<grpc::Status, container::CreateReply> &);
-    //void containerStatusFinished(const QString objId, const QPair<grpc::Status, container::StatusReply> &);
+    // void containerStatusFinished(const QString objId, const QPair<grpc::Status, container::StatusReply> &);
     void containerInspectFinished(const QString objId, const QPair<grpc::Status, container::InspectReply> &);
     void startContainerFinished(const QString objId, const QPair<grpc::Status, container::StartReply> &);
     void stopContainerFinished(const QString objId, const QPair<grpc::Status, container::StopReply> &);
-    //void killContainerFinished(const QString objId, const QPair<grpc::Status, container::KillReply> &);
+    // void killContainerFinished(const QString objId, const QPair<grpc::Status, container::KillReply> &);
     void restartContainerFinished(const QString objId, const QPair<grpc::Status, container::RestartReply> &);
     void updateContainerFinished(const QString objId, const QPair<grpc::Status, container::UpdateReply> &);
     void removeContainerFinished(const QString objId, const QPair<grpc::Status, container::RemoveReply> &);
