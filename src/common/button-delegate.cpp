@@ -280,12 +280,14 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
 
 void ButtonDelegate::onActTriggered(QAction *act)
 {
-    if (act->text() == tr("Run"))
+    if (act->text() == MENU_CONTAINER_RUN)
         emit sigActRun(m_index);
-    else if (act->text() == tr("Stop"))
+    else if (act->text() == MENU_CONTAINER_STOP)
         emit sigActStop(m_index);
-    else if (act->text() == tr("Restart"))
+    else if (act->text() == MENU_CONTAINER_RESTART)
         emit sigActRestart(m_index);
-    else if (act->text() == tr("Generate template"))
+    else if (act->text() == MENU_CONTAINER_GENERATE_TEMPLATE)
         emit sigActGenerateTemp(m_index);
+    else if (act->text() == MENU_CONTAINER_UPDATE_IMAGE_VERSION)
+        emit sigActUpdateImage(m_index);
 }
