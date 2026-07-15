@@ -10,6 +10,7 @@
 #include <QIntValidator>
 #include <QLabel>
 #include <QVBoxLayout>
+#include "notification-manager.h"
 LogSettingView::LogSettingView(QWidget *parent) : Page(parent),
                                                   m_edit(nullptr),
                                                   m_btn_cancel(nullptr),
