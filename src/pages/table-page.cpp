@@ -35,7 +35,8 @@ TablePage::TablePage(QWidget *parent, bool is_open) : Page(parent),
     initUI();
     m_searchTimer = new QTimer(this);
     connect(m_searchTimer, &QTimer::timeout,
-            [this] {
+            [this]
+            {
                 search();
                 m_searchTimer->stop();
             });
