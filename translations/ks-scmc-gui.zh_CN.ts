@@ -1558,6 +1558,72 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
+    <name>IPCPage</name>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="41"/>
+        <source>Create IPC</source>
+        <translation>创建IPC基准</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="55"/>
+        <source>IPC Name</source>
+        <translation>IPC基准名称</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="57"/>
+        <source>Please input 1 to 50 characters</source>
+        <translation>请输入1 - 50个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="66"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="68"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="106"/>
+        <source>Create</source>
+        <translation>创建</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="114"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="129"/>
+        <source>IPC</source>
+        <translation>IPC基准</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="130"/>
+        <source>Container</source>
+        <translation>容器</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="131"/>
+        <source>Create Time</source>
+        <translation>创建时间</translation>
+    </message>
+</context>
+<context>
+    <name>IPCTab</name>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/IPC-tab.cpp" line="36"/>
+        <source>IPC</source>
+        <translation>IPC基准</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/IPC-tab.cpp" line="39"/>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+</context>
+<context>
     <name>ImageApprovalPage</name>
     <message>
         <location filename="../src/pages/image/image-approval-page.cpp" line="32"/>
