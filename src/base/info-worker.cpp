@@ -15,15 +15,14 @@
 
 const int CHUNK_SIZE = 16 * 1024;
 
-#define RPC_ASYNC(REPLY_TYPE, WORKER, CALLBACK, OBJID, ...)                 \
-    typedef QPair<grpc::Status, REPLY_TYPE> T;                              \
-    QFutureWatcher<T> *watcher = new QFutureWatcher<T>();                   \
-    watcher->setFuture(QtConcurrent::run(WORKER, ##__VA_ARGS__));           \
+#define RPC_ASYNC(REPLY_TYPE, WORKER, CALLBACK, OBJID, ...)       \
+    typedef QPair<grpc::Status, REPLY_TYPE> T;                    \
+    QFutureWatcher<T> *watcher = new QFutureWatcher<T>();         \
+    watcher->setFuture(QtConcurrent::run(WORKER, ##__VA_ARGS__)); \
     connect(watcher, &QFutureWatcher<T>::finished, [this, watcher, OBJID] { \
         auto reply = watcher->result();                                     \
         emit CALLBACK(OBJID, reply);                                        \
-        delete watcher;                                                     \
-    });
+        delete watcher; });
 
 #define RPC_IMPL(REPLY_TYPE, STUB, RPC_NAME)                                                \
     QPair<grpc::Status, REPLY_TYPE> r;                                                      \
