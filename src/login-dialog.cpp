@@ -20,7 +20,7 @@
 #include "common/message-dialog.h"
 #include "global-application.h"
 #include "main-window.h"
-#include "pages/user/server-config-dialog.h"
+#include "pages/system/server-config-dialog.h"
 #include "ui_login-dialog.h"
 #include "user-configuration.h"
 
