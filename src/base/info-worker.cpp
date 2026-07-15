@@ -989,7 +989,7 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
     size_t n;
     char buf[CHUNK_SIZE];
 
-    //检测签名文件
+    // 检测签名文件
     if (!signFile.isEmpty())
     {
         QFile sigFile(signFile);
