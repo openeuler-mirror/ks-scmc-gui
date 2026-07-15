@@ -1093,14 +1093,14 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
         return r;
     }
 
-    //检测用户认证
+    // 检测用户认证
     grpc::ClientContext context;
     if (s_authKey.size() > 0)
         context.AddMetadata("authorization", s_authKey);
 
-    //检测镜像文件
+    // 检测镜像文件
     auto stream = image::Image::NewStub(chan)->Update(&context, &r.second);
-    if (imageFile.isEmpty() && signFile.isEmpty())  //只修改描述信息
+    if (imageFile.isEmpty() && signFile.isEmpty())  // 只修改描述信息
     {
         if (!stream->Write(req))
         {
