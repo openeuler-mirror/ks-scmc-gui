@@ -12,8 +12,9 @@
 #include <QLabel>
 #include <QSharedPointer>
 #include <QWidget>
+#include "base/interface/common.h"
+#include "base/interface/user.h"
 #include "common/about-page.h"
-#include "info-worker.h"
 #include "license/license-activation.h"
 #include "license/license-proxy.h"
 
