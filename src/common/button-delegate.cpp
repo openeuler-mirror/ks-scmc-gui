@@ -21,6 +21,12 @@
 #define TEXT_SPACE 8
 #define TEXT_TOP 22
 
+#define MENU_CONTAINER_RUN QObject::tr("Run")
+#define MENU_CONTAINER_STOP QObject::tr("Stop")
+#define MENU_CONTAINER_RESTART QObject::tr("Restart")
+#define MENU_CONTAINER_GENERATE_TEMPLATE QObject::tr("Generate template")
+#define MENU_CONTAINER_UPDATE_IMAGE_VERSION QObject::tr("Update Image Version")
+
 ButtonDelegate::ButtonDelegate(QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>> btnInfo, QObject *parent)
     : QStyledItemDelegate(parent),
       m_btnInfo(btnInfo),
