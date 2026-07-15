@@ -33,11 +33,11 @@ MonitorContent::MonitorContent(QWidget *parent) : QWidget(parent),
                                                   m_datePicker(nullptr)
 {
     ui->setupUi(this);
-    m_objId = InfoWorker::getInstance().generateId(this);
+    m_objId = Container::getInstance().generateId(this);
     initUI();
     initChart();
     connect(ui->btn_refresh, &RefreshButton::clicked, this, &MonitorContent::updateCharts);
-    connect(&InfoWorker::getInstance(), &InfoWorker::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult, Qt::UniqueConnection);
+    connect(&Container::getInstance(), &Container::monitorHistoryFinished, this, &MonitorContent::getMonitorHistoryResult, Qt::UniqueConnection);
 }
 
 MonitorContent::~MonitorContent()
