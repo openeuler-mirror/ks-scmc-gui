@@ -140,13 +140,13 @@ void LogSettingView::initUI()
     connect(m_btn_cancel, &QPushButton::clicked, this, &LogSettingView::updateUI);
     connect(m_btn_confirm, &QPushButton::clicked, [this]()
             { 
-                auto month = m_edit->text().toInt();
-                if (month < 6)
+                auto days = m_edit->text().toInt();
+                if (days < 180)
                 {
                     m_edit->clear();
                 }
                 else
                 {
-                    InfoWorker::getInstance().setLog(m_ObjId, month * 30);
+                    InfoWorker::getInstance().setLog(m_ObjId, days);
                 } });
 }
