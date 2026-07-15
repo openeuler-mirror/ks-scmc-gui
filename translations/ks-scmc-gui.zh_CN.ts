@@ -4262,6 +4262,144 @@ Instruction</source>
     </message>
 </context>
 <context>
+    <name>UserListPage</name>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="43"/>
+        <source>Create User</source>
+        <translation>创建用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="58"/>
+        <source>Edit User</source>
+        <translation>编辑用户</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="66"/>
+        <source>Create</source>
+        <translation>创建</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="73"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="104"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="96"/>
+        <source>User Name</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="97"/>
+        <source>User ID</source>
+        <translation>用户ID</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="98"/>
+        <source>Role</source>
+        <translation>角色</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="99"/>
+        <source>Create Time</source>
+        <translation>创建时间</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="100"/>
+        <source>Quick Actions</source>
+        <translation>快捷操作</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="103"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+</context>
+<context>
+    <name>UserUpdateDialog</name>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="26"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="328"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="103"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="329"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;User Name</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;用户名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="190"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="333"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="213"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="334"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Login Password</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;登录密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="299"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="338"/>
+        <source>User Name</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="363"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="340"/>
+        <source>New Password</source>
+        <translation>新密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="438"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="342"/>
+        <source>Confirm Password</source>
+        <translation>确认密码</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="520"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="344"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="539"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="345"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="117"/>
+        <source>Please input 2 to 18 characters</source>
+        <translation>请输入2-18个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="75"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="118"/>
+        <source>The username supports combinations of letters and numbers.</source>
+        <translation>用户名支持字母、数字进行组合。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="123"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="126"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="134"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="137"/>
+        <source>Please input 8 to 32 characters</source>
+        <translation>请输入8-32个字符</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="128"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="139"/>
+        <source>The password length 8-32 bits, should contain
+ at least three combinations of uppercase letter,
+ lowercase letter, number and special character</source>
+        <translation>密码长度8-32位，包含大写字母、小写字母、数字和特殊字符中至少三种组合</translation>
+    </message>
+</context>
+<context>
     <name>VolumesConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/volumes-conf-tab.ui" line="14"/>
