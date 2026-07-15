@@ -4319,55 +4319,55 @@ Instruction</source>
     <name>UserUpdateDialog</name>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="26"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="328"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="333"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="103"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="329"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="334"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;User Name</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;用户名</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="190"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="333"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="338"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="213"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="334"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="339"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Login Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;登录密码</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="299"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="338"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="343"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="363"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="340"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="345"/>
         <source>New Password</source>
         <translation>新密码</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="438"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="342"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="347"/>
         <source>Confirm Password</source>
         <translation>确认密码</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="520"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="344"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="349"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="539"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="345"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="350"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
