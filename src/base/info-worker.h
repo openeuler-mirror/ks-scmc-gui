@@ -279,7 +279,7 @@ signals:
     void removeBackupFinished(const QString objId, const QPair<grpc::Status, container::RemoveBackupReply> &);
     void exportBackupFinished(const QString objId, const QPair<grpc::Status, QString> &);
 
-    //container app
+    // container app
     void listAppEntryFinished(const QString objId, const QPair<grpc::Status, container::ListAppEntryReply> &);
     void addAppEntryFinished(const QString objId, const QPair<grpc::Status, container::AddAppEntryReply> &);
     void updateAppEntryFinished(const QString objId, const QPair<grpc::Status, container::UpdateAppEntryReply> &);
