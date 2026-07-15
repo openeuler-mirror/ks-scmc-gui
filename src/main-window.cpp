@@ -497,6 +497,11 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
         page = new LogSettingView(this);
         break;
     }
+    case GUIDE_ITEM_USER_MANAGET:
+    {
+        page = new UserListPage(this);
+        break;
+    }
     default:
 
         break;
