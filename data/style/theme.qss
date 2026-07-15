@@ -1234,17 +1234,19 @@ SecurityLevelTab QTextEdit
     border-radius: 6px;
 }
 
-/************************************ImageOperateDialog******************************/
+/************************************Tips Button******************************/
 ImageOperateDialog QToolButton#btn_tip_name,
 ImageOperateDialog QToolButton#btn_tip_version,
 ContainerSetting QToolButton#btn_tip_name,
 ContainerBackupOperateDialog QToolButton#btn_tip,
-ContainerBackupOperateDialog QToolButton#btn_tip_version
+ContainerBackupOperateDialog QToolButton#btn_tip_version,
+UserUpdateDialog QToolButton
 {
     border:none;
     background:transparent;
 }
 
+/************************************ImageOperateDialog******************************/
 ImageOperateDialog QTextEdit#textDesc,
 NodeOperateDialog QTextEdit#browser_comment
 {
