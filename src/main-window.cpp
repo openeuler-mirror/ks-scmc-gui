@@ -595,9 +595,20 @@ void MainWindow::loadUserItem()
         QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
         QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
 
-        QList<QListWidgetItem*> containerSubItems = {containerList, containerTemplate};
+        containerSubItems = {containerList, containerTemplate};
         m_groupMap.insert(containerManager, containerSubItems);
         m_isShowMap.insert(containerManager, true);
+
+        // 创建系统管理侧边栏
+        auto systemManager = createGuideItem(SYSTEM_MANAGER, GUIDE_ITEM_TYPE_GROUP,
+                                             ":/images/container-manager.svg");
+        systemManager->setFlags(systemManager->flags() & ~Qt::ItemIsSelectable);
+
+        auto userList = createGuideItem(USER_MANAGER, GUIDE_ITEM_TYPE_SUB);
+
+        containerSubItems = {userList};
+        m_groupMap.insert(systemManager, containerSubItems);
+        m_isShowMap.insert(systemManager, true);
     }
     else if (m_userRole == USER_ROLE_SECADM)
     {
