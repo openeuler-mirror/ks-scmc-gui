@@ -47,6 +47,7 @@ private:
     NodeConfigPage *m_configPage;
     NetworkConfigPage *m_networkConfigPage;
     FileProtectionPage *m_fileProtectionPage;
+    IPCPage *m_ipcPage;
 };
 
 #endif  // NODEINFOPAGE_H
