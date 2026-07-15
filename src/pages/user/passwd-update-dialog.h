@@ -35,7 +35,6 @@ private:
     void updatePassword(QString oldPw, QString newPw);
 
 private slots:
-    bool checkPassword(PasswordType type, QString inputPw);
     void onConfirm();
     void getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply);
 
