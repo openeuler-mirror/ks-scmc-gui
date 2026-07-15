@@ -1479,6 +1479,29 @@ The first characters must be letter or digit</source>
     </message>
 </context>
 <context>
+    <name>FileProtectionPage</name>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="44"/>
+        <source>Open Status</source>
+        <translation>开启状态</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="45"/>
+        <source>Open</source>
+        <translation>打开</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="46"/>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="63"/>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+</context>
+<context>
     <name>GuideItem</name>
     <message>
         <location filename="../src/common/guide-item.ui" line="20"/>
