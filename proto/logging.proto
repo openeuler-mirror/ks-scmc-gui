@@ -84,6 +84,12 @@ message ReadWarnRequest {
 
 message ReadWarnReply {}
 
+message SubscribeWarnRequest {}
+
+message SubscribeWarnReply {
+    repeated WarnLog logs = 1;
+}
+
 enum EVENT_MODULE {
     NONE      = 0;
     NODE      = 1;
