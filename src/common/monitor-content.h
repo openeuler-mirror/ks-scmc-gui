@@ -10,7 +10,7 @@
 #include <kiran-titlebar-window.h>
 #include <QDateTime>
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/container.h"
 #include "trend-chart-form.h"
 namespace Ui
 {
