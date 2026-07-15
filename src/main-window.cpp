@@ -187,7 +187,7 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
 
 // void MainWindow::closeEvent(QCloseEvent* event)
 //{
-//     InfoWorker::getInstance().appQuit();
+//     Common::getInstance().appQuit();
 //     if (QThreadPool::globalInstance()->activeThreadCount())
 //     {
 //         MessageDialog::message(tr("Quit Application"),
