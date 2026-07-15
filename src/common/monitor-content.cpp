@@ -226,7 +226,7 @@ void MonitorContent::onCycleChanged(int index)
     ui->widget_date_selete->hide();
     ui->btn_apply->hide();
     int cycle = ui->cb_select_cycle->currentIndex();
-    QDateTime currDate = QDateTime::currentDateTime();  //获取当前时间
+    QDateTime currDate = QDateTime::currentDateTime();  // 获取当前时间
     QDateTime startDate;
     if (cycle == CHART_CYCLE_CUSTOM)
     {
