@@ -208,7 +208,7 @@ void MonitorContent::handleYValue(double &start, double &end, QString &unit)
     if (end > 0)
     {
         int bit = getbit(end);
-        end = pow(10, bit);  //10 bit
+        end = pow(10, bit);  // 10 bit
         start = 0;
     }
     else
