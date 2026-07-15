@@ -36,6 +36,7 @@
 #define ENVS QObject::tr("ENVS")
 #define VOLUMES QObject::tr("Volumes")
 #define HIGH_AVAILABILITY QObject::tr("High availability")
+#define IPC QObject::tr("IPC")
 #define FILE_PROTECT QObject::tr("File protect")
 #define PROCESS_SECURITY QObject::tr("Process security")
 #define NETWORK_ACCESS_CONTROL QObject::tr("Network access control")
