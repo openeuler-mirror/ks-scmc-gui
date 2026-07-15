@@ -19,7 +19,7 @@
 #include "rpc.h"
 #include "user-configuration.h"
 
-//extern std::string g_server_addr;
+// extern std::string g_server_addr;
 
 static std::string s_authKey = "";
 
