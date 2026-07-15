@@ -1440,12 +1440,8 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="89"/>
-        <source>Image Version</source>
-        <translation>镜像版本</translation>
-    </message>
-    <message>
         <location filename="../build/src/ui_container-update-image.h" line="142"/>
-        <source>IImage Version</source>
+        <source>Image Version</source>
         <translation>镜像版本</translation>
     </message>
     <message>
