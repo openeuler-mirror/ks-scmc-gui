@@ -872,6 +872,7 @@ void ContainerListPage::initTable()
     connect(this, SIGNAL(sigStop(QModelIndex)), this, SLOT(onBtnStop(QModelIndex)));
     connect(this, SIGNAL(sigRestart(QModelIndex)), this, SLOT(onBtnRestart(QModelIndex)));
     connect(this, &ContainerListPage::sigGenerateTemp, this, &ContainerListPage::onActGenerateTemp);
+    connect(this, &ContainerListPage::sigActUpdateImage, this, &ContainerListPage::onActUpdateImage);
 
     connect(this, &ContainerListPage::sigItemClicked, this, &ContainerListPage::onItemClicked);
     connect(this, &ContainerListPage::sigItemEntered, this, &ContainerListPage::onItemEntered);
