@@ -2204,22 +2204,32 @@ The first characters must be letter or digit</source>
 <context>
     <name>LogSettingView</name>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="90"/>
-        <source>Log Retention Period (Month)</source>
-        <translation>日志保存周期（月）</translation>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="62"/>
+        <source>Failed to set log save days!</source>
+        <translation>设置日志保存周期失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="93"/>
-        <source>Please enter a number greater than or equal to 6</source>
-        <translation>请输入大于等于6的数字</translation>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="66"/>
+        <source>Set log save days successfully!</source>
+        <translation>设置日志保存周期成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="106"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="94"/>
+        <source>Log Retention Period (Day)</source>
+        <translation>日志保存周期（天数）</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="97"/>
+        <source>Please enter a number greater than or equal to 180 days</source>
+        <translation>请输入数值大于等于180天</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="110"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="110"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="114"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
