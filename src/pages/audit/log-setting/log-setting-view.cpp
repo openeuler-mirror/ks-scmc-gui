@@ -39,11 +39,44 @@ int LogSettingView::getPeriod()
     return m_edit->text().toInt();
 }
 
+void LogSettingView::initConnect()
+{
+    connect(&InfoWorker::getInstance(), &InfoWorker::loggingGetLogFinished, this, &LogSettingView::getLogFinishedResult);
+    connect(&InfoWorker::getInstance(), &InfoWorker::loggingSetLogFinished, this, &LogSettingView::setLogFinishedResult);
+}
+
+void LogSettingView::updateUI()
+{
+    updateInfo();
+}
+
+void LogSettingView::setLogFinishedResult(const QString objId, const QPair<grpc::Status, logging::SetLogReply> &reply)
+{
+    if (m_ObjId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "set log setting result failed: " << reply.first.error_message().data();
+        return;
+    }
+}
+void LogSettingView::getLogFinishedResult(const QString objId, const QPair<grpc::Status, logging::GetLogReply> &reply)
+{
+    if (m_ObjId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Get log setting result failed: " << reply.first.error_message().data();
+        return;
+    }
+
+    setPeriod(reply.second.save_log_days() / 30);
+}
+
 void LogSettingView::initUI()
 {
-    // 设置默认值是6个月
-    m_period = 6;
-
     auto mainLayout = new QVBoxLayout(this);
     mainLayout->setMargin(0);
     mainLayout->setContentsMargins(24, 16, 0, 24);
