@@ -210,7 +210,8 @@ void NetworkAccessCtlTab::initUI()
                 }
             });
     connect(m_btnOpen, &QRadioButton::toggled,
-            [=](bool checked) {
+            [=](bool checked)
+            {
                 if (checked == true)
                 {
                     m_listWidget->setDisabled(false);
