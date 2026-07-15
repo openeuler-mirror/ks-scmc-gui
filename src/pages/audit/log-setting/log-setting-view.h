@@ -22,16 +22,21 @@ public:
     ~LogSettingView();
     void updateInfo(QString keyword = "");
 
-    void setPeriod(int mouth);
+    void setPeriod(int month);
     int getPeriod();
+
+private slots:
+    void setLogFinishedResult(const QString objId, const QPair<grpc::Status, logging::SetLogReply> &reply);
+    void getLogFinishedResult(const QString objId, const QPair<grpc::Status, logging::GetLogReply> &reply);
 
 private:
     void initUI();
+    void initConnect();
     void updateUI();
 
 private:
     QLineEdit *m_edit;
     QPushButton *m_btn_confirm;
     QPushButton *m_btn_cancel;
-    int m_period;
+    QString m_ObjId;
 };
