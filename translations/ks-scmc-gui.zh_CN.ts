@@ -3057,24 +3057,34 @@ Instruction</source>
 <context>
     <name>NodeInfoPage</name>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="44"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="48"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="50"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="54"/>
         <source>Monitor</source>
         <translation>监控</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="56"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="60"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="62"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="66"/>
         <source>Config</source>
         <translation>设置</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="72"/>
+        <source>Network Config</source>
+        <translation>网络配置</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="78"/>
+        <source>File Protection</source>
+        <translation>文件保护</translation>
     </message>
 </context>
 <context>
