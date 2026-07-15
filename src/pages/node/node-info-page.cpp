@@ -80,6 +80,12 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
         addTabPage(m_fileProtectionPage, tr("File Protection"));
         break;
     }
+    case NODE_INFO_SUB_PAGE_TYPE_IPC:
+    {
+        m_ipcPage = new IPCPage(this);
+        addTabPage(m_ipcPage, tr("IPC"));
+        break;
+    }
     default:
         break;
     }
