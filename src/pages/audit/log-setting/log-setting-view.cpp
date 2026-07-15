@@ -76,7 +76,7 @@ void LogSettingView::getLogFinishedResult(const QString objId, const QPair<grpc:
         return;
     }
 
-    setPeriod(reply.second.save_log_days() / 30);
+    setPeriod(reply.second.save_log_days());
 }
 
 void LogSettingView::initUI()
