@@ -580,11 +580,14 @@ void MainWindow::loadUserItem()
                     ":/images/home.svg");
     if (m_userRole == USER_ROLE_SYSADM)
     {
+        QList<QListWidgetItem*> containerSubItems;
+
         createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
                         ":/images/node-manager.svg");
         createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
                         ":/images/image-manager.svg");
 
+        // 创建容器侧边栏
         QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,
                                                             ":/images/container-manager.svg");
         containerManager->setFlags(containerManager->flags() & ~Qt::ItemIsSelectable);
