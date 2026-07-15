@@ -40,7 +40,7 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
 {
     ui->setupUi(getWindowContentWidget());
 
-    m_objID = InfoWorker::generateId(this);
+    m_objID = User::generateId(this);
 
     m_serverCfgDlg = new ServerConfigDialog(this);
     m_serverCfgDlg->hide();
