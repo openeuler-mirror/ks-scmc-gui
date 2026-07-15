@@ -360,16 +360,16 @@ void TablePage::initUI()
     m_model = new QStandardItemModel(this);
     ui->tableView->setModel(m_model);
 
-    //设置表头
+    // 设置表头
     m_headerView = new HeaderView(true, ui->tableView);
     m_headerView->setStretchLastSection(true);
     ui->tableView->setHorizontalHeader(m_headerView);
 
-    //隐藏列表头
+    // 隐藏列表头
     ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->verticalHeader()->setDefaultSectionSize(60);
 
-    //设置表的其他属性
+    // 设置表的其他属性
     ui->tableView->setMouseTracking(true);
     ui->tableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
