@@ -2738,6 +2738,61 @@ Instruction</source>
     </message>
 </context>
 <context>
+    <name>NetworkConfigPage</name>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="14"/>
+        <location filename="../build/src/ui_network-config-page.h" line="170"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="40"/>
+        <location filename="../build/src/ui_network-config-page.h" line="171"/>
+        <source>Network access control</source>
+        <translation>网络访问控制</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="53"/>
+        <location filename="../build/src/ui_network-config-page.h" line="172"/>
+        <source>Access Status</source>
+        <translation>访问状态</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="60"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="114"/>
+        <location filename="../build/src/ui_network-config-page.h" line="173"/>
+        <location filename="../build/src/ui_network-config-page.h" line="177"/>
+        <source>Open</source>
+        <translation>打开</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="67"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="121"/>
+        <location filename="../build/src/ui_network-config-page.h" line="174"/>
+        <location filename="../build/src/ui_network-config-page.h" line="178"/>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="97"/>
+        <location filename="../build/src/ui_network-config-page.h" line="175"/>
+        <source>Network process white-list</source>
+        <translation>网络进程白名单</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="107"/>
+        <location filename="../build/src/ui_network-config-page.h" line="176"/>
+        <source>White-list Status</source>
+        <translation>白名单状态</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="189"/>
+        <location filename="../build/src/ui_network-config-page.h" line="179"/>
+        <source>Save</source>
+        <translation>保存</translation>
+    </message>
+</context>
+<context>
     <name>NetworkListPage</name>
     <message>
         <location filename="../src/pages/node/network/network-list-page.cpp" line="136"/>
