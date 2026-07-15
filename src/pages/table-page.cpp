@@ -165,6 +165,8 @@ void TablePage::setTableActions(int col, QMap<ACTION_BUTTON_TYPE, QPair<QString,
     connect(m_btnDelegate, &ButtonDelegate::sigImageRefuse, this, &TablePage::sigImageRefuse);
     connect(m_btnDelegate, &ButtonDelegate::sigWarnRead, this, &TablePage::sigWarnRead);
     connect(m_btnDelegate, &ButtonDelegate::sigWarnIgnore, this, &TablePage::sigWarnIgnore);
+    connect(m_btnDelegate, &ButtonDelegate::sigUserEdit, this, &TablePage::sigUserEdit);
+    connect(m_btnDelegate, &ButtonDelegate::sigUserDelete, this, &TablePage::sigUserDelete);
 }
 
 void TablePage::setTableSingleChoose(bool isSingleChoose)
