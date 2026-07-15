@@ -121,7 +121,7 @@ private slots:
     void updateCheckStatus(bool toggled);
     void lastBtnClick();
     void nextBtnClick();
-    void pageEditChage();  //输入框回车按下
+    void pageEditChage();  // 输入框回车按下
 
 private:
     Ui::TablePage *ui;
