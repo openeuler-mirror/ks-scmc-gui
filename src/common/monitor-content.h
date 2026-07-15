@@ -24,14 +24,14 @@ enum ChartDataType
     CHART_DATA_TYPE_NETWORK
 };
 
-//不同的周期，所取的数据个数
+// 不同的周期，所取的数据个数
 enum ChartCycleNum
 {
-    CHART_CYCLE_TEN_MINUTE = 0,  //10  //1
-    CHART_CYCLE_ONE_HOUR,        //12  //5
-    CHART_CYCLE_ONE_DAY,         //12  //2 * 60
-    CHART_CYCLE_ONE_WEEK,        //14  //12 * 60,
-    CHART_CYCLE_CUSTOM           //10  //24 * 60
+    CHART_CYCLE_TEN_MINUTE = 0,  // 10  //1
+    CHART_CYCLE_ONE_HOUR,        // 12  //5
+    CHART_CYCLE_ONE_DAY,         // 12  //2 * 60
+    CHART_CYCLE_ONE_WEEK,        // 14  //12 * 60,
+    CHART_CYCLE_CUSTOM           // 10  //24 * 60
 };
 
 enum CalendarType
