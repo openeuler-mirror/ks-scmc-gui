@@ -175,8 +175,6 @@ void PasswdUpdateDialog::initUI()
                 m_confirmTimer->start(TIMEOUT);
             });
 
-    connect(ui->btn_cancel, &QPushButton::clicked,
-            [this]
-            { close(); });
+    connect(ui->btn_cancel, &QPushButton::clicked, this, &PasswdUpdateDialog::close);
     connect(ui->btn_confirm, &QPushButton::clicked, this, &PasswdUpdateDialog::onConfirm);
 }
