@@ -2339,42 +2339,42 @@ The first characters must be letter or digit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="249"/>
+        <location filename="../src/main-window.cpp" line="250"/>
         <source>KylinSec Container System V1(Security Version)</source>
         <translation>麒麟信安容器系统V1（安全版）</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="255"/>
+        <location filename="../src/main-window.cpp" line="256"/>
         <source>Transmission</source>
         <translation>传输</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="264"/>
+        <location filename="../src/main-window.cpp" line="265"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="273"/>
+        <location filename="../src/main-window.cpp" line="274"/>
         <source>Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="298"/>
+        <location filename="../src/main-window.cpp" line="299"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="299"/>
+        <location filename="../src/main-window.cpp" line="300"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="301"/>
+        <location filename="../src/main-window.cpp" line="302"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/main-window.cpp" line="302"/>
+        <location filename="../src/main-window.cpp" line="303"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
