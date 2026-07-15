@@ -51,9 +51,9 @@ LoginDialog::LoginDialog(QWidget *parent) : KiranTitlebarWindow(parent),
     auto application = static_cast<GlobalApplication *>(QCoreApplication::instance());
     connect(application, &GlobalApplication::sessionExpired, this, &LoginDialog::sessionExpire);
 
-    connect(&InfoWorker::getInstance(), &InfoWorker::loginFinished, this, &LoginDialog::getLoginResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::logoutFinished, this, &LoginDialog::getLogoutResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::sessionExpire, this, &LoginDialog::sessionExpire);
+    connect(&User::getInstance(), &User::loginFinished, this, &LoginDialog::getLoginResult);
+    connect(&User::getInstance(), &User::logoutFinished, this, &LoginDialog::getLogoutResult);
+    connect(&Common::getInstance(), &Common::sessionExpire, this, &LoginDialog::sessionExpire);
 }
 
 LoginDialog::~LoginDialog()
