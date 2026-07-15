@@ -2320,67 +2320,67 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="171"/>
-        <location filename="../src/login-dialog.cpp" line="273"/>
+        <location filename="../src/login-dialog.cpp" line="276"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="404"/>
+        <location filename="../src/login-dialog.cpp" line="407"/>
         <source>Session Expired,Please login again!</source>
         <translation>会话过期，请重新登录！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="239"/>
+        <location filename="../src/login-dialog.cpp" line="242"/>
         <source>Please input user name!</source>
         <translation>请输入用户名！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="245"/>
+        <location filename="../src/login-dialog.cpp" line="248"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="251"/>
+        <location filename="../src/login-dialog.cpp" line="254"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="258"/>
+        <location filename="../src/login-dialog.cpp" line="261"/>
         <source>Please config a server address!</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="319"/>
+        <location filename="../src/login-dialog.cpp" line="322"/>
         <source>Activation</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="320"/>
+        <location filename="../src/login-dialog.cpp" line="323"/>
         <source>The application is not activated and unable to login. Please activate it.</source>
         <translation>应用暂未激活，无法登录！请先激活。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="354"/>
+        <location filename="../src/login-dialog.cpp" line="357"/>
         <source>Login failed: there is no %1 user role</source>
         <translation>获取日志失败：没有%1用户角色</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="379"/>
+        <location filename="../src/login-dialog.cpp" line="382"/>
         <source>Login failed %1</source>
         <translation>登录失败 %1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="415"/>
+        <location filename="../src/login-dialog.cpp" line="418"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="416"/>
+        <location filename="../src/login-dialog.cpp" line="419"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="417"/>
+        <location filename="../src/login-dialog.cpp" line="420"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
