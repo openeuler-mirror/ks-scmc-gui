@@ -6,6 +6,7 @@
  */
 
 #include "log-setting-view.h"
+#include <kiran-log/qt5-log-i.h>
 #include <QIntValidator>
 #include <QLabel>
 #include <QVBoxLayout>
