@@ -581,10 +581,10 @@ void TablePage::search()
 
 void TablePage::refresh()
 {
-    //刷新搜索结果
+    // 刷新搜索结果
     if (m_isOpenPaging)
         emit sigRefreshSearchResult();
-    //更新列表信息
+    // 更新列表信息
     updateInfo();
 }
 
