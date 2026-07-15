@@ -9,7 +9,7 @@
 #include <QRadioButton>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include "security-list-item.h"
+#include "common/security-widgets/security-list-item.h"
 SecurityListTab::SecurityListTab(ProtectionType type, QWidget *parent) : QWidget(parent),
                                                                          m_listWidget(nullptr),
                                                                          m_funcDesc(nullptr),
