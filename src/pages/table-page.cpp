@@ -226,7 +226,7 @@ void TablePage::setTips(QString text)
     if (isBusy())
         setBusy(false);
     ui->label_tips->setText(text);
-    m_timerID = this->startTimer(10000);  //10秒后提示消失
+    m_timerID = this->startTimer(10000);  // 10秒后提示消失
 }
 
 void TablePage::clearText()
