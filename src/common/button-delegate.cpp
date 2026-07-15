@@ -248,6 +248,16 @@ bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const
                 }
                 break;
             }
+            case ACTION_BUTTON_TYPE_USER_DELETE:
+            {
+                emit sigUserDelete(index.row());
+                break;
+            }
+            case ACTION_BUTTON_TYPE_USER_EDIT:
+            {
+                emit sigUserEdit(index.row());
+                break;
+            }
             default:
                 break;
             }
