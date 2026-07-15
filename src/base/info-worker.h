@@ -106,7 +106,7 @@ public:
     void removeBackup(const QString objId, int nodeId, int64_t ids);
     void exportBackup(const QString objId, const container::ExportBackupRequest &req, const QString path);
 
-    //container app
+    // container app
     void listAppEntry(const QString objId, const int nodeId, const std::string &containerId);
     void addAppEntry(const QString objId, const container::AddAppEntryRequest &);
     void updateAppEntry(const QString objId, const container::UpdateAppEntryRequest &);
