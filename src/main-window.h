@@ -12,8 +12,8 @@
 #include <QMutex>
 #include <QStackedWidget>
 #include <QWidget>
+#include "base/interface/common.h"
 #include "def.h"
-#include "info-worker.h"
 #include "pages/outline/outline-view.h"
 
 QT_BEGIN_NAMESPACE
