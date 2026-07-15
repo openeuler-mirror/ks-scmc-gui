@@ -1082,7 +1082,7 @@ QPair<grpc::Status, image::UpdateReply> InfoWorker::_updateImage(image::UpdateRe
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UpdateReply> r;
 
-    //检测rpc连接
+    // 检测rpc连接
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
     {
