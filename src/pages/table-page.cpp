@@ -623,7 +623,7 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
         }
     }
 
-    //更新表头复选框状态、更新批量处理按钮状态
+    // 更新表头复选框状态、更新批量处理按钮状态
     int num = getCheckedItemNum();
     if (num > 0)
     {
