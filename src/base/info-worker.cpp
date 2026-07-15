@@ -968,12 +968,12 @@ QPair<grpc::Status, image::UploadReply> InfoWorker::_uploadImage(image::UploadRe
         return r;
     }
 
-    //检测用户认证
+    // 检测用户认证
     grpc::ClientContext context;
     if (s_authKey.size() > 0)
         context.AddMetadata("authorization", s_authKey);
 
-    //检测镜像文件
+    // 检测镜像文件
     QFile imgFile(imageFile);
     if (!imgFile.open(QIODevice::ReadOnly))
     {
