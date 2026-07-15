@@ -156,7 +156,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
 
             QString filePath = item->getInfo();
             KLOG_DEBUG() << "Process path:" << filePath;
-            //进程白名单做特殊处理：列表中的数据不能为空，当列表数据都为空时，报错
+            // 进程白名单做特殊处理：列表中的数据不能为空，当列表数据都为空时，报错
             if (filePath.isEmpty())
             {
                 emptyRowCount++;
