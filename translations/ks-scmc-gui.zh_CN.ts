@@ -3123,34 +3123,39 @@ Instruction</source>
 <context>
     <name>NodeInfoPage</name>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="48"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="50"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="54"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="56"/>
         <source>Monitor</source>
         <translation>监控</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="60"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="62"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="66"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="68"/>
         <source>Config</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="72"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="74"/>
         <source>Network Config</source>
         <translation>网络配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-info-page.cpp" line="78"/>
+        <location filename="../src/pages/node/node-info-page.cpp" line="80"/>
         <source>File Protection</source>
         <translation>文件保护</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/node-info-page.cpp" line="86"/>
+        <source>IPC</source>
+        <translation>IPC基准</translation>
     </message>
 </context>
 <context>
