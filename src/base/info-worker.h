@@ -235,8 +235,10 @@ private:
     static QPair<grpc::Status, logging::ListRuntimeReply> _listRuntimeLogging(const logging::ListRuntimeRequest &);
     static QPair<grpc::Status, logging::ListWarnReply> _listWarnLogging(const logging::ListWarnRequest &);
     static QPair<grpc::Status, logging::ReadWarnReply> _listReadWarnLogging(const logging::ReadWarnRequest &);
+    static QPair<grpc::Status, logging::GetLogReply> _getLog(const logging::GetLogRequest &);
+    static QPair<grpc::Status, logging::SetLogReply> _setLog(const logging::SetLogRequest &);
 
-    //system management
+    // system management
     static QPair<grpc::Status, sys::SetSecuritySwitchReply> _setSecuritySwitch(const sys::SetSecuritySwitchRequest &);
     static QPair<grpc::Status, sys::GetSecuritySwitchReply> _getSecuritySwitch(const sys::GetSecuritySwitchRequest &);
     static QPair<grpc::Status, sys::DashboardReply> _dashboard(const sys::DashboardRequest &);
