@@ -377,7 +377,7 @@ void TablePage::initUI()
     ui->tableView->setFocusPolicy(Qt::NoFocus);
     ui->tableView->setShowGrid(false);
     //    ui->tableView->setMouseTracking(true);
-    //对鼠标进行监控
+    // 对鼠标进行监控
     this->setMouseTracking(true);
 
     connect(ui->tableView, &QTableView::clicked, this, &TablePage::sigItemClicked);
