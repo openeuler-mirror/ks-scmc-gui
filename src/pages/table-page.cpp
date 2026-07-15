@@ -186,7 +186,7 @@ void TablePage::setSortableCol(int col, Qt::SortOrder order)
 
 void TablePage::setHeaderSections(QStringList names)
 {
-    //插入表头数据
+    // 插入表头数据
     for (int i = 0; i < names.size(); i++)
     {
         QStandardItem *headItem = new QStandardItem(names.at(i));
