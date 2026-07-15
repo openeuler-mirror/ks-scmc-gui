@@ -26,6 +26,7 @@ class NetworkPageManager;
 class NodeConfigPage;
 class NetworkConfigPage;
 class FileProtectionPage;
+class IPCPage;
 class NodeInfoPage : public TabPage
 {
     Q_OBJECT
