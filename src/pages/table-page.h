@@ -95,6 +95,7 @@ signals:
     void sigStop(QModelIndex index);
     void sigRestart(QModelIndex index);
     void sigGenerateTemp(QModelIndex index);
+    void sigActUpdateImage(QModelIndex index);
     void sigImagePass(int row);
     void sigImageRefuse(int row);
     void sigBackupResume(int row);
