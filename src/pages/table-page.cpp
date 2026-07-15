@@ -410,12 +410,12 @@ void TablePage::initPaging()
 
     connect(m_pageEdit, &QLineEdit::returnPressed, this, &TablePage::pageEditChage);
 
-    //总页数
+    // 总页数
     m_totalPageLabel = new QLabel(QString("/ ") + QString::number(m_totalPages), this);
     m_totalPageLabel->setFixedSize(50, 30);
     m_totalPageLabel->setContentsMargins(10, 0, 0, 0);
 
-    //下一页
+    // 下一页
     QPushButton *next_btn = new QPushButton(tr("next page"), this);
     connect(next_btn, &QPushButton::clicked, this, &TablePage::nextBtnClick);
     m_pagingHlayout = new QHBoxLayout();
