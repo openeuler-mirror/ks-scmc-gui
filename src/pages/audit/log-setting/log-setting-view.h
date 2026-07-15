@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QWidget>
+#include "info-worker.h"
 #include "page.h"
 
 class LogSettingView : public Page
