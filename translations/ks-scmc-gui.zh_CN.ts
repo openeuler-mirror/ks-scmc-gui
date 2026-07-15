@@ -4038,17 +4038,17 @@ Instruction</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="397"/>
+        <location filename="../src/pages/table-page.cpp" line="401"/>
         <source>last page</source>
         <translation>上一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="415"/>
+        <location filename="../src/pages/table-page.cpp" line="419"/>
         <source>next page</source>
         <translation>下一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="326"/>
+        <location filename="../src/pages/table-page.cpp" line="329"/>
         <source>No search results were found!</source>
         <translation>未搜索到结果！</translation>
     </message>
