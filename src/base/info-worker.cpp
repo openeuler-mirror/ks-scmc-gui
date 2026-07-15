@@ -239,7 +239,7 @@ void InfoWorker::listTemplate(const QString objId, const int perPage, const int 
 void InfoWorker::listTemplate(const QString objId)
 {
     container::ListTemplateRequest req;
-    req.set_per_page(-1);  //list all template
+    req.set_per_page(-1);  // list all template
     RPC_ASYNC(container::ListTemplateReply, _listTemplate, listTemplateFinished, objId, req);
 }
 
