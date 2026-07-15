@@ -34,6 +34,7 @@ signals:
     void sigActStop(QModelIndex);
     void sigActRestart(QModelIndex);
     void sigActGenerateTemp(QModelIndex);
+    void sigActUpdateImage(QModelIndex);
     void sigImagePass(int row);
     void sigImageRefuse(int row);
     void sigBackupResume(int row);
