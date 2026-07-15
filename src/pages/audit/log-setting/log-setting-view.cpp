@@ -59,8 +59,11 @@ void LogSettingView::setLogFinishedResult(const QString objId, const QPair<grpc:
     if (!reply.first.ok())
     {
         KLOG_WARNING() << "set log setting result failed: " << reply.first.error_message().data();
+        NotificationManager::sendNotify(tr("Failed to set log save days!"), "");
         return;
     }
+
+    NotificationManager::sendNotify(tr("Set log save days successfully!"), "");
 }
 void LogSettingView::getLogFinishedResult(const QString objId, const QPair<grpc::Status, logging::GetLogReply> &reply)
 {
