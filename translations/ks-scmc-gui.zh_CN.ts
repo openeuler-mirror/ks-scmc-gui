@@ -3900,62 +3900,67 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>网络传输速率</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="32"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="33"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="33"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="34"/>
         <source>Network card</source>
         <translation>网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="34"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="35"/>
         <source>Startup paramenters</source>
         <translation>启动参数</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="35"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="36"/>
         <source>ENVS</source>
         <translation>环境变量</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="36"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="37"/>
         <source>Volumes</source>
         <translation>共享目录</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="37"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="38"/>
         <source>High availability</source>
         <translation>高可用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="38"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="39"/>
+        <source>IPC</source>
+        <translation>IPC基准</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/container-setting.cpp" line="40"/>
         <source>File protect</source>
         <translation>文件保护</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="39"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="41"/>
         <source>Process security</source>
         <translation>进程安全</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="40"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="42"/>
         <source>Network access control</source>
         <translation>网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="41"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="43"/>
         <source>Network process white list</source>
         <translation>网络进程白名单</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="42"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="44"/>
         <source>Security Level Configuration</source>
         <translation>安全等级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="43"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="45"/>
         <source>Start stop control</source>
         <translation>启停控制</translation>
     </message>
