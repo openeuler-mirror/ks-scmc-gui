@@ -10,7 +10,7 @@
 #include <QTimer>
 #include "message-dialog.h"
 #include "ui_passwd-update-dialog.h"
-#include "user-configuration.h"
+#include "utils/password-checker.h"
 
 #define TIMEOUT 300
 
