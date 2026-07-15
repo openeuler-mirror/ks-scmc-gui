@@ -446,7 +446,7 @@ void TablePage::adjustTableSize()
     //        ui->tableView->viewport()->setFixedHeight(tableHeight);
     //    else
     //        ui->tableView->viewport()->setFixedHeight(tableAreaHeight);
-    //emit sigTableHeightChanged(height);
+    // emit sigTableHeightChanged(height);
 }
 
 int TablePage::getCheckedItemNum()
