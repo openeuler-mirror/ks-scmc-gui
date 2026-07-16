@@ -251,9 +251,11 @@ QString ImageListPage::checkImageLegality(const QString &fileName)
     }
 
     bool hasRootDir = false;
-    for (const auto& file: fileList) {
+    for (const auto &file : fileList)
+    {
         KLOG_DEBUG() << "file: " << file;
-        if (file == "/") {
+        if (file == "/")
+        {
             hasRootDir = true;
             break;
         }
