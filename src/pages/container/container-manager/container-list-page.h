@@ -10,8 +10,11 @@
 #include <QMenu>
 #include <QStandardItemModel>
 #include <QWidget>
+#include "base/interface/container.h"
+#include "base/interface/image.h"
+#include "base/interface/network.h"
+#include "base/interface/node.h"
 #include "container/container-setting.h"
-#include "info-worker.h"
 #include "table-page.h"
 
 class ContainerSetting;
