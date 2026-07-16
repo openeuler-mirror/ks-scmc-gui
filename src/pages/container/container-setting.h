@@ -12,8 +12,8 @@
 #include <QListWidgetItem>
 #include <QStackedWidget>
 #include <QWidget>
+#include "base/interface/container.h"
 #include "def.h"
-#include "info-worker.h"
 namespace Ui
 {
 class ContainerSetting;
