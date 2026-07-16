@@ -26,14 +26,13 @@ ContainerBackupPage::ContainerBackupPage(QWidget *parent) : TablePage(nullptr),
                                                             m_nodeId(-1),
                                                             m_containerId("")
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Container::generateId(this);
     initTable();
     initButtons();
     initConnect();
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [this] {
-        refresh();
-    });
+    connect(m_timer, &QTimer::timeout, [this]
+            { refresh(); });
 }
 
 ContainerBackupPage::~ContainerBackupPage()
