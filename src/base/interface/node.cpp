@@ -63,6 +63,11 @@ void Node::updateNode(const QString objId, const node::UpdateRequest &req)
     RPC_ASYNC(node::UpdateReply, _updateNode, updateNodeFinished, objId, req);
 }
 
+void Node::UpdateFileProtect(const QString objId, const node::UpdateFileProtectRequest &req)
+{
+    RPC_ASYNC(node::UpdateFileProtectReply, _updateFileProtect, updateFileProtectFinished, objId, req);
+}
+
 QPair<grpc::Status, node::ListReply> Node::_listNode(const node::ListRequest &req)
 {
     RPC_IMPL(node::ListReply, node::Node::NewStub, List);
