@@ -46,6 +46,15 @@ void UserListPage::updateInfo(QString keyword)
     User::getInstance().listUser(m_objID);
 }
 
+void UserListPage::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == m_timerID)
+    {
+        ui->label_tips->clear();
+        killTimer(m_timerID);
+    }
+}
+
 UserUpdateDialog *UserListPage::popupDialog(DialogType type, const QString &title)
 {
     UserUpdateDialog *dialog = new UserUpdateDialog(this);
