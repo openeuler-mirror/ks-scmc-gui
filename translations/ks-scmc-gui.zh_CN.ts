@@ -4290,25 +4290,25 @@ Instruction</source>
 <context>
     <name>TemplateListPage</name>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="95"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="140"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="97"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="144"/>
         <source>Remove Template</source>
         <translation>移除模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="96"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="141"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="98"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="145"/>
         <source>Are you sure you want to Remove the Template?</source>
         <translation>确定移除该容器模板？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="97"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="142"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="99"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="146"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="285"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="289"/>
         <source>CPU: %1 core 
  Memory: %2 G 
  Network: %3 piece</source>
