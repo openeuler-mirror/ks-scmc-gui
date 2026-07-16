@@ -243,7 +243,7 @@ void ContainerSetting::initUI()
                                                            {NETWORK_ACCESS_CONTROL, ":/images/net-access-control.png"},
                                                            {NETWORK_PROCESS_WHITE_LIST, ":/images/net-process-white-list.png"},
                                                            {START_STOP_CONTROL, ":/images/cmd_operation.png"},
-                                                           {SECURITY_LEVEL_CONFIGURATION, ":/images/cmd_operation.png"}};
+                                                           {SECURITY_LEVEL_CONFIGURATION, ":/images/container-sercurity-level.svg"}};
     for (int i = 0; i < securityConfItemInfo.count(); i++)
     {
         QString name = securityConfItemInfo.at(i).first;
