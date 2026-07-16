@@ -8,10 +8,10 @@
 #define LOGLISTVIEW_H
 
 #include <QTimer>
+#include "base/interface/logging.h"
 #include "common/date-picker/date-pick-button.h"
 #include "common/date-picker/date-picker.h"
 #include "common/monitor-content.h"
-#include "info-worker.h"
 #include "pages/container/container-manager/container-list-page.h"
 #include "pages/table-page.h"
 
