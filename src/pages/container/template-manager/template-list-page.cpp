@@ -378,11 +378,11 @@ void TemplateListPage::initButtons()
 
 void TemplateListPage::initTemplateConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listNodeFinished, this, &TemplateListPage::getNodeListResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listImageFinished, this, &TemplateListPage::getListImageFinishedResult);
+    connect(&Container::getInstance(), &Container::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
+    connect(&Network::getInstance(), &Network::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
+    connect(&Container::getInstance(), &Container::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
+    connect(&Node::getInstance(), &Node::listNodeFinished, this, &TemplateListPage::getNodeListResult);
+    connect(&Image::getInstance(), &Image::listImageFinished, this, &TemplateListPage::getListImageFinishedResult);
 }
 
 void TemplateListPage::getCheckedItemsId(QList<int64_t> &ids)
