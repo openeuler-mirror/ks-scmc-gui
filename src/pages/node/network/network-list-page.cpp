@@ -63,7 +63,7 @@ void NetworkListPage::onRemoveVirtIfs()
 {
     auto itemInfo = getCheckedItemInfo(1).at(0);
     QString name = itemInfo[NAME].toString();
-    InfoWorker::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
+    Network::getInstance().removeNic(m_objId, m_nodeId, name.toStdString());
 }
 
 void NetworkListPage::removeVirtIfs(int row)
