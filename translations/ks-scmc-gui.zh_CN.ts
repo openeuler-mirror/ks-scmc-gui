@@ -3664,54 +3664,54 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="34"/>
-        <location filename="../src/base/info-worker.cpp" line="726"/>
-        <location filename="../src/base/info-worker.cpp" line="966"/>
-        <location filename="../src/base/info-worker.cpp" line="1091"/>
-        <location filename="../src/base/info-worker.cpp" line="1226"/>
-        <location filename="../src/base/info-worker.cpp" line="1362"/>
-        <location filename="../src/base/info-worker.cpp" line="1387"/>
+        <location filename="../src/base/interface/common.h" line="43"/>
+        <location filename="../src/base/interface/container.cpp" line="404"/>
+        <location filename="../src/base/interface/image.cpp" line="108"/>
+        <location filename="../src/base/interface/image.cpp" line="233"/>
+        <location filename="../src/base/interface/image.cpp" line="368"/>
+        <location filename="../src/base/interface/user.cpp" line="59"/>
+        <location filename="../src/base/interface/user.cpp" line="85"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="48"/>
-        <location filename="../src/base/info-worker.cpp" line="754"/>
-        <location filename="../src/base/info-worker.cpp" line="1374"/>
-        <location filename="../src/base/info-worker.cpp" line="1401"/>
+        <location filename="../src/base/interface/common.h" line="57"/>
+        <location filename="../src/base/interface/container.cpp" line="432"/>
+        <location filename="../src/base/interface/user.cpp" line="72"/>
+        <location filename="../src/base/interface/user.cpp" line="100"/>
         <source>Response timeout</source>
         <translation>响应超时</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1027"/>
-        <location filename="../src/base/info-worker.cpp" line="1109"/>
-        <location filename="../src/base/info-worker.cpp" line="1165"/>
+        <location filename="../src/base/interface/image.cpp" line="169"/>
+        <location filename="../src/base/interface/image.cpp" line="251"/>
+        <location filename="../src/base/interface/image.cpp" line="307"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="1269"/>
+        <location filename="../src/base/interface/image.cpp" line="411"/>
         <source>The transmission was cancelled.</source>
         <translation>传输已取消。</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="982"/>
-        <location filename="../src/base/info-worker.cpp" line="1001"/>
-        <location filename="../src/base/info-worker.cpp" line="1012"/>
-        <location filename="../src/base/info-worker.cpp" line="1121"/>
-        <location filename="../src/base/info-worker.cpp" line="1133"/>
-        <location filename="../src/base/info-worker.cpp" line="1145"/>
+        <location filename="../src/base/interface/image.cpp" line="124"/>
+        <location filename="../src/base/interface/image.cpp" line="143"/>
+        <location filename="../src/base/interface/image.cpp" line="154"/>
+        <location filename="../src/base/interface/image.cpp" line="263"/>
+        <location filename="../src/base/interface/image.cpp" line="275"/>
+        <location filename="../src/base/interface/image.cpp" line="287"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="778"/>
-        <location filename="../src/base/info-worker.cpp" line="1258"/>
+        <location filename="../src/base/interface/container.cpp" line="456"/>
+        <location filename="../src/base/interface/image.cpp" line="400"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
     <message>
-        <location filename="../src/base/info-worker.cpp" line="789"/>
+        <location filename="../src/base/interface/container.cpp" line="467"/>
         <location filename="../src/common/message-dialog.cpp" line="133"/>
         <source>Cancel</source>
         <translation>取消</translation>
