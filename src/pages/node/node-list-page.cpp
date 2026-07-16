@@ -153,7 +153,7 @@ void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
         request.set_name(Info[NODE_NAME].toStdString());
         request.set_address(Info[NODE_ADDRESS].toStdString());
         request.set_comment(Info[NODE_COMMENT].toStdString());
-        InfoWorker::getInstance().createNode(m_objId, request);
+        Node::getInstance().createNode(m_objId, request);
     }
     else if (type == NODE_OPERATE_TYPE_EDIT)
     {
