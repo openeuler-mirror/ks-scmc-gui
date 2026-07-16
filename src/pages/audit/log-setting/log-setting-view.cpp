@@ -147,6 +147,6 @@ void LogSettingView::initUI()
                 }
                 else
                 {
-                    InfoWorker::getInstance().setLog(m_ObjId, days);
+                    Logging::getInstance().setLog(m_ObjId, days);
                 } });
 }
