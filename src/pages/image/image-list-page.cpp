@@ -263,7 +263,8 @@ QString ImageListPage::checkImageLegality(const QString &fileName)
 
     archive_read_close(pArchive);
     archive_read_free(pArchive);
-    if (hasRootDir) {
+    if (hasRootDir)
+    {
         return QString();
     }
 
