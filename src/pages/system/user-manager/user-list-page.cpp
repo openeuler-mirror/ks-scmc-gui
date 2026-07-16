@@ -11,10 +11,12 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDesktopWidget>
+#include <QHBoxLayout>
 #include <QPushButton>
 #include <QStandardItem>
 
 #include "message-dialog.h"
+#include "ui_user-list-page.h"
 
 #define USER_ID "user id"
 #define USER_ROLE_ID "role id"
