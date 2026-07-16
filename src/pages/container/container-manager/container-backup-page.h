@@ -1,13 +1,14 @@
 /**
  * @file          /ks-scmc-gui/src/pages/container/container-manager/container-backup-page.h
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #ifndef CONTAINERBACKUPPAGE_H
 #define CONTAINERBACKUPPAGE_H
+
+#include "base/interface/container.h"
 #include "container-backup-operate-dialog.h"
-#include "info-worker.h"
 #include "table-page.h"
 
 class ContainerBackupOperateDialog;
