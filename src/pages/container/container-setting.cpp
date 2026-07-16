@@ -831,7 +831,7 @@ void ContainerSetting::updateContainer()
         return;
     }
 
-    InfoWorker::getInstance().updateContainer(m_objId, request);
+    Container::getInstance().updateContainer(m_objId, request);
 }
 
 void ContainerSetting::createTemplate()
