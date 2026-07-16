@@ -8,6 +8,7 @@
 #ifndef USERLISTPAGE_H
 #define USERLISTPAGE_H
 
+#include "base/interface/user.h"
 #include "table-page.h"
 #include "user-update-dialog.h"
 
