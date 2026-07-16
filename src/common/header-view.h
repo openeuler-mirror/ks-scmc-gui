@@ -28,10 +28,10 @@ public slots:
     void setCheckState(bool checked);
 
 private:
-    bool m_ckbIsToggled;  //是否选中
+    bool m_ckbIsToggled;  // 是否选中
     bool m_isCheckable = false;
-    QPoint m_mousePoint;                 //鼠标位置
-    mutable QRect m_rectHeaderCheckBox;  //复选框的位置
+    QPoint m_mousePoint;                 // 鼠标位置
+    mutable QRect m_rectHeaderCheckBox;  // 复选框的位置
     QList<int> m_sortableCol;
 };
 
