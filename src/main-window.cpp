@@ -511,7 +511,7 @@ Page* MainWindow::createSubPage(GUIDE_ITEM itemEnum)
 
 void MainWindow::loadUserButton()
 {
-    if (m_userRole == USER_ROLE_SYSADM)
+    if (m_userRole == USER_ROLE_SYSADM || m_userRole == USER_ROLE_STDADM)
     {
         m_btnTransmission->show();
     }
