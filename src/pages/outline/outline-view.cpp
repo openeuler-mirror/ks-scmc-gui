@@ -273,7 +273,7 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
     m_outlineCell_node->ui->online_counts->setText(QString::number(nodeOnline, 10));
     m_outlineCell_node->ui->offline_counts->setText(QString::number(nodeOffline, 10));
 
-    //container status
+    // container status
     int containerTotal = reply.second.container().total_count();
     int containerOnline = reply.second.container().online_count();
     int containerOffline = reply.second.container().offline_count();
