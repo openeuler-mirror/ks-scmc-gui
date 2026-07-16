@@ -260,7 +260,8 @@ QMenu#addMenu::item:selected
     color:#303133;
 }
 /************************HeaderView************************/
-TablePage HeaderView
+TablePage HeaderView,
+CheckableHeader
 {
     background-color:#2d2d2d;
     border:none;
