@@ -725,8 +725,8 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
 
     bool checkStatus = Info["Image Check"] == "Pass" ? true : false;
 
-    //    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
+    //    Common::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    Image::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
 }
 
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
