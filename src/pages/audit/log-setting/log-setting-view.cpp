@@ -42,8 +42,8 @@ int LogSettingView::getPeriod()
 
 void LogSettingView::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingGetLogFinished, this, &LogSettingView::getLogFinishedResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::loggingSetLogFinished, this, &LogSettingView::setLogFinishedResult);
+    connect(&Logging::getInstance(), &Logging::loggingGetLogFinished, this, &LogSettingView::getLogFinishedResult);
+    connect(&Logging::getInstance(), &Logging::loggingSetLogFinished, this, &LogSettingView::setLogFinishedResult);
 }
 
 void LogSettingView::updateUI()
