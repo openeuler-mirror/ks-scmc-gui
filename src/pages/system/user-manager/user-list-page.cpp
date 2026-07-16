@@ -341,8 +341,7 @@ void UserListPage::initButtons()
 
     addSingleOperationButton(btnCreate);
     addBatchOperationButtons(QList<QPushButton *>() << btnDelete);
-    // TODO:只是测试，后续改为false
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, true);
+    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
