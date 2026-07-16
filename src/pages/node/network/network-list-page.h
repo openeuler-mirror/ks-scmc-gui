@@ -9,7 +9,7 @@
 #define NETWORKLISTPAGE_H
 
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/network.h"
 #include "table-page.h"
 enum NetworkIfsType
 {
