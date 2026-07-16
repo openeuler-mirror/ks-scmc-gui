@@ -3198,113 +3198,113 @@ Instruction</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="252"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="253"/>
         <source>core</source>
         <translation>核</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="183"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="184"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="303"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="304"/>
         <source>Create Node</source>
         <translation>创建节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="304"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="305"/>
         <source>Create node failed!</source>
         <translation>创建节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="305"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="306"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="322"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="323"/>
         <source>Remove Node</source>
         <translation>移除节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="323"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="324"/>
         <source>Remove node failed!</source>
         <translation>移除节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="324"/>
-        <location filename="../src/pages/node/node-list-page.cpp" line="345"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="325"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="346"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="343"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="344"/>
         <source>Update Node</source>
         <translation>更新节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="344"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="345"/>
         <source>Update node failed!</source>
         <translation>更新节点失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="379"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="380"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="386"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="387"/>
         <source>Remove</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="400"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="401"/>
         <source>Node Name</source>
         <translation>节点名</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="401"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="402"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="402"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="403"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="403"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="404"/>
         <source>Container Number</source>
         <translation>容器总数</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="405"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="406"/>
         <source>Memory</source>
         <translation>内存</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="406"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="407"/>
         <source>Disk</source>
         <translation>磁盘</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="407"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="408"/>
         <source>Warning Number</source>
         <translation>告警数</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="408"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="409"/>
         <source>Comment</source>
         <translation>备注</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="409"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="410"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-list-page.cpp" line="416"/>
+        <location filename="../src/pages/node/node-list-page.cpp" line="417"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
