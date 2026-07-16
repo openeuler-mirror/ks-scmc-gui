@@ -44,7 +44,7 @@ void OutlineView::initUI()
     m_scrollArea->setWidgetResizable(false);
     m_scrollArea->setContentsMargins(0, 0, 0, 0);
 
-    m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);  //Qt::ScrollBarAlwaysOn
+    m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);  // Qt::ScrollBarAlwaysOn
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     m_scrollWidget = new QWidget();  //(m_scrollArea);
