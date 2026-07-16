@@ -117,7 +117,7 @@ void ContainerBackupPage::onRemoveBackupBtn()
         if (ret == MessageDialog::StandardButton::Yes)
         {
             auto backupId = infoMap.at(0).value(BACKUP_ID).toInt();
-            InfoWorker::getInstance().removeBackup(m_objId, m_nodeId, backupId);
+            Container::getInstance().removeBackup(m_objId, m_nodeId, backupId);
         }
     }
 }
