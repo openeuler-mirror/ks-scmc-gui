@@ -392,7 +392,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                     }
 
                     req.set_subnet(lineEditSubnet->text().toStdString());
-                    InfoWorker::getInstance().updateNic(m_objId, req);
+                    Network::getInstance().updateNic(m_objId, req);
                 }
                 window->close();
             });
