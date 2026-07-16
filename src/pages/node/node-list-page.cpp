@@ -107,7 +107,7 @@ void NodeListPage::onRemoveNode()
                                                                    MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            InfoWorker::getInstance().removeNode(m_objId, node_ids);
+            Node::getInstance().removeNode(m_objId, node_ids);
         }
     }
 }
