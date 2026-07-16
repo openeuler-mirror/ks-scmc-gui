@@ -32,9 +32,8 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
     initNodeConnect();
 
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [this] {
-        refresh();
-    });
+    connect(m_timer, &QTimer::timeout, [this]
+            { refresh(); });
 }
 
 NodeListPage::~NodeListPage()
