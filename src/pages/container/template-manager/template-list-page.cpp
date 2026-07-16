@@ -293,8 +293,8 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         QStandardItem *itemBaseCfg = new QStandardItem(baseCfg);
         itemBaseCfg->setTextAlignment(Qt::AlignCenter);
 
-        //高级配置
-        //环境变量、共享目录、图形化使用、高可用
+        // 高级配置
+        // 环境变量、共享目录、图形化使用、高可用
         auto envNum = cfg.envs().size();
         auto mountNum = cfg.mounts_size();
         QString enableGraphic = cfg.enable_graphic() ? tr("Open") : tr("Close");
