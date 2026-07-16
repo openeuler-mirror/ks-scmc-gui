@@ -1,14 +1,17 @@
 /**
  * @file          /ks-scmc-gui/src/pages/container/template-manager/template-list-page.h
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #ifndef TEMPLATELISTPAGE_H
 #define TEMPLATELISTPAGE_H
 #include <table-page.h>
+#include "base/interface/container.h"
+#include "base/interface/image.h"
+#include "base/interface/network.h"
+#include "base/interface/node.h"
 #include "container/container-setting.h"
-#include "info-worker.h"
 
 class ContainerSetting;
 class TemplateListPage : public TablePage
