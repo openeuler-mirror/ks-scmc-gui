@@ -133,3 +133,23 @@ QPair<grpc::Status, user::UpdatePasswordReply> User::_updatePassword(const user:
 {
     RPC_IMPL(user::UpdatePasswordReply, user::User::NewStub, UpdatePassword);
 }
+
+QPair<grpc::Status, user::ListUserReply> User::_listUser(const user::ListUserRequest &req)
+{
+    RPC_IMPL(user::ListUserReply, user::User::NewStub, ListUser);
+}
+
+QPair<grpc::Status, user::CreateUserReply> User::_createUser(const user::CreateUserRequest &req)
+{
+    RPC_IMPL(user::CreateUserReply, user::User::NewStub, CreateUser);
+}
+
+QPair<grpc::Status, user::UpdateUserReply> User::_updateUser(const user::UpdateUserRequest &req)
+{
+    RPC_IMPL(user::UpdateUserReply, user::User::NewStub, UpdateUser);
+}
+
+QPair<grpc::Status, user::RemoveUserReply> User::_removeUser(const user::RemoveUserRequest &req)
+{
+    RPC_IMPL(user::RemoveUserReply, user::User::NewStub, RemoveUser);
+}
