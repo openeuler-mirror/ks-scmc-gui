@@ -10,6 +10,7 @@
 
 #include <QListWidget>
 #include <QObject>
+#include "base/interface/node.h"
 #include "page.h"
 
 class FileProtectionPage : public Page
