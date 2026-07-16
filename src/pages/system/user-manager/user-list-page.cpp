@@ -123,25 +123,34 @@ void UserListPage::createUser()
         userinfo->set_password(info.password.toStdString());
         userinfo->set_is_active(true);
         userinfo->set_is_editable(true);
-        userinfo->set_role_id(STDADM_ROLE_ID);
+
+        if (m_roles.contains(USER_ROLE_STDADM))
+        {
+            userinfo->set_role_id(m_roles[USER_ROLE_STDADM]);
+        }
 
         User::getInstance().createUser(m_objID, req); });
 }
 
 void UserListPage::deleteUsers()
 {
-    QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     std::vector<int64_t> userIDs;
-    foreach (auto &idMap, info)
+
+    // 获取表格中选中的用户信息
+    auto selectedUsersInfo = ui->tableView->getSelectedUserInfos();
+    if (selectedUsersInfo.size() == 0)
+        return;
+
+    foreach (auto info, selectedUsersInfo)
     {
-        KLOG_INFO() << "Remove user:" << idMap.value(USER_ID).toInt();
-        userIDs.push_back(idMap.value(USER_ID).toInt());
+        KLOG_INFO() << "Remove user:" << info.userName << "ID:" << info.userID;
+        userIDs.push_back(info.userID);
     }
 
     if (!userIDs.empty())
     {
         MessageDialog::StandardButton ret = MessageDialog::message(tr("Remove User"),
-                                                                   tr("Are you sure you want to remove the user?"),
+                                                                   tr("Are you sure you want to remove the users?"),
                                                                    tr("It can't be recovered after deletion.Are you sure you want to continue?"),
                                                                    ":/images/warning.svg",
                                                                    MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
