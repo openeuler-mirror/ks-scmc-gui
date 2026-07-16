@@ -109,7 +109,7 @@ void ContainerListPage::onBtnStop()
     if (!ids.empty())
     {
         setBusy(true);
-        InfoWorker::getInstance().stopContainer(m_objId, ids);
+        Container::getInstance().stopContainer(m_objId, ids);
     }
 }
 
