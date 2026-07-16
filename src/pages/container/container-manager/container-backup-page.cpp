@@ -476,12 +476,12 @@ void ContainerBackupPage::initButtons()
 
 void ContainerBackupPage::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::createBackupFinished, this, &ContainerBackupPage::getCreateBackupFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::removeBackupFinished, this, &ContainerBackupPage::getRemoveBackupFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::listBackupFinished, this, &ContainerBackupPage::getListBackupFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::updateBackupFinished, this, &ContainerBackupPage::getUpdateBackupFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::resumeBackupFinished, this, &ContainerBackupPage::getResumeBackupFinished);
-    connect(&InfoWorker::getInstance(), &InfoWorker::exportBackupFinished, this, &ContainerBackupPage::getExportBackupFinished);
+    connect(&Container::getInstance(), &Container::createBackupFinished, this, &ContainerBackupPage::getCreateBackupFinished);
+    connect(&Container::getInstance(), &Container::removeBackupFinished, this, &ContainerBackupPage::getRemoveBackupFinished);
+    connect(&Container::getInstance(), &Container::listBackupFinished, this, &ContainerBackupPage::getListBackupFinished);
+    connect(&Container::getInstance(), &Container::updateBackupFinished, this, &ContainerBackupPage::getUpdateBackupFinished);
+    connect(&Container::getInstance(), &Container::resumeBackupFinished, this, &ContainerBackupPage::getResumeBackupFinished);
+    connect(&Container::getInstance(), &Container::exportBackupFinished, this, &ContainerBackupPage::getExportBackupFinished);
 }
 
 void ContainerBackupPage::getCheckedItemsId(QList<qint64> &ids)
