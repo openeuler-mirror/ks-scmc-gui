@@ -281,8 +281,8 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         QStandardItem *itemDesc = new QStandardItem(cfg.desc().data());
         itemDesc->setTextAlignment(Qt::AlignCenter);
 
-        //基础配置
-        //cpu,内存,网卡
+        // 基础配置
+        // cpu,内存,网卡
         auto cpuNum = cfg.resouce_limit().cpu_limit();
         auto memoryNum = cfg.resouce_limit().memory_limit() / 1024;
         auto networkNum = cfg.networks_size();
