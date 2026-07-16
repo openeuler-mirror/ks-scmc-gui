@@ -15,7 +15,7 @@
 #include <QToolTip>
 #include <iostream>
 #include "common/button-delegate.h"
-#include "common/header-view.h"
+#include "common/table/header-view.h"
 #include "ui_table-page.h"
 
 using namespace std;
