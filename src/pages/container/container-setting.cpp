@@ -58,7 +58,7 @@ ContainerSetting::ContainerSetting(ContainerSettingType type, QWidget *parent) :
 
 {
     ui->setupUi(this);
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Container::generateId(this);
 
     initUI();
     initConnection();
