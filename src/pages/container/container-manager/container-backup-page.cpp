@@ -185,7 +185,8 @@ void ContainerBackupPage::onUpdateBackup(int row)
 
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupEditDlg, &ContainerBackupOperateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_backupEditDlg->deleteLater();
                     m_backupEditDlg = nullptr;
                 });
