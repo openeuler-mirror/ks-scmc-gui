@@ -42,7 +42,7 @@ void TemplateListPage::updateInfo(QString keyword)
     clearText();
     if (keyword.isEmpty())
     {
-        //gRPC->拿数据->填充内容
+        // gRPC->拿数据->填充内容
         getTemplateInfo();
         getNetworkInfo(-1);  //-1返回所有节点的网卡信息
         getNodeInfo();
