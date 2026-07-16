@@ -553,6 +553,15 @@ void MainWindow::loadUserPage()
             {GUIDE_ITEM_LOG_LIST, LOG_LIST},
             {GUIDE_ITEM_LOG_SETTING, LOG_SETTING}};
     }
+    else if (m_userRole == USER_ROLE_STDADM)
+    {
+        pageMap = {
+            {GUIDE_ITEM_HONE, GENERAL_OUTLINE},
+            {GUIDE_ITEM_CONTAINER_List_PAGE_MANAGER, CONTAINER_LIST},
+            {GUIDE_ITEM_CONTAINER_TEMPLATE_LIST, CONTAINER_TEMPLATE},
+            {GUIDE_ITEM_NODE_MANAGER, NODE_MANAGER},
+            {GUIDE_ITEM_IMAGE_LIST, IMAGE_STOREHOUSE}};
+    }
     else
     {
         KLOG_WARNING() << "Create page failed,there is no such user role!";
