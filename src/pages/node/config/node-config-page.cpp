@@ -97,7 +97,7 @@ void NodeConfigPage::onSave()
         limit->set_disk_limit(ui->lineEdit_disk->text().toInt());
         limit->set_memory_limit(ui->lineEdit_memory->text().toInt());
 
-        InfoWorker::getInstance().updateNode(m_objId, req);
+        Node::getInstance().updateNode(m_objId, req);
     }
 
     m_editable = !m_editable;
