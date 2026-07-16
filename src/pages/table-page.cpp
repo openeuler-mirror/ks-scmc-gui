@@ -665,13 +665,12 @@ void TablePage::onItemEntered(const QModelIndex &index)
 void TablePage::updateCheckStatus(bool toggled)
 {
     int rowCounts = m_model->rowCount();
-
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, toggled);
+    int checkableNum = 0;
 
     for (int i = 0; i < rowCounts; i++)
     {
         QStandardItem *item = m_model->item(i, 0);
-        if (item)
+        if (item && item->isCheckable())
         {
             if (toggled)
                 item->setCheckState(Qt::Checked);
