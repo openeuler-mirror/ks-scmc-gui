@@ -55,7 +55,7 @@ PasswdUpdateDialog::PasswdUpdateDialog(QString userName, QWidget *parent) : Kira
             });
     ui->lab_user_name->setText(userName);
     initUI();
-    connect(&InfoWorker::getInstance(), &InfoWorker::updatePasswordFinished, this, &PasswdUpdateDialog::getUpdatePasswordResult);
+    connect(&User::getInstance(), &User::updatePasswordFinished, this, &PasswdUpdateDialog::getUpdatePasswordResult);
 }
 
 PasswdUpdateDialog::~PasswdUpdateDialog()
