@@ -96,7 +96,8 @@ void ContainerBackupPage::onCreateBackupBtn()
 
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::sigSave, this, &ContainerBackupPage::onBackupOperate);
         connect(m_backupAddDlg, &ContainerBackupOperateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_backupAddDlg->deleteLater();
                     m_backupAddDlg = nullptr;
                 });
