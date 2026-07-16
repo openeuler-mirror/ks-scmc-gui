@@ -124,3 +124,9 @@ message SignInfo {
     int64 size       = 1;
     bytes chunk_data = 2;
 }
+
+message LoadInfo {
+    string image_id = 1;
+    string path     = 2;
+    string tag      = 3;
+}
