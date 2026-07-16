@@ -644,6 +644,27 @@ void MainWindow::loadUserItem()
         m_groupMap.insert(warningLog, auditSubItems);
         m_isShowMap.insert(warningLog, true);
     }
+    else if (m_userRole == USER_ROLE_STDADM)
+    {
+        QList<QListWidgetItem*> containerSubItems;
+
+        createGuideItem(NODE_MANAGER, GUIDE_ITEM_TYPE_NORMAL,
+                        ":/images/node-manager.svg");
+        createGuideItem(IMAGE_STOREHOUSE, GUIDE_ITEM_TYPE_NORMAL,
+                        ":/images/image-manager.svg");
+
+        // 创建容器侧边栏
+        QListWidgetItem* containerManager = createGuideItem(CONTAINER_MANAGER, GUIDE_ITEM_TYPE_GROUP,
+                                                            ":/images/container-manager.svg");
+        containerManager->setFlags(containerManager->flags() & ~Qt::ItemIsSelectable);
+
+        QListWidgetItem* containerList = createGuideItem(CONTAINER_LIST, GUIDE_ITEM_TYPE_SUB);
+        QListWidgetItem* containerTemplate = createGuideItem(CONTAINER_TEMPLATE, GUIDE_ITEM_TYPE_SUB);
+
+        containerSubItems = {containerList, containerTemplate};
+        m_groupMap.insert(containerManager, containerSubItems);
+        m_isShowMap.insert(containerManager, true);
+    }
     else
     {
         KLOG_WARNING() << "Create side item failed, there is no such user role!";
