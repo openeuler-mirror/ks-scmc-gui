@@ -35,7 +35,7 @@ protected:
 private:
     void initUI();
     void initConnect();
-    void setOutlineCellNode();  //初始化概述页面的cell
+    void setOutlineCellNode();  // 初始化概述页面的cell
     void setOutlineCellContainer();
     void setOutlineCellImage();
     void setOutlineCellTemplateContainer();
