@@ -346,26 +346,26 @@ void ContainerSetting::initConnection()
     switch (m_type)
     {
     case CONTAINER_SETTING_TYPE_CONTAINER_EDIT:
-        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
+        connect(&Container::getInstance(), &Container::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&Container::getInstance(), &Container::updateContainerFinished, this, &ContainerSetting::getUpdateContainerResult);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE:
-        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        connect(&Container::getInstance(), &Container::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_CREATE:
-        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
+        connect(&Container::getInstance(), &Container::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
         break;
     case CONTAINER_SETTING_TYPE_TEMPLATE_EDIT:
-        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
+        connect(&Container::getInstance(), &Container::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
+        connect(&Container::getInstance(), &Container::updateTemplateFinished, this, &ContainerSetting::getUpdateTemplateFinishedResult);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_CREATE_FROM_TEMPLATE:
-        connect(&InfoWorker::getInstance(), &InfoWorker::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
+        connect(&Container::getInstance(), &Container::inspectTemplateFinished, this, &ContainerSetting::getInspectTemplateFinishResult);
+        connect(&Container::getInstance(), &Container::createContainerFinished, this, &ContainerSetting::getCreateContainerResult);
         break;
     case CONTAINER_SETTING_TYPE_CONTAINER_GENERATE_TEMPLATE:
-        connect(&InfoWorker::getInstance(), &InfoWorker::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
-        connect(&InfoWorker::getInstance(), &InfoWorker::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
+        connect(&Container::getInstance(), &Container::containerInspectFinished, this, &ContainerSetting::getContainerInspectResult);
+        connect(&Container::getInstance(), &Container::createTemplateFinished, this, &ContainerSetting::getCreateTemplateFinishResult);
         break;
     default:
         break;
