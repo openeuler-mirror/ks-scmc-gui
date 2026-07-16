@@ -148,7 +148,7 @@ void TemplateListPage::onRemoveTemplate()
                                           MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            InfoWorker::getInstance().removeTemplate(m_objId, ids);
+            Container::getInstance().removeTemplate(m_objId, ids);
         }
     }
 }
