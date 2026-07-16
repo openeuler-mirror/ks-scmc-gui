@@ -87,7 +87,7 @@ void ImageListPage::initButtons()
     if (!is_init_audit_btn)
     {
         QMap<int, QPushButton *> opBtnMap;
-        //按钮
+        // 按钮
         const QMap<int, QString> btnNameMap = {
             {OPERATION_BUTTOM_IMAGE_MANAGER_UPLOAD, tr("Upload")},
             {OPERATION_BUTTOM_IMAGE_MANAGER_UPDATE, tr("Update")},
