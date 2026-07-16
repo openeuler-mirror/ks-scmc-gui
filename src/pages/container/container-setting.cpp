@@ -135,7 +135,7 @@ void ContainerSetting::getContainerInspect(int nodeID, const QString containerID
 {
     m_nodeID = nodeID;
     m_containerID = containerID;
-    InfoWorker::getInstance().containerInspect(m_objId, nodeID, containerID.toStdString());
+    Container::getInstance().containerInspect(m_objId, nodeID, containerID.toStdString());
 }
 
 void ContainerSetting::getTemplateInspect()
