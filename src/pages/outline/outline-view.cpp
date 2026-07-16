@@ -284,7 +284,7 @@ void OutlineView::getDashboardResult(const QString objId, const QPair<grpc::Stat
     int templateTotal = reply.second.container().template_count();
     m_outlineCell_template_container->ui->Name_counts->setText(QString::number(templateTotal, 10));
 
-    //image status
+    // image status
     int imageTotal = reply.second.image().total_count();
     m_outlineCell_image->ui->Name_counts->setText(QString::number(imageTotal, 10));
 
