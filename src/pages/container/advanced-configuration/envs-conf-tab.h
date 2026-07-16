@@ -8,9 +8,9 @@
 #define ENVSCONFTAB_H
 
 #include <QWidget>
-#include "common/config-table.h"
 #include "def.h"
 #include "proto/container.grpc.pb.h"
+#include "table-widgets/config-table.h"
 namespace Ui
 {
 class EnvsConfTab;
