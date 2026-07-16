@@ -404,21 +404,21 @@ void TemplateListPage::getItemId(int row, int64_t &id)
 void TemplateListPage::getNetworkInfo(int64_t node_id)
 {
     KLOG_DEBUG() << "Get network info of node:" << node_id;
-    InfoWorker::getInstance().listNetwork(m_objId, node_id);
+    Network::getInstance().listNetwork(m_objId, node_id);
 }
 
 void TemplateListPage::getTemplateInfo()
 {
     setBusy(true);
-    InfoWorker::getInstance().listTemplate(m_objId);
+    Container::getInstance().listTemplate(m_objId);
 }
 
 void TemplateListPage::getNodeInfo()
 {
-    InfoWorker::getInstance().listNode(m_objId);
+    Node::getInstance().listNode(m_objId);
 }
 
 void TemplateListPage::getImageInfo()
 {
-    InfoWorker::getInstance().listImage(m_objId);
+    Image::getInstance().listImage(m_objId);
 }
