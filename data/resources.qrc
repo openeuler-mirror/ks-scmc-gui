@@ -25,6 +25,8 @@
         <file>images/container-high-avail.png</file>
         <file>images/container-env.png</file>
         <file>images/container-cpu.svg</file>
+        <file>images/container-IPC.svg</file>
+        <file>images/container-sercurity-level.svg</file>
         <file>images/add_item.svg</file>
         <file>images/search.svg</file>
         <file>images/refresh-hover.svg</file>
