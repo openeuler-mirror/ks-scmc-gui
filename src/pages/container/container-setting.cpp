@@ -225,7 +225,7 @@ void ContainerSetting::initUI()
                                                            {ENVS, ":/images/container-env.png"},
                                                            {VOLUMES, ":/images/container-volumes.png"},
                                                            {HIGH_AVAILABILITY, ":/images/container-high-avail.png"},
-                                                           {IPC, ":/images/container-high-avail.png"}};
+                                                           {IPC, ":/images/container-IPC.svg"}};
     for (int i = 0; i < advancedConfItemInfo.count(); i++)
     {
         QString name = advancedConfItemInfo.at(i).first;
