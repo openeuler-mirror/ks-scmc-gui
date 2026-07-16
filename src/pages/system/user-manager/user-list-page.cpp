@@ -161,42 +161,19 @@ void UserListPage::deleteUsers()
     }
 }
 
-void UserListPage::deleteUser(int row)
+void UserListPage::deleteUser(qint64 userID)
 {
-    int64_t id = -1;
+    std::vector<int64_t> ids;
+    ids.push_back(userID);
 
-    auto item = getItem(row, 1);
-    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
-    id = idMap.value(USER_ID).toInt();
-
-    if (id > 0)
-    {
-        auto ret = MessageDialog::message(tr("Remove User"),
-                                          tr("Are you sure you want to remove the user?"),
-                                          tr("It can't be recovered after deletion.Are you sure you want to continue?"),
-                                          ":/images/warning.svg",
-                                          MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
-        if (ret == MessageDialog::StandardButton::Yes)
-        {
-            std::vector<int64_t> ids;
-            ids.push_back(id);
-
-            User::getInstance().removeUser(m_objID, ids);
-        }
-    }
+    User::getInstance().removeUser(m_objID, ids);
 }
 
-void UserListPage::editUser(int row)
+void UserListPage::editUser(qint64 userID, QString userName, qint64 roleID)
 {
-    auto item = getItem(row, 1);
-    QMap<QString, QVariant> idMap = item->data().value<QMap<QString, QVariant>>();
-    auto id = idMap.value(USER_ID).toInt();
-    auto roleID = idMap.value(USER_ROLE_ID).toInt();
-    auto name = idMap.value(USER_LOGIN_NAME).toString();
-
     UserUpdateDialog::UserInfo info;
-    info.userID = id;
-    info.userName = name;
+    info.userID = userID;
+    info.userName = userName;
     info.roleID = roleID;
 
     m_editDialog = popupDialog(DialogType::DIALOG_TYPE_EDIT, tr("Edit User"));
