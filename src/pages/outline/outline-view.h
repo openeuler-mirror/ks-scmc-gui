@@ -12,7 +12,7 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QWidget>
-#include "info-worker.h"
+#include "base/interface/system.h"
 #include "outline-cell.h"
 #include "outline-introduction.h"
 #include "page.h"
