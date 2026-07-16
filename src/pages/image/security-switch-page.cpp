@@ -15,15 +15,15 @@
 #include "notification-manager.h"
 SecuritySwitchPage::SecuritySwitchPage(QWidget *parent) : Page(parent), m_checkbox(nullptr)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = System::generateId(this);
     initUI();
-    connect(&InfoWorker::getInstance(), &InfoWorker::getSecuritySwitchFinished, this, &SecuritySwitchPage::getSecuritySwitchResult);
-    connect(&InfoWorker::getInstance(), &InfoWorker::setSecuritySwitchFinished, this, &SecuritySwitchPage::setSecuritySwitchResult);
+    connect(&System::getInstance(), &System::getSecuritySwitchFinished, this, &SecuritySwitchPage::getSecuritySwitchResult);
+    connect(&System::getInstance(), &System::setSecuritySwitchFinished, this, &SecuritySwitchPage::setSecuritySwitchResult);
 }
 
 void SecuritySwitchPage::updateInfo(QString keyword)
 {
-    InfoWorker::getInstance().getSecuritySwitch(m_objId);
+    System::getInstance().getSecuritySwitch(m_objId);
 }
 
 void SecuritySwitchPage::getSecuritySwitchResult(const QString objId, const QPair<grpc::Status, sys::GetSecuritySwitchReply> &reply)
