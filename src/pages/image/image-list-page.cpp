@@ -489,7 +489,7 @@ void ImageListPage::onBtnRemove()
                                                                    MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            InfoWorker::getInstance().removeImage(m_objId, ids);
+            Image::getInstance().removeImage(m_objId, ids);
         }
     }
 }
