@@ -54,6 +54,7 @@ signals:
     void removeNodeFinished(const QString objId, const QPair<grpc::Status, node::RemoveReply> &);
     void statusNodeFinished(const QString objId, const QPair<grpc::Status, node::StatusReply> &);
     void updateNodeFinished(const QString objId, const QPair<grpc::Status, node::UpdateReply> &);
+    void updateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &);
 
 private:
     QMutex mutex;
