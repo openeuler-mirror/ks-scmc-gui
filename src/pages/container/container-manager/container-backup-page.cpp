@@ -161,7 +161,7 @@ void ContainerBackupPage::onResumeBackup(int row)
     if (ret == MessageDialog::StandardButton::Yes)
     {
         auto backupId = infoMap.value(BACKUP_ID).toInt();
-        InfoWorker::getInstance().resumeBackup(m_objId, m_nodeId, m_containerId, backupId);
+        Container::getInstance().resumeBackup(m_objId, m_nodeId, m_containerId, backupId);
     }
 }
 
