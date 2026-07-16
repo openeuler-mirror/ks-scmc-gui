@@ -329,7 +329,7 @@ void ImageListPage::OperateImage(ImageOperateType type)
         m_pImageOp = new ImageOperateDialog(type, m_securityOpen);
         if (type == IMAGE_OPERATE_TYPE_UPDATE)
         {
-            QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);  //只能选择一个
+            QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);  // 只能选择一个
             if (!info.isEmpty())
                 m_pImageOp->setImageInfo(info.at(0));
         }
