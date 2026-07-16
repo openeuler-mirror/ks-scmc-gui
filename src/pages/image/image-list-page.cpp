@@ -397,9 +397,10 @@ QString ImageListPage::getRefuseReason(bool *ok)
     auto textEdit = dlg->findChild<QPlainTextEdit *>();
     textEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
 
-    //限制输入最多200个字符
+    // 限制输入最多200个字符
     connect(dlg, &QInputDialog::textValueChanged,
-            [=](QString text) {
+            [=](QString text)
+            {
                 int length = text.count();
                 int maxLength = 200;  // 最大字符数
                 if (length > maxLength)
