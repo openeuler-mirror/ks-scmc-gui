@@ -281,7 +281,7 @@ QString ImageListPage::parseManifest(const QString &manifestContent, const QStri
     QJsonDocument jsonDoc = QJsonDocument::fromJson(manifestContent.toUtf8());
     if (jsonDoc.isNull() || !jsonDoc.isArray())
     {
-        return tr("Failed to read image data"); // 读写镜像数据失败
+        return tr("Failed to read image data");  // 读写镜像数据失败
     }
 
     const QJsonArray &jsonArray = jsonDoc.array();
