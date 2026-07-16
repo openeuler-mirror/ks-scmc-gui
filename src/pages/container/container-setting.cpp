@@ -144,13 +144,13 @@ void ContainerSetting::getTemplateInspect()
     auto templateId = ui->cb_template->currentData().toInt();
     m_templateId = templateId;
 
-    InfoWorker::getInstance().inspectTemplate(m_objId, templateId);
+    Container::getInstance().inspectTemplate(m_objId, templateId);
 }
 
 void ContainerSetting::getTemplateInspect(int templateID)
 {
     m_templateId = templateID;
-    InfoWorker::getInstance().inspectTemplate(m_objId, templateID);
+    Container::getInstance().inspectTemplate(m_objId, templateID);
 }
 
 bool ContainerSetting::eventFilter(QObject *obj, QEvent *ev)
