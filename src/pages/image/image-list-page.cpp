@@ -618,8 +618,8 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
         pSignInfo->mutable_chunk_data();
     }
 
-    InfoWorker::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
-    InfoWorker::getInstance().uploadImage(m_objId, request, imageFile, signFile);
+    Common::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    Image::getInstance().uploadImage(m_objId, request, imageFile, signFile);
 }
 
 void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
