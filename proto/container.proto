@@ -518,7 +518,6 @@ message ContainerConfigs {
     // user
     // working_dir
     // entrypoint
-    // cmd
 
     repeated Mount         mounts         = 21;  // 共享目录
     repeated NetworkConfig networks       = 22;  // 网络信息
