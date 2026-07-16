@@ -367,4 +367,8 @@ void UserListPage::initTable()
 
 void UserListPage::initConnect()
 {
+    connect(&User::getInstance(), &User::listUserFinished, this, &UserListPage::getListUserFinished);
+    connect(&User::getInstance(), &User::createUserFinished, this, &UserListPage::getCreateUserFinished);
+    connect(&User::getInstance(), &User::updateUserFinished, this, &UserListPage::getUpdateUserFinished);
+    connect(&User::getInstance(), &User::removeUserFinished, this, &UserListPage::getRemoveUserFinished);
 }
