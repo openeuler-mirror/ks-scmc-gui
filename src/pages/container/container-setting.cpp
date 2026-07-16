@@ -702,7 +702,7 @@ void ContainerSetting::createContainer()
 
     if (writeContainerConfig(cntrCfg))
     {
-        InfoWorker::getInstance().createContainer(m_objId, request);
+        Container::getInstance().createContainer(m_objId, request);
     }
 }
 
