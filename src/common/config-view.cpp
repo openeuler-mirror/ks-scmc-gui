@@ -82,7 +82,7 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     {
         ConfigOperateWidget *pWidget = new ConfigOperateWidget(row, curPage, parent);
         dealOperateSig(pWidget);
-        //pWidget->setFocus();
+        // pWidget->setFocus();
         return pWidget;
     }
 
