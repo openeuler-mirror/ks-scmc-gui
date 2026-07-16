@@ -75,6 +75,12 @@ void User::removeUser(const QString objId, const std::vector<int64_t> &userIds)
     RPC_ASYNC(user::RemoveUserReply, _removeUser, removeUserFinished, objId, req);
 }
 
+void User::listRole(const QString objId)
+{
+    user::ListRoleRequest req;
+    RPC_ASYNC(user::ListRoleReply, _listRole, listRoleFinished, objId, req);
+}
+
 QPair<grpc::Status, user::LoginReply> User::_login(const user::LoginRequest &req)
 {
     QPair<grpc::Status, user::LoginReply> r;
