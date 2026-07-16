@@ -75,12 +75,14 @@ void TemplateListPage::onEdit(int row)
 
         m_editTPSetting->show();
         connect(m_editTPSetting, &ContainerSetting::destroyed,
-                [=] {
+                [=]
+                {
                     m_editTPSetting->deleteLater();
                     m_editTPSetting = nullptr;
                 });
         connect(m_editTPSetting, &ContainerSetting::sigUpdateTemplate,
-                [=] {
+                [=]
+                {
                     getTemplateInfo();
                 });
     }
