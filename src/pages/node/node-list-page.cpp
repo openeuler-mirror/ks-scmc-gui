@@ -132,7 +132,8 @@ void NodeListPage::onEdit(int row)
 
         connect(m_nodeUpdate, &NodeOperateDialog::sigSave, this, &NodeListPage::onSaveSlot);
         connect(m_nodeUpdate, &NodeOperateDialog::destroyed,
-                [=] {
+                [=]
+                {
                     m_nodeUpdate->deleteLater();
                     m_nodeUpdate = nullptr;
                 });
