@@ -305,7 +305,7 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
         QStandardItem *startTime = new QStandardItem(dt.toString("yyyy/MM/dd hh:mm:ss"));
         startTime->setTextAlignment(Qt::AlignCenter);
 
-        QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  //字节转化成M
+        QString size = QString("%1M").arg(QString::number(data.image_size() / 1024 / 1024));  // 字节转化成M
         QStandardItem *itemSize = new QStandardItem(size);
         itemSize->setTextAlignment(Qt::AlignCenter);
 
