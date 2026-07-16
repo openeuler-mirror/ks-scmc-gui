@@ -26,7 +26,7 @@ class NodeListPage : public TablePage
 public:
     explicit NodeListPage(QWidget *parent = nullptr);
     ~NodeListPage();
-    void updateInfo(QString keyword = "");  //刷新表格
+    void updateInfo(QString keyword = "");  // 刷新表格
 
 protected:
     void showEvent(QShowEvent *event);
