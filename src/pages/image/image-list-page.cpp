@@ -33,12 +33,12 @@ ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent),
                                                            m_securityOpen(true)
 {
     is_init_audit_btn = flag;
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Image::generateId(this);
 
     initButtons();
     initTable();
     initImageConnect();
-    InfoWorker::getInstance().getSecuritySwitch(m_objId);
+    System::getInstance().getSecuritySwitch(m_objId);
 }
 
 ImageListPage::~ImageListPage()
