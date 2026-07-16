@@ -378,7 +378,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                         req.set_parent(cbBindRealIfs->currentText().toStdString());
                     }
                     req.set_subnet(lineEditSubnet->text().toStdString());
-                    InfoWorker::getInstance().createNic(m_objId, req);
+                    Network::getInstance().createNic(m_objId, req);
                 }
                 else
                 {
