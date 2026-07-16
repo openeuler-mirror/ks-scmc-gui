@@ -78,6 +78,12 @@ void UserUpdateDialog::checkPw()
     }
 }
 
+bool UserUpdateDialog::checkUserName(const QString &userName)
+{
+    QRegularExpression regex("^[A-Za-z0-9]{2,18}$");
+    return regex.match(userName).hasMatch();
+}
+
 void UserUpdateDialog::confirm()
 {
     QString errMsg;
