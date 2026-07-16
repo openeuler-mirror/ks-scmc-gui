@@ -4359,67 +4359,67 @@ Instruction</source>
 图形化使用：%3  高可用：%4</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="241"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="245"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="327"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="331"/>
         <source>Remove template</source>
         <translation>移除模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="328"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="332"/>
         <source>Remove template failed!</source>
         <translation>移除模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="329"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="333"/>
         <source>Error: </source>
         <translation>错误：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="339"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="343"/>
         <source>Template Name</source>
         <translation>模板名称</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="340"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="344"/>
         <source>description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="341"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="345"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="342"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="346"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="343"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="347"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="346"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="350"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="347"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="351"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="358"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="362"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="364"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="368"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
