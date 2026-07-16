@@ -225,7 +225,7 @@ void ContainerAppPage::onDelete()
                                           MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
         if (ret == MessageDialog::StandardButton::Yes)
         {
-            InfoWorker::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, appIds);
+            Container::getInstance().removeAppEntry(m_objId, m_nodeId, m_containerId, appIds);
         }
     }
 }
