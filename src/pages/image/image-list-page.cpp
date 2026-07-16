@@ -140,7 +140,7 @@ void ImageListPage::initButtons()
     else
     {
         QMap<int, QPushButton *> opBtnMap;
-        //按钮
+        // 按钮
         const QMap<int, QString> btnNameMap = {
             {OPERATION_BUTTOM_IMAGE_MANAGER_PASS, tr("Pass")},
             {OPERATION_BUTTOM_IMAGE_MANAGER_REFUSE, tr("Refuse")}};
