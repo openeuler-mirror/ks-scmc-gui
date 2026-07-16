@@ -23,7 +23,7 @@ NodeListPage::NodeListPage(QWidget *parent) : TablePage(parent),
                                               m_nodeUpdate(nullptr),
                                               m_timer(nullptr)
 {
-    m_objId = InfoWorker::generateId(this);
+    m_objId = Node::generateId(this);
     m_mapStatus.insert(0, QPair<QString, QString>(tr("Offline"), "red"));
     m_mapStatus.insert(1, QPair<QString, QString>(tr("Unknown"), "black"));
     m_mapStatus.insert(10, QPair<QString, QString>(tr("Online"), "green"));
