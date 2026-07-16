@@ -32,6 +32,10 @@ void FileProtectionPage::setProtectEnabled(bool enabled)
     m_fileList->setEnabled(enabled);
 }
 
+void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply>& reply)
+{
+}
+
 void FileProtectionPage::initUI()
 {
     auto mainLayout = new QVBoxLayout(this);
