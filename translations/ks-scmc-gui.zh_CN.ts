@@ -3453,92 +3453,92 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>OutlineView</name>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="153"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="152"/>
         <source>node</source>
         <translation>节点</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="154"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="153"/>
         <source>Number of nodes: </source>
         <translation>节点总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="157"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="171"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="156"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="170"/>
         <source>online: </source>
         <translation>在线：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="158"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="172"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="157"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="171"/>
         <source>offline: </source>
         <translation>离线：</translation>
     </message>
     <message>
+        <location filename="../src/pages/outline/outline-view.cpp" line="158"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="159"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="160"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="172"/>
         <location filename="../src/pages/outline/outline-view.cpp" line="173"/>
-        <location filename="../src/pages/outline/outline-view.cpp" line="174"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="186"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="185"/>
         <source>0G</source>
         <translation>0G</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="200"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="199"/>
         <source>Template</source>
         <translation>模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="220"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="219"/>
         <source>Approval</source>
         <translation>审批</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="221"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="220"/>
         <source>Number of Approval: </source>
         <translation>待审批数： </translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="240"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="239"/>
         <source>Unread Warning</source>
         <translation>告警</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="241"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="240"/>
         <source>Number of Unread Warn: </source>
         <translation>未读告警数： </translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="167"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="166"/>
         <source>Container</source>
         <translation>容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="168"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="167"/>
         <source>Number of Container: </source>
         <translation>容器总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="181"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="180"/>
         <source>Image</source>
         <translation>镜像</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="182"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="181"/>
         <source>Number of Image: </source>
         <translation>镜像总数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="185"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="184"/>
         <source>Image Capacity: </source>
         <translation>镜像总容量：</translation>
     </message>
     <message>
-        <location filename="../src/pages/outline/outline-view.cpp" line="201"/>
+        <location filename="../src/pages/outline/outline-view.cpp" line="200"/>
         <source>Number of Template: </source>
         <translation>容器模板总数：</translation>
     </message>
