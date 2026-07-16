@@ -280,7 +280,7 @@ void ContainerAppPage::onSaveApp(const QString name, const QString path, const b
         app->set_name(name.toStdString());
         app->set_exe_path(path.toStdString());
         app->set_is_gui(isGui);
-        InfoWorker::getInstance().updateAppEntry(m_objId, req);
+        Container::getInstance().updateAppEntry(m_objId, req);
     }
 }
 
