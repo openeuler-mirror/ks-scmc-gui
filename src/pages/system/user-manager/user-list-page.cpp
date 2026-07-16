@@ -357,7 +357,7 @@ void UserListPage::initTable()
     setHeaderSections(tableHHeaderDate);
 
     setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_USER_EDIT, QPair<QString, QString>{tr("Edit"), tr("Edit")}},
-                                                                                                   {ACTION_BUTTON_TYPE_USER_EDIT, QPair<QString, QString>{tr("Delete"), tr("Delete")}}});
+                                                                                                   {ACTION_BUTTON_TYPE_USER_DELETE, QPair<QString, QString>{tr("Delete"), tr("Delete")}}});
 
     setTableDefaultContent("-");
     setHeaderCheckable(true);
