@@ -125,9 +125,9 @@ void ContainerBackupPage::onRemoveBackupBtn()
 void ContainerBackupPage::onBackupOperate(BackupOperateType type, QString desc, QString name)
 {
     if (type == BACKUP_OPERATE_TYPE_CREATE)
-        InfoWorker::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString(), name.toStdString());
+        Container::getInstance().createBackup(m_objId, m_nodeId, m_containerId, desc.toStdString(), name.toStdString());
     else if (type == BACKUP_OPERATE_TYPE_EDIT)
-        InfoWorker::getInstance().updateBackup(m_objId, m_nodeId, m_updateBackupId, desc.toStdString());
+        Container::getInstance().updateBackup(m_objId, m_nodeId, m_updateBackupId, desc.toStdString());
 }
 
 void ContainerBackupPage::onRemoveBackup(int row)
