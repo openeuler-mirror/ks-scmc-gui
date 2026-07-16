@@ -89,7 +89,7 @@ void ConfigTable::paintEditor(int curRow)
 
 QList<QSharedPointer<ModelItem> > ConfigTable::getAllData()
 {
-    //paintEditor();
+    // paintEditor();
     auto i = m_pModel->getAllModel();
     for (auto pItem : i)
     {
