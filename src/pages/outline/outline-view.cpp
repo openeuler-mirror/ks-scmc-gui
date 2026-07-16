@@ -111,7 +111,7 @@ void OutlineView::initUI()
 
 void OutlineView::initConnect()
 {
-    connect(&InfoWorker::getInstance(), &InfoWorker::dashboardFinished, this, &OutlineView::getDashboardResult);
+    connect(&System::getInstance(), &System::dashboardFinished, this, &OutlineView::getDashboardResult);
 
     connect(m_outlineCell_node, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
     connect(m_outlineCell_container, &OutlineCell::clicked, this, &OutlineView::outlineCellStepPages);
