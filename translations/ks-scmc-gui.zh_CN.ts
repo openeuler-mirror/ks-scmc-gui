@@ -4316,42 +4316,42 @@ Instruction</source>
 内存：%2 G  网卡：%3 块</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="296"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="300"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="296"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="300"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="169"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="173"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="298"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="302"/>
         <source>no</source>
         <translation>不启用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="299"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="303"/>
         <source>always</source>
         <translation>自动拉起</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="300"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="304"/>
         <source>on-failure</source>
         <translation>失败后自动拉起</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="301"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="305"/>
         <source>unless-stopped</source>
         <translation>手动停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="303"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="307"/>
         <source>Env: %1  Mount: %2 
  Graphic: %3 
  RestartPolicy: %4</source>
