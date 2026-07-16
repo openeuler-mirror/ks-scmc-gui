@@ -649,19 +649,19 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
         else
             check = true;
 
-//        QString checkRet = checkImageLegality(imageFile);
-//        if (!checkRet.isEmpty())
-//        {
-//            MessageDialog::message(tr("Update Image"),
-//                                   tr("Update image failed!"),
-//                                   checkRet,
-//                                   ":/images/error.svg",
-//                                   MessageDialog::StandardButton::Ok);
-//            return;
-//        }
+        //        QString checkRet = checkImageLegality(imageFile);
+        //        if (!checkRet.isEmpty())
+        //        {
+        //            MessageDialog::message(tr("Update Image"),
+        //                                   tr("Update image failed!"),
+        //                                   checkRet,
+        //                                   ":/images/error.svg",
+        //                                   MessageDialog::StandardButton::Ok);
+        //            return;
+        //        }
     }
 
-    //在检查文件成功后再将其加入传输任务列表
+    // 在检查文件成功后再将其加入传输任务列表
     if (!imageIsTransfering(Info["Image Name"], Info["Image Version"], tr("Update Image")))
     {
         KLOG_DEBUG() << "Append" << Info["Image Name"] << "-" << Info["Image Version"] << "to transfering image.";
