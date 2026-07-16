@@ -33,6 +33,7 @@ public:
     void removeNode(const QString objId, const std::vector<int64_t> &node_ids);
     void nodeStatus(const QString objId, const std::vector<int64_t> &node_ids);
     void updateNode(const QString objId, const node::UpdateRequest &);
+    void UpdateFileProtect(const QString objId, const node::UpdateFileProtectRequest &);
 
 private:
     Node(QObject *parent = nullptr);
