@@ -122,12 +122,14 @@ void TemplateListPage::onCreateTemplate()
 
         m_createTPSetting->show();
         connect(m_createTPSetting, &ContainerSetting::destroyed,
-                [=] {
+                [=]
+                {
                     m_createTPSetting->deleteLater();
                     m_createTPSetting = nullptr;
                 });
         connect(m_createTPSetting, &ContainerSetting::sigUpdateTemplate,
-                [=] {
+                [=]
+                {
                     getTemplateInfo();
                 });
     }
