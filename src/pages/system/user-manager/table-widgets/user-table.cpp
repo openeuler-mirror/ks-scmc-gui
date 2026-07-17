@@ -1,3 +1,10 @@
+/**
+ * @file          src/pages/system/user-manager/table-widgets/user-table.cpp
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #include "user-table.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QApplication>
