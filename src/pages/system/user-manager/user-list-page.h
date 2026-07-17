@@ -9,11 +9,17 @@
 #define USERLISTPAGE_H
 
 #include "base/interface/user.h"
-#include "table-page.h"
+#include "page.h"
+#include "table-widgets/user-table.h"
 #include "user-update-dialog.h"
 
+namespace Ui
+{
+class UserListPage;
+}
+
 class UserUpdateDialog;
-class UserListPage : public TablePage
+class UserListPage : public Page
 {
     Q_OBJECT
 public:
