@@ -2824,55 +2824,80 @@ Instruction</source>
     <name>NetworkConfigPage</name>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="14"/>
-        <location filename="../build/src/ui_network-config-page.h" line="170"/>
+        <location filename="../build/src/ui_network-config-page.h" line="175"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="40"/>
-        <location filename="../build/src/ui_network-config-page.h" line="171"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="45"/>
+        <location filename="../build/src/ui_network-config-page.h" line="176"/>
         <source>Network access control</source>
         <translation>网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="53"/>
-        <location filename="../build/src/ui_network-config-page.h" line="172"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="70"/>
+        <location filename="../build/src/ui_network-config-page.h" line="177"/>
         <source>Access Status</source>
         <translation>访问状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="60"/>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="114"/>
-        <location filename="../build/src/ui_network-config-page.h" line="173"/>
-        <location filename="../build/src/ui_network-config-page.h" line="177"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="77"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="146"/>
+        <location filename="../build/src/ui_network-config-page.h" line="178"/>
+        <location filename="../build/src/ui_network-config-page.h" line="182"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="67"/>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="121"/>
-        <location filename="../build/src/ui_network-config-page.h" line="174"/>
-        <location filename="../build/src/ui_network-config-page.h" line="178"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="84"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="153"/>
+        <location filename="../build/src/ui_network-config-page.h" line="179"/>
+        <location filename="../build/src/ui_network-config-page.h" line="183"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="97"/>
-        <location filename="../build/src/ui_network-config-page.h" line="175"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="114"/>
+        <location filename="../build/src/ui_network-config-page.h" line="180"/>
         <source>Network process white-list</source>
         <translation>网络进程白名单</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="107"/>
-        <location filename="../build/src/ui_network-config-page.h" line="176"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="139"/>
+        <location filename="../build/src/ui_network-config-page.h" line="181"/>
         <source>White-list Status</source>
         <translation>白名单状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="189"/>
-        <location filename="../build/src/ui_network-config-page.h" line="179"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="210"/>
+        <location filename="../build/src/ui_network-config-page.h" line="184"/>
         <source>Save</source>
         <translation>保存</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="148"/>
+        <source>Successful to update node network rule!</source>
+        <translation>更新节点网络访问控制成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="174"/>
+        <source>Update Node Network Rules</source>
+        <translation>更新节点网络访问控制</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="175"/>
+        <source>Failed to update node network rules</source>
+        <translation>更新节点网络访问控制失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="176"/>
+        <source>The port %1 is in use, please input again!</source>
+        <translation>端口%1为默认端口，已被占用，请重新输入！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="200"/>
+        <source>Network process</source>
+        <translation>网络进程</translation>
     </message>
 </context>
 <context>
