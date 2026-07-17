@@ -1644,24 +1644,24 @@ The first characters must be letter or digit</source>
 <context>
     <name>Image</name>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="215"/>
-        <location filename="../src/base/interface/image.cpp" line="354"/>
+        <location filename="../src/base/interface/image.cpp" line="216"/>
+        <location filename="../src/base/interface/image.cpp" line="355"/>
         <source>The transmission was cancelled.</source>
         <translation>传输已取消。</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="438"/>
+        <location filename="../src/base/interface/image.cpp" line="439"/>
         <source>Failed to open %1!</source>
         <translation>打开 %1 文件失败！</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="450"/>
-        <location filename="../src/base/interface/image.cpp" line="465"/>
+        <location filename="../src/base/interface/image.cpp" line="451"/>
+        <location filename="../src/base/interface/image.cpp" line="466"/>
         <source>file was broken!</source>
         <translation>文件已损坏！</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="472"/>
+        <location filename="../src/base/interface/image.cpp" line="473"/>
         <source>Ok</source>
         <translation>是</translation>
     </message>
