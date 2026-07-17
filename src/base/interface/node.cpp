@@ -131,3 +131,13 @@ QPair<grpc::Status, node::UpdateFileProtectReply> Node::_updateFileProtect(const
 {
     RPC_IMPL(node::UpdateFileProtectReply, node::Node::NewStub, UpdateFileProtect);
 }
+
+QPair<grpc::Status, node::GetNetworkRuleReply> Node::_getNetworkRule(const node::GetNetworkRuleRequest &req)
+{
+    RPC_IMPL(node::GetNetworkRuleReply, node::Node::NewStub, GetNetworkRule);
+}
+
+QPair<grpc::Status, node::UpdateNetworkRuleReply> Node::_updateNetworkRule(const node::UpdateNetworkRuleRequest &req)
+{
+    RPC_IMPL(node::UpdateNetworkRuleReply, node::Node::NewStub, UpdateNetworkRule);
+}
