@@ -2659,24 +2659,25 @@ p, li { white-space: pre-wrap; }
         <translation>网络吞吐量(单位 M)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="386"/>
+        <location filename="../src/common/monitor-content.cpp" line="319"/>
         <source>Disk usage(unit %1)</source>
         <translation>磁盘使用量(单位 %1)</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="435"/>
+        <location filename="../src/common/monitor-content.cpp" line="515"/>
+        <location filename="../src/common/monitor-content.cpp" line="558"/>
         <source>Network throughput (unit %1)</source>
         <translation>网络吞吐量(单位 %1)</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="138"/>
-        <location filename="../src/common/monitor-content.cpp" line="341"/>
+        <location filename="../src/common/monitor-content.cpp" line="247"/>
         <source>CPU usage (%)</source>
         <translation>CPU使用量（%）</translation>
     </message>
     <message>
         <location filename="../src/common/monitor-content.cpp" line="141"/>
-        <location filename="../src/common/monitor-content.cpp" line="363"/>
+        <location filename="../src/common/monitor-content.cpp" line="273"/>
         <source>Memory usage (%)</source>
         <translation>内存使用量（%）</translation>
     </message>
