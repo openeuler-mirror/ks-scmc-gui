@@ -10,9 +10,7 @@
 #include "ui_container-update-image.h"
 
 ContainerUpdateImage::ContainerUpdateImage(QWidget *parent) : KiranTitlebarWindow(parent),
-                                                              ui(new Ui::ContainerUpdateImage),
-                                                              m_containerID(-1),
-                                                              m_imageID(-1)
+                                                              ui(new Ui::ContainerUpdateImage)
 {
     ui->setupUi(getWindowContentWidget());
     initUI();
