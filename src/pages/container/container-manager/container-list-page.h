@@ -66,6 +66,8 @@ private slots:
 
     void getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
 
+    void updateContainerVersionFinished(const QString objId, const QPair<grpc::Status, container::UpdateContainerVersionReply> &);
+
 signals:
     void sigContainerNameClicked(QMap<QString, QVariant> infoMap);
 
