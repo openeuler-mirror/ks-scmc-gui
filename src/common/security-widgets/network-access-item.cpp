@@ -83,6 +83,7 @@ void NetworkAccessItem::initUI()
     ui->lineEdit_port->setText(QString::number(0));
     ui->lineEdit_port->setTextMargins(10, 0, 0, 0);
     ui->lineEdit_port->setMaxLength(5);
+    ui->lineEdit_port->setValidator(new QIntValidator(0, 65535, this));
 
     ui->btn_tcp->setChecked(true);
     connect(ui->btn_add, &QToolButton::clicked, this, &NetworkAccessItem::onAdd);
