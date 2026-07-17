@@ -180,13 +180,14 @@ void SecurityList::updateItem()
     int row = 0;
     while (row < m_listWidget->count())
     {
-        auto listItem = m_listWidget->item(row);
-        auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
-
         QString itemName;
         itemName = tr("%1 %2").arg(m_itemTitle).arg(row + 1);
 
-        item->updateItemName(itemName);
+        auto listItem = m_listWidget->item(row);
+        auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+        if (item)
+            item->updateItemName(itemName);
+
         row++;
     }
 }
