@@ -54,18 +54,17 @@ bool SecurityList::getSecurityInfos(QStringList &list)
             if (!item->getPathCorrect())
             {
                 KLOG_DEBUG() << "There is error in path of file protection!";
-                row++;
-                continue;
+                return false;
             }
 
             auto path = item->getInfo();
             if (!path.isEmpty())
-                infos.append(path);
+                list.append(path.remove(" "));  // 去除用户输入路径中的空格
         }
 
         row++;
     }
-    return infos;
+    return true;
 }
 
 void SecurityList::setItemTitle(QString title)
