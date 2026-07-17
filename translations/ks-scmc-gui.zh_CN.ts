@@ -2886,27 +2886,42 @@ Instruction</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="148"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="149"/>
         <source>Successful to update node network rule!</source>
         <translation>更新节点网络访问控制成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="174"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="198"/>
+        <source>Successful to update node network process white list!</source>
+        <translation>更新网络进程进程白名单成功！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="282"/>
         <source>Update Node Network Rules</source>
         <translation>更新节点网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="175"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="283"/>
         <source>Failed to update node network rules</source>
         <translation>更新节点网络访问控制失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="176"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="284"/>
         <source>The port %1 is in use, please input again!</source>
         <translation>端口%1为默认端口，已被占用，请重新输入！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="200"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="315"/>
+        <source>Failed to save the configuration</source>
+        <translation>保存网络配置失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="315"/>
+        <source>Please check the input parameters.</source>
+        <translation>请检查输入参数。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="214"/>
         <source>Network process</source>
         <translation>网络进程</translation>
     </message>
