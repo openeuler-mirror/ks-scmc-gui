@@ -23,16 +23,23 @@ public:
     explicit FileProtectionPage(QWidget *parent = nullptr);
     void updateInfo(QString keyword = "") override;
 
+    void setNodeId(qint64 nodeID);
+
 private slots:
     void save();
     void setProtectEnabled(bool checked);
     void getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &);
+    void getFileProtectFinished(const QString objId, const QPair<grpc::Status, node::GetFileProtectReply> &);
 
 private:
     void initUI();
 
 private:
-    QListWidget *m_fileList;
+    QString m_objId;
+    qint64 m_nodeID;
+    QRadioButton *m_btnOpen;
+    QRadioButton *m_btnClose;
+    SecurityList *m_fileList;
     bool m_protectEnabled;
 };
 
