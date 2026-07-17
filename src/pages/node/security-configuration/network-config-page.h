@@ -35,10 +35,15 @@ private slots:
     void getNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::GetNetworkRuleReply> &);
     void updateNetworkRuleFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkRuleReply> &);
 
+    void getNetworkProcessWhiteListFinished(const QString objId, const QPair<grpc::Status, node::GetNetworkProcessWhiteListReply> &);
+    void updateNetworkProcessWhiteListFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkProcessWhiteListReply> &);
+
 private:
     void initUI();
     void initConnect();
     void getDefaultPorts();
+    void saveNetworkRules();
+    void saveNetworkProcessWhiteList();
 
 private:
     Ui::NetworkConfigPage *ui;
