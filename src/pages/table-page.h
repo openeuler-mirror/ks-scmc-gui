@@ -36,7 +36,7 @@ class TablePage : public Page
 public:
     explicit TablePage(QWidget *parent = nullptr, bool is_open = false);
     virtual ~TablePage();
-    virtual void updateInfo(QString keyword = "") = 0;
+    virtual void updateInfo(QString keyword = "") override = 0;
     void clearTable();
     void clearText();
     void clearCheckState();
