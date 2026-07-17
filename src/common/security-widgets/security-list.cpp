@@ -30,6 +30,12 @@ void SecurityList::setSecurityInfos(QStringList infos)
 
         auto listItem = m_listWidget->item(count);
         auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+        if (!item)
+        {
+            KLOG_ERROR() << "Failed to cast item widget at index: " << count;
+            continue;
+        }
+
         item->setInfo(file);
         count++;
     }
