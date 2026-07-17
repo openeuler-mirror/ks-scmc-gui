@@ -23,8 +23,11 @@ class ContainerUpdateImage : public KiranTitlebarWindow
 public:
     explicit ContainerUpdateImage(QWidget *parent = nullptr);
     ~ContainerUpdateImage();
-    void setContainerInfo(int containerID, const QString &containerName);
-    void setImageInfo(int imageID, const QString &imageName, const QStringList &imageVersions);
+    void setContainerInfo(const QString &containerID, const QString &containerName);
+    QString getContainerID();
+
+    void setImageInfo(const QString &imageName, const QStringList &imageInfo);
+    void getImageInfo(QString &imageName, QString &imageVersion);
 
 private:
     void initUI();
