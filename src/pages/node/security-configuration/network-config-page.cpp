@@ -234,6 +234,9 @@ void NetworkConfigPage::initConnect()
 {
     connect(&Node::getInstance(), &Node::getNetworkRuleFinished, this, &NetworkConfigPage::getNetworkRuleFinished);
     connect(&Node::getInstance(), &Node::updateNetworkRuleFinished, this, &NetworkConfigPage::updateNetworkRuleFinished);
+
+    connect(&Node::getInstance(), &Node::getNetworkProcessWhiteListFinished, this, &NetworkConfigPage::getNetworkProcessWhiteListFinished);
+    connect(&Node::getInstance(), &Node::updateNetworkProcessWhiteListFinished, this, &NetworkConfigPage::updateNetworkProcessWhiteListFinished);
 }
 
 void NetworkConfigPage::getDefaultPorts()
