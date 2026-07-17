@@ -88,8 +88,13 @@ void SecurityListItem::checkPath()
     m_isPathCorrect = true;
     if (!path.isEmpty())
     {
+        // 路径必须以/开头
         QRegExp regExp("^/.+$");
         if (!regExp.exactMatch(path))
+            m_isPathCorrect = false;
+
+        // 路径不能包含空格
+        if (path.contains(" "))
             m_isPathCorrect = false;
     }
 
