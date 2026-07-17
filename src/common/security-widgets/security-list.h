@@ -24,6 +24,7 @@ public:
 
     void setItemTitle(QString title);
     void clearItems();
+    void setItemsEnable(bool enable);
 
 private:
     void initUI();
