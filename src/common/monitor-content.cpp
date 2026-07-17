@@ -454,156 +454,110 @@ void MonitorContent::getMonitorHistoryResult(const QString objID, const QPair<gr
 
     auto cpuLimit = reply.second.rsc_limit().cpu_limit();
     auto memoryLimit = reply.second.rsc_limit().memory_limit();
+
     ChartInfo chartInfo;
     chartInfo.xFormat = m_xFormat;
     chartInfo.xTitle = m_xTitle;
     chartInfo.xStart = m_xStart;
     chartInfo.xEnd = m_xEnd;
 
-    QList<QPointF> pointList;
-    if (reply.second.cpu_usage_size() > 0)
-    {
-        ChartInfo cpuChartInfo = chartInfo;
-        pointList.clear();
+    // 处理CPU使用量数据
+    processCPUUsage(reply.second, chartInfo, cpuLimit);
 
-        for (auto i : reply.second.cpu_usage())
-        {
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            auto value = i.value() * 100;
-            KLOG_DEBUG() << "cpu:" << stempToPos.toMSecsSinceEpoch() << value;
-            QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-            pointList.append(point);
-        }
-        cpuChartInfo.yStart = 0;
-        cpuChartInfo.yEnd = 100 * cpuLimit;
-        cpuChartInfo.yFormat = "%d%%";
-        cpuChartInfo.yTitle = tr("CPU usage (%)");
-        m_cpuChartForm->updateChart(cpuChartInfo, pointList, CHART_SERIES_NAME_CPU);
+    // 处理内存使用量数据
+    processMemoryUsage(reply.second, chartInfo, memoryLimit);
+
+    // 处理磁盘使用量数据
+    processDiskUsage(reply.second, chartInfo);
+
+    // 处理接收/发送网络吞吐量
+    bool hasNetRx = false;
+
+    ChartInfo netChartInfo = chartInfo;
+    netChartInfo.yFormat = "%0.2f";
+    QString unit;
+
+    if (reply.second.net_rx_size() <= 0)
+    {
+        m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_RX);
     }
     else
-        m_cpuChartForm->clearChart(CHART_SERIES_NAME_CPU);
-
-    if (reply.second.memory_usage_size() > 0)
     {
-        pointList.clear();
-        ChartInfo memoryChartInfo = chartInfo;
+        hasNetRx = true;
 
-        for (auto i : reply.second.memory_usage())
-        {
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            auto value = i.value() / memoryLimit * 100;
-            KLOG_DEBUG() << "memory:" << stempToPos.toMSecsSinceEpoch() << value;
-            QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-            pointList.append(point);
-        }
-        memoryChartInfo.yStart = 0;
-        memoryChartInfo.yEnd = 100;
-        memoryChartInfo.yFormat = "%d%%";
-        memoryChartInfo.yTitle = tr("Memory usage (%)");
-        m_memoryChartForm->updateChart(memoryChartInfo, pointList, CHART_SERIES_NAME_MEMORY);
-    }
-    else
-        m_memoryChartForm->clearChart(CHART_SERIES_NAME_MEMORY);
+        // 优先以net_rx()数据范围作为图表的y轴和数据单位
+        double maxVal = 0.0;
+        double minVal = 0.0;
 
-    if (reply.second.disk_usage_size() > 0)
-    {
-        pointList.clear();
-        ChartInfo diskChartInfo = chartInfo;
-
-        auto start = reply.second.disk_usage(0).value();
-        auto end = start;
-        for (auto i : reply.second.disk_usage())
-        {
-            start = i.value() < start ? i.value() : start;
-            end = i.value() > end ? i.value() : end;
-        }
-        QString unit;
-        handleYValue(start, end, unit);
-        diskChartInfo.yStart = start;
-        diskChartInfo.yEnd = end;
-        diskChartInfo.yFormat = "%d";
-        diskChartInfo.yTitle = tr("Disk usage(unit %1)").arg(unit);
-        for (auto i : reply.second.disk_usage())
-        {
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            auto value = i.value();
-            if (unit == "KB")
-                value = value * K_BITE;
-            else if (unit == "G")
-                value = value / K_BITE;
-            KLOG_DEBUG() << "disk:" << stempToPos.toMSecsSinceEpoch() << value;
-            QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-            pointList.append(point);
-        }
-        m_diskChartForm->updateChart(diskChartInfo, pointList, CHART_SERIES_NAME_DISK);
-    }
-    else
-        m_diskChartForm->clearChart(CHART_SERIES_NAME_DISK);
-
-    if (reply.second.net_rx_size() > 0 || reply.second.net_tx_size() > 0)
-    {
-        QList<QPointF> rxPointList;
-        QList<QPointF> txPointList;
-        ChartInfo netChartInfo = chartInfo;
-        auto start = reply.second.net_rx(0).value();
-        auto end = start;
-
+        // 先遍历一次获取最大值、最小值
+        // net_rx()单位为MB
         for (auto i : reply.second.net_rx())
         {
-            start = i.value() < start ? i.value() : start;
-            end = i.value() > end ? i.value() : end;
+            double value = i.value();
+            maxVal = qMax(maxVal, value);
+            minVal = qMin(minVal, value);
         }
-        for (auto i : reply.second.net_tx())
-        {
-            start = i.value() < start ? i.value() : start;
-            end = i.value() > end ? i.value() : end;
-        }
-        QString unit;
-        handleYValue(start, end, unit);
-        if (end == 0)
+
+        // 根据最大值、最小值统一确定单位
+        handleYValue(minVal, maxVal, unit);
+
+        if (maxVal == 0)
         {
             netChartInfo.yStart = 0;
             netChartInfo.yEnd = 10;
         }
         else
         {
-            netChartInfo.yStart = start;
-            netChartInfo.yEnd = end;
-        }
-        netChartInfo.yFormat = "%0.2f";
-        netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
-        for (auto i : reply.second.net_rx())
-        {
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            auto value = i.value();
-            if (unit == "KB")
-                value = value * K_BITE;
-            else if (unit == "G")
-                value = value / K_BITE;
-            KLOG_DEBUG() << "net rx:" << stempToPos.toMSecsSinceEpoch() << value;
-            QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-            rxPointList.append(point);
-        }
-        for (auto i : reply.second.net_tx())
-        {
-            QDateTime stempToPos = QDateTime::fromTime_t(i.timestamp());
-            auto value = i.value();
-            if (unit == "KB")
-                value = value * K_BITE;
-            else if (unit == "G")
-                value = value / K_BITE;
-            KLOG_DEBUG() << "net tx:" << stempToPos.toMSecsSinceEpoch() << value;
-            QPointF point(stempToPos.toMSecsSinceEpoch(), value);
-            txPointList.append(point);
+            netChartInfo.yStart = minVal;
+            netChartInfo.yEnd = maxVal;
         }
 
-        m_netChartForm->updateChart(netChartInfo, rxPointList, CHART_SERIES_NAME_NETWORK_RX);
-        m_netChartForm->updateChart(netChartInfo, txPointList, CHART_SERIES_NAME_NETWORK_TX);
+        netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
+        processNetworkUsage(reply.second, netChartInfo, unit, CHART_SERIES_NAME_NETWORK_RX);
+    }
+
+    if (reply.second.net_tx_size() <= 0)
+    {
+        m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_TX);
     }
     else
     {
-        m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_RX);
-        m_netChartForm->clearChart(CHART_SERIES_NAME_NETWORK_TX);
+        if (hasNetRx)
+        {
+            processNetworkUsage(reply.second, netChartInfo, unit, CHART_SERIES_NAME_NETWORK_TX);
+        }
+        else
+        {
+            // 以net_tx()数据范围作为图表的y轴和数据单位
+            // 先遍历一次获取最大值、最小值
+            // net_tx()单位为MB
+            double maxVal = 0.0;
+            double minVal = 0.0;
+
+            for (auto i : reply.second.net_tx())
+            {
+                double value = i.value();
+                maxVal = qMax(maxVal, value);
+                minVal = qMin(minVal, value);
+            }
+
+            // 根据最大值、最小值统一确定单位
+            handleYValue(minVal, maxVal, unit);
+
+            if (maxVal == 0)
+            {
+                netChartInfo.yStart = 0;
+                netChartInfo.yEnd = 10;
+            }
+            else
+            {
+                netChartInfo.yStart = minVal;
+                netChartInfo.yEnd = maxVal;
+            }
+
+            netChartInfo.yTitle = tr("Network throughput (unit %1)").arg(unit);
+            processNetworkUsage(reply.second, netChartInfo, unit, CHART_SERIES_NAME_NETWORK_TX);
+        }
     }
 }
 
