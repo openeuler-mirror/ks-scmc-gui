@@ -346,7 +346,6 @@ void UserModel::removeUser(QModelIndex index)
     auto userName = index.data().toString();
     for (auto it = m_usersInfo.begin(); it != m_usersInfo.end();)
     {
-        KLOG_INFO() << "index user name:" << userName << "it user name:" << it->userName;
         if (it->userName == userName)
         {
             it = m_usersInfo.erase(it);
