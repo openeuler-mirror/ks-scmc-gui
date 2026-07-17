@@ -2392,9 +2392,8 @@ The first characters must be letter or digit</source>
         <translation>请等待任务执行完成后退出！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="124"/>
         <source>KylinSec Container System V1(Security Version)</source>
-        <translation>麒麟信安容器系统V1（安全版）</translation>
+        <translation type="vanished">麒麟信安容器系统V1（安全版）</translation>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="150"/>
