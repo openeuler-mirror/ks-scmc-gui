@@ -14,13 +14,6 @@
 class SecurityListItem;
 class SecurityList : public QWidget
 {
-public:
-    struct SecurityInfo
-    {
-        QString title;
-        QString path;
-    };
-
     Q_OBJECT
 public:
     explicit SecurityList(QString itemTitle, QWidget *parent = nullptr);
