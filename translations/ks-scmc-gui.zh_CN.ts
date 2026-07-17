@@ -1499,32 +1499,32 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="92"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="82"/>
         <source>Successful to update node protected files!</source>
         <translation>更新节点文件保护成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="135"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="131"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="136"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="132"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="137"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="133"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="145"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="143"/>
         <source>Key file</source>
         <translation>关键文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="147"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
