@@ -171,11 +171,11 @@ void NetworkConfigPage::save()
 
         if (m_defaultPorts.contains(info.port))
         {
-            auto ret = MessageDialog::message(tr("Update Node Network Rules"),
-                                              tr("Failed to update node network rules"),
-                                              tr("The port %1 is in use, please input again!").arg(info.port),
-                                              ":/images/error.svg",
-                                              MessageDialog::StandardButton::Yes);
+            MessageDialog::message(tr("Update Node Network Rules"),
+                                   tr("Failed to update node network rules"),
+                                   tr("The port %1 is in use, please input again!").arg(info.port),
+                                   ":/images/error.svg",
+                                   MessageDialog::StandardButton::Yes);
             return;
         }
         else
