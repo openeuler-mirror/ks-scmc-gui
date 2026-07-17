@@ -1164,41 +1164,11 @@ SecurityListTab QScrollBar::sub-line:vertical
     image:none;
 }
 
-NetworkAccessCtlTab #btn_add,SecurityListTab #btn_add
+SecurityListItem QToolButton,
+NetworkAccessItem QToolButton
 {
-    background-color:transparent;
     border:none;
-    image:url(:/images/icon_plus_n.png);
     font-size:12px;
-}
-NetworkAccessCtlTab #btn_add:pressed,SecurityListTab #btn_add:pressed
-{
-    background-color:transparent;
-    border:none;
-    image:url(:/images/icon_plus_pre.png);
-}
-NetworkAccessCtlTab #btn_add:hover,SecurityListTab #btn_add:hover
-{
-    background-color:transparent;
-    border:none;
-}
-
-NetworkAccessCtlTab #btn_delete,SecurityListTab #btn_delete
-{
-    background-color:transparent;
-    border:none;
-    image:url(:/images/icon_Less_n.png);
-}
-NetworkAccessCtlTab #btn_delete:hover,SecurityListTab #btn_delete:hover
-{
-    background-color:transparent;
-    border:none;
-}
-NetworkAccessCtlTab #btn_delete:pressed,SecurityListTab #btn_delete:pressed
-{
-    background-color:transparent;
-    border:none;
-    image:url(:/images/icon_Less_pre.png);
 }
 
 /***********************************AuthorizationDialog****************************/
