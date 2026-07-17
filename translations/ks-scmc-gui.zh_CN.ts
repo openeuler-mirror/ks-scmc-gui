@@ -2692,15 +2692,15 @@ p, li { white-space: pre-wrap; }
         <translation>时间粒子密度（1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="246"/>
-        <location filename="../src/common/monitor-content.cpp" line="254"/>
+        <location filename="../src/common/monitor-content.cpp" line="385"/>
+        <location filename="../src/common/monitor-content.cpp" line="393"/>
         <source>Time particle density(%1 minute)</source>
         <translation>时间粒子密度（%1分钟）</translation>
     </message>
     <message>
-        <location filename="../src/common/monitor-content.cpp" line="262"/>
-        <location filename="../src/common/monitor-content.cpp" line="270"/>
-        <location filename="../src/common/monitor-content.cpp" line="301"/>
+        <location filename="../src/common/monitor-content.cpp" line="401"/>
+        <location filename="../src/common/monitor-content.cpp" line="409"/>
+        <location filename="../src/common/monitor-content.cpp" line="440"/>
         <source>Time particle density(%1 hour)</source>
         <translation>时间粒子密度（%1小时）</translation>
     </message>
