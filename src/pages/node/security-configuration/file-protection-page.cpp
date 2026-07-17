@@ -131,6 +131,8 @@ void FileProtectionPage::initUI()
     auto label = new QLabel(tr("Open Status"));
     m_btnOpen = new QRadioButton(tr("Open"));
     m_btnClose = new QRadioButton(tr("Close"));
+    // 默认关闭
+    m_btnClose->setChecked(true);
 
     statusLayout->addWidget(label);
     statusLayout->addWidget(m_btnOpen);
