@@ -473,42 +473,42 @@
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="111"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="256"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="254"/>
         <source>The app is running!</source>
         <translation>应用程序正在运行！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="208"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="221"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="243"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="206"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="219"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="241"/>
         <source>Delete Container App</source>
         <translation>删除容器程序</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="222"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="244"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="220"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="242"/>
         <source>Are you sure you want to delete the app?</source>
         <translation>确定删除该程序？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="223"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="245"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="221"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="243"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="379"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="377"/>
         <source>Gui</source>
         <translation>图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="379"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="377"/>
         <source>Non Gui</source>
         <translation>非图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="301"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="383"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="299"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="381"/>
         <source>Running</source>
         <translation>运行中</translation>
     </message>
