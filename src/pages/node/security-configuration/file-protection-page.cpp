@@ -75,7 +75,7 @@ void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "Failed to update node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Failed to update node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
         return;
     }
 
