@@ -449,6 +449,9 @@ void ContainerSetting::initSecurityConfPages()
 
     SecurityLevelTab *securityLevelTab = new SecurityLevelTab(ui->tab_security_config);
     m_securityConfStack->addWidget(securityLevelTab);
+    updateSecurityPages(LEVEL_NUM_4);
+
+    connect(securityLevelTab, &SecurityLevelTab::levelChanged, this, &ContainerSetting::updateSecurityPages);
 }
 
 void ContainerSetting::showLongText(QLineEdit *lineEdit, QString orgText)
