@@ -503,30 +503,77 @@ void UserTable::mouseEnter(const QModelIndex &index)
 
 void UserTable::checkedAllItem(Qt::CheckState checkState)
 {
-    for (int i = 0; i < selectionModel()->model()->rowCount(); i++)
+    for (int i = 0; i < m_filterProxy->rowCount(); i++)
     {
-        auto index = m_model->index(i, UserTableField::USER_TABLE_FIELD_CHECKBOX);
-        if (index.data().toString() == USER_ROLE_SYSADM ||
-            index.data().toString() == USER_ROLE_SECADM ||
-            index.data().toString() == USER_ROLE_AUDADM)
+        auto proxyIndex = m_filterProxy->index(i, UserTableField::USER_TABLE_FIELD_CHECKBOX);
+        auto roleIndex = m_filterProxy->index(i, UserTableField::USER_TABLE_FIELD_ROLE);
+
+        if (roleIndex.data().toString() == USER_ROLE_SYSADM ||
+            roleIndex.data().toString() == USER_ROLE_SECADM ||
+            roleIndex.data().toString() == USER_ROLE_AUDADM)
         {
             // 系统管理员不能选中
             continue;
         }
 
-        m_model->setData(index, checkState == Qt::Checked, Qt::EditRole);
+        auto sourceIndex = m_filterProxy->mapToSource(proxyIndex);
+        m_model->setData(sourceIndex, checkState == Qt::Checked, Qt::EditRole);
     }
+}
+
+void UserTable::updateHeaderState()
+{
+    int checkedCount = 0;
+    int checkableCount = 0;
+    auto state = Qt::Unchecked;
+
+    for (int i = 0; i < m_filterProxy->rowCount(); ++i)
+    {
+        QModelIndex roleIndex = m_filterProxy->index(i, UserTableField::USER_TABLE_FIELD_ROLE);
+        QString role = m_filterProxy->data(roleIndex).toString();
+
+        if (role == USER_ROLE_SYSADM ||
+            role == USER_ROLE_SECADM ||
+            role == USER_ROLE_AUDADM)
+        {
+            continue;  // 跳过不可选角色
+        }
+
+        checkableCount++;  // 可选行计数
+
+        QModelIndex proxyCheckBoxIndex = m_filterProxy->index(i, UserTableField::USER_TABLE_FIELD_CHECKBOX);
+        bool isChecked = m_filterProxy->data(proxyCheckBoxIndex, Qt::EditRole).toBool();
+
+        if (isChecked)
+        {
+            checkedCount++;
+        }
+    }
+
+    if (checkedCount >= checkableCount && checkedCount != 0)
+    {
+        state = Qt::Checked;
+    }
+    else if (checkedCount > 0)
+    {
+        state = Qt::PartiallyChecked;
+    }
+
+    m_headerViewProxy->setCheckState(state);
 }
 
 void UserTable::onEditClicked(const QModelIndex &index)
 {
-    auto userInfo = m_model->getUserInfos()[index.row()];
+    auto sourceIndex = m_filterProxy->mapToSource(index);
+
+    auto userInfo = m_model->getUserInfos()[sourceIndex.row()];
     emit userEdited(userInfo.userID, userInfo.userName, userInfo.roleID);
 }
 
 void UserTable::onDeleteClicke(const QModelIndex &index)
 {
-    int row = index.row();
+    auto sourceIndex = m_filterProxy->mapToSource(index);
+    int row = sourceIndex.row();
     auto username = m_model->data(m_model->index(row, UserTableField::USER_TABLE_FIELD_USER_NAME)).toString();
     auto userID = m_model->data(m_model->index(row, UserTableField::USER_TABLE_FIELD_USER_ID)).toLongLong();
 
