@@ -133,21 +133,16 @@ void FileProtectionPage::initUI()
     auto statusLayout = new QHBoxLayout();
     statusLayout->setSpacing(20);
     auto label = new QLabel(tr("Open Status"));
-    auto btnOpen = new QRadioButton(tr("Open"));
-    auto btnClose = new QRadioButton(tr("Close"));
-    btnClose->setChecked(true);
+    m_btnOpen = new QRadioButton(tr("Open"));
+    m_btnClose = new QRadioButton(tr("Close"));
 
     statusLayout->addWidget(label);
-    statusLayout->addWidget(btnOpen);
-    statusLayout->addWidget(btnClose);
+    statusLayout->addWidget(m_btnOpen);
+    statusLayout->addWidget(m_btnClose);
     statusLayout->addStretch();
 
     // 文件保护列表
-    m_fileList = new QListWidget(this);
-    m_fileList->setFocusPolicy(Qt::NoFocus);
-    m_fileList->setFrameShape(QFrame::NoFrame);
-    m_fileList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    m_fileList->setEnabled(false);
+    m_fileList = new SecurityList(tr("Key file"), this);
 
     // 保存按钮
     auto btnLayout = new QHBoxLayout();
