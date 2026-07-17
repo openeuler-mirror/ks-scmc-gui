@@ -34,7 +34,7 @@ void CheckableHeader::paintSection(QPainter *painter,
             pixmap.load(":images/check-default.svg");
             break;
         case Qt::CheckState::PartiallyChecked:
-            pixmap.load(":/images/checkbox-indeterminate-normal");
+            pixmap.load(":images/check-default.svg");
             break;
         default:
             break;
