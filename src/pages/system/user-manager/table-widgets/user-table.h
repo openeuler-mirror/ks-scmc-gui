@@ -108,7 +108,6 @@ public:
     QList<UserInfo> getUserInfos();
 
     QList<UserInfo> getSelectedUserInfos();
-    void removeUsers(QList<UserInfo> userInfos);
 
     void clearTable();
 
