@@ -206,7 +206,7 @@ QVariant UserModel::data(const QModelIndex &index, int role) const
 
     if (index.row() >= m_usersInfo.size() || index.column() >= UserTableField::USER_TABLE_FIELD_LAST)
     {
-        qDebug() << "The index exceeds range limit.";
+        KLOG_DEBUG() << "The index exceeds range limit.";
         return QVariant();
     }
 
