@@ -232,41 +232,22 @@ void UserListPage::getListUserFinished(const QString objId, const QPair<grpc::St
         qint64 roleID = user.role_id();
         QString userRole = user.role_info().name().data();
         QString loginName = user.login_name().data();
-        idMap.insert(USER_ID, id);
-        idMap.insert(USER_ROLE_ID, roleID);
-        idMap.insert(USER_LOGIN_NAME, loginName);
-        idMap.insert(USER_ROLE_NAME, userRole);
-
-        auto itemCheck = new QStandardItem();
-        itemCheck->setCheckable(false);
-        if (!isSystemUser(userRole))
-        {
-            itemCheck->setCheckable(true);
-            // 恢复选中状态
-            if (-1 != ids.indexOf(id))
-            {
-                itemCheck->setCheckState(Qt::Checked);
-            }
-        }
-
-        auto itemName = new QStandardItem(loginName);
-        itemName->setData(QVariant::fromValue(idMap));
-
-        auto itemID = new QStandardItem(QString("%1").arg(id));
-
-        auto itemRole = new QStandardItem(userRole);
-
         QString createTime = "-";
         if (user.created_at() != 0)
         {
             auto dt = QDateTime::fromSecsSinceEpoch(user.created_at());
             createTime = dt.toString("yyyy/MM/dd hh:mm:ss");
         }
-        auto itemTime = new QStandardItem(createTime);
 
-        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemID << itemRole << itemTime);
-        row++;
+        auto userInfo = UserInfo{.selected = false,
+                                 .userName = loginName,
+                                 .userID = id,
+                                 .role = userRole,
+                                 .roleID = roleID,
+                                 .createTime = createTime};
+        userInfos.push_back(userInfo);
     }
+    ui->tableView->setUserInfos(userInfos);
 }
 
 void UserListPage::getCreateUserFinished(const QString objId, const QPair<grpc::Status, user::CreateUserReply> &reply)
