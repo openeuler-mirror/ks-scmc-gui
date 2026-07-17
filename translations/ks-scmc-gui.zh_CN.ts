@@ -4512,12 +4512,12 @@ Instruction</source>
 <context>
     <name>UserDelegate</name>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="81"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="83"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="82"/>
+        <location filename="../src/pages/system/user-manager/table-widgets/user-table.cpp" line="84"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
