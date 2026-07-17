@@ -610,7 +610,7 @@ void MainWindow::loadUserItem()
 
         // 创建系统管理侧边栏
         auto systemManager = createGuideItem(SYSTEM_MANAGER, GUIDE_ITEM_TYPE_GROUP,
-                                             ":/images/container-manager.svg");
+                                             ":/images/system-manager.svg");
         systemManager->setFlags(systemManager->flags() & ~Qt::ItemIsSelectable);
 
         auto userList = createGuideItem(USER_MANAGER, GUIDE_ITEM_TYPE_SUB);
