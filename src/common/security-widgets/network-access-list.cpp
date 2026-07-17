@@ -57,6 +57,8 @@ QList<NetworkAccessList::NetworkAccessInfo> NetworkAccessList::getNeteworkInfos(
         {
             NetworkAccessInfo info;
             item->getInfo(info.protocols, info.addr, info.port);
+            // 去除空格
+            info.addr = info.addr.remove(" ");
             info.defaultPort = item->isDefaultPort();
 
             infos.append(info);
