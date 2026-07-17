@@ -148,6 +148,9 @@ signals:
     void runAppEntryFinished(const QString objId, const QPair<grpc::Status, container::RunAppEntryReply> &);
     void killAppEntryFinished(const QString objId, const QPair<grpc::Status, container::KillAppEntryReply> &);
 
+    // container version
+    void updateContainerVersionFinished(const QString objId, const QPair<grpc::Status, container::UpdateContainerVersionReply> &);
+
 private:
     QMutex mutex;
     QStringList m_exportList;
