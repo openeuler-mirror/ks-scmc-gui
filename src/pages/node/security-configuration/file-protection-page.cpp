@@ -54,16 +54,18 @@ void FileProtectionPage::save()
     auto fileList = m_fileList->getSecurityInfos();
     for (auto file : fileList)
     {
-        KLOG_DEBUG() << "Set node protect file " << file << "to backend.";
         fileProtect->add_file_list(file.toStdString());
     }
+
+    KLOG_DEBUG() << "Set node:" << m_nodeID << "protect file to backend: "
+                 << "enable:" << m_protectEnabled << "files:" << fileList;
     Node::getInstance().updateFileProtect(m_objId, req);
 }
 
 void FileProtectionPage::setProtectEnabled(bool enabled)
 {
     m_protectEnabled = enabled;
-    m_fileList->setEnabled(enabled);
+    m_fileList->setItemsEnable(enabled);
 }
 
 void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &reply)
