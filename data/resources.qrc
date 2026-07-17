@@ -53,8 +53,8 @@
         <file>images/approve.svg</file>
         <file>images/checked.svg</file>
         <file>images/check-default.svg</file>
-        <file>images/checkbox-indeterminate-normal.svg</file>
-        <file>images/checkbox-checked-normal.svg</file>
+        <file>images/check-default-disabled.svg</file>
+        <file>images/check-disabled.svg</file>
         <file>images/btn_close_n.svg</file>
         <file>images/dot.svg</file>
         <file>images/banner.png</file>
