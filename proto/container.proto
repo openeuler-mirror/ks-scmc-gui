@@ -561,3 +561,14 @@ message ContainerFailInfo {
     string container_name = 3;
     string fail_reason    = 4;
 }
+
+message UpdateContainerVersionRequest {
+    int64 node_id         = 1;
+    string container_name  = 2;
+    string img_name       = 3;
+    string img_version    = 4;
+}
+
+message UpdateContainerVersionReply {
+
+}
