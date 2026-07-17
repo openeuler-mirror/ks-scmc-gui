@@ -29,6 +29,18 @@
 #define USER_ROLE_AUDADM "audadm_r"
 #define USER_ROLE_STDADM "stdadm_r"
 
+#define LEVEL_1 QObject::tr("Level 1")
+#define LEVEL_2 QObject::tr("Level 2")
+#define LEVEL_3 QObject::tr("Level 3")
+#define LEVEL_4 QObject::tr("Level 4")
+#define LEVEL_5 QObject::tr("Level 5")
+
+#define LEVEL_NUM_1 1
+#define LEVEL_NUM_2 2
+#define LEVEL_NUM_3 3
+#define LEVEL_NUM_4 4
+#define LEVEL_NUM_5 5
+
 enum GUIDE_ITEM_TYPE
 {
     GUIDE_ITEM_TYPE_NORMAL,
