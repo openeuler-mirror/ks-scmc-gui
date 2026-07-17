@@ -66,8 +66,8 @@ void AuthorizationDialog::authenticate()
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_USER, CURRENT_USER, currentUser);
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, currentUser, PASSWORD, realPassword);
 
-    auto password = ui->lineEdit_password->text();
-    if (!password.compare(realPassword))
+    auto pw = ui->lineEdit_password->text();
+    if (!pw.compare(realPassword))
     {
         done(QDialog::Accepted);
     }
