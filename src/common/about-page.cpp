@@ -54,7 +54,7 @@ void AboutPage::initUI()
     QSpacerItem *endSpacer = new QSpacerItem(aboutWidget->width(), 40);
 
     QLabel *logo = new QLabel(aboutWidget);
-    logo->setPixmap(QPixmap(":/images/kylin-logo.png"));
+    logo->setPixmap(QPixmap(":/images/kylin-logo.svg"));
     logo->setAlignment(Qt::AlignCenter);
     logo->setMinimumSize(172, 52);
 
