@@ -1499,32 +1499,42 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="82"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="57"/>
+        <source>Failed to save the configuration</source>
+        <translation>保存网络配置失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="57"/>
+        <source>Please check the input parameters.</source>
+        <translation>请检查输入参数。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="88"/>
         <source>Successful to update node protected files!</source>
         <translation>更新节点文件保护成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="131"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="137"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="132"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="138"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="133"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="139"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="143"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
         <source>Key file</source>
         <translation>关键文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="147"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="153"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
