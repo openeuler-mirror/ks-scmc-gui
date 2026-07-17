@@ -9,7 +9,8 @@
 #include <QRegExpValidator>
 #include "ui_network-access-item.h"
 NetworkAccessItem::NetworkAccessItem(QWidget *parent) : QWidget(parent),
-                                                        ui(new Ui::NetworkAccessItem)
+                                                        ui(new Ui::NetworkAccessItem),
+                                                        m_defaultPort(false)
 {
     ui->setupUi(this);
     initUI();
