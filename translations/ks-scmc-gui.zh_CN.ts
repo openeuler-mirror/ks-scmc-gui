@@ -1641,12 +1641,12 @@ The first characters must be letter or digit</source>
 <context>
     <name>IPCTab</name>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/IPC-tab.cpp" line="36"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="36"/>
         <source>IPC</source>
         <translation>IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/IPC-tab.cpp" line="39"/>
+        <location filename="../src/pages/container/advanced-configuration/ipc-tab.cpp" line="39"/>
         <source>None</source>
         <translation>无</translation>
     </message>
