@@ -1,10 +1,11 @@
 /**
  * @file          /ks-scmc-gui/src/common/about-page.cpp
- * @brief         
+ * @brief
  * @author        yuanxing <yuanxing@kylinos.com>
  * @copyright (c) 2022 KylinSec. All rights reserved.
  */
 #include "about-page.h"
+#include <QDate>
 #include <QFile>
 #include <QIcon>
 #include <QLabel>
