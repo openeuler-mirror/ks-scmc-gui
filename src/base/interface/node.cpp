@@ -154,3 +154,13 @@ QPair<grpc::Status, node::UpdateNetworkRuleReply> Node::_updateNetworkRule(const
 {
     RPC_IMPL(node::UpdateNetworkRuleReply, node::Node::NewStub, UpdateNetworkRule);
 }
+
+QPair<grpc::Status, node::GetNetworkProcessWhiteListReply> Node::_getNetworkProcessWhiteList(const node::GetNetworkProcessWhiteListRequest &req)
+{
+    RPC_IMPL(node::GetNetworkProcessWhiteListReply, node::Node::NewStub, GetNetworkProcessWhiteList);
+}
+
+QPair<grpc::Status, node::UpdateNetworkProcessWhiteListReply> Node::_updateNetworkProcessWhiteList(const node::UpdateNetworkProcessWhiteListRequest &req)
+{
+    RPC_IMPL(node::UpdateNetworkProcessWhiteListReply, node::Node::NewStub, UpdateNetworkProcessWhiteList);
+}
