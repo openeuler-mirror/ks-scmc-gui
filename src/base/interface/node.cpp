@@ -97,6 +97,19 @@ void Node::updateNetworkRule(const QString objId, const node::UpdateNetworkRuleR
     RPC_ASYNC(node::UpdateNetworkRuleReply, _updateNetworkRule, updateNetworkRuleFinished, objId, req);
 }
 
+void Node::getNetworkProcessWhiteList(const QString objId, qint64 nodeID)
+{
+    node::GetNetworkProcessWhiteListRequest req;
+    req.set_node_id(nodeID);
+
+    RPC_ASYNC(node::GetNetworkProcessWhiteListReply, _getNetworkProcessWhiteList, getNetworkProcessWhiteListFinished, objId, req);
+}
+
+void Node::updateNetworkProcessWhiteList(const QString objId, const node::UpdateNetworkProcessWhiteListRequest &req)
+{
+    RPC_ASYNC(node::UpdateNetworkProcessWhiteListReply, _updateNetworkProcessWhiteList, updateNetworkProcessWhiteListFinished, objId, req);
+}
+
 QPair<grpc::Status, node::ListReply> Node::_listNode(const node::ListRequest &req)
 {
     RPC_IMPL(node::ListReply, node::Node::NewStub, List);
