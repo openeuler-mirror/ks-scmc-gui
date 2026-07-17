@@ -221,6 +221,145 @@ void MonitorContent::handleYValue(double &start, double &end, QString &unit)
     }
 }
 
+void MonitorContent::processCPUUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, double cpuLimit)
+{
+    if (reply.cpu_usage_size() <= 0)
+    {
+        m_cpuChartForm->clearChart(CHART_SERIES_NAME_CPU);
+        return;
+    }
+
+    ChartInfo chart = baseInfo;
+    QList<QPointF> pointList;
+
+    double maxVal = 0.0;
+    for (auto i : reply.cpu_usage())
+    {
+        double value = i.value() * 100;  // 转换为百分比
+        QPointF point(QDateTime::fromTime_t(i.timestamp()).toMSecsSinceEpoch(), value);
+        pointList.append(point);
+        maxVal = qMax(maxVal, value);
+    }
+
+    chart.yStart = 0;
+    chart.yEnd = qMax(maxVal, 100 * cpuLimit);
+    chart.yFormat = "%d%%";
+    chart.yTitle = tr("CPU usage (%)");
+
+    m_cpuChartForm->updateChart(chart, pointList, CHART_SERIES_NAME_CPU);
+}
+
+void MonitorContent::processMemoryUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, double memoryLimit)
+{
+    if (reply.memory_usage_size() <= 0 || memoryLimit == 0)
+    {
+        m_memoryChartForm->clearChart(CHART_SERIES_NAME_MEMORY);
+        return;
+    }
+
+    ChartInfo chart = baseInfo;
+    QList<QPointF> pointList;
+
+    for (auto i : reply.memory_usage())
+    {
+        double value = i.value() / memoryLimit * 100;  // 百分比
+        QPointF point(QDateTime::fromTime_t(i.timestamp()).toMSecsSinceEpoch(), value);
+        pointList.append(point);
+    }
+
+    chart.yStart = 0;
+    chart.yEnd = 100;
+    chart.yFormat = "%d%%";
+    chart.yTitle = tr("Memory usage (%)");
+
+    m_memoryChartForm->updateChart(chart, pointList, CHART_SERIES_NAME_MEMORY);
+}
+
+void MonitorContent::processDiskUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo)
+{
+    if (reply.disk_usage_size() <= 0)
+    {
+        m_diskChartForm->clearChart(CHART_SERIES_NAME_DISK);
+        return;
+    }
+
+    ChartInfo chart = baseInfo;
+    QList<QPointF> pointList;
+    QString unit;
+
+    double maxVal = 0.0;
+    double minVal = 0.0;
+
+    // 先遍历一次获取最大值、最小值
+    // 默认disk_usage()单位为MB
+    for (auto i : reply.disk_usage())
+    {
+        double value = i.value();
+        maxVal = qMax(maxVal, value);
+        minVal = qMin(minVal, value);
+    }
+
+    // 根据最大值、最小值统一确定单位
+    handleYValue(minVal, maxVal, unit);
+
+    for (auto i : reply.disk_usage())
+    {
+        double value = i.value();
+        if (unit == "KB")
+            value = value * K_BITE;
+        else if (unit == "GB")
+            value = value / K_BITE;
+        QPointF point(QDateTime::fromTime_t(i.timestamp()).toMSecsSinceEpoch(), value);
+        pointList.append(point);
+    }
+
+    chart.yStart = minVal;
+    chart.yEnd = maxVal;
+    chart.yFormat = "%d";
+    chart.yTitle = tr("Disk usage(unit %1)").arg(unit);
+
+    m_diskChartForm->updateChart(chart, pointList, CHART_SERIES_NAME_DISK);
+}
+
+void MonitorContent::processNetworkUsage(const container::MonitorHistoryReply &reply, const ChartInfo &baseInfo, const QString &unit, const QString &title)
+{
+    if (!title.compare(CHART_SERIES_NAME_NETWORK_RX))  // RX 图表
+    {
+        QList<QPointF> rxPoints;
+
+        for (auto i : reply.net_rx())
+        {
+            auto value = i.value();
+            if (unit == "KB")
+                value = value * K_BITE;
+            else if (unit == "GB")
+                value = value / K_BITE;
+
+            QPointF point(QDateTime::fromTime_t(i.timestamp()).toMSecsSinceEpoch(), value);
+            rxPoints.append(point);
+        }
+
+        m_netChartForm->updateChart(baseInfo, rxPoints, CHART_SERIES_NAME_NETWORK_RX);
+    }
+    else  // TX 图表
+    {
+        QList<QPointF> txPoints;
+        for (auto i : reply.net_tx())
+        {
+            auto value = i.value();
+            if (unit == "KB")
+                value = value * K_BITE;
+            else if (unit == "GB")
+                value = value / K_BITE;
+
+            QPointF point(QDateTime::fromTime_t(i.timestamp()).toMSecsSinceEpoch(), value);
+            txPoints.append(point);
+        }
+
+        m_netChartForm->updateChart(baseInfo, txPoints, CHART_SERIES_NAME_NETWORK_TX);
+    }
+}
+
 void MonitorContent::onCycleChanged(int index)
 {
     ui->widget_date_selete->hide();
