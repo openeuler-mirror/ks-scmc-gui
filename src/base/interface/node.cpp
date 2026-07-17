@@ -101,6 +101,11 @@ QPair<grpc::Status, node::UpdateReply> Node::_updateNode(const node::UpdateReque
     RPC_IMPL(node::UpdateReply, node::Node::NewStub, Update);
 }
 
+QPair<grpc::Status, node::GetFileProtectReply> Node::_getFileProtect(const node::GetFileProtectRequest &req)
+{
+    RPC_IMPL(node::GetFileProtectReply, node::Node::NewStub, GetFileProtect);
+}
+
 QPair<grpc::Status, node::UpdateFileProtectReply> Node::_updateFileProtect(const node::UpdateFileProtectRequest &req)
 {
     RPC_IMPL(node::UpdateFileProtectReply, node::Node::NewStub, UpdateFileProtect);
