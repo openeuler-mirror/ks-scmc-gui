@@ -170,23 +170,21 @@ void ContainerAppPage::onStop(int row)
     if (isGUI)
     {
         // 图形app则关闭终端
-        auto process = m_procs.value(appID);
+        auto process = m_procs.value(appID, nullptr);
         if (!process)
         {
             NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
             return;
         }
-        if (process)
+
+        if (process->state() == QProcess::ProcessState::Running)
         {
-            if (process->state() == QProcess::ProcessState::Running)
-            {
-                process->kill();
-            }
-            else
-            {
-                NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
-                return;
-            }
+            process->kill();
+        }
+        else
+        {
+            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
+            return;
         }
     }
     else
