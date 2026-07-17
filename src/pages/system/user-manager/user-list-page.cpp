@@ -97,14 +97,7 @@ void UserListPage::updateDeleteBtnState(Qt::CheckState checkState)
 void UserListPage::search()
 {
     auto text = ui->lineEdit_search->text();
-    if (text.isEmpty())
-    {
-        updateInfo();
-    }
-    else
-    {
-        ui->tableView->searchTextChanged(text);
-    }
+    ui->tableView->searchTextChanged(text);
 }
 
 void UserListPage::refresh()
