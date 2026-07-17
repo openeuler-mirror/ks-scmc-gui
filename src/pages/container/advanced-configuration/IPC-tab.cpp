@@ -5,7 +5,7 @@
  * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
  */
 
-#include "IPC-tab.h"
+#include "ipc-tab.h"
 #include <QComboBox>
 #include <QHBoxLayout>
 #include <QLabel>
