@@ -1111,17 +1111,20 @@ FileProtectionPage QListWidget::item
     font-size:12px;
 }
 NetworkAccessCtlTab QListWidget::item:hover,
-SecurityListTab QListWidget::item:hover
+SecurityListTab QListWidget::item:hover,
+FileProtectionPage QListWidget::item:hover
 {
     background-color:transparent;
 }
 NetworkAccessCtlTab QListWidget::item:selected,
-SecurityListTab QListWidget::item:selected
+SecurityListTab QListWidget::item:selected,
+FileProtectionPage QListWidget::item:selected
 {
     background-color:transparent;
 }
 NetworkAccessCtlTab QListWidget::item:focus,
-SecurityListTab QListWidget::item:focus
+SecurityListTab QListWidget::item:focus,
+FileProtectionPage QListWidget::item:focus
 {
    outline:none;
 }
