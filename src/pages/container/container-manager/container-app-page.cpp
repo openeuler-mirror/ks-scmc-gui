@@ -134,7 +134,7 @@ void ContainerAppPage::onRun(int row)
                         guiAppStatus(row, state);
                     });
         }
-        if (process)
+        else
         {
             if (process->state() == QProcess::ProcessState::Running)
             {
