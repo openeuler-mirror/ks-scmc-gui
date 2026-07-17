@@ -11,10 +11,10 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPair>
-#include "advanced-configuration/IPC-tab.h"
 #include "advanced-configuration/cmd-conf-tab.h"
 #include "advanced-configuration/envs-conf-tab.h"
 #include "advanced-configuration/high-availability-tab.h"
+#include "advanced-configuration/ipc-tab.h"
 #include "advanced-configuration/volumes-conf-tab.h"
 #include "base-configuration/cpu-conf-tab.h"
 #include "base-configuration/memory-conf-tab.h"
