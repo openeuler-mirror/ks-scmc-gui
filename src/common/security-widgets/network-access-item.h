@@ -22,6 +22,8 @@ public:
     explicit NetworkAccessItem(QWidget *parent = nullptr);
     ~NetworkAccessItem();
     void setDeleteBtnVisible(bool visible);
+    void setDefaultPort(bool defaultPort);
+    bool isDefaultPort();
     void getInfo(QStringList &protocols, QString &addr, int &port);
     void setInfo(QStringList protocols, QString addr, int port);
 
