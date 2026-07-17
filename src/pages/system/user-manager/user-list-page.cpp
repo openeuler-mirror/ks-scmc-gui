@@ -378,4 +378,22 @@ void UserListPage::initConnect()
     connect(&User::getInstance(), &User::createUserFinished, this, &UserListPage::getCreateUserFinished);
     connect(&User::getInstance(), &User::updateUserFinished, this, &UserListPage::getUpdateUserFinished);
     connect(&User::getInstance(), &User::removeUserFinished, this, &UserListPage::getRemoveUserFinished);
+
+    connect(&User::getInstance(), &User::listRoleFinished, this, &UserListPage::getListRoleFinished);
+}
+
+void UserListPage::clearText()
+{
+    ui->lineEdit_search->clear();
+}
+
+void UserListPage::setTips(const QString &tips)
+{
+    ui->label_tips->setText(tips);
+    m_timerID = this->startTimer(10000);  // 10秒后提示消失
+}
+
+void UserListPage::getRoleList()
+{
+    User::getInstance().listRole(m_objID);
 }
