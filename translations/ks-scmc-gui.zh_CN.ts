@@ -316,40 +316,40 @@
 <context>
     <name>ConfigTable</name>
     <message>
-        <location filename="../src/common/config-table.ui" line="14"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.ui" line="14"/>
         <location filename="../build/src/ui_config-table.h" line="53"/>
         <source>ConfigTable</source>
         <translation>配置表</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="44"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="44"/>
         <source>Container path</source>
         <translation>容器路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="44"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="44"/>
         <source>Host path</source>
         <translation>主机路径</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="44"/>
-        <location filename="../src/common/config-table.cpp" line="46"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="44"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="46"/>
         <source>Permission</source>
         <translation>允许</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="44"/>
-        <location filename="../src/common/config-table.cpp" line="46"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="44"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="46"/>
         <source>Quick Actions</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="46"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="46"/>
         <source>Variable name</source>
         <translation>变量名</translation>
     </message>
     <message>
-        <location filename="../src/common/config-table.cpp" line="46"/>
+        <location filename="../src/pages/container/advanced-configuration/table-widgets/config-table.cpp" line="46"/>
         <source>Value</source>
         <translation>值</translation>
     </message>
