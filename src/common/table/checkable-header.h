@@ -1,3 +1,10 @@
+/**
+ * @file          src/common/table/checkable-header.h
+ * @brief
+ * @author        yuanxing <yuanxing@kylinsec.com>
+ * @copyright (c) 2020 ~ 2025 KylinSec Co., Ltd.
+ */
+
 #ifndef CHECKABLEHEADER_H
 #define CHECKABLEHEADER_H
 
