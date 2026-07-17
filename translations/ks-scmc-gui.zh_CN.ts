@@ -2417,6 +2417,11 @@ The first characters must be letter or digit</source>
         <translation>请输入用户名！</translation>
     </message>
     <message>
+        <location filename="../src/login-dialog.cpp" line="124"/>
+        <source>KylinSec Security Container System V1</source>
+        <translation>麒麟信安安全容器系统V1</translation>
+    </message>
+    <message>
         <location filename="../src/login-dialog.cpp" line="248"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
