@@ -54,7 +54,7 @@ QStringList SecurityList::getSecurityInfos()
         {
             if (!item->getPathCorrect())
             {
-                KLOG_INFO() << "There is error in path of file protection!";
+                KLOG_DEBUG() << "There is error in path of file protection!";
                 row++;
                 continue;
             }
