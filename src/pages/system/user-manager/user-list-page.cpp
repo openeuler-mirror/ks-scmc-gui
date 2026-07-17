@@ -367,7 +367,7 @@ void UserListPage::initUI()
 
     connect(ui->tableView, &UserTable::userEdited, this, &UserListPage::editUser);
     connect(ui->tableView, &UserTable::userDeleted, this, &UserListPage::deleteUser);
-    connect(ui->tableView, &UserTable::checkStateChanged, this, &UserListPage::updateDeleteBtnState);
+    connect(ui->tableView, &UserTable::headerCheckStateChanged, this, &UserListPage::updateDeleteBtnState);
 }
 
 void UserListPage::initConnect()
