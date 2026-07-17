@@ -78,8 +78,49 @@ void FileProtectionPage::setProtectEnabled(bool enabled)
     m_fileList->setEnabled(enabled);
 }
 
-void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply>& reply)
+void FileProtectionPage::getUpdateFileProtectFinished(const QString objId, const QPair<grpc::Status, node::UpdateFileProtectReply> &reply)
 {
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_INFO() << "Failed to update node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
+        return;
+    }
+
+    NotificationManager::sendNotify(tr("Successful to update node protected files!"), "");
+}
+
+void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair<grpc::Status, node::GetFileProtectReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_INFO() << "Failed to get node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
+        return;
+    }
+
+    auto fileProtect = reply.second.file_protection();
+
+    if (fileProtect.is_on())
+        m_btnOpen->setChecked(true);
+    else
+        m_btnClose->setChecked(true);
+
+    // int count = 0;
+    // for (auto file : fileProtect.file_list())
+    // {
+    //     if (count > 0)
+    //         createItem(count);
+
+    //     auto listItem = m_fileList->item(count);
+    //     SecurityListItem *item = qobject_cast<SecurityListItem *>(m_fileList->itemWidget(listItem));
+    //     item->setInfo(QString::fromStdString(file));
+    //     count++;
+    // }
 }
 
 void FileProtectionPage::initUI()
