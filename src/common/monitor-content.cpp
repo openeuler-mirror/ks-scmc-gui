@@ -20,7 +20,7 @@
 #define CHART_SERIES_NAME_NETWORK_RX QObject::tr("Network Receiving Speed")
 #define CHART_SERIES_NAME_NETWORK_TX QObject::tr("Network Transmission Speed")
 
-#define K_BITE 1024
+constexpr double K_BITE = 1024.0;
 
 MonitorContent::MonitorContent(QWidget *parent) : QWidget(parent),
                                                   ui(new Ui::MonitorContent),
