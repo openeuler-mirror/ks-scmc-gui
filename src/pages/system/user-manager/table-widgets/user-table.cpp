@@ -437,6 +437,7 @@ UserTable::UserTable(QWidget *parent)
     m_headerViewProxy->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     m_headerViewProxy->setFixedHeight(40);
     connect(m_headerViewProxy, &CheckableHeader::toggled, this, &UserTable::checkedAllItem);
+    connect(m_headerViewProxy, &CheckableHeader::checkStateChanged, this, &UserTable::headerCheckStateChanged);
 
     // 设置表的其他属性
     setSelectionMode(QAbstractItemView::NoSelection);
