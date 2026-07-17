@@ -110,10 +110,13 @@ void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair
     QStringList fileList;
     for (auto file : fileProtect.file_list())
     {
-        KLOG_DEBUG() << "Get node protect file " << file.data() << "from backend.";
         fileList << file.data();
     }
+
+    KLOG_DEBUG() << "Get node:" << m_nodeID << "protect file from backend: "
+                 << "enable:" << fileProtect.is_on() << "files:" << fileList;
     m_fileList->setSecurityInfos(fileList);
+    setProtectEnabled(fileProtect.is_on());
 }
 
 void FileProtectionPage::initUI()
