@@ -51,7 +51,13 @@ void FileProtectionPage::save()
     auto fileProtect = securityCfg->mutable_file_protection();
     fileProtect->set_is_on(m_protectEnabled);
 
-    auto fileList = m_fileList->getSecurityInfos();
+    QStringList fileList;
+    if (!m_fileList->getSecurityInfos(fileList))
+    {
+        NotificationManager::sendNotify(tr("Failed to save the configuration"), tr("Please check the input parameters."));
+        return;
+    }
+
     for (auto file : fileList)
     {
         fileProtect->add_file_list(file.toStdString());
