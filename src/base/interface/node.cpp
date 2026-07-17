@@ -63,7 +63,15 @@ void Node::updateNode(const QString objId, const node::UpdateRequest &req)
     RPC_ASYNC(node::UpdateReply, _updateNode, updateNodeFinished, objId, req);
 }
 
-void Node::UpdateFileProtect(const QString objId, const node::UpdateFileProtectRequest &req)
+void Node::getFileProtect(const QString objId, qint64 nodeID)
+{
+    node::GetFileProtectRequest req;
+    req.set_node_id(nodeID);
+
+    RPC_ASYNC(node::GetFileProtectReply, _getFileProtect, getFileProtectFinished, objId, req);
+}
+
+void Node::updateFileProtect(const QString objId, const node::UpdateFileProtectRequest &req)
 {
     RPC_ASYNC(node::UpdateFileProtectReply, _updateFileProtect, updateFileProtectFinished, objId, req);
 }
