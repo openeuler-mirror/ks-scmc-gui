@@ -32,6 +32,7 @@ void NodeInfoPage::setNodeId(qint64 nodeId)
     m_networkPage->setNodeId(m_nodeId);
     m_configPage->setNodeId(m_nodeId);
     m_fileProtectionPage->setNodeId(m_nodeId);
+    m_networkConfigPage->setNodeId(m_nodeId);
 }
 
 void NodeInfoPage::updateInfo(QString keyword)
