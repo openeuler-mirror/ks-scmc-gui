@@ -89,7 +89,7 @@ void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair
 
     if (!reply.first.ok())
     {
-        KLOG_INFO() << "Failed to get node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
+        KLOG_WARNING() << "Failed to get node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
         return;
     }
 
