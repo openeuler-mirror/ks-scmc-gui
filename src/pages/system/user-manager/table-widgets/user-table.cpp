@@ -358,46 +358,13 @@ void UserModel::removeUser(QModelIndex index)
     endRemoveRows();
 }
 
-void UserModel::checkSelectStatus()
-{
-    auto state = Qt::Unchecked;
-    int selectCount = 0;
-    for (int i = 0; i < m_usersInfo.size(); ++i)
-    {
-        if (m_usersInfo[i].selected)
-        {
-            ++selectCount;
-        }
-    }
-
-    if (selectCount >= m_checkableRowNum)
-    {
-        state = Qt::Checked;
-    }
-    else if (selectCount > 0)
-    {
-        state = Qt::PartiallyChecked;
-    }
-
-    emit stateChanged(state);
-}
-
 void UserModel::updateRecord(QList<UserInfo> userInfos)
 {
-    m_checkableRowNum = 0;
-
     beginResetModel();
 
     m_usersInfo.clear();
-    // 刷新时checkbox状态清空
-    emit stateChanged(Qt::Unchecked);
-
     foreach (auto userInfo, userInfos)
     {
-        if (!isSystemUser(userInfo.role))
-        {
-            m_checkableRowNum++;
-        }
         m_usersInfo.push_back(userInfo);
     }
     emit usersUpdate(m_usersInfo.size());
