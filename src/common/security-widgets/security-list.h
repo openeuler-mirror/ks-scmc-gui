@@ -30,15 +30,15 @@ public:
     QStringList getSecurityInfos();
 
     void setItemTitle(QString title);
+    void clearItems();
 
 private:
     void initUI();
-    SecurityListItem *createItem(int index);
+    void createItem(int index);
     void addItem();
     void deleteItem();
     void deleteOneItem(QListWidgetItem *listItem);
     void updateItem();
-    void clearItems();
 
 private:
     QListWidget *m_listWidget;
