@@ -4113,10 +4113,10 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>SecurityList</name>
     <message>
-        <location filename="../src/common/security-widgets/security-list.cpp" line="80"/>
-        <location filename="../src/common/security-widgets/security-list.cpp" line="167"/>
+        <location filename="../src/common/security-widgets/security-list.cpp" line="84"/>
+        <location filename="../src/common/security-widgets/security-list.cpp" line="171"/>
         <source>%1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
