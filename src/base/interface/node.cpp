@@ -76,6 +76,27 @@ void Node::updateFileProtect(const QString objId, const node::UpdateFileProtectR
     RPC_ASYNC(node::UpdateFileProtectReply, _updateFileProtect, updateFileProtectFinished, objId, req);
 }
 
+QPair<grpc::Status, node::GetNodeDefaultPortReply> Node::getNodeDefaultPort(qint64 nodeID)
+{
+    node::GetNodeDefaultPortRequest req;
+    req.set_node_id(nodeID);
+
+    RPC_IMPL(node::GetNodeDefaultPortReply, node::Node::NewStub, GetNodeDefaultPort);
+}
+
+void Node::getNetworkRule(const QString objId, qint64 nodeID)
+{
+    node::GetNetworkRuleRequest req;
+    req.set_node_id(nodeID);
+
+    RPC_ASYNC(node::GetNetworkRuleReply, _getNetworkRule, getNetworkRuleFinished, objId, req);
+}
+
+void Node::updateNetworkRule(const QString objId, const node::UpdateNetworkRuleRequest &req)
+{
+    RPC_ASYNC(node::UpdateNetworkRuleReply, _updateNetworkRule, updateNetworkRuleFinished, objId, req);
+}
+
 QPair<grpc::Status, node::ListReply> Node::_listNode(const node::ListRequest &req)
 {
     RPC_IMPL(node::ListReply, node::Node::NewStub, List);
