@@ -121,7 +121,7 @@ void LoginDialog::initUI()
 {
     m_about = new AboutPage(this);
     setResizeable(false);
-    setTitle(tr("KylinSec Container System V1(Security Version)"));
+    setTitle(tr("KylinSec Security Container System V1"));
     setIcon(QIcon(":/images/logo.png"));
     setButtonHints(TitlebarMinimizeButtonHint | TitlebarCloseButtonHint);
     ui->btn_login->setCursor(QCursor(Qt::PointingHandCursor));
