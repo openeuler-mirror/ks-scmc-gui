@@ -38,6 +38,9 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     auto role = roleIndex.data().toString();
     bool isAdmin = isSystemUser(role);
 
+    const QWidget *widget = option.widget;
+    QStyle *style = widget ? widget->style() : QApplication::style();
+
     if (index.column() == UserTableField::USER_TABLE_FIELD_CHECKBOX)
     {
         // 如果是管理员，不显示复选框
