@@ -50,7 +50,7 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     initTable();
     initConnect();
 
-    // FIXME:以后在多出调用的maskwidget情况下，在updateInfo中调用该函数
+    // TODO:以后在多处调用的maskwidget情况下，在updateInfo中调用该函数
     // setMaskParent(this);
 
     m_statusMap.insert(CONTAINER_STATUS_RUNNING, QPair<QString, QString>(tr("Online"), "#00921b"));
