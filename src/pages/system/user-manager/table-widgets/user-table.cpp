@@ -66,9 +66,8 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
         const_cast<UserDelegate *>(this)->m_checkboxRects[index] = checkboxStyle.rect;
 
-        const QWidget *widget = option.widget;
-        QStyle *style = widget ? widget->style() : QApplication::style();
         style->drawItemPixmap(painter, option.rect, Qt::AlignCenter, pixmap);
+        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, widget);
     }
     else if (index.column() == UserTableField::USER_TABLE_FIELD_OPERATE)
     {
