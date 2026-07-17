@@ -149,46 +149,59 @@ void NetworkConfigPage::updateNetworkRuleFinished(const QString objId, const QPa
     NotificationManager::sendNotify(tr("Successful to update node network rule!"), "");
 }
 
-void NetworkConfigPage::save()
+void NetworkConfigPage::getNetworkProcessWhiteListFinished(const QString objId, const QPair<grpc::Status, node::GetNetworkProcessWhiteListReply>& reply)
 {
-    // 保存网络访问控制信息
-    node::UpdateNetworkRuleRequest req;
-    req.set_node_id(m_nodeID);
+    if (m_objId != objId)
+        return;
 
-    auto securityCfg = req.mutable_security_config();
-
-    auto networkRule = securityCfg->mutable_network_rule();
-    networkRule->set_is_on(m_accessCtrlEnabled);
-
-    auto infos = m_accessList->getNeteworkInfos();
-    for (auto info : infos)
+    if (!reply.first.ok())
     {
-        auto rules = networkRule->add_rules();
-        foreach (auto protocol, info.protocols)
-        {
-            rules->add_protocols(protocol.toStdString());
-        }
-        rules->set_addr(info.addr.toStdString());
-
-        if (m_defaultPorts.contains(info.port))
-        {
-            MessageDialog::message(tr("Update Node Network Rules"),
-                                   tr("Failed to update node network rules"),
-                                   tr("The port %1 is in use, please input again!").arg(info.port),
-                                   ":/images/error.svg",
-                                   MessageDialog::StandardButton::Yes);
-            return;
-        }
-        else
-        {
-            rules->set_port(info.port);
-        }
-
-        KLOG_DEBUG() << "Set node:" << m_nodeID << "network rule to backend: "
-                     << "enable:" << m_accessCtrlEnabled << "rule:" << info.protocols << info.addr << info.port;
+        KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network process white list:" << reply.first.error_message().data();
+        return;
     }
 
-    Node::getInstance().updateNetworkRule(m_objId, req);
+    if (!reply.second.has_nproc_protection())
+    {
+        KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network process white list:"
+                       << "nproc_protection not found";
+        return;
+    }
+
+    auto nprocProtection = reply.second.nproc_protection();
+    auto isOn = nprocProtection.is_on();
+    auto btn = isOn ? ui->btn_whitelist_open : ui->btn_whitelist_close;
+    btn->setChecked(true);
+
+    QStringList infos;
+    for (auto rule : nprocProtection.exe_list())
+    {
+        infos.append(rule.data());
+    }
+    KLOG_DEBUG() << "Get node:" << m_nodeID << "network process white list from backend: "
+                 << "enable:" << isOn << "procs:" << infos;
+
+    m_processList->setSecurityInfos(infos);
+    setConfigEnabled(btn);
+}
+
+void NetworkConfigPage::updateNetworkProcessWhiteListFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkProcessWhiteListReply>& reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Failed to update node:" << m_nodeID << "network process white list:" << reply.first.error_message().data();
+        return;
+    }
+
+    NotificationManager::sendNotify(tr("Successful to update node network process white list!"), "");
+}
+
+void NetworkConfigPage::save()
+{
+    saveNetworkRules();
+    saveNetworkProcessWhiteList();
 }
 
 void NetworkConfigPage::initUI()
