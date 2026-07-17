@@ -881,35 +881,35 @@ void ContainerSetting::onItemClicked(QListWidgetItem *item)
     if (listwidget == ui->listwidget_base_config)
     {
         m_baseConfStack->setCurrentIndex(index);
-        foreach (GuideItem *item, m_baseItems)
+        foreach (GuideItem *baseItem, m_baseItems)
         {
-            if (item == guideItem)
-                item->setSelected(true);
+            if (baseItem == guideItem)
+                baseItem->setSelected(true);
             else
-                item->setSelected(false);
+                baseItem->setSelected(false);
         }
     }
 
     else if (listwidget == ui->listWidget_advanced_config)
     {
         m_advancedConfStack->setCurrentIndex(index);
-        foreach (GuideItem *item, m_advancedItems)
+        foreach (GuideItem *advancedItem, m_advancedItems)
         {
-            if (item == guideItem)
-                item->setSelected(true);
+            if (advancedItem == guideItem)
+                advancedItem->setSelected(true);
             else
-                item->setSelected(false);
+                advancedItem->setSelected(false);
         }
     }
     else if (listwidget == ui->listWidget_security_config)
     {
         m_securityConfStack->setCurrentIndex(index);
-        foreach (GuideItem *item, m_securityItems)
+        foreach (GuideItem *securityItem, m_securityItems)
         {
-            if (item == guideItem)
-                item->setSelected(true);
+            if (securityItem == guideItem)
+                securityItem->setSelected(true);
             else
-                item->setSelected(false);
+                securityItem->setSelected(false);
         }
     }
 }
