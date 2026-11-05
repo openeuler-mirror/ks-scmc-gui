@@ -188,11 +188,18 @@ void IPCPage::initCreateDialog()
     layout->setContentsMargins(0, 0, 0, 0);
     auto label = new QLabel(tr("IPC Name"), content);
     m_edit = new QLineEdit(content);
-    m_edit->setPlaceholderText(tr("Please input 1 to 50 characters"));
-    m_edit->setMaxLength(50);
+    m_edit->setPlaceholderText(tr("Please input 2 to 40 characters"));
+    m_edit->setMaxLength(40);
     m_edit->setFixedHeight(36);
+
+    auto tipBtn = new QToolButton(content);
+    tipBtn->setIcon(QIcon(":/images/tips.svg"));
+    tipBtn->setToolTip(tr("Only letter, digit or ._- three special characters;\nThe first characters must be letter or digit"));
+    tipBtn->setFixedSize(16, 16);
+
     layout->addWidget(label);
     layout->addWidget(m_edit);
+    layout->addWidget(tipBtn);
 
     auto btnLayout = new QHBoxLayout();
     btnLayout->setSpacing(20);
