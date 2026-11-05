@@ -312,7 +312,35 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
         QStandardItem *itemAdvanceCfg = new QStandardItem(advanceCfg);
         itemAdvanceCfg->setTextAlignment(Qt::AlignCenter);
 
-        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemDesc << itemBaseCfg << itemAdvanceCfg);
+        // 安全等级
+        auto level = cfg.security_config().security_level_template();
+
+        QString levelText;
+        switch (level)
+        {
+        case LEVEL_NUM_1:
+            levelText = LEVEL_1;
+            break;
+        case LEVEL_NUM_2:
+            levelText = LEVEL_2;
+            break;
+        case LEVEL_NUM_3:
+            levelText = LEVEL_3;
+            break;
+        case LEVEL_NUM_4:
+            levelText = LEVEL_4;
+            break;
+        case LEVEL_NUM_5:
+            levelText = LEVEL_5;
+            break;
+        default:
+            levelText = tr("None");
+            break;
+        }
+        QStandardItem *itemLevel = new QStandardItem(levelText);
+        itemLevel->setTextAlignment(Qt::AlignCenter);
+
+        setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemDesc << itemBaseCfg << itemAdvanceCfg << itemLevel);
         row++;
     }
 }
