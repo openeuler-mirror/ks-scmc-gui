@@ -26,15 +26,18 @@ public:
     explicit SecurityLevelTab(QWidget *parent = nullptr);
     ~SecurityLevelTab();
 
-    void setSecurityInfo();
-    void getSecurityInfo();
+    void setSecurityInfo(int level, bool networkAccessCtl);
+    void getSecurityInfo(int &level, bool &networkAccessCtl);
+
+signals:
+    void levelChanged(int level);
 
 private:
     void initUI();
 
 private:
     Ui::SecurityLevelTab *ui;
-    QList<QPair<QString, QString>> m_securityLevelMap;
+    QMap<int, QPair<QString, QString>> m_securityLevelMap;
 };
 
 #endif  // SECURITYLEVELTAB_H
