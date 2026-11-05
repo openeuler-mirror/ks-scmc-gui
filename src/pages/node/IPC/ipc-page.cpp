@@ -6,24 +6,38 @@
  */
 
 #include "ipc-page.h"
+#include <kiran-log/qt5-log-i.h>
 #include <kiran-titlebar-window.h>
 #include <widget-property-helper.h>
 #include <QApplication>
+#include <QDateTime>
 #include <QDesktopWidget>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 
-IPCPage::IPCPage(QWidget *parent) : TablePage(parent),
+#include "ui_ipc-page.h"
+
+IPCPage::IPCPage(QWidget *parent) : Page(parent),
+                                    ui(new Ui::IPCPage),
+                                    m_nodeID(-1),
                                     m_createDialog(nullptr)
 {
-    initButtons();
-    initTable();
+    ui->setupUi(this);
+    m_objId = IPC::generateId(this);
+    initUI();
     initConnect();
 }
 
 void IPCPage::updateInfo(QString keyword)
 {
+    // TODO:待后台代码完善即可调用
+    // IPC::getInstance().listIPC(m_objId);
+}
+
+void IPCPage::setNodeID(qint64 nodeID)
+{
+    m_nodeID = nodeID;
 }
 
 void IPCPage::createIPC()
