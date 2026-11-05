@@ -3726,7 +3726,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>QObject</name>
     <message>
         <location filename="../src/base/interface/common.h" line="43"/>
-        <location filename="../src/base/interface/container.cpp" line="404"/>
+        <location filename="../src/base/interface/container.cpp" line="415"/>
         <location filename="../src/base/interface/image.cpp" line="109"/>
         <location filename="../src/base/interface/image.cpp" line="234"/>
         <location filename="../src/base/interface/image.cpp" line="369"/>
