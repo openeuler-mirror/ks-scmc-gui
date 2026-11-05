@@ -11,6 +11,7 @@
 
 #include "proto/container.grpc.pb.h"
 #include "proto/image.grpc.pb.h"
+#include "proto/ipc.grpc.pb.h"
 #include "proto/logging.grpc.pb.h"
 #include "proto/network.grpc.pb.h"
 #include "proto/node.grpc.pb.h"
