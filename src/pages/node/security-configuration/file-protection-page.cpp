@@ -55,7 +55,7 @@ void FileProtectionPage::save()
     QStringList fileList;
     if (!m_fileList->getSecurityInfos(fileList))
     {
-        NotificationManager::sendNotify(tr("Failed to save the configuration"), tr("Please check the input parameters."));
+        NotificationManager::sendNotify(tr("Failed to save the file protect configuration"), tr("Please check the input parameters."));
         return;
     }
 
