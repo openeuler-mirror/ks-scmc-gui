@@ -271,41 +271,10 @@ void IPCPage::popupCreateDialog()
     m_createDialog->raise();
     m_createDialog->show();
 }
-void IPCPage::initButtons()
-{
-    auto btnCreate = new QPushButton(this);
-    btnCreate->setText(tr("Create"));
-    btnCreate->setObjectName("btnCreate");
-    btnCreate->setFixedSize(QSize(78, 32));
-    Kiran::WidgetPropertyHelper::setButtonType(btnCreate, Kiran::BUTTON_Default);
-    addSingleOperationButton(btnCreate);
-    connect(btnCreate, &QPushButton::clicked, this, &IPCPage::popupCreateDialog);
-
-    auto btnDelete = new QPushButton(this);
-    btnDelete->setText(tr("Delete"));
-    btnDelete->setObjectName("btnDelete");
-    btnDelete->setFixedSize(QSize(78, 32));
-    connect(btnDelete, &QPushButton::clicked, this, &IPCPage::deleteIPC);
-
-    addBatchOperationButtons(QList<QPushButton *>() << btnDelete);
-    // TODO: 为了测试
-    // setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
-    setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
-}
-
-void IPCPage::initTable()
-{
-    QStringList tableHHeaderDate = {
-        "",
-        QString(tr("IPC")),
-        QString(tr("Container")),
-        QString(tr("Create Time"))};
-    setHeaderSections(tableHHeaderDate);
-    setHeaderCheckable(false);
-    setTableDefaultContent("-");
-    setTableSingleChoose(true);
-}
 
 void IPCPage::initConnect()
 {
+    connect(&IPC::getInstance(), &IPC::listIPCFinished, this, &IPCPage::listIPCFinished);
+    connect(&IPC::getInstance(), &IPC::createIPCFinished, this, &IPCPage::createIPCFinished);
+    connect(&IPC::getInstance(), &IPC::removeIPCFinished, this, &IPCPage::removeIPCFinished);
 }
