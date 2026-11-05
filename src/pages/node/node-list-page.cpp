@@ -142,8 +142,8 @@ void NodeListPage::onEdit(int row)
 
 void NodeListPage::onSaveSlot(QMap<QString, QString> Info)
 {
-    KLOG_INFO() << "Save node. "
-                << "name: " << Info[NODE_NAME] << "ip: " << Info[NODE_ADDRESS] << "description:" << Info[NODE_COMMENT];
+    KLOG_DEBUG() << "Save node. "
+                 << "name: " << Info[NODE_NAME] << "ip: " << Info[NODE_ADDRESS] << "description:" << Info[NODE_COMMENT];
     NodeOperateDialog *dialog = qobject_cast<NodeOperateDialog *>(sender());
     auto type = dialog->getType();
     auto nodeId = dialog->getNodeId();
