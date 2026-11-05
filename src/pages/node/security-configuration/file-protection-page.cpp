@@ -102,12 +102,15 @@ void FileProtectionPage::getFileProtectFinished(const QString objId, const QPair
 
     if (!reply.first.ok())
     {
+        NotificationManager::sendNotify(tr("Failed to get node protected files!"), reply.first.error_message().data());
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "file protect list:" << reply.first.error_message().data();
         return;
     }
 
     if (!reply.second.has_file_protection())
     {
+        NotificationManager::sendNotify(tr("Failed to get node protected files!"), tr("There is no node protected files."));
+
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "file protect list:"
                        << "file_protection not found";
         return;
