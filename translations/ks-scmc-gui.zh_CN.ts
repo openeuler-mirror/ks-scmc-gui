@@ -2414,22 +2414,22 @@ The first characters must be letter or digit</source>
         <translation>设置日志保存周期成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="94"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="95"/>
         <source>Log Retention Period (Day)</source>
         <translation>日志保存周期（天数）</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="97"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="98"/>
         <source>Please enter a number greater than or equal to 180 days</source>
         <translation>请输入数值大于等于180天</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="110"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="111"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="114"/>
+        <location filename="../src/pages/audit/log-setting/log-setting-view.cpp" line="115"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
