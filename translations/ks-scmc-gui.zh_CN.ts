@@ -3766,13 +3766,13 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/container.cpp" line="456"/>
+        <location filename="../src/base/interface/container.cpp" line="467"/>
         <location filename="../src/base/interface/image.cpp" line="401"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/container.cpp" line="467"/>
+        <location filename="../src/base/interface/container.cpp" line="478"/>
         <location filename="../src/common/message-dialog.cpp" line="133"/>
         <source>Cancel</source>
         <translation>取消</translation>
