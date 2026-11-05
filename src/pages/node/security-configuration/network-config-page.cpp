@@ -200,6 +200,12 @@ void NetworkConfigPage::updateNetworkProcessWhiteListFinished(const QString objI
 
     if (!reply.first.ok())
     {
+        MessageDialog::message(tr("Node network process white list"),
+                               tr("Failed to update node network process white list"),
+                               reply.first.error_message().data(),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+
         KLOG_WARNING() << "Failed to update node:" << m_nodeID << "network process white list:" << reply.first.error_message().data();
         return;
     }
