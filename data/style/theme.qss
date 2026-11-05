@@ -208,7 +208,8 @@ TablePage
 }
 
 /***********************QTableView**********************/
-UserTable
+UserTable,
+IpcTable
 {
     border:none;
     border-top:1px solid #393939;
