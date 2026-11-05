@@ -225,6 +225,36 @@ void IPCPage::initCreateDialog()
 
     m_createDialog = window;
 }
+
+void IPCPage::search()
+{
+    auto text = ui->lineEdit_search->text();
+    ui->tableView->searchTextChanged(text);
+}
+
+void IPCPage::refresh()
+{
+    updateInfo();
+}
+void IPCPage::clearText()
+{
+    ui->lineEdit_search->clear();
+}
+
+void IPCPage::setTips(const QString &tips)
+{
+    ui->label_tips->setText(tips);
+    m_timerID = this->startTimer(10000);  // 10秒后提示消失
+}
+
+void IPCPage::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() == m_timerID)
+    {
+        ui->label_tips->clear();
+        killTimer(m_timerID);
+    }
+}
 void IPCPage::popupCreateDialog()
 {
     if (!m_createDialog)
