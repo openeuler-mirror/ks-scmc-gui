@@ -47,6 +47,126 @@ void IPCPage::deleteIPC()
 {
 }
 
+void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::IpcListReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    ui->tableView->clearTable();
+
+    if (!reply.first.ok())
+    {
+        if (reply.first.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED)
+        {
+            setTips(tr("Response timeout!"));
+        }
+        return;
+    }
+
+    // 返回成功后使能创建按钮
+    ui->btn_create->setEnabled(true);
+
+    int size = reply.second.ipcname_ids_size();
+    if (size <= 0)
+    {
+        return;
+    }
+
+    QList<IpcInfo> ipcInfos;
+    for (auto info : reply.second.ipcname_ids())
+    {
+        KLOG_DEBUG() << "Get ipc list. "
+                     << "ipc name:" << info.name().data() << "start time:" << info.start_time();
+
+        QString name = info.name().data();
+        QString createTime = "-";
+        if (info.start_time() != 0)
+        {
+            auto dt = QDateTime::fromSecsSinceEpoch(info.start_time());
+            createTime = dt.toString("yyyy/MM/dd hh:mm:ss");
+        }
+
+        QString ipcContainers = "";
+        for (auto container : info.containers())
+        {
+            ipcContainers = ipcContainers + "," + QString(container.data());
+        }
+
+        auto ipcInfo = IpcInfo{.selected = false,
+                               .ipcName = name,
+                               .containers = ipcContainers,
+                               .createTime = createTime};
+        ipcInfos.push_back(ipcInfo);
+    }
+    ui->tableView->setIpcInfos(ipcInfos);
+}
+
+void IPCPage::createIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcCreateReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Failed to create node:" << m_nodeID << "ipc:" << reply.first.error_message().data();
+        return;
+    }
+
+    updateInfo();
+}
+
+void IPCPage::removeIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcRemoveReply> &reply)
+{
+    if (m_objId != objId)
+        return;
+
+    if (!reply.first.ok())
+    {
+        KLOG_WARNING() << "Failed to remove node:" << m_nodeID << "ipc list:" << reply.first.error_message().data();
+        return;
+    }
+    updateInfo();
+}
+
+void IPCPage::initUI()
+{
+    // 在搜索框右侧添加搜索按钮
+    QHBoxLayout *layout = new QHBoxLayout(ui->lineEdit_search);
+    layout->setMargin(0);
+    layout->setContentsMargins(10, 0, 10, 0);
+
+    QPushButton *btn_search = new QPushButton(ui->lineEdit_search);
+    btn_search->setObjectName("btn_search");
+    btn_search->setFixedSize(QSize(16, 16));
+    btn_search->setIcon(QIcon(":/images/search.svg"));
+    btn_search->setStyleSheet("#btn_search{background:transparent;border:none;}"
+                              "#btn_search:focus{outline:none;}");
+    btn_search->setCursor(Qt::PointingHandCursor);
+    layout->addStretch();
+    layout->addWidget(btn_search);
+    ui->lineEdit_search->setTextMargins(0, 0, btn_search->width() + 10, 0);
+
+    // 设置“创建”、“删除”按钮样式
+    ui->btn_create->setDisabled(true);
+    Kiran::WidgetPropertyHelper::setButtonType(ui->btn_create, Kiran::BUTTON_Default);
+
+    ui->btn_delete->setDisabled(true);
+    ui->btn_delete->setObjectName("btnDelete");
+    ui->btn_delete->setStyleSheet("#btnDelete{background-color:#ff4b4b;"
+                                  "border:none;"
+                                  "border-radius: 4px;"
+                                  "color:#ffffff;}"
+                                  "#btnDelete:hover{ background-color:#ff6c6c;}"
+                                  "#btnDelete:focus{outline:none;}"
+                                  "#btnDelete:disabled{color:#919191;background:#393939;}");
+
+    connect(ui->btn_delete, &QPushButton::clicked, this, &IPCPage::deleteIPC);
+    connect(ui->btn_create, &QPushButton::clicked, this, &IPCPage::popupCreateDialog);
+    connect(btn_search, &QPushButton::clicked, this, &IPCPage::search);
+    connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &IPCPage::search);
+    connect(ui->btn_refresh, &QToolButton::clicked, this, &IPCPage::refresh);
+}
+
 void IPCPage::initCreateDialog()
 {
     auto window = new KiranTitlebarWindow(this);
