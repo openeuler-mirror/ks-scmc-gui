@@ -101,7 +101,7 @@ void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPai
 
     if (reply.first.ok())
     {
-        KLOG_INFO() << "Update password successful!";
+        KLOG_DEBUG() << "Update password successful!";
         UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, m_userName, PASSWORD, ui->lineEdit_new_pw->text());
         emit sigUpdatePasswdSuccessful();
         close();
