@@ -528,6 +528,11 @@ void ContainerListPage::updateContainerVersionFinished(const QString objId, cons
 
     if (!reply.first.ok())
     {
+        MessageDialog::message(tr("Update Container Version"),
+                               tr("Update container version failed!"),
+                               tr("Error: %1").arg(reply.first.error_message().data()),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
         KLOG_WARNING() << "Failed to update container version:" << reply.first.error_message().data();
         return;
     }
