@@ -116,6 +116,7 @@ private slots:
     void onConfirm();
     void onNodeSelectedChanged(const QString &newStr);
     void onTempSelectedChanged(QString newStr);
+    void updateSecurityPages(int level);
 
     void getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &);
     void getContainerInspectResult(QString objId, const QPair<grpc::Status, container::InspectReply> &);
