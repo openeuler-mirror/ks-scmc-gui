@@ -1033,6 +1033,35 @@ void ContainerSetting::onTempSelectedChanged(QString newStr)
     ui->cb_node->setCurrentIndex(ui->cb_node->findData(nodeId));
 }
 
+void ContainerSetting::updateSecurityPages(int level)
+{
+    auto startStopCtlPage = qobject_cast<StartStopControlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_START_STOP_CONTROL));
+    auto networkAccessCtlPage = qobject_cast<NetworkAccessCtlTab *>(m_securityConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_NETWORK_ACCESS_CONTROL));
+
+    if (!startStopCtlPage || !networkAccessCtlPage)
+        return;
+
+    KLOG_DEBUG() << "update container security page, new level:" << level;
+    switch (level)
+    {
+    case LEVEL_NUM_2:
+        startStopCtlPage->setStartStopEnabled(true);
+        networkAccessCtlPage->enforceNetworkAccessOpen(true);
+        break;
+    case LEVEL_NUM_3:
+    case LEVEL_NUM_4:
+        // 设置无法操作启停控制界面
+        startStopCtlPage->setStartStopEnabled(false);
+        // 强制网络访问控制必须打开
+        networkAccessCtlPage->enforceNetworkAccessOpen(true);
+        break;
+    default:
+        startStopCtlPage->setStartStopEnabled(true);
+        networkAccessCtlPage->enforceNetworkAccessOpen(false);
+        break;
+    }
+}
+
 void ContainerSetting::getCreateContainerResult(QString objId, const QPair<grpc::Status, container::CreateReply> &reply)
 {
     if (m_objId != objId)
