@@ -133,26 +133,19 @@ void SecurityLevelTab::initUI()
         keys << pair.first;
     }
     ui->cb_level->addItems(keys);
-    ui->cb_level->setCurrentText(LEVEL_4);  // 默认四级模板
-    ui->textEdit_level->setHtml(LEVEL_4_DESC);
 
-    connect(ui->cb_level, QOverload<const QString &>::of(&QComboBox::currentIndexChanged),
-            [=](const QString &text)
+    connect(ui->cb_level, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            [=](int index)
             {
-                auto isLevel1 = text == LEVEL_1;
+                auto level = index + 1;
+                auto isLevel1 = level == LEVEL_NUM_1;
                 ui->label_access_ctl->setVisible(isLevel1);
                 ui->checkbox_access_ctl->setVisible(isLevel1);
 
-                QString description;
-                for (const auto &pair : m_securityLevelMap)
-                {
-                    if (pair.first == text)
-                    {
-                        description = pair.second;
-                        break;
-                    }
-                }
+                ui->textEdit_level->setHtml(m_securityLevelMap[level].second);
 
-                ui->textEdit_level->setHtml(description);
+                emit levelChanged(level);
             });
+
+    ui->cb_level->setCurrentText(m_securityLevelMap.value(LEVEL_NUM_4).first);  // 默认四级模板
 }
