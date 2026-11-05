@@ -327,7 +327,7 @@ void NetworkConfigPage::saveNetworkProcessWhiteList()
     QStringList procList;
     if (!m_processList->getSecurityInfos(procList))
     {
-        NotificationManager::sendNotify(tr("Failed to save the configuration"), tr("Please check the input parameters."));
+        NotificationManager::sendNotify(tr("Failed to save the network process configuration"), tr("Please check the input parameters."));
         return;
     }
 
