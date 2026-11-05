@@ -21,6 +21,14 @@ bool StartStopControlTab::getStartStopInfo()
     return m_checkBox->isChecked();
 }
 
+void StartStopControlTab::setStartStopEnabled(bool enable)
+{
+    // 若不允许从命令行启停容器，则m_checkBox设置为选中，禁用启停
+    if (!enable)
+        m_checkBox->setChecked(true);
+    this->setEnabled(enable);
+}
+
 void StartStopControlTab::initUI()
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
