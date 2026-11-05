@@ -1634,12 +1634,12 @@ The first characters must be letter or digit</source>
 <context>
     <name>IPCPage</name>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="88"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="171"/>
         <source>Create IPC</source>
         <translation>创建IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="102"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="185"/>
         <source>IPC Name</source>
         <translation>IPC基准名称</translation>
     </message>
