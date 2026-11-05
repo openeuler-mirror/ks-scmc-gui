@@ -163,12 +163,14 @@ void NetworkConfigPage::getNetworkProcessWhiteListFinished(const QString objId, 
 
     if (!reply.first.ok())
     {
+        NotificationManager::sendNotify(tr("Failed to get node network process white list"), reply.first.error_message().data());
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network process white list:" << reply.first.error_message().data();
         return;
     }
 
     if (!reply.second.has_nproc_protection())
     {
+        NotificationManager::sendNotify(tr("Failed to get node network process white list"), tr("There is no network process white list."));
         KLOG_WARNING() << "Failed to get node:" << m_nodeID << "Network process white list:"
                        << "nproc_protection not found";
         return;
