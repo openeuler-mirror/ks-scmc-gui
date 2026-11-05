@@ -1510,42 +1510,67 @@ The first characters must be letter or digit</source>
 <context>
     <name>FileProtectionPage</name>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="57"/>
         <source>Failed to save the configuration</source>
-        <translation>保存网络配置失败</translation>
+        <translation type="vanished">保存网络配置失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="57"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="58"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="88"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="58"/>
+        <source>Failed to save the file protect configuration</source>
+        <translation>保存文件保护配置失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="85"/>
+        <source>Node file protection</source>
+        <translation>节点文件保护</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="86"/>
+        <source>Failed to update node file protect list</source>
+        <translation>更新节点文件保护失败</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="95"/>
         <source>Successful to update node protected files!</source>
         <translation>更新节点文件保护成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="137"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="105"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="112"/>
+        <source>Failed to get node protected files!</source>
+        <translation>获取节点文件保护信息失败！</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="112"/>
+        <source>There is no node protected files.</source>
+        <translation>不存在节点文件保护。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="147"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="138"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="148"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="139"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="159"/>
         <source>Key file</source>
         <translation>关键文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="153"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="163"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
