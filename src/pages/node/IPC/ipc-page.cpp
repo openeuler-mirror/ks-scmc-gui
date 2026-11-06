@@ -285,7 +285,7 @@ void IPCPage::timerEvent(QTimerEvent *event)
 }
 void IPCPage::popupCreateDialog()
 {
-    if (!m_createDialog)
+    if (m_createDialog == nullptr)
     {
         initCreateDialog();
     }
