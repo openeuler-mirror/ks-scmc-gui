@@ -243,6 +243,7 @@ void IPCPage::initUI()
     connect(btn_search, &QPushButton::clicked, this, &IPCPage::search);
     connect(ui->lineEdit_search, &QLineEdit::returnPressed, this, &IPCPage::search);
     connect(ui->btn_refresh, &QToolButton::clicked, this, &IPCPage::refresh);
+    connect(ui->tableView, &IpcTable::headerCheckStateChanged, this, &IPCPage::updateDeleteBtnState);
 }
 
 void IPCPage::initCreateDialog()
