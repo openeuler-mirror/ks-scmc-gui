@@ -67,8 +67,13 @@ void ServerConfigDialog::initUI()
     m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
     m_ipLineEdit->setTextMargins(10, 0, 0, 0);
     m_ipLineEdit->setMaxLength(20);
-    QRegExp rx("^[0-9.]+$");
-    m_ipLineEdit->setValidator(new QRegExpValidator(rx, this));
+    //  匹配 IP 地址
+    QRegExp ipMaskRegex(
+        "^"
+        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
+        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+        "$");
+    m_ipLineEdit->setValidator(new QRegExpValidator(ipMaskRegex, this));
     ipLayout->addWidget(ipLab);
     ipLayout->addWidget(m_ipLineEdit);
 

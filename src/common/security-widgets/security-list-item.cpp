@@ -25,6 +25,7 @@ SecurityListItem::SecurityListItem(QString text, QWidget *parent) : QWidget(pare
     ui->btn_add->setCursor(Qt::PointingHandCursor);
     ui->btn_delete->setCursor(Qt::PointingHandCursor);
     ui->lineEdit->setTextMargins(10, 0, 0, 0);
+    ui->lineEdit->setMaxLength(4096);
 
     connect(ui->btn_add, &QToolButton::clicked,
             [this]

@@ -37,8 +37,13 @@ NodeOperateDialog::NodeOperateDialog(NodeOperateType type, QWidget *parent) : Ki
         ui->lineEdit_node_ip->setDisabled(true);
     }
 
-    QRegExp rx("^[0-9.]+$");
-    ui->lineEdit_node_ip->setValidator(new QRegExpValidator(rx, parent));
+    //  匹配 IP 地址
+    QRegExp ipMaskRegex(
+        "^"
+        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
+        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+        "$");
+    ui->lineEdit_node_ip->setValidator(new QRegExpValidator(ipMaskRegex, this));
 
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_save, Kiran::BUTTON_Default);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_cancel, Kiran::BUTTON_Normal);
