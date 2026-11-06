@@ -1282,31 +1282,31 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/container-setting.cpp" line="570"/>
         <location filename="../src/pages/container/container-setting.cpp" line="590"/>
         <location filename="../src/pages/container/container-setting.cpp" line="608"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="627"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="639"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="653"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="663"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="674"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="731"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="742"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="764"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="781"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="792"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="803"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="829"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="845"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="631"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="643"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="657"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="667"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="678"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="735"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="746"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="768"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="785"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="796"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="807"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="833"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="849"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="607"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="844"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="848"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="569"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="828"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="832"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
