@@ -134,7 +134,8 @@ void UserUpdateDialog::initUI()
     setWindowModality(Qt::ApplicationModal);
     setButtonHints(TitlebarCloseButtonHint);
     setAttribute(Qt::WA_DeleteOnClose);
-    setFixedSize(QSize(600, 400));
+    setFixedSize(QSize(700, 400));
+    setIcon(QIcon(":/images/logo.png"));
 
     ui->stackedWidget->setCurrentIndex(m_type);
     Kiran::WidgetPropertyHelper::setButtonType(ui->btn_confirm, Kiran::BUTTON_Default);
