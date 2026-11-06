@@ -106,8 +106,8 @@ void SecurityList::createItem(int index)
     m_listWidget->insertItem(index, newItem);
     m_listWidget->setItemWidget(newItem, customItem);
 
-    newItem->setSizeHint(QSize(340, 62));
-    m_listWidget->setGridSize(QSize(340, 68));
+    newItem->setSizeHint(QSize(400, 62));
+    m_listWidget->setGridSize(QSize(400, 68));
 }
 
 void SecurityList::addItem()
