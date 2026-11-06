@@ -1261,20 +1261,20 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="289"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1079"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1091"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.cpp" line="294"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1097"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1244"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1109"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1261"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="638"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="741"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="642"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="745"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
