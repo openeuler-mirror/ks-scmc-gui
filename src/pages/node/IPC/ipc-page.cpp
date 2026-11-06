@@ -88,8 +88,8 @@ void IPCPage::deleteIPC()
     if (hasContainer)
     {
         MessageDialog::message(tr("Delete IPC"),
-                               tr("The ipc has containers, can't delete"),
-                               "",
+                               tr("Failed to delete IPC"),
+                               tr("The ipc \"%1\" is being used by the container.").arg(ipcHasContainer),
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         return;
