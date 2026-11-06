@@ -1181,7 +1181,8 @@ SecurityListTab QScrollBar::sub-line:vertical
 }
 
 SecurityListItem QToolButton,
-NetworkAccessItem QToolButton
+NetworkAccessItem QToolButton,
+IPCPage QToolButton
 {
     border:none;
     font-size:12px;
