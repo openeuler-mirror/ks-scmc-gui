@@ -3773,20 +3773,20 @@ of applications, isolated operation of applications, centralized monitoring of a
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="54"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="182"/>
-        <source>Old Password:</source>
-        <translation>原密码：</translation>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Old Password:</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;原密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="104"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="186"/>
-        <source>New Password:</source>
-        <translation>新密码：</translation>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;New Password:</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;新密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="114"/>
         <location filename="../build/src/ui_passwd-update-dialog.h" line="187"/>
-        <source>Confirm Password:</source>
-        <translation>确认密码：</translation>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password:</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="179"/>
