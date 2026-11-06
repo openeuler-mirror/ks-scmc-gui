@@ -47,22 +47,60 @@ void IPCPage::setNodeID(qint64 nodeID)
 void IPCPage::createIPC()
 {
     const std::string ipcName = m_edit->text().toStdString();
-    KLOG_DEBUG() << "createIPC:" "ipc name:" <<  m_edit->text() << "m_nodeID" << m_nodeID;
-    IPC::getInstance().createIPC(m_objId, m_nodeID,ipcName);
+    KLOG_DEBUG() << "createIPC:"
+                    "ipc name:"
+                 << m_edit->text() << "m_nodeID" << m_nodeID;
+    IPC::getInstance().createIPC(m_objId, m_nodeID, ipcName);
 }
 void IPCPage::deleteIPC()
 {
     QList<IpcInfo> list = ui->tableView->getIpcInfos();
     std::vector<std::string> ipcNames;
-    
-    for(auto item:list){
-        if(item.selected){
+
+    bool hasContainer = false;
+
+    for (auto item : list)
+    {
+        if (!item.containers.isEmpty())
+        {
+            KLOG_WARNING() << "The ipc:" << item.ipcName << "has containers, can't delete";
+            hasContainer = true;
+            break;
+        }
+        if (item.selected)
+        {
             ipcNames.push_back(item.ipcName.toStdString());
-            KLOG_DEBUG() << "deleteIPC:" "ipc name:" <<  item.ipcName << "m_nodeID" << m_nodeID;
-        }       
+            KLOG_DEBUG() << "deleteIPC:"
+                            "ipc name:"
+                         << item.ipcName << "m_nodeID" << m_nodeID;
+        }
     }
 
-    IPC::getInstance().removeIPC(m_objId, m_nodeID,ipcNames);
+    // ipc已存在容器，无法删除
+    if (hasContainer)
+    {
+        MessageDialog::message(tr("Delete IPC"),
+                               tr("The ipc has containers, can't delete"),
+                               "",
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+        return;
+    }
+
+    // 没有选中的ipc
+    if (ipcNames.empty())
+    {
+        KLOG_WARNING() << "deleteIPC: no ipc selected";
+        return;
+    }
+
+    auto ret = MessageDialog::message(tr("Delete IPC"),
+                                      tr("Are you sure you want to delete these IPC?"),
+                                      tr("It can't be recovered after deletion.Are you sure you want to continue?"),
+                                      ":/images/warning.svg",
+                                      MessageDialog::StandardButton::Yes | MessageDialog::StandardButton::Cancel);
+    if (ret == MessageDialog::StandardButton::Yes)
+        IPC::getInstance().removeIPC(m_objId, m_nodeID, ipcNames);
 }
 
 void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::IpcListReply> &reply)
