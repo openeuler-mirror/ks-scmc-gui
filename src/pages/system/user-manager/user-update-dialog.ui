@@ -338,8 +338,8 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="3">
-          <spacer name="horizontalSpacer_4">
+         <item row="0" column="4">
+          <spacer name="horizontalSpacer_5">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
