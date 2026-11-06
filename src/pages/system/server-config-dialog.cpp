@@ -61,7 +61,7 @@ void ServerConfigDialog::initUI()
     QVBoxLayout *ipLayout = new QVBoxLayout(ipWidget);
     ipLayout->setMargin(0);
     ipLayout->setSpacing(10);
-    QLabel *ipLab = new QLabel(tr("Ip Address"), ipWidget);
+    QLabel *ipLab = new QLabel(tr("<font color=red>*</font>Ip Address"), ipWidget);
     m_ipLineEdit = new QLineEdit(ipWidget);
     m_ipLineEdit->setFixedSize(370, 36);
     m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
