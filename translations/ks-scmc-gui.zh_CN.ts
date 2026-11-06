@@ -3098,12 +3098,12 @@ Instruction</source>
         <translation>网段：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="322"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="326"/>
         <source>Bind real interface:</source>
         <translation>绑定的物理网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="351"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="355"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
