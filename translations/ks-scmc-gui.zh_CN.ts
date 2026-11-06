@@ -2555,22 +2555,17 @@ The first characters must be letter or digit</source>
         <translation>登录失败：没有%1用户角色</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="383"/>
-        <source>Login failed %1</source>
-        <translation>登录失败 %1</translation>
-    </message>
-    <message>
-        <location filename="../src/login-dialog.cpp" line="419"/>
+        <location filename="../src/login-dialog.cpp" line="418"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="420"/>
+        <location filename="../src/login-dialog.cpp" line="419"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="421"/>
+        <location filename="../src/login-dialog.cpp" line="420"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
