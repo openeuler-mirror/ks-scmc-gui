@@ -265,7 +265,7 @@ void IPCPage::initCreateDialog()
     auto layout = new QHBoxLayout();
     layout->setSpacing(20);
     layout->setContentsMargins(0, 0, 0, 0);
-    auto label = new QLabel(tr("IPC Name"), content);
+    auto label = new QLabel(tr("<font color=red>*</font>IPC Name"), content);
     m_edit = new QLineEdit(content);
     m_edit->setPlaceholderText(tr("Please input 2 to 40 characters"));
     m_edit->setMaxLength(40);
