@@ -1,1 +1,1 @@
-default_merge_method: rebase
+default_merge_method: merge
