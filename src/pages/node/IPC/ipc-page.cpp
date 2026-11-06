@@ -33,19 +33,38 @@ IPCPage::IPCPage(QWidget *parent) : Page(parent),
 void IPCPage::updateInfo(QString keyword)
 {
     // TODO:待后台代码完善即可调用
-    // IPC::getInstance().listIPC(m_objId);
+    KLOG_DEBUG() << "updateInfo : m_nodeID" << m_nodeID;
+    if(m_nodeID != -1)
+        IPC::getInstance().listIPC(m_objId,m_nodeID);
+
 }
 
 void IPCPage::setNodeID(qint64 nodeID)
 {
+   
     m_nodeID = nodeID;
+    KLOG_DEBUG() << "setNodeID: m_nodeID" << m_nodeID;
 }
 
 void IPCPage::createIPC()
 {
+    const std::string ipcName = m_edit->text().toStdString();
+    KLOG_DEBUG() << "createIPC:" "ipc name:" <<  m_edit->text() << "m_nodeID" << m_nodeID;
+    IPC::getInstance().createIPC(m_objId, m_nodeID,ipcName);
 }
 void IPCPage::deleteIPC()
 {
+    QList<IpcInfo> list = ui->tableView->getIpcInfos();
+    std::vector<std::string> ipcNames;
+    
+    for(auto item:list){
+        if(item.selected){
+            ipcNames.push_back(item.ipcName.toStdString());
+            KLOG_DEBUG() << "deleteIPC:" "ipc name:" <<  item.ipcName << "m_nodeID" << m_nodeID;
+        }       
+    }
+
+    IPC::getInstance().removeIPC(m_objId, m_nodeID,ipcNames);
 }
 
 void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::IpcListReply> &reply)
