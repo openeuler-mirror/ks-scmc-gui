@@ -3162,9 +3162,9 @@ Instruction</source>
     </message>
     <message>
         <location filename="../src/pages/node/network/network-list-page.cpp" line="99"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="328"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="383"/>
-        <location filename="../src/pages/node/network/network-list-page.cpp" line="396"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="332"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="386"/>
+        <location filename="../src/pages/node/network/network-list-page.cpp" line="399"/>
         <source>None(bridge)</source>
         <translation>不绑定(桥接)</translation>
     </message>
