@@ -395,16 +395,16 @@
         <translation> &lt;font color=red&gt;*&lt;/font&gt;路径：</translation>
     </message>
     <message>
+        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="156"/>
+        <location filename="../build/src/ui_container-app-operate-dialog.h" line="161"/>
+        <source>App type:</source>
+        <translation>应用类型：</translation>
+    </message>
+    <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="81"/>
         <location filename="../build/src/ui_container-app-operate-dialog.h" line="159"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;App Name:</source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;应用名：</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="156"/>
-        <location filename="../build/src/ui_container-app-operate-dialog.h" line="161"/>
-        <source> &lt;font color=red&gt;*&lt;/font&gt;App type:</source>
-        <translation> &lt;font color=red&gt;*&lt;/font&gt;类型：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-app-operate-dialog.ui" line="196"/>
