@@ -1354,6 +1354,11 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     auto policy = info.restart_policy();
     highAvailabilityPage->setRestartPolicy(&policy);
 
+    // ipc
+    auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
+    auto ipc = info.ipcname();
+    ipcPage->setIPC(nodeID, ipc.data());
+
     auto limit = info.resouce_limit();
     // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
