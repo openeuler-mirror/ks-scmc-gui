@@ -86,7 +86,6 @@ void NetworkConfigPage::getNetworkRuleFinished(const QString objId, const QPair<
     auto networkRule = reply.second.network_rule();
     bool isOn = networkRule.is_on();
     auto btn = isOn ? ui->btn_access_open : ui->btn_access_close;
-    btn->setChecked(true);
 
     QList<NetworkAccessList::NetworkAccessInfo> infos;
     for (auto rule : networkRule.rules())
