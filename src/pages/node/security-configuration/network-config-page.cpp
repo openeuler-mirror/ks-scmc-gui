@@ -173,8 +173,9 @@ void NetworkConfigPage::getNetworkProcessWhiteListFinished(const QString objId, 
     KLOG_DEBUG() << "Get node:" << m_nodeID << "network process white list from backend: "
                  << "enable:" << isOn << "procs:" << infos;
 
+    // 更新界面
     m_processList->setSecurityInfos(infos);
-    setConfigEnabled(btn);
+    btn->click();
 }
 
 void NetworkConfigPage::updateNetworkProcessWhiteListFinished(const QString objId, const QPair<grpc::Status, node::UpdateNetworkProcessWhiteListReply>& reply)
