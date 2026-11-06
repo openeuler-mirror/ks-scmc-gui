@@ -17,11 +17,20 @@ namespace Ui
 class NetworkConfigPage;
 }
 
+enum ButtonType
+{
+    BUTTON_TYPE_ACCESS_OPEN,
+    BUTTON_TYPE_ACCESS_CLOSE,
+    BUTTON_TYPE_WHITE_LIST_OPEN,
+    BUTTON_TYPE_WHITE_LIST_CLOSE
+};
+
 class NetworkAccessList;
 class SecurityList;
 class NetworkConfigPage : public Page
 {
     Q_OBJECT
+
 public:
     explicit NetworkConfigPage(QWidget *parent = nullptr);
     void updateInfo(QString keyword = "") override;
