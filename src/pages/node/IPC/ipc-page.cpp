@@ -146,15 +146,15 @@ void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::
             createTime = dt.toString("yyyy/MM/dd hh:mm:ss");
         }
 
-        QString ipcContainers = "";
+        QStringList ipcContainers;
         for (auto container : info.containers())
         {
-            ipcContainers = ipcContainers + "," + QString(container.data());
+            ipcContainers << container.data();
         }
 
         auto ipcInfo = IpcInfo{.selected = false,
                                .ipcName = name,
-                               .containers = ipcContainers,
+                               .containers = ipcContainers.join(","),
                                .createTime = createTime};
         ipcInfos.push_back(ipcInfo);
     }
