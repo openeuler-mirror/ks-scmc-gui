@@ -37,6 +37,7 @@ private slots:
     void popupCreateDialog();
     void createIPC();
     void deleteIPC();
+    void updateDeleteBtnState(Qt::CheckState checkState);
 
     void listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::IpcListReply> &);
     void createIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcCreateReply> &);
