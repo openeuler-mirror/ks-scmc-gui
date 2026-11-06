@@ -124,9 +124,11 @@ void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::
 
     int size = reply.second.ipcname_ids_size();
     if (size <= 0)
-    {   
+    {
         ui->btn_delete->setEnabled(false);
-    }else{
+    }
+    else
+    {
         ui->btn_delete->setEnabled(true);
     }
 
