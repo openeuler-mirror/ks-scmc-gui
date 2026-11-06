@@ -63,6 +63,7 @@ void IPCPage::deleteIPC()
     std::vector<std::string> ipcNames;
 
     bool hasContainer = false;
+    QString ipcHasContainer;
 
     for (auto item : list)
     {
