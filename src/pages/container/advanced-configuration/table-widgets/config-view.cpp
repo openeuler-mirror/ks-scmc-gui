@@ -55,7 +55,6 @@ QWidget *ConfigDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
     if (index.column() == FIRST_COLUMN_HEADER || index.column() == SECOND_COLUMN_HEADER)
     {
         QSharedPointer<QLineEdit> pEdit(new QLineEdit(parent));
-        pEdit->setMaxLength(4096);
         pEdit->setFocus();
         if (index.column() == FIRST_COLUMN_HEADER)
             m_pEditFirst.append(pEdit);

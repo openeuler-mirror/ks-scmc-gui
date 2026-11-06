@@ -1630,72 +1630,71 @@ The first characters must be letter or digit</source>
 <context>
     <name>IPCPage</name>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="181"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="261"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="174"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="254"/>
         <source>Create IPC</source>
         <translation>创建IPC基准</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="90"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="105"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="206"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="83"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="98"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="199"/>
         <source>Delete IPC</source>
         <translation>删除IPC</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="106"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="84"/>
+        <source>The ipc has containers, can&apos;t delete</source>
+        <translation>IPC已被容器使用，无法删除。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="99"/>
         <source>Are you sure you want to delete these IPC?</source>
         <translation>确定删除这些IPC？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="107"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="100"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="125"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="118"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="182"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="175"/>
         <source>Failed to create IPC</source>
         <translation>创建IPC失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="91"/>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="207"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="200"/>
         <source>Failed to delete IPC</source>
         <translation>删除IPC失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="92"/>
-        <source>The ipc &quot;%1&quot; is being used by the container.</source>
-        <translation>IPC &quot;%1&quot; 正在被容器使用。</translation>
-    </message>
-    <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="275"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="268"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;IPC Name</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;IPC 名称</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="277"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="270"/>
         <source>Please input 2 to 40 characters</source>
         <translation>请输入2 - 40个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="283"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="276"/>
         <source>Only letter, digit or ._- three special characters;
 The first characters must be letter or digit</source>
         <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="293"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="286"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="295"/>
+        <location filename="../src/pages/node/IPC/ipc-page.cpp" line="288"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
@@ -2234,9 +2233,13 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="144"/>
-        <location filename="../build/src/ui_license-activation.h" line="171"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Activation code</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;激活码</translation>
+    </message>
+    <message>
+        <location filename="../build/src/ui_license-activation.h" line="171"/>
+        <source>Activation code</source>
+        <translation>激活码</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="215"/>
@@ -2978,84 +2981,84 @@ Instruction</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="146"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="156"/>
         <source>Successful to update node network rule!</source>
         <translation>更新节点网络访问控制成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="203"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="213"/>
         <source>Successful to update node network process white list!</source>
         <translation>更新节点网络进程白名单成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="294"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="297"/>
         <source>Update Node Network Rules</source>
         <translation>更新节点网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="138"/>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="295"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="148"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="298"/>
         <source>Failed to update node network rules</source>
         <translation>更新节点网络访问控制失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="78"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="89"/>
         <source>Failed to get node network rules</source>
         <translation>获取节点网络访问控制失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="85"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="96"/>
         <source>Failed to get node network rules!</source>
         <translation>获取节点网络访问控制失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="85"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="96"/>
         <source>There is no network rules.</source>
         <translation>无节点网络访问控制。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="137"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="147"/>
         <source>Node network rules</source>
         <translation>节点网络访问控制</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="156"/>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="163"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="166"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="173"/>
         <source>Failed to get node network process white list</source>
         <translation>获取节点网络进程白名单失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="163"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="173"/>
         <source>There is no network process white list.</source>
         <translation>无节点网络进程白名单。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="193"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="203"/>
         <source>Node network process white list</source>
         <translation>节点网络进程白名单</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="194"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="204"/>
         <source>Failed to update node network process white list</source>
         <translation>更新节点网络进程白名单失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="296"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="299"/>
         <source>The port %1 is in use, please input again!</source>
         <translation>端口%1为默认端口，已被占用，请重新输入！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="327"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="330"/>
         <source>Failed to save the network process configuration</source>
         <translation>保存节点网络进程配置失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="327"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="330"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="219"/>
+        <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="229"/>
         <source>Network process</source>
         <translation>网络进程</translation>
     </message>
@@ -4729,61 +4732,61 @@ Instruction</source>
 <context>
     <name>UserListPage</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="111"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="264"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="110"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="263"/>
         <source>Create User</source>
         <translation>创建用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="149"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="303"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="148"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="302"/>
         <source>Remove User</source>
         <translation>删除用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="150"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="149"/>
         <source>Are you sure you want to remove the users?</source>
         <translation>确定移除这些用户？</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="151"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="150"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="176"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="175"/>
         <source>Edit User</source>
         <translation>编辑用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="207"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="206"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="265"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="264"/>
         <source>Create user failed!</source>
         <translation>创建用户失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="266"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="286"/>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="305"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="265"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="285"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="304"/>
         <source>Error: </source>
         <translation>错误: </translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="284"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="283"/>
         <source>Update User</source>
         <translation>更新用户</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="285"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="284"/>
         <source>Update user failed!</source>
         <translation>更新用户失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="304"/>
+        <location filename="../src/pages/system/user-manager/user-list-page.cpp" line="303"/>
         <source>Remove user failed!</source>
         <translation>移除用户失败！</translation>
     </message>
@@ -4856,77 +4859,77 @@ Instruction</source>
 <context>
     <name>UserUpdateDialog</name>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="14"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="346"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="26"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="333"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="91"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="347"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="103"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="334"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;User Name</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;用户名</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="178"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="310"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="351"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="357"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="190"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="438"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="338"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="347"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="201"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="352"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="213"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="339"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Login Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;登录密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="293"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="355"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="299"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="343"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="337"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="359"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="363"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="345"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;New Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;新密码</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="547"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="362"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="520"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="349"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="566"/>
-        <location filename="../build/src/ui_user-update-dialog.h" line="363"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="539"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="350"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="98"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="146"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="145"/>
         <source>The username length 4-18 bits, supports combinations of letters and numbers.</source>
         <translation>用户名长度4-18位，支持字母和数字组合。</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="145"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="144"/>
         <source>Please input 4 to 18 characters</source>
         <translation>请输入4-18个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="151"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="154"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="162"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="165"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="150"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="153"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="161"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="164"/>
         <source>Please input 8 to 32 characters</source>
         <translation>请输入8-32个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="156"/>
-        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="167"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="155"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.cpp" line="166"/>
         <source>The password length 8-32 bits, should contain
  at least three combinations of uppercase letter,
  lowercase letter, number and special character</source>

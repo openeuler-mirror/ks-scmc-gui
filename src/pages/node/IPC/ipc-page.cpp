@@ -63,7 +63,6 @@ void IPCPage::deleteIPC()
     std::vector<std::string> ipcNames;
 
     bool hasContainer = false;
-    QString ipcHasContainer;
 
     for (auto item : list)
     {
@@ -72,9 +71,8 @@ void IPCPage::deleteIPC()
 
         if (!item.containers.isEmpty())
         {
-            KLOG_WARNING() << "The ipc:" << item.ipcName << "is being used by the container.";
+            KLOG_WARNING() << "The ipc:" << item.ipcName << "has containers, can't delete";
             hasContainer = true;
-            ipcHasContainer = item.ipcName;
             break;
         }
 
@@ -88,8 +86,8 @@ void IPCPage::deleteIPC()
     if (hasContainer)
     {
         MessageDialog::message(tr("Delete IPC"),
-                               tr("Failed to delete IPC"),
-                               tr("The ipc \"%1\" is being used by the container.").arg(ipcHasContainer),
+                               tr("The ipc has containers, can't delete"),
+                               "",
                                ":/images/warning.svg",
                                MessageDialog::StandardButton::Ok);
         return;

@@ -58,5 +58,4 @@ void CmdConfTab::initUI()
         ui->lineEdit_cmd->setEnabled(false);
     }
     ui->lineEdit_cmd->setPlaceholderText(tr("example: /bin/bash"));
-    ui->lineEdit_cmd->setMaxLength(4096);
 }

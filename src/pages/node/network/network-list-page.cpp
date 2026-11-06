@@ -312,16 +312,12 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     lineEditSubnet->setMaxLength(50);
     lineEditSubnet->setFixedHeight(36);
     lineEditSubnet->setPlaceholderText("xxx.xxx.xxx.xxx/xx");
-    //  匹配 IP 地址和子网掩码
-    QRegExp ipMaskRegex(
-        "^"
-        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-        "/(?:3[0-2]|[12][0-9]|[0-9])"
-        "$");
-    lineEditSubnet->setValidator(new QRegExpValidator(ipMaskRegex, this));
     if (!subnet.isEmpty())
         lineEditSubnet->setText(subnet);
+
+    QRegExp regExp("^[0-9./]+$");
+    QRegExpValidator *validator = new QRegExpValidator(regExp, this);
+    lineEditSubnet->setValidator(validator);
 
     QLabel *labBindRealIfs = new QLabel(tr("Bind real interface:"), content);
     QComboBox *cbBindRealIfs = new QComboBox(content);
@@ -367,7 +363,8 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                 else
                 {
                     auto inputSubnet = lineEditSubnet->text();
-                    auto validator = new QRegExpValidator(ipMaskRegex, this);
+                    QRegExp regExp("^(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/([1-9]|[1-2][0-9]|3[0-2])$");
+                    QRegExpValidator *validator = new QRegExpValidator(regExp, this);
                     int pos = 0;
                     auto status = validator->validate(inputSubnet, pos);
                     if (status != QValidator::Acceptable)

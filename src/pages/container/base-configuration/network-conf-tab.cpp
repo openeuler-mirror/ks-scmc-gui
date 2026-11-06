@@ -105,12 +105,7 @@ void NetworkConfTab::initUI()
                                    "outline:none; "
                                    "min-height:30px;"
                                    "}");
-    //  匹配 IP 地址
-    QRegExp ipMaskRegex(
-        "^"
-        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-        "$");
-    ui->lineEdit_ip->setValidator(new QRegExpValidator(ipMaskRegex, this));
+    QRegExp rx("^[0-9.]+$");
+    ui->lineEdit_ip->setValidator(new QRegExpValidator(rx, this));
     ui->lineEdit_ip->setMaxLength(20);
 }
