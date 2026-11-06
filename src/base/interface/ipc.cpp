@@ -35,6 +35,14 @@ void IPC::listIPC(const QString objId, qint64 nodeID)
     RPC_ASYNC(ipcbase::IpcListReply, _listIPC, listIPCFinished, objId, req);
 }
 
+QPair<grpc::Status, ipcbase::IpcListReply> IPC::syncListIPC(qint64 nodeID)
+{
+    ipcbase::IpcListRequest req;
+    req.set_node_id(nodeID);
+
+    RPC_IMPL(ipcbase::IpcListReply, ipcbase::IpcBase::NewStub, List);
+}
+
 void IPC::createIPC(const QString objId, qint64 nodeID, const std::string& ipcName)
 {
     ipcbase::IpcCreateRequest req;
