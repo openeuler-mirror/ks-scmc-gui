@@ -120,6 +120,7 @@ void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::
                                .createTime = createTime};
         ipcInfos.push_back(ipcInfo);
     }
+
     ui->tableView->setIpcInfos(ipcInfos);
 }
 
