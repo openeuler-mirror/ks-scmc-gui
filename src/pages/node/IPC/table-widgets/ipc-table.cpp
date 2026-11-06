@@ -347,7 +347,7 @@ void IpcTable::clearTable()
 
 void IpcTable::mouseEnter(const QModelIndex &index)
 {
-    if (index.column() != IpcTableField::IPC_TABLE_FIELD_NAME)
+    if (index.column() != IpcTableField::IPC_TABLE_FIELD_NAME || index.column() != IpcTableField::IPC_TABLE_FIELD_CONTAINERS)
     {
         return;
     }
