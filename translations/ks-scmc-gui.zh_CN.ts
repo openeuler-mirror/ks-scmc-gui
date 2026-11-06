@@ -3049,10 +3049,6 @@ Instruction</source>
         <translation>保存节点网络进程配置失败</translation>
     </message>
     <message>
-        <source>Failed to save the configuration</source>
-        <translation type="vanished">保存网络配置失败</translation>
-    </message>
-    <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.cpp" line="330"/>
         <source>Please check the input parameters.</source>
         <translation>请检查输入参数。</translation>
