@@ -76,7 +76,7 @@ void ServerConfigDialog::initUI()
     QVBoxLayout *portLayout = new QVBoxLayout(portWidget);
     portLayout->setContentsMargins(0, 0, 0, 10);
     portLayout->setSpacing(10);
-    QLabel *portLab = new QLabel(tr("Port"), portWidget);
+    QLabel *portLab = new QLabel(tr("<font color=red>*</font>Port"), portWidget);
     m_portLineEdit = new QLineEdit(portWidget);
     m_portLineEdit->setFixedSize(370, 36);
     m_portLineEdit->setPlaceholderText(tr("Please input port"));
