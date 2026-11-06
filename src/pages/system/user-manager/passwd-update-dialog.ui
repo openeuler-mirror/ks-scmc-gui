@@ -86,7 +86,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../../../data/resources.qrc">
+        <iconset>
          <normaloff>:/images/tips.svg</normaloff>:/images/tips.svg</iconset>
        </property>
       </widget>
