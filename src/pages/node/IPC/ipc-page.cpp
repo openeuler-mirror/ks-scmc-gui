@@ -189,13 +189,17 @@ void IPCPage::createIPCFinished(const QString objId, const QPair<grpc::Status, i
 
 void IPCPage::removeIPCFinished(const QString objId, const QPair<grpc::Status, ipcbase::IpcRemoveReply> &reply)
 {
-    KLOG_DEBUG() << "removeIPCFinished objId:"<<objId<<" m_objId:"<<m_objId;
     if (m_objId != objId)
         return;
 
     if (!reply.first.ok())
     {
         KLOG_WARNING() << "Failed to remove node:" << m_nodeID << "ipc list:" << reply.first.error_message().data();
+        MessageDialog::message(tr("Delete IPC"),
+                               tr("Failed to delete IPC"),
+                               reply.first.error_message().data(),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
         return;
     }
     updateInfo();
