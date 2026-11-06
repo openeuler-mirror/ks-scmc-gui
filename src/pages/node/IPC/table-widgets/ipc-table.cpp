@@ -283,8 +283,8 @@ IpcTable::IpcTable(QWidget *parent)
     // 设置水平行表头
     m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_CHECKBOX, 50);
     m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_NAME, 400);
-    m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_CONTAINERS, 200);
-    m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_CREATE_TIME, 400);
+    m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_CONTAINERS, 800);
+    m_headerViewProxy->resizeSection(IpcTableField::IPC_TABLE_FIELD_CREATE_TIME, 200);
     m_headerViewProxy->setSectionResizeMode(IpcTableField::IPC_TABLE_FIELD_CHECKBOX, QHeaderView::Fixed);
     m_headerViewProxy->setStretchLastSection(true);
     m_headerViewProxy->setSectionsMovable(false);
