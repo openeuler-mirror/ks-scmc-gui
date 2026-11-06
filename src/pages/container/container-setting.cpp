@@ -1027,6 +1027,10 @@ void ContainerSetting::onNodeSelectedChanged(const QString &newStr)
     // 设置节点内存总数
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->setTotalMemory(m_nodeTotalMemory.value(ui->cb_node->currentData().toInt()));
+
+    // 更新IPC列表
+    auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
+    ipcPage->update(ui->cb_node->currentData().toInt());
 }
 
 void ContainerSetting::onTempSelectedChanged(QString newStr)
