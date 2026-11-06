@@ -38,6 +38,7 @@ UserListPage::UserListPage(QWidget *parent) : Page(parent),
 
 UserListPage::~UserListPage()
 {
+    delete ui;
 }
 
 void UserListPage::updateInfo(QString keyword)
