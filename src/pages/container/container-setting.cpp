@@ -853,6 +853,10 @@ void ContainerSetting::updateContainer()
         return;
     }
 
+    // ipc
+    auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
+    request.set_ipcname(ipcPage->getIPC().toStdString());
+
     Container::getInstance().updateContainer(m_objId, request);
 }
 
