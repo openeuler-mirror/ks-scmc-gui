@@ -88,8 +88,10 @@ void IPCPage::listIPCFinished(QString objId, const QPair<grpc::Status, ipcbase::
 
     int size = reply.second.ipcname_ids_size();
     if (size <= 0)
-    {
-        return;
+    {   
+        ui->btn_delete->setEnabled(false);
+    }else{
+        ui->btn_delete->setEnabled(true);
     }
 
     QList<IpcInfo> ipcInfos;
