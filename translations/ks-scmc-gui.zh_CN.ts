@@ -4872,7 +4872,9 @@ Instruction</source>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="190"/>
+        <location filename="../src/pages/system/user-manager/user-update-dialog.ui" line="438"/>
         <location filename="../build/src/ui_user-update-dialog.h" line="338"/>
+        <location filename="../build/src/ui_user-update-dialog.h" line="347"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码</translation>
     </message>
