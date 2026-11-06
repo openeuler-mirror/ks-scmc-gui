@@ -449,7 +449,7 @@ void ContainerSetting::initSecurityConfPages()
 
     SecurityLevelTab *securityLevelTab = new SecurityLevelTab(ui->tab_security_config);
     m_securityConfStack->addWidget(securityLevelTab);
-    updateSecurityPages(LEVEL_NUM_4);
+    updateSecurityPages(LEVEL_NUM_5);
 
     connect(securityLevelTab, &SecurityLevelTab::levelChanged, this, &ContainerSetting::updateSecurityPages);
 }
