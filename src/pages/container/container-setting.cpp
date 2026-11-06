@@ -1068,6 +1068,10 @@ void ContainerSetting::updateSecurityPages(int level)
         // 强制网络访问控制必须打开
         networkAccessCtlPage->enforceNetworkAccessOpen(true);
         break;
+    case LEVEL_NUM_5:
+        startStopCtlPage->setStartStopEnabled(true);
+        // 关闭网络访问控制
+        networkAccessCtlPage->closeNetworkAccess(true);
     default:
         startStopCtlPage->setStartStopEnabled(true);
         networkAccessCtlPage->enforceNetworkAccessOpen(false);
