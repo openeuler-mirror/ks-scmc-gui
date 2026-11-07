@@ -95,12 +95,13 @@ QPair<grpc::Status, user::LoginReply> User::_login(const user::LoginRequest &req
         KLOG_WARNING("user::User::NewStub Login failed to get connection");
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
-    grpc::ClientContext ctx;
+
     auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(DEADLINE);
-    ctx.set_deadline(deadline);
-    r.first = user::User::NewStub(chan)->Login(&ctx, req, &r.second);
+    context->set_deadline(deadline);
+    r.first = user::User::NewStub(chan)->Login(context.data(), req, &r.second);
     if (r.first.ok())
         // s_authKey = r.second.auth_key();
         Common::getInstance().setAuthKey(r.second.auth_key());
