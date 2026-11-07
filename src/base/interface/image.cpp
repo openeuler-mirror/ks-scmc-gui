@@ -307,6 +307,7 @@ QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest
                 emit Common::getInstance().transferImageFinished(name, version);
                 imgFile.close();
                 sigFile.close();
+                TaskManager::instance().unregisterTask(rpcId);
                 return r;
             }
 
