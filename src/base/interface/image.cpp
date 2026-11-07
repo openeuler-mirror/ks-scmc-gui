@@ -293,6 +293,7 @@ QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest
                                        QObject::tr("Invalid Argument").toStdString());
                 emit Common::getInstance().transferImageFinished(name, version);
                 imgFile.close();
+                TaskManager::instance().unregisterTask(rpcId);
                 return r;
             }
 
