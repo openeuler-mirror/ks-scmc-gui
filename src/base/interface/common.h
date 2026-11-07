@@ -17,6 +17,8 @@
 #include "def.h"
 
 #include <grpcpp/grpcpp.h>
+#include <QUuid>
+#include "base/task-manager.h"
 #include "rpc.h"
 #include "user-configuration.h"
 
