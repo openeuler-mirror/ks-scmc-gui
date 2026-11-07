@@ -97,6 +97,11 @@ QPair<grpc::Status, image::ListDBReply> Image::_listDBImage(const image::ListDBR
 
 QPair<grpc::Status, image::UploadReply> Image::_uploadImage(image::UploadRequest &req, const QString &imageFile, const QString &signFile)
 {
+    /*注册任务*/
+    const QString rpcId = __func__ + QUuid::createUuid().toString();
+    QSharedPointer<grpc::ClientContext> context(new grpc::ClientContext());
+    TaskManager::instance().registerTask(rpcId, context);
+
     const auto name = QString::fromStdString(req.info().name());
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UploadReply> r;
