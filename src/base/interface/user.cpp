@@ -110,11 +110,17 @@ QPair<grpc::Status, user::LoginReply> User::_login(const user::LoginRequest &req
         r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
                                QObject::tr("Response timeout").toStdString());
     }
+    TaskManager::instance().unregisterTask(rpcId);
     return r;
 }
 
 QPair<grpc::Status, user::LogoutReply> User::_logout(const user::LogoutRequest &req)
 {
+    /*注册任务*/
+    const QString rpcId = __func__ + QUuid::createUuid().toString();
+    QSharedPointer<grpc::ClientContext> context(new grpc::ClientContext());
+    TaskManager::instance().registerTask(rpcId, context);
+
     QPair<grpc::Status, user::LogoutReply> r;
     auto chan = get_rpc_channel(UserConfiguration::getServerAddr());
     if (!chan)
