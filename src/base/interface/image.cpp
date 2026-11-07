@@ -426,6 +426,7 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
         r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                QObject::tr("Failed to open %1").arg(filePath).toStdString());
         emit Common::getInstance().transferImageFinished(name, version);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
