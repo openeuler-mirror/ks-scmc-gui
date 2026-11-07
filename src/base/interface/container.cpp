@@ -448,6 +448,7 @@ QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBac
             r.first = grpc::Status(grpc::StatusCode::DEADLINE_EXCEEDED,
                                    QObject::tr("Response timeout").toStdString());
         }
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
