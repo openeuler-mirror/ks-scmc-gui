@@ -340,7 +340,7 @@ QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest
             if (Common::getInstance().isTransferStoped(name, version))
             {
                 KLOG_DEBUG() << "Transmission interruption";
-                context.TryCancel();
+                context->TryCancel();
                 emit Common::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, progress);
                 break;
             }
