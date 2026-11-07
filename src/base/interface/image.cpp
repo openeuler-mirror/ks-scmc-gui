@@ -225,11 +225,17 @@ finish:
         r.first = grpc::Status(r.first.error_code(), tr("The transmission was cancelled.").toStdString());
 
     emit Common::getInstance().transferImageFinished(name, version);
+    TaskManager::instance().unregisterTask(rpcId);
     return r;
 }
 
 QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest &req, const QString &imageFile, const QString &signFile)
 {
+    /*注册任务*/
+    const QString rpcId = __func__ + QUuid::createUuid().toString();
+    QSharedPointer<grpc::ClientContext> context(new grpc::ClientContext());
+    TaskManager::instance().registerTask(rpcId, context);
+
     const auto name = QString::fromStdString(req.info().name());
     const auto version = QString::fromStdString(req.info().version());
     QPair<grpc::Status, image::UpdateReply> r;
