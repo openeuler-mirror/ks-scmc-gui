@@ -393,23 +393,24 @@ QPair<grpc::Status, downloadImageInfo> Image::_downloadImage(image::DownloadRequ
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit Common::getInstance().transferImageFinished(name, version);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
     image::DownloadReply reply;
-    grpc::ClientContext context;
     if (Common::getInstance().getAuthKey().size() > 0)
-        context.AddMetadata("authorization", Common::getInstance().getAuthKey());
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());
 
     req.set_image_id(image_id);
 
-    auto stream = image::Image::NewStub(chan)->Download(&context, req);
+    auto stream = image::Image::NewStub(chan)->Download(context.data(), req);
     bool ret = stream->Read(&reply);
     if (!ret)
     {
         KLOG_WARNING() << "Recv image param err";
         r.first = stream->Finish();
         emit Common::getInstance().transferImageFinished(name, version);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
