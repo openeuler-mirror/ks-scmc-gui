@@ -266,6 +266,7 @@ QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest
             r.first = grpc::Status(grpc::StatusCode::INTERNAL,
                                    QObject::tr("Internal Error").toStdString());
             emit Common::getInstance().transferImageFinished(name, version);
+            TaskManager::instance().unregisterTask(rpcId);
             return r;
         }
     }
