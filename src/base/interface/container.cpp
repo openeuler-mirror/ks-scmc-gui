@@ -486,6 +486,7 @@ QPair<grpc::Status, QString> Container::_exportBackup(const container::ExportBac
             imgFile.close();
             r.first = grpc::Status(grpc::StatusCode::ABORTED, QObject::tr("Cancel").toStdString());
             Container::getInstance().m_exportList.removeAll(exportName);
+            TaskManager::instance().unregisterTask(rpcId);
             return r;
         }
 
