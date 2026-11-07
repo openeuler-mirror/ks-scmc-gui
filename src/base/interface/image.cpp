@@ -248,16 +248,16 @@ QPair<grpc::Status, image::UpdateReply> Image::_updateImage(image::UpdateRequest
         r.first = grpc::Status(grpc::StatusCode::UNKNOWN,
                                QObject::tr("Network Error").toStdString());
         emit Common::getInstance().transferImageFinished(name, version);
+        TaskManager::instance().unregisterTask(rpcId);
         return r;
     }
 
     // 检测用户认证
-    grpc::ClientContext context;
     if (Common::getInstance().getAuthKey().size() > 0)
-        context.AddMetadata("authorization", Common::getInstance().getAuthKey());
+        context->AddMetadata("authorization", Common::getInstance().getAuthKey());
 
     // 检测镜像文件
-    auto stream = image::Image::NewStub(chan)->Update(&context, &r.second);
+    auto stream = image::Image::NewStub(chan)->Update(context.data(), &r.second);
     if (imageFile.isEmpty() && signFile.isEmpty())  // 只修改描述信息
     {
         if (!stream->Write(req))
