@@ -150,6 +150,7 @@ QPair<grpc::Status, image::UploadReply> Image::_uploadImage(image::UploadRequest
             r.first = grpc::Status(grpc::StatusCode::INVALID_ARGUMENT,
                                    QObject::tr("Invalid Argument").toStdString());
             emit Common::getInstance().transferImageFinished(name, version);
+            TaskManager::instance().unregisterTask(rpcId);
             return r;
         }
 
