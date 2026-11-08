@@ -36,7 +36,6 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
-    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     void initUI();
