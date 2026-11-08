@@ -133,208 +133,210 @@ message StatsReply {
 	string stats_data = 1; 
 }
 
+message PauseReply {}
+
 message ExportBackupRequest {
-    int64  node_id     = 1;
-    int64  backup_id   = 2;
-    bool   is_download = 3;  // 是否下载到本地
-    string img_name    = 4;
-    string img_version = 5;  // 镜像版本
-    string description = 6;  // 新镜像描述信息
+  int64  node_id = 1;
+  int64  backup_id = 2;
+  bool   is_download = 3;  // 是否下载到本地
+  string img_name = 4;
+  string img_version = 5;  // 镜像版本
+  string description = 6;  // 新镜像描述信息
 }
 
 message ExportBackupReply {
-    bytes  data        = 1;
-    int64  img_size    = 2;
-    string img_name    = 3;
-    string img_version = 4;
+  bytes  data = 1;
+  int64  img_size = 2;
+  string img_name = 3;
+  string img_version = 4;
 }
 
 message InspectBackupRequest {
-    int64 node_id   = 1;
-    int64 backup_id = 2;
+  int64 node_id = 1;
+  int64 backup_id = 2;
 }
 
 message InspectBackupReply {
-    ContainerBackup backup = 1;
+  ContainerBackup backup = 1;
 }
 
 message AppEntry {
-    int64  id           = 1;
-    string container_id = 2;
-    string name         = 3;
-    string exe_path     = 4;  // 应用程序路径
-    bool   is_gui       = 5;  // 是否是图形程序
-    bool   is_running   = 6;  // 应用是否正在运行
+  int64  id = 1;
+  string container_id = 2;
+  string name = 3;
+  string exe_path = 4;  // 应用程序路径
+  bool   is_gui = 5;  // 是否是图形程序
+  bool   is_running = 6;  // 应用是否正在运行
 }
 
 message ListAppEntryRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
+  int64  node_id = 1;
+  string container_id = 2;
 }
 
 message ListAppEntryReply {
-    repeated AppEntry apps = 1;
+  repeated AppEntry apps = 1;
 }
 
 message AddAppEntryRequest {
-    int64    node_id = 1;
-    AppEntry app     = 2;
+  int64    node_id = 1;
+  AppEntry app = 2;
 }
 
 message AddAppEntryReply {}
 
 message UpdateAppEntryRequest {
-    int64    node_id = 1;
-    AppEntry app     = 2;
+  int64    node_id = 1;
+  AppEntry app = 2;
 }
 
 message UpdateAppEntryReply {}
 
 message RemoveAppEntryRequest {
-    int64          node_id      = 1;
-    string         container_id = 2;
-    repeated int64 app_ids      = 3;
+  int64          node_id = 1;
+  string         container_id = 2;
+  repeated int64 app_ids = 3;
 }
 
 message RemoveAppEntryReply {}
 
 message RunAppEntryRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
-    int64  app_id       = 3;
+  int64  node_id = 1;
+  string container_id = 2;
+  int64  app_id = 3;
 }
 
 message RunAppEntryReply {}
 
 message KillAppEntryRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
-    int64  app_id       = 3;
+  int64  node_id = 1;
+  string container_id = 2;
+  int64  app_id = 3;
 }
 
 message KillAppEntryReply {}
 
 message CreateBackupRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
-    string backup_desc  = 3;
-    string backup_name  = 4;
+  int64  node_id = 1;
+  string container_id = 2;
+  string backup_desc = 3;
+  string backup_name = 4;
 }
 
 message CreateBackupReply {}
 
 message UpdateBackupRequest {
-    int64  node_id     = 3;
-    int64  id          = 1;
-    string backup_desc = 2;
+  int64  node_id = 3;
+  int64  id = 1;
+  string backup_desc = 2;
 }
 
 message UpdateBackupReply {}
 
 message ResumeBackupRequest {
-    // for client
-    int64  node_id      = 1;
-    string container_id = 2;
-    int64  backup_id    = 3;
+  // for client
+  int64  node_id = 1;
+  string container_id = 2;
+  int64  backup_id = 3;
 
-    // for agent service
-    string         image_ref       = 11;  // deprecated
-    SecurityConfig security_config = 12;  // deprecated
+  // for agent service
+  string         image_ref = 11;  // deprecated
+  SecurityConfig security_config = 12;  // deprecated
 }
 
 message ResumeBackupReply {
-    string container_id = 1;  // 生成新容器id
+  string container_id = 1;  // 生成新容器id
 }
 
 message RemoveBackupRequest {
-    // for client
-    int64 node_id = 2;
-    int64 id      = 1;
+  // for client
+  int64 node_id = 2;
+  int64 id = 1;
 
-    // for agent service
-    string image_ref = 11;  // deprecated
+  // for agent service
+  string image_ref = 11;  // deprecated
 }
 
 message RemoveBackupReply {}
 
 message ListBackupRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
+  int64  node_id = 1;
+  string container_id = 2;
 }
 
 message ListBackupReply {
-    repeated ContainerBackup data = 1;
+  repeated ContainerBackup data = 1;
 }
 
 message ListBackupImageRequest {}
 
 message ListBackupImageReply {
-    repeated string images = 1;
+  repeated string images = 1;
 }
 
 message ListRequest {
-    repeated int64 node_ids = 1;
-    bool           list_all = 2;
+  repeated int64 node_ids = 1;
+  bool           list_all = 2;
 }
 
 message ListReply {
-    repeated NodeContainer containers = 1;
-    repeated string        fail_nodes = 2;
+  repeated NodeContainer containers = 1;
+  repeated string        fail_nodes = 2;
 }
 
 message CreateRequest {
-    int64            node_id = 1;
-    ContainerConfigs configs = 2;
+  int64            node_id = 1;
+  ContainerConfigs configs = 2;
 }
 
 message CreateReply {
-    string          container_id = 1;
-    repeated string warnings     = 2;
+  string          container_id = 1;
+  repeated string warnings = 2;
 }
 
 message InspectRequest {
-    int64  node_id      = 1;
-    string container_id = 2;
+  int64  node_id = 1;
+  string container_id = 2;
 }
 
 message InspectReply {
-    ContainerConfigs configs = 1;
+  ContainerConfigs configs = 1;
 }
 
 message StartRequest {
-    repeated ContainerIdList ids = 1;
+  repeated ContainerIdList ids = 1;
 }
 
 message StartReply {
-    repeated string            ok_ids     = 1;
-    repeated ContainerFailInfo fail_infos = 2;
+  repeated string            ok_ids = 1;
+  repeated ContainerFailInfo fail_infos = 2;
 }
 
 message StopRequest {
-    repeated ContainerIdList ids = 1;
+  repeated ContainerIdList ids = 1;
 }
 
 message StopReply {
-    repeated string            ok_ids     = 1;
-    repeated ContainerFailInfo fail_infos = 2;
+  repeated string            ok_ids = 1;
+  repeated ContainerFailInfo fail_infos = 2;
 }
 
 message KillRequest {
-    repeated ContainerIdList ids = 1;
+  repeated ContainerIdList ids = 1;
 }
 
 message KillReply {
-    repeated string            ok_ids     = 1;
-    repeated ContainerFailInfo fail_infos = 2;
+  repeated string            ok_ids = 1;
+  repeated ContainerFailInfo fail_infos = 2;
 }
 
 message RestartRequest {
-    repeated ContainerIdList ids = 1;
+  repeated ContainerIdList ids = 1;
 }
 
 message RestartReply {
-    repeated string            ok_ids     = 1;
-    repeated ContainerFailInfo fail_infos = 2;
+  repeated string            ok_ids = 1;
+  repeated ContainerFailInfo fail_infos = 2;
 }
 
 message UpdateRequest {
