@@ -879,7 +879,8 @@ void ContainerSetting::createTemplate()
 
     auto cntrCfg = data->mutable_conf();
 
-    cntrCfg->set_name(ui->lineEdit_name->text().toStdString());
+    cntrCfg->set_name(ui->lineEdit_name->text().trimmed().toStdString());
+    cntrCfg->set_hostname(ui->lineEdit_host_name->text().trimmed().toStdString());
     cntrCfg->set_desc(ui->lineEdit_describe->text().toStdString());
     cntrCfg->set_image(ui->cb_image->currentText().toStdString());
     KLOG_DEBUG() << "Get template image:" << ui->cb_image->currentText();
