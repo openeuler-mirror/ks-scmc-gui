@@ -2521,47 +2521,47 @@ The first characters must be letter or digit</source>
         <translation>麒麟信安安全容器系统V1</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="227"/>
+        <location filename="../src/login-dialog.cpp" line="224"/>
         <source>Please input password!</source>
         <translation>请输入密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="233"/>
+        <location filename="../src/login-dialog.cpp" line="230"/>
         <source>Please enter a password with at least 8 digits!</source>
         <translation>请输入至少8位密码！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="240"/>
+        <location filename="../src/login-dialog.cpp" line="237"/>
         <source>Please config a server address!</source>
         <translation>请配置服务器地址！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="301"/>
+        <location filename="../src/login-dialog.cpp" line="298"/>
         <source>Activation</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="302"/>
+        <location filename="../src/login-dialog.cpp" line="299"/>
         <source>The application is not activated and unable to login. Please activate it.</source>
         <translation>应用暂未激活，无法登录！请先激活。</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="337"/>
+        <location filename="../src/login-dialog.cpp" line="334"/>
         <source>Login failed: there is no %1 user role</source>
         <translation>登录失败：没有%1用户角色</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="397"/>
+        <location filename="../src/login-dialog.cpp" line="393"/>
         <source>Logout</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="398"/>
+        <location filename="../src/login-dialog.cpp" line="394"/>
         <source>Logout failed!</source>
         <translation>注销失败！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="399"/>
+        <location filename="../src/login-dialog.cpp" line="395"/>
         <source>Error: </source>
         <translation>错误： </translation>
     </message>
