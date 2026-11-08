@@ -3893,30 +3893,30 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation>响应超时</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="170"/>
-        <location filename="../src/base/interface/image.cpp" line="252"/>
-        <location filename="../src/base/interface/image.cpp" line="308"/>
+        <location filename="../src/base/interface/image.cpp" line="175"/>
+        <location filename="../src/base/interface/image.cpp" line="257"/>
+        <location filename="../src/base/interface/image.cpp" line="313"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="412"/>
+        <location filename="../src/base/interface/image.cpp" line="417"/>
         <source>The transmission was cancelled.</source>
         <translation>传输已取消。</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="125"/>
-        <location filename="../src/base/interface/image.cpp" line="144"/>
-        <location filename="../src/base/interface/image.cpp" line="155"/>
-        <location filename="../src/base/interface/image.cpp" line="264"/>
-        <location filename="../src/base/interface/image.cpp" line="276"/>
-        <location filename="../src/base/interface/image.cpp" line="288"/>
+        <location filename="../src/base/interface/image.cpp" line="130"/>
+        <location filename="../src/base/interface/image.cpp" line="149"/>
+        <location filename="../src/base/interface/image.cpp" line="160"/>
+        <location filename="../src/base/interface/image.cpp" line="269"/>
+        <location filename="../src/base/interface/image.cpp" line="281"/>
+        <location filename="../src/base/interface/image.cpp" line="293"/>
         <source>Invalid Argument</source>
         <translation>参数错误</translation>
     </message>
     <message>
         <location filename="../src/base/interface/container.cpp" line="467"/>
-        <location filename="../src/base/interface/image.cpp" line="401"/>
+        <location filename="../src/base/interface/image.cpp" line="406"/>
         <source>Failed to open %1</source>
         <translation>打开 %1 文件失败</translation>
     </message>
