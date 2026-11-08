@@ -2830,22 +2830,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>NetworkAccessCtlTab</name>
     <message>
-        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="149"/>
+        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="154"/>
         <source>Access status</source>
         <translation>访问状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="151"/>
+        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="156"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="152"/>
+        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="157"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="171"/>
+        <location filename="../src/pages/container/security-configuration/network-access-ctl-tab.cpp" line="176"/>
         <source>Function
 Instruction</source>
         <translation>功能
