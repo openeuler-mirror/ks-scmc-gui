@@ -172,11 +172,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
             return true;
         }
     }
-    //    else if (m_filterInput && obj == this && event->type() == QEvent::MouseButtonPress)
-    //    {
-    //        KLOG_INFO() << "filter input";
-    //        return true;
-    //    }
     else
     {
         if (m_transmissionList)
