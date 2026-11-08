@@ -132,11 +132,12 @@ void UserListPage::createUser()
         userinfo->set_password(info.password.toStdString());
         userinfo->set_is_active(true);
         userinfo->set_is_editable(true);
+        userinfo->set_role_id(m_roles[USER_ROLE_STDADM]);
 
-        if (m_roles.contains(USER_ROLE_STDADM))
-        {
-            userinfo->set_role_id(m_roles[USER_ROLE_STDADM]);
-        }
+        KLOG_INFO() << "Create user, Login name:" << info.userName 
+                    << "Role ID:" << m_roles[USER_ROLE_STDADM]
+                    << "Is active:" << "true"
+                    << "Is editable:" << "true";
 
         User::getInstance().createUser(m_objID, req); });
 }
