@@ -1297,6 +1297,9 @@ void ContainerSetting::getInspectTemplateFinishResult(QString objId, const QPair
     // 名字
     ui->lineEdit_name->setText(info.name().data());
     ui->lineEdit_name->setCursorPosition(0);
+    // 主机名
+    ui->lineEdit_host_name->setText(info.hostname().data());
+    ui->lineEdit_host_name->setCursorPosition(0);
     // 描述
     if (!QString::fromStdString(info.desc().data()).isEmpty())
         ui->lineEdit_describe->setText(info.desc().data());
