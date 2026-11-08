@@ -3874,18 +3874,18 @@ of applications, isolated operation of applications, centralized monitoring of a
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/base/interface/common.h" line="43"/>
+        <location filename="../src/base/interface/common.h" line="53"/>
         <location filename="../src/base/interface/container.cpp" line="415"/>
-        <location filename="../src/base/interface/image.cpp" line="109"/>
-        <location filename="../src/base/interface/image.cpp" line="234"/>
-        <location filename="../src/base/interface/image.cpp" line="369"/>
+        <location filename="../src/base/interface/image.cpp" line="115"/>
+        <location filename="../src/base/interface/image.cpp" line="239"/>
+        <location filename="../src/base/interface/image.cpp" line="374"/>
         <location filename="../src/base/interface/user.cpp" line="92"/>
         <location filename="../src/base/interface/user.cpp" line="118"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/common.h" line="57"/>
+        <location filename="../src/base/interface/common.h" line="66"/>
         <location filename="../src/base/interface/container.cpp" line="443"/>
         <location filename="../src/base/interface/user.cpp" line="105"/>
         <location filename="../src/base/interface/user.cpp" line="133"/>
