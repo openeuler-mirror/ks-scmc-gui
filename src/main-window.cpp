@@ -181,64 +181,38 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event)
     return false;
 }
 
-// void MainWindow::closeEvent(QCloseEvent* event)
-//{
-//     Common::getInstance().appQuit();
-//     if (QThreadPool::globalInstance()->activeThreadCount())
-//     {
-//         MessageDialog::message(tr("Quit Application"),
-//                                tr("There are threads that have not finished!"),
-//                                tr("Please wait for the thread to end before closing!"),
-//                                ":/images/warning.svg",
-//                                MessageDialog::StandardButton::Ok);
-//         event->ignore();
-//         return;
-//         //        if (ret == MessageDialog::StandardButton::Cancel)
-//         //        {
-//         //            event->ignore();
-//         //        }
-//         //        else
-//         //        {
-//         //            m_timerId = this->startTimer(500);
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    if (!TaskManager::instance().hasRunningTasks())
+    {
+        KLOG_INFO() << "There is no running task, quit the app!";
+        event->accept();
+        return;
+    }
 
-//        //            KLOG_INFO() << "start timer" << m_timerId;
-//        //            QEventLoop loop;
-//        //            //QThread::msleep(10000);
-//        //            while (true)
-//        //            {
-//        //                loop.processEvents(QEventLoop::ExcludeUserInputEvents, 500);
-//        //                //                if (!QThreadPool::globalInstance()->activeThreadCount())
-//        //                //                {
-//        //                //                    break;
-//        //                //                }
-//        //                //if (!m_filterInput)
-//        //                if (m_isClose)
-//        //                    break;
-//        //            }
-//        //            event->accept();
-//        //        }
-//        //        return;
-//    }
-//    event->accept();
-//}
+    auto ret = MessageDialog::message(tr("Quit Application"),
+                                      tr("There are threads that have not finished!"),
+                                      tr("Do you want to close the application force?"),
+                                      ":/images/warning.svg",
+                                      MessageDialog::StandardButton::Ok | MessageDialog::StandardButton::Cancel);
 
-// void MainWindow::timerEvent(QTimerEvent* event)
-//{
-//     KLOG_INFO() << "timerEvent " << event->timerId();
-//     if (event->timerId() == m_timerId)
-//     {
-//         KLOG_INFO() << m_timerId;
-//         if (0 == QThreadPool::globalInstance()->activeThreadCount())
-//         {
-//             m_filterInput = false;
-//             killTimer(m_timerId);
-//             m_isClose = true;
-//         }
-//         else
-//             m_filterInput = true;
-//         KLOG_INFO() << "m_filterInput=" << m_filterInput << "m_isClose = " << m_isClose;
-//     }
-// }
+    if (ret == MessageDialog::StandardButton::Ok)
+    {
+        KLOG_INFO() << "Force close the app!";
+        // 强制关闭
+        TaskManager::instance().cancelAll();
+        // 等待500ms让任务有机会清理
+        QTimer::singleShot(500, this, [=]()
+                           { qApp->quit(); });
+        event->ignore();
+    }
+    else
+    {
+        event->ignore();
+    }
+
+    return;
+}
 
 void MainWindow::initUI()
 {
