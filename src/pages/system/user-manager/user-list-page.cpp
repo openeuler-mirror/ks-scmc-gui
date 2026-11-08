@@ -239,8 +239,10 @@ void UserListPage::getListUserFinished(const QString objId, const QPair<grpc::St
     QList<UserInfo> userInfos;
     for (auto user : reply.second.users())
     {
-        KLOG_DEBUG() << "Get user list. "
-                     << "user id:" << user.id() << "user login name:" << user.login_name().data();
+        KLOG_INFO() << "Get user list. "
+                    << "user id:" << user.id() << "user login name:" << user.login_name().data()
+                    << "role id:" << user.role_id() << "role name:" << user.role_info().name().data()
+                    << "create time" << user.created_at();
 
         qint64 id = user.id();
         qint64 roleID = user.role_id();
