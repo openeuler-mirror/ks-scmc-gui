@@ -14,6 +14,7 @@
 #include <QPainter>
 #include <QToolTip>
 #include "./ui_main-window.h"
+#include "base/task-manager.h"
 #include "common/about-page.h"
 #include "common/bubble-tip-button.h"
 #include "common/guide-item.h"
