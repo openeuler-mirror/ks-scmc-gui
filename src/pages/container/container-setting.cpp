@@ -305,6 +305,9 @@ void ContainerSetting::initSummaryUI()
         ui->lineEdit_name->setReadOnly(true);
         ui->lineEdit_name->setStyleSheet("#lineEdit_name{border:none;background:#ffffff;}");
         ui->lineEdit_name->setTextMargins(0, 0, 0, 0);
+        ui->lineEdit_host_name->setReadOnly(true);
+        ui->lineEdit_host_name->setStyleSheet("#lineEdit_host_name{border:none;background:#ffffff;}");
+        ui->lineEdit_host_name->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setTextMargins(0, 0, 0, 0);
         ui->lineEdit_describe->setReadOnly(true);
         ui->lineEdit_describe->setStyleSheet("QLineEdit{border:none;}"
