@@ -2227,31 +2227,37 @@ The first characters must be letter or digit</source>
     <name>LicenseActivation</name>
     <message>
         <location filename="../src/license/license-activation.ui" line="26"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="165"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="83"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="166"/>
         <source>Expired time</source>
         <translation>质保期</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="114"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="167"/>
         <source>Machine code</source>
         <translation>机器码</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="144"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="168"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Activation code</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;激活码</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="215"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="169"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
         <location filename="../src/license/license-activation.ui" line="234"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_license-activation.h" line="170"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
