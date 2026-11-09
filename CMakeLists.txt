@@ -18,6 +18,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(GENERATE_TO_RUN "Is generate to run" ON)
+option(HIDE_CONTAINER_IN_NODE "Hide container info in node." OFF)
 
 set(_REFLECTION grpc++_reflection)
 set(_PROTOBUF_LIBPROTOBUF protobuf)
