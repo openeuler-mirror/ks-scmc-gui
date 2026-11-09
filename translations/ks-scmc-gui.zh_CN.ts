@@ -4355,6 +4355,7 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>SecurityListItem</name>
     <message>
         <location filename="../src/common/security-widgets/security-list-item.ui" line="26"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-list-item.h" line="104"/>
         <source>Form</source>
         <translation></translation>
     </message>
