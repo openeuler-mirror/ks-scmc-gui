@@ -966,18 +966,6 @@ void ContainerSetting::onItemClicked(QListWidgetItem *item)
                 baseItem->setSelected(false);
         }
     }
-
-    else if (listwidget == ui->listWidget_advanced_config)
-    {
-        m_advancedConfStack->setCurrentIndex(index);
-        foreach (GuideItem *advancedItem, m_advancedItems)
-        {
-            if (advancedItem == guideItem)
-                advancedItem->setSelected(true);
-            else
-                advancedItem->setSelected(false);
-        }
-    }
     else if (listwidget == ui->listWidget_security_config)
     {
         m_securityConfStack->setCurrentIndex(index);
