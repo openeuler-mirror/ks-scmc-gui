@@ -129,32 +129,19 @@ void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
 
 void NodeInfoPage::updatePageInfo(int index)
 {
-    if (index == NODE_INFO_SUB_PAGE_TYPE_CONTAINER)
-    {
-        m_containerListPage->updateInfo();
-    }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_MONITOR)
+    Q_UNUSED(index);
+    auto widget = this->currentPage();
+    if (!widget)
+        return;
+
+    if (m_monitor && widget == m_monitor)
     {
         m_monitor->updateMonitorInfo(m_nodeId);
     }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_NETWORK)
+    else
     {
-        m_networkPage->updateInfo();
-    }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_CONFIG)
-    {
-        m_configPage->updateInfo();
-    }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_NETWORK_CONFIG)
-    {
-        m_networkConfigPage->updateInfo();
-    }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_FILE_PROTECT)
-    {
-        m_fileProtectionPage->updateInfo();
-    }
-    else if (index == NODE_INFO_SUB_PAGE_TYPE_IPC)
-    {
-        m_ipcPage->updateInfo();
+        auto page = qobject_cast<Page *>(widget);
+        if (page)
+            page->updateInfo();
     }
 }
