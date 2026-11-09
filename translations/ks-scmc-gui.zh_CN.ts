@@ -3640,40 +3640,31 @@ of applications, isolated operation of applications, centralized monitoring of a
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="64"/>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="97"/>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="124"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="181"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="183"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="185"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="188"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="54"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="182"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Old Password:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;原密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="104"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="186"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;New Password:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;新密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="114"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="187"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Confirm Password:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;确认密码：</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="179"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="189"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/passwd-update-dialog.ui" line="198"/>
-        <location filename="../build/src/ui_passwd-update-dialog.h" line="190"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
