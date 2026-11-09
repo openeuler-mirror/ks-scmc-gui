@@ -4698,11 +4698,13 @@ Instruction</source>
     <name>TransmissionItem</name>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="26"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="162"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="82"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="163"/>
         <source>Image Name:</source>
         <translation>镜像名：</translation>
     </message>
