@@ -418,9 +418,9 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
     return window;
 }
 
-void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name, QString subnet, QString realIfs)
+void NetworkListPage::showOperateDialog(NetworkIfsOperateType type, QString name, QString ipMask, QString realIfs)
 {
-    auto window = createOperateDialog(type, name, subnet, realIfs);
+    auto window = createOperateDialog(type, name, ipMask, realIfs);
     if (!window)
     {
         return;
