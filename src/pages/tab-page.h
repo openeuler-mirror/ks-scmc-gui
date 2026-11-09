@@ -23,6 +23,9 @@ public:
     void addTabPage(QWidget *tabPage, QString key);
     void updateCurrentPage();
     void setCurrentPage(int index);
+    void setCurrentPage(QWidget *widget);
+    QWidget *currentPage();
+    QWidget *firstPage();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
