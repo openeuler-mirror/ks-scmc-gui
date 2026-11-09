@@ -337,8 +337,8 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
 
     gridLayout->addWidget(labName, 0, 0);
     gridLayout->addWidget(lineEditName, 0, 1);
-    gridLayout->addWidget(labSubnet, 1, 0);
-    gridLayout->addWidget(lineEditSubnet, 1, 1);
+    gridLayout->addWidget(labIpMask, 1, 0);
+    gridLayout->addWidget(lineEditIpMask, 1, 1);
     gridLayout->addWidget(labBindRealIfs, 2, 0);
     gridLayout->addWidget(cbBindRealIfs, 2, 1);
     gridLayout->addWidget(labTip, 3, 1);
