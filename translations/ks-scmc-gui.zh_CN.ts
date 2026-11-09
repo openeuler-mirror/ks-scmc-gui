@@ -4713,11 +4713,16 @@ Instruction</source>
         <location filename="../src/pages/image/transmission-item.ui" line="116"/>
         <location filename="../src/pages/image/transmission-item.ui" line="149"/>
         <location filename="../src/pages/image/transmission-item.ui" line="169"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="164"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="166"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="167"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="168"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/image/transmission-item.ui" line="109"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_transmission-item.h" line="165"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
