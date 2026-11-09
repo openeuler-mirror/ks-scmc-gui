@@ -173,6 +173,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IpMaskLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">common/ip-mask-lineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>lineEdit_node_name</tabstop>
   <tabstop>lineEdit_node_ip</tabstop>
