@@ -137,8 +137,8 @@ void NetworkAccessList::createItem(int index)
     m_listWidget->insertItem(index, newItem);
     m_listWidget->setItemWidget(newItem, customItem);
 
-    newItem->setSizeHint(QSize(500, 68));
-    m_listWidget->setGridSize(QSize(500, 78));
+    newItem->setSizeHint(QSize(600, 68));
+    m_listWidget->setGridSize(QSize(600, 78));
 }
 
 void NetworkAccessList::addItem()
