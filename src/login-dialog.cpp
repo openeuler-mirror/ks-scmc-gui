@@ -341,6 +341,14 @@ void LoginDialog::getLoginResult(const QString objID, const QPair<grpc::Status, 
 
         m_isLogin = true;
         m_isSessionExpired = false;
+
+        // 先写入登录信息至配置文件，再创建MainWindow，防止子页面没有获取到最新登录信息
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERNAME, ui->lineEdit_username->text());
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), PASSWORD, ui->lineEdit_passwd->text());
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, ui->lineEdit_username->text(), USERROLE, userRole);
+
+        UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, ui->lineEdit_username->text());
+
         if (!m_mainWindow)
         {
             m_mainWindow = new MainWindow(ui->lineEdit_username->text(), userRole);
