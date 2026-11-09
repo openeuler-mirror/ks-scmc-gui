@@ -649,6 +649,10 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
         return false;
     }
 
+    // disk
+    auto diskPage = qobject_cast<DiskConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_DISK));
+    diskPage->getSpeed(limit);
+
     // memory
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     if (!memoryPage->getMemoryInfo(limit, errMsg))
