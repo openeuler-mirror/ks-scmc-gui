@@ -1659,19 +1659,16 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/node/IPC/ipc-page.ui" line="14"/>
-        <location filename="../build/src/ui_ipc-page.h" line="116"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/IPC/ipc-page.ui" line="58"/>
-        <location filename="../build/src/ui_ipc-page.h" line="117"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
         <location filename="../src/pages/node/IPC/ipc-page.ui" line="77"/>
-        <location filename="../build/src/ui_ipc-page.h" line="118"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
