@@ -1232,7 +1232,7 @@ The first characters must be letter or digit</source>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="365"/>
         <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="323"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="191"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="193"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
