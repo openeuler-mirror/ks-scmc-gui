@@ -27,7 +27,7 @@ private:
     void writeConfig(QString key, QString value);
 
 private:
-    QLineEdit *m_ipLineEdit;
+    IpMaskLineEdit *m_ipLineEdit;
     QLineEdit *m_portLineEdit;
     QString m_ip;
     QString m_port;
