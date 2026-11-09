@@ -176,26 +176,26 @@ void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Statu
         for (auto ifs : reply.second.virtual_ifs())
         {
             auto name = QString::fromStdString(ifs.name());
-            auto subnet = QString::fromStdString(ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len()));
+            auto ipMask = QString::fromStdString(ifs.ip_address() + "/" + std::to_string(ifs.ip_mask_len()));
             auto realName = QString::fromStdString(ifs.bind_real());
             auto gateway = QString::fromStdString(ifs.gateway());
 
             infoMap.insert(NAME, name);
             infoMap.insert(REAL_IFS, realName);
-            infoMap.insert(SUBNET, subnet);
+            infoMap.insert(IP_MASK, ipMask);
             infoMap.insert(GATEWAY, gateway);
 
             QStandardItem *checkItem = new QStandardItem();
             checkItem->setCheckable(true);
             QStandardItem *nameItem = new QStandardItem(name);
             nameItem->setData(QVariant::fromValue(infoMap));
-            QStandardItem *subnetItem = new QStandardItem(subnet);
+            QStandardItem *ipMaskItem = new QStandardItem(ipMask);
             QStandardItem *realNameItem = new QStandardItem(realName);
 
             KLOG_DEBUG() << "Get virtual ifs. "
-                         << "name: " << name << "subnet: " << subnet;
+                         << "name: " << name << "ip/mask: " << ipMask;
 
-            setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << subnetItem << realNameItem);
+            setTableItems(row, 0, QList<QStandardItem *>() << checkItem << nameItem << ipMaskItem << realNameItem);
             row++;
         }
     }
