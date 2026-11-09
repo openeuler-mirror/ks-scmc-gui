@@ -1462,31 +1462,37 @@ The first characters must be letter or digit</source>
     <name>ContainerUpdateImage</name>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="136"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="43"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="137"/>
         <source>Container Name</source>
         <translation>容器名</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="66"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="138"/>
         <source>Image Name</source>
         <translation>镜像名</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="89"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="139"/>
         <source>Image Version</source>
         <translation>镜像版本</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="157"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="140"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-manager/container-update-image.ui" line="176"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-update-image.h" line="141"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
