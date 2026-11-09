@@ -41,6 +41,7 @@ private:
 
 private:
     Ui::NetworkAccessItem *ui;
+    IpMaskLineEdit *m_ipEditor;
     bool m_defaultPort;
 };
 
