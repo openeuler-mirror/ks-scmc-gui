@@ -17,6 +17,7 @@
 #include "advanced-configuration/ipc-tab.h"
 #include "advanced-configuration/volumes-conf-tab.h"
 #include "base-configuration/cpu-conf-tab.h"
+#include "base-configuration/disk-conf-tab.h"
 #include "base-configuration/memory-conf-tab.h"
 #include "base-configuration/network-conf-tab.h"
 #include "common/authorization-dialog.h"
