@@ -53,7 +53,7 @@ void NodeOperateDialog::setNodeInfo(int64_t nodeId, QString name, QString addr, 
     m_nodeId = nodeId;
     ui->lineEdit_node_name->setText(name);
     ui->lineEdit_node_name->setCursorPosition(0);
-    ui->lineEdit_node_ip->setText(addr);
+    ui->lineEdit_node_ip->setIp(addr);
     ui->text_comment->setText(comment);
 }
 
