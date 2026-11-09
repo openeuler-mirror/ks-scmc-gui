@@ -14,6 +14,7 @@ namespace Ui
 class NetworkAccessItem;
 }
 
+class IpMaskLineEdit;
 class NetworkAccessItem : public QWidget
 {
     Q_OBJECT
