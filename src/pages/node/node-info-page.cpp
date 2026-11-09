@@ -7,15 +7,35 @@
 #include "node-info-page.h"
 #include <kiran-log/qt5-log-i.h>
 #include "IPC/ipc-page.h"
+#include "base/user-configuration.h"
 #include "config/node-config-page.h"
 #include "container/container-manager/container-list-page.h"
 #include "monitor-content.h"
 #include "network/network-page-manager.h"
 #include "security-configuration/file-protection-page.h"
 #include "security-configuration/network-config-page.h"
-NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent), m_containerListPage(nullptr), m_monitor(nullptr)
+NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent),
+                                              m_containerListPage(nullptr),
+                                              m_monitor(nullptr),
+                                              m_networkPage(nullptr),
+                                              m_configPage(nullptr),
+                                              m_networkConfigPage(nullptr),
+                                              m_fileProtectionPage(nullptr),
+                                              m_ipcPage(nullptr)
 {
+    QString user, userRole;
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, user);
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, user, USERROLE, userRole);
+
+#ifdef HIDE_CONTAINER_IN_NODE
+    if (userRole == USER_ROLE_STDADM)
+    {
+        createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
+    }
+#else
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
+#endif
+
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_MONITOR);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_NETWORK);
     createSubPage(NODE_INFO_SUB_PAGE_TYPE_CONFIG);
