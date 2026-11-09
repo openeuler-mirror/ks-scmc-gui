@@ -115,7 +115,17 @@ void ServerConfigDialog::initUI()
                                              KiranMessageBox::Ok);
                     return;
                 }
-                m_ip = m_ipLineEdit->text();
+                else if (!m_ipLineEdit->isValidIp(inputIp))
+                {
+                    KiranMessageBox::message(nullptr,
+                                             tr("Failed"),
+                                             tr("Please input correct IP address!"),
+                                             KiranMessageBox::Ok);
+                    return;
+                }
+                KLOG_INFO() << "Get ip from ui:" << inputIp;
+
+                m_ip = inputIp;
                 m_port = m_portLineEdit->text();
                 UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
                 UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
