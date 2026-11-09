@@ -912,10 +912,48 @@ void ContainerSetting::updateTemplate()
     }
 }
 
+void ContainerSetting::onAdvancedItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    auto volumesItem = ui->listWidget_advanced_config->item(TAB_CONFIG_GUIDE_ITEM_TYPE_ITEM_VOLUMES);
+    auto customItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(volumesItem));
+
+    auto currentItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(current));
+    auto previousItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(previous));
+
+    if (customItem && currentItem && previous && customItem == currentItem)
+    {
+        // 点击共享目录侧边栏，弹出二次认证提示框
+        if (popupAuthDialog() != QDialog::Accepted)
+        {
+            current->setSelected(false);
+
+            // 使用 QTimer::singleShot 延迟恢复前一个选中状态,防止信号立即发送，导致槽递归调用，item状态更新不及时
+            QTimer::singleShot(0, this, [this, previous]()
+                               {
+                ui->listWidget_advanced_config->setCurrentItem(previous);
+                previous->setSelected(true); });
+
+            return;
+        }
+    }
+
+    m_advancedConfStack->setCurrentIndex(ui->listWidget_advanced_config->row(current));
+    foreach (GuideItem *advancedItem, m_advancedItems)
+    {
+        if (advancedItem == currentItem)
+            advancedItem->setSelected(true);
+        else
+            advancedItem->setSelected(false);
+    }
+}
+
 void ContainerSetting::onItemClicked(QListWidgetItem *item)
 {
     QListWidget *listwidget = qobject_cast<QListWidget *>(sender());
     GuideItem *guideItem = qobject_cast<GuideItem *>(listwidget->itemWidget(item));
+    if (!guideItem)
+        return;
+
     int index = listwidget->row(item);
     if (listwidget == ui->listwidget_base_config)
     {
