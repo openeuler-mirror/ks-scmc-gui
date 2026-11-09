@@ -96,10 +96,10 @@ void NetworkListPage::onEditVirtIfs(int row)
     auto item = getItem(row, 1);
     auto infoMap = item->data().toMap();
     QString name = infoMap[NAME].toString();
-    QString subnet = infoMap[SUBNET].toString();
+    QString ipMask = infoMap[IP_MASK].toString();
     QString realIfs = infoMap[REAL_IFS].toString().isEmpty() ? tr("None(bridge)") : infoMap[REAL_IFS].toString();
 
-    showOperateDialog(OPERATE_TYPE_EDIT, name, subnet, realIfs);
+    showOperateDialog(OPERATE_TYPE_EDIT, name, ipMask, realIfs);
 }
 
 void NetworkListPage::getListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply)
