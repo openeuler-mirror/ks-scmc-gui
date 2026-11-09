@@ -123,6 +123,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>IpMaskLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">common/ip-mask-lineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
