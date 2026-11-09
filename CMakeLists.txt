@@ -64,6 +64,10 @@ if (GENERATE_TO_RUN)
     add_definitions(-DGENERATE_TO_RUN)
 endif ()
 
+if(HIDE_CONTAINER_IN_NODE)
+    add_definitions(-DHIDE_CONTAINER_IN_NODE)
+endif()
+
 add_subdirectory(proto)
 add_subdirectory(src)
 add_subdirectory(config)
