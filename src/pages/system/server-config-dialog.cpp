@@ -149,12 +149,12 @@ void ServerConfigDialog::setServerInfo()
     {
         m_ip = server.split(":").first();
         m_port = server.split(":").last();
-        m_ipLineEdit->setText(m_ip);
+        m_ipLineEdit->setIp(m_ip);
         m_portLineEdit->setText(m_port);
         return;
     }
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-    m_ipLineEdit->setText(m_ip);
+    m_ipLineEdit->setIp(m_ip);
     UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
     m_portLineEdit->setText(m_port);
     UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
