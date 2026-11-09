@@ -1454,7 +1454,6 @@ The first characters must be letter or digit</source>
     <name>EnvsConfTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/envs-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ui_envs-conf-tab.h" line="38"/>
         <source>Form</source>
         <translation></translation>
     </message>
