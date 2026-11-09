@@ -3636,6 +3636,7 @@ Instruction</source>
     <name>OutlineCell</name>
     <message>
         <location filename="../src/pages/outline/outline-cell.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_outline-cell.h" line="239"/>
         <source>Form</source>
         <translation></translation>
     </message>
