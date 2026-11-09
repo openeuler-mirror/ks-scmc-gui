@@ -62,18 +62,9 @@ void ServerConfigDialog::initUI()
     ipLayout->setMargin(0);
     ipLayout->setSpacing(10);
     QLabel *ipLab = new QLabel(tr("<font color=red>*</font>Ip Address"), ipWidget);
-    m_ipLineEdit = new QLineEdit(ipWidget);
+    m_ipLineEdit = new IpMaskLineEdit(ipWidget);
     m_ipLineEdit->setFixedSize(370, 36);
-    m_ipLineEdit->setPlaceholderText(tr("Please input server ip address"));
-    m_ipLineEdit->setTextMargins(10, 0, 0, 0);
-    m_ipLineEdit->setMaxLength(20);
-    //  匹配 IP 地址
-    QRegExp ipMaskRegex(
-        "^"
-        "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"
-        "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-        "$");
-    m_ipLineEdit->setValidator(new QRegExpValidator(ipMaskRegex, this));
+
     ipLayout->addWidget(ipLab);
     ipLayout->addWidget(m_ipLineEdit);
 
