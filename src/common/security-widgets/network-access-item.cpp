@@ -46,8 +46,23 @@ void NetworkAccessItem::getInfo(QStringList &protocols, QString &addr, int &port
     ui->btn_icmp->isChecked() ? protocols.append("icmp") : protocols.append("");
     protocols.removeAll("");
 
-    addr = ui->lineEdit_address->text();
+    auto inputIpMask = m_ipEditor->getIpMask();
+    // 处理最后的"/",若用户没有输入掩码，则去除“/”。
+    if (inputIpMask.endsWith("/"))
+    {
+        inputIpMask = inputIpMask.remove("/");
+        addr = m_ipEditor->isValidIp(inputIpMask) ? inputIpMask : "";
+    }
+    else
+    {
+        addr = m_ipEditor->isValidIpMask(inputIpMask) ? inputIpMask : "";
+    }
+
     port = ui->lineEdit_port->text().toInt();
+
+    KLOG_INFO() << "Get info from ui."
+                << "ip mask:" << addr
+                << "port: " << port;
 }
 
 void NetworkAccessItem::setInfo(QStringList protocols, QString addr, int port)
