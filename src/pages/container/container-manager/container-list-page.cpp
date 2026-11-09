@@ -209,7 +209,7 @@ void ContainerListPage::onActUpdateImage(QModelIndex index)
                 {
                     KLOG_DEBUG() << "Update container:" << containerID <<"image version to " << imageVersion;
                     Container::getInstance().updateContainerVersion(m_objId, nodeId, containerID.toStdString(), imageName.toStdString(), imageVersion.toStdString());
-                } 
+                }
                 dialog->close(); });
 }
 
