@@ -41,7 +41,7 @@ signals:
 
 private:
     QTabWidget *m_tabWidget;
-    QMap<QString, QWidget *> m_pageMap;
+    QList<QWidget *> m_pages;
 };
 
 #endif  // TABPAGE_H
