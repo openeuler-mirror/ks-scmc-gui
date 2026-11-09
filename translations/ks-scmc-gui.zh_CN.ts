@@ -2474,6 +2474,11 @@ The first characters must be letter or digit</source>
         <translation>登录失败：没有%1用户角色</translation>
     </message>
     <message>
+        <location filename="../src/login-dialog.cpp" line="357"/>
+        <source>Login failed %1</source>
+        <translation>登录失败 %1</translation>
+    </message>
+    <message>
         <location filename="../src/login-dialog.cpp" line="393"/>
         <source>Logout</source>
         <translation>注销</translation>
