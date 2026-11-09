@@ -3434,7 +3434,7 @@ Instruction</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/node-operate-dialog.cpp" line="33"/>
+        <location filename="../src/pages/node/node-operate-dialog.cpp" line="31"/>
         <source>Add Node</source>
         <translation>添加节点</translation>
     </message>
