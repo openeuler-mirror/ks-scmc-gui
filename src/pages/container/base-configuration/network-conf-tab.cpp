@@ -27,10 +27,14 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
     QString str = ui->cb_virt_networkcard->currentText();
     const QString networkSplitStr = " (" + tr("Subnet");
     QString name = str.split(networkSplitStr).first();  // 网卡名
+    auto inputIp = ui->lineEdit_ip->getIpAddress();
 
-    KLOG_DEBUG() << "Network interface ip:" << name << ui->lineEdit_ip->text();
     cfg->set_interface(name.toStdString());
-    cfg->set_ip_address(ui->lineEdit_ip->text().toStdString());
+
+    std::string ip = ui->lineEdit_ip->isValidIp(inputIp) ? inputIp.toStdString() : "";
+    cfg->set_ip_address(ip);
+
+    KLOG_INFO() << "Set network interface to backed:" << name << ip.data();
 }
 
 // 更新容器、模板使用
