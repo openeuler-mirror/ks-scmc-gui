@@ -136,25 +136,21 @@
     <name>CPUConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="14"/>
-        <location filename="../build/src/ui_cpu-conf-tab.h" line="107"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="40"/>
-        <location filename="../build/src/ui_cpu-conf-tab.h" line="108"/>
         <source>Total CPU cores:</source>
         <translation>CPU总核数：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="112"/>
-        <location filename="../build/src/ui_cpu-conf-tab.h" line="110"/>
         <source>error: more than the system total cores</source>
         <translation>错误：高于系统核心数</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/cpu-conf-tab.ui" line="105"/>
-        <location filename="../build/src/ui_cpu-conf-tab.h" line="109"/>
         <source>Scheduling priority:</source>
         <translation>调度优先级：</translation>
     </message>
