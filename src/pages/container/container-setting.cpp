@@ -1268,6 +1268,10 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     auto memoryPage = qobject_cast<MemoryConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_MEMORY));
     memoryPage->setMemoryInfo(&limit);
 
+    // disk
+    auto diskPage = qobject_cast<DiskConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_DISK));
+    diskPage->setSpeed(&limit);
+
     // security
     auto securityCfg = info.security_config();
 
