@@ -4527,6 +4527,7 @@ Instruction</source>
     <name>TablePage</name>
     <message>
         <location filename="../src/pages/table-page.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_table-page.h" line="132"/>
         <source>Form</source>
         <translation></translation>
     </message>
