@@ -106,7 +106,8 @@ void ServerConfigDialog::initUI()
     connect(confirmBtn, &QPushButton::clicked,
             [this]
             {
-                if (m_ipLineEdit->text().isEmpty() || m_portLineEdit->text().isEmpty())
+                auto inputIp = m_ipLineEdit->getIpAddress();
+                if (inputIp.isEmpty() || m_portLineEdit->text().isEmpty())
                 {
                     KiranMessageBox::message(nullptr,
                                              tr("Failed"),
