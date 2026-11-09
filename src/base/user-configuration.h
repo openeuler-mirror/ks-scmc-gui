@@ -9,11 +9,11 @@
 
 #include <QSettings>
 
-#define GROUP_USER "user"
+#define GROUP_CURRENT_USER "CurrentUser"
 #define SCMC_DES_KEY "vaksscms"
 #define PASSWORD "password"
 #define USERNAME "username"
-#define CURRENT_USER "currentUser"
+#define USERROLE "userrole"
 
 enum ConfigSettingType
 {
