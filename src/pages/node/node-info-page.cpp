@@ -48,18 +48,31 @@ NodeInfoPage::NodeInfoPage(QWidget *parent) : TabPage(parent),
 void NodeInfoPage::setNodeId(qint64 nodeId)
 {
     m_nodeId = nodeId;
-    m_containerListPage->setNodeID(m_nodeId);
-    m_networkPage->setNodeId(m_nodeId);
-    m_configPage->setNodeId(m_nodeId);
-    m_fileProtectionPage->setNodeId(m_nodeId);
-    m_networkConfigPage->setNodeId(m_nodeId);
-    m_ipcPage->setNodeID(m_nodeId);
+
+    if (m_containerListPage)
+        m_containerListPage->setNodeID(m_nodeId);
+
+    if (m_networkPage)
+        m_networkPage->setNodeId(m_nodeId);
+
+    if (m_configPage)
+        m_configPage->setNodeId(m_nodeId);
+
+    if (m_fileProtectionPage)
+        m_fileProtectionPage->setNodeId(m_nodeId);
+
+    if (m_networkConfigPage)
+        m_networkConfigPage->setNodeId(m_nodeId);
+
+    if (m_ipcPage)
+        m_ipcPage->setNodeID(m_nodeId);
 }
 
 void NodeInfoPage::updateInfo(QString keyword)
 {
-    setCurrentPage(NODE_INFO_SUB_PAGE_TYPE_CONTAINER);
-    m_containerListPage->updateInfo();
+    // 显示第一个tab页面
+    setCurrentPage(firstPage());
+    updatePageInfo();
 }
 
 void NodeInfoPage::createSubPage(NodeInfoSubPageType type)
