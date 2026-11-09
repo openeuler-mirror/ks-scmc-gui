@@ -277,7 +277,7 @@ void NetworkListPage::initConnect()
     connect(&Network::getInstance(), &Network::listNetworkFinished, this, &NetworkListPage::getListResult);
 }
 
-KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType type, QString name, QString subnet, QString realIfs)
+KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType type, QString name, QString ipMask, QString realIfs)
 {
     KiranTitlebarWindow *window = new KiranTitlebarWindow(this);
     window->setAttribute(Qt::WA_DeleteOnClose, true);
