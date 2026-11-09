@@ -72,8 +72,12 @@ void NetworkAccessItem::setInfo(QStringList protocols, QString addr, int port)
     protocols.contains("udp", Qt::CaseInsensitive) ? ui->btn_udp->setChecked(true) : ui->btn_udp->setChecked(false);
     protocols.contains("icmp", Qt::CaseInsensitive) ? ui->btn_icmp->setChecked(true) : ui->btn_icmp->setChecked(false);
 
-    ui->lineEdit_address->setText(addr);
+    m_ipEditor->setIpMask(addr);
     ui->lineEdit_port->setText(QString::number(port));
+
+    KLOG_INFO() << "Set info to ui."
+                << "ip mask:" << addr
+                << "port: " << port;
 }
 
 void NetworkAccessItem::ondelete()
