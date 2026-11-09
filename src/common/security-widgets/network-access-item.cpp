@@ -7,9 +7,12 @@
 #include "network-access-item.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QRegExpValidator>
+#include "common/ip-mask-lineedit.h"
 #include "ui_network-access-item.h"
+
 NetworkAccessItem::NetworkAccessItem(QWidget *parent) : QWidget(parent),
                                                         ui(new Ui::NetworkAccessItem),
+                                                        m_ipEditor(nullptr),
                                                         m_defaultPort(false)
 {
     ui->setupUi(this);
