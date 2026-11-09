@@ -2843,53 +2843,43 @@ Instruction</source>
     <name>NetworkConfigPage</name>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="14"/>
-        <location filename="../build/src/ui_network-config-page.h" line="175"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="45"/>
-        <location filename="../build/src/ui_network-config-page.h" line="176"/>
         <source>Network access control</source>
         <translation>网络访问控制</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="70"/>
-        <location filename="../build/src/ui_network-config-page.h" line="177"/>
         <source>Access Status</source>
         <translation>访问状态</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="77"/>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="146"/>
-        <location filename="../build/src/ui_network-config-page.h" line="178"/>
-        <location filename="../build/src/ui_network-config-page.h" line="182"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="84"/>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="153"/>
-        <location filename="../build/src/ui_network-config-page.h" line="179"/>
-        <location filename="../build/src/ui_network-config-page.h" line="183"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="114"/>
-        <location filename="../build/src/ui_network-config-page.h" line="180"/>
         <source>Network process white-list</source>
         <translation>网络进程白名单</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="139"/>
-        <location filename="../build/src/ui_network-config-page.h" line="181"/>
         <source>White-list Status</source>
         <translation>白名单状态</translation>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/network-config-page.ui" line="210"/>
-        <location filename="../build/src/ui_network-config-page.h" line="184"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
