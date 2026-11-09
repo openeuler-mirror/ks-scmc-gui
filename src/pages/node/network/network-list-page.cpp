@@ -460,7 +460,7 @@ void NetworkListPage::initVirtIfsTable()
     QStringList tableHHeaderDate = {
         "",
         QString(tr("Network interface")),
-        QString(tr("Subnet")),
+        QString(tr("IP/Mask")),
         QString(tr("Real network interface")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
