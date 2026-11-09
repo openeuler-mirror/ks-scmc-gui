@@ -380,7 +380,7 @@ KiranTitlebarWindow *NetworkListPage::createOperateDialog(NetworkIfsOperateType 
                         KLOG_DEBUG() << "Bind type: macvlan net";
                         req.set_parent(cbBindRealIfs->currentText().toStdString());
                     }
-                    req.set_subnet(lineEditSubnet->text().toStdString());
+                    req.set_subnet(ipMask.toStdString());
                     Network::getInstance().createNic(m_objId, req);
                 }
                 else
