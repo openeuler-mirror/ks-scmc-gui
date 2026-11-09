@@ -1183,264 +1183,277 @@ The first characters must be letter or digit</source>
     <name>ContainerSetting</name>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="14"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="313"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="215"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="321"/>
         <source>Node:</source>
         <translation>节点：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="166"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="318"/>
         <source>Image:</source>
         <translation>镜像：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="62"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="314"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Name:</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;名字：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="315"/>
         <source>Describe:</source>
         <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="208"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="320"/>
         <source>Template name:</source>
         <translation>模板名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="222"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="322"/>
         <source>Host name:</source>
         <translation>主机名：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="277"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="324"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="365"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="190"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="323"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="191"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="376"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="325"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="417"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="326"/>
         <source>Security configuration</source>
         <translation>安全策略</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="494"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="327"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="513"/>
+        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_container-setting.h" line="328"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="193"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="194"/>
         <source>Network</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="292"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1107"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="293"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1134"/>
         <source>Create Container</source>
         <translation>创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="297"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1125"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1282"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="298"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1152"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1309"/>
         <source>Edit Container</source>
         <translation>编辑容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="648"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="755"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="649"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="756"/>
         <source>Memory Data</source>
         <translation>内存数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="576"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="596"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="614"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="637"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="649"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="663"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="673"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="684"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="745"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="756"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="778"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="795"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="806"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="817"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="843"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="859"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="577"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="597"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="615"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="638"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="650"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="664"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="674"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="685"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="746"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="757"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="779"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="796"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="807"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="818"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="844"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="860"/>
         <source>Input error</source>
         <translation>输入错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="613"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="858"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="614"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="859"/>
         <source>Env Data</source>
         <translation>环境变量数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="575"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="842"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="576"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="843"/>
         <source>Volumes Data</source>
         <translation>共享目录数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="179"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="180"/>
         <source>Please input 2 to 50 characters</source>
         <translation>请输入2 - 50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="181"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="182"/>
         <source>Please input 0 to 50 characters</source>
         <translation>请输入0-50个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="183"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="184"/>
         <source>Only letter, digit or ._- three special characters;
 The first characters must be letter or digit</source>
         <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="185"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="186"/>
         <source>Please input 0 to 200 characters</source>
         <translation>请输入0 - 200个字符</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="325"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1431"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="326"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1458"/>
         <source>Create template</source>
         <translation>创建模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="328"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="329"/>
         <source>Edit template</source>
         <translation>编辑模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="332"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="333"/>
         <source>Create container from template</source>
         <translation>基于模板创建容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="339"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="340"/>
         <source>Generate template</source>
         <translation>生成容器模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="597"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="779"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="598"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="780"/>
         <source>Virtual network card is bound repeatedly, please reselect</source>
         <translation>虚拟网卡重复绑定，请重新选择</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="636"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="744"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="637"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="745"/>
         <source>CPU Data</source>
         <translation>CPU数据</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="983"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1010"/>
         <source>Delete Network card</source>
         <translation>删除网卡</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="984"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1011"/>
         <source>Are you sure you want to delete the network card?</source>
         <translation>确定要删除此网卡？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="985"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1012"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1108"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1135"/>
         <source>Create container failed!</source>
         <translation>创建容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1109"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1136"/>
         <source>Error: </source>
         <translation>错误: </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1126"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1153"/>
         <source>Get container infomation failed!</source>
         <translation>获取容器信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1151"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1307"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1178"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1334"/>
         <source>none</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1263"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1290"/>
         <source>Update Container</source>
         <translation>更新容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1264"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1291"/>
         <source>Update container failed!</source>
         <translation>更新容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1265"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1292"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1283"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1310"/>
         <source>Get template infomation failed!</source>
         <translation>获取模板信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1425"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1452"/>
         <source>Create template successful!</source>
         <translation>创建容器模板成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1425"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1452"/>
         <source>You can see it in container template page.</source>
         <translation>点击容器模板页面即可查看。</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1432"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1459"/>
         <source>Create template failed!</source>
         <translation>创建模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1433"/>
-        <location filename="../src/pages/container/container-setting.cpp" line="1453"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1460"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1480"/>
         <source>error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1451"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1478"/>
         <source>Update template</source>
         <translation>更新模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-setting.cpp" line="1452"/>
+        <location filename="../src/pages/container/container-setting.cpp" line="1479"/>
         <source>Update template failed!</source>
         <translation>更新模板失败！</translation>
     </message>
