@@ -12,8 +12,8 @@
 #include <QDesktopWidget>
 #include <QLabel>
 #include <QPushButton>
-#include <QRegExpValidator>
 #include <QVBoxLayout>
+#include "common/ip-mask-lineedit.h"
 #include "user-configuration.h"
 
 #define SERVER_GROUP "Server"
