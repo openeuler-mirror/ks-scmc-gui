@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QObject>
 
+class IpMaskLineEdit;
 class ServerConfigDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
