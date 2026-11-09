@@ -7,7 +7,6 @@
 #ifndef TABPAGE_H
 #define TABPAGE_H
 
-#include <QMap>
 #include <QObject>
 #include <QTabWidget>
 #include <QWidget>
