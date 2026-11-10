@@ -87,5 +87,6 @@
         <file>images/tips.svg</file>
         <file>images/open-disable.svg</file>
         <file>images/container-cmd.png</file>
+        <file>images/folder-open.svg</file>
     </qresource>
 </RCC>
