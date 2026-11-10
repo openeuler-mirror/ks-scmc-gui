@@ -136,6 +136,7 @@ private slots:
 private:
     Ui::ContainerSetting *ui;
     QString m_objId;
+    QSettings *m_settings;
     QStackedWidget *m_baseConfStack;
     QStackedWidget *m_advancedConfStack;
     QStackedWidget *m_securityConfStack;
