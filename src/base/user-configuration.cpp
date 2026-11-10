@@ -106,6 +106,12 @@ QString UserConfiguration::getDecryptedPw(QString userName)
 
 std::string UserConfiguration::getServerAddr()
 {
+    if (m_ServerAddr.empty())
+    {
+        QString serverAddr;
+        UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_ADDRESS, serverAddr);
+        m_ServerAddr = serverAddr.toStdString();
+    }
     return m_ServerAddr;
 }
 
