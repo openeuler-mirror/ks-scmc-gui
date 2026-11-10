@@ -158,6 +158,9 @@ private:
     QMultiMap<int, QPair<int, QString>> m_templateMap;
     QMap<int, NodeInfo *> m_nodeInfoMap;
     QStringList m_imageList;
+
+    bool m_envEditable;
+    bool m_volumesEditable;
 };
 
 #endif  // CONTAINERSETTING_H
