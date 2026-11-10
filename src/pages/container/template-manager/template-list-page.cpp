@@ -435,7 +435,26 @@ void TemplateListPage::getListImageFinishedResult(QString objId, const QPair<Sta
         m_imageInfos.append(image);
     }
 }
+void TemplateListPage::getCreateTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &reply)
+{
+    if (m_objId != objId)
+        return;
 
+    if (reply.first.ok())
+    {
+        m_importDialog->close();
+
+        getTemplateInfo();  // 刷新模板列表
+    }
+    else
+    {
+        MessageDialog::message(tr("Import Template"),
+                               tr("Failed to import template!"),
+                               tr("Error: %1").arg(QString::fromStdString(reply.first.error_message())),
+                               ":/images/error.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
+}
 void TemplateListPage::getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply)
 {
     if (m_objId != objId)
