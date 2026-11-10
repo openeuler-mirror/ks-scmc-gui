@@ -627,27 +627,51 @@ void TemplateListPage::initButtons()
     btnCreate->setText(tr("Create"));
     btnCreate->setObjectName("btnCreate");
     btnCreate->setFixedSize(QSize(78, 32));
+    Kiran::WidgetPropertyHelper::setButtonType(btnCreate, Kiran::BUTTON_Default);
     connect(btnCreate, &QPushButton::clicked, this, &TemplateListPage::onCreateTemplate);
 
     QPushButton *btnRemove = new QPushButton(this);
     btnRemove->setText(tr("Remove"));
     btnRemove->setObjectName("btnRemove");
     btnRemove->setFixedSize(QSize(78, 32));
+    Kiran::WidgetPropertyHelper::setButtonType(btnRemove, Kiran::BUTTON_Warning);
     connect(btnRemove, &QPushButton::clicked, this, &TemplateListPage::onRemoveTemplate);
 
-    addSingleOperationButton(btnCreate);
-    addBatchOperationButtons(QList<QPushButton *>() << btnRemove);
+    auto btnImport = new QPushButton(this);
+    btnImport->setText(tr("Import"));
+    btnImport->setObjectName("btnImport");
+    btnImport->setFixedSize(QSize(78, 32));
+    Kiran::WidgetPropertyHelper::setButtonType(btnImport, Kiran::BUTTON_Default);
+    connect(btnImport, &QPushButton::clicked, this, &TemplateListPage::onImportTemplate);
+
+    auto btnExport = new QPushButton(this);
+    btnExport->setText(tr("Export"));
+    btnExport->setObjectName("btnExport");
+    btnExport->setFixedSize(QSize(78, 32));
+    Kiran::WidgetPropertyHelper::setButtonType(btnExport, Kiran::BUTTON_Default);
+    connect(btnExport, &QPushButton::clicked, this, &TemplateListPage::onExportTemplate);
+
+    addSingleOperationButtons(QList<QPushButton *>() << btnCreate << btnImport);
+    addBatchOperationButtons(QList<QPushButton *>() << btnExport << btnRemove);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_SINGLE, false);
     setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, false);
 }
 
 void TemplateListPage::initTemplateConnect()
 {
-    connect(&Container::getInstance(), &Container::listTemplateFinished, this, &TemplateListPage::getListTemplateFinishResult);
-    connect(&Network::getInstance(), &Network::listNetworkFinished, this, &TemplateListPage::getNetworkListResult);
-    connect(&Container::getInstance(), &Container::removeTemplateFinished, this, &TemplateListPage::getRemoveTemplateFinishResult);
-    connect(&Node::getInstance(), &Node::listNodeFinished, this, &TemplateListPage::getNodeListResult);
-    connect(&Image::getInstance(), &Image::listImageFinished, this, &TemplateListPage::getListImageFinishedResult);
+    // 连接模板相关信号
+    connect(&Container::getInstance(), &Container::createTemplateFinished, this,
+            &TemplateListPage::getCreateTemplateFinishResult);
+    connect(&Container::getInstance(), &Container::listTemplateFinished, this,
+            &TemplateListPage::getListTemplateFinishResult);
+    connect(&Network::getInstance(), &Network::listNetworkFinished, this,
+            &TemplateListPage::getNetworkListResult);
+    connect(&Container::getInstance(), &Container::removeTemplateFinished, this,
+            &TemplateListPage::getRemoveTemplateFinishResult);
+    connect(&Node::getInstance(), &Node::listNodeFinished, this,
+            &TemplateListPage::getNodeListResult);
+    connect(&Image::getInstance(), &Image::listImageFinished, this,
+            &TemplateListPage::getListImageFinishedResult);
 }
 
 void TemplateListPage::getCheckedItemsId(QList<int64_t> &ids)
