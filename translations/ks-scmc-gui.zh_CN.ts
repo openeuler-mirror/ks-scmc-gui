@@ -1819,18 +1819,18 @@ The first characters must be letter or digit</source>
         <translation>传输已取消。</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="467"/>
+        <location filename="../src/base/interface/image.cpp" line="481"/>
         <source>Failed to open %1!</source>
         <translation>打开 %1 文件失败！</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="479"/>
-        <location filename="../src/base/interface/image.cpp" line="494"/>
+        <location filename="../src/base/interface/image.cpp" line="493"/>
+        <location filename="../src/base/interface/image.cpp" line="508"/>
         <source>file was broken!</source>
         <translation>文件已损坏！</translation>
     </message>
     <message>
-        <location filename="../src/base/interface/image.cpp" line="501"/>
+        <location filename="../src/base/interface/image.cpp" line="515"/>
         <source>Ok</source>
         <translation>是</translation>
     </message>
