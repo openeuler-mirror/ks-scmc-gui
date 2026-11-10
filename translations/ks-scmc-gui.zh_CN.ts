@@ -1521,22 +1521,27 @@ The first characters must be letter or digit</source>
     <name>DiskConfTab</name>
     <message>
         <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="14"/>
+        <location filename="../build/src/ui_disk-conf-tab.h" line="105"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="40"/>
         <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="93"/>
+        <location filename="../build/src/ui_disk-conf-tab.h" line="106"/>
+        <location filename="../build/src/ui_disk-conf-tab.h" line="109"/>
         <source>MB/s</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="63"/>
+        <location filename="../build/src/ui_disk-conf-tab.h" line="107"/>
         <source>Disk Write Speed</source>
         <translation>磁盘写速度</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/disk-conf-tab.ui" line="86"/>
+        <location filename="../build/src/ui_disk-conf-tab.h" line="108"/>
         <source>Disk Read Speed</source>
         <translation>磁盘读速度</translation>
     </message>
