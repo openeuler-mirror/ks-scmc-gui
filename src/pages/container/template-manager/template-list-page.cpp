@@ -632,7 +632,6 @@ void TemplateListPage::initButtons()
     btnRemove->setText(tr("Remove"));
     btnRemove->setObjectName("btnRemove");
     btnRemove->setFixedSize(QSize(78, 32));
-    Kiran::WidgetPropertyHelper::setButtonType(btnRemove, Kiran::BUTTON_Warning);
     connect(btnRemove, &QPushButton::clicked, this, &TemplateListPage::onRemoveTemplate);
 
     auto btnImport = new QPushButton(this);
