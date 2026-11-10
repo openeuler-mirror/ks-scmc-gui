@@ -1259,6 +1259,9 @@ void ContainerSetting::getContainerInspectResult(QString objId, const QPair<grpc
     auto policy = info.restart_policy();
     highAvailabilityPage->setRestartPolicy(&policy);
 
+    auto miskConfig = info.misc_config();
+    highAvailabilityPage->setAppHighAvailPolicy(&miskConfig);
+
     // ipc
     auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
     auto ipc = info.ipcname();
