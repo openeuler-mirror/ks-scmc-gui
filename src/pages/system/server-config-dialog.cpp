@@ -14,32 +14,49 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include "common/ip-mask-lineedit.h"
+#include "ui_server-config-dialog.h"
 #include "user-configuration.h"
+
+enum ServerConfigType
+{
+    SERVER_CONFIG_TYPE_IP = 0,
+    SERVER_CONFIG_TYPE_DOMAIN_NAME
+};
 
 #define SERVER_GROUP "Server"
 #define SERVER_IP "Ip"
+#define SERVER_DOMAIN_NAME "DomainName"
 #define SERVER_PORT "Port"
 
 ServerConfigDialog::ServerConfigDialog(QWidget *parent) : KiranTitlebarWindow(parent),
-                                                          m_ipLineEdit(nullptr),
-                                                          m_portLineEdit(nullptr)
+                                                          ui(new Ui::ServerConfigDialog)
 {
+    ui->setupUi(getWindowContentWidget());
     initUI();
     setServerInfo();
 }
 
 ServerConfigDialog::~ServerConfigDialog()
 {
+    delete ui;
 }
 
 QString ServerConfigDialog::getServerInfo()
 {
-    QString server;
-    if (!m_ip.isEmpty() && !m_port.isEmpty())
-        server = m_ip + ":" + m_port;
-    else
-        server = "";
-    return server;
+    return QString::fromStdString(UserConfiguration::getInstance().getServerAddr());
+}
+
+void ServerConfigDialog::switchPage()
+{
+    QRadioButton *rbtn = qobject_cast<QRadioButton *>(sender());
+    if (rbtn == ui->rbtn_ip)
+    {
+        ui->stackedWidget->setCurrentIndex(ServerConfigType::SERVER_CONFIG_TYPE_IP);
+    }
+    else if (rbtn == ui->rbtn_dn)
+    {
+        ui->stackedWidget->setCurrentIndex(ServerConfigType::SERVER_CONFIG_TYPE_DOMAIN_NAME);
+    }
 }
 
 void ServerConfigDialog::initUI()
