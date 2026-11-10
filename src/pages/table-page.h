@@ -44,6 +44,7 @@ public:
     void setOperateBtnsVisible(bool visible);
     void setOperateSearchVisible(bool visible);
     void addSingleOperationButton(QAbstractButton *);
+    void addSingleOperationButtons(QList<QPushButton *> opBtns);
     void addBatchOperationButtons(QList<QPushButton *>);
     void addSingleOperationWidget(QWidget *);
     void setOpBtnEnabled(OperatorButtonType type, bool enabled);
