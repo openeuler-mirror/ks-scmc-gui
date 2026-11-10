@@ -933,7 +933,6 @@ void ContainerSetting::onAdvancedItemChanged(QListWidgetItem *current, QListWidg
     auto customItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(volumesItem));
 
     auto currentItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(current));
-    auto previousItem = qobject_cast<GuideItem *>(ui->listWidget_advanced_config->itemWidget(previous));
 
     if (customItem && currentItem && previous && customItem == currentItem)
     {
