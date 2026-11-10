@@ -601,15 +601,13 @@ ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::st
 {
     setTitle(tr("Container app"));
     setIcon(QIcon(":/images/logo.png"));
-    setAttribute(Qt::WA_DeleteOnClose);
-    setWindowModality(Qt::ApplicationModal);
-    QWidget *windowContentWidget = getWindowContentWidget();
-    QVBoxLayout *vLayout = new QVBoxLayout(windowContentWidget);
+    auto windowContentWidget = getWindowContentWidget();
+    auto vLayout = new QVBoxLayout(windowContentWidget);
     vLayout->setMargin(0);
     vLayout->setSpacing(0);
     vLayout->setContentsMargins(0, 20, 0, 20);
 
-    ContainerAppPage *appPage = new ContainerAppPage(nodeId, nodeAddr, containerId, containerName, windowContentWidget);
+    auto appPage = new ContainerAppPage(nodeId, nodeAddr, containerId, containerName, windowContentWidget);
     appPage->updateInfo();
     vLayout->addWidget(appPage);
 }
