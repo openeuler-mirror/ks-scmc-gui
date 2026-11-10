@@ -108,9 +108,21 @@ KylinSec security container magic cube gui
 %build
 mkdir build; cd build
 %if %{_is_generate_to_run}
+
+%if %{hide_container_in_node}
+    %cmake .. -DHIDE_CONTAINER_IN_NODE:BOOL=ON \
+%else
     %cmake ..
+%endif
+
+%else
+
+%if %{hide_container_in_node}
+    %cmake .. -DHIDE_CONTAINER_IN_NODE:BOOL=ON -DGENERATE_TO_RUN:BOOL=OFF \
 %else
     %cmake .. -DGENERATE_TO_RUN:BOOL=OFF \
+%endif
+
 %endif
 
 make %{?_smp_mflags}
