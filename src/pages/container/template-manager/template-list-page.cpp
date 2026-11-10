@@ -542,10 +542,8 @@ void TemplateListPage::getListTemplateFinishResult(const QString objId, const QP
                                             {"on-failure", tr("on-failure")},
                                             {"unless-stopped", tr("unless-stopped")}};
 
-        QString advanceCfg = tr("Env: %1  Mount: %2 \n Graphic: %3 \n RestartPolicy: %4")
+        QString advanceCfg = tr("Env: %1 \nRestartPolicy: %2")
                                  .arg(envNum)
-                                 .arg(mountNum)
-                                 .arg(enableGraphic)
                                  .arg(policyMap.value(restartPolicy));
         QStandardItem *itemAdvanceCfg = new QStandardItem(advanceCfg);
         itemAdvanceCfg->setTextAlignment(Qt::AlignCenter);
