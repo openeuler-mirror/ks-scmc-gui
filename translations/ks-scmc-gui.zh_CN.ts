@@ -457,192 +457,192 @@
 <context>
     <name>ContainerAppPage</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="82"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="93"/>
         <source>Create app</source>
         <translation>创建应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="103"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="114"/>
         <source>Edit app</source>
         <translation>编辑应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="110"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="121"/>
         <source>Can&apos;t edit the app %1</source>
         <translation>无法编辑%1应用程序</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="111"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="258"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="122"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="260"/>
         <source>The app is running!</source>
         <translation>应用程序正在运行！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="210"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="223"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="245"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="212"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="225"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="247"/>
         <source>Delete Container App</source>
         <translation>删除容器程序</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="224"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="246"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="226"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="248"/>
         <source>Are you sure you want to delete the app?</source>
         <translation>确定删除该程序？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="225"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="247"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="227"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="249"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="381"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="383"/>
         <source>Gui</source>
         <translation>图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="381"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="383"/>
         <source>Non Gui</source>
         <translation>非图形应用</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="303"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="385"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="305"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="387"/>
         <source>Running</source>
         <translation>运行中</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="147"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="153"/>
         <source>The app(%1) is running!</source>
         <translation>应用程序(%1)已经在运行中！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="180"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="190"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="182"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="192"/>
         <source>The app(%1) is not running!</source>
         <translation>应用程序(%1)暂未运行！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="211"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="213"/>
         <source>Can&apos;t delete container app!</source>
         <translation>无法删除容器应用程序！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="212"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="214"/>
         <source>There are some app is running. </source>
         <translation>存在正在运行的应用程序。 </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="257"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="259"/>
         <source>Can&apos;t delete the app %1</source>
         <translation>无法删除应用程序%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="335"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="337"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="407"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="409"/>
         <source>Add container app successful!</source>
         <translation>添加容器应用成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="410"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="412"/>
         <source>Add container app failed!</source>
         <translation>添加容器应用失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="423"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="425"/>
         <source>Update container app successful!</source>
         <translation>更新容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="426"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="428"/>
         <source>Update container app failed!</source>
         <translation>更新容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="438"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="440"/>
         <source>Remove container app successful!</source>
         <translation>移除容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="441"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="443"/>
         <source>Remove container app failed!</source>
         <translation>移除容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="453"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="455"/>
         <source>Run container app successful!</source>
         <translation>运行容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="456"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="458"/>
         <source>Run container app failed!</source>
         <translation>运行容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="468"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="470"/>
         <source>Stop container app successful!</source>
         <translation>停止容器应用程序成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="471"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="473"/>
         <source>Stop container app failed!</source>
         <translation>停止容器应用程序失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="479"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="481"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="525"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="527"/>
         <source>Exec Path</source>
         <translation>程序路径</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="526"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="528"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="529"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="531"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="310"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="385"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="530"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="312"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="387"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="532"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="499"/>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="532"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="501"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="534"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="523"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="525"/>
         <source>APP Name</source>
         <translation>应用名</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="524"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="526"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="527"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="529"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="531"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="533"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
