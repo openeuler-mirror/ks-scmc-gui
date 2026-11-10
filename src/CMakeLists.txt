@@ -71,6 +71,9 @@ target_link_libraries(${PROJECT_NAME} ${link_lib_list})
 install(FILES ${QM_FILES}
     DESTINATION ${TRANSLATIONS_DIR})
 
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/pages/container/container-setting.conf"
+    DESTINATION  ${CMAKE_INSTALL_FULL_SYSCONFDIR}/${PROJECT_NAME}/)
+
 if (GENERATE_TO_RUN)
 	install(TARGETS ${PROJECT_NAME}
 		DESTINATION ${INSTALL_DIR})
