@@ -4394,19 +4394,19 @@ of applications, isolated operation of applications, centralized monitoring of a
     <name>SecurityLevelTab</name>
     <message>
         <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-level-tab.h" line="96"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="99"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="49"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-level-tab.h" line="97"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="100"/>
         <source>Security Level Configuration</source>
         <translation>安全等级配置</translation>
     </message>
     <message>
         <location filename="../src/pages/container/security-configuration/security-level-tab.ui" line="78"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_security-level-tab.h" line="98"/>
+        <location filename="../build/src/ui_security-level-tab.h" line="101"/>
         <source>External Access Control</source>
         <translation>对外访问控制</translation>
     </message>
