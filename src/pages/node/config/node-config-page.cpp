@@ -186,6 +186,13 @@ void NodeConfigPage::getListResult(const QString objId, const QPair<grpc::Status
             ui->lineEdit_cpu->setText(QString::number(m_cpuLimit));
             ui->lineEdit_memory->setText(QString::number(m_memoryLimit));
             ui->lineEdit_disk->setText(QString::number(m_diskLimit));
+
+            KLOG_INFO() << "Set node config to ui:"
+                        << "node id:" << m_nodeId
+                        << "node name:" << m_nodeName.data()
+                        << "cpu limit:" << m_cpuLimit
+                        << "disk limit:" << m_memoryLimit
+                        << "memory limit:" << m_diskLimit;
             break;
         }
     }
