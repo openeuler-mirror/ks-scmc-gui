@@ -19,6 +19,7 @@
 
 class ContainerSetting;
 class MonitorDialog;
+class ContainerAppDialog;
 class ContainerListPage : public TablePage
 {
     Q_OBJECT
