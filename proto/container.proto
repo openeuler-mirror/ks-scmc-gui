@@ -126,11 +126,11 @@ message PauseRequest{
 
 
 message StatsRequest {
-        string host_id = 1; // 主机唯一标识
+	string host_id = 1; // 主机唯一标识
 }
 
 message StatsReply {
-        string stats_data = 1;
+	string stats_data = 1; 
 }
 
 message PauseReply {}
