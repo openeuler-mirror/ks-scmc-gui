@@ -396,6 +396,17 @@ void ContainerSetting::initConnection()
     }
 }
 
+void ContainerSetting::loadSettings()
+{
+    auto key = QString("%1/%2").arg(SETTINGS_FORMAT_GROUP_ENV).arg(SETTINGS_FORMAT_KEY_AVAILABLE);
+    m_envEditable = m_settings->value(key).toBool();
+
+    key = QString("%1/%2").arg(SETTINGS_FORMAT_GROUP_VOLUMES).arg(SETTINGS_FORMAT_KEY_AVAILABLE);
+    m_volumesEditable = m_settings->value(key).toBool();
+
+    KLOG_DEBUG() << "Get container setting: envEditable = " << m_envEditable << ", volumesEditable = " << m_volumesEditable;
+}
+
 GuideItem *ContainerSetting::createGuideItem(QListWidget *parent, QString text, int type, QString icon)
 {
     QListWidgetItem *newItem = nullptr;
