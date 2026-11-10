@@ -117,22 +117,12 @@
          <height>30</height>
         </size>
        </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QComboBox::AdjustToContents</enum>
-       </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="lab_auto_pull_time">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Auto pulling times:         </string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="lab_time">
-       <property name="text">
-        <string>times</string>
+        <string>Container high availability: </string>
        </property>
       </widget>
      </item>
