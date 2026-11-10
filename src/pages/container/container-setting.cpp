@@ -783,6 +783,9 @@ void ContainerSetting::updateContainer()
     auto highAvailabilityPage = qobject_cast<HighAvailabilityTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_HIGH_AVAILABILITY));
     highAvailabilityPage->getRestartPolicy(policy);
 
+    auto miskConfig = request.mutable_misc_config();
+    highAvailabilityPage->getAppHighAvailPolicy(miskConfig);
+
     foreach (auto networkPage, m_netWorkPages)
     {
         networkPage->getNetworkInfo(&request);
