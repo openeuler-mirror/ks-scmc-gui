@@ -8,9 +8,9 @@ cd $SHELL_FOLDER
 pkgname=ks-scmc-gui
 pkgver=1.2
 declare -a supported_arch=(x86_64)
-# declare -a supported_os=(3.3-6 3.4-4)
+declare -a supported_os=(3.3-6 3.4-4)
 # declare -a supported_os=(3.4-4)
-declare -a supported_os=(3.3-6)
+#declare -a supported_os=(3.3-6)
 
 dobuild() {
 	for os in ${supported_os[*]};do
