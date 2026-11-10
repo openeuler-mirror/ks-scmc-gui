@@ -47,8 +47,19 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
 
 ContainerAppPage::~ContainerAppPage()
 {
-    qDeleteAll(m_procs);
-    m_procs.clear();
+    // 关闭进程
+    for (auto iter = m_procs.begin(); iter != m_procs.end(); iter++)
+    {
+        auto process = iter.value();
+        if (process && process->state() != QProcess::ProcessState::NotRunning)
+        {
+            process->kill();
+            process->waitForFinished();
+
+            process->deleteLater();
+            process = nullptr;
+        }
+    }
 
     if (m_timer)
     {
