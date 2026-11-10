@@ -1650,45 +1650,55 @@ The first characters must be letter or digit</source>
     <name>HighAvailabilityTab</name>
     <message>
         <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="104"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="116"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="69"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="105"/>
         <source>High availability policy: </source>
-        <translation>高可用策略： </translation>
+        <translation type="vanished">高可用策略： </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="108"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="106"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="75"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="117"/>
         <source>Auto pulling times:         </source>
         <translation>自动拉起次数：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="115"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_high-availability-tab.h" line="107"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="95"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="118"/>
+        <source>Application high availability: </source>
+        <translation>应用高可用： </translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="102"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="119"/>
         <source>times</source>
         <translation>次</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="76"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.ui" line="125"/>
+        <location filename="../build/src/ui_high-availability-tab.h" line="120"/>
+        <source>Container high availability: </source>
+        <translation>容器高可用： </translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="111"/>
         <source>no    </source>
         <translation>不启用    </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="77"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="112"/>
         <source>always    </source>
         <translation>自动拉起    </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="78"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="113"/>
         <source>on-failure    </source>
         <translation>失败后自动拉起    </translation>
     </message>
     <message>
-        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="79"/>
+        <location filename="../src/pages/container/advanced-configuration/high-availability-tab.cpp" line="114"/>
         <source>unless-stopped    </source>
         <translation>手动停止    </translation>
     </message>
