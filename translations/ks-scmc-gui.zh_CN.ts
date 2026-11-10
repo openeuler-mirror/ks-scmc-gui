@@ -4552,12 +4552,12 @@ Instruction</source>
 <context>
     <name>ServerConfigDialog</name>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="65"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="60"/>
         <source>Config Server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="73"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="68"/>
         <source>Please input domain name</source>
         <translation>请输入域名</translation>
     </message>
