@@ -111,8 +111,8 @@ bool ServerConfigDialog::handleIpConfig()
 
     m_ip = inputIp;
     m_port = ui->lineEdit_port->text();
-    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_IP, m_ip);
-    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_PORT, m_port);
+
+    UserConfiguration::getInstance().writeConfig(CONFIG_SETTING_TYPE_SERVER, SERVER_GROUP, SERVER_ADDRESS, QString("%1:%2").arg(m_ip).arg(m_port));
     UserConfiguration::getInstance().setServerAddr(QString("%1:%2").arg(m_ip).arg(m_port).toStdString());
     return true;
 }
