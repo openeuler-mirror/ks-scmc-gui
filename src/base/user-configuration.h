@@ -15,6 +15,9 @@
 #define USERNAME "username"
 #define USERROLE "userrole"
 
+#define SERVER_GROUP "Server"
+#define SERVER_ADDRESS "Address"
+
 enum ConfigSettingType
 {
     CONFIG_SETTING_TYPE_LOGIN,
