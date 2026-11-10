@@ -23,11 +23,6 @@ enum ServerConfigType
     SERVER_CONFIG_TYPE_DOMAIN_NAME
 };
 
-#define SERVER_GROUP "Server"
-#define SERVER_IP "Ip"
-#define SERVER_DOMAIN_NAME "DomainName"
-#define SERVER_PORT "Port"
-
 ServerConfigDialog::ServerConfigDialog(QWidget *parent) : KiranTitlebarWindow(parent),
                                                           ui(new Ui::ServerConfigDialog)
 {
