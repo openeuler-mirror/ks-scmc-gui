@@ -24,6 +24,9 @@ public:
     void getRestartPolicy(container::RestartPolicy *cfg);
     void setRestartPolicy(container::RestartPolicy *cfg);
 
+    void getAppHighAvailPolicy(container::ContainerMiscConfig *cfg);
+    void setAppHighAvailPolicy(container::ContainerMiscConfig *cfg);
+
 private slots:
     void onCbActivated(QString text);
     void setLineEditVisible(bool visible);
