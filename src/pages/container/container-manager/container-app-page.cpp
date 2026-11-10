@@ -164,7 +164,6 @@ void ContainerAppPage::onRun(int row)
         Container::getInstance().runAppEntry(m_objId, m_nodeId, m_containerId, appId);
     }
 }
-
 void ContainerAppPage::onStop(int row)
 {
     auto item = getItem(row, 1);
