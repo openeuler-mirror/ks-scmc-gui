@@ -235,21 +235,17 @@ void ContainerListPage::onApp(int row)
                  << "container id:" << containerId.data()
                  << "node address:" << nodeAddr;
 
-    ContainerAppDialog *appPage = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName);
-    appPage->resize(QSize(1400, 832));
+    if (!m_appDialog)
+    {
+        m_appDialog = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName, this);
+        m_appDialog->resize(QSize(1400, 832));
+    }
 
     int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
     QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-    appPage->move(screenGeometry.x() + (screenGeometry.width() - appPage->width()) / 2,
-                  screenGeometry.y() + (screenGeometry.height() - appPage->height()) / 2);
-
-    appPage->show();
-
-    connect(appPage, &ContainerAppDialog::destroyed,
-            [=]
-            {
-                appPage->deleteLater();
-            });
+    m_appDialog->move(screenGeometry.x() + (screenGeometry.width() - m_appDialog->width()) / 2,
+                      screenGeometry.y() + (screenGeometry.height() - m_appDialog->height()) / 2);
+    m_appDialog->show();
 }
 
 void ContainerListPage::onMonitor(int row)
