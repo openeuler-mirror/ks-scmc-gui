@@ -6,12 +6,36 @@
  */
 #ifndef TEMPLATELISTPAGE_H
 #define TEMPLATELISTPAGE_H
+#include <kiran-titlebar-window.h>
 #include <table-page.h>
+#include <QDialog>
 #include "base/interface/container.h"
 #include "base/interface/image.h"
 #include "base/interface/network.h"
 #include "base/interface/node.h"
 #include "container/container-setting.h"
+
+class TemplateImportDialog : public KiranTitlebarWindow
+{
+    Q_OBJECT
+
+public:
+    explicit TemplateImportDialog(QWidget *parent = nullptr);
+    QString getTemplateName() const;
+    QString getTemplateFile() const;
+    void clear();
+
+private slots:
+    void onSelectFile();
+
+signals:
+    void fileSelected();
+
+private:
+    QLineEdit *m_templateNameEdit;
+    QLineEdit *m_templateFileEdit;
+    QPushButton *m_selectFileBtn;
+};
 
 class ContainerSetting;
 class TemplateListPage : public TablePage
