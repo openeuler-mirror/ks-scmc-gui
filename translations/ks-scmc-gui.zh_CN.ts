@@ -3627,37 +3627,37 @@ Instruction</source>
     <name>NodeOperateDialog</name>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="26"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="132"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="135"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="55"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="133"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="136"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt; Node Name:  </source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt; 节点名：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="81"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="135"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="138"/>
         <source> &lt;font color=red&gt;*&lt;/font&gt;  Node IP: </source>
         <translation> &lt;font color=red&gt;*&lt;/font&gt;  节点IP： </translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="104"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="136"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="139"/>
         <source> Comment:</source>
         <translation>备注：</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="149"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="137"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="140"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
         <location filename="../src/pages/node/node-operate-dialog.ui" line="168"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_node-operate-dialog.h" line="138"/>
+        <location filename="../build/src/ui_node-operate-dialog.h" line="141"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
