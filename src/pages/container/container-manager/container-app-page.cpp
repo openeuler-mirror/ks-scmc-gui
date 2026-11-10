@@ -132,6 +132,8 @@ void ContainerAppPage::onRun(int row)
     // 判断app类型
     if (appInfo.value(CONTAINER_APP_IS_GUI).toBool())
     {
+        auto cmd = LoadConfiguration::Instance().getTerminalConfig(m_nodeAddr, m_containerName, appInfo.value(CONTAINER_APP_PATH).toString());
+        KLOG_DEBUG() << "Container app command:" << cmd;
         // 图形app则弹出终端
         // 判断该应用程序是否已经在运行
         auto process = m_procs.value(appID, nullptr);
