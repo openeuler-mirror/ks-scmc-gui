@@ -51,11 +51,14 @@ private slots:
     void onDelete(int row);
     void onCreateTemplate();
     void onRemoveTemplate();
+    void onImportTemplate();
+    void onExportTemplate();
 
     void getNetworkListResult(const QString objId, const QPair<grpc::Status, network::ListReply> &reply);
     void getNodeListResult(QString objId, const QPair<grpc::Status, node::ListReply> &);
     void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &);
 
+    void getCreateTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &reply);
     void getListTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::ListTemplateReply> &reply);
     void getRemoveTemplateFinishResult(const QString objId, const QPair<grpc::Status, container::RemoveTemplateReply> &reply);
 
