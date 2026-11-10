@@ -122,7 +122,11 @@ void UserUpdateDialog::confirm()
         if (!PasswordChecker::checkNewPassword(ui->lineEdit_new_pw->text(), errMsg) ||
             !PasswordChecker::checkConfirmPassword(ui->lineEdit_new_pw->text(), ui->lineEdit_confirm_new_pw->text(), errMsg))
         {
-            KLOG_DEBUG() << "Invalid password of" << ui->lineEdit_new_name->text();
+            MessageDialog::message(tr("Edit User"),
+                                   tr("Edit user failed!"),
+                                   tr("Please improve information!"),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Ok);
             return;
         }
         m_password = ui->lineEdit_new_pw->text();
