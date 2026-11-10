@@ -1255,6 +1255,7 @@ ImageOperateDialog QToolButton#btn_tip_version,
 ContainerSetting QToolButton#btn_tip_name,
 ContainerBackupOperateDialog QToolButton#btn_tip,
 ContainerBackupOperateDialog QToolButton#btn_tip_version,
+TemplateImportDialog QToolButton,
 UserUpdateDialog QToolButton
 {
     border:none;
