@@ -91,7 +91,13 @@ void PasswdUpdateDialog::onConfirm()
         updatePassword(ui->lineEdit_old_pw->text(), ui->lineEdit_new_pw->text());
     }
     else
-        KLOG_WARNING() << "The password has error";
+    {
+        MessageDialog::message(tr("Update Password"),
+                               tr("Update password failed!"),
+                               tr("Please improve password!"),
+                               ":/images/warning.svg",
+                               MessageDialog::StandardButton::Ok);
+    }
 }
 
 void PasswdUpdateDialog::getUpdatePasswordResult(const QString objId, const QPair<grpc::Status, user::UpdatePasswordReply> reply)
