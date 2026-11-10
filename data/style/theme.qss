@@ -640,7 +640,6 @@ MessageDialog #browser_body
 }
 /***************************NodeListPage**********************/
 NodeListPage #btnCreate,
-TemplateListPage #btnCreate,
 ContainerBackupPage #btnCreate,
 NetworkListPage #btnCreate
 {
