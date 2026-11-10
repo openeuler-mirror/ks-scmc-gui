@@ -1641,7 +1641,7 @@ The first characters must be letter or digit</source>
     <name>GuideItem</name>
     <message>
         <location filename="../src/common/guide-item.ui" line="20"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_guide-item.h" line="78"/>
+        <location filename="../build/src/ui_guide-item.h" line="81"/>
         <source>Form</source>
         <translation></translation>
     </message>
