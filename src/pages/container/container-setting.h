@@ -91,6 +91,7 @@ private:
     void initUI();
     void initSummaryUI();
     void initConnection();
+    void loadSettings();
     GuideItem *createGuideItem(QListWidget *parent, QString text, int type = GUIDE_ITEM_TYPE_NORMAL, QString icon = "");
     void initBaseConfPages();
     void initAdvancedConfPages();
