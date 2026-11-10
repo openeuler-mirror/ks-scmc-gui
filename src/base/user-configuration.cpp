@@ -56,13 +56,13 @@ void UserConfiguration::readConfig(ConfigSettingType type, QString group, QStrin
         break;
     }
     value.clear();
-    //读取配置信息
+    // 读取配置信息
     value = settings->value(group + "/" + key).toString();
     if (isEncryptedPw)
     {
         if (!value.isEmpty())
         {
-            std::string decryptedPw = desDecrypt(value.toStdString());  //解密
+            std::string decryptedPw = desDecrypt(value.toStdString());  // 解密
             value.clear();
             value = QString::fromStdString(decryptedPw);
         }
