@@ -7,11 +7,14 @@
 #ifndef SERVERCONFIGDIALOG_H
 #define SERVERCONFIGDIALOG_H
 
-#include <kiranwidgets-qt5/kiran-titlebar-window.h>
-#include <QLineEdit>
+#include <kiran-titlebar-window.h>
 #include <QObject>
 
-class IpMaskLineEdit;
+namespace Ui
+{
+class ServerConfigDialog;
+}
+
 class ServerConfigDialog : public KiranTitlebarWindow
 {
     Q_OBJECT
