@@ -8,6 +8,9 @@
 #include <kiran-log/qt5-log-i.h>
 #include "ui_high-availability-tab.h"
 
+#define APP_HIGH_AVAILABILITY_ON tr("On")
+#define APP_HIGH_AVAILABILITY_OFF tr("Off")
+
 HighAvailabilityTab::HighAvailabilityTab(QWidget *parent) : QWidget(parent),
                                                             ui(new Ui::HighAvailabilityTab)
 {
