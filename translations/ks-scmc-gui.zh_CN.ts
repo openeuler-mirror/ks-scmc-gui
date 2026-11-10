@@ -4643,43 +4643,97 @@ Instruction</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="402"/>
+        <location filename="../src/pages/table-page.cpp" line="411"/>
         <source>last page</source>
         <translation>上一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="420"/>
+        <location filename="../src/pages/table-page.cpp" line="429"/>
         <source>next page</source>
         <translation>下一页</translation>
     </message>
     <message>
-        <location filename="../src/pages/table-page.cpp" line="330"/>
+        <location filename="../src/pages/table-page.cpp" line="339"/>
         <source>No search results were found!</source>
         <translation>未搜索到结果！</translation>
     </message>
 </context>
 <context>
+    <name>TemplateImportDialog</name>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="26"/>
+        <source>Import Template</source>
+        <translation>导入模板</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="32"/>
+        <source>Template Name:</source>
+        <translation>模板名：</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="34"/>
+        <source>Please enter template name</source>
+        <translation>请输入模板名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="41"/>
+        <source>Only letter, digit or ._- three special characters;
+The first characters must be letter or digit</source>
+        <translation>只允许 字母 数字 和 “. _ -” 三个特殊字符，且第一个字符必须是字母或数字</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="43"/>
+        <source>Template Config File:</source>
+        <translation>模板配置文件：</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="45"/>
+        <source>Please select template config file</source>
+        <translation>请输入模板配置文件</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="70"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="73"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="113"/>
+        <source>Select Template Config File</source>
+        <translation>选择模板配置文件</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="115"/>
+        <source>Config Files (*.conf)</source>
+        <translation>配置文件 (*.conf)</translation>
+    </message>
+</context>
+<context>
     <name>TemplateListPage</name>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="97"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="144"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="206"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="253"/>
         <source>Remove Template</source>
         <translation>移除模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="98"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="145"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="207"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="254"/>
         <source>Are you sure you want to Remove the Template?</source>
         <translation>确定移除该容器模板？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="99"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="146"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="208"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="255"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="289"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="527"/>
         <source>CPU: %1 core 
  Memory: %2 G 
  Network: %3 piece</source>
