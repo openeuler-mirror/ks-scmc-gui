@@ -4545,48 +4545,83 @@ Instruction</source>
 <context>
     <name>ServerConfigDialog</name>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="48"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="65"/>
         <source>Config Server</source>
         <translation>服务器配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="64"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="73"/>
+        <source>Please input domain name</source>
+        <translation>请输入域名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="14"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="204"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="37"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="205"/>
+        <source>IP address</source>
+        <translation>IP地址</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="44"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="206"/>
+        <source>Domain name</source>
+        <translation>域名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="88"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="207"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Ip Address</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;IP 地址</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="75"/>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="143"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="208"/>
+        <source>&lt;font color=red&gt;*&lt;/font&gt;Domain name</source>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;域名</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="188"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="209"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Port</source>
         <translation>&lt;font color=red&gt;*&lt;/font&gt;端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="78"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="77"/>
         <source>Please input port</source>
         <translation>请输入端口</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="87"/>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="269"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="210"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="90"/>
+        <location filename="../src/pages/system/server-config-dialog.ui" line="288"/>
+        <location filename="../build/src/ui_server-config-dialog.h" line="211"/>
         <source>Cancle</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="113"/>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="121"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="102"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="110"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="132"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="114"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="103"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="133"/>
         <source>Please input complete server information!</source>
         <translation>请输入完整的服务器信息！</translation>
     </message>
     <message>
-        <location filename="../src/pages/system/server-config-dialog.cpp" line="122"/>
+        <location filename="../src/pages/system/server-config-dialog.cpp" line="111"/>
         <source>Please input correct IP address!</source>
         <translation>请输入正确的ip地址！</translation>
     </message>
