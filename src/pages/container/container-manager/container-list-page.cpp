@@ -64,6 +64,9 @@ ContainerListPage::ContainerListPage(QWidget *parent)
     m_statusMap.insert(CONTAINRT_STATUS_PAUSED, QPair<QString, QString>(tr("Paused"), "#d30000"));
     m_statusMap.insert(CONTAINRT_STATUS_REMOVING, QPair<QString, QString>(tr("Removing"), "#d30000"));
     m_statusMap.insert(CONTAINRT_STATUS_RESTARTING, QPair<QString, QString>(tr("Restarting"), "#F57900"));
+    m_statusMap.insert(CONTAINER_APP_STATUS_DUTY, QPair<QString, QString>(CONTAINER_APP_STATUS_DUTY, "#00921b"));
+    m_statusMap.insert(CONTAINER_APP_STATUS_STANDBY, QPair<QString, QString>(CONTAINER_APP_STATUS_STANDBY, "#F57900"));
+    m_statusMap.insert(CONTAINER_APP_STATUS_OFFLINE, QPair<QString, QString>(CONTAINER_APP_STATUS_OFFLINE, "#d30000"));
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this]
