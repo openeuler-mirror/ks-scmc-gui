@@ -105,7 +105,11 @@ void UserUpdateDialog::confirm()
         if (!PasswordChecker::checkNewPassword(ui->lineEdit_pw->text(), errMsg) ||
             !PasswordChecker::checkConfirmPassword(ui->lineEdit_pw->text(), ui->lineEdit_confirm_pw->text(), errMsg))
         {
-            KLOG_DEBUG() << "Invalid password of" << ui->lineEdit_name->text();
+            MessageDialog::message(tr("Create User"),
+                                   tr("Create user failed!"),
+                                   tr("Please improve information!"),
+                                   ":/images/warning.svg",
+                                   MessageDialog::StandardButton::Ok);
             return;
         }
 
