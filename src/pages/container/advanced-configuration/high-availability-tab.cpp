@@ -55,6 +55,38 @@ void HighAvailabilityTab::getRestartPolicy(container::RestartPolicy *cfg)
     }
 }
 
+void HighAvailabilityTab::getAppHighAvailPolicy(container::ContainerMiscConfig *cfg)
+{
+    if (!cfg)
+        return;
+
+    KLOG_DEBUG() << "Set app high avail policy to backend: " << ui->cb_app_avail_policy->currentText();
+    if (ui->cb_app_avail_policy->currentText() == APP_HIGH_AVAILABILITY_ON)
+    {
+        cfg->set_app_run(true);
+    }
+    else
+    {
+        cfg->set_app_run(false);
+    }
+}
+
+void HighAvailabilityTab::setAppHighAvailPolicy(container::ContainerMiscConfig *cfg)
+{
+    if (!cfg)
+        return;
+
+    KLOG_DEBUG() << "Get app high avail policy from backend: " << cfg->app_run();
+    if (cfg->app_run())
+    {
+        ui->cb_app_avail_policy->setCurrentText(APP_HIGH_AVAILABILITY_ON);
+    }
+    else
+    {
+        ui->cb_app_avail_policy->setCurrentText(APP_HIGH_AVAILABILITY_OFF);
+    }
+}
+
 void HighAvailabilityTab::onCbActivated(QString text)
 {
     if (ui->cb_high_avail_policy->currentData() == "on-failure")
