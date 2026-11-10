@@ -4922,19 +4922,19 @@ Instruction</source>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-list-page.ui" line="14"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_user-list-page.h" line="114"/>
+        <location filename="../build/src/ui_user-list-page.h" line="116"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-list-page.ui" line="58"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_user-list-page.h" line="115"/>
+        <location filename="../build/src/ui_user-list-page.h" line="117"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
         <location filename="../src/pages/system/user-manager/user-list-page.ui" line="77"/>
-        <location filename="../build/src/ks-scmc-gui_autogen/include/ui_user-list-page.h" line="116"/>
+        <location filename="../build/src/ui_user-list-page.h" line="118"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
