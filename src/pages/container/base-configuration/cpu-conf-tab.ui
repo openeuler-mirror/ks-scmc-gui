@@ -45,13 +45,13 @@
       <widget class="QComboBox" name="cb_sche_pri">
        <property name="minimumSize">
         <size>
-         <width>200</width>
+         <width>300</width>
          <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>300</width>
          <height>30</height>
         </size>
        </property>
