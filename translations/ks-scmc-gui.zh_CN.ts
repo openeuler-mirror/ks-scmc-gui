@@ -2592,17 +2592,17 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/login-dialog.cpp" line="150"/>
-        <location filename="../src/login-dialog.cpp" line="255"/>
+        <location filename="../src/login-dialog.cpp" line="252"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="390"/>
+        <location filename="../src/login-dialog.cpp" line="387"/>
         <source>Session Expired,Please login again!</source>
         <translation>会话过期，请重新登录！</translation>
     </message>
     <message>
-        <location filename="../src/login-dialog.cpp" line="221"/>
+        <location filename="../src/login-dialog.cpp" line="218"/>
         <source>Please input user name!</source>
         <translation>请输入用户名！</translation>
     </message>
