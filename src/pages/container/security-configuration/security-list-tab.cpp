@@ -118,28 +118,41 @@ void SecurityListTab::setSecurityListInfo(container::SecurityConfig *securityCfg
 
 bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg, QString &errMsg)
 {
-    bool ret = true;
     switch (m_type)
     {
     case PROTECT_FILE_LIST:
     {
+        auto emptyRowCount = 0;
         auto fileProtect = securityCfg->mutable_file_protection();
         fileProtect->set_is_on(m_isEnable);
         for (int i = 0; i < m_listWidget->count(); ++i)
         {
             auto listItem = m_listWidget->item(i);
             auto item = qobject_cast<SecurityListItem *>(m_listWidget->itemWidget(listItem));
+
+            QString filePath = item->getInfo();
+            KLOG_DEBUG() << "File path:" << filePath;
+
+            if (filePath.isEmpty())
+            {
+                emptyRowCount++;
+                continue;
+            }
+
             if (!item->getPathCorrect())
             {
                 errMsg = tr("Please improve your path in file protection!");
-                ret = false;
-                break;
+                return false;
             }
 
-            QString filePath = item->getInfo();
-            KLOG_DEBUG() << "FilePath:" << filePath;
-            if (!filePath.isEmpty())
-                fileProtect->add_file_list(filePath.toStdString());
+            fileProtect->add_file_list(filePath.toStdString());
+        }
+
+        // 文件保护做特殊处理：若打开文件保护，列表中的数据不能为空，当列表数据都为空时，报错
+        if (m_isEnable && emptyRowCount == m_listWidget->count())
+        {
+            errMsg = tr("Please input file list in file protection!");
+            return false;
         }
         break;
     }
