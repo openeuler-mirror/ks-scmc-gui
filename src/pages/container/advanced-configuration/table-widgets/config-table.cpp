@@ -153,7 +153,20 @@ void ConfigTable::addRowSlot(int row)
 
 void ConfigTable::removeRowSlot(int row)
 {
-    m_pModel->deleteModelByRow(row);
+    // 检查是否是最后一个元素
+    if (m_pModel->rowCount(QModelIndex()) == 1)
+    {
+        // 如果是最后一个元素，清空数据而不是删除行
+        auto pItem = m_pModel->getModelByRow(row);
+        pItem->m_firstColVal.clear();
+        pItem->m_secondColVal.clear();
+        pItem->m_thirdColVal = 1;  // 默认为只读
+    }
+    else
+    {
+        // 正常删除行
+        m_pModel->deleteModelByRow(row);
+    }
     paintEditor(row);
     QList<QLineEdit*> lineEdits = ui->tableView->findChildren<QLineEdit*>();
     foreach (QLineEdit* pLineEdit, lineEdits)
