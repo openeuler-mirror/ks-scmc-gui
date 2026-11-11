@@ -642,7 +642,7 @@ void TablePage::onItemChecked(QStandardItem *changeItem)
     if (num > 0)
     {
         setOpBtnEnabled(OPERATOR_BUTTON_TYPE_BATCH, true);
-        emit sigHasRunningCtn(hasRunningCtn);
+        emit sigDisableDelBtn(hasRunningCtn);
 
         if (num == m_model->rowCount())
             m_headerView->setCheckState(true);
