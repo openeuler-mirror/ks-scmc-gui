@@ -37,4 +37,5 @@ private:
 private:
     QListWidget *m_listWidget;
     QString m_itemTitle;
+    QString m_tooltip;
 };
