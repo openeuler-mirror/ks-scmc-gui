@@ -4453,9 +4453,8 @@ of applications, isolated operation of applications, centralized monitoring of a
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/common/security-widgets/security-list-item.cpp" line="20"/>
         <source>the path format is wrong</source>
-        <translation>路径格式错误</translation>
+        <translation type="vanished">路径格式错误</translation>
     </message>
 </context>
 <context>
