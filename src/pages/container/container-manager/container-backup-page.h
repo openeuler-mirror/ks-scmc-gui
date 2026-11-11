@@ -49,6 +49,7 @@ private:
     void initConnect();
     void getCheckedItemsId(QList<qint64> &ids);
     void refresh(const QString keyword = "", bool clear = false);
+    void getBackupList();
 
 private:
     QString m_objId;
