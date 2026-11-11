@@ -431,6 +431,12 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
 
         row++;
     }
+
+    // 在刷新之后，若搜索关键字不为空，则进行搜索
+    if (!getSearchKey().isEmpty())
+    {
+        search();
+    }
 }
 
 void ContainerListPage::getContainerStartResult(const QString objId, const QPair<grpc::Status, container::StartReply> &reply)
