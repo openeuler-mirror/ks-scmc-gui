@@ -375,7 +375,7 @@
 <context>
     <name>ContainerAppDialog</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="602"/>
+        <location filename="../src/pages/container/container-manager/container-app-page.cpp" line="609"/>
         <source>Container app</source>
         <translation>容器应用</translation>
     </message>
