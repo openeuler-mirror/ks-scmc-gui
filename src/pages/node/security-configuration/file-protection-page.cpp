@@ -59,6 +59,12 @@ void FileProtectionPage::save()
         return;
     }
 
+    if (m_protectEnabled && fileList.isEmpty())
+    {
+        NotificationManager::sendNotify(tr("Failed to save the file protect configuration"), tr("Please input file list when the file protection is enabled."));
+        return;
+    }
+
     for (auto file : fileList)
     {
         fileProtect->add_file_list(file.toStdString());
