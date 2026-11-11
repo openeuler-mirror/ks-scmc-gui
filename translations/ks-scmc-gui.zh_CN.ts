@@ -969,27 +969,27 @@ The first characters must be letter or digit</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="157"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="159"/>
         <source>Delete Container</source>
         <translation>删除容器</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="158"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="160"/>
         <source>Are you sure you want to delete the container?</source>
         <translation>确定删除该容器？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="159"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="161"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="581"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="589"/>
         <source>Subnet</source>
         <translation>网段</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="317"/>
+        <location filename="../src/pages/container/container-manager/container-list-page.cpp" line="319"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
