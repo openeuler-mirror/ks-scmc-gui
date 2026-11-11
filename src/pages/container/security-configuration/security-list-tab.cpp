@@ -194,6 +194,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
     }
     case NET_EXEC_WHITELIST:
     {
+        auto emptyRowCount = 0;
         auto processProtect = securityCfg->mutable_nproc_protection();
         processProtect->set_protection_type(security::NET_WHITELIST);
         processProtect->set_is_on(m_isEnable);
