@@ -116,8 +116,10 @@ signals:
     void sigPagingSearch(QString);
     void sigRefreshSearchResult();  // 刷新搜索结果
 
-private slots:
+public slots:
     void search();
+
+private slots:
     void refresh();
     void onItemChecked(QStandardItem *changeItem);
     void onItemEntered(const QModelIndex &index);
