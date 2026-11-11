@@ -184,6 +184,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
             processProtect->add_exe_list(filePath.toStdString());
         }
 
+        // 进程白名单做特殊处理：若打开进程白名单，列表中的数据不能为空，当列表数据都为空时，报错
         if (m_isEnable && emptyRowCount == m_listWidget->count())
         {
             errMsg = tr("Please input process in process protection!");
