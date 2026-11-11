@@ -8,9 +8,11 @@
 #include "security-list.h"
 #include <kiran-log/qt5-log-i.h>
 #include "security-list-item.h"
-SecurityList::SecurityList(QString itemTitle, QWidget *parent) : QWidget(parent),
-                                                                 m_listWidget(nullptr),
-                                                                 m_itemTitle(itemTitle)
+SecurityList::SecurityList(QString itemTitle, QString tooltip, QWidget *parent) : QWidget(parent),
+                                                                                  m_listWidget(nullptr),
+                                                                                  m_itemTitle(itemTitle),
+                                                                                  m_tooltip(tooltip)
+
 {
     initUI();
     createItem(0);
