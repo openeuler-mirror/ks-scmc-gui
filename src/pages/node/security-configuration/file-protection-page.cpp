@@ -156,7 +156,7 @@ void FileProtectionPage::initUI()
     statusLayout->addStretch();
 
     // 文件保护列表
-    m_fileList = new SecurityList(tr("Key file"), this);
+    m_fileList = new SecurityList(tr("Key file"), tr("The file path error."), this);
 
     // 保存按钮
     auto btnLayout = new QHBoxLayout();
