@@ -233,7 +233,7 @@ bool SecurityListTab::getSecurityListInfo(container::SecurityConfig *securityCfg
     default:
         break;
     }
-    return ret;
+    return true;
 }
 
 SecurityListItem *SecurityListTab::createItem(int index)
