@@ -515,7 +515,12 @@ void ContainerBackupPage::refresh(const QString keyword, bool clear)
     {
         if (m_nodeId >= 0 && !QString::fromStdString(m_containerId).isEmpty())
         {
-            Container::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
+            getBackupList();
         }
     }
+}
+
+void ContainerBackupPage::getBackupList()
+{
+    Container::getInstance().listBackup(m_objId, m_nodeId, m_containerId);
 }
