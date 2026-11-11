@@ -904,7 +904,7 @@ void ContainerListPage::initButtons()
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_RESTART], SIGNAL(clicked()), this, SLOT(onBtnRestart()));
     connect(m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE], &QPushButton::clicked, this, &ContainerListPage::onBtnDelete);
 
-    connect(this, &ContainerListPage::sigHasRunningCtn,
+    connect(this, &ContainerListPage::sigDisableDelBtn,
             [this](bool hasRunningCtn)
             {
                 m_batchOpBtnMap[OPERATION_BUTTOM_CONTAINER_LIST_DELETE]->setDisabled(hasRunningCtn);
