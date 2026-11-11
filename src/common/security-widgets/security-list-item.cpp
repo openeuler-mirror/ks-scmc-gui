@@ -74,6 +74,11 @@ bool SecurityListItem::getPathCorrect()
     return m_isPathCorrect;
 }
 
+void SecurityListItem::setTooltip(const QString &text)
+{
+    ui->lab_error_tips->setText(text);
+}
+
 void SecurityListItem::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::EnabledChange)
