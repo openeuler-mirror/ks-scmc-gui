@@ -268,6 +268,21 @@ void ConfigDelegate::sendDeleteSlot(ConfigOperateWidget *pCurWidget)
             return;
         }
     }
+
+    // 最后一行，清空数据
+    if (m_listPage.size() == 1 || m_pEditFirst.size() == 1 || m_pComboBoxMode.size() == 1)
+    {
+        m_pEditFirst[row]->clear();
+        m_pEditSecond[row]->clear();
+        if (m_pComboBoxMode.size() > row)
+            m_pComboBoxMode[row]->setCurrentIndex(1);  // 默认只读
+
+        // 发送信号让 ConfigTable 处理模型更新
+        emit sendDeleteSig(row);
+
+        return;
+    }
+
     dealMemberVar();
     m_listPage.removeAt(row);
     emit sendDeleteSig(row);
