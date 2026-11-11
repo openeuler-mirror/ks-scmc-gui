@@ -328,6 +328,12 @@ void NetworkConfigPage::saveNetworkProcessWhiteList()
         return;
     }
 
+    if (m_whiteListEnabled && procList.isEmpty())
+    {
+        NotificationManager::sendNotify(tr("Failed to save the network process configuration"), tr("Please input the netword process white list when the network process white list is enabled."));
+        return;
+    }
+
     for (auto proc : procList)
     {
         nprocProtection->add_exe_list(proc.toStdString());
