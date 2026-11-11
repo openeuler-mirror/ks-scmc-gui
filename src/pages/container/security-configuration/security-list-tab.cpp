@@ -212,19 +212,29 @@ SecurityListItem *SecurityListTab::createItem(int index)
 {
     QListWidgetItem *newItem = nullptr;
     SecurityListItem *customItem = nullptr;
-    QString itemText;
+    QString itemText, itemTooltip;
 
     newItem = new QListWidgetItem();
 
     int itemIndex = index + 1;
     if (m_type == PROTECT_FILE_LIST)
+    {
         itemText = tr("Key file %1").arg(itemIndex);
+        itemTooltip = tr("The file path error.");
+    }
     else if (m_type == EXEC_WHITELIST)
+    {
         itemText = tr("Process %1").arg(itemIndex);
+        itemTooltip = tr("The process path error.");
+    }
     else if (m_type == NET_EXEC_WHITELIST)
+    {
         itemText = tr("Network process %1").arg(itemIndex);
+        itemTooltip = tr("The process path error.");
+    }
 
     customItem = new SecurityListItem(itemText, m_listWidget);
+    customItem->setTooltip(itemTooltip);
     if (itemIndex == 1)
         customItem->setDeleteBtnVisible(false);
 
