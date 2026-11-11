@@ -147,6 +147,9 @@ private:
     QHBoxLayout *m_pagingHlayout;
     QLabel *m_totalPageLabel;
     int m_searchCol;
+
+    // 批量更新表格的选中状态
+    bool m_isBatchUpdating = false;
 };
 
 #endif  // TABLEPAGE_H
