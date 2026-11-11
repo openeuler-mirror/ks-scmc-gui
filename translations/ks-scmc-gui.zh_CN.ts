@@ -4847,131 +4847,131 @@ The first characters must be letter or digit</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="545"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="543"/>
         <source>Env: %1 
 RestartPolicy: %2</source>
         <translation>环境变量: %1 条
 高可用: %2</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="573"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="571"/>
         <source>None</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="595"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="593"/>
         <source>Remove template</source>
         <translation>移除模板</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="596"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="594"/>
         <source>Remove template failed!</source>
         <translation>移除模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="597"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="595"/>
         <source>Error: </source>
         <translation>错误：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="607"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="605"/>
         <source>Template Name</source>
         <translation>模板名称</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="608"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="606"/>
         <source>description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="609"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="607"/>
         <source>Basic configuration</source>
         <translation>基本配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="610"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="608"/>
         <source>Advanced configuration</source>
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="611"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="609"/>
         <source>Security Level</source>
         <translation>安全等级</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="612"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="610"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="615"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="613"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="616"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="614"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="627"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="625"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="634"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="632"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="641"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="638"/>
         <source>Import</source>
         <translation>导入</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="648"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="645"/>
         <source>Export</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="860"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="870"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="856"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="866"/>
         <source>Invalid config file format!</source>
         <translation>配置文件非法！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="861"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="857"/>
         <source>JSON parse error</source>
         <translation>Json数据解析错误</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="871"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="867"/>
         <source>Root element is not a JSON object.</source>
         <translation>根元素不是json对象。</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1074"/>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1083"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1070"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1079"/>
         <source>Successfully exported %1 template(s)!</source>
         <translation>成功导出%1个模板！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1075"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1071"/>
         <source>Templates exported to: %1</source>
         <translation>模板导出至%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1084"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1080"/>
         <source>Failed to export: %1</source>
         <translation>导出模板%1失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1092"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1088"/>
         <source>Failed to export templates!</source>
         <translation>导出模板失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1093"/>
+        <location filename="../src/pages/container/template-manager/template-list-page.cpp" line="1089"/>
         <source>Please check the selected directory permissions.</source>
         <translation>请检查选择的目录权限。</translation>
     </message>
