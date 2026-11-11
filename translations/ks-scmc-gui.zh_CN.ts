@@ -1567,62 +1567,68 @@ The first characters must be letter or digit</source>
     </message>
     <message>
         <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="58"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="64"/>
         <source>Failed to save the file protect configuration</source>
         <translation>保存文件保护配置失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="85"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="64"/>
+        <source>Please input file list when the file protection is enabled.</source>
+        <translation>当文件保护开启时，请输入文件列表。</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="91"/>
         <source>Node file protection</source>
         <translation>节点文件保护</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="86"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="92"/>
         <source>Failed to update node file protect list</source>
         <translation>更新节点文件保护失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="95"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="101"/>
         <source>Successful to update node protected files!</source>
         <translation>更新节点文件保护成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="105"/>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="112"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="111"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="118"/>
         <source>Failed to get node protected files!</source>
         <translation>获取节点文件保护信息失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="112"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="118"/>
         <source>There is no node protected files.</source>
         <translation>不存在节点文件保护。</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="147"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="153"/>
         <source>Open Status</source>
         <translation>开启状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="148"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="154"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="149"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="155"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="159"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="165"/>
         <source>Key file</source>
         <translation>关键文件</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="160"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="165"/>
         <source>The file path error.</source>
         <translation>文件路径有误</translation>
     </message>
     <message>
-        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="164"/>
+        <location filename="../src/pages/node/security-configuration/file-protection-page.cpp" line="169"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
