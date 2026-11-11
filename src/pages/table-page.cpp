@@ -600,6 +600,10 @@ void TablePage::refresh()
 
 void TablePage::onItemChecked(QStandardItem *changeItem)
 {
+    // 如果是批量更新过程中的变化，跳过处理
+    if (m_isBatchUpdating)
+        return;
+
     if (!changeItem)
         return;
 
