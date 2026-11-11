@@ -112,7 +112,7 @@ signals:
     void sigItemClicked(const QModelIndex &index);
     void sigItemEntered(const QModelIndex &index);  // 鼠标进入item
     void sigUpdatePaging(int);                      // 更新页面
-    void sigHasRunningCtn(bool);
+    void sigDisableDelBtn(bool);
     void sigPagingSearch(QString);
     void sigRefreshSearchResult();  // 刷新搜索结果
 
