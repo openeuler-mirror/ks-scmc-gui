@@ -71,7 +71,9 @@ ContainerListPage::ContainerListPage(QWidget *parent)
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, [this]
-            { refresh(); });
+            { 
+                //仅重新获取容器信息，保留搜索状态
+                getContainerList(); });
 
     connect(this, &ContainerListPage::sigTerminal, this, &ContainerListPage::onTerminal);
 }
