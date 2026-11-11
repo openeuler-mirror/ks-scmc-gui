@@ -738,202 +738,202 @@ The first characters must be letter or digit</source>
 <context>
     <name>ContainerBackupPage</name>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="90"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="95"/>
         <source>Backup Addition</source>
         <translation>添加备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="112"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="137"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="117"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="142"/>
         <source>Delete Container Backup</source>
         <translation>删除容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="113"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="138"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="118"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="143"/>
         <source>Are you sure you want to delete the container backup?</source>
         <translation>确认删除该容器备份 ？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="114"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="139"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="119"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="144"/>
         <source>It can&apos;t be recovered after deletion.Are you sure you want to continue?</source>
         <translation>该操作不可恢复，确定要继续操作？</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="155"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="160"/>
         <source>Resume Backup</source>
         <translation>恢复备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="156"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="161"/>
         <source>Backup recovery confirmation</source>
         <translation>备份恢复确认</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="157"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="162"/>
         <source>%1 backup is selected for recovery</source>
         <translation>将恢复%1 备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="179"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="184"/>
         <source>Backup Update</source>
         <translation>更新备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="207"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="212"/>
         <source>Backup Export</source>
         <translation>导出备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="291"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="296"/>
         <source>On going</source>
         <translation>正在备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="295"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="300"/>
         <source>Successful</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="299"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="304"/>
         <source>Failed</source>
         <translation>失败</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="249"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="254"/>
         <source>Response timeout!</source>
         <translation>响应超时！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="332"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="343"/>
         <source>Update Container Backup</source>
         <translation>更新容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="333"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="344"/>
         <source>Update container backup failed!</source>
         <translation>更新容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="334"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="353"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="373"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="390"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="413"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="419"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="345"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="364"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="384"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="401"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="424"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="430"/>
         <source>Error: %1</source>
         <translation>错误：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="351"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="362"/>
         <source>Create Container Backup</source>
         <translation>创建容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="352"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="363"/>
         <source>Create container backup failed!</source>
         <translation>创建容器失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="368"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="379"/>
         <source>Resume container backup seccessful!</source>
         <translation>恢复容器备份成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="372"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="383"/>
         <source>Resume container backup failed!</source>
         <translation>恢复容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="388"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="399"/>
         <source>Remove Container Backup</source>
         <translation>移除容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="389"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="400"/>
         <source>Remove container backup failed!</source>
         <translation>移除容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="428"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="439"/>
         <source>Backup status</source>
         <translation>备份状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="429"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="440"/>
         <source>Backup start time</source>
         <translation>备份开始时间</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="427"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="438"/>
         <source>Backup version</source>
         <translation>备份版本</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="404"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="415"/>
         <source>Export container backup seccessful!</source>
         <translation>导出容器备份成功！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="405"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="416"/>
         <source>You can see it in image manager.</source>
         <translation>您可以前往镜像仓库查看。</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="405"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="416"/>
         <source>Save path:%1</source>
         <translation>保存路径：%1</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="411"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="422"/>
         <source>Export Container Backup</source>
         <translation>导出容器备份</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="412"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="418"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="423"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="429"/>
         <source>Export container backup failed!</source>
         <translation>导出容器备份失败！</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="430"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="441"/>
         <source>Backup size</source>
         <translation>备份大小</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="431"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="442"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="432"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="443"/>
         <source>Quick Actions</source>
         <translation>快捷操作</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="435"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="446"/>
         <source>Resume</source>
         <translation>恢复</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="436"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="447"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="437"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="448"/>
         <source>Export</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="438"/>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="458"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="449"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="469"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="452"/>
+        <location filename="../src/pages/container/container-manager/container-backup-page.cpp" line="463"/>
         <source>Create</source>
         <translation>创建</translation>
     </message>
