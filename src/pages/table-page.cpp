@@ -329,10 +329,10 @@ void TablePage::updatePaging(int page_no)
     m_pageEdit->setText(QString::number(page_no));
 }
 
-// QString TablePage::getSearchKey()
-//{
-//     return ui->lineEdit_search->text();
-// }
+QString TablePage::getSearchKey()
+{
+    return ui->lineEdit_search->text();
+}
 
 void TablePage::setSeachPageNone()
 {
