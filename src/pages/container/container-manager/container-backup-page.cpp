@@ -321,6 +321,11 @@ void ContainerBackupPage::getListBackupFinished(const QString objId, const QPair
         row++;
     }
     setSortableCol(BACKUP_TIME_COL, Qt::DescendingOrder);
+    // 在刷新之后，若搜索关键字不为空，则进行搜索
+    if (!getSearchKey().isEmpty())
+    {
+        search();
+    }
 }
 
 void ContainerBackupPage::getUpdateBackupFinished(const QString objId, const QPair<grpc::Status, container::UpdateBackupReply> &reply)
