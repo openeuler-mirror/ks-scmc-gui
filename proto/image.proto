@@ -111,7 +111,7 @@ message ImageDBInfo {
     int64  update_at       = 22;
     string reject_reason   = 23;
     string node_name       = 24;
-    int32 load_status      = 25;
+    int32  load_status     = 25;
 }
 
 message UploadInfo {
