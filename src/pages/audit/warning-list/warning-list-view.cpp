@@ -148,6 +148,7 @@ void WarningListView::getWarningList(WarningListPageType type, int page_on)
 
 void WarningListView::readWarn(QList<int64_t> ids)
 {
+    m_pendingReadIds = ids;
     Logging::getInstance().readWarnLogging(m_ObjId, ids);
 }
 
