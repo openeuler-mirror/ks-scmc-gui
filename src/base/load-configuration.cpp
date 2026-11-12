@@ -11,7 +11,7 @@
 #include <QSettings>
 
 #define VERSION_NAME "version"
-#define VERSION_NUMBER "1.1.1"
+#define VERSION_NUMBER "1.1.2"
 #define SSL_GROUP_NAME "ssl"
 #define SSL_ENABLE "enable"
 #define SSL_CA "ca"
