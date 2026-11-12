@@ -198,8 +198,8 @@ void ContainerAppPage::onRun(int row)
             else
             {
                 // 启动成功但未获取到 PID（理论上不应该发生）
-                m_detachedPids[appID] = 0;  // 0 表示已启动但 PID 未知
-                saveDetachedPidToConfig(appID, 0); 
+                m_detachedPids[appID] = 0;
+                saveDetachedPidToConfig(appID, 0);
                 KLOG_INFO() << "Started detached process but PID is 0, command: " << cmd;
             }
             guiAppStatus(row, QProcess::ProcessState::Running);
