@@ -90,15 +90,36 @@ MainWindow::~MainWindow()
 
 void MainWindow::onItemClicked(QListWidgetItem* currItem)
 {
+    if (!currItem)
+    {
+        KLOG_WARNING() << "currItem is null";
+        return;
+    }
+
     // 侧边栏展开与收缩
-    GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    //GuideItem* guideItem = qobject_cast<GuideItem*>(ui->listWidget->itemWidget(currItem));
+    QWidget* itemWidget = ui->listWidget->itemWidget(currItem);
+    if (!itemWidget)
+    {
+        KLOG_WARNING() << "itemWidget is null";
+        return;
+    }
+    
+    GuideItem* guideItem = qobject_cast<GuideItem*>(itemWidget);
+    // 检查 guideItem 是否为空，防止访问已删除的对象
+    if (!guideItem)
+    {
+        KLOG_WARNING() << "guideItem is null";
+        return;
+    }
+
     // 点击的不是组项
     if (!m_groupMap.contains(currItem))
     {
         guideItem->setSelected(true);
         foreach (GuideItem* item, m_pageItems)
         {
-            if (item != guideItem)
+            if (item && item != guideItem)
             {
                 item->setSelected(false);
             }
