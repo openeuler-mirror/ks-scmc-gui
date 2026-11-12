@@ -15,6 +15,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QToolTip>
 #include "common/message-dialog.h"
 
 #include "message-dialog.h"
