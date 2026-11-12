@@ -890,8 +890,8 @@ void TemplateListPage::parseJsonToTemplate(const QByteArray &jsonData, const QSt
     configs->set_hostname(confObj["hostname"].toString().toStdString());
 
     // 填充资源限制
-    QJsonObject resourceLimitObj = confObj["resouce_limit"].toObject();
-    auto resourceLimit = configs->mutable_resouce_limit();
+    QJsonObject resourceLimitObj = confObj["resource_limit"].toObject();
+    auto resourceLimit = configs->mutable_resource_limit();
     resourceLimit->set_cpu_limit(resourceLimitObj["cpu_limit"].toDouble());
     resourceLimit->set_cpu_prio(resourceLimitObj["cpu_prio"].toInt());
     resourceLimit->set_memory_limit(resourceLimitObj["memory_limit"].toDouble());
