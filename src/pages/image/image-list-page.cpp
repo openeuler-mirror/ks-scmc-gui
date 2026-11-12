@@ -50,10 +50,24 @@ ImageListPage::ImageListPage(QWidget *parent, bool flag) : TablePage(parent),
     initTable();
     initImageConnect();
     System::getInstance().getSecuritySwitch(m_objId);
+
+    // 初始化定时器
+    if (!is_init_audit_btn)
+    {
+        m_timer = new QTimer(this);
+        connect(m_timer, &QTimer::timeout, this, [this]() {
+            getImageList(false);
+        });
+    }
 }
 
 ImageListPage::~ImageListPage()
 {
+    if (m_timer)
+    {
+        m_timer->stop();
+        m_timer = nullptr;
+    }
     if (m_pImageOp)
     {
         delete m_pImageOp;
