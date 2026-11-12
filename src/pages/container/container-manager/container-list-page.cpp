@@ -237,20 +237,39 @@ void ContainerListPage::onApp(int row)
                  << "container id:" << containerId.data()
                  << "node address:" << nodeAddr;
 
-    static QMap<std::string, ContainerAppDialog *> appDialogs;
+    static QMap<std::string, QPointer<ContainerAppDialog>> appDialogs;
 
-    auto appDialog = appDialogs[containerId];
+    QPointer<ContainerAppDialog> appDialog = appDialogs[containerId];
     if (!appDialog)
     {
-        appDialog = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName, this);
-        appDialog->resize(QSize(1400, 832));
+        ContainerAppDialog *dialog = new ContainerAppDialog(nodeId, nodeAddr, containerId, containerName, this);
+        dialog->resize(QSize(1400, 832));
+        appDialog = dialog;
         appDialogs[containerId] = appDialog;
+
+        connect(dialog, &QWidget::destroyed, [containerId]() {
+            appDialogs.remove(containerId);
+        });
     }
 
-    int screenNum = QApplication::desktop()->screenNumber(QCursor::pos());
-    QRect screenGeometry = QApplication::desktop()->screenGeometry(screenNum);
-    appDialog->move(screenGeometry.x() + (screenGeometry.width() - appDialog->width()) / 2,
-                    screenGeometry.y() + (screenGeometry.height() - appDialog->height()) / 2);
+    if (!appDialog) {
+        KLOG_WARNING() << "ContainerAppDialog was destroyed before use";
+        return;
+    }
+
+    QDesktopWidget *desktop = QApplication::desktop();
+    if (!desktop) {
+        KLOG_WARNING() << "QApplication::desktop() returned nullptr";
+        appDialog->show();
+        return;
+    }
+
+    int screenNum = desktop->screenNumber(QCursor::pos());
+    QRect screenGeometry = desktop->screenGeometry(screenNum);
+    if (screenGeometry.isValid()) {
+        appDialog->move(screenGeometry.x() + (screenGeometry.width() - appDialog->width()) / 2,
+                        screenGeometry.y() + (screenGeometry.height() - appDialog->height()) / 2);
+    }
     appDialog->show();
 }
 
