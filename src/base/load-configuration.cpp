@@ -9,6 +9,8 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QSettings>
+#include <QString>
+#include <QMap>
 
 #define VERSION_NAME "version"
 #define VERSION_NUMBER "1.1.2"
