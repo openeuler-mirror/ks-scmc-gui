@@ -57,7 +57,6 @@ private slots:
     void onLogoutAction(bool checked);
     void onChangePwAction(bool checked);
     void onAboutAction(bool checked);
-    void onHelpAction(bool checked);
     void onUpdatePwSuccessful();
     void onApprovalPage(bool check);
     void onWarningPage(bool check);
