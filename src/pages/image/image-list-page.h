@@ -86,6 +86,9 @@ private:
     bool is_open_checkbox = true;
     bool m_securityOpen;
     QMap<QString, QPair<QString, QString>> m_uploadingImages;
+    QTimer *m_timer;
+    bool m_listRequestInFlight = false;
+    bool m_preserveCheckStateOnNextResult = false;
 };
 
 #endif  // IMAGELISTPAGE_H
