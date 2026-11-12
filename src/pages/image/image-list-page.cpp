@@ -634,6 +634,8 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
                                MessageDialog::StandardButton::Ok);
         return;
     }
+
+
     //    QString checkRet = checkImageLegality(imageFile);
     //    if (!checkRet.isEmpty())
     //    {
