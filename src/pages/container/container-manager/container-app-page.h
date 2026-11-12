@@ -73,6 +73,7 @@ private:
     ContainerAppOperateDialog *m_appOp;
     QTimer *m_timer;
     QMap<qint64, QProcess *> m_procs;
+    QMap<qint64, qint64> m_detachedPids;
 };
 
 #endif  // CONTAINERAPPDIALOG_H
