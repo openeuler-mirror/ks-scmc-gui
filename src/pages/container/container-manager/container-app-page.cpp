@@ -182,9 +182,7 @@ void ContainerAppPage::onRun(int row)
             return;
         }
 
-        // 使用 startDetached 启动进程，使进程与 GUI 分离
-        // 这样 GUI 关闭后，图形应用依然可以继续运行
-        // 使用静态方法 QProcess::startDetached() 来获取进程 PID
+        // Detached 方式启动进程
         qint64 pid = 0;
         bool success = QProcess::startDetached("/bin/sh", QStringList() << "-c" << cmd, QString(), &pid);
         
