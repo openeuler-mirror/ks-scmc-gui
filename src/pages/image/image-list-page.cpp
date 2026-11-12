@@ -688,13 +688,14 @@ void ImageListPage::updateSaveSlot(QMap<QString, QString> Info)
     const QString imageFile = Info["Image File"];
     const QString signFile = Info["Sign File"];
     const QString desc = Info["Image Description"];
-    QString strSha256;
+    QString strSha256 = "";
     qint64 fileSize = 0;
     bool check = false;
 
     if (!imageFile.isEmpty())
     {
-        if (0 > getImageFileInfo(imageFile, strSha256, fileSize))
+        fileSize = getImageFileSize(imageFile);
+        if (fileSize == 0)
         {
             MessageDialog::message(tr("Update Image"),
                                    tr("Can't open \"%1\" file").arg(imageFile),
