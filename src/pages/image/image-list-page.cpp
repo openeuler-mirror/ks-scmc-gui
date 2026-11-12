@@ -998,10 +998,19 @@ void ImageListPage::getUploadResult(const QString objId, const QPair<grpc::Statu
     {
         KLOG_WARNING() << "Upload images success, return id:" << reply.second.image_id();
         NotificationManager::sendNotify(tr("Upload image success!"), "");
+        m_uploadingImages.remove(objId);
         getImageList();
     }
     else
     {
+        if (m_uploadingImages.contains(objId))
+        {
+            QPair<QString, QString> imageInfo = m_uploadingImages[objId];
+            QString name = imageInfo.first;
+            QString version = imageInfo.second;
+            emit Common::getInstance().transferImageStatus(IMAGE_TRANSMISSION_STATUS_UPLOADING_FAILED, name, version, 99);
+            m_uploadingImages.remove(objId);
+        }
         MessageDialog::message(tr("Upload Image"),
                                tr("Upload image failed!"),
                                reply.first.error_message().data(),
