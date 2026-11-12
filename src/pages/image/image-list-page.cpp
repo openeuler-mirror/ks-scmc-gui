@@ -921,6 +921,16 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         else
             itemCheck->setCheckable(false);
 
+        if (!is_init_audit_btn)
+        {
+            QString rowKey = QString::fromStdString(image.name()) + "|" + QString::fromStdString(image.version())
+                         + "|" + QString::fromStdString(image.node_name());
+            if (checkedRowKeys.contains(rowKey))
+            {
+                itemCheck->setCheckState(Qt::Checked);
+            }
+        }
+
         QStandardItem *itemName = new QStandardItem(image.name().data());
         infoMap.insert(IMAGE_NAME, image.name().data());
 
