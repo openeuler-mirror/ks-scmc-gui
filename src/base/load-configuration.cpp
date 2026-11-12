@@ -96,6 +96,7 @@ void LoadConfiguration::setValue()
     m_settings->setValue(TERMINAL_CMD, m_cmd);
     m_settings->setValue(TERMINAL_RCFILE, "/etc/ks-scmc/graphic_rc");
     m_settings->setValue(TERMINAL_TOTAL_CMD, m_totalCmd);
+    m_settings->setValue(TIMEOUT_LOGOUT_DISABLE, "false");
     m_settings->endGroup();
     m_settings->beginGroup(SSL_GROUP_NAME);
     m_settings->setValue(SSL_ENABLE, "false");
