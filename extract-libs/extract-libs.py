@@ -59,13 +59,15 @@ def extract_specific_libs(deps_file, dest_path):
             sub_path = line.lstrip("/")
             full_path = dest_path + sub_path
             if not os.path.exists(full_path):
-                os.system("mkdir -p %s" % (full_path))
+                os.makedirs(full_path, exist_ok=True)
 
             logging.info("extract libs to %s\n" % (full_path))
         else:
             if os.path.exists(line):
-                cmd = "cp -L %s %s" % (line, full_path)
-                os.system(cmd)
+                dest_file = os.path.join(full_path, os.path.basename(line))
+                # 使用 shutil.copy2 替代 cp -L，保留元数据
+                # shutil.copy2 默认会跟随符号链接复制实际文件（相当于 cp -L）
+                shutil.copy2(line, dest_file)
             else:
                 logging.debug(FILE_NOT_EXISTS_MSG % (line))
     f.close()
