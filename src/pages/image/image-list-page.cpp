@@ -881,10 +881,34 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         return;
     }
 
+    // 将镜像列表收集到 vector 中以便排序
+    std::vector<const image::ImageDBInfo*> imageList;
+    imageList.reserve(size);
+    for (int i = 0; i < size; ++i)
+    {
+        imageList.push_back(&reply.second.images(i));
+    }
+
+    // 对镜像列表进行排序：先按镜像名排序，再按节点名排序
+    std::sort(imageList.begin(), imageList.end(), [](const image::ImageDBInfo* a, const image::ImageDBInfo* b) {
+        QString nameA = QString::fromStdString(a->name());
+        QString nameB = QString::fromStdString(b->name());
+        // 先按镜像名排序
+        if (nameA != nameB)
+        {
+            return nameA < nameB;
+        }
+        // 镜像名相同时，按节点名排序
+        QString nodeA = QString::fromStdString(a->node_name());
+        QString nodeB = QString::fromStdString(b->node_name());
+        return nodeA < nodeB;
+    });
+
     int row = 0;
     int count = 0;
-    for (auto image : reply.second.images())
+    for (const auto* imagePtr : imageList)
     {
+        const auto& image = *imagePtr;
         if (image.approval_status() == 0)
             count++;
         QMap<QString, QVariant> infoMap;
