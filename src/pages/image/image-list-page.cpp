@@ -78,6 +78,8 @@ void ImageListPage::initTable()
         tr("Last Update")};
     if (is_init_audit_btn)
     {
+        tableHHeaderDate.removeAll(tr("Belonging Node"));
+        tableHHeaderDate.removeAll(tr("Load Status"));
         tableHHeaderDate.append(tr("Operation"));
         setTableActions(tableHHeaderDate.size() - 1, QMap<ACTION_BUTTON_TYPE, QPair<QString, QString>>{{ACTION_BUTTON_TYPE_IMAGE_PASS, QPair<QString, QString>{tr("Pass"), tr("Pass")}},
                                                                                                        {ACTION_BUTTON_TYPE_IMAGE_REFUSE, QPair<QString, QString>{tr("Refuse"), tr("Refuse")}}});
