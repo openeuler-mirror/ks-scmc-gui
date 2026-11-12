@@ -2772,12 +2772,7 @@ The first characters must be letter or digit</source>
         <location filename="../src/main-window.cpp" line="272"/>
         <source>About</source>
         <translation>关于</translation>
-    </message>
-    <message>
-        <location filename="../src/main-window.cpp" line="273"/>
-        <source>Help</source>
-        <translation>帮助</translation>
-    </message>
+    </message>    
 </context>
 <context>
     <name>MemoryConfTab</name>
