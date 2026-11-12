@@ -46,7 +46,7 @@ private slots:
 
 private:
     void initUI();
-    void initCreateDialog();
+    KiranTitlebarWindow *initCreateDialog();
     void clearText();
     void setTips(const QString &tips);
     void initConnect();
