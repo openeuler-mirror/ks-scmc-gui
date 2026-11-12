@@ -3034,10 +3034,22 @@ Instruction</source>
         <translation>虚拟网卡：</translation>
     </message>
     <message>
-        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="40"/>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="50"/>
         <location filename="../build/src/ui_network-conf-tab.h" line="100"/>
         <source>IP:</source>
         <translation>IP:</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="56"/>
+        <location filename="../build/src/ui_network-conf-tab.h" line="101"/>
+        <source>Download speed limit:</source>
+        <translation>下载速度限额：</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/container/base-configuration/network-conf-tab.ui" line="102"/>
+        <location filename="../build/src/ui_network-conf-tab.h" line="102"/>
+        <source>Upload speed limit:</source>
+        <translation>上传速度限额：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/base-configuration/network-conf-tab.cpp" line="28"/>
