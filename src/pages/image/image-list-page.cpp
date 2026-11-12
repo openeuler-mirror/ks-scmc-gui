@@ -364,9 +364,20 @@ QString ImageListPage::parseManifest(const QString &manifestContent, const QStri
     return QString();
 }
 
-void ImageListPage::getImageList()
+void ImageListPage::getImageList(bool showLoading)
 {
-    setBusy(true);
+    if (m_listRequestInFlight)
+    {
+        return;
+    }
+
+    m_listRequestInFlight = true;
+    m_preserveCheckStateOnNextResult = !showLoading;
+
+    if (showLoading)
+    {
+        setBusy(true);
+    }
     Image::getInstance().listDBImage(m_objId);
 }
 
