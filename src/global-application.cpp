@@ -15,6 +15,11 @@ GlobalApplication::GlobalApplication(int &argc, char **argv) : KiranSingleApplic
                                                                m_timer(nullptr),
                                                                m_pthread(nullptr)
 {
+    if (LoadConfiguration::Instance().getTimeoutLogoutDisable()) {
+        KLOG_INFO() << "Timeout logout disable, return";
+        return;
+    }
+
     m_timer = new QTimer(this);
     m_timer->setInterval(TIMEOUT);
     m_pthread = new QThread();
