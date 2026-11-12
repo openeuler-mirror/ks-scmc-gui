@@ -341,6 +341,11 @@ message RestartReply {
     repeated ContainerFailInfo fail_infos = 2;
 }
 
+message EnvVar {
+    string key = 1; // 环境变量名
+    string value = 2; // 环境变量值
+}
+
 message UpdateRequest {
     int64                  node_id         = 1;
     string                 container_id    = 2;
