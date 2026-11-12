@@ -21,8 +21,6 @@ WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool
                                                                                                    m_totalPages(0),
                                                                                                    m_totalWarnning(0)
 {
-    m_timer = new QTimer(this);
-
     m_ObjId = Logging::generateId(this);
     is_showContainerName = isShowContainerName;
     is_openPaging = is_open_paging;
