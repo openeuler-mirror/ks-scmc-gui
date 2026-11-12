@@ -505,13 +505,17 @@ void ImageListPage::onBtnPass()
     QList<QMap<QString, QVariant>> info = getCheckedItemInfo(1);
     if (!info.isEmpty())
     {
-        QString imageId = info.at(0).value(IMAGE_ID).toString();
+        QString msgTitle = tr("Input Password to Pass Image");
+        if (popupAuthDialog(msgTitle) == QDialog::Accepted)
+        {
+            QString imageId = info.at(0).value(IMAGE_ID).toString();
 
-        QMap<QString, QString> checkInfo;
-        checkInfo.insert("Image Id", imageId);
-        checkInfo.insert("Image Check", "Pass");
-        checkInfo.insert("Image Reason", "");
-        checkSaveSlot(checkInfo);
+            QMap<QString, QString> checkInfo;
+            checkInfo.insert("Image Id", imageId);
+            checkInfo.insert("Image Check", "Pass");
+            checkInfo.insert("Image Reason", "");
+            checkSaveSlot(checkInfo);
+        }
     }
 }
 
