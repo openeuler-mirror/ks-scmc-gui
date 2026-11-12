@@ -2,18 +2,21 @@ find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin) # Get full path to plugin
 
 function(PROTOBUF_GENERATE_GRPC_CPP SRCS HDRS)
   if(NOT ARGN)
-    message(SEND_ERROR "Error: PROTOBUF_GENERATE_GRPC_CPP() called without any proto files")
+    message(
+      SEND_ERROR
+        "Error: PROTOBUF_GENERATE_GRPC_CPP() called without any proto files")
     return()
   endif()
 
-  if(PROTOBUF_GENERATE_CPP_APPEND_PATH) # This variable is common for all types of output.
+  if(PROTOBUF_GENERATE_CPP_APPEND_PATH) # This variable is common for all types
+                                        # of output.
     # Create an include path for each file specified
     foreach(FIL ${ARGN})
       get_filename_component(ABS_FIL ${FIL} ABSOLUTE)
       get_filename_component(ABS_PATH ${ABS_FIL} PATH)
       list(FIND _protobuf_include_path ${ABS_PATH} _contains_already)
       if(${_contains_already} EQUAL -1)
-          list(APPEND _protobuf_include_path -I ${ABS_PATH})
+        list(APPEND _protobuf_include_path -I ${ABS_PATH})
       endif()
     endforeach()
   else()
