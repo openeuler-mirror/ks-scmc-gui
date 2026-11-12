@@ -178,13 +178,11 @@ UserFilterModel::UserFilterModel(QObject *parent) : QSortFilterProxyModel(parent
 
 bool UserFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    for (auto i = 0; i < USER_TABLE_FIELD_LAST; ++i)
-    {
-        auto index = sourceModel()->index(sourceRow, i, sourceParent);
-        auto text = sourceModel()->data(index).toString();
-        if (text.contains(filterRegExp()))
-            return true;
-    }
+    // 只在用户名列中进行搜索
+    auto index = sourceModel()->index(sourceRow, UserTableField::USER_TABLE_FIELD_USER_NAME, sourceParent);
+    auto text = sourceModel()->data(index).toString();
+    if (text.contains(filterRegExp()))
+        return true;
 
     return false;
 }
