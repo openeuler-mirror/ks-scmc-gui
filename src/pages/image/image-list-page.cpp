@@ -1202,3 +1202,21 @@ void ImageListPage::setCheckBox(bool flag)
 {
     is_open_checkbox = flag;
 }
+
+void ImageListPage::showEvent(QShowEvent *event)
+{
+    if (m_timer)
+    {
+        m_timer->start(IMAGE_REFRESH_TIMEOUT);
+    }
+    TablePage::showEvent(event);
+}
+
+void ImageListPage::hideEvent(QHideEvent *event)
+{
+    if (m_timer)
+    {
+        m_timer->stop();
+    }
+    TablePage::hideEvent(event);
+}
