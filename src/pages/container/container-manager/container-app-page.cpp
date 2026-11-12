@@ -667,12 +667,32 @@ void ContainerAppPage::refresh(const QString keyword, bool clear)
 
 bool ContainerAppPage::isGuiAppRunning(int appID)
 {
-    auto process = m_procs.value(appID, nullptr);
-    if (!process)
-        return false;
-    else
+    // 优先检查 detached 进程（通过 PID 检查进程是否存在）
+    if (m_detachedPids.contains(appID))
     {
-        return process->state() == QProcess::Running ? true : false;
+        qint64 pid = m_detachedPids[appID];
+        if (pid > 0)
+        {
+            // 使用 QProcess 检查进程是否存在
+            QProcess checkProcess;
+            checkProcess.start("kill", QStringList() << "-0" << QString::number(pid));
+            checkProcess.waitForFinished();
+            bool exists = (checkProcess.exitCode() == 0);
+            if (!exists)
+            {
+                // 进程已退出，清理 PID
+                m_detachedPids.remove(appID);
+                removeDetachedPidFromConfig(appID);
+            }
+            return exists;
+        }
+        else if (pid == 0)
+        {
+            // PID 为 0 表示已启动但 PID 未知，认为可能正在运行
+            return true;
+        }
+        // pid < 0 的情况不应该发生，返回 false
+        return false;
     }
 }
 
