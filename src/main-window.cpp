@@ -761,20 +761,6 @@ void MainWindow::onAboutAction(bool checked)
     about->show();
 }
 
-void MainWindow::onHelpAction(bool checked)
-{
-    Q_UNUSED(checked);
-    // popup user manual pdf
-    QString file = QString(HELP_MANUAL_PATH) + QString("manual.pdf");
-    if (QFile::exists(file))
-    {
-        KLOG_DEBUG() << "open help manual PDF. from system";
-        QDesktopServices::openUrl(QUrl::fromLocalFile(file));
-    }
-    else
-        KLOG_WARNING() << "Help file: " << file << "is not exit!";
-}
-
 void MainWindow::onUpdatePwSuccessful()
 {
     emit sigLogout();
