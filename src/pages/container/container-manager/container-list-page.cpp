@@ -938,8 +938,8 @@ void ContainerListPage::initTable()
         QString(tr("Node")),
         "CPU",
         QString(tr("Memory")),
-        QString(tr("Disk")),
-        QString(tr("Network")),
+        QString(tr("Disk(MB)")),
+        QString(tr("Network(MB/s)")),
         QString(tr("Online Time")),
         QString(tr("Quick Actions"))};
     setHeaderSections(tableHHeaderDate);
