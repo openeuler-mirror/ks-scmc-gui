@@ -28,6 +28,10 @@ public:
     void setDelRow(const QString type1 = "", const QString type2 = "");  //"Wait for Approve","Rejected","Passed"
     void setCheckBox(bool);
 
+protected:
+    void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
+
 private:
     void initTable();
     void initButtons();
