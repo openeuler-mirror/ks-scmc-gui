@@ -1218,7 +1218,7 @@ The first characters must be letter or digit</source>
         <location filename="../src/pages/container/container-setting.ui" line="62"/>
         <location filename="../build/src/ui_container-setting.h" line="317"/>
         <source>&lt;font color=red&gt;*&lt;/font&gt;Name:</source>
-        <translation>&lt;font color=red&gt;*&lt;/font&gt;名字：</translation>
+        <translation>&lt;font color=red&gt;*&lt;/font&gt;名称：</translation>
     </message>
     <message>
         <location filename="../src/pages/container/container-setting.ui" line="85"/>
