@@ -235,7 +235,6 @@ void ContainerAppPage::onStop(int row)
             // 通过系统调用 kill 进程
             if (pid > 0)
             {
-                // 使用 QProcess 执行 kill 命令（跨平台兼容）
                 QProcess killProcess;
                 killProcess.start("kill", QStringList() << QString::number(pid));
                 killProcess.waitForFinished();
