@@ -10,6 +10,7 @@
 #include <QMutex>
 #include <QVector>
 #include <QWidget>
+#include <QTimer>
 #include "base/interface/common.h"
 #include "base/interface/image.h"
 #include "base/interface/system.h"
