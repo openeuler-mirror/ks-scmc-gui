@@ -741,9 +741,10 @@ QString TemplateListPage::convertTemplateToJson(const container::ContainerTempla
     // 转换Envs
     QJsonObject envsObject;
     auto envs = cfg.envs();
-    for (auto it = envs.begin(); it != envs.end(); ++it)
+    for (int i = 0; i < envs.size(); ++i)
     {
-        envsObject[QString::fromStdString(it->first)] = QString::fromStdString(it->second);
+        const auto &envVar = envs.Get(i);
+        envsObject[QString::fromStdString(envVar.key())] = QString::fromStdString(envVar.value());
     }
     configJson["envs"] = envsObject;
 
