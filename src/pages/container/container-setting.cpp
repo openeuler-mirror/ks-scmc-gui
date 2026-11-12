@@ -662,7 +662,7 @@ bool ContainerSetting::writeContainerConfig(container::ContainerConfigs *cntrCfg
     auto ipcPage = qobject_cast<IPCTab *>(m_advancedConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_IPC));
     cntrCfg->set_ipcname(ipcPage->getIPC().toStdString());
 
-    auto limit = cntrCfg->mutable_resouce_limit();
+    auto limit = cntrCfg->mutable_resource_limit();
 
     // cpu
     auto cpuPage = qobject_cast<CPUConfTab *>(m_baseConfStack->widget(TAB_CONFIG_GUIDE_ITEM_TYPE_CPU));
