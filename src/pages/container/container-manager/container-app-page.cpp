@@ -710,3 +710,53 @@ ContainerAppDialog::ContainerAppDialog(int64_t nodeId, QString nodeAddr, std::st
     appPage->updateInfo();
     vLayout->addWidget(appPage);
 }
+
+void ContainerAppPage::loadDetachedPidsFromConfig()
+{
+    // 从配置文件加载所有 detached PIDs
+    QMap<qint64, qint64> loadedPids = LoadConfiguration::Instance().loadAllDetachedPids(m_nodeId, m_containerId);
+    
+    // 验证每个 PID 是否仍然有效（进程是否仍在运行）
+    for (auto it = loadedPids.begin(); it != loadedPids.end(); ++it)
+    {
+        qint64 appID = it.key();
+        qint64 pid = it.value();
+        
+        if (pid > 0)
+        {
+            // 检查进程是否仍在运行
+            QProcess checkProcess;
+            checkProcess.start("kill", QStringList() << "-0" << QString::number(pid));
+            checkProcess.waitForFinished();
+            
+            if (checkProcess.exitCode() == 0)
+            {
+                // 进程仍在运行，恢复 PID 记录
+                m_detachedPids[appID] = pid;
+                KLOG_DEBUG() << "Restored detached PID from config: appID=" << appID << ", PID=" << pid;
+            }
+            else
+            {
+                // 进程已退出，从配置文件删除
+                removeDetachedPidFromConfig(appID);
+                KLOG_DEBUG() << "Removed invalid detached PID from config: appID=" << appID << ", PID=" << pid;
+            }
+        }
+        else if (pid == 0)
+        {
+            // PID 为 0 表示已启动但 PID 未知，恢复记录但不验证
+            m_detachedPids[appID] = 0;
+            KLOG_DEBUG() << "Restored detached PID (unknown) from config: appID=" << appID;
+        }
+    }
+}
+
+void ContainerAppPage::saveDetachedPidToConfig(qint64 appID, qint64 pid)
+{
+    LoadConfiguration::Instance().saveDetachedPid(m_nodeId, m_containerId, appID, pid);
+}
+
+void ContainerAppPage::removeDetachedPidFromConfig(qint64 appID)
+{
+    LoadConfiguration::Instance().removeDetachedPid(m_nodeId, m_containerId, appID);
+}
