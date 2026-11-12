@@ -26,7 +26,8 @@ bool EnvsConfTab::getEnvInfo(container::ContainerConfigs *cntrCfg, QString &errM
 {
     if (cntrCfg)
     {
-        auto env = cntrCfg->mutable_envs();
+        auto envs = cntrCfg->mutable_envs();
+        envs->Clear();
         auto itemList = m_configTable->getAllData();
         for (auto item : itemList)
         {
