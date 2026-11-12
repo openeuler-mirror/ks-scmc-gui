@@ -1024,27 +1024,10 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
 
         if (!is_init_audit_btn)
         {
-            QString nodeName = QString::fromStdString(image.node_name());
-            if (nodeName.isEmpty())
-            {
-                nodeName = "";
-            }
+            QString nodeName = infoMap.value(BELONG_NODE_NAME).toString();
             QStandardItem * itemNode = new QStandardItem(nodeName);
-            infoMap.insert(BELONG_NODE_NAME, nodeName);
 
-            QString loadStatus;
-            switch (image.load_status())
-            {
-            case 0:
-                loadStatus = tr("Not Loaded");
-                break;
-            case 1:
-                loadStatus = tr("Loaded");
-                break;
-            default:
-                loadStatus = "";
-                break;
-            }
+            QString loadStatus = infoMap.value(LOAD_STATUS).toString();
             QStandardItem *itemLoadStatus = new QStandardItem(loadStatus);
             if (image.load_status() == 1) //已加载
             {
