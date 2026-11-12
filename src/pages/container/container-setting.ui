@@ -56,10 +56,69 @@
          <property name="verticalSpacing">
           <number>10</number>
          </property>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label">
+         <item row="1" column="3">
+          <widget class="QLabel" name="label_name_tip">
            <property name="text">
-            <string>&lt;font color=red&gt;*&lt;/font&gt;Name:</string>
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_host_name">
+           <property name="minimumSize">
+            <size>
+             <width>420</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>420</width>
+             <height>30</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit_describe">
+           <property name="minimumSize">
+            <size>
+             <width>420</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>420</width>
+             <height>30</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_image">
+           <property name="text">
+            <string>Image:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Describe:</string>
            </property>
           </widget>
          </item>
@@ -79,42 +138,53 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_2">
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Describe:</string>
+            <string>Node:</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QComboBox" name="cb_node">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Host name:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>&lt;font color=red&gt;*&lt;/font&gt;Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_template_name">
+           <property name="text">
+            <string>Template name:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="ToolTipButton" name="btn_tip_name">
            <property name="minimumSize">
             <size>
-             <width>420</width>
-             <height>30</height>
+             <width>16</width>
+             <height>16</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>420</width>
-             <height>30</height>
+             <width>16</width>
+             <height>16</height>
             </size>
            </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QComboBox" name="cb_image">
-           <property name="minimumSize">
-            <size>
-             <width>420</width>
-             <height>30</height>
-            </size>
+           <property name="focusPolicy">
+            <enum>Qt::FocusPolicy::NoFocus</enum>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>420</width>
-             <height>30</height>
-            </size>
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -137,8 +207,8 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_describe">
+         <item row="4" column="1">
+          <widget class="QComboBox" name="cb_node">
            <property name="minimumSize">
             <size>
              <width>420</width>
@@ -153,78 +223,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
-          <widget class="QLabel" name="label_name_tip">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_image">
-           <property name="text">
-            <string>Image:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="ToolTipButton" name="btn_tip_name">
-           <property name="minimumSize">
-            <size>
-             <width>16</width>
-             <height>16</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16</width>
-             <height>16</height>
-            </size>
-           </property>
-           <property name="focusPolicy">
-            <enum>Qt::NoFocus</enum>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_template_name">
-           <property name="text">
-            <string>Template name:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Node:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Host name:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_host_name">
+         <item row="5" column="1">
+          <widget class="QComboBox" name="cb_image">
            <property name="minimumSize">
             <size>
              <width>420</width>
@@ -246,7 +246,7 @@
      <item>
       <spacer name="horizontalSpacer_9">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -264,7 +264,7 @@
       <string notr="true"/>
      </property>
      <property name="tabShape">
-      <enum>QTabWidget::Rounded</enum>
+      <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
       <number>0</number>
@@ -343,7 +343,7 @@
              <string notr="true"/>
             </property>
             <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+             <enum>QFrame::Shape::NoFrame</enum>
             </property>
            </widget>
           </item>
@@ -406,7 +406,7 @@
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
         </widget>
        </item>
@@ -447,7 +447,7 @@
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
         </widget>
        </item>
@@ -466,7 +466,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -529,7 +529,6 @@
   <tabstop>cb_template</tabstop>
   <tabstop>lineEdit_name</tabstop>
   <tabstop>lineEdit_describe</tabstop>
-  <tabstop>cb_node</tabstop>
   <tabstop>listwidget_base_config</tabstop>
   <tabstop>listWidget_advanced_config</tabstop>
   <tabstop>listWidget_security_config</tabstop>
