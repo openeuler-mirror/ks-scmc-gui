@@ -175,7 +175,7 @@ killall ks-scmc-gui > /dev/null 2>&1 || true
 %{_sysconfdir}/ks-scmc-gui/*
 
 %changelog
-* Thu Nov 21 2025 yubin <yubin@kylinos.com.cn> - 1.2.1-11
+* Fri Nov 21 2025 yubin <yubin@kylinos.com.cn> - 1.2.1-11
 - KYOS-F: Upgrade from 1.2.1-10 to 1.2.1-11. (#104713)
 
 * Thu Jul 31 2025 yuanxing <yuanxing@kylinos.com.cn> - 1.2.1-10
