@@ -35,7 +35,30 @@ void NetworkConfTab::getNetworkInfo(container::ContainerConfigs *cntrCfg)
     std::string ip = ui->lineEdit_ip->isValidIp(inputIp) ? inputIp.toStdString() : "";
     cfg->set_ip_address(ip);
 
-    KLOG_INFO() << "Set network interface to backed:" << name << ip.data();
+    // 获取下行流量限制（下载速度）
+    QString downloadSpeed = ui->download_speed_edit->text().trimmed();
+    bool ok = false;
+    double netRbw = downloadSpeed.toDouble(&ok);
+    if (ok && netRbw > 0)
+    {
+        cfg->set_net_rbw(netRbw);
+    } else {
+        cfg->set_net_rbw(0);
+    }
+
+    // 获取上行流量限制（上传速度）
+    QString uploadSpeed = ui->upload_speed_edit->text().trimmed();
+    ok = false;
+    double netWbw = uploadSpeed.toDouble(&ok);
+    if (ok && netWbw > 0)
+    {
+        cfg->set_net_wbw(netWbw);
+    } else {
+        cfg->set_net_wbw(0);
+    }
+
+    KLOG_INFO() << "Set network interface to backed:" << name << ip.data() 
+                << "net_rbw:" << netRbw << "net_wbw:" << netWbw;
 }
 
 // 更新容器、模板使用
