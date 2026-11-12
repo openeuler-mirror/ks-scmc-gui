@@ -230,21 +230,39 @@ void ContainerAppPage::onStop(int row)
     // 判断app类型
     if (isGUI)
     {
-        // 图形app则关闭终端
-        auto process = m_procs.value(appID, nullptr);
-        if (!process)
+        // 优先检查 detached 进程
+        if (m_detachedPids.contains(appID))
         {
-            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
-            return;
-        }
-
-        if (process->state() == QProcess::ProcessState::Running)
-        {
-            process->kill();
-        }
-        else
-        {
-            NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
+            qint64 pid = m_detachedPids[appID];
+            // 通过系统调用 kill 进程
+            if (pid > 0)
+            {
+                // 使用 QProcess 执行 kill 命令（跨平台兼容）
+                QProcess killProcess;
+                killProcess.start("kill", QStringList() << QString::number(pid));
+                killProcess.waitForFinished();
+                m_detachedPids.remove(appID);
+                removeDetachedPidFromConfig(appID);
+                guiAppStatus(row, QProcess::ProcessState::NotRunning);
+                NotificationManager::sendNotify(tr("Stopped app(%1)").arg(appName), "");
+            }
+            else if (pid == 0)
+            {
+                // PID 为 0 表示已启动但 PID 未知，无法通过 PID 停止
+                // 提示用户手动关闭终端窗口
+                NotificationManager::sendNotify(tr("Cannot stop app(%1) automatically. Please close the terminal window manually.").arg(appName), "");
+                // 清理记录，允许重新启动
+                m_detachedPids.remove(appID);
+                removeDetachedPidFromConfig(appID);
+                guiAppStatus(row, QProcess::ProcessState::NotRunning);
+            }
+            else
+            {
+                // pid < 0 的情况不应该发生
+                NotificationManager::sendNotify(tr("The app(%1) is not running!").arg(appName), "");
+                m_detachedPids.remove(appID);
+                removeDetachedPidFromConfig(appID);
+            }
             return;
         }
     }
