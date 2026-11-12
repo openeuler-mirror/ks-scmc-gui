@@ -133,6 +133,7 @@ private slots:
     void getInspectTemplateFinishResult(QString objId, const QPair<grpc::Status, container::InspectTemplateReply> &reply);
     void getCreateTemplateFinishResult(QString objId, const QPair<grpc::Status, container::CreateTemplateReply> &reply);
     void getUpdateTemplateFinishedResult(QString objId, const QPair<grpc::Status, container::UpdateTemplateReply> &reply);
+    void getListImageFinishedResult(QString objId, const QPair<grpc::Status, image::ListReply> &reply);
 
 private:
     Ui::ContainerSetting *ui;
