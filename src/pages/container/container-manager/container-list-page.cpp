@@ -383,7 +383,7 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
             if (i.info().resource_stat().has_mem_stat())
             {
                 char str[128]{};
-                snprintf(str, sizeof(str), "%0.1f%%", i.info().resource_stat().mem_stat().percentage());
+                snprintf(str, sizeof(str), "%0.2f%%", i.info().resource_stat().mem_stat().percentage() * 100);
                 strMemPct = std::string(str);
             }
 
