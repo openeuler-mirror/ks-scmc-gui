@@ -765,6 +765,7 @@ void ContainerSetting::createContainer()
 
     if (writeContainerConfig(cntrCfg))
     {
+	KLOG_INFO() << "createRequest:" << request.DebugString().data();
         Container::getInstance().createContainer(m_objId, request);
     }
 }
