@@ -654,6 +654,7 @@ void ImageListPage::uploadSaveSlot(QMap<QString, QString> Info)
     }
 
     Common::getInstance().stopTransfer(Info["Image Name"], Info["Image Version"], false);
+    m_uploadingImages[m_objId] = QPair<QString, QString>(Info["Image Name"], Info["Image Version"]);
     Image::getInstance().uploadImage(m_objId, request, imageFile, signFile);
 }
 
