@@ -39,7 +39,7 @@ private:
     int getImageFileInfo(const QString fileName, QString &strSha256, qint64 &fileSize);
     QString checkImageLegality(const QString &fileName);
     QString parseManifest(const QString &manifestContent, const QStringList &fileList);
-    void getImageList();
+    void getImageList(bool showLoading = true);
     void OperateImage(ImageOperateType type);
     bool imageIsTransfering(QString imageName, QString version, QString title);
     QString getRefuseReason(bool *ok);
