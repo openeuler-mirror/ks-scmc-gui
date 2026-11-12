@@ -543,12 +543,17 @@ void ImageListPage::onBtnPassLabel(int row)
     auto infoMap = getItem(row, 1)->data().value<QMap<QString, QVariant>>();
     if (infoMap.isEmpty())
         return;
-    auto image_id = infoMap.value(IMAGE_ID).toString();
-    QMap<QString, QString> checkInfo;
-    checkInfo.insert("Image Id", image_id);
-    checkInfo.insert("Image Check", "Pass");
-    checkInfo.insert("Image Reason", "");
-    checkSaveSlot(checkInfo);
+    
+    QString msgTitle = tr("Input Password to Pass Image");
+    if (popupAuthDialog(msgTitle) == QDialog::Accepted)
+    {
+        auto image_id = infoMap.value(IMAGE_ID).toString();
+        QMap<QString, QString> checkInfo;
+        checkInfo.insert("Image Id", image_id);
+        checkInfo.insert("Image Check", "Pass");
+        checkInfo.insert("Image Reason", "");
+        checkSaveSlot(checkInfo);
+    }
 }
 
 void ImageListPage::onBtnRefuseLabel(int row)
