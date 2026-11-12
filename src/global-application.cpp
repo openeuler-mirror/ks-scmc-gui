@@ -46,14 +46,18 @@ GlobalApplication::~GlobalApplication()
 
 bool GlobalApplication::notify(QObject *receiver, QEvent *e)
 {
-    if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::KeyPress)
+    if (m_pthread)
     {
-        m_pthread->quit();
+        if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::KeyPress)
+        {
+            m_pthread->quit();
+        }
+        else if (e->type() == QEvent::MouseButtonRelease || e->type() == QEvent::KeyRelease)
+        {
+            m_pthread->start();
+        }
     }
-    else if (e->type() == QEvent::MouseButtonRelease || e->type() == QEvent::KeyRelease)
-    {
-        m_pthread->start();
-    }
+    
     return KiranSingleApplication::notify(receiver, e);
 }
 
