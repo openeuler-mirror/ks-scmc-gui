@@ -181,4 +181,15 @@ void NetworkConfTab::initUI()
                                    "outline:none; "
                                    "min-height:30px;"
                                    "}");
+
+    QDoubleValidator *downloadValidator = new QDoubleValidator(0.0, 999999.99, 2, this);
+    downloadValidator->setNotation(QDoubleValidator::StandardNotation);
+    ui->download_speed_edit->setValidator(downloadValidator);
+
+    QDoubleValidator *uploadValidator = new QDoubleValidator(0.0, 999999.99, 2, this);
+    uploadValidator->setNotation(QDoubleValidator::StandardNotation);
+    ui->upload_speed_edit->setValidator(uploadValidator);
+    ui->download_speed_edit->setTextMargins(10, 0, 0, 0);    
+    ui->upload_speed_edit->setTextMargins(10, 0, 0, 0);
+    
 }
