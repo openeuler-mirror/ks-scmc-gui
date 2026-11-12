@@ -28,14 +28,21 @@ def extract_qt_plugins_libs(dest_path):
 
     dest_path = dest_path + "/plugins"
     if not os.path.exists(dest_path):
-        os.makedirs(dest_path, exist_ok=True)
+        try:
+            os.makedirs(dest_path)
+        except OSError:
+            # 目录已存在，忽略错误
+            pass
 
     for plugin in plugins:
         path = qt_plugin_path + plugin
         if os.path.exists(path):
             dest_plugin_path = os.path.join(dest_path, os.path.basename(plugin))
             if os.path.isdir(path):
-                shutil.copytree(path, dest_plugin_path, dirs_exist_ok=True)
+                # 如果目标目录已存在，先删除
+                if os.path.exists(dest_plugin_path):
+                    shutil.rmtree(dest_plugin_path)
+                shutil.copytree(path, dest_plugin_path)
             else:
                 shutil.copy2(path, dest_plugin_path)
         else:
