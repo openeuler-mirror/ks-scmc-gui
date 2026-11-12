@@ -895,23 +895,41 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
                 delete itemChkStatus;
                 delete itemApprovalStatus;
                 delete itemUpdateTime;
-
-                if (itemNode)
-                {
-                    delete itemNode;
-                }
-
-                if (itemLoadStatus)
-                {
-                    delete itemLoadStatus;
-                }
-
                 goto _END;
             }
         }
 
         if (!is_init_audit_btn)
         {
+            QString nodeName = QString::fromStdString(image.node_name());
+            if (nodeName.isEmpty())
+            {
+                nodeName = "";
+            }
+            QStandardItem * itemNode = new QStandardItem(nodeName);
+            infoMap.insert(BELONG_NODE_NAME, nodeName);
+
+            QString loadStatus;
+            switch (image.load_status())
+            {
+            case 0:
+                loadStatus = tr("Not Loaded");
+                break;
+            case 1:
+                loadStatus = tr("Loaded");
+                break;
+            default:
+                loadStatus = "";
+                break;
+            }
+            QStandardItem *itemLoadStatus = new QStandardItem(loadStatus);
+            if (image.load_status() == 1) //已加载
+            {
+                itemLoadStatus->setForeground(QBrush(QColor("#00921b")));
+            } else { //未加载
+                itemLoadStatus->setForeground(QBrush(QColor("#EEA43C")));
+            }
+            infoMap.insert(LOAD_STATUS, loadStatus);
             setTableItems(row, 0, QList<QStandardItem *>() << itemCheck << itemName << itemVer <<
                                   itemNode << itemDesc << itemLoadStatus << itemChkStatus <<
                                   itemApprovalStatus << itemUpdateTime);
