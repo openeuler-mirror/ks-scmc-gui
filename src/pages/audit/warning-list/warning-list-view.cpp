@@ -31,11 +31,6 @@ WarningListView::WarningListView(QWidget *parent, bool isShowContainerName, bool
 
 WarningListView::~WarningListView()
 {
-    if (m_timer)
-    {
-        delete m_timer;
-        m_timer = nullptr;
-    }
 }
 
 void WarningListView::updateInfo(QString keyword)
