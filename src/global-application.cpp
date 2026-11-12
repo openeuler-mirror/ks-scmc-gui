@@ -7,6 +7,7 @@
 
 #include "global-application.h"
 #include <kiran-log/qt5-log-i.h>
+#include "base/load-configuration.h"
 
 #define TIMEOUT 1800000  // 30min
 
