@@ -2117,6 +2117,12 @@ The first characters must be letter or digit</source>
         <source>Remove Image</source>
         <translation>移除镜像</translation>
     </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="508"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="547"/>
+        <source>Input Password to Pass Image</source>
+        <translation>请输入密码通过镜像审批</translation>
+    </message>
 </context>
 <context>
     <name>ImageOperateDialog</name>
