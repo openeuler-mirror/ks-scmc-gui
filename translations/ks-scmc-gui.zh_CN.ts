@@ -1864,35 +1864,45 @@ The first characters must be letter or digit</source>
 <context>
     <name>ImageListPage</name>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="69"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="71"/>
         <source>Image Name</source>
         <translation>镜像名</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="70"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="72"/>
         <source>Version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="71"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="73"/>
+        <source>Belonging Node</source>
+        <translation>所在节点</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="74"/>
         <source>Description</source>
         <translation>描述</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="72"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="75"/>
+        <source>Load Status</source>
+        <translation>加载状态</translation>
+    </message>
+    <message>
+        <location filename="../src/pages/image/image-list-page.cpp" line="76"/>
         <source>Inspection Status</source>
         <translation>校验状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="73"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="77"/>
         <source>Approval Status</source>
         <translation>审批状态</translation>
     </message>
     <message>
-        <location filename="../src/pages/image/image-list-page.cpp" line="74"/>
+        <location filename="../src/pages/image/image-list-page.cpp" line="78"/>
         <source>Last Update</source>
         <translation>最后更新时间</translation>
-    </message>
+    </message>    
     <message>
         <location filename="../src/pages/image/image-list-page.cpp" line="94"/>
         <source>Upload</source>
