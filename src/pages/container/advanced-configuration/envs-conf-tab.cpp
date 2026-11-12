@@ -109,14 +109,16 @@ void EnvsConfTab::setEnvInfo(const container::ContainerConfigs *cfg)
     m_configTable = new ConfigTable(CONFIG_TABLE_TYPE_ENV, this);
     this->layout()->addWidget(m_configTable);
 
-    auto envMap = cfg->envs();
+    auto envs = cfg->envs();
 
     QList<QSharedPointer<ModelItem>> itemList;
-    for (auto it = envMap.begin(); it != envMap.end(); ++it)
+    for (int i = 0; i < envs.size(); ++i)
     {
+        const auto &envVar = envs.Get(i);
         QSharedPointer<ModelItem> pItem(new ModelItem());
-        pItem->m_firstColVal = QString::fromStdString(it->first);
-        pItem->m_secondColVal = QString::fromStdString(it->second.data());
+        KLOG_DEBUG() << "Env info envVar.key():" << QString::fromStdString(envVar.key()) << "envVar.value():" << QString::fromStdString(envVar.value());
+        pItem->m_firstColVal = QString::fromStdString(envVar.key());
+        pItem->m_secondColVal = QString::fromStdString(envVar.value());
         itemList.push_back(pItem);
     }
 
