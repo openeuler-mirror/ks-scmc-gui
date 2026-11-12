@@ -359,7 +359,7 @@ void ContainerSetting::initSummaryUI()
         ui->cb_image->setEnabled(false);
         ui->cb_image->setStyleSheet("#cb_image{border:none;margin-left:0px;padding-left:0px;}"
                                     "#cb_image::down-arrow{image:none;}");
-        ui->label->setText(tr("Container template Name:"));
+        ui->label->setText(tr("Container template:"));
         break;
     }
     default:
