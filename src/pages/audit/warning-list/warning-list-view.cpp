@@ -294,13 +294,11 @@ void WarningListView::setLogListPageType(WarningListPageType type)
 
 void WarningListView::showEvent(QShowEvent *event)
 {
-    m_timer->start(TIMEOUT);
     TablePage::showEvent(event);
 }
 
 void WarningListView::hideEvent(QHideEvent *event)
 {
-    m_timer->stop();
     TablePage::hideEvent(event);
 }
 
