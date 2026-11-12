@@ -9,10 +9,13 @@
 #include <kiran-log/qt5-log-i.h>
 #include <kiran-switch-button.h>
 #include <QCheckBox>
+#include <QDialog>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QVBoxLayout>
 #include "notification-manager.h"
+#include "authorization-dialog.h"
+#include "user-configuration.h"
 SecuritySwitchPage::SecuritySwitchPage(QWidget *parent) : Page(parent), m_checkbox(nullptr)
 {
     m_objId = System::generateId(this);
