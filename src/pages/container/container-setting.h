@@ -14,6 +14,7 @@
 #include <QStackedWidget>
 #include <QWidget>
 #include "base/interface/container.h"
+#include "base/interface/image.h"
 #include "def.h"
 namespace Ui
 {
