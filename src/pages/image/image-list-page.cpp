@@ -980,6 +980,25 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         }
         infoMap.insert(IMAGE_REFUSE_REASON, image.reject_reason().data());
 
+        if (!is_init_audit_btn)
+         {
+             infoMap.insert(BELONG_NODE_NAME, QString::fromStdString(image.node_name()));
+             QString loadStatus;
+             switch (image.load_status())
+             {
+             case 0:
+                 loadStatus = tr("Not Loaded");
+                 break;
+             case 1:
+                 loadStatus = tr("Loaded");
+                 break;
+             default:
+                 loadStatus = "";
+                 break;
+             }
+             infoMap.insert(LOAD_STATUS, loadStatus);
+         }
+
         // TODO parse unix timestamp
         QDateTime time = QDateTime::fromMSecsSinceEpoch(image.update_at() * 1000);
         QString updateTime = time.toString("yyyy/MM/dd hh:mm:ss");
