@@ -7,6 +7,7 @@
 #include "network-conf-tab.h"
 #include <kiran-log/qt5-log-i.h>
 #include <QRegExpValidator>
+#include <QDoubleValidator>
 #include "ui_network-conf-tab.h"
 NetworkConfTab::NetworkConfTab(QWidget *parent) : QWidget(parent),
                                                   ui(new Ui::NetworkConfTab),
