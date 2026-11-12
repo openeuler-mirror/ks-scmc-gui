@@ -347,8 +347,9 @@ void IPCPage::popupCreateDialog()
 {
     if (m_createDialog == nullptr)
     {
-        initCreateDialog();
+        m_createDialog = initCreateDialog();
     }
+
     m_edit->clear();
     m_edit->setFocus();
 
