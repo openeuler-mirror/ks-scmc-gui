@@ -914,8 +914,16 @@ void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Statu
         {
             QString str = itemApprovalStatus->text();
             if (is_del_row[i] == str)
-            {
+            {                
+                delete itemCheck;
+                delete itemName;
+                delete itemVer;
+                delete itemDesc;
+                delete itemChkStatus;
+                delete itemApprovalStatus;
                 delete itemUpdateTime;
+                delete itemNode;
+                delete itemLoadStatus;
                 goto _END;
             }
         }
