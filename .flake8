@@ -1,0 +1,53 @@
+[flake8]
+max-line-length = 120
+
+# 忽略的错误代码（根据规范要求）
+ignore =
+    E203,
+    F401,
+
+# 排除检查的目录和文件
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .venv,
+    venv,
+    .tox,
+    .eggs,
+    *.egg,
+    .pytest_cache,
+    .coverage,
+    htmlcov,
+    node_modules,
+    migrations,
+    .mypy_cache
+
+# 只检查这些错误类型
+select = E,W,F,C,Q
+
+# 针对特定文件的特殊规则
+per-file-ignores =
+    __init__.py:F401,E402
+    test_*.py:S101
+    conftest.py:F401,E402
+    setup.py:F401
+
+# 导入相关配置
+import-order-style = google
+application-import-names =
+
+inline-quotes = double
+multiline-quotes = double
+docstring-quotes = double
+avoid-escape = True
+
+# 其他配置
+# 禁用某些过于严格的检查（根据规范调整）
+disable-noqa = False
+show-source = True
+statistics = True
+
+# 复杂性检查（默认值，可根据需要调整）
+max-complexity = 10
