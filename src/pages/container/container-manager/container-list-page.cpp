@@ -363,24 +363,6 @@ void ContainerListPage::getContainerListResult(const QString objId, const QPair<
         auto status = m_statusMap[i.info().state().data()];
         QStandardItem *itemStatus = new QStandardItem(status.first);
         itemStatus->setForeground(QBrush(QColor(status.second)));
-
-        auto activeAppNum = i.info().active_apps();
-        auto containerStatus = i.info().state().data();
-        // KLOG_INFO() << "container status:" << containerStatus << "active app number:" << activeAppNum;
-
-        QString appStatus;
-        if (strcmp(containerStatus, CONTAINER_STATUS_RUNNING) == 0)
-        {
-            appStatus = activeAppNum > 0 ? CONTAINER_APP_STATUS_DUTY : CONTAINER_APP_STATUS_STANDBY;
-        }
-        else
-        {
-            appStatus = CONTAINER_APP_STATUS_OFFLINE;
-        }
-
-        QStandardItem *itemAppStatus = new QStandardItem(appStatus);
-        itemAppStatus->setForeground(QBrush(QColor(m_statusMap[appStatus].second)));
-
         QStandardItem *itemImage = new QStandardItem(i.info().image().data());
 
         QStandardItem *itemNodeAddress = new QStandardItem(i.node_address().data());
