@@ -1,6 +1,6 @@
 %global pkg_name ks-scmc-gui
 %global pkg_ver 1.2.1
-%global pkg_rel 13
+%global pkg_rel 14
 
 %global _is_grpc_plugins 1
 %global _is_generate_to_run 0
