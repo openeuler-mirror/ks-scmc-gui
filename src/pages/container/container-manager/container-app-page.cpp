@@ -41,6 +41,9 @@ ContainerAppPage::ContainerAppPage(int64_t nodeId, QString nodeAddr, const std::
     setStyleSheet("background-color:#222222;");
     setMinimumWidth(900);
 
+    // 从配置文件加载 detached PIDs
+    loadDetachedPidsFromConfig();
+
     connect(m_timer, &QTimer::timeout,
             [this]
             {
