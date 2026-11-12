@@ -28,12 +28,16 @@ def extract_qt_plugins_libs(dest_path):
 
     dest_path = dest_path + "/plugins"
     if not os.path.exists(dest_path):
-        os.system("mkdir -p %s" % (dest_path))
+        os.makedirs(dest_path, exist_ok=True)
 
     for plugin in plugins:
         path = qt_plugin_path + plugin
         if os.path.exists(path):
-            os.system("cp -r %s %s" % (path, dest_path))
+            dest_plugin_path = os.path.join(dest_path, os.path.basename(plugin))
+            if os.path.isdir(path):
+                shutil.copytree(path, dest_plugin_path, dirs_exist_ok=True)
+            else:
+                shutil.copy2(path, dest_plugin_path)
         else:
             logging.debug(FILE_NOT_EXISTS_MSG % (path))
 
