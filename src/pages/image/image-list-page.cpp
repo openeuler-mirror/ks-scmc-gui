@@ -762,6 +762,20 @@ void ImageListPage::checkSaveSlot(QMap<QString, QString> Info)
     Image::getInstance().checkImage(m_objId, Info["Image Id"].toInt(), checkStatus, Info["Image Reason"].toStdString());
 }
 
+int ImageListPage::popupAuthDialog(const QString &msgTitle)
+{
+    auto authDialog = new AuthorizationDialog(this);
+    QString user;
+    UserConfiguration::getInstance().readConfig(CONFIG_SETTING_TYPE_LOGIN, GROUP_CURRENT_USER, USERNAME, user);
+    if (!msgTitle.isEmpty()) {
+        authDialog->setMsgTitle(msgTitle);
+    }
+    authDialog->setUserName(user);
+    auto ret = authDialog->exec();
+
+    return ret;
+}
+
 void ImageListPage::getListDBResult(const QString objId, const QPair<grpc::Status, image::ListDBReply> &reply)
 {
     if (m_objId != objId)
