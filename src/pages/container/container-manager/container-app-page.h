@@ -58,6 +58,10 @@ private:
     void getCheckedItemsId(QList<qint64> &ids);
     void refresh(const QString keyword = "", bool clear = false);
     bool isGuiAppRunning(int appID);
+    void loadDetachedPidsFromConfig();
+    void saveDetachedPidToConfig(qint64 appID, qint64 pid);
+    void removeDetachedPidFromConfig(qint64 appID);
+
 
 private:
     QString m_objId;
